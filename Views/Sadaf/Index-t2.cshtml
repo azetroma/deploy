@@ -132,7 +132,7 @@
         </div>
     </div>
 
-    <div class="pusher" id="stick">
+    <div class="pusher" id="">
         <div class="main-container">
             <div class="ui grid padded middle aligned stackable mobile reversed" style="min-height:40px;    margin-bottom: -8px !important">
 
@@ -172,7 +172,7 @@
                 <div class="five wide column no-padd">
                     <div class="ui grid middle aligned">
                         <div class="one wide column no-padd mobile only" >
-                                <i class=" no-padd icon sidebar link toc-toggle" style="xfloat: right;padding: 8px !important;"></i>
+                                <i class=" no-padd icon sidebar link toc-toggle" style="padding: 8px !important;"></i>
 
                         </div>
                             <div class="nine wide column no-padd dashboard-edit-panel" xng-class="{'show': hasEditPermission}">
@@ -265,7 +265,8 @@
     <script>
         $('.toc-toggle').on('click', function () {
             $('.ui.sidebar')
-              .sidebar('setting', 'transition', 'overlay')
+              .sidebar('setting', 'transition', 'right')
+              .sidebar('setting', 'mobileTransition', 'right')
               .sidebar('toggle');
         });
 
@@ -279,14 +280,14 @@
             console.log('isMobile ' , isMobile );
             if (!isMobile) {
                 menu.addClass('my-fix no-padd no-margin');
-                menu.removeClass('sidebar left  menu fixed vertical');
+                menu.removeClass('sidebar right  menu fixed vertical');
                 $('.main-container').removeClass('mobile');
                 //$('#toc').attr('class', '');
                 //$('#toc').addClass('ui vertical inverted left menu fixed');
                 //$('#toc').css({ height: '100vh', overflow: 'auto', width:'210px', padding:'10px' });
             } else {
                 menu.removeClass('my-fix no-padd no-margin');
-                menu.addClass('sidebar left  menu fixed vertical');
+                menu.addClass('sidebar right  menu fixed vertical');
                 $('.main-container').addClass('mobile');
 
                 //$('#toc').attr('class', '');
