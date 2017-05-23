@@ -1,0 +1,127 @@
+<menu-item class="panel prop-section-panel">
+    <menu-header style="position:relative" class=" pointer">
+
+        <div data-toggle="" href="#alerts">{{ 'هشدارها' | translate }}</div>
+        <!--<span class="glyphicon glyphicon-plus pointer icon-btn settings-section-btn" ></span>-->
+    </menu-header>
+
+    <menu-body id="alerts" class="prop-section   form-horizontal">
+        <div layout="row" layout-align="start center">
+            <p ng-hide="model[config.name].alerts && model[config.name].alerts.length>0" style="font-size: 0.8em;">{{ 'هنوز هشداری تعریف نشده است' | translate }}</p>
+            
+
+            <span flex></span>
+             <span >
+            {{ 'add_new_alert' | translate}}
+             </span>
+
+            <md-button class="md-icon-button" ng-click="newAlert()">
+                    <span class="material-icons">add</span>
+                <md-tooltip>{{'add' | translate}}</md-tooltip>
+            </md-button>
+        </div>
+
+        <fieldset  ng-repeat="alert in model[config.name].alerts">
+            <legend> 
+                <span layout="row" layout-align="start center">
+                    <span>{{'alert' | translate}} {{$index+1}}</span>
+
+                    <md-button class="md-icon-button" ng-click="model[config.name].alerts.splice($index, 1)">
+                        <span class="material-icons">delete</span>
+                    </md-button>
+                </span>
+
+            
+            </legend>
+
+            <div class="alert-form-group">
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'نوع هشدار' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class="form-control" ng-change="" ng-model="alert.type">
+                            <option value="sms">{{ 'پیام کوتاه' | translate }}</option>
+                            <option value="email">{{ 'پست الکترونیک' | translate }}</option>
+                            <option value="webservice">{{ 'اجرای وب سرویس' | translate }}</option>
+                            <option value="command">{{ 'اجرای دستور' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center" ng-show="alert.type=='sms' || alert.type=='email' ">
+                    <label class="col-sm-4">{{ 'عنوان پیام ارسالی' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <input type="text" class="form-control" data-trans-key='عنوان' data-trans-attr='placeholder' ng-model="alert.title" />
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-12">
+                        <label class="left-margin">
+                            <input type="checkbox" ng-model="alert.showDatasourceTime" />{{ 'نمایش زمان به‌روز رسانی منبع داده' | translate }}
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+                    <md-button ng-hide="alert.rules && alert.rules.length>0" ng-click="alert.rules.push({})">
+                        اضافه کردن
+                    </md-button>
+            <fieldset ng-repeat="item in alert.rules" >
+                <legend>{{ 'شرط‌' | translate }}</legend>
+                        <sadaf-indicator ng-model="item" series="model.series"></sadaf-indicator>
+            </fieldset>
+
+            <fieldset>
+                <legend>{{ 'مخاطبین' | translate }}</legend>
+                <div>
+                    <sadaf-contact-list ng-model="alert.contactList"></sadaf-contact-list>
+                </div>
+            </fieldset>
+
+            <div class="form-row" layout="row" layout-align="start center" ng-show="alert.type=='command'">
+                <label class="col-sm-4 control-label">دستور: </label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <input type="text" class="form-control" data-trans-key='دستور' data-trans-attr='placeholder' ng-model="alert.command">
+                </div>
+            </div>
+
+            <div class="form-row" layout="row" layout-align="start center" ng-show="alert.type=='webservice'">
+                <label class="col-sm-4 control-label">آدرس: </label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <input type="text" class="form-control" data-trans-key='آدرس' data-trans-attr='placeholder' ng-model="alert.webservice">
+                </div>
+            </div>
+
+            <datasource-schedule ng-model="alert.schedule"> </datasource-schedule>
+
+            <div class="form-row" layout="row" layout-align="start center" ng-show="alert.type=='sms' || alert.type=='email' ">
+                <div class="alert-section" style="margin-top:10px">{{ 'فرمت نمایش' | translate }}</div>
+                <span class="form-divider" flex></span>
+                <div class="col-sm-12 ltr code">
+                    <input type="text" class="form-control" data-trans-key='فرمت نمایش' data-trans-attr='placeholder' ng-model="alert.format" />
+                </div>
+            </div>
+
+            <div style="text-align:left">
+                <span> <code class="inline ltr">@{k}</code>: برچسب</span>
+                <span> <code class="inline ltr">@{m}</code>: شاخص</span>
+                <span> <code class="inline ltr">@{n}</code>: مقدار</span>
+            </div>
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <div layout-wrap>
+                    <span>{{ 'انتخاب شاخص‌ها' | translate }}</span>
+                    <label ng-repeat="s in model.series" class="left-margin">
+                        <input type="checkbox"
+                               ng-click="toggleSelectedSeries(alert, s)"
+                               ng-checked="alert.selectedSeries.indexOf(s)!=-1" /> {{s}}
+                    </label>
+                </div>
+
+
+            </div>
+        </fieldset>
+
+
+
+    </menu-body>
+</menu-item>

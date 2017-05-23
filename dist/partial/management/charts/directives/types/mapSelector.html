@@ -1,0 +1,170 @@
+
+<div class="form-row" layout="row" layout-align="start center">
+    <label>{{ 'نقشه' | translate }}<span class="help-box" onclick="app.help.toggleHelpWindow('Help/Moderation/Map/General.html')">?</span></label>
+    <span class="form-divider" flex></span>
+    <select class="form-control" ng-options="i.id+'' as i.name for i in list" ng-model="model.selectedMap"
+            ng-change="$parent.refreshChart('refresh')"></select>
+</div>
+
+<div class="form-row" layout="row" layout-align="start center">
+    <span class="help-box" onclick="app.help.toggleHelpWindow('Help/Moderation/Map/UploadMap.html')">?</span>
+    <md-button ng-click="showUploadDialog($event)">{{ 'آپلود کردن فایل نقشه' | translate }}</md-button>
+</div>
+
+<!--<style>
+    #upload-map * {
+        font-size: 14px;
+    }
+
+    #upload-map h4 {
+        font-size: 24px;
+    }
+</style>-->
+<script type="text/ng-template" id="editor/map/upload-map.html">
+    <md-dialog aria-label="{{'آپلود نقشه جدید' | translate}}" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'آپلود نقشه جدید' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <span class="material-icons">close</span>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout-margin class="md-dialog-content">
+                <form name="uplaod" enctype="multipart/form-data" role="form" method="post" >
+
+                    <md-input-container class="md-block">
+                        <label>{{ 'نام' | translate }}</label>
+                        <input type="text" required ng-model="name" name="name" />
+                        <div ng-messages="upload.name.$error">
+                            <div ng-message="required">{{'form_name_required' | translate}}</div>
+                        </div>
+                    </md-input-container>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <input type="file" id="file-upload" class="ng-hide" fileread="file" />
+                        <md-button ng-click="selectFile()">
+                            <span>{{ 'انتخاب فایل' | translate }}</span>
+                        </md-button>
+                        <span ng-show="file"> {{file.name + ' ' + d3.format('.2f')(file.size / 1024) + 'Kb'}}</span>
+                    </div>
+
+
+                    <p class="md-caption">
+                        بعد از آپلود کردن فایل نقشه، در صورت موفق بودن روند عملیات، نقشه‌ی آپلود شده به لیست نقشه‌های قابل انتخاب اضافه خواهد شد.
+
+                    </p>
+
+                </form>
+
+            </div>
+
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="upload()">
+                {{ 'upload' | translate }}
+            </md-button>
+        </md-dialog-actions>
+    </md-dialog>
+
+
+    <!--<div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{ 'آپلود نقشه جدید' | translate }}</h4>
+            </div>
+            <div class="modal-body" style="overflow-y: auto; overflow-x: hidden;">
+
+                <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="col-sm-4">{{ 'نام' | translate }}</label>
+                        <span class="form-divider" flex></span><div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}" name="name" />
+                        </div>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="col-md-4 control-label">{{ 'انتخاب فایل' | translate }}</label>
+                        <div class="col-md-8" style="position:relative">
+                            <span class="btn btn-default fileinput-button col-md-4 ">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                <span>{{ 'انتخاب فایل' | translate }}</span>
+                                <input type="file" name="file" style=" position: absolute; top: 0; right: 0; margin: 0; opacity: 0; -ms-filter: 'alpha(opacity=0)'; cursor: pointer;" />
+                            </span>
+                            <span id="file-name" class="col-md-8"> </span>
+                        </div>
+                    </div>
+                </form>
+                <p class="desc">
+                    بعد از آپلود کردن فایل نقشه، در صورت موفق بودن روند عملیات، نقشه‌ی آپلود شده به لیست نقشه‌های قابل انتخاب اضافه خواهد شد.
+
+                </p>
+                <script>
+
+                    $('#upload-map input[type=file]').change(function () {
+                        var file = this.files[0];
+                        var name = file.name;
+                        var size = file.size;
+                        $('#file-name').text(name + ' ' + d3.format('.2f')(size / 1024) + 'Kb');
+                    });
+
+                    $('#upload-btn').click(function () {
+                        var name = $('#upload-map input[type=text]').val();
+                        if (name == "") {
+                            alert("یک نام برای نقشه انتخاب کنید");
+                            return;
+                        }
+
+                        var files = $('#upload-map input[type=file]')[0].files.length;
+                        if (files == 0) {
+                            alert('فایل نقشه برای آپلود را انتخاب کنید');
+                            return;
+                        }
+                        var btn = $(this);
+                        btn.button('loading');
+
+                        var formData = new FormData($('form')[0]);
+                        $.ajax({
+                            url: app.urlPrefix + 'Moderation/Map/Upload',
+                            type: 'POST',
+                            xhr: function () {
+                                var myXhr = $.ajaxSettings.xhr();
+                                if (myXhr.upload) {
+                                    myXhr.upload.addEventListener('progress', progressHandlingFunction, false);
+                                }
+                                return myXhr;
+                            },
+                            success: function (data) {
+                                btn.button('reset');
+                                if (data.result) {
+                                    $('#upload-map').modal('hide');
+                                    var scope = angular.element($('#upload-map')).scope();
+                                    scope.refreshList();
+                                }
+                            },
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    });
+
+                    function progressHandlingFunction(e) {
+                        if (e.lengthComputable) {
+
+                        }
+                    }
+                </script>
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" id="upload-btn" data-loading-text="درحال آپلود...">{{ 'آپلود' | translate }}</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'انصراف' | translate }}</button>
+            </div>
+        </div>
+    </div>-->
+</script>

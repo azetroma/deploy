@@ -1,0 +1,312 @@
+﻿<div flex layout="column">
+    <md-toolbar class="md-primary md-hue-3" md-theme="t1">
+        <div class="md-toolbar-tools ">
+
+            <!--{{'interRelation' | translate}}-->
+            <span flex></span>
+
+            <md-button class="md-icon-button cssFade" ng-show="selectedCount() > 0" ng-click="delete($event)">
+                <span class="material-icons">delete</span>
+                <md-tooltip>{{'remove' | translate}}</md-tooltip>
+            </md-button>
+
+            <md-button class="md-icon-button" ng-click="new($event)">
+                <span class="material-icons">add_circle</span>
+                <md-tooltip>{{'add' | translate}}</md-tooltip>
+            </md-button>
+
+        </div>
+    </md-toolbar>
+
+    <div flex layout="column">
+        <md-content flex>
+            <table class="sadaf-table">
+                <tr>
+                    <th>
+                        <md-checkbox ng-model="selectAllCheckbox" ng-change="selectAll()"  aria-label="{{'select_all' | translate}}"></md-checkbox>
+                    </th>
+                    <th>#</th>
+                    <th>{{'name' | translate}}</th>
+                </tr>
+
+                <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select; menuInvalidate()" ng-dblclick="goto(row, $event)">
+                    <td width="20">
+                        <md-checkbox ng-model="row.select" ng-click=" $event.stopPropagation(); menuInvalidate()"  aria-label="{{'select' | translate}}"></md-checkbox>
+                    </td>
+                    <td width="20">{{utils.persian($index+1)}}</td>
+                    <td><span class="pointer" ng-click="edit($event, row); $event.stopPropagation();">{{row.name}}</span></td>
+                </tr>
+            </table>
+            <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
+                <md-progress-circular md-mode="indeterminate"md-diameter="30"></md-progress-circular>
+            </div>
+            <div ng-hide="(data && data.length) || progress" class="md-caption" style="padding:16px; text-align:center">داده‌ای برای نمایش وجود ندارد</div>
+
+        </md-content>
+    </div>
+</div>
+
+
+
+
+<script type="text/ng-template" id="datasourceRelation/add-relation.html">
+    <md-dialog aria-label="{{'interRelation' | translate}}" ng-cloak>
+        <form>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>{{'interRelation' | translate}}</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <span class="material-icons">close</span>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-dialog-content>
+
+                <div layout="row" layout-align="start center" ng-hide="parent.datasourceList" style="padding:0 18px; font-size:0.8em">
+                    <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
+                    {{'form_loading' | translate}}
+                </div>
+
+                <div ng-show="parent.datasourceList" layout="column">
+
+                    <div class="xform-row" layout="row" layout-align="start center" layout-sm="column" layout-margin>
+                        <md-input-container>
+                            <md-select ng-model="parent.modalRelationObject.left">
+                                <md-option ng-repeat="i in parent.datasourceList" value="{{i.Id}}">{{i.Name}} :: id{{i.Id}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <div style="text-align:center; white-space:nowrap">{{ 'مرتبط شود با' | translate }}</div>
+                        <md-input-container>
+                            <md-select ng-model="parent.modalRelationObject.right">
+                                <md-option ng-repeat="i in parent.datasourceList | filter:{Id:'!'+parent.modalRelationObject.left}" value="{{i.Id}}">{{i.Name}} :: id{{i.Id}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                    <div layout="row" layout-sm="column" layout-align="start center" layout-margin ng-repeat="item in parent.modalRelationObject.conditions">
+                        <div class="sadaf-group icon" layout="row">
+                            <span class="sadaf-group-item icon" ng-click="item.left.isText=false" ng-class="{active : !item.left.isText}"><span class="material-icons">view_headline</span></span>
+                            <span class="sadaf-group-item icon" ng-click="item.left.isText=true" ng-class="{active : item.left.isText}"><span class="material-icons">title</span></span>
+                        </div>
+
+                        <md-input-container>
+                            <md-select class="form-control" ng-hide="item.left.isText" ng-model="item.left.column">
+                                <md-option ng-repeat="i in (parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Fields| filterColumns:parent.modalRelationObject.conditions:true:$index" value="{{i}}">{{i}}</md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <input type="text"
+                                   ng-click="parent.getLastFocus($event)"
+                                   style="direction: ltr;"
+                                   ng-show="item.left.isText" ng-model="item.left.formula">
+                        </md-input-container>
+
+                        <md-input-container>
+                            <md-select ng-model="item.op">
+                                <md-option>=</md-option>
+                                <!--<md-option>!=</md-option>
+                                <md-option>></md-option>
+                                <md-option>>=</md-option>
+                                <md-option><</md-option>
+                                <md-option><=</md-option>-->
+                            </md-select>
+                        </md-input-container>
+
+                        <div class="sadaf-group icon" layout="row">
+                            <span class="sadaf-group-item icon" ng-click="item.right.isText=false" ng-class="{active : !item.right.isText}"><span class="material-icons">view_headline</span></span>
+                            <span class="sadaf-group-item icon" ng-click="item.right.isText=true" ng-class="{active : item.right.isText}"><span class="material-icons">title</span></span>
+                        </div>
+
+                        <md-input-container>
+                            <md-select ng-hide="item.right.isText" ng-model="item.right.column">
+                                <md-option ng-repeat="i in (parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Fields | filterColumns:parent.modalRelationObject.conditions:false:$index" value="{{i}}">{{i}}</md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <input type="text" ng-click="parent.getLastFocus($event)" style="direction: ltr;"
+                                   ng-show="item.right.isText" ng-model="item.right.formula">
+                        </md-input-container>
+
+                        <span flex></span>
+                        <md-button class="md-icon-button" ng-click="parent.modalRelationObject.conditions.push({op:'='})">
+                            <span class="material-icons">add</span>
+                        </md-button>
+
+                        <md-button class="md-icon-button" ng-hide="parent.modalRelationObject.conditions.length==1" ng-click="parent.modalRelationObject.conditions.splice($index,1)">
+                            <span class="material-icons">remove</span>
+                        </md-button>
+                    </div>
+
+                    <div layout-margin>
+                        <md-checkbox ng-model="parent.modalRelationObject.includeLeft">
+                            نمایش تمام ردیف‌های {{(parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Name}}
+                        </md-checkbox>
+                    </div>
+                    <div layout-margin>
+                        <md-checkbox ng-model="parent.modalRelationObject.includeRight">
+                            نمایش تمام ردیف‌های {{(parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Name}}
+                        </md-checkbox>
+                    </div>
+
+                    <div>
+                        <div ng-show="(parent.modalRelationObject.conditions|filter:{left:{isText:true} }).length>0" style="margin-top:20px" layout-margin>
+                            <p>
+                                {{ 'لیست ستون‌های' | translate }}
+                                <b>{{(parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Name}}  </b>
+                            </p>
+                            <span ng-repeat=" i in (parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Fields"
+                                  ng-click="parent.addFormula(i,parent.modalRelationObject.left )"
+                                  class="btn btn-sm btn-default">{{i}}</span>
+                        </div>
+                        <div ng-show="(parent.modalRelationObject.conditions|filter:{right:{isText:true} }).length>0" style="margin-top:20px" layout-margin>
+                            <p>
+                                {{ 'لیست ستون‌های' | translate }}
+                                <b>{{(parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Name}}</b>
+                            </p>
+                            <span ng-repeat=" i in (parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Fields"
+                                  ng-click="parent.addFormula(i, parent.modalRelationObject.right)"
+                                  class="btn btn-sm btn-default">{{i}}</span>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger fade in" ng-show="error" style="margin-top:20px">
+                        <button type="button" class="close" aria-label="Close" ng-click="error=null">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <strong>مشکل در ذخیره‌سازی!</strong>
+                        <p ng-bind-html="error"></p>
+                    </div>
+                </div>
+
+            </md-dialog-content>
+            <md-dialog-actions layout="row">
+                <md-button ng-click="parent.add($event);cancel()">
+                    {{'choose' | translate}}
+                </md-button>
+                <md-button ng-click="cancel()">
+                    {{'cancel' | translate}}
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+
+
+
+
+    <!--<div style="width: 80%;" class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">{{ 'تعریف ستون‌های مشابه در منابع داده' | translate }}</h4>
+            </div>
+            <div class="modal-body ">
+                <div class="progressbar" ng-hide="datasourceList">
+                    <img style="width: 1.3em" src="~/Images/progress.gif" />
+                    در حال بارگذاری اطلاعات . . .
+                </div>
+                <div class="form-horizontal " ng-show="datasourceList">
+
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <select class="form-control" ng-model="modalRelationObject.left">
+                                <option ng-repeat="i in datasourceList" value="{{i.Id}}">{{i.Name}} :: id{{i.Id}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2" style="text-align:center">{{ 'مرتبط شود با' | translate }}</div>
+                        <div class="col-md-5">
+                            <select class="form-control" ng-model="modalRelationObject.right">
+                                <option ng-repeat="i in datasourceList | filter:{Id:'!'+modalRelationObject.left}" value="{{i.Id}}">{{i.Name}} :: id{{i.Id}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-repeat="item in modalRelationObject.conditions">
+                        <div class="col-md-3 col-md-offset-2">
+                            <div class="input-select-div" style="position:relative">
+                                <div class="cr-target-toggle" style="left:5px" ng-click="item.left.isText = !item.left.isText" ng-class="item.left.isText?'cr-target-toggle-text':''"></div>
+                                <select class="form-control" ng-hide="item.left.isText" ng-model="item.left.column"
+                                        ng-options=" i for i in (datasourceList | filter:{ Id: modalRelationObject.left } )[0].Fields| filterColumns:modalRelationObject.conditions:true:$index"></select>
+                                <input type="text" class="form-control second-field"
+                                       ng-click="getLastFocus($event)"
+                                       style="direction: ltr; padding-left: 60px;"
+                                       ng-show="item.left.isText" ng-model="item.left.formula">
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <select class="form-control" ng-model="item.op">
+                                <option>=</option>
+                                <option>!=</option>
+                                <option>></option>
+                                <option>>=</option>
+                                <option><</option>
+                                <option><=</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="input-select-div" style="position:relative">
+                                <div class="cr-target-toggle" style="left:5px" ng-click="item.right.isText = !item.right.isText" ng-class="item.right.isText?'cr-target-toggle-text':''"></div>
+                                <select class="form-control" ng-hide="item.right.isText" ng-model="item.right.column"
+                                        ng-options=" i for i in (datasourceList | filter:{ Id: modalRelationObject.right } )[0].Fields | filterColumns:modalRelationObject.conditions:false:$index"></select>
+                                <input type="text" class="form-control second-field"
+                                       ng-click="getLastFocus($event)"
+                                       style="direction: ltr; padding-left: 60px;"
+                                       ng-show="item.right.isText" ng-model="item.right.formula">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-default then-plus" type="button" ng-click="modalRelationObject.conditions.push({op:'='})">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <button class="btn btn-default then-minus" type="button" ng-disabled="$index==0" ng-click="modalRelationObject.conditions.splice($index,1)">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="modalRelationObject.includeLeft"> نمایش تمام ردیف‌های {{(datasourceList | filter:{ Id: modalRelationObject.left } )[0].Name}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="modalRelationObject.includeRight"> نمایش تمام ردیف‌های {{(datasourceList | filter:{ Id: modalRelationObject.right } )[0].Name}}
+                        </label>
+                    </div>
+
+                    <div>
+                        <ul ng-show="(modalRelationObject.conditions|filter:{left:{isText:true} }).length>0" style="margin-top:20px">
+                            {{ 'لیست ستون‌های' | translate }}
+                            <b>{{(datasourceList | filter:{ Id: modalRelationObject.left } )[0].Name}}  </b>
+                            <li ng-repeat=" i in (datasourceList | filter:{ Id: modalRelationObject.left } )[0].Fields"
+                                ng-click="addFormula(i,modalRelationObject.left )"
+                                class="btn btn-sm btn-default">{{i}}</li>
+                        </ul>
+                        <ul ng-show="(modalRelationObject.conditions|filter:{right:{isText:true} }).length>0" style="margin-top:20px">
+                            {{ 'لیست ستون‌های' | translate }}
+                            <b>{{(datasourceList | filter:{ Id: modalRelationObject.right } )[0].Name}}</b>
+                            <li ng-repeat=" i in (datasourceList | filter:{ Id: modalRelationObject.right } )[0].Fields"
+                                ng-click="addFormula(i, modalRelationObject.right)"
+                                class="btn btn-sm btn-default">{{i}}</li>
+                        </ul>
+                    </div>
+                    <div class="alert alert-danger fade in" ng-show="error" style="margin-top:20px">
+                        <button type="button" class="close" aria-label="Close" ng-click="error=null">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <strong>مشکل در ذخیره‌سازی!</strong>
+                        <p ng-bind-html="error"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" ng-click="cancel()" type="button">{{ 'انصراف' | translate }}</button>
+                <button class="btn btn-primary" type="button" data-trans-key='در حال ذخیره‌سازی' data-trans-attr='data-loading-text' ng-click="add($event)">{{ 'تأیید' | translate }}</button>
+            </div>
+        </div>
+    </div>-->
+</script>

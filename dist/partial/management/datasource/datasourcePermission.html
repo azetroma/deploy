@@ -1,0 +1,19 @@
+
+
+<p ng-click="showRoles = !showRoles" layout="row" class="pointer" layout-align="start center">
+    <span class="material-icons icon-animate" ng-class="{'rotate-90' : showRoles}">keyboard_arrow_left</span>
+    <span>مجوزهای دسترسی</span>
+</p>
+<div uib-collapse="!showRoles">
+    <div ng-repeat="role in roles" layout="row" layout-align="start center">
+        <md-checkbox ng-model="role.check" aria-label="انتخاب">
+            {{role.name}}
+        </md-checkbox>
+        <span flex></span>
+        <md-select style="margin:0" class="" ng-model="role.action" ng-show="role.check" aria-label="مجوز">
+            <md-option value="1">{{'permission_view' | translate}}</md-option>
+            <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
+            <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
+        </md-select>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+@{
+    Layout = null;
+}
+
+<div id="UserManagementSegment" class="container-fluid">
+    <div class="page-header">
+        @*<h1 id="forms"><span data-trans-key='لیست کاربران'> </span><a class="btn btn-primary pull-right col-md-2 " href="#Account/Register"><span data-trans-key='کاربر جدید'> </span></a>
+        </h1>*@
+
+        <div class="row">
+            <div class="col-md-10">
+                <h1 id="forms" style="margin: 0"><span data-trans-key='لیست کاربران'> </span></h1>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-primary form-control " href="#Account/Register"><span data-trans-key='کاربر جدید'> </span></a>
+            </div>
+        </div>
+
+    </div>
+    @{
+        if (TempData["messageInfo"] != null) { 
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            @TempData["messageInfo"]
+        </div>
+        }
+    }
+
+    <div class="col-md-8">
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th><span data-trans-key='ردیف'> </span></th>
+                    <th><span data-trans-key='نام کاربری'> </span></th>
+                    <th><span data-trans-key='نام و نام خانوادگی'> </span></th>
+                    <th><span data-trans-key='نقش‌ها'> </span></th>
+                </tr>
+            </thead>
+            @if (ViewBag.Users != null) {
+                int i = 1;
+                foreach (var u in ViewBag.Users) { 
+                <tr class="pointer" onclick=" app.setLocation('Account/EditUser/@u.Id')" id="UserId-@u.Id">
+                    <td>@i</td>
+                    <td>@u.Username</td>
+                    <td>@u.FirstName @u.LastName</td>
+                    <td>
+                        @foreach (var r in u.security_Roles) {
+                            <a onclick="return editRole(@r.Id, event)">@r.RoleName </a>
+                        }
+
+                    </td>
+                </tr>
+                        i++;
+                }
+            }
+
+        </table>
+
+    </div>
+    <script>
+
+        function editRole(id, event) {
+            event.stopPropagation();
+            window.location = "#Account/EditRole/" + id;
+            return true;
+        }
+
+    </script>
+</div>

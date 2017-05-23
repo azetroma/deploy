@@ -1,0 +1,221 @@
+﻿
+<div layout="column" flex>
+    <md-content flex class="content" layout="row">
+
+        <div flex="20" hide-sm hide-xs></div>
+        <div flex="60" flex-xs="100" flex-sm="100">
+
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline" ng-hide="isEdit">منبع داده جدید</span>
+                        <span class="md-headline" ng-show="isEdit">ویراش منبع داده</span>
+                    </md-card-title-text>
+                </md-card-title>
+
+                <md-card-content layout-padding id="main-form">
+                    <div>
+
+                        <form name="webForm">
+
+                            <md-input-container class="md-block">
+                                <label>{{'نام' | translate}}</label>
+                                <input required name="name" ng-model="model.name">
+                                <div ng-messages="webForm.name.$error">
+                                    <div ng-message="required">{{'form_name_required' | translate}}</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>URL</label>
+                                <input required name="url" ng-model="model.url">
+                                <div ng-messages="webForm.url.$error">
+                                    <div ng-message="required">{{'form_url_required' | translate}}</div>
+                                </div>
+                            </md-input-container>
+
+
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>{{'نوع داده' | translate}}</label>
+                                <md-select ng-model="model.type">
+                                    <md-option value="XML">XML</md-option>
+                                    <md-option value="CSV">CSV</md-option>
+                                    <md-option value="JSON">JSON</md-option>
+                                    <md-option value="SOAP">SOAP</md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm ng-hide="model.type == 'SOAP'">
+                                <label>{{'متد' | translate}}</label>
+                                <md-select ng-model="model.method">
+                                    <md-option value="GET">GET</md-option>
+                                    <md-option value="POST">POST</md-option>
+                                </md-select>
+                            </md-input-container>
+
+
+                            <div ng-show="model.type == 'SOAP'">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>{{'Content Type' | translate}}</label>
+                                    <md-select ng-model="model.contentType" class="ltr">
+                                        <md-option value="1">XML(text/xml)</md-option>
+                                        <md-option value="2">XML(application/xml)</md-option>
+                                    </md-select>
+                                </md-input-container>
+
+                                <md-input-container class="md-block" >
+                                    <label>{{'Body' | translate}}</label> 
+                                    <textarea ng-model="model.rawBody" class="ltr" rows="5" xmd-select-on-focus></textarea>
+                                </md-input-container>
+
+                                <md-input-container class="md-block">
+                                    <label>{{'Result Tag' | translate}}</label>
+                                    <input   ng-model="model.resultTag">
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>{{'Result Tag Namespace' | translate}}</label>
+                                    <input  ng-model="model.resultTagNameSpace">
+                                </md-input-container>
+                                    <md-switch  ng-model="model.resultTagUseValue">
+                                    <label>{{'Use inner value' | translate}}</label>
+
+                                    </md-switch>
+
+
+                            </div>
+
+                            <p ng-click="showParams = !showParams" layout="row" class="pointer" ng-hide="model.type == 'SOAP'">
+                                <span class="material-icons icon-animate" ng-class="{'rotate-90' : showParams}">keyboard_arrow_left</span>
+                                <span>{{'پارامترها' | translate}}</span>
+                            </p>
+                            <div layout="column" uib-collapse="!showParams" ng-hide="model.type == 'SOAP'">
+                                <div>
+
+                                    <div layout="row" ng-repeat="param in parameters" layout-padding>
+                                        <md-input-container md-no-float class="no-margin">
+                                            <input ng-model="param.name" placeholder="{{'نام'|translate}}">
+                                        </md-input-container>
+
+                                        <md-input-container md-no-float class="no-margin">
+                                            <input ng-model="param.value" placeholder="{{'مقدار'|translate}}">
+                                        </md-input-container>
+
+                                        <md-input-container class="no-margin">
+                                            <md-select ng-model="param.select" aria-label="{{'form_select_param_type' | translate}}">
+                                                <md-option value="Query">Query</md-option>
+                                                <md-option value="Header">Header</md-option>
+                                            </md-select>
+                                        </md-input-container>
+
+                                        <span flex></span>
+
+                                        <md-button class="md-icon-button" ng-click="parameters.push({})">
+                                            <span class="material-icons">add</span>
+                                        </md-button>
+
+                                        <md-button class="md-icon-button" ng-click="parameters.splice($index, 1)" ng-show="parameters.length > 1">
+                                            <span class="material-icons">delete</span>
+                                        </md-button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <p ng-click="showAuth = !showAuth" layout="row" class="pointer no-margin" style="" ng-hide="model.type == 'SOAP'">
+                                <span class="material-icons icon-animate" ng-class="{'rotate-90' : showAuth}">keyboard_arrow_left</span>
+                                <span>{{'احراز هویت' | translate}}</span>
+                            </p>
+                            <div layout="column" uib-collapse="!showAuth" layout-padding>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>{{'احراز هویت' | translate}}</label>
+                                    <md-select ng-model="model.authenticationType">
+                                        <md-option value="Basic Authentication">Basic Authentication</md-option>
+                                    </md-select>
+                                </md-input-container>
+
+                                <md-input-container class="md-block">
+                                    <label>{{'نام کاربری' | translate}}</label>
+                                    <input name="name" ng-model="model.user">
+                                </md-input-container>
+
+                                <md-input-container class="md-block">
+                                    <label>{{'کلمه عبور' | translate}}</label>
+                                    <input name="name" ng-model="model.password">
+                                </md-input-container>
+
+                            </div>
+
+                            <md-input-container class="md-block" flex-gt-sm style="margin-top:36px;margin-bottom:0;">
+                                <label>به‌روز رسانی</label>
+                                <md-select ng-model="model.autoRefresh">
+                                    <md-option value="0">در لحظه</md-option>
+                                    <md-option value="1">هر یک دقیقه</md-option>
+                                    <md-option value="5">هر پنج دقیقه</md-option>
+                                    <md-option value="15">هر پانزده دقیقه</md-option>
+                                    <md-option value="30">هر سی دقیقه</md-option>
+                                    <md-option value="60">هر یک ساعت</md-option>
+                                    <md-option value="1440">هر روز</md-option>
+                                    <md-option value="10080">هر هفته</md-option>
+                                    <md-option value="40320">هر ماه</md-option>
+                                    <md-option value="2147483647">عدم به‌روز رسانی</md-option>
+                                    <md-option value="-1">زمانبندی...</md-option>
+                                </md-select>
+                            </md-input-container>
+
+
+                            <datasource-schedule ng-show="model.autoRefresh==-1" ng-model="schedule"> </datasource-schedule>
+
+                            <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
+
+
+                            <!--<pre class="ltr">{{model | json}}</pre>-->
+                        </form>
+
+
+                    </div>
+
+
+
+                </md-card-content>
+
+
+
+
+                <md-card-actions layout="row">
+                    <span flex></span>
+
+                    <md-button ng-click="save()" ng-disabled="saveProgress">
+                        {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+
+                    </md-button>
+
+                    <md-button ng-click="test()" ng-disabled="testProgress">
+                        {{testProgress == false ? ('تست' | translate) : ('form_testing' | translate)}}
+                    </md-button>
+
+
+
+                </md-card-actions>
+
+
+            </md-card>
+
+            <md-card ng-show="testResult" flex>
+                <md-content style="max-height:200px;" id="testResult" layout="column" flex>
+                    <div ng-bind-html="testResult" flex></div>
+                </md-content>
+            </md-card>
+
+            <md-card ng-show="error" layout="row" flex>
+                <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
+                    <div ng-bind-html="error" flex></div>
+                </md-content>
+            </md-card>
+
+        </div>
+        <div flex="20" hide-sm hide-xs></div>
+
+    </md-content>
+</div>

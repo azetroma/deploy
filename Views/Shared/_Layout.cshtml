@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title> @ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    @if (ViewBag.isRtl) {
+        @Styles.Render("~/Content/css-rtl")
+    } else {
+        @Styles.Render("~/Content/css")
+    }
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+
+</head>
+<body>
+    <div class="sadaf-root">
+
+        <header>
+            @RenderSection("MainMenu", required: false)
+        </header>
+        <div class="container-fluid">
+            <div class="row" style=" min-height: 350px;">
+                <div class="col-md-2 side-menu" style="padding-top:10px">
+                    @RenderSection("Menu", required: false)
+                </div>
+                <div class="col-md-10 contain-body">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer">
+                <p>© تمامی حقوق برای داشبورد صدف محفوظ است</p>
+            </div>
+        </footer>
+        <div id="divAjaxErr">
+            <div id="content" dir="ltr"></div>
+        </div>
+
+    </div>
+
+
+    <script>
+        //در فایرفاکس زمانی که راست کلیک میکنیم، دراپدان بسته می‌شود و این کد این مسئله را حل میکند
+        $(document).on('click', function (e) {
+            e.button === 2 && e.stopImmediatePropagation();
+        });
+    </script>
+    @Scripts.Render("~/bundles/bs")
+    @Scripts.Render("~/bundles/charts")
+
+    <script src="~/Scripts/app/app.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+    <script>
+        app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
+        app.lang.setLangTyle(@ViewBag.lang);
+        app.setAboluteUrl("@Request.Url.AbsoluteUri");
+    </script>
+    @Scripts.Render("~/bundles/appmodules")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/app/router.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+    <script src="~/Scripts/sit/jquery.sit.ajax.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+    <script>
+
+        $(document).ready(function () {
+            $("#divAjaxErr").createModal({
+                id: "divAjaxErrModal",
+                title: "خطا",
+                body: '<div>مشکلی در روند اجرای برنامه به وجود آمده است. برای اطلاعات بیشتر با مدیر سیستم تماس بگیرید.</div>\
+                        <br><a  data-toggle="collapse"  hrefx="#error-detail" ><span data-trans-key="مشاهده جزییات"> </span></a>\
+                    <div id="error-detail" style="direction:ltr" class="panel-collapse collapse "></div>',
+                okText: "تایید",
+                okClass: "btn-primary",
+            });
+
+            $.ajaxSetup({
+                cache: false,
+                error: function (x, e) {
+                    if (!x) return;
+                    if (x.status == 0) {
+                        tit = ' Check Your Network';
+                    }
+                    else if (x.status == 404) {
+                        tit = 'Requested URL not found';
+
+                    } else if (x.status == 500) {
+                        tit = 'Internel Server Error';
+                    } else {
+                        tit = 'Unknow Error';
+                    }
+                    if (!x.responseText) return;
+
+                    var txt = x.responseText.replace(/<style[^>]*>[\s\S]*<\/style>/im, "");
+                    $("#divAjaxErr  #error-detail").html(txt);
+                    $("#divAjaxErrModal").modal("show");
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

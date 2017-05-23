@@ -1,0 +1,154 @@
+﻿<style>
+    .icon-down:after {
+        content: 'keyboard_arrow_up';
+        font-family: 'Material Icons';
+        line-height: 0;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .icon-up:after {
+        content: 'keyboard_arrow_down';
+        line-height: 0;
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+    }
+
+    input, select, textarea {
+        font-family: is;
+        font-size: 12px;
+    }
+
+
+    .cssFade.ng-hide-add, .cssFade.ng-hide-remove {
+        transition: 0s ease-in-out all;
+    }
+
+    .cssFade.ng-hide-add-active,
+    .cssFade.ng-hide-remove-active {
+        transition: 0.6s ease-in-out all;
+    }
+
+    .cssFade {
+        transition: 0.6s ease-in-out all;
+        opacity: 1;
+    }
+
+        .cssFade.ng-hide {
+            opacity: 0;
+        }
+
+    .sadaf-table button {
+        text-transform: initial;
+    }
+</style>
+
+<div flex layout="column">
+    <md-toolbar xstyle="background-color:white; color:#666" class="md-primary md-hue-3" md-theme="t1">
+        <div class="md-toolbar-tools ">
+            <!--<div layout="row">
+                <span ng-repeat="i in path" layout="row" layout-align="center center">
+                    <span class="material-icons" ng-hide="$index == 0">keyboard_arrow_left</span>
+                    <md-button style="min-width:0" ng-click="goto({type:1, id: i.id})">{{i.name}}</md-button>
+                </span>
+            </div>-->
+
+            <span flex></span>
+
+            <md-input-container md-no-float class="md-block" style="margin-top:30px">
+                <input ng-model="search" placeholder="{{'جستجو' | translate}}">
+            </md-input-container>
+
+            <md-button class="md-icon-button cssFade" ng-show="canDirEdit" ng-click="dirEdit($event)" title="{{'rename_folder' | translate}}">
+                <span class="material-icons">edit</span>
+            </md-button>
+            <md-button class="md-icon-button cssFade" ng-show="canForward" ng-click="forward($event)" title="{{'move_to_folder' | translate}}">
+                <span class="material-icons">forward</span>
+            </md-button>
+
+            <md-button class="md-icon-button cssFade" ng-show="canDelete" ng-click="delete($event)" title="{{'remove' | translate}}">
+                <span class="material-icons">delete</span>
+            </md-button>
+            <md-button class="md-icon-button cssFade" ng-show="canCopy" ng-click="copy($event)" title="{{'copy' | translate}}">
+                <span class="material-icons">content_copy</span>
+            </md-button>
+
+            <md-button class="md-icon-button" ng-click="newPackage($event)" title="{{'new_folder' | translate}}">
+                <span class="material-icons">create_new_folder</span>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="newChart($event)" title="{{'new_chart' | translate}}">
+                <span class="material-icons">add_circle</span>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <div flex layout="column">
+        <md-content flex>
+
+            <table class="sadaf-table">
+                <tr>
+                    <th>
+                        <md-checkbox ng-model="selectAllCheckbox" ng-change="selectAll()" aria-label="{{'select_all' | translate}}"></md-checkbox>
+                    </th>
+                    <th>#</th>
+                    <th></th>
+                    <th>{{'name' | translate}}</th>
+                    <th>{{'last update' | translate}}</th>
+                    <th></th>
+                </tr>
+
+                <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select; menuInvalidate()" ng-dblclick="goto(row, $event)">
+                    <td width="20">
+                        <md-checkbox ng-model="row.select" ng-change="menuInvalidate()" ng-click=" $event.stopPropagation()" aria-label="{{'select' | translate}}"></md-checkbox>
+                    </td>
+                    <td width="20">{{utils.persian($index+1)}}</td>
+
+                    <td width="20">
+                        <span ng-show="row.type==1" class="material-icons" style="color:#757575">folder</span>
+                        <img ng-show="row.type==2" ng-src="{{getChartTypeImage(row.chartType)}}" title="{{getTypeName(row.chartType)}}" />
+                    </td>
+                    <td><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></td>
+                    <td class="md-caption">{{utils.persian(row.time)}}</td>
+                    <td>
+                        <div ng-show="row.type == 2 && row.pages.length">
+
+                            <md-menu md-offset="0 -7">
+                                <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event); $event.stopPropagation();" title="{{'chart_pages' | translate}}">
+                                    <span class="material-icons" style="color:#757575">toc</span>
+                                    <md-tooltip>{{'chart_pages' | translate}}</md-tooltip>
+                                </md-button>
+                                <md-menu-content width="4">
+                                    <md-menu-item ng-repeat="c in row.pages">
+                                        <md-button href="{{app.urlPrefix}}#/dashboard/{{c.id}}">
+                                            <span>{{c.name}}</span>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
+                <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
+            </div>
+            <p ng-bind-html="error" ng-show="error" class="danger " layout-padding></p>
+            <div ng-hide="(data && data.length) || progress || error" class="md-caption" style="padding:16px; text-align:center">داده‌ای برای نمایش وجود ندارد</div>
+
+        </md-content>
+    </div>
+</div>

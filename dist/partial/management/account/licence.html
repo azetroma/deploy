@@ -1,0 +1,59 @@
+﻿<div layout="row">
+    <md-content flex no-background>
+        <div layout="column" flex>
+
+            <md-card style="margin:40px; padding:16px" flex>
+                <div flex="100" xlayout="row" layout-wrap xlayout-padding>
+                    <div flex=""><b>{{'Organisation name' | translate}}: </b>{{data.Organization }}</div>
+                    <div flex=""><b>{{'Unit name' | translate}}: </b>{{ data.OrganizationUnit }}</div>
+                    <div flex=""><b>{{'Customer ID' | translate}}: </b>{{ data.CustomerId }}</div>
+                    <div flex=""><b>{{'User count' | translate}}: </b>{{ utils.persian(data.UserCount) }}</div>
+                    <div flex=""><b>{{'Variables' | translate}}: </b>{{ data.CanUseUserVariable }}</div>
+                    <div flex=""><b>{{'Permitted Datasource' | translate}}: </b>{{ data.DataSources }}</div>
+                    <div flex=""><b>{{'Expire time' | translate}}: </b>{{ utils.persian(data.EndTime) }}</div>
+                </div>
+
+                <div layout="row" layout-wrap layout-padding>
+                    <div flex="">
+                        <b>{{'Module list' | translate}}: </b>
+                        <ul ng-if="data.modules.length">
+                            <li md-whiteframe="1" class="module label label-info" ng-repeat="m in data.modules" style="display:inline-block; padding:8px 16px; margin:8px 8px;"> {{m}} </li>
+                        </ul>
+                        <span ng-if="!data.modules.length">{{'No module existed' | translate}}</span>
+                    </div>
+                </div>
+
+                <hr />
+
+                <md-button class="md-warn" ng-click="clear()">
+                    {{'clear_licence' | translate}}
+                </md-button>
+
+                <span>{{'clear licence alert' | translate}}</span>
+            </md-card>
+        </div>
+    </md-content>
+</div>
+
+
+
+
+
+<div flex layout="column">
+    <style>
+        .licence-info {
+            color: #616161;
+            font-size: 0.9em;
+        }
+
+            .licence-info b {
+                margin-top: 20px;
+                color: #424242;
+            }
+    </style>
+    <md-content flex class="licence-info">
+
+       
+
+    </md-content>
+</div>

@@ -1,0 +1,60 @@
+@{
+    Layout = null;
+}
+
+<div id="RoleManagementSegment" class="container-fluid">
+
+
+    <div class="page-header">
+        @*<h1 id="forms"><span data-trans-key='لیست نقش‌ها'> </span><a class="btn btn-primary pull-right col-md-2 " href="#Account/AddRole"><span data-trans-key='ایجاد نقش جدید'> </span></a>
+        </h1>*@
+
+        <div class="row">
+            <div class="col-md-10">
+                <h1 id="forms" style="margin: 0"><span data-trans-key='لیست نقش‌ها'> </span></h1>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-primary form-control " href="#Account/AddRole"><span data-trans-key='نقش جدید'> </span></a>
+            </div>
+        </div>
+
+
+    </div>
+    @{
+        if (TempData["messageInfo"] != null) {
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @Html.Raw(@TempData["messageInfo"])
+            </div>
+        }
+        if (TempData["messageError"] != null) {
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @Html.Raw(@TempData["messageError"])
+            </div>
+        }
+    }
+
+    <div class="col-md-8">
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th><span data-trans-key='ردیف'> </span></th>
+                    <th><span data-trans-key='نام نقش'> </span></th>
+                </tr>
+            </thead>
+            @if (ViewBag.Roles != null) {
+                int i = 1;
+                foreach (var u in ViewBag.Roles) {
+                    <tr class="pointer" onclick="app.setLocation('Account/EditRole/@u.Id')" id="RoleId-@u.Id">
+                        <td>@i</td>
+                        <td>@u.RoleName</td>
+                    </tr>
+                    i++;
+                }
+            }
+
+        </table>
+
+    </div>
+</div>

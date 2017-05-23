@@ -1,0 +1,25 @@
+﻿<h3 class="page-header">{{'profile_settings' | translate}}</h3>
+<form class="col-md-6" ng-show="user">
+    <div class="form-group ">
+        <label class="control-label ">{{'profile_language' | translate}}</label>
+        <select ng-model="user.language" class="form-control">
+            <option value="0">فارسی</option>
+            <option value="1">English</option>
+        </select>
+    </div>
+    <div class="form-group ">
+        <label class="control-label">{{'profile_slide_timeout' | translate}}</label>
+        <input class="form-control" type="text" ng-model="user.slideTimeout" placeholder="{{'profile_slide_timeout' | translate}}" />
+    </div>
+
+    <div class="alert  " ng-class="{'alert-danger': error, 'alert-success': success}" ng-show="result">
+        <span ng-click="result = null" class="close">&times;</span>
+        <p ng-bind-html="message"></p>
+    </div>
+
+    <a class="btn btn-primary" ng-click="updateSettings()">{{'ذخیره' | translate}}</a>
+</form>
+
+<div ng-hide="user">
+    loading...
+</div>

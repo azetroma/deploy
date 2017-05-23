@@ -1,0 +1,276 @@
+
+<menu-item class="panel " ng-show="dimensions && dimensions.length>0" name="dimension">
+    <menu-header class=" pointer" data-toggle="" href="#demensions-info">
+        {{ 'ابعاد (ستون‌های رشته‌ای)' | translate }}
+    </menu-header>
+    <menu-body id="demensions-info" class="prop-section form-horizontal  ">
+        <div class="prop-section-contain" id="dimension-section" data-object="dimensions.default">
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'بُعد' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select class="selectpicker-x form-control" data-size="4" ng-model="model.selectedDimension" ng-init="model.selectedDimension = '0'">
+                        <option ng-repeat="i in dimensions track by $index" value="{{$index + ''}}">{{i.Name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'نام' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}"
+                           ng-change="changeDimensionName('{{dimensions[model.selectedDimension].Name}}',dimensions[model.selectedDimension])" 
+                           ng-model="dimensions[model.selectedDimension].Name" ng-model-options="{ updateOn: 'blur' }" />
+                </div>
+            </div>
+
+            <div class="form-row" layout="column">
+                <label>{{ 'فرمول' | translate }}</label>
+                <div flex layout="row">
+                    <textarea flex class="form-control disabled text-formula" ng-model="dimensions[model.selectedDimension].formula"
+                              ng-change="changeFormula(dimensions[model.selectedDimension]);refreshChart()" ng-model-options="{ updateOn: 'blur' }"></textarea>
+
+                    <span class="material-icons small" ng-click="showDialog('dimention', $event)">fullscreen</span>
+                    <!--<span class="glyphicon glyphicon-edit icon-btn pointer"
+                          data-toggle="modal" data-target="#formula-modal"
+                          ng-click="setEditor('dimention')"
+                          style="top: 4px;position: absolute;right: -4px;"></span>-->
+
+
+                </div>
+            </div>
+
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'نوع مرتب کردن' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select class="selectpicker-x form-control" ng-change="refreshChart()" ng-model="dimensions[model.selectedDimension].sortOrder">
+                        <option value="ASC">{{ 'صعودی' | translate }}</option>
+                        <option value="DESC">{{ 'نزولی' | translate }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'مرتب کردن بر اساس' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select class="selectpicker-x form-control" ng-model="dimensions[model.selectedDimension].sortKey" data-size="4"
+                            ng-change="refreshChart()">
+                        <option value="NONE">{{ 'خودش' | translate }}</option>
+                        <option value="CUSTOM_FORMULA">سفارشی ...</option>
+                        <option ng-repeat="i in datasource.CubeInfo.Dimensions[0].Hierarchies" value="{{i.UniqueName}}">{{i.Name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].sortKey == 'CUSTOM_FORMULA'">
+                <label class="col-md-12">{{ 'فرمول مرتب کردن' | translate }}</label>
+                <div class="col-sm-12">
+                    <textarea class="form-control disabled text-formula" ng-model="dimensions[model.selectedDimension].sortFormula"
+                              ng-change="changeFormula(dimensions[model.selectedDimension]);refreshChart()"
+                              ng-model-options="{ updateOn: 'blur' }"></textarea>
+
+                </div>
+            </div>
+
+        </div>
+    </menu-body>
+</menu-item>
+
+<menu-item class="panel " ng-show="measures && measures.length>0" name="measure">
+    <menu-header class=" pointer" data-toggle="" href="#measures-info">{{ 'شاخص‌ها (ستون‌های عددی)' | translate }}</menu-header>
+    <menu-body id="measures-info" class="prop-section form-horizontal ">
+        <div class="prop-section-contain" id="measures-section" data-object="measures.default">
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'ستون' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select id="measures-selector" class="selectpicker-x form-control" data-size="4" ng-model="model.selectedMeasure" ng-init="model.selectedMeasure = '0'">
+                        <option ng-repeat="i in measures track by $index" value="{{$index + ''}}">{{i.Name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'نام' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}"
+                           ng-model-options="{ updateOn: 'blur' }"
+                           ng-change=" changeDimensionName('{{measures[model.selectedMeasure].Name}}',measures[model.selectedMeasure])"
+                           ng-model="measures[model.selectedMeasure].Name" />
+                </div>
+            </div>
+
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'تابع تجمیع' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select class="selectpicker-x form-control" data-size="4"
+                            ng-model="measures[model.selectedMeasure].aggregation"
+                            ng-change="changeMeasureAggregation(model.selectedMeasure);refreshChart()">
+                        <option value="NONE">NONE</option>
+                        <option value="SUM">SUM</option>
+                        <option value="AVG">AVG</option>
+                        <option value="COUNT">COUNT</option>
+                        <!--<option value="DISTINCT COUNT">DISTINCT COUNT</option>-->
+                        <option value="MIN">MIN</option>
+                        <option value="MAX">MAX</option>
+                        <option value="VAR">VAR</option>
+                        <option value="VARP">VARP</option>
+                        <option value="STDEV">STDEV</option>
+                        <option value="STDEVP">STDEVP</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row" layout="column">
+                <label class="col-md-12">{{ 'فرمول' | translate }}</label>
+                <div flex layout="row">
+                    <textarea flex class="form-control disabled text-formula" ng-model="measures[model.selectedMeasure].formula"
+                              ng-model-options="{ updateOn: 'blur' }"
+                              ng-change="changeFormula(measures[model.selectedMeasure]);refreshChart()"></textarea>
+                    <span class="material-icons small" ng-click="showDialog('measure', $event)">fullscreen</span>
+
+                </div>
+                <p class="desc ltr">
+                    <code>overall{ sum(field) }</code> : تابع تجمیع روی کل
+                </p>
+            </div>
+
+            <top-measure dims="dimensions" ng-model="measures[model.selectedMeasure].Top" ng-change="refreshChart('refreshWithData');" ng-show="measures[model.selectedMeasure].aggregation != 'NONE'"></top-measure>
+
+
+            <!--<div class="form-row" layout="row" layout-align="start center">
+                <md-switch ng-model="measures[model.selectedMeasure].IsTop" ng-change="refreshChart('refresh');">
+                    {{ 'isTop' | translate }}
+                </md-switch>
+            </div>
+            <div ng-if="measures[model.selectedMeasure].IsTop">
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label>{{ 'top' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <div>
+                        <md-switch ng-model="measures[model.selectedMeasure].IsPercent" ng-change="refreshChart('refresh');" style="display:inline">
+                            {{ 'IsPercent' | translate }}
+                        </md-switch>
+
+                        <input type="number" class="form-control" placeholder="{{ 'top' | translate }}"
+                               ng-model-options="{ updateOn: 'blur' }"
+                               ng-change=" changeDimensionName('{{measures[model.selectedMeasure].Top}}',measures[model.selectedMeasure])"
+                               ng-model="measures[model.selectedMeasure].Top" />
+
+                        <select class="selectpicker-x form-control"
+                                ng-model="measures[model.selectedMeasure].TopOrder"
+                                ng-change="changeMeasureAggregation(model.selectedMeasure);refreshChart()">
+                            <option value="DESC">DESC</option>
+                            <option value="ASC">ASC</option>
+                        </select>
+                    </div>
+                </div>
+            </div>-->
+
+        </div>
+    </menu-body>
+</menu-item>
+
+<menu-item class="panel " ng-show="where && where.length>0" name="where">
+    <menu-header class=" pointer" data-toggle="" href="#where-info">{{ 'ستون‌های شرط' | translate }}</menu-header>
+    <menu-body id="where-info" class="prop-section form-horizontal  ">
+        <div class="prop-section-contain" id="dimension-section">
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'ستون' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select class="selectpicker-x form-control" data-size="4" ng-model="model.selectedwhere" ng-init="model.selectedwhere = '0'">
+                        <option ng-repeat="i in where track by $index" value="{{$index + '' }}">{{i.Name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'نام' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}"
+                           ng-model-options="{ updateOn: 'blur' }"
+                           ng-change=" changeDimensionName('{{where[model.selectedwhere].Name}}',where[model.selectedwhere])"
+                           ng-model="where[model.selectedwhere].Name" />
+                </div>
+            </div>
+
+            <div class="form-row" layout="column">
+                <label class="col-md-12">{{ 'فرمول' | translate }}</label>
+                <div flex layout="row">
+                    <textarea flex class="form-control disabled text-formula" ng-model="where[model.selectedwhere].formula"
+                              ng-model-options="{ updateOn: 'blur' }"
+                              ng-change="changeFormula(where[model.selectedwhere]);refreshChart()"></textarea>
+                    <span class="material-icons small" ng-click="showDialog('where', $event)">fullscreen</span>
+
+                    <!--<span class="glyphicon glyphicon-edit icon-btn pointer"
+                    data-toggle="modal" data-target="#formula-modal"
+                    ng-click="setEditor('measure')"
+                    style="top: 4px;position: absolute;right: -4px;"></span>-->
+                </div>
+            </div>
+        </div>
+    </menu-body>
+</menu-item>
+
+<script type="text/ng-template" id="editor/formula/edit.html">
+
+    <md-dialog aria-label="{{'editor' | translate}}" ng-cloak class="fullscreen-dialog">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'editor' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <span class="material-icons">close</span>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content layout-margin flex layout="row" class="md-dialog-contentx">
+            <style>
+                .ace_editor {
+                    border: 1px solid #efefef;
+                }
+
+                    .ace_editor, .ace_editor div {
+                        font: 16px/normal 'Courier New', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+                    }
+
+                md-dialog.fullscreen-dialog {
+                    max-width: 100%;
+                    max-height: 100%;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 0;
+                }
+            </style>
+
+            <div flex="30" layout="column">
+                <md-content flex>
+
+                    <p class="help-block small md-caption">با کلیک روی نام ستون آن‌ را به فرمول اضافه کنید.</p>
+                    <div style="direction: ltr;" ng-show="parent.datasource">
+                        <div class="datasource-block" ng-repeat="u in parent.datasource.CubeInfo.Dimensions">
+                            <div class="title">
+                                {{u.Name}}
+                            </div>
+                            <div class="pointer" ng-repeat="i in u.Hierarchies" ng-click="insertFormula(i.UniqueName)">
+                                <img src="../../../../../Images/hierarchy1.png" />{{i.Name}}
+                            </div>
+                        </div>
+                    </div>
+                </md-content>
+            </div>
+
+            <div class="ltr" flex="70" ui-ace="aceOption" ng-model="formula">
+                select * from tbl_meuns
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="save()">
+                {{ 'ذخیره' | translate }}
+            </md-button>
+            <md-button ng-click="cancel()">
+                {{ 'cancel' | translate }}
+            </md-button>
+        </md-dialog-actions>
+    </md-dialog>
+</script>

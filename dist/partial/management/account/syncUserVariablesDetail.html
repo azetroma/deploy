@@ -1,0 +1,121 @@
+﻿
+
+<div layout="row">
+    <md-content flex no-background>
+        <div layout="column" flex>
+
+            <md-card style="margin:40px; padding:16px" flex>
+                <div class="">
+                    <h3>{{'User Variable Sync' | translate}}</h3>
+                </div>
+
+                <div layout="row" layout-sm="column" layout-align="space-around" layout-margin ng-show="cnl.getInfoProgress">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
+                </div>
+
+
+                <form ng-submit="$event.preventDefault()" name="syncForm" ng-show="!cnl.getInfoProgress">
+
+                    <div flex>
+                        <span>{{'user variable sync datasource' | translate}}</span>
+                        <span flex></span>
+                        <md-button class="md-primary" ng-click="cnl.selectDatasource($event)" aria-label="{{'انتخاب منبع داده' | translate}}">
+                            <spam ng-if="cnl.selectedDatasource">{{cnl.selectedDatasource.name}}</spam>
+                            <spam ng-if="!cnl.selectedDatasource">{{'انتخاب منبع داده' | translate}}</spam>
+                        </md-button>
+                    </div>
+                    <md-card ng-show="cnl.error" layout="row" flex>
+                        <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
+                            <h3>{{'Error' | translate}}!</h3>
+                            {{cnl.error}}
+                        </md-content>
+                    </md-card>
+
+                    <div ng-show="cnl.datasourceColumns && !cnl.error">
+
+                        <md-divider style="margin:30px 0;"></md-divider>
+                        <div style="margin:30px 0;">{{'user variable sync columns info' | translate}}</div>
+
+                        <div flex layout-gt-sm="row">
+
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>{{'Username Column' | translate}}</label>
+                                <md-select ng-model="cnl.usernameColumn" required name="username">
+                                    <md-option ng-repeat="i in cnl.datasourceColumns" value="{{i.Name}}">{{i.Name}}</md-option>
+                                </md-select>
+                                <div ng-messages="syncForm.username.$error" ng-if="syncForm.username.$touched">
+                                    <div ng-message="required">{{'one column should be selected' | translate}}</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>{{'User Variable Column' | translate}}</label>
+                                <md-select ng-model="cnl.variableValueColumn" required name="variableValue">
+                                    <md-option ng-repeat="i in cnl.datasourceColumns" value="{{i.Name}}">{{i.Name}}</md-option>
+                                </md-select>
+                                <div ng-messages="syncForm.variableValue.$error" ng-if="syncForm.variableValue.$touched">
+                                    <div ng-message="required">{{'one column should be selected' | translate}}</div>
+                                </div>
+
+                            </md-input-container>
+                            <md-autocomplete flex required md-no-cache="true"
+                                             md-input-name="autocompleteField"
+                                             md-floating-label="{{'نام متغیر' | translate}}"
+                                             md-search-text="cnl.variableName"
+                                             md-items="item in cnl.userProperties | filter:cnl.variableName"
+                                             md-item-text="item"
+                                             md-min-length="0"
+                                             placeholder="{{'نام متغیر' | translate}}">
+                                <md-item-template>
+                                    <span md-highlight-text="cnl.variableName" md-highlight-flags="^i">{{item}}</span>
+                                </md-item-template>
+                                <div ng-messages="syncForm.autocompleteField.$error" ng-if="syncForm.autocompleteField.$touched">
+                                    <div ng-message="required">{{'form_name_required' | translate}}</div>
+                                </div>
+
+                            </md-autocomplete>
+
+                        </div>
+
+
+                        <md-card ng-show="cnl.syncError" layout="row" flex>
+                            <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
+                                <h3>{{'Error' | translate}}!</h3>
+                                {{cnl.syncError}}
+                            </md-content>
+                        </md-card>
+                        <div ng-show="cnl.effectedUsers" layout="column" flex layout-padding>
+                            <div></div>
+                                <table class="sadaf-table">
+                                    <tr>
+                                        <th>{{'username' | translate}}</th>
+                                        <th>{{'مقدار متغیر' | translate}}</th>
+                                    </tr>
+                                    <tr ng-repeat="i in cnl.effectedUsers">
+                                        <td>{{i.Key}}</td>
+                                        <td>{{i.Value.join(', ')}}</td>
+                                    </tr>
+                                </table>
+                        </div>
+
+                        <div layout="row" layout-align="center center" style="min-width:200px">
+                            <md-button class="md-primary" ng-click="cnl.saveAndSync($event)" ng-hide="cnl.syncProgress" flex-gt-sm>
+                                {{'Sync and save' | translate}}
+                            </md-button>
+
+                            <md-button ng-show="cnl.syncProgress" disabled="true" layout="row" layout-align="center center">
+                                {{'در حال دریافت ...' | translate}}
+                                <md-progress-circular md-mode='indeterminate' md-diameter="15" style="margin:0 10px">
+                                </md-progress-circular>
+                            </md-button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </md-card>
+        </div>
+    </md-content>
+</div>

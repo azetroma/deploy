@@ -1,0 +1,450 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <base href="@Href("~")">
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    @{
+        var isRelease = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+        var ver = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+        var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+    }
+
+    <link href="~/dist/lib/semantic@(ViewBag.isRtl ? ".rtl" : "").min.css?v=2.2" rel="stylesheet" />
+    <link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@ver" rel="stylesheet" />
+    <link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=" rel="stylesheet" />
+
+    <script src="~/dist/lib/jquery-1.11.1.min.js?v=@ver"></script>
+    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js?v=@ver"></script>
+    <script src="~/dist/lib/jquery.fileupload.min.js?v=@ver"></script>
+    <script src="~/dist/lib/jquery.gridster.with-extras.min.js?v=@ver"></script>
+    <script src="~/dist/lib/jquery.gridster.with-extras.min2.js?v=@ver"></script>
+    <script src="~/dist/lib/jquery.ui.widget.min.js?v=@ver"></script>
+    <script src="~/dist/lib/angular@(isRelease? ".min":"").js?v=@ver"></script>
+    <script src="~/dist/lib/angular-messages.min.js?v=@ver"></script>
+    <script src="~/dist/lib/angular-sanitize.min.js?v=@ver"></script>
+    <script src="~/dist/lib/angular-translate.min.js?v=@ver"></script>
+    <script src="~/dist/lib/angular-translate-loader-static-files.min.js?v=@ver"></script>
+    <script src="~/dist/lib/angular-animate.min.js?v=@ver"></script>
+    <script src="~/dist/lib/angular-route.min.js?v=@ver"></script>
+    <script src="~/dist/lib/bootstrap-datepicker.fa.min.js?v=@ver"></script>
+    <script src="~/dist/lib/bootstrap-datepicker.min.js?v=@ver"></script>
+    <script src="~/dist/lib/bootstrap-select.min.js?v=@ver"></script>
+    <script src="~/dist/lib/bootstrap-select-defaults-@(ViewBag.isRtl ? "fa_IR":"en_US").js?v=@ver"></script>
+    <script src="~/dist/lib/semantic.min.js?v=@ver"></script>
+    <script src="~/dist/lib/d3.v3.min.js?v=@ver"></script>
+    <script src="~/dist/lib/sortable.min.js?v=@ver"></script>
+    <script src="~/dist/lib/topojson.min.js?v=@ver"></script>
+    <script src="~/dist/lib/lodash.min.js?v=@ver"></script>
+    <script src="~/dist/lib/jquery.treeview.js?v=@ver"></script>
+
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+            display: none !important;
+        }
+    </style>
+
+    <meta name="fontiran.com:license" content="X4ZQZ">
+</head>
+<body ng-app="sadaf" ng-cloak ng-controller="dashboardPageCtrl" class="theme2">
+    <style>
+
+    </style>
+    <input type="hidden" value="@ViewBag.lang" id="lang" />
+
+
+    @*<div id="toc" class="ui vertical inverted sidebar left menu fixed" xstyle="display:none">
+
+            <div class="item">
+                <a href="#"><b>داشبورد مدریت صدف</b></a>
+            </div>
+
+            <div class="ui vertical following fluid accordion text menu   ">
+                <div class="" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]">
+                    <div class="title">
+                        <span class="item"><span class="icon dropdown"></span>Item {{i}}   </span>
+                    </div>
+                    <div class="content vertical">
+                        <div class="item">Home</div>
+                        <div class="item">Messages</div>
+                        <div class="item">Friends</div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+    <div class="side-menu ui segment my-fix inverted no-padd no-margin">
+
+        <div class="" style="text-align:center; padding:30px 16px;">
+            <img src="~/Images/icon-inverse.png" class="" style="max-width:100%" alt="Alternate Text" />
+        </div>
+
+        <div class="my-fix-flex-container">
+            <div class="side-menu-item-container" ng-repeat="mc in menuCategories.data" ng-class="{active: mc.active}" on-finish-render="ngRepeatFinished">
+                <div class="side-menu-item side-menu-item-parent" ng-click="closeAll(mc);">
+                    <i class="icon angle down icon-animate large left floated" ng-class="{rotate: mc.open}"></i>  {{mc.category.Name}}
+                    <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="mc.hasAddPer || mc.hasEditPer || mc.hasDeletePer" style="line-height:1.5em" >
+                        <i class="setting icon"></i>
+                        <div class=" menu transition hidden" tabindex="-1">
+                            <div class="item" ng-show="mc.hasAddPer" ng-click="addMenuToCategory(mc);$event.stopPropagation();"><i class="add circle icon"></i>{{'اضافه کردن صفحه جدید' | translate}}</div>
+                            <div class="item" ng-show="mc.hasEditPer" ng-click="editCategory(mc);$event.stopPropagation();"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
+                            <div class="item" ng-show="mc.hasDeletePer" ng-click="deleteCategory(mc, $index);$event.stopPropagation();"><i class="trash outline icon"></i>{{'حذف' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="" uib-collapse="!mc.open">
+                    <div class="side-menu-item side-menu-item-child" ng-repeat="m in mc.menus" href="#dashboard/{{m.menu.Id}}" on-finish-render="ngRepeatFinished" ng-class="{active: m.active}" ng-click="$event.stopPropagation();">
+
+                        <a href="#/dashboard/{{m.menu.Id}}">
+                        <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="m.hasEditPer || m.hasDeletePer"style="line-height: 1.5em;">
+                            <i class="setting icon"></i>
+                            <div class=" menu transition hidden" tabindex="-1">
+                                <div class="item" ng-show="m.hasEditPer" ng-click="editMenu(m);$event.stopPropagation();"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
+                                <div class="item" ng-show="m.hasDeletePer" ng-click="deleteMenu(m, mc, $index);$event.stopPropagation();"><i class="trash outline icon"></i>{{'حذف' | translate}}</div>
+                                <div class="item" ng-show="m.hasEditPer" ng-click="duplicateMenu(m, mc);$event.stopPropagation();"><i class="copy icon"></i>{{'تکرار' | translate}}</div>
+                            </div>
+                        </div>
+                        {{m.menu.Name}}</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="btn btn-link" ng-click="addCat()" style="padding:20px 7px; font-size:11px; cursor:pointer" ng-show="menuCategories.hasAddPer">
+                <i class="icon add circle"></i>
+                {{'add new group' | translate}}
+            </div>
+
+        </div>
+
+        <div class="sadaf-footer">
+            <a href="http://www.sadafdashboard.ir" target="_blank">{{'copyright' | translate}}</a>
+            - نسخه @(version.Major + "." + version.Build + "." + @version.Minor)
+        </div>
+    </div>
+
+    <div class="pusher" id="stick">
+        <div class="main-container">
+            <div class="ui grid padded middle aligned stackable mobile reversed" style="min-height:40px;    margin-bottom: -8px !important">
+
+                <div class="container-flowed eleven wide column no-padd" id="filter-box" ng-app="filterBox" style="transition:width 0.4s ease">
+                    <div ng-controller="filterBoxController" id="filter-box-controller">
+
+                        <div ng-if="otherFilters.length + userControlFilter.length >1"
+                             class="ui label"
+                             title="{{'clear'| translate}}">
+                            <a ng-click="clearAll()" class="pointer"><b>{{'clear all'| translate}}</b></a>
+                        </div>
+
+
+                        <div ng-repeat="j in otherFilters | filter:{value:''}"
+                             class="ui label"
+                             title="{{j.value}}">
+                            <b>{{j.key}}: </b>{{j.value}}
+                            <i class="delete icon" ng-click="removeDrillDown($index)"></i>
+
+                        </div>
+
+
+
+                        <div ng-repeat="i in userControlFilter "
+                             ng-if="i.values && i.values.length"
+                             class="ui label"
+                             title="{{i.values.join(', ')}}">
+                            <b>{{i.key}}: </b>{{i.xCaption}} <span ng-bind-html="i.Caption"></span>
+                            <i class="delete icon" ng-click="removeUserControl($index)"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+                
+
+                <div class="five wide column no-padd">
+                    <div class="ui grid middle aligned">
+                        <div class="one wide column no-padd mobile only" >
+                                <i class=" no-padd icon sidebar link toc-toggle" style="xfloat: right;padding: 8px !important;"></i>
+
+                        </div>
+                            <div class="nine wide column no-padd dashboard-edit-panel" xng-class="{'show': hasEditPermission}">
+
+
+                                <div class=" chart-container dashboard-page-header" style="direction:ltr;">
+                                    <div style="display:table-row">
+
+                                        <div id="device-selector" class="dashboard-navbar-item devices no-padd">
+                                            <i id="laptop" class="icon laptop"></i>
+                                            <i id="tablet" class="icon tablet"></i>
+                                            <i id="smartphone" class="icon mobile" style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i>
+                                            <i id="smartphone-land" class="icon mobile"></i>
+
+                                        </div>
+
+                                        <div class="dashboard-navbar-item-devider dashboard-navbar-item no-padd"></div>
+
+                                        <div class="dashboard-navbar-item no-padd">
+                                            <div class="ui left input icon mini" style="max-width:75px">
+                                                <input id="dashboard-col" type="number" value="12" />
+                                                <i class="icon columns"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="dashboard-navbar-item dashboard-navbar-item-devider no-padd"></div>
+
+                                        <div class="dashboard-navbar-item no-padd">
+                                            <i class="link icon add square add-chart-btn"></i>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="six wide column no-padd right aligned"  style="padding:4px 14px;">
+                                <div class="ui dropdown">
+                                    @{
+                                        var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
+                                        <text> @user.FirstName @user.LastName</text>
+                                    }
+                                    <i class="icon user large circle"></i>
+                                    <div class=" menu transition hidden" tabindex="-1">
+                                        <a ng-if="menuCategories.hasAminPermission" class="item" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
+                                        <a class="item" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
+                                        <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
+                                    </div>
+                                </div>
+
+                                <script>
+
+                                    $('.icon.edit').on('click', function(){
+                                        $('.dashboard-page-header').transition('fade down');
+                                    });
+                                </script>
+
+                            </div>
+
+                        </div>
+                </div>
+                
+
+            </div>
+            <ng-view></ng-view>
+        </div>
+    </div>
+
+
+    @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
+        <script src="~/src/js/charts/su.ChartCommons.js?v=@ver"></script>
+        <script src="~/src/js/charts/su.d3-utils.js?v=@ver"></script>
+        <script src="~/src/js/charts/su.filterMemberDialog.js?v=@ver"></script>
+        <script src="~/src/js/charts/su.jquery.sit.BarChart.js?v=@ver"></script>
+        <script src="~/src/js/charts/jquery.sit.Chart.js?v=@ver"></script>
+        <script src="~/src/js/charts/su.jquery.sit.Gauge.js?v=@ver"></script>
+        <script src="~/src/js/charts/jquery.sit.Map.js?v=@ver"></script>
+        <script src="~/src/js/charts/jquery.sit.PieChart.js?v=@ver"></script>
+        <script src="~/src/js/charts/jquery.sit.Radar.js?v=@ver"></script>
+        <script src="~/src/js/charts/su.jquery.sit.Table.js?v=@ver"></script>
+        <script src="~/src/js/charts/su.jquery.sit.Tree.js?v=@ver"></script>
+        <script src="~/src/js/charts/su.jquery.sit.UserControl.js?v=@ver"></script>
+        <script src="~/src/js/charts/tipsy.js?v=@ver"></script>
+
+    } else {
+        <script src="~/dist/js/charts-theme2.js?v=@ver"></script>
+    }
+
+    <script>
+        $('.toc-toggle').on('click', function () {
+            $('.ui.sidebar')
+              .sidebar('setting', 'transition', 'overlay')
+              .sidebar('toggle');
+        });
+
+        function toc() {
+
+            //$('.ui.sidebar').sidebar('hide');
+            //var isMobile = $('.ui.grid.mobile.only').is(':visible');
+            var isMobile  = $(window).width()	<= 723;
+
+            var menu = $('.side-menu');
+            console.log('isMobile ' , isMobile );
+            if (!isMobile) {
+                menu.addClass('my-fix no-padd no-margin');
+                menu.removeClass('sidebar left  menu fixed vertical');
+                $('.main-container').removeClass('mobile');
+                //$('#toc').attr('class', '');
+                //$('#toc').addClass('ui vertical inverted left menu fixed');
+                //$('#toc').css({ height: '100vh', overflow: 'auto', width:'210px', padding:'10px' });
+            } else {
+                menu.removeClass('my-fix no-padd no-margin');
+                menu.addClass('sidebar left  menu fixed vertical');
+                $('.main-container').addClass('mobile');
+
+                //$('#toc').attr('class', '');
+                //$('#toc').addClass('ui vertical inverted sidebar left  menu fixed');
+                //$('#toc').css({ height: 'auto', overflow: 'auto' });
+            }
+        }
+
+        $(window).resize(function () {
+            toc();
+        })
+
+        toc();
+
+        //$('.accordion').accordion({
+        //    exclusive:false
+        //});
+
+        //$('.ui.sticky').sticky({
+        //    context: '#stick'
+        //});
+        $('.ui.modal').modal();
+        $('.ui.dropdown').dropdown();
+
+    </script>
+
+    <div class="ui modal small" id="edit-menus">
+        <i class="close icon"></i>
+        <div class="header">
+            ویرایش صفحه‌های داشبوردی
+        </div>
+        <div class=" content">
+            <p ng-show="modal.body" ng-bind-html="modal.body"></p>
+
+
+            <div class="ui form">
+                <div class="field" ng-show="modal.label">
+                    <label>{{modal.label}}</label>
+                    <input ng-model="modal.val" type="text" class="" placeholder="">
+                </div>
+            </div>
+            <div class="alert alert-danger" ng-show="modal.error">
+                <div ng-show="modal.error.title">
+                    <b>{{modal.error.title}}</b>
+                    <p>{{modal.error.desc}}</p>
+                </div>
+                <div ng-hide="modal.error.title" ng-bind-html="modal.error">
+                </div>
+            </div>
+
+        </div>
+        <div class="actions">
+            <div class="ui button black" ng-click="hideModal()">{{'انصراف' | translate}}</div>
+            <div class="ui button {{modal.btnClass}}" ng-class="{disabled: modal.inProgress, loading : modal.inProgress}" ng-click="modal.ok()">{{modal.btnText}}</div>
+        </div>
+    </div>
+
+    <div class="ui modal small" id="filter-member-dialog">
+        <i class="close icon"></i>
+        <div class="header">
+            فیلتر کردن مقادیر
+        </div>
+        <div class=" content">
+            <div id="filter-member-dialog-content">
+                <div class="ui active inverted dimmer">
+                    <div class="ui text loader">در حال بارگذاری</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="actions">
+            <div class="ui button black">{{'انصراف' | translate}}</div>
+            <div class="ui button green" onclick="app.helper.filterMemberDialogOk()">انتخاب</div>
+        </div>
+    </div>
+
+    <div class="ui modal small" id="deleteChart">
+        <i class="close icon"></i>
+        <div class="header">
+            حذف نمودار
+        </div>
+        <div class=" content">
+            <div class="ui header">آیا برای حذف این نمودار مطمئنید؟ </div>
+            در صورت انتخاب گزینه حذف، این نمودار فقط از این صفحه حدف خواهد شد. در صورتی که می‌خواهید نمودار را کلا حذف کنید، در قسمت مدیریت از منوی مدیریت نمودارها استفاده کنید.
+            <br />
+            <br />
+            <br />
+
+            @*<label>حذف از کل داشبورد <input type="checkbox" id="delete-from-dash"></label>*@
+
+            <div class="ui toggle checkbox">
+                <input type="checkbox" id="delete-from-dash" checked="checked">
+                <label>حذف از کل داشبورد</label>
+            </div>
+
+        </div>
+        <div class="actions">
+            <div class="ui button deny black">{{'انصراف' | translate}}</div>
+            <div class="ui button red action-btn" onclick="dashboard.deleteChart()">{{'حذف'|translate}}</div>
+        </div>
+    </div>
+
+    @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
+        <script src="~/src/js/dashboardPage/navbar/navbar.js"></script>
+        <script src="~/src/js/collapse.js"></script>
+        <script src="~/src/js/dashboard-app.js"></script>
+        <script src="~/src/js/heartBeat.js"></script>
+        <script src="~/src/js/dashboardPage/filterBox.js"></script>
+        <script src="~/src/js/dashboardPage/su.DashboardPageUtils.js"></script>
+        <script src="~/src/js/dashboardPage/su.dashboardLayout.js"></script>
+        <script src="~/src/js/dashboardPage/su.dashboardPage.js"></script>
+        <script src="~/src/js/dashboardPage/su.app.js"></script>
+        <script src="~/src/js/dashboardPage/bootstrap.sit.helper.js"></script>
+        <script src="~/src/js/dashboardPage/globalVariableHelper.js"></script>
+        <script src="~/src/js/dashboardPage/su.packages.js"></script>
+        <script src="~/src/js/dashboardPage/JqueryHelper.js"></script>
+
+    } else {
+        <script src="~/dist/js/dashboard-app-theme2.js?v=@ver"></script>
+    }
+
+    <script>
+        var userVariable = @Html.Raw(Json.Encode(ViewBag.userVariable));
+        if(_.isArray(userVariable)){
+            localStorage.setItem('userVariable',JSON.stringify( userVariable));
+        }
+
+        localStorage.setItem('defaultDashboard','@ViewBag.defaultDashboard');
+        $('.ui.checkbox').checkbox();
+        $('.ui.modal').modal();
+
+    </script>
+
+    <script>
+        var app = app || {};
+        app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        app.version = "@ver";
+        app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
+        app.setAboluteUrl("@Request.Url.AbsoluteUri");
+
+
+        var hash = "@ViewBag.returnUrlHash";
+        if (hash) {
+            location.hash = hash;
+        }
+        console.log('ViewBag.lang', @ViewBag.lang);
+        app.lang.setLangTyle(@ViewBag.lang);
+        app.lang.setLang();
+        app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
+            ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : ver.ToString())';
+
+
+
+    </script>
+</body>
+
+
+
+
+</html>

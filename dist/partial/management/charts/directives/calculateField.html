@@ -1,0 +1,119 @@
+
+<menu-item class="panel ">
+    <menu-header>{{ 'شاخص‌های محاسباتی' | translate }}</menu-header>
+    <menu-body>
+        <div>
+            <style>
+                #filter-info .item:hover {
+                    background-color: #f2f2f2;
+                }
+            </style>
+            <div layout="column" style="margin-bottom:60px">
+                <div layout="row" layout-align="start center">
+                    <b>:: {{'calculate_fields_list' | translate}}  </b>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="add($event)">
+                        <span class="material-icons">add</span>
+                        <md-tooltip>{{'add' | translate}}</md-tooltip>
+                    </md-button>
+                    <!--<span class="glyphicon glyphicon-plus icon-btn pointer" ng-click="add()"></span>-->
+                </div>
+                <div ng-repeat="i in calculatedFields.fields track by $index" class="item" layout="row"layout-align="start center">
+                    {{i.name}}
+                    <!--<span class="icon-btn pointer" ng-click="calculatedFields.fields.splice($index, 1);refreshChart()">&times;</span>
+                    <span class="glyphicon glyphicon-pencil icon-btn pointer" ng-click="edit($index)"> </span>-->
+                    <span class="form-divider flex" flex=""></span>
+                    <md-button class="md-icon-button " ng-click="edit($index, $event)">
+                        <span class="material-icons " >edit</span>
+                        <md-tooltip>{{'edit' | translate}}</md-tooltip>
+                    </md-button>
+
+                    <md-button class="md-icon-button " ng-click="calculatedFields.fields.splice($index, 1);refreshChart()">
+                        <span class="material-icons " >delete</span>
+                        <md-tooltip>{{'remove' | translate}}</md-tooltip>
+                    </md-button>
+                </div>
+                <p ng-hide="calculatedFields.fields && calculatedFields.fields.length" class="small text-center">{{ 'داده‌ای وجود ندارد' | translate }}</p>
+
+            </div>
+
+
+
+
+        </div>
+    </menu-body>
+</menu-item>
+
+
+<script type="text/ng-template" id="editor/calc/calc-fields-modal.html">
+
+    <md-dialog aria-label="{{'شاخص محاسباتی' | translate}}" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'شاخص محاسباتی' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <span class="material-icons">close</span>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout-margin class="md-dialog-content">
+
+
+                <md-input-container class="md-block">
+                    <label>{{ 'نام' | translate }}</label>
+                    <input ng-model="parent.currentFormula.name" type="text" />
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>{{ 'فرمول' | translate }}</label>
+                    <input class="ltr " style="font-family:monospace" ng-model="parent.currentFormula.formula" type="text" />
+                </md-input-container>
+                <p class="help-block small">
+                    از این فرمول برای دسترسی به مقادیر ردیف‌های دیگر اطلاعات استفاده می‌شود.
+                    هر سلول از جدول اطلاعات به صورت
+                    <span style="display:inline-block; direction:ltr">
+
+                        <code>{R<+ یا ->&lt;number&gt;, C&lt;number&gt;}</code>
+                    </span>
+                    نمایش داده می‌شود. R نشان دهنده ردیف است و عددی که بعد از آن نمایش داده می‌شود
+                    مکان نسبی ردیف مورد نظر به ردیف جاری را نشان می‌دهد. برای مثال ردیف قبلی با
+                    <code>R-1</code> و ردیف بعدی با <code>R+1</code>
+                    نمایش داده می‌شود.
+
+                    C نشان دهنده ستون است و عددی که بعد از آن آورده می‌شود برای مشخص کردن ستون مورد نظر است.
+                    برای نمونه ستون اول با
+                    <code>C0</code>و ستون دوم با <code>C1</code>
+                    نشان داده می‌شود.
+
+                </p>
+                <p class="help-block small">
+                    {{ 'مثال' | translate }}<br />
+                    ستون اول از ردیف قبلی :
+                    <code>{R-1, C0}</code>
+                    <br />
+                    اختلاف ستون اول با ستون اول از ردیف قبلی :
+                    <code>{R+0, C0} - {R-1, C0}</code>
+                    <br />
+                </p>
+
+                <ul>
+                    لیست ستون‌ها
+                    <li ng-repeat="k in parent.$parent.ngModel.series" ng-hide="(parent.calculatedFields.fields|filter:{name:k}).length">
+                        <code class="inline">{c{{$index}}}</code> :{{k}}
+                    </li>
+                </ul>
+            </div>
+
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="save()">
+                {{ 'ذخیره' | translate }}
+            </md-button>
+        </md-dialog-actions>
+    </md-dialog>
+</script>
+
+
+

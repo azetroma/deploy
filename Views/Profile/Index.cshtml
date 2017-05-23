@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/views/shared/main.cshtml";
+}
+<script src="~/dist/js/profile.js"></script>
+
+
+@*<div class="sadaf-root" ng-app="profileCat" ng-cloak>
+        <div class="container-fluid" ng-controller="dashboardPageCtrl">
+            <ng-include src="'@Href("~")dist/partial/dashboardPage/navbar/navbar.html'"></ng-include>
+        </div>
+    </div>*@
+
+<div ng-app="profileCat" ng-cloak>
+    <input type="hidden" value="@ViewBag.lang" id="lang" />
+    <div ng-controller="cGeneral">
+        <div class="container-fluid" style="margin-top:70px">
+            <ng-include src="'@Href("~")dist/partial/dashboardPage/navbar/navbar.html'"></ng-include>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{'profile_personal_settings' | translate}}</div>
+                        <ul class="list-group">
+                            @*<li class="list-group-item" ng-class="{activate : path == '/info'}"><a href="#info">مشخصات</a></li>*@
+                            <li class="list-group-item" ng-class="{activate : path == '/profile'}"><a xhref="#profile"href="javascript:;" onclick="document.location.hash='profile';">{{'profile_change_info' | translate}}</a></li>
+                            <li class="list-group-item" ng-class="{activate : path == '/changepass'}"><a xhref="#changepass" href="javascript:;" onclick="document.location.hash='changepass';">{{'profile_change_pass' | translate}}</a></li>
+                            <li class="list-group-item" ng-class="{activate : path == '/settings'}"><a xhref="#settings" href="javascript:;" onclick="document.location.hash = 'settings';">{{'profile_general_setting' | translate}}</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="col-md-10">
+                    <ng-view>
+
+                    </ng-view>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

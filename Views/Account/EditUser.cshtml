@@ -1,0 +1,495 @@
+@model BLL.Security.Users.EditUserModel
+
+@{
+    Layout = null;
+}
+<div class="container-fluid">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-10">
+                <h1 id="forms" style="margin: 0"><span data-trans-key='به‌روز رسانی اطلاعات کاربر'> </span></h1>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-danger form-control" data-toggle="modal" href="#deleteUserModal"><span data-trans-key='حذف کاربر'> </span></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var editUserRoute = {
+
+            deleteUser: function (link) {
+                $.post(link, null, function (data) {
+                    //app.setContent(data);
+                    //app.router.navigate("Account/UsersList");
+                    if (!data.result) {
+                        $('#deleteUserModal').on('hidden.bs.modal', function (e) {
+                            app.setContent(data.content);
+                        });
+                    } else {
+                        window.history.back();
+                    }
+                    $("#deleteUserModal").modal('hide');
+
+                });
+
+            },
+            saveEditedUser: function () {
+                var s = $("#EditUserForm").serialize();
+                s += "&Id=@Model.Id&Username=@Model.Username";
+                link = '@Url.Action("EditUser")';
+
+                $.post(link, s, function (data) {
+                    //app.setContent(data);
+                    //app.router.navigate("Account/UsersList");
+                    if (!data.result) {
+                        app.setContent(data.content);
+                    } else {
+                        window.history.back();
+                    }
+                });
+
+            },
+        };
+
+        function validateFormOnSubmit(form) {
+            editUserRoute.saveEditedUser();
+            return false;
+        }
+        (function ($) {
+            $(".form-group").each(function () {
+                var f = $(this).find(".field-validation-error").first();
+                if (f.length > 0) {
+                    f.addClass("control-label");
+                    $(this).addClass("has-error");
+                }
+            });
+            app.contentSegmentModal.createModal({
+                id: "deleteUserModal",
+                title: "حذف کاربر",
+                body: 'آیا مطمئن هستید که می‌خواهید کاربر حذف شود؟',
+                okText: "حذف",
+                okFun: "editUserRoute.deleteUser('@Url.Action("DeleteUser")?UserId=@Model.Id')",
+                okClass: "btn-danger",
+                cancelText: "انصراف",
+            });
+
+        })($);
+    </script>
+
+    <div class="col-md-6">
+        <form method="post" id="EditUserForm" role="form" class="form-horizontal" onsubmit="return validateFormOnSubmit(this);">
+            @Html.AntiForgeryToken()
+
+            @if (!ViewData.ModelState.IsValid) {
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    @Html.ValidationSummary()
+                </div>
+            }   @{
+                if (TempData["messageInfo"] != null) {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        @Html.Raw(@TempData["messageInfo"])
+                    </div>
+                }
+                if (TempData["messageError"] != null) {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        @Html.Raw(@TempData["messageError"])
+                    </div>
+                }
+            }
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.FirstName, "نام و نام خانوادگی", new { @class = "col-md-4 control-label" })
+                <div class="col-md-4 ">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = @Html.DisplayNameFor(m => m.FirstName), @Value = Model.FirstName })
+                    @Html.ValidationMessageFor(m => m.FirstName)
+                </div>
+                <div class="col-md-4 ">
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = @Html.DisplayNameFor(m => m.LastName), @Value = Model.LastName })
+                    @Html.ValidationMessageFor(m => m.LastName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Username, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8 ">
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = @Html.DisplayNameFor(m => m.Username), @Value = Model.Username, Disabled = "" })
+                    @Html.ValidationMessageFor(m => m.Username)
+                </div>
+            </div>
+            @*        <div class="form-group">
+                    @Html.LabelFor(m => m.OldPassword, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8 ">
+                        @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control", @placeholder = @Html.DisplayNameFor(m => m.OldPassword) })
+                        @Html.ValidationMessageFor(m => m.OldPassword)
+                    </div>
+                </div>*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8 ">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = @Html.DisplayNameFor(m => m.Password) })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PasswordRepeat, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8 ">
+                    @Html.PasswordFor(m => m.PasswordRepeat, new { @class = "form-control", @placeholder = @Html.DisplayNameFor(m => m.PasswordRepeat) })
+                    @Html.ValidationMessageFor(m => m.PasswordRepeat)
+                </div>
+            </div>
+
+            <h2><span data-trans-key='تنظیمات'> </span></h2>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.PageSwiching, new { @class = "col-md-8 control-label" , @style="text-align:right"})
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.PageSwiching, new { @class = "form-control", @Value = Model.PageSwiching, @placeholder = @Html.DisplayNameFor(m => m.PageSwiching) })
+                    @Html.ValidationMessageFor(m => m.PageSwiching)
+                </div>
+                <p class="help-block col-md-12">در حالت تمام صفحه، در حالتی که نمایش اسلایدی فعال باشد، زمان بین جابجایی صفحه‌ها با استفاده از این متغیر تنظیم می‌شود.</p>
+
+            </div>
+
+
+            @*<div class="form-group">
+                    <label class="col-md-8 control-label"><span data-trans-key='فاصله زمانی جابجایی بین صفحه‌ها به ثانیه'> </span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" data-trans-key='فاصله زمانی به ثانیه' data-trans-attr='placeholder'  value="@(Model==null?"10":Model.Detail.PageSwiching.ToString())" />
+                    </div>
+                </div>*@
+
+
+            <div class="form-group">
+                <h2 class="col-md-12"><span data-trans-key='نقش‌ها'> </span></h2>
+                <div class="col-md-12">
+                    <table class="table table-hover ">
+                        @if (ViewBag.roles != null) {
+                            foreach (var s in ViewBag.roles) {
+                                var isChecked = "";
+                                foreach (var role in Model.Roles) {
+                                    if (role == s.Id) {
+                                        isChecked = "Checked = 'checked'";
+                                        break;
+                                    }
+                                }
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input type="checkbox" name="Roles" value="@s.Id" @isChecked>
+                                            @s.RoleName
+                                        </label>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="row">
+                        <h2 class="col-md-9"><span data-trans-key='متغیرها'> </span></h2>
+                        <h2 class="col-md-3">
+                            <a class="btn btn-default" id="user-new-property" data-toggle="modal" data-target="#user-prperty-modal">
+                                <span class="glyphicon glyphicon-plus"></span><span data-trans-key='متغیر جدید'> </span></a>
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-hover" id="user-property-list">
+                                @{var allKeys = BLL.Security.Users.GetAllUserPropertiesKey();}
+                                <tr id="empty-massage"
+                                    style="@(allKeys.Count == 0 && (String.IsNullOrEmpty(Model.Properties) || Model.Properties.Equals("[]")) ? "" : "display:none")">
+                                    <td><span data-trans-key='برای این کاربر متغیری تعریف نشده است'> </span></td>
+                                </tr>
+                                @{
+                                    List<BLL.Security.UsersProperty> p = BLL.Security.Users.GetUserProperties(Model.Properties);
+
+
+                                    foreach (var key in allKeys) {
+                                        var flag = false;
+                                        foreach (var s in p) {
+                                            if (s.Key.Equals(key)) {
+                                                flag = true;
+                                                <tr>
+                                                    <td>
+                                                        <label class="key" value="@s.Key">
+                                                            @s.Key
+                                                        </label>
+                                                    </td>
+                                                    <td class="value" value="@Json.Encode(s.Value)">@String.Join(", ", s.Value)</td>
+                                                    <td>
+                                                        <span onclick="DeleteUserProperty(this)" class="glyphicon glyphicon-trash pointer icon-btn"></span>
+                                                        <span onclick="editUserProperty(this)" class="glyphicon glyphicon-pencil pointer icon-btn"></span>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                        if (!flag) {
+                                            <tr>
+                                                <td>
+                                                    <label class="key" value="@key">
+                                                        @key
+                                                    </label>
+                                                </td>
+                                                <td class="value" value="[]"><i><span data-trans-key='نامشخص'> </span></i></td>
+                                                <td style="min-width: 75px">
+                                                    <span onclick="DeleteUserProperty(this)" class="glyphicon glyphicon-trash pointer icon-btn"></span>
+                                                    <span onclick="editUserProperty(this)" class="glyphicon glyphicon-pencil pointer icon-btn"></span>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    }
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="direction: ltr">
+                <button type="submit" class="btn btn-primary"><span data-trans-key='ذخیره'> </span></button>
+                <button class="btn btn-default" onclick="window.history.back()"><span data-trans-key='انصراف'> </span></button>
+            </div>
+        </form>
+    </div>  
+    <script>
+
+        function DeleteUserProperty(el) {
+
+            var key = $(el).closest("tr").find(".key").attr("value");
+            var r = confirm("آیا مایل به حذف متغیر " + key + " هستید؟");
+            if (r == false) return;
+
+            var link = app.urlPrefix + "Account/DeleteUserProperty?Key=" + encodeURIComponent(key) + "&UserId=@Model.Id"
+            $.ajax(link).done(function (data) {
+                if (data.Result) {
+                    showPropertyList($(el).closest("table").find("tr:not([id])").length != 1);
+                    $(el).closest("tr").remove();
+                } else {
+                    alert(data.Message);
+                }
+            });
+        }
+
+        function editUserProperty(el) {
+            var lastkey = $(el).closest("tr").find(".key").attr("value");
+            var lastvalue = $(el).closest("tr").find(".value").attr("value");
+            var values = JSON.parse(lastvalue);
+            $("#user-prperty-edit-modal .key").val(lastkey);
+            //$("#user-prperty-edit-modal #value").val(lastvalue);
+
+            $.each(values, function (i, d) {
+                addRow('#user-prperty-edit-modal', d);
+            });
+            if (values.length == 0) {
+                addRow('#user-prperty-edit-modal');
+            }
+
+            $("#user-prperty-edit-modal").modal('show');
+            $("#user-prperty-edit-modal .modal-footer .btn-primary").unbind('click');
+            $("#user-prperty-edit-modal .modal-footer .btn-primary").on('click', function () {
+                var key = $("#user-prperty-edit-modal .key").val();
+                //var value = $("#user-prperty-edit-modal #value").val();
+                var values = [];
+                var ddd = $('#user-prperty-edit-modal .key-value-body .userprop-value');
+
+                $('#user-prperty-edit-modal .key-value-body .userprop-value').each(function () {
+                    values.push($(this).val());
+                });
+
+                //reset values
+                resetModalEdit();
+
+                $.ajax({
+                    type: "POST",
+                    url: app.urlPrefix + "Account/EditUserProperty",
+                    dataType: "json",
+                    contentType: 'application/json',
+                    traditional: true,
+                    data: JSON.stringify({ LastKey: lastkey, Key: key, Values: values, UserId: "@Model.Id", AllowUpdate: true, }),
+                    success: function (data) {
+                        if (data.Result) {
+                            $(el).closest("tr").find(".key").attr("value", data.Key);
+                            $(el).closest("tr").find(".key").text(data.Key);
+                            $(el).closest("tr").find(".value").attr("value", JSON.stringify(data.Values));
+                            $(el).closest("tr").find(".value").text(data.Values.join(", "));
+                        } else {
+                            alert(data.Message);
+                        }
+                    }
+                });
+
+            });
+        }
+
+        function showPropertyList(flag) {
+            if (flag) {
+                $("#empty-massage").hide();
+            } else {
+                $("#empty-massage").show();
+            }
+        }
+
+        var modalAdd = '\
+          <div id="user-prperty-modal" class="modal " role="dialog" tabindex="-1"\
+                    aria-hidden="true"  data-keyboard="false" data-backdrop="false" aria-describedby="desc">\
+            <div class="modal-dialog "  >\
+                <div class="modal-content">\
+                    <div class="modal-header">\
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
+                        <h4 class="modal-title"><span data-trans-key="متغیر جدید"> </span></h4>\
+                    </div>\
+                    <div class="modal-body">\
+                       <div class="key-value-body">\
+                            <p style="text-align: justify;">این متغیر را می توانید در تعریف نمودارها به عنوان شرط استفاده کنید. \
+                            در صورتی که برای کاربری متغیری وجود نداشته باشد \
+                            ولی در نمودار استفاده شده باشد مقدار صفر برای آن متغیر در نظر گرفته می شود </p>\
+                            <div class="row form-group">\
+                                <label class="col-md-3" for="modalInputMenu"><span data-trans-key="نام متغیر"> </span></label>\
+                                <div class="col-md-9">\
+                                    <input type="text" class="form-control key"  data-trans-key="نام متغیر" data-trans-attr="placeholder" >\
+                                </div>\
+                            </div>\
+                        </div>\
+                     </div>\
+                    <div class="modal-footer">\
+                        <button type="button" onclick="resetModalAdd()" class="btn btn-default" data-dismiss="modal"><span data-trans-key="انصراف"> </span></button>\
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><span data-trans-key="تأیید"> </span></button>\
+                    </div>\
+                </div>\
+            </div>\
+        </div>\
+    ';
+
+        $('#user-prperty-modal').remove();
+        app.contentSegmentModal.append(modalAdd);
+
+        $('#user-prperty-modal .modal-footer .btn-primary').on('click', function () {
+            var key = $("#user-prperty-modal .key").val();
+            if (key == "") { alert('نام متغیر نمی‌تواند خالی باشد'); return; }
+            var values = [];
+            $('#user-prperty-modal .key-value-body .userprop-value').each(function () {
+                values.push($(this).val());
+            });
+
+            resetModalAdd();
+
+            $.ajax({
+                type: "POST",
+                url: app.urlPrefix + "Account/AddUserProperty",
+                dataType: "json",
+                contentType: 'application/json',
+                traditional: true,
+                data: JSON.stringify({ Key: key, Values: values, UserId: "@Model.Id" }),
+                success: function (data) {
+                    if (data.Result) {
+                        tr = '<tr>\
+                        <td><label class="key"  value="' + key + '">' + key + '</label></td>\
+                        <td  value=\'' + JSON.stringify(values) + '\' class="pointer value">' + values.join(", ") + '</td>\
+                        <td style="min-width:75px">\
+                        <span onclick="DeleteUserProperty(this)" class="glyphicon glyphicon-trash pointer icon-btn"></span>\
+                        <span onclick="editUserProperty(this)" class="glyphicon glyphicon-pencil pointer icon-btn"></span></td>\
+                    </tr>';
+
+                        showPropertyList(true);
+                        $("#user-property-list").append(tr);
+                    } else {
+                        alert(data.Message);
+                    }
+                }
+            });
+
+
+        });
+
+        var valueRow = '<div class="row form-group value-row">\
+                        <label class="col-md-3" for="modalInputMenu"><span data-trans-key="مقدار متغیر"> </span></label>\
+                        <div class="col-md-9">\
+                            <div class="row">\
+                                <div class="col-md-8">\
+                                    <input type="text" class="form-control userprop-value"  data-trans-key="مقدار متغیر" data-trans-attr="placeholder" >\
+                                </div>\
+                                <div class="col-md-4">\
+                                    <div class="btn-group btn-group-justified">\
+                                        <a type="button" class="btn btn-default btn-plus"><span class="glyphicon glyphicon-plus"></span></a>\
+                                        <a type="button" class="btn btn-default btn-minus"><span class="glyphicon glyphicon-minus"></span></a>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>';
+
+        var disableMinus = function (selector) {
+            if ($(selector + ' .value-row').length <= 1) {
+                $(selector + ' .btn-minus').attr('disabled', 'disabled');
+            } else {
+                $(selector + ' .btn-minus').removeAttr('disabled');
+            }
+        }
+
+        var resetModalAdd = function () {
+            $('#user-prperty-modal .key-value-body .value-row:not(:first)').remove();
+            $('#user-prperty-modal .key-value-body .userprop-value').val("");
+            $('#user-prperty-modal .key').val("");
+        }
+
+        var resetModalEdit = function () {
+            $('#user-prperty-edit-modal .key-value-body .value-row').remove();
+            $('#user-prperty-edit-modal .key').val("");
+        }
+
+        var addRow = function (selector, data) {
+            var r = $(valueRow);
+            if (data) { r.find('input').val(data); }
+            r.find('.btn-minus').on('click', function () { r.remove(); disableMinus(selector); });
+            r.find('.btn-plus').on('click', function () { addRow(selector); });
+            $(selector + ' .key-value-body').append(r);
+            disableMinus(selector);
+        }
+
+        addRow('#user-prperty-modal');
+        disableMinus('#user-prperty-modal');
+        resetModalAdd();
+
+        var modalEdit = '\
+          <div id="user-prperty-edit-modal" class="modal " role="dialog" tabindex="-1"\
+                    aria-hidden="true"  data-keyboard="false" data-backdrop="false" aria-describedby="desc">\
+            <div class="modal-dialog "  >\
+                <div class="modal-content">\
+                    <div class="modal-header">\
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
+                        <h4 class="modal-title"><span data-trans-key="ویرایش متغیر"> </span></h4>\
+                    </div>\
+                    <div class="modal-body">\
+                        <div class="key-value-body">\
+                        <p style="text-align: justify;">این متغیر را می توانید در تعریف نمودارها به عنوان شرط استفاده کنید. \
+                        در صورتی که برای کاربری متغیری وجود نداشته باشد \
+                        ولی در نمودار استفاده شده باشد مقدار صفر برای آن متغیر در نظر گرفته می شود </p>\
+                        <div class="row form-group">\
+                            <label class="col-md-3" for="modalInputMenu"><span data-trans-key="نام متغیر"> </span></label>\
+                            <div class="col-md-9">\
+                                <input type="text" class="form-control key"  data-trans-key="نام متغیر" data-trans-attr="placeholder" >\
+                                </div>\
+                            </div>\
+                       </div>\
+               </div>\
+                    <div class="modal-footer">\
+                        <button type="button" onclick="resetModalEdit()" class="btn btn-default" data-dismiss="modal"><span data-trans-key="انصراف"> </span></button>\
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><span data-trans-key="تأیید"> </span></button>\
+                    </div>\
+                </div>\
+            </div>\
+        </div>\
+    ';
+        $("#user-prperty-edit-modal").remove();
+        app.contentSegmentModal.append(modalEdit);
+
+    </script>
+</div>

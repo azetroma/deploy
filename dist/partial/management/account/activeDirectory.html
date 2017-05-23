@@ -1,0 +1,143 @@
+﻿
+
+<div layout="row">
+    <md-content flex no-background>
+        <div layout="column" flex>
+
+            <md-card style="margin:40px; padding:16px" flex>
+                <div class="">
+                    <h3>{{'Active Directory Integration' | translate}}</h3>
+                </div>
+
+                <div layout-gt-sm="row">
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'سرور' | translate}}</label>
+                        <input required name="name" ng-model="ad.server">
+                        <div class="hint">نام سرور یا شماره آی پی سرور اکتیو دایرکتوری</div>
+
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'container' | translate}}</label>
+                        <input name="name" ng-model="ad.container">
+                        <div class="hint"> ریشه جستجو مثل DC=csroll,DC=local</div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'bind_option' | translate}}</label>
+                        <md-select name="name" ng-model="ad.bindOption">
+                            <md-option value="1">Negotiate</md-option>
+                            <md-option value="2">Simple Bind</md-option>
+                            <md-option value="4">Secure Socket Layer</md-option>
+                            <md-option value="8">Signing</md-option>
+                            <md-option value="16">Sealing</md-option>
+                            <md-option value="32">Server Bind</md-option>
+                        </md-select>
+                        <div class="hint">نوع ارتباط با سرور</div>
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'نام کاربری' | translate}}</label>
+                        <input required name="name" ng-model="ad.user">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'کلمه عبور' | translate}}</label>
+                        <input required name="name" ng-model="ad.pass" type="password">
+                    </md-input-container>
+
+                    <div layout="row" layout-align="center center" style="min-width:200px">
+                        <md-button class="md-primary" ng-click="ad.getList()" ng-hide="ad.progress" ng-disabled=" !ad.server || !ad.user || !ad.pass" flex-gt-sm>
+                            {{'دریافت لیست' | translate}}
+                        </md-button>
+
+                        <md-button ng-show="ad.progress" disabled="true" layout="row" layout-align="center center">
+                            {{'در حال دریافت ...' | translate}}
+                            <md-progress-circular md-mode='indeterminate' md-diameter="15" style="margin:0 10px">
+                            </md-progress-circular>
+                        </md-button>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <table class="sadaf-table" ng-show="ad.data">
+                        <tr>
+                            <th>
+                                <md-checkbox ng-model="selectAllCheckbox" ng-change="ad.selectAll(selectAllCheckbox)" aria-label="{{'select_all' | translate}}"></md-checkbox>
+                            </th>
+                            <th>#</th>
+                            <th>نام و نام خانوادگی</th>
+                            <th>نام کاربری</th>
+                        </tr>
+
+                        <tr ng-repeat="row in ad.data" ng-class="{active : row.select}" ng-click="row.select = !row.select; " ng-dblclick="goto(row, $event)">
+                            <td width="20">
+                                <md-checkbox ng-model="row.select" ng-click=" $event.stopPropagation()" ng-change="" aria-label="{{'select' | translate}}"></md-checkbox>
+                            </td>
+                            <td width="20">{{utils.persian($index+1)}}</td>
+                            <td><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.DisplayName}}</span></td>
+                            <td><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.SamAccountName}}</span></td>
+
+                        </tr>
+
+                    </table>
+
+
+                    <div layout-padding style="background-color:#fafafa" ng-show="ad.data">
+                        <collapse>
+                            <collapse-header>{{'roles' | translate}}</collapse-header>
+                            <collapse-body>
+                                <div style="margin:0 20px">
+                                    <div ng-repeat="r in ad.roles">
+                                        <md-checkbox ng-model="r.check">{{r.name}}</md-checkbox>
+                                    </div>
+                                </div>
+                            </collapse-body>
+                        </collapse>
+                    </div>
+
+                    <div style="margin:20px" ng-show="(ad.roles|filter:{check:true}).length && ad.data">
+                        نقش‌های انتخاب شده
+
+                        <div class="inline" ng-repeat="s in ad.roles|filter:{check:true}">
+                            <div class="chip">
+                                {{s.name}}
+                                <span class="closebtn" ng-click="s.check = false">&times;</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <md-card ng-show="ad.error" layout="row" flex>
+                        <md-content style="background-color:#f2dede" flex layout-padding>
+                            <div class="" style="float:left; cursor:pointer" ng-click="ad.error=null"><span aria-hidden="true">&times;</span></div>
+                            <strong>خطا!</strong>کاربرهای زیر قبلا در سیستم ثبت شده‌اند و امکان ثبت دوباره آن‌ها وجود ندارد. مابقی کاربران با موفقیت به سیستم اضافه شدند. <span ng-bind-html="ad.error"></span>
+                        </md-content>
+                    </md-card>
+
+
+                    <div style="text-align: left;margin: 30px 0;" ng-show="ad.data">
+                        <md-button ng-click="ad.saveSelectedUsers()" ng-hide="ad.saveProgress" ng-disabled="!(ad.data|filter:{select:true}).length" class="md-raised md-primary">
+                            {{'اضافه کردن به لیست کاربران'|translate}}
+                        </md-button>
+
+                        <md-button ng-show="ad.saveProgress" disabled="true">
+                            {{'در حال ارسال ...' | translate}}
+                            <md-progress-circular md-mode='indeterminate' md-diameter="15" style="margin:0 10px; display:inline-block"></md-progress-circular>
+                        </md-button>
+
+                    </div>
+                </div>
+
+
+
+
+            </md-card>
+        </div>
+    </md-content>
+</div>

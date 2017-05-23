@@ -1,0 +1,261 @@
+﻿@{
+    Layout = "~/views/shared/main.cshtml";
+}
+
+@if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
+    <script src="~/src/js/charts/ChartCommons.js"></script>
+    <script src="~/src/js/charts/d3-utils.js"></script>
+    <script src="~/src/js/charts/filterMemberDialog.js"></script>
+    <script src="~/src/js/charts/jquery.sit.BarChart.js"></script>
+    <script src="~/src/js/charts/jquery.sit.Chart.js"></script>
+    <script src="~/src/js/charts/jquery.sit.Gauge.js"></script>
+    <script src="~/src/js/charts/jquery.sit.Map.js"></script>
+    <script src="~/src/js/charts/jquery.sit.PieChart.js"></script>
+    <script src="~/src/js/charts/jquery.sit.Radar.js"></script>
+    <script src="~/src/js/charts/jquery.sit.Table.js"></script>
+    <script src="~/src/js/charts/jquery.sit.Tree.js"></script>
+    <script src="~/src/js/charts/jquery.sit.UserControl.js"></script>
+    <script src="~/src/js/charts/tipsy.js"></script>
+
+} else {
+    <script src="~/dist/js/charts.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+}
+
+<link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version" rel="stylesheet" />
+
+<div class="sadaf-root" ng-app="sadaf" ng-cloak>
+    <input type="hidden" value="@ViewBag.lang" id="lang" />
+    <div class="container-fluid" ng-controller="dashboardPageCtrl">
+        <ng-include src="'@Href("~")dist/partial/dashboardPage/navbar/navbar.html'"></ng-include>
+
+        <div class="hidden-md hidden-lg drawer-menu" style="background-color:#FAFAFA">
+            <style>
+                .menu-title {
+                    background-color: #FAFAFA;
+                    padding: 8px 12px;
+                    font-weight: bold;
+                }
+
+                    .menu-title:hover {
+                        background-color: #e0e0e0;
+                    }
+
+                .menu-item.active {
+                    border-right: 4px solid #FFB74D;
+                    background-color: #efefef;
+                }
+
+                .menu-title a {
+                    color: #414141;
+                }
+
+                .menu-group:not(:first-child) {
+                    border-top: 1px solid #e0e0e0;
+                }
+
+                .menu-item {
+                    background-color: #FAFAFA;
+                    padding: 12px 12px;
+                }
+
+                    .menu-item:hover {
+                        background-color: #e0e0e0;
+                    }
+
+                    .menu-item .glyphicon-cog {
+                        color: #b6b3b3;
+                    }
+
+                    .menu-item a {
+                        color: #414141;
+                    }
+            </style>
+
+            <div>
+                <div class=" adobe mid-font" ui-sortable="sortableCatOptions">
+                    <div class="menu-group" ng-repeat="mc in menuCategories.data" data-id="{{mc.category.Id}}">
+                        <div class="over-show btn-group full-width icon-menu-toolbar-container menu-title">
+                            <a class="accordion-toggle adobe mid-font pointer " data-toggle="collapse" data-target="#menu-category-body-{{mc.category.Id}}-mob">{{mc.category.Name}}</a>
+                            <div class="icon-menu-toolbar" ng-show="mc.hasAddPer ||mc.hasEditPer ||mc.hasDeletePer">
+                                <span class="glyphicon glyphicon-cog icon-btn pointer small-icon show-node dropdown-toggle" style="margin: 4px 0 0 0;" data-toggle="dropdown"></span>
+                                <ul class="dropdown-menu  pull-right" role="menu">
+                                    <li ng-show="mc.hasAddPer">
+                                        <a ng-click="addMenuToCategory(mc)" class="pointer">
+                                            <span class="glyphicon glyphicon-plus"></span> {{'اضافه کردن صفحه جدید' | translate}}
+                                        </a>
+                                    </li>
+                                    <li ng-show="mc.hasEditPer">
+                                        <a ng-click="editCategory(mc)" class="pointer">
+                                            <span class="glyphicon glyphicon-pencil"></span> {{'تغییر نام' | translate}}
+                                        </a>
+                                    </li>
+                                    <li ng-show="mc.hasDeletePer">
+                                        <a ng-click="deleteCategory(mc, $index)" class="pointer">
+                                            <span class="glyphicon glyphicon-trash"></span> {{'حذف' | translate}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="menu-category-body-{{mc.category.Id}}-mob" class=" collapse" ng-class="{in: mc.isOpen}">
+                            <div class=" " ui-sortable="sortableOptions">
+                                <div class="menu-item over-show icon-menu-toolbar-container dashboard-page" ng-repeat="m in mc.menus" ng-class="{active: m.active}" data-id="{{m.menu.Id}}">
+                                    <a class="simple-link clear " href="#dashboard/{{m.menu.Id}}" ng-click="">{{m.menu.Name}}</a>
+                                    <div class="icon-menu-toolbar" style="padding-top:4px;" ng-show="m.hasEditPer || m.hasDeletePer">
+                                        <span type="button" class="glyphicon glyphicon-cog icon-btn pointer small-icon dropdown-toggle show-node" data-toggle="dropdown"></span>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li ng-show="m.hasEditPer"><a class="pointer" ng-click="editMenu(m)"><span class="glyphicon glyphicon-pencil"></span> {{'تغییر نام' | translate}}</a></li>
+                                            <li ng-show="m.hasDeletePer"><a class="pointer" ng-click="deleteMenu(m, mc, $index)"> <span class="glyphicon glyphicon-trash"></span> {{'حذف' | translate}}</a></li>
+                                            <li ng-show="m.hasEditPer"><a class="pointer" ng-click="duplicateMenu(m, mc)"> <span class="glyphicon glyphicon-plus"></span> {{'تکرار' | translate}}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="btn btn-link" ng-click="addCat()" style="margin: 0px 10px;" ng-show="menuCategories.hasAddPer">
+                    {{'add new group' | translate}}
+                    <span class="glyphicon glyphicon-plus"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row " style=" min-height: 350px;">
+            <div class="col-md-2 side-menu visible-md-block visible-lg-block" style="padding-top:10px">
+                <div id="side-navigation2" class="panel-group">
+                    <div class="panel-group adobe mid-font" id="accordion2" ui-sortable="sortableCatOptions">
+
+                        <div ng-repeat="mc in menuCategories.data" class="panel panel-default menu-categori"  data-id="{{mc.category.Id}}">
+                            <div class="panel-heading" style="padding:5px 0">
+                                <div class="panel-title over-show btn-group full-width icon-menu-toolbar-container">
+                                    <a class="accordion-toggle adobe mid-font pointer" data-toggle="collapse" data-target="#menu-category-body-{{mc.category.Id}}">{{mc.category.Name}}</a>
+                                    <div class="icon-menu-toolbar" ng-show="mc.hasAddPer ||mc.hasEditPer ||mc.hasDeletePer">
+                                        <span class="glyphicon glyphicon-cog icon-btn pointer small-icon show-node dropdown-toggle" style="margin: 4px 0 0 0;" data-toggle="dropdown"></span>
+                                        <ul class="dropdown-menu  pull-right" role="menu">
+                                            <li ng-show="mc.hasAddPer">
+                                                <a ng-click="addMenuToCategory(mc)" class="pointer">
+                                                    <span class="glyphicon glyphicon-plus"></span> {{'اضافه کردن صفحه جدید' | translate}}
+                                                </a>
+                                            </li>
+                                            <li ng-show="mc.hasEditPer">
+                                                <a ng-click="editCategory(mc)" class="pointer">
+                                                    <span class="glyphicon glyphicon-pencil"></span> {{'تغییر نام' | translate}}
+                                                </a>
+                                            </li>
+                                            <li ng-show="mc.hasDeletePer">
+                                                <a ng-click="deleteCategory(mc, $index)" class="pointer">
+                                                    <span class="glyphicon glyphicon-trash"></span> {{'حذف' | translate}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="menu-category-body-{{mc.category.Id}}" class="panel-collapse collapse" ng-class="{in: mc.isOpen}">
+                                <div class="panel-body xui-sortable" ui-sortable="sortableOptions">
+                                    <div class="over-show icon-menu-toolbar-container dashboard-page" ng-repeat="m in mc.menus" ng-class="{active: m.active}" data-id="{{m.menu.Id}}">
+                                        <a class="simple-link clear " href="#dashboard/{{m.menu.Id}}" ng-click="">{{m.menu.Name}}</a>
+                                        <div class="icon-menu-toolbar" style="padding-top:4px;" ng-show="m.hasEditPer || m.hasDeletePer">
+                                            <span type="button" class="glyphicon glyphicon-cog icon-btn pointer small-icon dropdown-toggle show-node" data-toggle="dropdown"></span>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li ng-show="m.hasEditPer"><a class="pointer" ng-click="editMenu(m)"><span class="glyphicon glyphicon-pencil"></span> {{'تغییر نام' | translate}}</a></li>
+                                                <li ng-show="m.hasDeletePer"><a class="pointer" ng-click="deleteMenu(m, mc, $index)"> <span class="glyphicon glyphicon-trash"></span> {{'حذف' | translate}}</a></li>
+                                                <li ng-show="m.hasEditPer"><a class="pointer" ng-click="duplicateMenu(m, mc)"> <span class="glyphicon glyphicon-plus"></span> {{'تکرار' | translate}}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="btn btn-link" ng-click="addCat()" style="margin: 0px 10px;" ng-show="menuCategories.hasAddPer">
+                        {{'add new group' | translate}}
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-10 contain-body">
+                <div id="content_segment"></div>
+                <div id="content_segmentModal"></div>
+
+                <ng-view></ng-view>
+            </div>
+
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="dashboard-page-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p ng-show="modal.body" ng-bind-html="modal.body"></p>
+                        <div class="form-group" ng-show="modal.label">
+                            <label>{{modal.label}}</label>
+                            <input ng-model="modal.val" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="alert alert-danger" ng-show="modal.error">
+                            <div ng-show="modal.error.title">
+                                <b>{{modal.error.title}}</b>
+                                <p>{{modal.error.desc}}</p>
+                            </div>
+                            <div ng-hide="modal.error.title" ng-bind-html="modal.error">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{'انصراف' | translate}}</button>
+                        <button type="button" class="btn {{modal.btnClass}}" ng-class="{disabled: modal.inProgress}" ng-click="modal.ok()">{{modal.btnText}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer">
+            <p><a href="http://www.sadafdashboard.ir" target="_blank">{{'copyright' | translate}}</a></p>
+        </div>
+    </footer>
+    <div id="divAjaxErr">
+        <div id="content" dir="ltr"></div>
+    </div>
+
+</div>
+
+
+@if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
+    <script src="~/src/js/dashboardPage/navbar/navbar.js"></script>
+    <script src="~/src/js/collapse.js"></script>
+    <script src="~/src/js/dashboard-app.js"></script>
+    <script src="~/src/js/heartBeat.js"></script>
+    <script src="~/src/js/dashboardPage/filterBox.js"></script>
+    <script src="~/src/js/dashboardPage/DashboardPageUtils.js"></script>
+    <script src="~/src/js/dashboardPage/dashboardLayout.js"></script>
+    <script src="~/src/js/dashboardPage/dashboardPage.js"></script>
+    <script src="~/src/js/dashboardPage/app.js"></script>
+    <script src="~/src/js/dashboardPage/bootstrap.sit.helper.js"></script>
+    <script src="~/src/js/dashboardPage/globalVariableHelper.js"></script>
+    <script src="~/src/js/dashboardPage/packages.js"></script>
+    <script src="~/src/js/dashboardPage/JqueryHelper.js"></script>
+
+} else {
+    <script src="~/dist/js/dashboard-app.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+}
+
+<script>
+    var userVariable = @Html.Raw(Json.Encode(ViewBag.userVariable));
+    if(_.isArray(userVariable)){
+        localStorage.setItem('userVariable',JSON.stringify( userVariable));
+    }
+
+    localStorage.setItem('defaultDashboard','@ViewBag.defaultDashboard');
+</script>

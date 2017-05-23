@@ -1,0 +1,63 @@
+﻿<div layout="row">
+    <md-content flex no-background>
+        <div layout="column" flex>
+
+            <md-card style="margin:40px; padding:16px" flex>
+
+                <div class="">
+                    <h3 style="margin-bottom:40px">{{'تنظیمات کلی برنامه' | translate}}</h3>
+                </div>
+
+                <div flex="50">
+
+
+                    <md-input-container class="md-block">
+                        <label>{{'نام سازمان' | translate}}</label>
+                        <input required name="name" ng-model="brand">
+                    </md-input-container>
+
+
+                    <!--<md-input-container class="md-block">
+                        <label>{{'زبان' | translate}}</label>
+                        <md-select ng-model="language">
+                            <md-option ng-repeat="i in langs" value="{{i.key}}">{{i.value}}</md-option>
+                        </md-select>
+                    </md-input-container>-->
+
+
+
+                    <div class="alert alert-warning" role="alert" ng-show="error">
+                        <button type="button" class="close" ng-click="error=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>خطا!</strong> <span ng-bind-html="error"></span>
+                    </div>
+
+
+                    <div layout="row">
+
+                        <md-button ng-click="save($event)" ng-disabled="saveProgress">
+                            {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+                        </md-button>
+
+                        <md-button ng-click="cancel()">
+                            {{'cancel' | translate}}
+                        </md-button>
+
+
+                    </div>
+                </div>
+
+
+
+            </md-card>
+        </div>
+    </md-content>
+</div>
+
+
+<!--<div flex layout="column">
+    <md-content layout-margin flex>
+
+
+    </md-content>
+
+</div>-->

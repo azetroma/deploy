@@ -1,0 +1,315 @@
+<menu-container  open-menu-name="openMenuName">
+
+    <menu-item>
+        <menu-header>{{ 'تنظیمات کلی' | translate }}</menu-header>
+        <menu-body>
+            <div>
+
+                <input type="hidden" data-prop="canExportXlsx" value="true" />
+
+                <general-settings ng-model="ngModel.table.info"></general-settings>
+
+
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'نوع تجمیع' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class=" selectpicker-x form-control" ng-change="chagePivotFormula(ngModel.table.info.aggregation); refreshChart('refreshWithData')"
+                                ng-model="ngModel.table.info.aggregation">
+                            <option value="-1" selected="selected">{{ 'بدون تجمیع' | translate }}</option>
+                            <option value="1">{{ 'حالت تجمیعی' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.table.info.aggregation!=-1">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.table.info.sortMeasures" ng-change="refreshChart('refreshWithData')" />{{ 'مرتب کردن شاخص‌ها در حالت تجمیع' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.table.info.aggregation==-1">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox"
+                                       ng-model="ngModel.table.info.useDistinct"
+                                       ng-change="setTableInfoLimit(ngModel.table.info.limit, ngModel.table.info.useDistinct);refreshChart()" />{{ 'یکی کردن ردیف‌های تکراری' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.table.info.aggregation==-1">
+                    <label class="col-sm-4">{{ 'تعدد ردیف در هر صفحه' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <input type="number" class="form-control" placeholder="{{ 'تعدد ردیف' | translate }}" ng-change="setTableInfoLimit(ngModel.table.info.limit, ngModel.table.info.useDistinct);refreshChart(); "
+                               ng-model-options="{ updateOn: 'blur' }"
+                               ng-model="ngModel.table.info.limit" />
+                    </div>
+                </div>
+
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showRowNumber" />{{ 'نمایش شماره ردیف' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showHeader" />{{ 'نمایش نام ستون‌ها' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.condensed" />{{ 'نمایش فشرده‌تر ردیف‌ها' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.bordered" />{{ 'نمایش خط‌های حاشیه‌ای' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.stripped" />{{ 'یکی در میان پررنگ کردن' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.hover" />{{ 'پررنگ کردن ردیف با حرکت موس' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'انتخاب داده‌ها' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class=" selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.selectable">
+                            <option value="none">{{ 'عدم انتخاب' | translate }}</option>
+                            <option value="one">{{ 'یک مقدار' | translate }}</option>
+                            <option value="multi">{{ 'چند مقدار' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div ng-show="ngModel.table.info.aggregation==-1">
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.rowAsKey" />{{ 'داشتن یک مقدار برای کل ردیف' | translate }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.table.info.rowAsKey">
+                        <label class="col-sm-4">{{ 'کلید' | translate }}</label>
+                        <span class="form-divider" flex></span><div class="col-sm-8">
+                            <select class="form-control" ng-model="ngModel.table.info.rowKey" ng-options="i as i for i in ngModel.series track by  i"></select>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </menu-body>
+    </menu-item>
+
+    <menu-item ng-show="ngModel.series && ngModel.series.length>0" name="series">
+        <menu-header>{{ 'مشخصات شاخص‌ها' | translate }}</menu-header>
+        <menu-body>
+            <div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'شاخص' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select id="series-selector" class="selectpicker-x form-control" ng-model="ngModel.selectedSeries"
+                                ng-options="i as i for i in ['{All}'].concat(ngModel.series) track by i"></select>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'نام شاخص' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="{{ 'نام شاخص' | translate }}" ng-change="refreshChart('refresh')"
+                               ng-model-options="{ updateOn: 'blur' }"
+                               ng-model="ngModel.table.series[ngModel.selectedSeries].name" />
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.table.info.aggregation==-1">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('cumulative')" ng-model="ngModel.table.series[ngModel.selectedSeries].isHtml" />{{ 'table_is_html' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'چیدمان متن' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <div class="col-sm-8">
+                        <div class="sadaf-group">
+                            <label class="sadaf-group-item"
+                                   ng-class="ngModel.table.series[ngModel.selectedSeries].textAlign==i.t?'active':''"
+                                   ng-repeat="i in [{t:'right', n:'format_align_right'},
+                                                    {t:'center', n:'format_align_center'},
+                                                    {t:'left', n:'format_align_left'},
+                                                    {t:'justify', n:'format_align_justify'}]"
+                                   ng-click="ngModel.table.series[ngModel.selectedSeries].textAlign=i.t;refreshChart('refresh'); changeAllSeries('textAlign')">
+                                <span class="material-icons">{{i.n}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'قالب نوشته‌' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class="selectpicker-x form-control" ng-change="refreshChart('refresh'); changeAllSeries('formatString')" ng-model="ngModel.table.series[ngModel.selectedSeries].formatString">
+                            <option value="A">{{ 'عادی' | translate }}</option>
+                            <option value="%">{{ 'درصد' | translate }}</option>
+                            <option value=",.0f">#,#</option>
+                            <option value=",.1f">#,#.0</option>
+                            <option value=",.2f" selected="selected">#,#.00</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'اندازه نوشته' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select ng-change="refreshChart('refresh'); changeAllSeries('fontSize')" ng-model="ngModel.table.series[ngModel.selectedSeries].fontSize" class="selectpicker-x form-control">
+                            <option value="0.8em">{{ 'خیلی کوچک' | translate }}</option>
+                            <option value="0.9em">{{ 'کوچک' | translate }}</option>
+                            <option value="1em" selected="selected">{{ 'متوسط' | translate }}</option>
+                            <option value="1.2em">{{ 'بزرگ' | translate }}</option>
+                            <option value="1.5em">{{ 'خیلی بزرگ' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'حالت نوشته' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <switch-button ng-model="ngModel.table.series[ngModel.selectedSeries].textBold" ng-click="refreshChart('refresh'); changeAllSeries('textBold') ">
+                        <span><strong>B</strong></span>
+                    </switch-button>
+                    <switch-button ng-model="ngModel.table.series[ngModel.selectedSeries].textItalic" ng-click="refreshChart('refresh'); changeAllSeries('textItalic')">
+                        <span style="font-style:italic">I</span>
+                    </switch-button>
+
+
+                    <!--<div class="col-sm-8">
+                        <div class="btn-group btn-group-justified">
+                            <label class="btn btn-default"
+                                   ng-class="ngModel.table.series[ngModel.selectedSeries].textBold?'active':''"
+                                   ng-click="ngModel.table.series[ngModel.selectedSeries].textBold=!ngModel.table.series[ngModel.selectedSeries].textBold;refreshChart('refresh'); changeAllSeries('textBold')">
+                                <span class="glyphicon glyphicon-bold"></span>
+                            </label>
+                            <label class="btn btn-default"
+                                   ng-class="ngModel.table.series[ngModel.selectedSeries].textItalic?'active':''"
+                                   ng-click="ngModel.table.series[ngModel.selectedSeries].textItalic=!ngModel.table.series[ngModel.selectedSeries].textItalic;refreshChart('refresh'); changeAllSeries('textItalic')">
+                                <span class="glyphicon glyphicon-italic"></span>
+                            </label>
+                        </div>
+                    </div>-->
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'رنگ نوشته' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    
+                    <div md-color-picker ng-model="ngModel.table.series[ngModel.selectedSeries].color" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
+                    
+                    <!--<div class="col-sm-8">
+                        <div class="color-palet form-control"
+                             ng-style="{'background-color':ngModel.table.series[ngModel.selectedSeries].color}"
+                             ng-click="changeColor($event, ngModel.table.series[ngModel.selectedSeries], 'color'); ">
+                        </div>
+
+                    </div>-->
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'ردیف نتیجه' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class="selectpicker-x form-control" ng-change="refreshChart('refreshWithData'); changeAllSeries('rowResult')" ng-model="ngModel.table.series[ngModel.selectedSeries].rowResult">
+                            <option value="0" selected="selected">{{ 'خالی' | translate }}</option>
+                            <option value="1">{{ 'جمع' | translate }}</option>
+                            <option value="2">{{ 'میانگین' | translate }}</option>
+                            <option value="3">{{ 'تعداد' | translate }}</option>
+                            <option value="4">{{ 'کمترین' | translate }}</option>
+                            <option value="5">{{ 'بیشترین' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('isHidden')" ng-model="ngModel.table.series[ngModel.selectedSeries].isHidden" />{{ 'مخفی کردن ستون' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <top-measure ng-model="ngModel.table.series[ngModel.selectedSeries].top" ng-change="refreshChart('refreshWithData');"></top-measure>
+
+            </div>
+        </menu-body>
+    </menu-item>
+
+    <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'table', show:[1,2,3,4,5]}"></table-indicator>
+
+    <global-variable dimensions="dimensions" measures="measures" prop="ngModel"></global-variable>
+
+    <dim-meas-where model="openMenuName" ng-if="!isOlap" dimensions="dimensions" measures="measures" where="where" datasource="datasource"></dim-meas-where>
+
+    <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
+
+    <calculate-fields calculated-fields="calculatedFields"></calculate-fields>
+</menu-container>
+

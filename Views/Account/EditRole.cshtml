@@ -1,0 +1,520 @@
+@model BLL.Security.Roles.EditRoleModel
+
+@{
+    Layout = null;
+}
+<div class="container-fluid">
+
+    <div class="page-header">
+        @*<h1 id="forms"><span data-trans-key='به‌روز رسانی نقش'> </span><a class="btn btn-danger pull-right col-md-2 " data-toggle="modal" href="#deleteRoleModal"><span data-trans-key='حذف نقش'> </span></a>
+        </h1>*@
+
+        <div class="row">
+            <div class="col-md-10">
+                <h1 id="forms" style="margin: 0"><span data-trans-key='به‌روز رسانی نقش'> </span></h1>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-danger form-control" data-toggle="modal" href="#deleteRoleModal"><span data-trans-key='حذف نقش'> </span></a>
+            </div>
+        </div>
+
+
+    </div>
+    <script>
+
+        function deleteRole(link) {
+            $.post(link, null, function (data) {
+                if (!data.result) {
+                    $('#deleteRoleModal').on('hidden.bs.modal', function (e) {
+                        app.setContent(data.content);
+                    });
+                } else {
+                    window.history.back();
+                }
+                $("#deleteRoleModal").modal('hide');
+                //app.setContent(data);
+                //app.router.navigate("Account/RolesList");
+            });
+        }
+
+        function saveEditedRole() {
+            var s = $("#editRoleForm").serialize();
+            s += "&Id=@Model.Id";
+            link = '@Url.Action("EditRole")';
+            $.post(link, s, function (data) {
+                if (!data.result) {
+                    app.setContent(data.content);
+                } else {
+                    window.history.back();
+                }
+
+                //app.router.navigate("Account/RolesList");
+                //app.setContent(data);
+            });
+
+        }
+
+        function validateFormOnSubmit(form) {
+            saveEditedRole();
+            return false;
+        }
+
+        (function ($) {
+            $(".form-group").each(function () {
+                var f = $(this).find(".field-validation-error").first();
+                if (f.length > 0) {
+                    f.addClass("control-label");
+                    $(this).addClass("has-error");
+                }
+            });
+            app.contentSegmentModal.createModal({
+                id: "deleteRoleModal",
+                title: "حذف نقش",
+                body: 'آیا مطمئن هستید که می‌خواهید این نقش حذف شود؟',
+                okText: "حذف",
+                okFun: "deleteRole('@Url.Action("DeleteRole")?RoleId=@Model.Id')",
+                okClass: "btn-danger",
+                cancelText: "انصراف",
+            });
+
+            $(" tr input").each(function () {
+                changeColor($(this).prop('checked'), $(this).closest('tr'));
+            });
+            $(" tr input").change(function () {
+                changeColor(this.checked, $(this).closest('tr'));
+            });
+            function changeColor(t, obj) {
+                if (t) { obj.find('select').css('visibility', 'visible').attr("disabled", null); }
+                else { obj.find('select').css('visibility', 'hidden').attr("disabled", ""); }
+            }
+
+            $(" table thead input").change(function () {
+                var isChecked = this.checked;
+                $(this).closest("table").find("tr input").each(function () {
+                    $(this).prop("checked", isChecked);
+                    changeColor(this.checked, $(this).closest('tr'));
+                });
+            });
+
+        })($);
+    </script>
+
+
+    <form method="post" role="form" id="editRoleForm" class="form-horizontal" onsubmit="return validateFormOnSubmit(this);">
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-7">
+            @if (!ViewData.ModelState.IsValid) {
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    @Html.ValidationSummary()
+                </div>
+            }
+            @{
+                if (TempData["messageInfo"] != null) {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        @Html.Raw(@TempData["messageInfo"])
+                    </div>
+                }
+                if (TempData["messageError"] != null) {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        @Html.Raw(@TempData["messageError"])
+                    </div>
+                }
+            }
+
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.RoleName, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8 ">
+                    @Html.TextBoxFor(m => m.RoleName, new { @class = "form-control", @placeholder = @Html.DisplayNameFor(m => m.RoleName), @Value = Model.RoleName })
+                    @Html.ValidationMessageFor(m => m.RoleName)
+                </div>
+            </div>
+
+            @if (ViewBag.Menus_sub != null) {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FirstMenuId, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8 ">
+                        @Html.DropDownListFor(m => m.FirstMenuId,
+                ((List<EDMs.tbl_Menus>)ViewBag.Menus_sub).Select(n => {
+                    return new SelectListItem { Text = n.Name, Value = n.Id + "", Selected = n.Id == Model.FirstMenuId, };
+                }).ToList(), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.RoleName)
+                    </div>
+                </div>
+            }
+
+
+            <div class="panel-group" id="accordion">
+
+                @*اکوردین مربوط به انتخاب کاربران*@
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 style="margin-bottom: 10px; margin-top: 10px;">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span data-trans-key='انتخاب کاربران'> </span></a>
+                        </h3>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox"><span data-trans-key='انتخاب همه'> </span></th>
+                                    </tr>
+                                </thead>
+                                @if (ViewBag.Users != null) {
+                                    foreach (var s in ViewBag.Users) {
+                                        var isChecked = "";
+                                        if (Model != null && Model.Users != null) {
+                                            foreach (var role in Model.Users) {
+                                                if (role == s.Id) {
+                                                    isChecked = "Checked = 'checked'";
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        <tr>
+                                            <td>
+                                                <label style="font-weight: normal; font-size: 1em;">
+                                                    <input type="checkbox" name="Users" value="@s.Id" @isChecked>
+                                                    @s.Username
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                @*اکوردین مربوط به انتخاب منابع داده*@
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 style="margin-bottom: 10px; margin-top: 10px;">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span data-trans-key='انتخاب منابع داده'> </span></a>
+                        </h3>
+                    </div>
+                    <div id="collapseFive" class="panel-collapse collapse ">
+                        <div class="panel-body">
+
+
+                            <table class="table table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox"><span data-trans-key='انتخاب همه'> </span></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                @if (ViewBag.Datasources != null) {
+                                    foreach (var s in ViewBag.Datasources) {
+                                        var isChecked = "";
+                                        var action = 0;
+                                        if (Model != null && Model.DatasourceActions != null) {
+                                            foreach (var item in Model.DatasourceActions) {
+                                                var p = item.Split('-');
+                                                var chartId = int.Parse(p[1]);
+                                                if (s.Id == chartId) {
+                                                    isChecked = "Checked='checked'";
+                                                    action = BLL.Security.Permissions.Actions.View == int.Parse(p[0]) ? 1 :
+                                                        BLL.Security.Permissions.Actions.Edit == int.Parse(p[0]) ? 2 : 3;
+                                                }
+                                            }
+                                        }
+                                        <tr>
+                                            <td style="vertical-align: middle">
+                                                <label style="font-weight: normal; font-size: 1em;">
+
+                                                    <input type="checkbox" name="Datasources" value="@s.Id" @isChecked>
+                                                    @*@(ChartHelper.chartType(s.Type)) *@ 
+                                                    @s.Name
+                                                </label>
+                                            </td>
+
+                                            <td>
+                                                <select class="form-control" name="DatasourceActions">
+                                                    <option value="@(@BLL.Security.Permissions.Actions.View)-@s.Id" @(action == 1 ? "selected" : "") data-trans-key='مشاهده'></option>
+                                                    <option value="@(@BLL.Security.Permissions.Actions.Edit)-@s.Id" @(action == 2 ? "selected" : "") data-trans-key='مشاهده و ویرایش'></option>
+                                                    <option value="@(@BLL.Security.Permissions.Actions.Delete)-@s.Id" @(action == 3 ? "selected" : "") data-trans-key='مشاهده، ویرایش و حذف'></option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+
+
+
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                @*اکوردین مربوط به انتخاب نمودارها*@
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 style="margin-bottom: 10px; margin-top: 10px;">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span data-trans-key='انتخاب نمودارها'> </span></a>
+                        </h3>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse ">
+                        <div class="panel-body">
+
+
+                            <table class="table table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox"><span data-trans-key='انتخاب همه'> </span></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                @if (ViewBag.Charts != null) {
+                                    foreach (var s in ViewBag.Charts) {
+                                        var isChecked = "";
+                                        var action = 0;
+                                        if (Model != null && Model.ChartActions != null) {
+                                            foreach (var item in Model.ChartActions) {
+                                                var p = item.Split('-');
+                                                var chartId = int.Parse(p[1]);
+                                                if (s.Id == chartId) {
+                                                    isChecked = "Checked='checked'";
+                                                    action = BLL.Security.Permissions.Actions.View == int.Parse(p[0]) ? 1 :
+                                                        BLL.Security.Permissions.Actions.Edit == int.Parse(p[0]) ? 2 : 3;
+                                                }
+                                            }
+                                        }
+                                        <tr>
+                                            <td style="vertical-align: middle">
+                                                <label style="font-weight: normal; font-size: 1em;">
+
+                                                    <input type="checkbox" name="Charts" value="@s.Id" @isChecked>
+                                                    @(ChartHelper.chartType(s.Type)) @s.Name
+                                                </label>
+                                            </td>
+
+                                            <td>
+                                                <select class="form-control" name="ChartActions">
+                                                    <option value="@(@BLL.Security.Permissions.Actions.View)-@s.Id" @(action == 1 ? "selected" : "") data-trans-key='مشاهده'></option>
+                                                    <option value="@(@BLL.Security.Permissions.Actions.Edit)-@s.Id" @(action == 2 ? "selected" : "") data-trans-key='مشاهده و ویرایش'></option>
+                                                    <option value="@(@BLL.Security.Permissions.Actions.Delete)-@s.Id" @(action == 3 ? "selected" : "") data-trans-key='مشاهده، ویرایش و حذف'></option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+
+
+
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                @*اکوردین مربوط به انتخاب منوها*@
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 style="margin-bottom: 10px; margin-top: 10px;">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span data-trans-key='انتخاب منوها'> </span></a>
+                        </h3>
+
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse ">
+                        <div class="panel-body">
+
+                            <table class="table table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox"><span data-trans-key='انتخاب همه'> </span></th>
+                                    </tr>
+                                </thead>
+
+                                @if (ViewBag.Menus != null) {
+                                    foreach (EDMs.tbl_MainMenus s in ViewBag.Menus) {
+                                        if (@s.Type != BLL.Process.MainMenu.TYPE_DASHBOARDS) { break; }
+
+                                        var isChecked = "";
+                                        var action = 0;
+
+                                        foreach (var mc in s.tbl_MenuCategories) {
+                                            if (@mc.Type != BLL.Process.MenuCategory.TypeDashboard) { break; }
+                                            isChecked = "";
+                                            action = 0;
+                                            if (Model != null && Model.MenuCategoryActions != null) {
+                                                foreach (var item in Model.MenuCategoryActions) {
+                                                    var p = item.Split('-');
+                                                    var id = int.Parse(p[1]);
+                                                    if (mc.Id == id) {
+                                                        isChecked = "Checked='checked'";
+                                                        action = BLL.Security.Permissions.Actions.View == int.Parse(p[0]) ? 1 :
+                                                            BLL.Security.Permissions.Actions.Edit == int.Parse(p[0]) ? 2 : 3;
+                                                    }
+                                                }
+                                            }
+                                            <tr>
+                                                <td style="vertical-align: middle">
+                                                    <label style="font-weight: normal; font-size: 1em;">
+                                                        <input type="checkbox" name="Charts" value="@s.Id" @isChecked>
+                                                        @mc.Name
+                                                        <span class="label label-info"><span data-trans-key='گروه منو'> </span></span>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control" name="MenuCategoryActions">
+                                                        <option value="@(BLL.Security.Permissions.Actions.View)-@mc.Id" @(action == 1 ? "selected" : "") data-trans-key='مشاهده'></option>
+                                                        <option value="@(BLL.Security.Permissions.Actions.Edit)-@mc.Id" @(action == 2 ? "selected" : "") data-trans-key='مشاهده و ویرایش'></option>
+                                                        <option value="@(BLL.Security.Permissions.Actions.Delete)-@mc.Id" @(action == 3 ? "selected" : "") data-trans-key='مشاهده، ویرایش و حذف'></option>
+                                                    </select>
+                                                </td>
+
+                                            </tr>
+                                            foreach (var m in mc.tbl_Menus) {
+                                                if (@m.Type != BLL.Process.Menu.TypeDashboard) { break; }
+                                                isChecked = "";
+                                                action = 0;
+                                                if (Model != null && Model.MenuActions != null) {
+                                                    foreach (var item in Model.MenuActions) {
+                                                        var p = item.Split('-');
+                                                        var id = int.Parse(p[1]);
+                                                        if (m.Id == id) {
+                                                            isChecked = "Checked='checked'";
+                                                            action = BLL.Security.Permissions.Actions.View == int.Parse(p[0]) ? 1 :
+                                                                BLL.Security.Permissions.Actions.Edit == int.Parse(p[0]) ? 2 : 3;
+                                                        }
+                                                    }
+                                                }
+
+                                                <tr>
+                                                    <td style="vertical-align: middle">
+                                                        <label style="font-weight: normal; font-size: 1em;">
+                                                            <input type="checkbox" name="Charts" value="@s.Id" @isChecked>
+                                                            @m.Name
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" name="MenuActions">
+                                                            <option value="@(BLL.Security.Permissions.Actions.View)-@m.Id" @(action == 1 ? "selected" : "") data-trans-key='مشاهده'></option>
+                                                            <option value="@(BLL.Security.Permissions.Actions.Edit)-@m.Id" @(action == 2 ? "selected" : "") data-trans-key='مشاهده و ویرایش'></option>
+                                                            <option value="@(BLL.Security.Permissions.Actions.Delete)-@m.Id" @(action == 3 ? "selected" : "") data-trans-key='مشاهده، ویرایش و حذف'></option>
+                                                        </select>
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                }
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+                @*اکوردین مربوط به انتخاب مجوزهای کلی*@
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 style="margin-bottom: 10px; margin-top: 10px;"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTree"><span data-trans-key='انتخاب مجوزهای عملیاتی'> </span></a></h3>
+
+                    </div>
+                    @{
+                        var obj = new[] {
+                        new []{new {type = "header", id=BLL.Security.Permissions.Permission.ChartAdd,    name="مدیریت نمودارها" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.ChartAdd,    name="ساخت نمودار جدید" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.ChartView,   name="مشاهده نمودار" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.ChartEdit,   name="ویرایش نمودار" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.ChartDelete, name="حذف نمودار" },
+                        },
+                        new []{new {type = "header", id=BLL.Security.Permissions.Permission.MenuAdd,    name="مدیریت منوها" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.MenuAdd,     name="ساخت منوی جدید" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.MenuView,    name="مشاهده منو" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.MenuEdit,    name="ویرایش منو" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.MenuDelete,  name="حذف منو" },
+                        },
+                        new []{new {type = "header", id=BLL.Security.Permissions.Permission.ChartAdd,    name="مدیریت منابع داده" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.DataSourceAdd,    name="ساخت منبع داده‌ی جدید" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.DataSourceView,   name="مشاهده منبع داده" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.DataSourceEdit,   name="ویرایش منبع داده" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.DataSourceDelete, name="حذف منبع داده" },
+                        },
+                        new []{new {type = "header", id=BLL.Security.Permissions.Permission.ChartAdd,    name="مدیریت صفحات داشبوردی و کاربران و نقش‌ها" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.ArrangeMenus, name="تغییر ترتیب منوها" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.ManageAllUsersAndRoles, name="مدیریت کاربران و نقش‌ها" },
+                        },
+                       new []{ new {type = "header", id=BLL.Security.Permissions.Permission.MenuAdd,    name="دسترسی کامل" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.AdminAccessOnCharts, name="دسترسی کامل به تمام نمودارها" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.AdminAccessOnMenus, name="دسترسی کامل به تمام منوها" },
+                        new {type = "input", id=BLL.Security.Permissions.Permission.AdminAccessOnDataSources, name="دسترسی کامل به تمام منابع داده" },
+                       }
+                        };
+                    }
+                    <div id="collapseTree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            @foreach (var table in obj) {
+                                <table class="table table-hover">
+                                    @foreach (var item in table) {
+
+                                        var isChecked = "";
+                                        if (Model != null && Model.FunctionalActions != null) {
+                                            foreach (var i in Model.FunctionalActions) {
+                                                if (i == item.id) {
+                                                    isChecked = "Checked='checked'";
+                                                }
+                                            }
+                                        }
+
+                                        if (item.type.Equals("header")) {
+
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <input type="checkbox">
+                                                        @item.name
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                        } else {
+
+                                            <tr>
+                                                <td>
+                                                    <label style="font-weight: normal; font-size: 1em;">
+                                                        <input type="checkbox" name="FunctionalActions" value="@item.id" @isChecked>
+                                                        @item.name
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    }
+                                </table>
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br />
+            <div style="direction: ltr">
+
+                <button type="submit" class="btn btn-primary"><span data-trans-key='ذخیره'> </span></button>
+                <button class="btn btn-default" onclick="window.history.back()"><span data-trans-key='انصراف'> </span></button>
+            </div>
+        </div>
+    </form>
+</div>

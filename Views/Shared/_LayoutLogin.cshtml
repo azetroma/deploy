@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<!--[if lt IE 9|IE 9 ]>
+    <body dir="rtl">
+        <p style="direction:rtl; font-family:tahoma; padding:20px">لطفا از اینترنت اکسپلورر 10 به بالا یا فایرفاکس یا کروم استفاده کنید</p>
+    </body>
+<![endif]-->
+<![if (gt IE 9)|!(IE)]>
+
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width" />
+
+    <meta name="description" content="نرم افزار داشبورد مدیریت صدف با اتصال به سيستم‌هاي اطلاعاتي مختلف، با سرعتي مناسب، اطلاعات پيچيده‌ي تجاري شما را خلاصه کرده و در قالب داشبورد مدیریتی در دسترس شما قرار مي‌دهد. ">
+    <meta name="keywords" content="مديريت استراتژيک,داشبورد مدیریتی,هوش تجاري,گزارش‌ ساز,داشبورد مدیریت,نرم افزار داشبورد,داشبورد,management Dashboard,Dashbord">
+    <title>داشبورد مدیریتی صدف | Dashboard Software | نرم افزار داشبورد مدیریت </title>
+    <meta property="og:type" content="business.business">
+    <meta property="og:title" content="نرم افزار داشبورد مدیریت">
+    <meta property="og:url" content="http://www.sadafdashboard.ir/">
+
+
+
+    <link href="~/dist/lib/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/dist/css/dashboard/mian-dash-rtl.css" rel="stylesheet" />
+
+    @*@Styles.Render("~/Content/css-rtl")*@
+    <style>
+        body {
+            margin:0;
+            padding-top: 0px;
+            padding-bottom: 40px;
+            background-color: #eee;
+        }
+    </style>
+
+</head>
+<body>
+    @RenderBody()
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bs")*@
+
+    <script src="~/dist/lib/jquery-1.11.1.min.js"></script>
+    <script src="~/dist/lib/bootstrap.min.js"></script>
+    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js"></script>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+<![endif]>
+
+</html>

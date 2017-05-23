@@ -1,0 +1,192 @@
+﻿
+<div layout="column" flex>
+    <md-content flex class="content" layout="row">
+
+        <div flex="20" hide-sm hide-xs></div>
+        <div flex="60" flex-xs="100" flex-sm="100">
+
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline" ng-hide="isEdit">منبع داده جدید</span>
+                        <span class="md-headline" ng-show="isEdit">ویرایش منبع داده</span>
+
+                    </md-card-title-text>
+                </md-card-title>
+
+                <md-content layout-padding>
+                    <div>
+
+                        <form name="mssql">
+
+                            <md-input-container class="md-block">
+                                <label>نام</label>
+                                <input required name="name" ng-model="model.Name">
+                                <div ng-messages="mssql.name.$error">
+                                    <div ng-message="required">نام را وارد کنید</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-switch ng-model="model.Disable" aria-label="Disable">
+                                غیر فعال کردن موقت منبع داده
+                            </md-switch>
+                            <p class="md-caption">
+                                با انتخاب این گزینه تمام نمودارها و گزارشاتی که از این منبع داده ساخته‌اید پیغام
+                                <b> «در حال تغییر منبع داده» </b>
+                                نمایش داده می‌شود
+                            </p>
+
+                            <md-input-container class="md-block" ng-show="model.Disable">
+                                <label>متن پیام نمایشی در گزارشات</label>
+                                <textarea ng-model="model.DisableMessage" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                            </md-input-container>
+
+                            <div layout-padding>
+                                <b>مشخصات اتصال</b>
+                                <md-divider></md-divider>
+                            </div>
+
+                            <md-input-container class="md-block ">
+                                <label>سرور</label>
+                                <input required class="ltr" name="host" ng-model="model.Host">
+                                <div ng-messages="mssql.host.$error">
+                                    <div ng-message="required">IP یا نام را وارد کنید</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" ng-if="type == 3 ">
+                                <label>شماره پورت</label>
+                                <input class="ltr" required name="port" ng-model="model.Port">
+                                <div ng-messages="mssql.port.$error">
+                                    <div ng-message="required">شماره پورت را وارد کنید</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>پایگاه داده</label>
+                                <input class="ltr" required name="database" ng-model="model.Database">
+                                <div ng-messages="mssql.database.$error">
+                                    <div ng-message="required">نام پایگاه داده را وارد کنید</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm ng-show="type != 3">
+                                <label>احراز هویت</label>
+                                <md-select ng-model="model.Authentication">
+                                    <md-option value="0">SQL SERVER</md-option>
+                                    <md-option value="1">Windows</md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <md-input-container class="md-block " flex-gt-sm>
+                                <label>نام کاربری</label>
+                                <input class="ltr" required name="username-sql" ng-model="model.Username">
+                                <div ng-messages="mssql.username-sql.$error">
+                                    <div ng-message="required">نام کاربری را وارد نمایید</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>کلمه عبور</label>
+                                <input class="ltr" xrequired type="password" name="password-sql" ng-model="model.Password">
+                                <div ng-messages="mssql.password-sql.$error">
+                                    <div ng-message="required">کلمه عبور را وارد نمایید</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>پرس‌وجو</label>
+                                <textarea class="ltr" ng-model="model.Query" md-select-on-focus rows="3" style="resize:vertical;font-family:Courier, arial; direction:ltr; min-height:100px;"></textarea> 
+                                <div style="text-align:left">
+                                    <span class="material-icons small" ng-click="showDialog($event)" title="{{'edit_query' | translate}}">fullscreen</span>
+                                </div>
+                            </md-input-container>
+
+
+                            <md-input-container class="md-block" flex-gt-sm ng-show="type == 2">
+                                <label>کدینگ داده‌های رشته‌ای - Collation</label>
+                                <md-select ng-model="model.CollationDefault">
+                                    <md-option value="1">پیش فرض پایگاه داده</md-option>
+                                    <md-option value="2">Arabic_CI_AS</md-option>
+                                    <md-option value="3">SQL_Latin1_General_CP1256_CI_AS</md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>به‌روز رسانی</label>
+                                <md-select ng-model="model.AutoRefresh">
+                                    <md-option value="0">در لحظه</md-option>
+                                    <md-option value="1">هر یک دقیقه</md-option>
+                                    <md-option value="5">هر پنج دقیقه</md-option>
+                                    <md-option value="15">هر پانزده دقیقه</md-option>
+                                    <md-option value="30">هر سی دقیقه</md-option>
+                                    <md-option value="60">هر یک ساعت</md-option>
+                                    <md-option value="1440">هر روز</md-option>
+                                    <md-option value="10080">هر هفته</md-option>
+                                    <md-option value="40320">هر ماه</md-option>
+                                    <md-option value="2147483647">عدم به‌روز رسانی</md-option>
+                                    <md-option value="-1">زمانبندی...</md-option>
+                                    <md-option value="-2">تقسیم‌بندی...</md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <!--<pre style="word-break:break-all; white-space:normal;">{{model | json}}</pre>-->
+                            <!--<pre style="word-break:break-all; white-space:normal;">{{schedule | json}}</pre>-->
+
+                            <datasource-schedule ng-show="model.AutoRefresh==-1" ng-model="schedule">-m> </datasource-schedule>
+
+                            <partition-expression ng-show="model.AutoRefresh==-2" ng-model="schedulePartition"> </partition-expression>
+
+                            <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
+
+                        </form>
+
+
+                    </div>
+
+
+
+                </md-content>
+
+
+
+
+                <md-card-actions layout="row">
+                    <span flex></span>
+
+                    <md-button ng-click="save()" ng-disabled="saveProgress">
+                        {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+
+                    </md-button>
+
+                    <md-button ng-click="test()" ng-disabled="testProgress">
+                        {{testProgress == false ? ('تست' | translate) : ('form_testing' | translate)}}
+                    </md-button>
+
+                    <md-button ng-click="cancel()" >
+                        {{'لغو' | translate}}
+                    </md-button>
+
+
+                </md-card-actions>
+
+
+            </md-card>
+
+            <md-card ng-show="testResult" flex>
+                <md-content style="max-height:200px;" id="card-resize" layout="column" flex>
+                    <div ng-bind-html="testResult" flex></div>
+                </md-content>
+            </md-card>
+
+            <md-card ng-show="error" layout="row" flex>
+                <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
+                    <div ng-bind-html="error" flex></div>
+                </md-content>
+            </md-card>
+
+        </div>
+        <div flex="20" hide-sm hide-xs></div>
+
+    </md-content>
+</div>

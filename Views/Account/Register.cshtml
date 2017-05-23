@@ -1,0 +1,131 @@
+@model BLL.Security.Users
+
+@{
+    Layout = null;
+}
+
+<div class="container-fluid">
+
+    <div class="page-header">
+        <h1 id="forms"><span data-trans-key='ایجاد کاربر جدید'> </span></h1>
+    </div>
+
+    <script>
+
+        var addUserRoute = {
+            addNewUser: function () {
+                var s = $("#addNewUserForm").serialize();
+                link = '@Url.Action("Register")';
+                $.post(link, s, function (data) {
+                    app.router.navigate("Account/UsersList");
+                    app.setContent(data);
+                });
+            },
+        };
+
+        function validateFormOnSubmit() {
+            addUserRoute.addNewUser();
+            return false;
+        }
+        (function ($) {
+            $(".form-group").each(function () {
+                var f = $(this).find(".field-validation-error").first();
+                if (f.length > 0) {
+                    f.addClass("control-label");
+                    $(this).addClass("has-error");
+                }
+            });
+        })($);
+    </script>
+    <form method="post" id="addNewUserForm" role="form" class="form-horizontal" onsubmit="return validateFormOnSubmit();">
+        @Html.AntiForgeryToken()
+        <div class="col-md-6">
+            @if (!ViewData.ModelState.IsValid) {
+                <script>
+                    window.location = '#Account/AddUserError';
+                </script>
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    @Html.ValidationSummary()
+                </div>
+            }
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.FirstName, "نام و نام خانوادگی", new { @class = "col-md-4 control-label" })
+                <div class="col-md-4 ">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "نام" })
+                    @Html.ValidationMessageFor(m => m.FirstName)
+                </div>
+                <div class="col-md-4 ">
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "نام خانوادگی" })
+                    @Html.ValidationMessageFor(m => m.LastName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Username, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8 ">
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = @Html.DisplayNameFor(m => m.Username) })
+                    @Html.ValidationMessageFor(m => m.Username)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8 ">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = @Html.DisplayNameFor(m => m.Password) })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PasswordRepeat, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8 ">
+                    @Html.PasswordFor(m => m.PasswordRepeat, new { @class = "form-control", @placeholder = @Html.DisplayNameFor(m => m.PasswordRepeat) })
+                    @Html.ValidationMessageFor(m => m.PasswordRepeat)
+                </div>
+            </div>
+
+            <h2><span data-trans-key='تنظیمات'> </span></h2>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.PageSwiching, new { @class = "col-md-8 control-label", @style = "text-align:right" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.PageSwiching, new { @class = "form-control", @placeholder = @Html.DisplayNameFor(m => m.PageSwiching) })
+                    @Html.ValidationMessageFor(m => m.PageSwiching)
+                </div>
+                <p class="help-block col-md-12">در حالت تمام صفحه، در حالتی که نمایش اسلایدی فعال باشد، زمان بین جابجایی صفحه‌ها با استفاده از این متغیر تنظیم می‌شود.</p>
+            </div>
+
+
+            @*<h2><span data-trans-key='تنظیمات'> </span></h2>
+            <div class="form-group">
+                <label class="col-md-8 control-label"><span data-trans-key='فاصله زمانی جابجایی بین صفحه‌ها به ثانیه'> </span></label>
+                <div class="col-md-4">
+                    <input class="form-control" data-trans-key='فاصله زمانی به ثانیه' data-trans-attr='placeholder'  value="@(Model==null?"10":Model.Detail.PageSwiching.ToString())" />
+                </div>
+            </div>*@
+
+            <h2><span data-trans-key='نقش‌ها'> </span></h2>
+
+            <table class="table table-hover ">
+                @if (ViewBag.roles != null) {
+                    foreach (var s in ViewBag.roles) {
+                        <tr>
+                            <td>
+                                <label>
+                                    <input type="checkbox" name="Roles" value="@s.Id">
+                                    @s.RoleName
+                                </label>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+            <div style="direction: ltr">
+
+                <button type="submit" class="btn btn-primary"><span data-trans-key='ذخیره'> </span></button>
+                <a class="btn btn-default" onclick="window.history.back()"><span data-trans-key='انصراف'> </span></a>
+
+            </div>
+        </div>
+    </form>
+</div>

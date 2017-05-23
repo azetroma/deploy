@@ -1,0 +1,164 @@
+<menu-container open-menu-name="openMenuName">
+    <menu-item>
+        <menu-header>{{ 'تنظیمات کلی' | translate }}</menu-header>
+        <menu-body>
+            <div>
+                <input type="hidden" ng-model="ngModel.tree.info.canExportXlsx" value="true" />
+
+                <general-settings ng-model="ngModel.tree.info"></general-settings>
+
+
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.tree.info.showValues" ng-change="refreshChart('refresh')" />{{ 'نمایش اعداد روی برچسب‌ها' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'قالب اعداد' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class="selectpicker-x form-control" ng-model="ngModel.tree.info.formatString" ng-change="refreshChart('refresh')">
+                            <option value="A">{{ 'عادی' | translate }}</option>
+                            <option value="%">{{ 'درصد' | translate }}</option>
+                            <option value=",.0f">#,#</option>
+                            <option value=",.1f">#,#.0</option>
+                            <option value=",.2f" selected="selected">#,#.00</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'انتخاب داده‌ها' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class=" selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.tree.info.selectable">
+                            <option value="none">{{ 'عدم انتخاب' | translate }}</option>
+                            <option value="one">{{ 'یک مقدار' | translate }}</option>
+                            <option value="multi">{{ 'چند مقدار' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'حالت نمایش راهنما' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class=" selectpicker-x form-control" ng-model="ngModel.tree.info.tooltip" ng-change="refreshChart('refresh')">
+                            <option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
+                            <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-row" layout="column" layout-align="start top">
+                    <label class="control-label">{{ 'قالب تیتر راهنما' | translate }}</label>
+                    <textarea flex class="form-control"
+                              ng-change="refreshChart('refresh')"
+                              ng-model-options="{ updateOn: 'blur' }"
+                              ng-model="ngModel.tree.info.tooltipHeader"
+                              style="direction:ltr; text-align:left; font-family:monospace; resize:vertical"></textarea>
+                    <p class="help-block">
+                        متغیرهای قابل استفاده:
+                        <code class="inline">
+                            set.key
+                        </code> ,<code class="inline">
+                            set.sum
+                        </code> ,<code class="inline">
+                            set.avg
+                        </code>,<code class="inline">
+                            set.points
+                        </code>
+                    </p>
+                </div>
+                <div class="form-row" layout="column">
+                    <label class="control-label">{{ 'قالب نمایش راهنما' | translate }}</label>
+                    <textarea class="form-control"
+                              flex
+                              ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }"
+                              ng-model="ngModel.tree.info.tooltipFormat" style="direction:ltr; text-align:left; font-family:monospace;resize:vertical"></textarea>
+                    <p class="help-block">
+                        متغیرهای قابل استفاده:
+                        <code class="inline">
+                            point.data
+                        </code> ,<code class="inline">
+                            point.label
+                        </code> ,<code class="inline">
+                            point.color
+                        </code>
+                        <div>
+                            تگ‌های مجاز:
+                        </div>
+                        <div class="ltr text-left">
+
+                            <code>&lt;b&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;br/&gt;</code>, <code>&lt;span&gt;</code>
+                        </div>
+                    </p>
+                </div>
+
+            </div>
+        </menu-body>
+    </menu-item>
+
+    <menu-item ng-show="dimensions && dimensions.length>0" ng-init="initTree(ngModel, dimensions)" name="series">
+        <menu-header>{{ 'تعیین نوع فیلدها' | translate }}</menu-header>
+        <menu-body>
+            <div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'فیلد' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class="selectpicker-x form-control" ng-model="ngModel.selectedDim"
+                                ng-options="i.Name as i.Name for i in dimensions"></select>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'نوع فیلد' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <div class="sadaf-group">
+                        <label class="sadaf-group-item"
+                               ng-class="(ngModel.tree.dimensions | filter:{name:ngModel.selectedDim})[0].type==i.t?'active':''"
+                               ng-repeat="i in [{t:'id', n:'شناسه'},
+                                                    {t:'parent', n:'پدر'},
+                                                    {t:'name', n:'نام'},
+                                                    {t:'type', n:'نوع'}]"
+                               ng-click="(ngModel.tree.dimensions | filter:{name:ngModel.selectedDim})[0].type=i.t;refreshChart('refresh');">
+                            <span>{{i.n}}</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="(ngModel.tree.dimensions | filter:{name:ngModel.selectedDim})[0].type == 'parent' ">
+                    <label class="col-sm-4">{{ 'Root Id' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="{{ 'Root Id' | translate }}"
+                               ng-change="refreshChart('refreshWithData');"
+                               ng-model-options="{ updateOn: 'blur' }"
+                               ng-model="ngModel.tree.info.rootId" />
+                    </div>
+                </div>
+
+            </div>
+        </menu-body>
+    </menu-item>
+
+    <global-variable dimensions="dimensions" measures="measures" prop="ngModel"></global-variable>
+
+    <dim-meas-where model="openMenuName" ng-if="!isOlap" dimensions="dimensions" measures="measures" where="where" datasource="datasource"></dim-meas-where>
+
+    <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
+
+    <calculate-fields calculated-fields="calculatedFields"></calculate-fields>
+</menu-container>

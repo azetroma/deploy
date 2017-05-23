@@ -1,0 +1,246 @@
+﻿
+<div layout="column" flex>
+    <md-content flex class="content" layout="row">
+
+        <div flex="20" hide-sm hide-xs></div>
+        <div flex="60" flex-xs="100" flex-sm="100">
+
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline" ng-hide="isEdit">{{'new_role' | translate}}</span>
+                        <span class="md-headline" ng-show="isEdit">{{'edit_role' | translate}}</span>
+
+                    </md-card-title-text>
+                </md-card-title>
+
+                <md-content layout-padding>
+                    <div>
+                        <form name="roleForm">
+
+                            <div layout-gt-sm="row">
+
+                                <md-input-container flex="50">
+                                    <label>{{'name' | translate}}</label>
+                                    <input required name="name" ng-model="model.RoleName">
+                                    <div ng-messages="roleForm.name.$error">
+                                        <div ng-message="required">{{'form_name_required' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container flex="50">
+                                    <label>{{'role_default_menu' | translate}}</label>
+                                    <md-select required name="defaultPage" ng-model="model.FirstMenuId" style="margin-bottom:0">
+                                        <md-optgroup ng-repeat="(gk, gv) in menus" label="{{jsonParse(gk).name}}">
+                                            <md-option ng-repeat="menu in gv" value="{{menu.id + ''}}">{{menu.name}}</md-option>
+                                        </md-optgroup>
+                                    </md-select>
+                                    <div class="errors" ng-messages="roleForm.defaultPage.$error">
+                                        <div ng-message="required">{{'default_page_required' | translate}}</div>
+                                    </div>
+
+                                </md-input-container>
+
+
+                            </div>
+
+
+
+                            <div class="prop-section">
+
+                                <menu-container>
+                                    <menu-item>
+                                        <menu-header>{{'menus' | translate}}</menu-header>
+                                        <menu-body>
+                                            <div style="margin:0 20px 0 0">
+                                                <collapse ng-repeat="(k,v) in menus">
+                                                    <div layout="row">
+                                                        <collapse-header>
+                                                            {{jsonParse(k).name}}
+                                                        </collapse-header>
+                                                        <span flex></span>
+                                                        <md-select style="margin:0" aria-label="{{'permission' | translate}}" ng-model="menuCategoriesAction[jsonParse(k).id]">
+                                                            <md-option value="0">{{'permission_not' | translate}}</md-option>
+                                                            <md-option value="1">{{'permission_view' | translate}}</md-option>
+                                                            <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
+                                                            <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
+                                                        </md-select>
+                                                    </div>
+                                                    <collapse-body>
+                                                        <div style="margin:0 20px 0 0">
+                                                            <div ng-repeat="r in v" layout="row" layout-align="start center">
+                                                                <md-checkbox ng-model="r.check" ng-change="setViewPermission(k, v)">{{r.name}}</md-checkbox>
+                                                                <span flex></span>
+                                                                <md-select style="margin:0" class="" ng-model="r.action" ng-show="r.check" aria-label="{{'permission' | translate}}">
+                                                                    <md-option value="1">{{'permission_view' | translate}}</md-option>
+                                                                    <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
+                                                                    <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
+                                                                </md-select>
+
+                                                            </div>
+                                                        </div>
+                                                    </collapse-body>
+                                                </collapse>
+
+
+                                            </div>
+                                        </menu-body>
+                                    </menu-item>
+
+                                    <menu-item>
+                                        <menu-header>{{'users' | translate}}</menu-header>
+                                        <menu-body>
+                                            <div style="margin:0 20px">
+                                                <div ng-repeat="r in users">
+                                                    <md-checkbox ng-model="r.check">{{r.username}} - {{r.name}}</md-checkbox>
+                                                </div>
+                                            </div>
+                                        </menu-body>
+                                    </menu-item>
+
+                                    <menu-item>
+                                        <menu-header>{{'datasources' | translate}}</menu-header>
+                                        <menu-body>
+                                            <div style="margin:0 20px">
+                                                <div layout="row" layout-align="start center">
+                                                    <span class="form-divider" flex></span>
+                                                    {{'add' | translate}}
+                                                    <md-button class="md-icon-button" ng-click="$event.stopPropagation(); addDatasource($event)" layout="row" layout-align="start center">
+                                                        <span class="material-icons">add</span>
+                                                        <md-tooltip>{{'add' | translate}}</md-tooltip>
+                                                    </md-button>
+
+                                                    {{'remove_all' | translate}}
+                                                    <md-button class="md-icon-button" ng-click="$event.stopPropagation(); clearDatasources()" layout="row" layout-align="start center">
+                                                        <span class="material-icons">delete</span>
+                                                        <md-tooltip>{{'remove_all' | translate}}</md-tooltip>
+                                                    </md-button>
+                                                    <md-select style="margin:0" class="" ng-model="datasourceActionAll" ng-change="actionAll('datasource', datasourceActionAll)" aria-label="{{'permission' | translate}}">
+                                                        <md-option value="1">{{'permission_view' | translate}}</md-option>
+                                                        <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
+                                                        <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
+                                                    </md-select>
+                                                    <span class="form-divider" flex></span>
+                                                </div>
+
+                                                <div ng-repeat="r in datasources" layout="row" layout-align="start center">
+                                                    <md-button class="md-icon-button" ng-click="datasources.splice($index, 1)" layout="row" layout-align="start center">
+                                                        <span class="material-icons">delete</span>
+                                                        <md-tooltip>{{'remove' | translate}}</md-tooltip>
+                                                    </md-button>
+
+                                                    <span>{{r.name}}</span>
+                                                    <span flex></span>
+                                                    <md-select style="margin:0" class="" ng-model="r.action" aria-label="{{'permission' | translate}}">
+                                                        <md-option value="1">{{'permission_view' | translate}}</md-option>
+                                                        <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
+                                                        <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
+                                                    </md-select>
+                                                </div>
+                                            </div>
+                                        </menu-body>
+                                    </menu-item>
+
+                                    <menu-item>
+                                        <menu-header>{{'charts' | translate}}</menu-header>
+                                        <menu-body>
+                                            <div style="margin:0 20px">
+                                                <div layout="row" layout-align="start center">
+                                                    <span class="form-divider" flex></span>
+                                                    {{'add' | translate}}
+                                                    <md-button class="md-icon-button" ng-click="$event.stopPropagation(); addChart($event)" layout="row" layout-align="start center">
+                                                        <span class="material-icons">add</span>
+                                                        <md-tooltip>{{'add' | translate}}</md-tooltip>
+                                                    </md-button>
+
+                                                    {{'remove_all' | translate}}
+                                                    <md-button class="md-icon-button" ng-click="$event.stopPropagation(); clearCharts()" layout="row" layout-align="start center">
+                                                        <span class="material-icons">delete</span>
+                                                        <md-tooltip>{{'remove_all' | translate}}</md-tooltip>
+                                                    </md-button>
+                                                    <md-select style="margin:0" class="" ng-model="chartActionAll" ng-change="actionAll('chart', chartActionAll)" aria-label="{{'permission' | translate}}">
+                                                        <md-option value="1">{{'permission_view' | translate}}</md-option>
+                                                        <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
+                                                        <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
+                                                    </md-select>
+
+                                                    <span class="form-divider" flex></span>
+                                                </div>
+                                                <div ng-repeat="r in charts" layout="row" layout-align="start center">
+                                                    <md-button class="md-icon-button" ng-click="charts.splice($index, 1)" layout="row" layout-align="start center">
+                                                        <span class="material-icons">delete</span>
+                                                        <md-tooltip>{{'remove' | translate}}</md-tooltip>
+                                                    </md-button>
+
+                                                    <span>{{r.name}}</span>
+                                                    <span flex></span>
+                                                    <md-select style="margin:0" class="" ng-model="r.action" aria-label="{{'permission' | translate}}">
+                                                        <md-option value="1">{{'permission_view' | translate}}</md-option>
+                                                        <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
+                                                        <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
+                                                    </md-select>
+                                                </div>
+                                            </div>
+                                        </menu-body>
+                                    </menu-item>
+
+                                    <menu-item>
+                                        <menu-header>
+                                            {{'انتخاب مجوزهای عملیاتی' | translate}}
+                                        </menu-header>
+                                        <menu-body>
+                                            <div style="margin:0 20px">
+                                                <div ng-repeat="r in actions">
+                                                    <h3>
+                                                        <md-checkbox ng-model="r.checkAll" ng-change="checkAll(r)">{{r.title}}</md-checkbox>
+                                                    </h3>
+                                                    <div ng-repeat="i in r.childes">
+                                                        <md-checkbox ng-model="i.check">{{i.name}}</md-checkbox>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </menu-body>
+                                    </menu-item>
+                                </menu-container>
+                            </div>
+
+
+                        </form>
+
+
+                    </div>
+
+
+
+                </md-content>
+
+                <md-card-actions layout="row">
+                    <span flex></span>
+
+                    <md-button ng-click="save()" ng-disabled="saveProgress">
+                        {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+
+                    </md-button>
+
+                </md-card-actions>
+
+
+            </md-card>
+
+            <md-card ng-show="testResult" flex>
+                <md-content style="max-height:200px;" id="card-resize" layout="column" flex>
+                    <div ng-bind-html="testResult" flex></div>
+                </md-content>
+            </md-card>
+
+            <md-card ng-show="error" layout="row" flex>
+                <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
+                    <div ng-bind-html="error" flex></div>
+                </md-content>
+            </md-card>
+
+        </div>
+        <div flex="20" hide-sm hide-xs></div>
+
+    </md-content>
+</div>

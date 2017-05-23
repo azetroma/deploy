@@ -1,0 +1,274 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html @(ViewBag.isRtl ? "dir=rtl" : "")>
+<head>
+    <meta charset="utf-8" />
+    <base href="@Href("~")">
+    <title> @ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="fontiran.com:license" content="X4ZQZ">
+    @{ 
+        var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+        var rMode = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+        if (!rMode) {
+            v=( DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+        }
+    }
+    <script src="~/dist/lib/jquery-1.11.1.min.js?v=@v"></script>
+    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js?v=@v"></script>
+    <script src="~/dist/lib/jquery.fileupload.min.js?v=@v"></script>
+    <script src="~/dist/lib/d3.v3.min.js?v=@v"></script>
+    <script src="~/dist/lib/topojson.min.js?v=@v"></script>
+    <script src="~/dist/lib/bootstrap-datepicker.min.js?v=@v"></script>
+    <script src="~/dist/lib/bootstrap-datepicker.fa.min.js?v=@v"></script>
+    <link href="~/dist/lib/bootstrap-datepicker.min.css?v=@v" rel="stylesheet" />
+    <link href="~/dist/lib/jquery.ui.slider.css?v=@v" rel="stylesheet" />
+    <script src="~/dist/lib/bootstrap-select.min.js?v=@v"></script>
+    <script src="~/dist/lib/collapse.js?v=@v"></script>
+
+    <script src="~/dist/lib/ace.js?v=@v"></script>
+    <script src="~/dist/lib/mode-sqlserver.js?v=@v"></script>
+    <script src="~/dist/lib/ext-beautify.js?v=@v"></script>
+    <script src="~/dist/lib/theme-sqlserver.js?v=@v"></script>
+
+    <script src="~/dist/lib/lodash.min.js?v=@v"></script>
+    <script src="~/dist/lib/angular.min.js?v=@v"></script>
+    <script src="~/dist/lib/angular-route.min.js?v=@v"></script>
+    <script src="~/dist/lib/angular-animate.min.js?v=@v"></script>
+    <script src="~/dist/lib/angular-aria.min.js?v=@v"></script>
+    <script src="~/dist/lib/angular-messages.min.js?v=@v"></script>
+    <script src="~/dist/lib/angular-sanitize.min.js?v=@v"></script>
+
+    <script src="~/dist/lib/ui-ace.min.js?v=@v"></script>
+
+    <link href="~/dist/lib/angular-material.min.css?v=@v" rel="stylesheet" />
+    <script src="~/dist/lib/angular-material.min.js?v=@v"></script>
+
+
+
+    <script src="~/dist/lib/angular-translate.min.js?v=@v"></script>
+    <script src="~/dist/lib/angular-translate-loader-static-files.min.js?v=@v"></script>
+    <script src="~/dist/lib/sortable.min.js?v=@v"></script>
+
+
+    <script src="~/dist/lib/tinycolor-min.js?v=@v"></script>
+    <link href="~/dist/lib/mdColorPicker.min.css?v=@v" rel="stylesheet" />
+    <script src="~/dist/lib/mdColorPicker.min.js?v=@v"></script>
+
+
+    @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
+
+        <script src="~/src/js/collapse.js?v=@v"></script>
+        <script src="~/src/js/admin-app.js?v=@v"></script>
+        <script src="~/src/js/heartBeat.js?v=@v"></script>
+        <script src="~/src/js/management/templates.js?v=@v"></script>
+        <script src="~/src/js/management/route.js?v=@v"></script>
+        <script src="~/src/js/management/menuController.js?v=@v"></script>
+        <script src="~/src/js/management/packages/packages.js?v=@v"></script>
+        <script src="~/src/js/management/datasource/list.js?v=@v"></script>
+        <script src="~/src/js/management/datasource/new.js?v=@v"></script>
+        <script src="~/src/js/management/datasource/mssql.js?v=@v"></script>
+
+        <script src="~/src/js/ui-mask.js?v=@v"></script>
+        <script src="~/src/js/management/datasource/PartitionExprission.js?v=@v"></script>
+        <script src="~/src/js/management/datasource/Schedule.js?v=@v"></script>
+        <script src="~/src/js/management/datasource/file.js?v=@v"></script>
+        <script src="~/src/js/management/datasource/datasourcePermission.js?v=@v"></script>
+        <script src="~/src/js/management/datasource/web.js?v=@v"></script>
+        <script src="~/src/js/management/datasource/join.js?v=@v"></script>
+        <script src="~/src/js/management/charts/list.js?v=@v"></script>
+        <script src="~/src/js/management/datasource/interRelation.js?v=@v"></script>
+
+
+        <script src="~/src/js/management/charts/directives/types/mapSelector.js?v=@v"></script>
+        <script src="~/src/js/management/charts/directives/types/table.js?v=@v"></script>
+        <script src="~/src/js/management/charts/directives/types/userControl.js?v=@v"></script>
+        <script src="~/src/js/management/charts/directives/Alert.js?v=@v"></script>
+        <script src="~/src/js/management/charts/directives/calculateField.js?v=@v"></script>
+        <script src="~/src/js/management/charts/directives/dimMeasWhere.js?v=@v"></script>
+        <script src="~/src/js/management/charts/directives/FilterExcept.js?v=@v"></script>
+        <script src="~/src/js/management/charts/directives/GeneralSettings.js?v=@v"></script>
+        <script src="~/src/js/management/charts/directives/GlobalVariable.js?v=@v"></script>
+        <script src="~/src/js/management/charts/directives/NumberFormat.js?v=@v"></script>
+        <script src="~/src/js/management/charts/directives/TextEditor.js?v=@v"></script>
+        <script src="~/src/js/management/charts/editor.js?v=@v"></script>
+
+        <script src="~/src/js/management/menu.js?v=@v"></script>
+
+        <script src="~/src/js/management/services/menus.js?v=@v"></script>
+        <script src="~/src/js/management/services/datasources.js?v=@v"></script>
+        <script src="~/src/js/management/services/roles.js?v=@v"></script>
+        <script src="~/src/js/management/services/utils.js?v=@v"></script>
+
+        <script src="~/src/js/management/account/roleEdit.js?v=@v"></script>
+        <script src="~/src/js/management/account/roleList.js?v=@v"></script>
+        <script src="~/src/js/management/account/userEdit.js?v=@v"></script>
+        <script src="~/src/js/management/account/userList.js?v=@v"></script>
+        <script src="~/src/js/management/account/variables.js?v=@v"></script>
+        <script src="~/src/js/management/account/mail.js?v=@v"></script>
+        <script src="~/src/js/management/account/update.js?v=@v"></script>
+        <script src="~/src/js/management/account/settings.js?v=@v"></script>
+        <script src="~/src/js/management/account/onlineUsers.js?v=@v"></script>
+        <script src="~/src/js/management/account/licence.js?v=@v"></script>
+        <script src="~/src/js/management/account/activeDirectory.js?v=@v"></script>
+        <script src="~/src/js/management/account/syncUserVariablesList.js?v=@v"></script>
+
+        <script src="~/src/js/charts/su.ChartCommons.js?v=@v"></script>
+        <script src="~/src/js/charts/d3-utils.js?v=@v"></script>
+        <script src="~/src/js/charts/filterMemberDialog.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.BarChart.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Chart.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Gauge.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Map.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.PieChart.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Radar.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Table.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Tree.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.UserControl.js?v=@v"></script>
+        <script src="~/src/js/charts/tipsy.js"></script>
+
+        @*<link href="~/Areas/Charts/Content/barChart.css" rel="stylesheet" />
+            <link href="~/Areas/Charts/Content/dashboardPage.css" rel="stylesheet" />
+            <link href="~/Areas/Charts/Content/tipsy.css" rel="stylesheet" />*@
+
+        <link href="~/src/css/management/OlapChartDesign.css?v=@v" rel="stylesheet" />
+        <link href="~/src/css/management/bootstarp-chart.css?v=@v" rel="stylesheet" />
+        <link href="~/src/css/management/sadaf.css?v=@v" rel="stylesheet" />
+        <link href="~/src/css/management/sadaf@(ViewBag.isRtl ? "-rtl" : "-ltr").css?v=@v" rel="stylesheet" />
+        <link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
+
+        <script src="~/src/js/dashboardPage/app.js?v=@v"></script>
+
+    } else {
+        <script src="~/dist/js/admin-app.js?v=@v"></script>
+        <script src="~/dist/js/charts-theme2.js?v=@v"></script>
+        <link href="~/dist/css/management/mian.css?v=@v" rel="stylesheet" />
+        <link href="~/dist/css/management/mian@(ViewBag.isRtl ? "-rtl" : "-ltr").css?v=@v" rel="stylesheet" />
+        <link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
+    }
+    <script>
+
+        var app = app || {};
+        app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        app.hashUrlPrefix = "@Url.Action("management", "sadaf")" + "/";
+        app.version = "@v";
+
+    </script>
+
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+            display: none !important;
+        }
+    </style>
+</head>
+
+
+<body layout="row" layout-fill @(ViewBag.isRtl ? @"dir=rtl" : "")>
+
+
+    <div ng-app="management" ng-controller="menusCtrl" ng-cloak layout="row" flex layout-fill>
+        <input type="hidden" value="@ViewBag.lang" id="lang" />
+        <md-sidenav class="md-sidenav-right site-sidenav"
+                    md-component-id="r"
+                    xmd-disable-backdrop
+                    xmd-is-locked-open="$mdMedia('gt-md')"
+                    md-is-locked-open="$mdMedia('gt-md') && lock"
+                    md-whiteframe="1"
+                    style="max-width:250px">
+
+            <a href="http://www.sadafdashboard.ir" target="_blank">
+                <img src="~/Images/logo_half.png" alt="Sadaf" style="max-width:100%; width:193px;height:auto; margin:15px auto; display:block" />
+            </a>
+            @*<md-toolbar style="max-height:50px; background-color:#fafafa; color:#000000">
+                    <div class="md-toolbar-tools">
+                        <h2><span>{{'تنظیمات' | translate}}</span></h2>
+                    </div>
+                </md-toolbar>*@
+
+
+            <md-content flex>
+                <md-list>
+
+                    <div ng-repeat="mc in menuCategories.data">
+                        <md-list-item class="md-no-sticky pointer header" ng-click="mc.isOpen = !mc.isOpen; closeAll(mc);" ng-class="{active: mc.isOpen}">
+                            <div layout="row" flex layout-align="start center">
+                                <b> {{mc.category.Name}}</b>
+                                <span flex></span>
+                                <span class="material-icons icon-animate " ng-class="{rotate : mc.isOpen}">keyboard_arrow_down</span>
+                            </div>
+                        </md-list-item>
+                        <div uib-collapse="!mc.isOpen">
+                            <md-list-item class="menu" ng-click="closeNav()" href="{{app.hashUrlPrefix}}#{{m.menu.Link}}" ng-repeat="m in mc.menus" ng-class="{active: m.active}">
+                                <span class="material-icons left-margin-16">{{m.menu.icon}}</span>
+                                <p class="md-offset"> {{ m.menu.Name }} </p>
+                            </md-list-item>
+                        </div>
+                        <md-divider></md-divider>
+                    </div>
+                </md-list>
+            </md-content>
+
+        </md-sidenav>
+
+        <div layout="column" flex>
+            <md-toolbar style="max-height:50px">
+                <div class="md-toolbar-tools">
+                    <md-button class="md-icon-button" aria-label="Settings" xhide-gt-md>
+                        <span class="material-icons" ng-click="toggle()">menu</span>
+                    </md-button>
+
+                    @*<md-button class="md-icon-button" aria-label="Settings" xhide-gt-md>
+                            <span class="material-icons" ng-click="changeLock()">lock</span>
+                        </md-button>*@
+                    <div layout="row">
+                        <span ng-repeat="i in toolbar.getTitles()" layout="row" layout-align="center center">
+                            <span class="material-icons" ng-hide="$index == 0">keyboard_arrow_left</span>
+                            <md-button style="min-width:0" ng-click="i.click()" aria-label="click">{{i.name}}</md-button>
+                        </span>
+                    </div>
+
+                    @*<h2><span>{{toolbar.getTitle()}}</span></h2>*@
+                    <span flex></span>
+                    <md-button href="@Href("~")">
+                        {{'dashboard' | translate}}
+                        @*<span class="material-icons">dashboard</span>*@
+                    </md-button>
+
+
+                    <md-menu>
+                        <md-button class="md-icon-button" ng-click="$mdMenu.open($event)">
+                            <span class="material-icons">power_settings_new</span>
+                        </md-button>
+                        <md-menu-content width="3">
+
+                            <md-menu-item>
+                                <md-button href="Profile"><span>{{'profile' | translate }} </span></md-button>
+                            </md-menu-item>
+
+                            <md-menu-item>
+                                <md-button href="Account/LogOff"><span>{{'signout' | translate }}</span></md-button>
+                            </md-menu-item>
+
+                    </md-menu>
+                </div>
+            </md-toolbar>
+
+            <ng-view flex layout="column"></ng-view>
+        </div>
+    </div>
+
+    <script>
+        var app = app || {};
+        app.lang.setLangTyle(@ViewBag.lang);
+        app.lang.setLang();
+        app.version = '@v';
+
+    </script>
+
+</body>
+</html>

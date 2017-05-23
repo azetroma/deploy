@@ -1,0 +1,59 @@
+<menu-item>
+    <menu-header>
+        <div data-toggle="collapse" href="#indicator-place-section">{{ 'شاخص‌های بصری' | translate }}</div>
+    </menu-header>
+    <menu-body>
+        <!--<div class="prop-section-contain">
+
+            <style>
+                .indicator-row + .indicator-row {
+                    border-top:1px solid silver;
+                }
+            </style>
+            <div id="indicator-place" style="margin: -10px 0 10px;">
+                <p ng-hide="prop[config.name].indicator && prop[config.name].indicator.length>0" class="empty-indicator" style="padding: 7px; font-size: 0.8em;">{{ 'هنوز شاخصی تعریف نشده است' | translate }}</p>
+
+                <div ng-show="prop[config.name].indicator && prop[config.name].indicator.length>0"
+                     ng-repeat="item in prop[config.name].indicator" class="indicator-row">
+                    <div style="padding: 10px 7px;">
+                        <span class="edit pointer"> {{item.ifRow[0].firstField}} :: {{item.ifRow[0].secondFieldSelect}} </span>
+                        <span class="glyphicon glyphicon-trash pointer icon-btn" ng-click="prop[config.name].indicator.splice($index, 1)"></span>
+                        <span class="glyphicon glyphicon-pencil pointer icon-btn" ng-click="changeItem($index)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+
+        <div layout="row" layout-align="start center">
+            <p ng-hide="prop[config.name].indicator && prop[config.name].indicator.length>0" style="font-size: 0.8em;">{{ 'no_indicator_exist' | translate }}</p>
+
+
+            <span flex></span>
+
+            <span>
+                {{ 'add_new_indicator' | translate }}
+                
+            </span>
+            <md-button class="md-icon-button" ng-click="prop[config.name].indicator.push({})">
+                <span class="material-icons">add</span>
+                <md-tooltip>{{'add' | translate}}</md-tooltip>
+            </md-button>
+        </div>
+        <fieldset ng-repeat="item in prop[config.name].indicator">
+            <legend>
+                <span layout="row" layout-align="start center">
+                    <span>{{ 'indicator' | translate }} {{$index+1}}</span>
+
+                    <md-button class="md-icon-button" ng-click="prop[config.name].indicator.splice($index, 1)">
+                        <span class="material-icons">delete</span>
+                    </md-button>
+                </span>
+            </legend>
+            <div>
+                <sadaf-indicator ng-model="item" series="prop.series" ng-change="change()"></sadaf-indicator>
+            </div>
+        </fieldset>
+
+    </menu-body>
+</menu-item>

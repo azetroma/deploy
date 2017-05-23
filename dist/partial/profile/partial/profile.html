@@ -1,0 +1,30 @@
+﻿<h3 class="page-header">{{'profile_info' | translate}}</h3>
+<form class="col-md-6" ng-show="user">
+    <div class="form-group ">
+        <label class="control-label ">{{'profile_name' | translate}}</label>
+        <input class="form-control" type="text" ng-model="user.name" placeholder="{{'profile_name' | translate}}" />
+    </div>
+    <div class="form-group ">
+        <label class="control-label">{{'profile_lastname' | translate}}</label>
+        <input class="form-control" type="text" ng-model="user.family"  placeholder="{{'profile_lastname' | translate}}" />
+    </div>
+    <div class="form-group ">
+        <label class="control-label">{{'profile_phone' | translate}}</label>
+        <input class="form-control" type="text" ng-model="user.phone" placeholder="{{'profile_phone' | translate}}"   />
+    </div>
+    <div class="form-group ">
+        <label class="control-label">{{'profile_email' | translate}}</label>
+        <input class="form-control" type="text" ng-model="user.email"  placeholder="{{'profile_email' | translate}}"  />
+    </div>
+
+    <div class="alert  " ng-class="{'alert-danger': error, 'alert-success': success}" ng-show="result">
+        <span ng-click="result = null" class="close">&times;</span>
+        <p ng-bind-html="message"></p>
+    </div>
+
+    <a class="btn btn-primary" ng-click="update()">{{'ذخیره' | translate}}</a>
+</form>
+
+<div ng-hide="user"> 
+   {{'در حال بارگذاری...' | translate}}
+</div>

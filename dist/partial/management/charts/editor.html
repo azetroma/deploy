@@ -1,0 +1,637 @@
+﻿
+<div class="chart-editor" layout="row" flex style="background-color:#fff">
+
+    <div flex="50" layout="row">
+
+        <!--Properties Container-->
+        <div flex="50" layout="column" layout-fill>
+            <div layout="row" layout-align="start center" class="datasource-item-header">
+                <span>{{ 'تنظیمات' | translate }}</span>
+                <span flex></span>
+            </div>
+
+            <md-content flex>
+                <div id="divProp" class="rtl prop-section">
+                </div>
+            </md-content>
+
+        </div>
+
+        <md-divider></md-divider>
+
+        <div flex="50">
+            <div layout="row" flex layout-fill id="chartEditor">
+
+                <div flex layout="column">
+
+                    <div style="min-height:300px" flex>
+
+                        <!--SQL SERVER-->
+                        <div ng-show="type != 'combo-kpi' && !isOlap" layout="column" style="min-height:200px" layout-fill>
+                            <div layout="row" layout-align="start center" class="datasource-item-header">
+                                <span>{{ 'data' | translate }}</span>
+                                <span flex></span>
+                                <span class="material-icons small small-size pointer" ng-click="showRelatedDatasource($event)">
+                                    add
+                                    <md-tooltip md-direction="bottom">add</md-tooltip>
+                                </span>
+                            </div>
+
+                            <md-content flex>
+                                <script type="text/ng-template" id="chart-editor/related-datasource.html">
+                                    <md-dialog aria-label="{{ 'انتخاب منابع داده' | translate }}" ng-cloak>
+                                        <form>
+                                            <md-toolbar>
+                                                <div class="md-toolbar-tools">
+                                                    <h2>{{ 'انتخاب منابع داده' | translate }}</h2>
+                                                    <span flex></span>
+                                                    <md-button class="md-icon-button" ng-click="cancel()">
+                                                        <span class="material-icons">close</span>
+                                                    </md-button>
+                                                </div>
+                                            </md-toolbar>
+                                            <md-dialog-content>
+
+                                                <div class="md-padding" layout="column" layout-align="center center">
+                                                    <md-progress-circular ng-hide="$scope.relatedDatasourceList" md-mode='indeterminate'></md-progress-circular>
+                                                </div>
+                                                <table class="table">
+                                                    <tr ng-repeat="i in $scope.relatedDatasourceList | filter:$scope.filterRelatedDatasource">
+                                                        <td class="pointer" ng-click="$scope.addRelatedDatasource(i.Id); $mdDialog.hide()">{{i.Name}}</td>
+                                                    </tr>
+                                                </table>
+                                            </md-dialog-content>
+                                        </form>
+                                    </md-dialog>
+                                </script>
+
+                                <div class="md-padding" ng-show="gettingData" layout-align="center center" layout="column">
+                                    <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
+                                </div>
+
+                                <div id="columnList" ng-show="datasource">
+
+
+                                    <div ng-repeat="u in datasource.CubeInfo.Dimensions">
+
+                                        <div layout="row" layout-align="start center" class="datasource-item">
+                                            <span class="material-icons icon-animate pointer right-arrow" ng-click="u.expand = !u.expand" ng-class="{'rotate-90' : !u.expand}">keyboard_arrow_right</span>
+                                            <div ng-click="u.expand = !u.expand" layout="row" class="pointer">
+                                                <span>{{u.Name}} <small class="gray"><small> {{u.xUniqueName}}</small></small></span>
+                                            </div>
+                                            <span flex></span>
+                                            <span class="material-icons small small-size pointer" ng-click="removeRelatedDatasource($index, u)" ng-hide="$index==0">
+                                                remove
+                                                <md-tooltip>{{'remove' | translate}}</md-tooltip>
+                                            </span>
+                                            <span class="material-icons small small-size pointer" ng-click="gotoDatasource(u)">open_in_new</span>
+
+                                        </div>
+
+                                        <div uib-collapse="u.expand">
+
+                                            <div class="pointer datasource-field" ng-repeat="i in u.Hierarchies" index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
+                                                <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                                {{i.Name}}
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+                            </md-content>
+
+                        </div>
+
+                        <!--Combine-KPI-->
+                        <div layout="column" ng-show="type=='combo-kpi'" layout-fill>
+
+                            <div layout="row" layout-align="start center" class="datasource-item-header">
+                                <span>{{ 'charts' | translate }}</span>
+                                <span flex></span>
+                                <span class="material-icons small small-size pointer" ng-click="selectChart($event)">add</span>
+                            </div>
+
+
+
+                            <md-content flex>
+                                <div layout-margin>
+
+                                    <div ng-repeat="u in combo.selectedChart">
+                                        <sadaf-removable on-delete="combo.selectedChart.splice($index, 1); refreshChart()">
+                                            <a class="pointer" href="{{app.hashUrlPrefix}}#/charts/edit/0/{{u.Id}}" xng-click="gotoChart(u)">{{u.Name}}</a>
+                                        </sadaf-removable>
+                                    </div>
+
+                                </div>
+                                <md-divider></md-divider>
+                                <div layout-margin>
+
+                                    <div style="margin-top:20px">
+                                        {{ 'comboKpi_config' | translate }}
+                                    </div>
+
+                                    <form>
+                                        <div layout="row">
+                                            <md-input-container flex>
+                                                <label> {{ 'comboKpi_CombineDimension' | translate }}</label>
+                                                <md-select ng-model="combo.combineType" ng-change="refreshChart('refreshWithData')">
+                                                    <md-option value="0" selected="selected">{{ 'comboKpi_value' | translate }}</md-option>
+                                                    <md-option value="1">{{ 'comboKpi_index' | translate }}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+
+                                            <md-input-container flex>
+                                                <label> {{ 'comboKpi_aggregation' | translate }}</label>
+                                                <md-select ng-model="combo.aggregation" ng-change="refreshChart('refreshWithData')">
+                                                    <md-option value="0">Avg</md-option>
+                                                    <md-option value="1">Sum</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+
+
+                                                <div layout="row" layout-align="start center">
+                                                    <b>{{ 'comboKpi_synonym' | translate }}</b>
+                                                    <span flex></span>
+                                                    <md-button class="md-icon-button" ng-click="combo.synonyms.push([{}]); refreshChart('refreshWithData')">
+                                                        <span class="material-icons">add</span>
+                                                        <md-tooltip>{{ 'add' | translate }}</md-tooltip>
+                                                    </md-button>
+                                                </div>
+
+                                                <fieldset ng-repeat="i in combo.synonyms track by $index" ng-show="i.length">
+                                                    <legend>
+                                                        <span class="material-icons pointer" title="Remove" ng-click="combo.synonyms.splice($index,1);refreshChart('refreshWithData')">close</span>
+                                                    </legend>
+                                                    <div class="form-row" layout="row" layout-align="start center" ng-repeat="s in i track by $index">
+                                                        <span class="material-icons pointer" title="Add" ng-click="i.splice($index+1,0,{});refreshChart('refreshWithData')">add</span>
+                                                        <span class="material-icons pointer" title="Remove" ng-click="i.splice($index,1);refreshChart('refreshWithData')">delete</span>
+                                                        <input type="text" ng-model="s.name" ng-change="refreshChart('refreshWithData')" ng-model-options="{ updateOn: 'blur' }" />
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+
+
+
+                                    </form>
+                                </div>
+                            </md-content>
+
+
+                        </div>
+
+                        <!--Olap-->
+                        <div ng-show="type != 'combo-kpi' && isOlap" layout="column" layout-fill>
+                            <div layout="row" layout-align="start center" class="datasource-item-header">
+                                <span>{{ 'data' | translate }}</span>
+                                <span flex></span>
+
+                                <span style="font-size: 0.8em; margin:4px" ng-init="toggle = false" ng-click="toggle = !toggle; collapseAll(toggle)" layout="row" layout-align="start center">
+                                    <span class="material-icons icon-animate pointer">{{ toggle ? 'add' : 'remove' }}</span>
+                                    <span class="pointer small">{{ toggle ? 'باز کردن همه' : 'بستن همه' }}</span>
+                                </span>
+
+                                <select ng-model="selectedOlapCube" ng-change="changeCube(selectedOlapCube)">
+                                    <option ng-repeat="i in olapCubes" value="{{$index}}">{{i.Caption}}</option>
+                                </select>
+                            </div>
+
+                            <div class="md-padding" ng-show="gettingData" layout-align="center center" layout="column">
+                                <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
+                            </div>
+
+                            <md-content flex id="columnList" ng-hide="gettingData">
+
+                                <div>
+                                    <div layout="row" layout-align="start center" class="datasource-item">
+                                        <span class="material-icons icon-animate pointer right-arrow" ng-click="measureExp = !measureExp" ng-class="{'rotate-90' : !measureExp}">keyboard_arrow_right</span>
+                                        <div ng-click="measureExp = !measureExp" layout="row" class="pointer">
+                                            <span>Measures</span>
+                                        </div>
+                                    </div>
+                                    <div>
+
+                                        <div uib-collapse="measureExp">
+                                            <div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Measures"
+                                                 ng-hide="existIn(i, measures)"
+                                                 index="{{$index}}" type="measure" draggable-items>
+                                                <img src="Images/measure.png" class="chart-editor-data-hicon" />
+                                                {{i.Name}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div layout="row" layout-align="start center" class="datasource-item">
+                                        <span class="material-icons icon-animate pointer right-arrow" ng-click="kpiExp = !kpiExp" ng-class="{'rotate-90' : !kpiExp}">keyboard_arrow_right</span>
+                                        <div ng-click="kpiExp = !kpiExp" layout="row" class="pointer">
+                                            <span>KPIs</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div uib-collapse="kpiExp">
+                                            <div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Kpis"
+                                                 ng-hide="existIn(i, measures)"
+                                                 index="{{$index}}" type="kpi" draggable-items>
+                                                <img src="Images/measure.png" class="chart-editor-data-hicon" />
+                                                {{i.Name}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="md-padding" ng-hide="olapCubes[+selectedOlapCube].Dimensions" layout-align="center center" layout="column">
+                                    <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
+                                </div>
+
+                                <div ng-repeat="u in olapCubes[+selectedOlapCube].Dimensions" ng-init="u.index = $index">
+
+                                    <div layout="row" layout-align="start center" class="datasource-item">
+                                        <span class="material-icons icon-animate pointer right-arrow" ng-click="u.expand = !u.expand" ng-class="{'rotate-90' : !u.expand}">keyboard_arrow_right</span>
+                                        <div ng-click="u.expand = !u.expand" layout="row" class="pointer">
+                                            <span>{{u.Name}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div uib-collapse="u.expand">
+
+                                        <collapse ng-repeat="(k,v) in u.group" ng-hide="k==''" style="margin-right:25px">
+                                            <collapse-header>
+                                                {{k}}
+                                            </collapse-header>
+
+                                            <collapse-body>
+                                                <div class="pointer datasource-field"
+                                                     ng-repeat="i in v" type="dimension"
+                                                     ng-hide="existIn(i, measures.concat(dimensions).concat(where))"
+                                                     group-name="{{k}}"
+                                                     index="{{$index}}" dimindex="{{u.index}}" hi="i" draggable-items>
+                                                    <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                                    {{i.Name}}
+                                                </div>
+                                            </collapse-body>
+                                        </collapse>
+
+
+                                        <div class="pointer datasource-field"
+                                             ng-repeat="i in u.group['']" type="dimension"
+                                             group-name=""
+                                             ng-hide="existIn(i, measures.concat(dimensions).concat(where))"
+                                             index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
+                                            <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                            {{i.Name}}
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </md-content>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <md-divider></md-divider>
+    </div>
+
+    <!--left panel for chart and selected dims-->
+    <div flex="50" layout="column">
+
+        <!--Chart Container-->
+        <md-card flex="65" layout="column">
+            <div layout="row" layout-align="start center">
+                <md-input-container class="md-block no-errors-spacer" md-no-float style="margin:0 10px">
+                    <input ng-model="chartName" type="text" placeholder="{{ 'نام' | translate }}" />
+                </md-input-container>
+
+                <md-button class="md-icon-button" ng-click="showDialog($event)">
+                    <span class="material-icons md-accent gray">view_module</span>
+                    <md-tooltip>{{'dashboads' | translate}}</md-tooltip>
+                </md-button>
+
+                <span flex></span>
+                
+                <md-select ng-model="chartType" style="margin:0">
+                    <md-option class="select-chart-btn" xng-click="chartType = 1 " xng-class="{active : chartType == 1}" value="1" xdata-icon="icon-chart barchart">{{ 'نمودار میله‌ای - خطی' | translate}}</md-option>
+                    <md-option class="select-chart-btn" xng-click="chartType = 2 " xng-class="{active : chartType == 2}" value="2" xdata-icon="icon-chart piechart">{{ 'نمودار دایره‌ای' | translate}}</md-option>
+                    <md-option class="select-chart-btn" xng-click="chartType = 4 " xng-class="{active : chartType == 4}" value="4" xdata-icon="icon-chart gaugechart">{{ 'نمودار عقربه‌ای' | translate}}</md-option>
+                    <md-option class="select-chart-btn" xng-click="chartType = 8 " xng-class="{active : chartType == 8}" value="8" xdata-icon="icon-chart radarchart">{{ 'نمودار رادار' | translate}}</md-option>
+                    <md-option class="select-chart-btn" xng-click="chartType = 9 " xng-class="{active : chartType == 9}" value="9" xdata-icon="icon-chart treechart">{{ 'نمودار درختی' | translate}}</md-option>
+                    <md-option class="select-chart-btn" xng-click="chartType = 6 " xng-class="{active : chartType == 6}" value="6" xdata-icon="icon-chart mapchart">{{ 'نقشه' | translate}}</md-option>
+                    <md-option class="select-chart-btn" xng-click="chartType = 5 " xng-class="{active : chartType == 5}" value="5" xdata-icon="icon-chart tablechart">{{ 'جدول' | translate}}</md-option>
+                    <md-option class="select-chart-btn" xng-click="chartType = 7 " xng-class="{active : chartType == 7}" value="7" xdata-icon="icon-chart usercontrolchart">{{ 'کنترل کاربری' | translate}}</md-option>
+                </md-select>
+
+                <md-button class="md-icon-button" ng-click="save($event)" ng-disabled="(isEdit && (!menus || !menusSelected)) || (!isEdit && !menus)">
+                    <span class="material-icons md-accent gray">done</span>
+                    <md-tooltip>{{'save' | translate}}</md-tooltip>
+                </md-button>
+
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <span class="material-icons gray">clear</span>
+                    <md-tooltip>{{'cancel' | translate}}</md-tooltip>
+                </md-button>
+
+                <md-button class="md-icon-button" ng-click="delete($event)" ng-show="isEdit">
+                    <span class="material-icons gray">delete</span>
+                    <md-tooltip>{{'delete' | translate}}</md-tooltip>
+                </md-button>
+
+
+
+            </div>
+
+            <md-card-content id="chart-content" flex style="overflow:auto">
+                <div ng-show="chartRenderError">{{chartRenderError}}</div>
+                <div id="divChart"></div>
+            </md-card-content>
+
+
+        </md-card>
+
+        <!--Drop Dimentions Area-->
+        <md-divider></md-divider>
+        <div class="data-tab" flex="35" ng-show="type!='combo-kpi'" layout="row">
+            <div flex="33" layout="column" layout-fill>
+                <!--<div class="datasource-item-header">{{ 'ابعاد (ستون‌های رشته‌ای)' | translate }}</div>-->
+                <div class="datasource-item-header">{{ 'dimestions' | translate }} <span style="font-size:0.7em; color:gray">{{ 'categorical_fields' | translate }}</span></div>
+                <md-content flex id="divX" class="item-container" ui-sortable="sortableOptions" ng-model="dimensions">
+                    <div flex layout="row" layout-align="start center" ng-click="gotoDimentionSettings(i, $index)" ng-repeat="i in dimensions track by $index" class="pointer datasource-item">
+                        <span class="material-icons small small-size" ng-click="dimensions.splice($index,1)">close</span>
+                        <img src="Images/hierarchy1.png">
+                        {{i.Name}}
+                        <span flex></span>
+                        <span class="material-icons small small-size " ng-click="filterMember(i)">filter_list</span>
+                    </div>
+                </md-content>
+            </div>
+
+            <md-divider></md-divider>
+
+            <div flex="33" layout="column" layout-fill>
+                <!--<div class="datasource-item-header">{{ 'شاخص‌ها (ستون‌های عددی)' | translate }}</div>-->
+                <div class="datasource-item-header">{{ 'measures' | translate }} <span style="font-size:0.7em; color:gray">{{ 'numerical_fields' | translate }}</span></div>
+                <md-content flex id="divY" class="item-container" ui-sortable="sortableOptions" ng-model="measures" layout-fill>
+                    <div flex layout="row" layout-align="start center" ng-click="gotoMeasureSettings(i, $index)" ng-repeat="i in measures track by $index" class="pointer datasource-item">
+                        <span class="material-icons small small-size" ng-click="measures.splice($index,1)">close</span>
+                        <img ng-src="Images/{{i.type && i.type=='measure' ? 'measure' :i.type && i.type=='kpi' ? 'kpi' :'hierarchy1'}}.png">
+                        {{i.Name}}
+                        <span flex></span>
+                        <span class="material-icons small small-size" ng-click="filterMember(i)" ng-show="((!i.aggregation || i.aggregation=='NONE') && !i.type) || (i.type!='measure' && i.type!='kpi')">filter_list</span>
+                    </div>
+                </md-content>
+
+                <div flex layout="row" layout-align="start center" ng-repeat="i in olapData.measures track by $index" class="pointer datasource-item">
+                    <span class="material-icons small small-size" ng-click="olapData.measures.splice($index,1)">close</span>
+                    <img src="Images/measure.png">
+                    {{i.Name}}
+                </div>
+                <div flex layout="row" layout-align="start center" ng-repeat="i in olapData.kpis track by $index" class="pointer datasource-item">
+                    <span class="material-icons small small-size" ng-click="olapData.kpis.splice($index,1)">close</span>
+                    <img src="Images/kpi.png">
+                    {{i.Name}}
+                </div>
+            </div>
+
+            <md-divider></md-divider>
+
+            <div flex="33" layout="column" layout-fill>
+                <div class="datasource-item-header">{{ 'شرط' | translate }}</div>
+                <md-content flex id="divProv" class="item-container" ui-sortable="sortableOptions" ng-model="where">
+                    <div flex layout="row" layout-align="start center" ng-click="gotoWhereSettings(i, $index)" ng-repeat="i in where track by $index" class="pointer datasource-item">
+                        <span class="material-icons small small-size" ng-click="where.splice($index,1)">close</span>
+                        <img src="Images/hierarchy1.png">
+                        {{i.Name}}
+                        <span flex></span>
+                        <span class="material-icons small small-size" ng-click="filterMember(i)">filter_list</span>
+                    </div>
+                </md-content>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<script type="text/ng-template" id="editor/save-chart.html">
+
+    <md-dialog aria-label="{{'pages and permissions settings' | translate}}" ng-cloak style="width:80%">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'pages and permissions settings' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <span class="material-icons">close</span>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout-margin class="md-dialog-content">
+
+                <md-input-container class="md-block">
+                    <label>{{ 'نام' | translate }}</label>
+                    <input ng-model="parent.chartName" type="text" />
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>{{ 'desc' | translate }}</label>
+                    <textarea ng-model="parent.chartDesc" type="text" />
+                </md-input-container>
+
+                <div>
+                    <div class="inline" ng-repeat="(k,v) in parent.menus">
+                        <div class="chip" ng-repeat="s in v | filter:{check:true}">
+                            {{s.name}}
+                            <span class="closebtn" ng-click="s.check = false">&times;</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <collapse>
+                    <collapse-header>
+                        {{'menus' | translate}}
+                    </collapse-header>
+
+                    <collapse-body>
+                        <div style="margin:0 20px 0 0">
+                            <collapse ng-repeat="(k,v) in parent.menus">
+                                <div layout="row">
+                                    <collapse-header>
+                                        {{k}}
+                                    </collapse-header>
+                                    <span flex></span>
+                                </div>
+                                <collapse-body>
+                                    <div style="margin:0 20px 0 0">
+                                        <div ng-repeat="r in v" layout="row" layout-align="start center">
+                                            <md-checkbox ng-model="r.check">{{r.name}}</md-checkbox>
+                                            <span flex></span>
+
+                                        </div>
+                                    </div>
+                                </collapse-body>
+                            </collapse>
+                        </div>
+
+                    </collapse-body>
+
+                </collapse>
+
+                <datasource-permission ng-model="parent.roles" class="block" type="chart" id="{{parent.id}}"></datasource-permission>
+
+            </div>
+
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="save()">
+                {{ 'ذخیره' | translate }}
+            </md-button>
+            <md-button ng-click="cancel()">
+                {{ 'انصراف' | translate }}
+            </md-button>
+        </md-dialog-actions>
+    </md-dialog>
+
+</script>
+
+<script type="text/ng-template" id="editor/filterMember.html">
+
+    <md-dialog aria-label="{{'filter' | translate}}" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'filter' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <span class="material-icons">close</span>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div xlayout-margin class="xmd-dialog-content prop-section chart-editor">
+
+                <md-tabs xmd-dynamic-height md-border-bottom flex md-selected="2">
+                    <md-tab label="{{ 'متغیرهای کاربری' | translate }}">
+                        <md-content class="md-padding">
+                            <div ng-hide="parent.userProperty&&parent.userProperty.length>0">   هنوز متغیری برای کاربران خود نساخته‌اید. برای ساخت متغیر کاربری، به قسمت ویرایش کاربر بروید.</div>
+                            <div ng-show="parent.userProperty&&parent.userProperty.length>0">
+                                <div><label><input type="checkbox" ng-model="allUserProp" ng-change="parent.checkAll(parent.userProperty, allUserProp)">{{ 'انتخاب همه' | translate }}</label></div>
+                                <div ng-repeat="i in parent.userProperty"><label><input type="checkbox" ng-model="i.Checked">{{i.Name}}</label></div>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="{{ 'متغیرهای سراسری' | translate }}">
+                        <md-content class="md-padding">
+                            <div><label><input type="checkbox" ng-change="parent.checkAll(parent.globalVariable, allGlobVar)" ng-model="allGlobVar">{{ 'انتخاب همه' | translate }}</label></div>
+                            <div ng-repeat="i in parent.globalVariable"><label><input type="checkbox" ng-model="i.Checked">{{i.Name}}</label></div>
+
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="{{ 'مقادیر' | translate }}">
+                        <md-content class="md-padding" flex>
+                            <div ng-show="parent.members.isNumeric" class="form-horizontal">
+
+                                <div class="form-row" layout="row" layout-align="start center">
+                                    <label class="col-sm-4">{{ 'نوع فیلتر' | translate }}</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" ng-model="parent.members.numericFilter.type" ng-init="parent.members.numericFilter.type='condition'">
+                                            <option value="condition">{{ 'شرط' | translate}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div ng-show="parent.members.numericFilter.type=='condition'" class="form-row" style="font-size:12px">
+
+                                    <span>{{parent.members.name}}</span>
+                                    <select class="condition-style" ng-model="parent.members.numericFilter.conditions[0].condition">
+                                        <option value="none"> </option>
+                                        <option value="eq">{{ 'برابر' | translate}}</option>
+                                        <option value="neq">{{ 'نابرابر' | translate}}</option>
+                                        <option value="gre">{{ 'بزرگتر' | translate}}</option>
+                                        <option value="greeq">{{ 'بزرگتر مساوی' | translate}}</option>
+                                        <option value="les">{{ 'کوچکتر' | translate}}</option>
+                                        <option value="leseq">{{ 'کوچکتر مساوی' | translate}}</option>
+                                    </select>
+
+                                    <input class="condition-style" style="width:50px;" type="text" ng-model="parent.members.numericFilter.conditions[0].parameter" />
+
+
+                                    <select class="condition-style" ng-model="parent.members.numericFilter.conditionType">
+                                        <option value="and">{{ 'و' | translate}}</option>
+                                        <option value="or">{{ 'یا' | translate}}</option>
+                                    </select>
+
+                                    <select class="condition-style" ng-model="parent.members.numericFilter.conditions[1].condition">
+                                        <option value="none"> </option>
+                                        <option value="eq">{{ 'برابر' | translate}}</option>
+                                        <option value="neq">{{ 'نابرابر' | translate}}</option>
+                                        <option value="gre">{{ 'بزرگتر' | translate}}</option>
+                                        <option value="greeq">{{ 'بزرگتر مساوی' | translate}}</option>
+                                        <option value="les">{{ 'کوچکتر' | translate}}</option>
+                                        <option value="leseq">{{ 'کوچکتر مساوی' | translate}}</option>
+                                    </select>
+                                    <input class="condition-style" style="width:50px;" type="text" ng-model="parent.members.numericFilter.conditions[1].parameter" />
+
+                                </div>
+
+                                <div class="form-row" ng-show="parent.members.numericFilter.type=='func'">
+                                    <div class="form-row" layout="row" layout-align="start center">
+                                        <label class="col-sm-4">{{ 'انتخاب تابع' | translate }}</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" ng-model="parent.members.numericFilter.func">
+                                                <option value="aboveAvg">{{ 'بالای میانگین' | translate}}</option>
+                                                <option value="belowAvg">{{ 'زیر میانگین' | translate}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div ng-show="!parent.members.isNumeric">
+
+                                <div class="md-padding" layout="column" layout-align="center center" ng-hide="parent.members">
+                                    <md-progress-circular md-mode='indeterminate'></md-progress-circular>
+                                </div>
+                                <div><label><input type="checkbox" ng-model="allmember" ng-change="parent.checkAll(parent.members.list, allmember)">{{ 'انتخاب همه' | translate }}</label></div>
+                                <div ng-repeat="i in parent.members.list"><label><input type="checkbox" ng-model="i.Checked">{{i.Name}}</label></div>
+
+                            </div>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </div>
+
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()">
+                {{ 'بستن' | translate }}
+            </md-button>
+        </md-dialog-actions>
+    </md-dialog>
+
+
+
+
+
+</script>

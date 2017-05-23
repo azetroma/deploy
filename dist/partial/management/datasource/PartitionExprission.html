@@ -1,0 +1,121 @@
+
+<div style="padding: 5px 5px;margin: 0px -5px;position:relative">
+
+
+    <div layout="row" layout-align="center center">
+        <b>تقسیم کردن منبع داده</b>
+        <md-button class="md-icon-button" ng-click="newPartition()">
+            <span class="material-icons">add</span>
+        </md-button>
+        <span flex></span>
+    </div>
+
+    <md-divider></md-divider>
+
+    <fieldset class="standard" ng-repeat="partitionPart in partition" style="margin-top:24px">
+        <legend>
+            <span layout="row" layout-align="start center">
+                <span>قسمت {{getPartitionName($index)}}</span>
+                <md-button class="md-icon-button" ng-click="partitionPart.formulas.push({})">
+                    <span class="material-icons">add</span>
+                </md-button>
+                <md-button class="md-icon-button" ng-click="partition.splice($index, 1)">
+                    <span class="material-icons">delete</span>
+                </md-button>
+            </span>
+        </legend>
+        <div layout="row" flex layout-wrap>
+            <div ng-repeat="param in partitionPart.formulas track by $index" flex="50" margin-top="-16px">
+                <md-input-container flex>
+                    <label style="direction:ltr">@{{'{'}}{{$index}}{{'}'}}</label>
+                    <textarea ng-model="param.formula"
+                              style="direction:ltr; text-align:left; font-family:monospace; resize:vertical"></textarea>
+                </md-input-container>
+                <md-button class="md-icon-button"  ng-show="partitionPart.formulas.length>1" ng-click="partitionPart.formulas.splice($index,1)">
+                    <span class="material-icons">close</span>
+                </md-button>
+
+            </div>
+        </div>
+        <md-input-container ng-show="type==1">
+            <label>به‌روز رسانی</label>
+            <md-select class="form-control" ng-model="partitionPart.autoRefresh">
+                <md-option value="0">در لحظه</md-option>
+                <md-option value="1">هر یک دقیقه</md-option>
+                <md-option value="5">هر پنج دقیقه</md-option>
+                <md-option value="15">هر پانزده دقیقه</md-option>
+                <md-option value="30">هر سی دقیقه</md-option>
+                <md-option value="60">هر یک ساعت</md-option>
+                <md-option value="1440">هر روز</md-option>
+                <md-option value="10080">هر هفته</md-option>
+                <md-option value="40320">هر ماه</md-option>
+                <md-option value="2147483647">عدم به‌روز رسانی</md-option>
+                <md-option value="-1">زمانبندی...</md-option>
+            </md-select>
+        </md-input-container>
+
+        <div ng-show="partitionPart.autoRefresh == -1 && type==1">
+            <datasource-schedule id="datasurce-schedule-scope" ng-model="partitionPart.schedule">   </datasource-schedule>
+        </div>
+
+        <div ng-show="type==2">
+            <md-input-container>
+                <label>به‌روز رسانی</label>
+
+                <md-select class="form-control" ng-model="partitionPart.autoRefresh">
+                    <md-option value="-4">در صورت به روز شدن یکی از منابع داده مرتبط</md-option>
+                    <md-option value="-3">براساس تغییر برخی منابع داده</md-option>
+                </md-select>
+
+            </md-input-container>
+        </div>
+
+
+        <div ng-show="type==2 && partitionPart.autoRefresh==-3">
+
+            <div layout="row">
+                <label><span> اضافه کردن منبع داده</span></label>
+                <span flex></span>
+                <md-button class="md-icon-button"  ng-click="partitionPart.datasources.push({})" title='اضافه کردن منبع داده مرتبط'>
+                    <span class="material-icons">close</span>
+                </md-button>
+            </div>
+
+            <div ng-repeat="item in partitionPart.datasources track by $index" layout="row">
+                <md-input-container>
+                    <md-select ng-model="item.id" ng-change="addDatasourceToPartition(item)">
+                        <md-option ng-repeat="d in datasources" value="{{d.Id}}">{{d.Name}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+
+                <div>
+                    <ul class="list-inline">
+                        <li ng-repeat="p in item.partitions">
+                            <md-checkbox ng-model="p.check">
+                                قسمت شماره {{p.index + 1}}
+                            </md-checkbox>
+                        </li>
+                    </ul>
+                </div>
+
+                <md-button class="md-icon-button"   ng-click="partitionPart.datasources.splice($index, 1)" title='حذف'>
+                    <span class="material-icons">delete</span>
+                </md-button>
+
+            </div>
+
+        </div>
+
+    </fieldset>
+
+
+
+
+    <div ng-hide="partition.length>0" style="text-align:center">
+        <small>
+            <small><span data-trans-key='قسمت کوچک‌تری برای منبع داده تعریف نشده است'> </span></small>
+        </small>
+    </div>
+</div>
+
