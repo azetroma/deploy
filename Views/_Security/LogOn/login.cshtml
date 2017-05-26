@@ -61,14 +61,17 @@
                     <div class="col-md-6 ">
                         <div class="sadaf-desc">
 
-                                <img class="logo" src="~/Images/logo_half.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                            <img class="logo" src="~/Images/logo_half.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
 
                             <p>
                                 <h1 class="inline-h1">نرم افزار داشبورد مدیریتی</h1> ‌به شما کمک می‌کند وضعیت جاری کسب و کار خود را به روشی مناسب، ساده و قابل فهم درک کنید. داشبورد صدف با اتصال به سیستم‌های اطلاعاتی موجود در شرکت یا سازمان شما و با ترکیب اطلاعات آن‌ها، گزارش‌های ترکیبی و جامعی از وضعیت شرکت به صورت درلحظه به شما ارائه می‌کند.
                             </p>
                             @*<p>
-                                به کمک داشبورد مدیریتی صدف شما می‌توانید، میزان فروش در لحظه، میزان کار پرسنل، سود واقعی، هزینه‌های جاری و هر اطلاعات دیگری در مورد شرکت خود را در یک صفحه وب مشاهده کنید. صدف با اتصال به سیستم‌های اطلاعاتی مختلف، با سرعتی مناسب، اطلاعات پیچیده‌ی تجاری شما را خلاصه کرده و در دسترس شما قرار می‌دهد.
-                            </p>*@
+                                    به کمک داشبورد مدیریتی صدف شما می‌توانید، میزان فروش در لحظه، میزان کار پرسنل، سود واقعی، هزینه‌های جاری و هر اطلاعات دیگری در مورد شرکت خود را در یک صفحه وب مشاهده کنید. صدف با اتصال به سیستم‌های اطلاعاتی مختلف، با سرعتی مناسب، اطلاعات پیچیده‌ی تجاری شما را خلاصه کرده و در دسترس شما قرار می‌دهد.
+                                </p>*@
+                            <div class="text-right">
+                                <a href="http://www.sadafdashboard.ir/files/sadaf.apk" class="label label-info" style="background-color:#424242;">دانلود نسخه اندروید</a>
+                            </div>
                             <div style="margin-top:30px">
                                 <a href="http://www.sadafdashboard.ir" target="_blank">تمامی حقوق متعلق به <b>داشبورد مدیریت صدف</b> است</a>
                             </div>
@@ -88,10 +91,10 @@
                                 @ViewBag.msg["remember"]
                             </label>
                             @if (ViewBag.error != null) {
-                            <div class="alert alert-danger alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                @Html.Raw(ViewBag.error)
-                            </div>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    @Html.Raw(ViewBag.error)
+                                </div>
                             }
                             <button class="btn btn-lg btn-primary btn-block" type="submit">@ViewBag.msg["login"]</button>
 
@@ -114,7 +117,7 @@
 
                 @*<h2 class="form-signin-heading">@ViewBag.msg["login_message"]</h2>*@
 
-            }
+                                    }
         </div>
 
         <script>
@@ -160,97 +163,97 @@
 
 
 
-    } else {
-        <div class="alert alert-danger fade in">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            @ViewBag.Message
+                                    } else {
+                                        <div class="alert alert-danger fade in">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                            @ViewBag.Message
 
-        </div>
-        <h1>فعال کردن برنامه</h1>
-        <p>
-            برای دریافت جواز استفاده از برنامه، یک کد یکتا برای سیستم شما تولید می‌شود.
-            شما می‌توانید از سامانه <a href="http://www.licence.sadafdashboard.ir" target="_blank">http://www.licence.sadafdashboard.ir</a> برای دریافت جواز استفاده نمایید.
+                                        </div>
+                                        <h1>فعال کردن برنامه</h1>
+                                        <p>
+                                            برای دریافت جواز استفاده از برنامه، یک کد یکتا برای سیستم شما تولید می‌شود.
+                                            شما می‌توانید از سامانه <a href="http://www.licence.sadafdashboard.ir" target="_blank">http://www.licence.sadafdashboard.ir</a> برای دریافت جواز استفاده نمایید.
 
 
-        </p>
-        <button class="btn  btn-primary " data-toggle="modal" data-target="#activationModal">@ViewBag.msg["activate"]</button>
-        <button type="button" class="btn btn-info auto-active" data-loading-text="در حال ارتباط با سرور ...">دریافت خودکار جواز</button>
+                                        </p>
+                                        <button class="btn  btn-primary " data-toggle="modal" data-target="#activationModal">@ViewBag.msg["activate"]</button>
+                                        <button type="button" class="btn btn-info auto-active" data-loading-text="در حال ارتباط با سرور ...">دریافت خودکار جواز</button>
 
-        <div class="" style="font-size: 10px; padding: 30px 0;">
-            <div>@ViewBag.msg["version"] : @typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version  </div>
-            <div>@ViewBag.msg["db version"]: @ViewBag.DbVersion</div>
+                                        <div class="" style="font-size: 10px; padding: 30px 0;">
+                                            <div>@ViewBag.msg["version"] : @typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version  </div>
+                                            <div>@ViewBag.msg["db version"]: @ViewBag.DbVersion</div>
 
-            <a href="#last-changes" data-toggle="modal">@ViewBag.msg["change list"]</a>
-        </div>
+                                            <a href="#last-changes" data-toggle="modal">@ViewBag.msg["change list"]</a>
+                                        </div>
         <!-- Modal -->
-        <div class="modal fade" id="activationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">دریافت جواز استفاده</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            برای دریافت جواز استفاده از برنامه، کد زیر را در<a href="http://www.licence.sadafdashboard.ir" target="_blank">licence.sadafdashboard.ir</a>
-                            وارد کنید تا کد جواز را دریافت کنید.
-                        </p>
-                        <div class="well"
-                             style="width: 100%; height: 200px; overflow-y: scroll; word-wrap: break-word; font-family: monospace; font-size: 0.8em; direction: ltr;line-height:1.4em">
-                            @ViewBag.SystemInfo
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">انصراف</button>
-                        <button type="button" class="btn btn-primary first-step">مرحله بعد</button>
-                        <button type="button" class="btn btn-primary final-step" style="display: none">فعال کردن</button>
-                        <button type="button" class="btn btn-primary prior-step" style="display: none">مرحله قبل</button>
-                        <button type="button" class="btn btn-success success-step" style="display: none">اتمام</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <style>
-            .module {
-                display: inline-block;
-                margin: 8px 4px;
-                padding: 8px;
-            }
+                                        <div class="modal fade" id="activationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title" id="myModalLabel">دریافت جواز استفاده</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>
+                                                            برای دریافت جواز استفاده از برنامه، کد زیر را در<a href="http://www.licence.sadafdashboard.ir" target="_blank">licence.sadafdashboard.ir</a>
+                                                            وارد کنید تا کد جواز را دریافت کنید.
+                                                        </p>
+                                                        <div class="well"
+                                                             style="width: 100%; height: 200px; overflow-y: scroll; word-wrap: break-word; font-family: monospace; font-size: 0.8em; direction: ltr;line-height:1.4em">
+                                                            @ViewBag.SystemInfo
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">انصراف</button>
+                                                        <button type="button" class="btn btn-primary first-step">مرحله بعد</button>
+                                                        <button type="button" class="btn btn-primary final-step" style="display: none">فعال کردن</button>
+                                                        <button type="button" class="btn btn-primary prior-step" style="display: none">مرحله قبل</button>
+                                                        <button type="button" class="btn btn-success success-step" style="display: none">اتمام</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <style>
+                                            .module {
+                                                display: inline-block;
+                                                margin: 8px 4px;
+                                                padding: 8px;
+                                            }
 
-            div#activationModal {
-                line-height: 1.9em;
-            }
-        </style>
-        @section scripts{
-            <script>
-                (function ($) {
+                                            div#activationModal {
+                                                line-height: 1.9em;
+                                            }
+                                        </style>
+                                        @section scripts{
+                                            <script>
+                                                (function ($) {
 
 
-                    function persian(s, showPersian) {
-                        if (!showPersian) return s;
-                        var reps = {
+                                                    function persian(s, showPersian) {
+                                                        if (!showPersian) return s;
+                                                        var reps = {
 
-                            0: '۰',
-                            1: '۱',
-                            2: '۲',
-                            3: '۳',
-                            4: '۴',
-                            5: '۵',
-                            6: '۶',
-                            7: '۷',
-                            8: '۸',
-                            9: '۹',
-                        };
-                        s = s + "";
-                        return s.replace(/(\d)/g, function (s, key) {
-                            return reps[key] || s;
-                        });
-                    }
+                                                            0: '۰',
+                                                            1: '۱',
+                                                            2: '۲',
+                                                            3: '۳',
+                                                            4: '۴',
+                                                            5: '۵',
+                                                            6: '۶',
+                                                            7: '۷',
+                                                            8: '۸',
+                                                            9: '۹',
+                                                        };
+                                                        s = s + "";
+                                                        return s.replace(/(\d)/g, function (s, key) {
+                                                            return reps[key] || s;
+                                                        });
+                                                    }
 
-                    function activate(license, finish) {
-                        $.post("@Url.Action("Activation")", { license: license }, function (data) {
-                            if (data.result) {
-                                $('.modal-body').html('<p>جواز استفاده از برنامه به درستی نصب شد</p>\
+                                                    function activate(license, finish) {
+                                                        $.post("@Url.Action("Activation")", { license: license }, function (data) {
+                                                            if (data.result) {
+                                                                $('.modal-body').html('<p>جواز استفاده از برنامه به درستی نصب شد</p>\
                                                                                     <ul>\
                                                                                         <li><b>نام سازمان: </b>' + data.Organization + '</li>\
                                                                                         <li><b>نام واحد: </b>' + data.OrganizationUnit + '</li>\
@@ -261,69 +264,69 @@
                                                                                         <li><b>زمان انقضای جواز: </b>' + persian(data.EndTime) + '</li>\
                                                                                         <li><b>لیست ماژول‌های مورد استفاده: </b>' + (!data.modules.length ? 'لیست ماژول‌ها خالی است' : '<ul><li class="module label label-info">' + data.modules.join('</li><li class="module label label-info">') + '</li></ul>') + '</li>\
                                                                                     </ul>');
-                                $('.prior-step').hide();
-                                $('.first-step').hide();
-                                $('.final-step').hide();
-                                $('.btn-default').hide();
-                                $('.success-step').show()
-                            }
-                            else {
-                                $('.modal-body').prepend('<div class="alert alert-danger fade in">\
+                                                                $('.prior-step').hide();
+                                                                $('.first-step').hide();
+                                                                $('.final-step').hide();
+                                                                $('.btn-default').hide();
+                                                                $('.success-step').show()
+                                                            }
+                                                            else {
+                                                                $('.modal-body').prepend('<div class="alert alert-danger fade in">\
                                                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
                                                                     ' + data.msg + '</div>');
-                            }
-                            if (finish) finish();
+                                                            }
+                                                            if (finish) finish();
 
-                        });
-                    }
+                                                        });
+                                                    }
 
-                    $('.auto-active').on('click', function () {
-                        var btn = $(this);
-                        btn.button('loading');
-                        $.post('http://licence.sadafdashboard.ir/api/LicenceManager/get', ({ '': '@ViewBag.SystemInfo' }), function (data) {
-                            activate(data.licence, function () {
-                                btn.button('reset');
-                                $('#activationModal').modal('show');
-                            });
-                        });
-                    });
+                                                    $('.auto-active').on('click', function () {
+                                                        var btn = $(this);
+                                                        btn.button('loading');
+                                                        $.post('http://licence.sadafdashboard.ir/api/LicenceManager/get', ({ '': '@ViewBag.SystemInfo' }), function (data) {
+                                                            activate(data.licence, function () {
+                                                                btn.button('reset');
+                                                                $('#activationModal').modal('show');
+                                                            });
+                                                        });
+                                                    });
 
-                    $('.success-step').on("click", function () {
-                        window.location.reload();
-                    });
+                                                    $('.success-step').on("click", function () {
+                                                        window.location.reload();
+                                                    });
 
-                    $('.final-step').on("click", function () {
-                        activate($('textarea').val());
-                    });
+                                                    $('.final-step').on("click", function () {
+                                                        activate($('textarea').val());
+                                                    });
 
-                    $('.prior-step').on('click', function () {
-                        $('.modal-body').html('<p>برای دریافت جواز استفاده از برنامه، کد زیر را در <a href="http://www.licence.sadafdashboard.ir" target="_blank">licence.sadafdashboard.ir</a> \
+                                                    $('.prior-step').on('click', function () {
+                                                        $('.modal-body').html('<p>برای دریافت جواز استفاده از برنامه، کد زیر را در <a href="http://www.licence.sadafdashboard.ir" target="_blank">licence.sadafdashboard.ir</a> \
                                                وارد کنید تا کد جواز را دریافت کنید. \
                                                 </p>\
                                                 <div class="well"\
                                                     style="width: 100%; height: 200px; overflow-y: scroll;\
                                                     word-wrap: break-word; font-family: monospace;\
                                                     font-size: 0.8em;">@ViewBag.SystemInfo</div>');
-                        $('.prior-step').hide();
-                        $('.first-step').show();
-                        $('.final-step').hide();
-                    });
+                                                        $('.prior-step').hide();
+                                                        $('.first-step').show();
+                                                        $('.final-step').hide();
+                                                    });
 
-                    $('.first-step').on('click', function () {
-                        $('.modal-body').html('<p> کد جواز استفاده را در ورودی زیر کپی کنید \
+                                                    $('.first-step').on('click', function () {
+                                                        $('.modal-body').html('<p> کد جواز استفاده را در ورودی زیر کپی کنید \
                                                  و روی کلید مرحله بعد کلیک کنید. برای دریافت کد جواز استفاده به \
                                                  سایت <a href="http://www.licence.sadafdashboard.ir" target="_blank">licence.sadafdashboard.ir/license</a> مراجعه کنید\
                                                  </p>\
                                                  <textarea class="form-control ltr" placeholder="کد جواز استفاده"></textarea>');
-                        $('.prior-step').show();
-                        $('.first-step').hide();
-                        $('.final-step').show();
-                    });
-                })(jQuery)
+                                                        $('.prior-step').show();
+                                                        $('.first-step').hide();
+                                                        $('.final-step').show();
+                                                    });
+                                                })(jQuery)
 
-            </script>
-        }
-    }
+                                            </script>
+                                        }
+                                    }
 
 
     <div id="last-changes" class="modal " role="dialog" tabindex="-1"
