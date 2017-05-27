@@ -1,6 +1,6 @@
 ﻿
 <div class="chart-editor" layout="row" flex style="background-color:#fff">
-
+    
     <div flex="50" layout="row">
 
         <!--Properties Container-->
@@ -335,7 +335,7 @@
                     <md-option class="select-chart-btn" xng-click="chartType = 7 " xng-class="{active : chartType == 7}" value="7" xdata-icon="icon-chart usercontrolchart">{{ 'کنترل کاربری' | translate}}</md-option>
                 </md-select>
 
-                <md-button class="md-icon-button" ng-click="save($event)" ng-disabled="(isEdit && (!menus || !menusSelected)) || (!isEdit && !menus)">
+                <md-button class="md-icon-button" ng-click="save($event)" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
                     <span class="material-icons md-accent gray">done</span>
                     <md-tooltip>{{'save' | translate}}</md-tooltip>
                 </md-button>
