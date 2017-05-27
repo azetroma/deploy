@@ -136,7 +136,7 @@
 
         <div class="sadaf-footer">
             <a href="http://www.sadafdashboard.ir" target="_blank">{{'copyright' | translate}}</a>
-            - نسخه @(version.Major + "." + version.Build + "." + @version.Minor)
+            - نسخه @(version.Major + "." + version.Minor + "." + version.Build )
         </div>
     </div>
 
@@ -216,7 +216,7 @@
                     <div style="white-space:nowrap">
 
                         @{
-                        var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
+                            var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
                         <text> @user.FirstName @user.LastName</text>
                         }
                         <i class="icon user large circle"></i>
