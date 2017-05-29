@@ -103,7 +103,7 @@
                 <div class="connected-sortable" uib-collapse="!mc.open" ui-sortable="sortableOptions">
                     <div class="side-menu-item side-menu-item-child dashboard-menu" ng-repeat="m in mc.menus" href="#dashboard/{{m.menu.Id}}" data-id="{{m.menu.Id}}" on-finish-render="ngRepeatFinished" ng-class="{active: m.active}" ng-click="$event.stopPropagation();">
 
-                        <a href="#/dashboard/{{m.menu.Id}}" ng-click="closeSidebar()">
+                        <a href="#/dashboard/{{m.menu.Id}}" ng-click="closeSidebar(); cancelRequests();">
                             <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="m.hasEditPer || m.hasDeletePer" style="line-height: 1.5em;">
                                 <i class="setting icon"></i>
                                 <div class=" menu transition hidden" tabindex="-1">
