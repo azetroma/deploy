@@ -212,8 +212,7 @@
 
                 </div>
 
-                @if (!ViewBag.dontShowUserAccount) {
-                    <div class="ui dropdown">
+                    <div class="ui dropdown" id="user-account">
                         <div style="white-space:nowrap">
 
                             @{
@@ -228,7 +227,6 @@
                             <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
                         </div>
                     </div>
-                                }
                 <div class="">
                     <i class=" large icon sidebar link toc-toggle"></i>
 
@@ -495,6 +493,17 @@
         $('.ui.checkbox').checkbox();
         $('.ui.modal').modal();
 
+        var dontShowUserAccount = JSON.parse("@(ViewBag.dontShowUserAccount ?? "null")");
+        var dontShowUserAccountLocal = localStorage.getItem('dontShowUserAccount');
+        if(dontShowUserAccount!=null && dontShowUserAccountLocal == null){
+            localStorage.setItem('dontShowUserAccount', dontShowUserAccount);
+            dontShowUserAccountLocal = dontShowUserAccount;
+        }
+
+        if(!dontShowUserAccountLocal){
+            $('#user-account').hide();
+        }
+
     </script>
 
     <script>
@@ -510,7 +519,6 @@
         if (hash) {
             location.hash = hash;
         }
-        console.log('ViewBag.lang', @ViewBag.lang);
         app.lang.setLangTyle(@ViewBag.lang);
         app.lang.setLang();
         app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
