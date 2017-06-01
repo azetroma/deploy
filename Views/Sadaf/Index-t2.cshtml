@@ -208,25 +208,27 @@
 
                 </div>
                 <div class="" style="margin:0 10px;">
-                    <i class=" large icon  link full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
+                    <i class=" large icon link full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
 
                 </div>
 
-                <div class="ui dropdown">
-                    <div style="white-space:nowrap">
+                @if (!ViewBag.dontShowUserAccount) {
+                    <div class="ui dropdown">
+                        <div style="white-space:nowrap">
 
-                        @{
-                            var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
+                            @{
+                                var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
                         <text> @user.FirstName @user.LastName</text>
-                        }
-                        <i class="icon user large circle"></i>
+                            }
+                            <i class="icon user large circle"></i>
+                        </div>
+                        <div class=" menu transition hidden" tabindex="-1">
+                            <a ng-if="menuCategories.hasAminPermission" class="item" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
+                            <a class="item" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
+                            <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
+                        </div>
                     </div>
-                    <div class=" menu transition hidden" tabindex="-1">
-                        <a ng-if="menuCategories.hasAminPermission" class="item" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
-                        <a class="item" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
-                        <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
-                    </div>
-                </div>
+                                }
                 <div class="">
                     <i class=" large icon sidebar link toc-toggle"></i>
 
