@@ -19,31 +19,31 @@
 
     <link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.2" rel="stylesheet" />
     <link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@ver" rel="stylesheet" />
-    <link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=" rel="stylesheet" />
+    <link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=@ver" rel="stylesheet" />
 
-    <script src="~/dist/lib/jquery-1.11.1.min.js?v=@ver"></script>
-    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js?v=@ver"></script>
-    <script src="~/dist/lib/jquery.fileupload.min.js?v=@ver"></script>
-    <script src="~/dist/lib/jquery.gridster.with-extras.min.js?v=@ver"></script>
-    <script src="~/dist/lib/jquery.gridster.with-extras.min2.js?v=@ver"></script>
-    <script src="~/dist/lib/jquery.ui.widget.min.js?v=@ver"></script>
-    <script src="~/dist/lib/angular@(isRelease? ".min":"").js?v=@ver"></script>
-    <script src="~/dist/lib/angular-messages.min.js?v=@ver"></script>
-    <script src="~/dist/lib/angular-sanitize.min.js?v=@ver"></script>
-    <script src="~/dist/lib/angular-translate.min.js?v=@ver"></script>
-    <script src="~/dist/lib/angular-translate-loader-static-files.min.js?v=@ver"></script>
-    <script src="~/dist/lib/angular-animate.min.js?v=@ver"></script>
-    <script src="~/dist/lib/angular-route.min.js?v=@ver"></script>
-    <script src="~/dist/lib/bootstrap-datepicker.fa.min.js?v=@ver"></script>
-    <script src="~/dist/lib/bootstrap-datepicker.min.js?v=@ver"></script>
-    <script src="~/dist/lib/bootstrap-select.min.js?v=@ver"></script>
-    <script src="~/dist/lib/bootstrap-select-defaults-@(ViewBag.isRtl ? "fa_IR":"en_US").js?v=@ver"></script>
-    <script src="~/dist/lib/semantic.min.js?v=@ver"></script>
-    <script src="~/dist/lib/d3.v3.min.js?v=@ver"></script>
-    <script src="~/dist/lib/sortable.min.js?v=@ver"></script>
-    <script src="~/dist/lib/topojson.min.js?v=@ver"></script>
-    <script src="~/dist/lib/lodash.min.js?v=@ver"></script>
-    <script src="~/dist/lib/jquery.treeview.js?v=@ver"></script>
+    <script src="~/dist/lib/jquery-1.11.1.min.js"></script>
+    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="~/dist/lib/jquery.fileupload.min.js"></script>
+    <script src="~/dist/lib/jquery.gridster.with-extras.min.js"></script>
+    <script src="~/dist/lib/jquery.gridster.with-extras.min2.js"></script>
+    <script src="~/dist/lib/jquery.ui.widget.min.js"></script>
+    <script src="~/dist/lib/angular@(isRelease? ".min":"").js"></script>
+    <script src="~/dist/lib/angular-messages.min.js"></script>
+    <script src="~/dist/lib/angular-sanitize.min.js"></script>
+    <script src="~/dist/lib/angular-translate.min.js"></script>
+    <script src="~/dist/lib/angular-translate-loader-static-files.min.js"></script>
+    <script src="~/dist/lib/angular-animate.min.js"></script>
+    <script src="~/dist/lib/angular-route.min.js"></script>
+    <script src="~/dist/lib/bootstrap-datepicker.fa.min.js"></script>
+    <script src="~/dist/lib/bootstrap-datepicker.min.js"></script>
+    <script src="~/dist/lib/bootstrap-select.min.js"></script>
+    <script src="~/dist/lib/bootstrap-select-defaults-@(ViewBag.isRtl ? "fa_IR":"en_US").js"></script>
+    <script src="~/dist/lib/semantic.min.js"></script>
+    <script src="~/dist/lib/d3.v3.min.js"></script>
+    <script src="~/dist/lib/sortable.min.js"></script>
+    <script src="~/dist/lib/topojson.min.js"></script>
+    <script src="~/dist/lib/lodash.min.js"></script>
+    <script src="~/dist/lib/jquery.treeview.js"></script>
 
     <style>
         [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
@@ -92,7 +92,7 @@
                     <i class="icon angle down icon-animate large left floated" ng-class="{rotate: mc.open}"></i>  {{mc.category.Name}}
                     <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="mc.hasAddPer || mc.hasEditPer || mc.hasDeletePer" style="line-height:1.5em">
                         <i class="setting icon"></i>
-                        <div class=" menu transition hidden" tabindex="-1">
+                        <div class="menu transition hidden" tabindex="-1">
                             <div class="item" ng-show="mc.hasAddPer" ng-click="addMenuToCategory(mc);$event.stopPropagation();"><i class="add circle icon"></i>{{'اضافه کردن صفحه جدید' | translate}}</div>
                             <div class="item" ng-show="mc.hasEditPer" ng-click="editCategory(mc);$event.stopPropagation();"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
                             <div class="item" ng-show="mc.hasDeletePer" ng-click="deleteCategory(mc, $index);$event.stopPropagation();"><i class="trash outline icon"></i>{{'حذف' | translate}}</div>
@@ -106,7 +106,7 @@
                         <a href="#/dashboard/{{m.menu.Id}}" ng-click="closeSidebar(); cancelRequests();">
                             <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="m.hasEditPer || m.hasDeletePer" style="line-height: 1.5em;">
                                 <i class="setting icon"></i>
-                                <div class=" menu transition hidden" tabindex="-1">
+                                <div class="menu transition hidden" tabindex="-1">
                                     <div class="item" ng-show="m.hasEditPer" ng-click="editMenu(m);$event.stopPropagation();"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
                                     <div class="item" ng-show="m.hasDeletePer" ng-click="deleteMenu(m, mc, $index);$event.stopPropagation();"><i class="trash outline icon"></i>{{'حذف' | translate}}</div>
                                     <div class="item" ng-show="m.hasEditPer" ng-click="duplicateMenu(m, mc);$event.stopPropagation();"><i class="copy icon"></i>{{'تکرار' | translate}}</div>
@@ -175,8 +175,8 @@
 
                 </div>
 
-                <div class=" dashboard-edit-panel" xng-class="{'show': hasEditPermission}" style=" margin:-5px 14px 0 14px;">
-                    <div class=" chart-container dashboard-page-header" style="direction:ltr;">
+                <div class="dashboard-edit-panel" xng-class="{'show': hasEditPermission}" style="margin:-5px 14px 0 14px;">
+                    <div class="chart-container dashboard-page-header" style="direction:ltr;">
                         <div style="display:table-row">
 
                             <div id="device-selector" class="dashboard-navbar-item devices no-padd">
@@ -208,7 +208,7 @@
 
                 </div>
                 <div class="" style="margin:0 10px;">
-                    <i class=" large icon link full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
+                    <i class="large icon link full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
 
                 </div>
 
@@ -221,14 +221,14 @@
                             }
                             <i class="icon user large circle"></i>
                         </div>
-                        <div class=" menu transition hidden" tabindex="-1">
+                        <div class="menu transition hidden" tabindex="-1">
                             <a ng-if="menuCategories.hasAminPermission" class="item" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
                             <a class="item" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
                             <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
                         </div>
                     </div>
                 <div class="">
-                    <i class=" large icon sidebar link toc-toggle"></i>
+                    <i class="large icon sidebar link toc-toggle"></i>
 
                 </div>
                 @*<script>
@@ -280,13 +280,13 @@
                     <div class="five wide column no-padd">
                         <div class="ui grid middle aligned">
                             <div class="one wide column no-padd mobile only">
-                                <i class=" no-padd icon sidebar link toc-toggle" style="padding: 8px !important;"></i>
+                                <i class="no-padd icon sidebar link toc-toggle" style="padding: 8px !important;"></i>
 
                             </div>
                             <div class="nine wide column no-padd dashboard-edit-panel" xng-class="{'show': hasEditPermission}">
 
 
-                                <div class=" chart-container dashboard-page-header" style="direction:ltr;">
+                                <div class="chart-container dashboard-page-header" style="direction:ltr;">
                                     <div style="display:table-row">
 
                                         <div id="device-selector" class="dashboard-navbar-item devices no-padd">
@@ -325,7 +325,7 @@
                                         <text> @user.FirstName @user.LastName</text>
                                     }
                                     <i class="icon user large circle"></i>
-                                    <div class=" menu transition hidden" tabindex="-1">
+                                    <div class="menu transition hidden" tabindex="-1">
                                         <a ng-if="menuCategories.hasAminPermission" class="item" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
                                         <a class="item" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
                                         <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
@@ -393,7 +393,7 @@
         <div class="header">
             ویرایش صفحه‌های داشبوردی
         </div>
-        <div class=" content">
+        <div class="content">
             <p ng-show="modal.body" ng-bind-html="modal.body"></p>
 
 
@@ -424,7 +424,7 @@
         <div class="header">
             فیلتر کردن مقادیر
         </div>
-        <div class=" content">
+        <div class="content">
             <div id="filter-member-dialog-content">
                 <div class="ui active inverted dimmer">
                     <div class="ui text loader">در حال بارگذاری</div>
@@ -443,7 +443,7 @@
         <div class="header">
             حذف نمودار
         </div>
-        <div class=" content">
+        <div class="content">
             <div class="ui header">آیا برای حذف این نمودار مطمئنید؟ </div>
             در صورت انتخاب گزینه حذف، این نمودار فقط از این صفحه حدف خواهد شد. در صورتی که می‌خواهید نمودار را کلا حذف کنید، در قسمت مدیریت از منوی مدیریت نمودارها استفاده کنید.
             <br />
@@ -493,7 +493,7 @@
         $('.ui.checkbox').checkbox();
         $('.ui.modal').modal();
 
-        var dontShowUserAccount = JSON.parse("@(ViewBag.dontShowUserAccount ?? "null")");
+        var dontShowUserAccount = JSON.parse("@(ViewBag.dontShowUserAccount)");
         var dontShowUserAccountLocal = localStorage.getItem('dontShowUserAccount');
         if(dontShowUserAccount!=null && dontShowUserAccountLocal == null){
             localStorage.setItem('dontShowUserAccount', dontShowUserAccount);
