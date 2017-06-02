@@ -212,21 +212,21 @@
 
                 </div>
 
-                    <div class="ui dropdown" id="user-account">
-                        <div style="white-space:nowrap">
+                <div class="ui dropdown" id="user-account">
+                    <div style="white-space:nowrap">
 
-                            @{
-                                var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
-                        <text> @user.FirstName @user.LastName</text>
-                            }
-                            <i class="icon user large circle"></i>
-                        </div>
-                        <div class="menu transition hidden" tabindex="-1">
-                            <a ng-if="menuCategories.hasAminPermission" class="item" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
-                            <a class="item" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
-                            <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
-                        </div>
+                        @{
+                            var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
+                            <text> @user.FirstName @user.LastName</text>
+                        }
+                        <i class="icon user large circle"></i>
                     </div>
+                    <div class="menu transition hidden" tabindex="-1">
+                        <a ng-if="menuCategories.hasAminPermission" class="item" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
+                        <a class="item" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
+                        <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
+                    </div>
+                </div>
                 <div class="">
                     <i class="large icon sidebar link toc-toggle"></i>
 
@@ -360,7 +360,8 @@
     </div>
 
 
-    @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
+    @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true"))
+    {
         <script src="~/src/js/charts/su.ChartCommons.js?v=@ver"></script>
         <script src="~/src/js/charts/su.d3-utils.js?v=@ver"></script>
         <script src="~/src/js/charts/su.filterMemberDialog.js?v=@ver"></script>
@@ -375,7 +376,9 @@
         <script src="~/src/js/charts/su.jquery.sit.UserControl.js?v=@ver"></script>
         <script src="~/src/js/charts/tipsy.js?v=@ver"></script>
 
-    } else {
+    }
+    else
+    {
         <script src="~/dist/js/charts-theme2.js?v=@ver"></script>
     }
 
@@ -464,7 +467,8 @@
         </div>
     </div>
 
-    @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
+    @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true"))
+    {
         <script src="~/src/js/dashboardPage/navbar/navbar.js"></script>
         <script src="~/src/js/collapse.js"></script>
         <script src="~/src/js/dashboard-app.js"></script>
@@ -479,7 +483,9 @@
         <script src="~/src/js/dashboardPage/su.packages.js"></script>
         <script src="~/src/js/dashboardPage/JqueryHelper.js"></script>
 
-    } else {
+    }
+    else
+    {
         <script src="~/dist/js/dashboard-app-theme2.js?v=@ver"></script>
     }
 
@@ -493,14 +499,14 @@
         $('.ui.checkbox').checkbox();
         $('.ui.modal').modal();
 
-        var dontShowUserAccount = JSON.parse("@(ViewBag.dontShowUserAccount)");
-        var dontShowUserAccountLocal = localStorage.getItem('dontShowUserAccount');
-        if(dontShowUserAccount!=null && dontShowUserAccountLocal == null){
+        var dontShowUserAccount = JSON.parse("@((ViewBag.dontShowUserAccount?? false ).ToString().ToLower())");
+        var dontShowUserAccountLocal =JSON.parse( localStorage.getItem('dontShowUserAccount'));
+        if(dontShowUserAccount && dontShowUserAccountLocal!=true){
             localStorage.setItem('dontShowUserAccount', dontShowUserAccount);
             dontShowUserAccountLocal = dontShowUserAccount;
         }
 
-        if(!dontShowUserAccountLocal){
+        if(dontShowUserAccountLocal){
             $('#user-account').hide();
         }
 
