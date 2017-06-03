@@ -48,7 +48,7 @@
                     <td><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></td>
                     <td class="md-caption">
                         <div layout-margin>
-                            <a ng-repeat="i in row.roles"> {{i.name}}</a>
+                            <a ng-repeat="i in row.roles" href="{{app.hashUrlPrefix+'#/roles/edit/'+ i.id}}"> {{i.name}}</a>
                         </div>
 
                     </td>

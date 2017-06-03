@@ -212,18 +212,19 @@
 
                 </div>
 
-                <div class="ui dropdown" id="user-account">
+                <div class="ui dropdown" >
                     <div style="white-space:nowrap">
-
+                        <span class="user-account-hide-segment">
                         @{
                             var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
                             <text> @user.FirstName @user.LastName</text>
                         }
+                        </span>
                         <i class="icon user large circle"></i>
                     </div>
                     <div class="menu transition hidden" tabindex="-1">
-                        <a ng-if="menuCategories.hasAminPermission" class="item" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
-                        <a class="item" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
+                        <a ng-if="menuCategories.hasAminPermission" class="item user-account-hide-segment" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
+                        <a class="item user-account-hide-segment" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
                         <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
                     </div>
                 </div>
@@ -499,15 +500,9 @@
         $('.ui.checkbox').checkbox();
         $('.ui.modal').modal();
 
-        var dontShowUserAccount = JSON.parse("@((ViewBag.dontShowUserAccount?? false ).ToString().ToLower())");
-        var dontShowUserAccountLocal =JSON.parse( localStorage.getItem('dontShowUserAccount'));
-        if(dontShowUserAccount && dontShowUserAccountLocal!=true){
-            localStorage.setItem('dontShowUserAccount', dontShowUserAccount);
-            dontShowUserAccountLocal = dontShowUserAccount;
-        }
-
-        if(dontShowUserAccountLocal){
-            $('#user-account').hide();
+        var dontShowUserAccount = JSON.parse("@((ViewBag.isLoginByLink ??false ).ToString().ToLower())");
+        if(dontShowUserAccount){
+            $('.user-account-hide-segment').hide();
         }
 
     </script>

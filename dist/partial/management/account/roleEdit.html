@@ -90,8 +90,10 @@
                                         <menu-header>{{'users' | translate}}</menu-header>
                                         <menu-body>
                                             <div style="margin:0 20px">
-                                                <div ng-repeat="r in users">
+                                                <div ng-repeat="r in users" layout="row" layout-align="start center">
                                                     <md-checkbox ng-model="r.check">{{r.username}} - {{r.name}}</md-checkbox>
+                                                    <a href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
+
                                                 </div>
                                             </div>
                                         </menu-body>
