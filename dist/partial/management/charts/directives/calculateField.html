@@ -23,17 +23,19 @@
                     <!--<span class="icon-btn pointer" ng-click="calculatedFields.fields.splice($index, 1);refreshChart()">&times;</span>
                     <span class="glyphicon glyphicon-pencil icon-btn pointer" ng-click="edit($index)"> </span>-->
                     <span class="form-divider flex" flex=""></span>
-                    <md-button class="md-icon-button " ng-click="edit($index, $event)">
-                        <span class="material-icons " >edit</span>
+                    <div class="md-icon-button " style="padding:4px;" ng-click="edit($index, $event)">
+                        <span class="material-icons small small-size pointer" >edit</span>
                         <md-tooltip>{{'edit' | translate}}</md-tooltip>
-                    </md-button>
+                    </div>
 
-                    <md-button class="md-icon-button " ng-click="calculatedFields.fields.splice($index, 1);refreshChart()">
-                        <span class="material-icons " >delete</span>
+                    <div class="md-icon-button " style="padding:4px;" ng-click="calculatedFields.fields.splice($index, 1);refreshChart()">
+                        <span class="material-icons small small-size pointer" >delete</span>
                         <md-tooltip>{{'remove' | translate}}</md-tooltip>
-                    </md-button>
+                    </div>
                 </div>
+                
                 <p ng-hide="calculatedFields.fields && calculatedFields.fields.length" class="small text-center">{{ 'داده‌ای وجود ندارد' | translate }}</p>
+                
 
             </div>
 
@@ -67,7 +69,7 @@
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>{{ 'فرمول' | translate }}</label>
-                    <input class="ltr " style="font-family:monospace" ng-model="parent.currentFormula.formula" type="text" />
+                    <input class="ltr formula-input" style="font-family:monospace" ng-model="parent.currentFormula.formula" type="text" />
                 </md-input-container>
                 <p class="help-block small">
                     از این فرمول برای دسترسی به مقادیر ردیف‌های دیگر اطلاعات استفاده می‌شود.
@@ -96,12 +98,12 @@
                     <code>{R+0, C0} - {R-1, C0}</code>
                     <br />
                 </p>
-                <p class="label label-info">بهتر است به جای استفاده از ایندکس ستون از نام ستون استفاده شود تا در حالت‌ مرتب کردن مشکلی به وجود نیاید </p>
+                <p class="label label-info">پیشنهاد می‌شود به جای استفاده از ایندکس ستون از نام ستون استفاده شود تا در حالت‌ مرتب کردن مشکلی به وجود نیاید </p>
 
                 <ul>
                     لیست ستون‌ها
-                    <li ng-repeat="k in parent.$parent.ngModel.series" xng-hide="(parent.calculatedFields.fields|filter:{name:k}).length">
-                        <code class="inline">c{{$index}} یا [{{k}}]</code> :{{k}}
+                    <li ng-repeat="k in parent.$parent.ngModel.series">
+                        <span class="inline pointer" ng-click="addColumn(k, $index)" style="font-size: 0.8em;background-color: #efefef;padding: 4px 8px;border-radius: 4px;margin-top:4px;">c{{$index}} یا [{{k}}]</span> :{{k}}
                     </li>
                 </ul>
             </div>

@@ -18,47 +18,50 @@
             v=( DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
         }
     }
-    <script src="~/dist/lib/jquery-1.11.1.min.js?v=@v"></script>
-    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js?v=@v"></script>
-    <script src="~/dist/lib/jquery.fileupload.min.js?v=@v"></script>
-    <script src="~/dist/lib/d3.v3.min.js?v=@v"></script>
-    <script src="~/dist/lib/topojson.min.js?v=@v"></script>
-    <script src="~/dist/lib/bootstrap-datepicker.min.js?v=@v"></script>
-    <script src="~/dist/lib/bootstrap-datepicker.fa.min.js?v=@v"></script>
-    <link href="~/dist/lib/bootstrap-datepicker.min.css?v=@v" rel="stylesheet" />
-    <link href="~/dist/lib/jquery.ui.slider.css?v=@v" rel="stylesheet" />
-    <script src="~/dist/lib/bootstrap-select.min.js?v=@v"></script>
-    <script src="~/dist/lib/collapse.js?v=@v"></script>
+    <script src="~/dist/lib/jquery-1.11.1.min.js"></script>
+    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="~/dist/lib/jquery.fileupload.min.js"></script>
+    <script src="~/dist/lib/d3.v3.min.js"></script>
+    <script src="~/dist/lib/topojson.min.js"></script>
+    <script src="~/dist/lib/bootstrap-datepicker.min.js"></script>
+    <script src="~/dist/lib/bootstrap-datepicker.fa.min.js"></script>
+    <link href="~/dist/lib/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/dist/lib/jquery.ui.slider.css" rel="stylesheet" />
+    <script src="~/dist/lib/bootstrap-select.min.js"></script>
+    <script src="~/dist/lib/collapse.js"></script>
 
-    <script src="~/dist/lib/ace.js?v=@v"></script>
-    <script src="~/dist/lib/mode-sqlserver.js?v=@v"></script>
-    <script src="~/dist/lib/ext-beautify.js?v=@v"></script>
-    <script src="~/dist/lib/theme-sqlserver.js?v=@v"></script>
+    <script src="~/dist/lib/ace.js"></script>
+    <script src="~/dist/lib/mode-sqlserver.js"></script>
+    <script src="~/dist/lib/ext-beautify.js"></script>
+    <script src="~/dist/lib/theme-sqlserver.js"></script>
 
-    <script src="~/dist/lib/lodash.min.js?v=@v"></script>
-    <script src="~/dist/lib/angular.min.js?v=@v"></script>
-    <script src="~/dist/lib/angular-route.min.js?v=@v"></script>
-    <script src="~/dist/lib/angular-animate.min.js?v=@v"></script>
-    <script src="~/dist/lib/angular-aria.min.js?v=@v"></script>
-    <script src="~/dist/lib/angular-messages.min.js?v=@v"></script>
-    <script src="~/dist/lib/angular-sanitize.min.js?v=@v"></script>
+    <script src="~/dist/lib/lodash.min.js"></script>
+    <script src="~/dist/lib/angular.min.js"></script>
+    <script src="~/dist/lib/angular-route.min.js"></script>
+    <script src="~/dist/lib/angular-animate.min.js"></script>
+    <script src="~/dist/lib/angular-aria.min.js"></script>
+    <script src="~/dist/lib/angular-messages.min.js"></script>
+    <script src="~/dist/lib/angular-sanitize.min.js"></script>
 
-    <script src="~/dist/lib/ui-ace.min.js?v=@v"></script>
+    <script src="~/dist/lib/ui-ace.min.js"></script>
 
-    <link href="~/dist/lib/angular-material.min.css?v=@v" rel="stylesheet" />
-    <script src="~/dist/lib/angular-material.min.js?v=@v"></script>
-
-
-
-    <script src="~/dist/lib/angular-translate.min.js?v=@v"></script>
-    <script src="~/dist/lib/angular-translate-loader-static-files.min.js?v=@v"></script>
-    <script src="~/dist/lib/sortable.min.js?v=@v"></script>
+    <link href="~/dist/lib/angular-material.min.css" rel="stylesheet" />
+    <script src="~/dist/lib/angular-material.min.js"></script>
 
 
-    <script src="~/dist/lib/tinycolor-min.js?v=@v"></script>
-    <link href="~/dist/lib/mdColorPicker.min.css?v=@v" rel="stylesheet" />
-    <script src="~/dist/lib/mdColorPicker.min.js?v=@v"></script>
 
+    <script src="~/dist/lib/angular-translate.min.js"></script>
+    <script src="~/dist/lib/angular-translate-loader-static-files.min.js"></script>
+    <script src="~/dist/lib/sortable.min.js"></script>
+
+
+    <script src="~/dist/lib/tinycolor-min.js"></script>
+    <link href="~/dist/lib/mdColorPicker.min.css" rel="stylesheet" />
+    <script src="~/dist/lib/mdColorPicker.min.js"></script>
+
+    <script src="~/dist/lib/textAngular-sadaf.min.js"></script>
+    <link href="~/dist/lib/textAngular.css" rel="stylesheet" />
+    <link href="~/dist/lib/font-awesome.min.css" rel="stylesheet" />
 
     @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
 
@@ -120,7 +123,7 @@
         <script src="~/src/js/charts/su.ChartCommons.js?v=@v"></script>
         <script src="~/src/js/charts/d3-utils.js?v=@v"></script>
         <script src="~/src/js/charts/filterMemberDialog.js?v=@v"></script>
-        <script src="~/src/js/charts/jquery.sit.BarChart.js?v=@v"></script>
+        <script src="~/src/js/charts/su.jquery.sit.BarChart.js?v=@v"></script>
         <script src="~/src/js/charts/jquery.sit.Chart.js?v=@v"></script>
         <script src="~/src/js/charts/jquery.sit.Gauge.js?v=@v"></script>
         <script src="~/src/js/charts/jquery.sit.Map.js?v=@v"></script>
@@ -128,6 +131,7 @@
         <script src="~/src/js/charts/jquery.sit.Radar.js?v=@v"></script>
         <script src="~/src/js/charts/jquery.sit.Table.js?v=@v"></script>
         <script src="~/src/js/charts/jquery.sit.Tree.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Text.js?v=@v"></script>
         <script src="~/src/js/charts/jquery.sit.UserControl.js?v=@v"></script>
         <script src="~/src/js/charts/tipsy.js"></script>
 

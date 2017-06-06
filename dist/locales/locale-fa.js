@@ -1,4 +1,5 @@
 {    
+    "text":"متن",
     "No results found.":"نتیجه‌ای پیدا نشد.",
     "Create Time Datasource":"ساخت منبع داده زمان",
     "Enter the datasource name.":"نام منبع داده را وارد کنید.",

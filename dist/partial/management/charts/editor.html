@@ -325,14 +325,15 @@
                 <span flex></span>
                 
                 <md-select ng-model="chartType" style="margin:0">
-                    <md-option class="select-chart-btn" xng-click="chartType = 1 " xng-class="{active : chartType == 1}" value="1" xdata-icon="icon-chart barchart">{{ 'نمودار میله‌ای - خطی' | translate}}</md-option>
-                    <md-option class="select-chart-btn" xng-click="chartType = 2 " xng-class="{active : chartType == 2}" value="2" xdata-icon="icon-chart piechart">{{ 'نمودار دایره‌ای' | translate}}</md-option>
-                    <md-option class="select-chart-btn" xng-click="chartType = 4 " xng-class="{active : chartType == 4}" value="4" xdata-icon="icon-chart gaugechart">{{ 'نمودار عقربه‌ای' | translate}}</md-option>
-                    <md-option class="select-chart-btn" xng-click="chartType = 8 " xng-class="{active : chartType == 8}" value="8" xdata-icon="icon-chart radarchart">{{ 'نمودار رادار' | translate}}</md-option>
-                    <md-option class="select-chart-btn" xng-click="chartType = 9 " xng-class="{active : chartType == 9}" value="9" xdata-icon="icon-chart treechart">{{ 'نمودار درختی' | translate}}</md-option>
-                    <md-option class="select-chart-btn" xng-click="chartType = 6 " xng-class="{active : chartType == 6}" value="6" xdata-icon="icon-chart mapchart">{{ 'نقشه' | translate}}</md-option>
-                    <md-option class="select-chart-btn" xng-click="chartType = 5 " xng-class="{active : chartType == 5}" value="5" xdata-icon="icon-chart tablechart">{{ 'جدول' | translate}}</md-option>
-                    <md-option class="select-chart-btn" xng-click="chartType = 7 " xng-class="{active : chartType == 7}" value="7" xdata-icon="icon-chart usercontrolchart">{{ 'کنترل کاربری' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="1"  >{{ 'نمودار میله‌ای - خطی' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="2"  >{{ 'نمودار دایره‌ای' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="4"  >{{ 'نمودار عقربه‌ای' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="8"  >{{ 'نمودار رادار' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="9"  >{{ 'نمودار درختی' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="6"  >{{ 'نقشه' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="5"  >{{ 'جدول' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="7"  >{{ 'کنترل کاربری' | translate}}</md-option>
+                    <!--<md-option class="select-chart-btn" value="10" >{{ 'text' | translate}}</md-option>-->
                 </md-select>
 
                 <md-button class="md-icon-button" ng-click="save($event)" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
@@ -355,8 +356,16 @@
             </div>
 
             <md-card-content id="chart-content" flex style="overflow:auto">
-                <div ng-show="chartRenderError">{{chartRenderError}}</div>
-                <div id="divChart"></div>
+                {{chartProp.text.info.romoteDate}}
+                
+                <div ng-if="chartType==10" text-angular="text-angular" ng-model="chartProp.text.info.html" ></div>
+
+                <!-- درصورتی که از 
+                    ng-if 
+                    استفاده شود تریگرها درست کار نمیکنند.
+                     -->
+                <div ng-show="chartRenderError && (chartType!=10 || (chartProp.text.info.romoteDate && chartType==10))" طng-show="chartRenderError">{{chartRenderError}}</div>
+                <div ng-show="chartType!=10 || (chartProp.text.info.romoteDate && chartType==10)" id="divChart"></div>
             </md-card-content>
 
 
