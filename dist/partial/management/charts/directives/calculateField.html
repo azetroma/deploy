@@ -18,24 +18,24 @@
                     </md-button>
                     <!--<span class="glyphicon glyphicon-plus icon-btn pointer" ng-click="add()"></span>-->
                 </div>
-                <div ng-repeat="i in calculatedFields.fields track by $index" class="item" layout="row"layout-align="start center">
+                <div ng-repeat="i in calculatedFields.fields track by $index" class="item" layout="row" layout-align="start center">
                     {{i.name}}
                     <!--<span class="icon-btn pointer" ng-click="calculatedFields.fields.splice($index, 1);refreshChart()">&times;</span>
                     <span class="glyphicon glyphicon-pencil icon-btn pointer" ng-click="edit($index)"> </span>-->
                     <span class="form-divider flex" flex=""></span>
                     <div class="md-icon-button " style="padding:4px;" ng-click="edit($index, $event)">
-                        <span class="material-icons small small-size pointer" >edit</span>
+                        <span class="material-icons small small-size pointer">edit</span>
                         <md-tooltip>{{'edit' | translate}}</md-tooltip>
                     </div>
 
                     <div class="md-icon-button " style="padding:4px;" ng-click="calculatedFields.fields.splice($index, 1);refreshChart()">
-                        <span class="material-icons small small-size pointer" >delete</span>
+                        <span class="material-icons small small-size pointer">delete</span>
                         <md-tooltip>{{'remove' | translate}}</md-tooltip>
                     </div>
                 </div>
-                
+
                 <p ng-hide="calculatedFields.fields && calculatedFields.fields.length" class="small text-center">{{ 'داده‌ای وجود ندارد' | translate }}</p>
-                
+
 
             </div>
 
@@ -71,43 +71,48 @@
                     <label>{{ 'فرمول' | translate }}</label>
                     <input class="ltr formula-input" style="font-family:monospace" ng-model="parent.currentFormula.formula" type="text" />
                 </md-input-container>
-                <p class="help-block small">
-                    از این فرمول برای دسترسی به مقادیر ردیف‌های دیگر اطلاعات استفاده می‌شود.
-                    هر سلول از جدول اطلاعات به صورت
-                    <span style="display:inline-block; direction:ltr">
-
-                        <code>{R<+ یا ->&lt;number&gt;, C&lt;number&gt;}</code>
-                    </span>
-                    نمایش داده می‌شود. R نشان دهنده ردیف است و عددی که بعد از آن نمایش داده می‌شود
-                    مکان نسبی ردیف مورد نظر به ردیف جاری را نشان می‌دهد. برای مثال ردیف قبلی با
-                    <code>R-1</code> و ردیف بعدی با <code>R+1</code>
-                    نمایش داده می‌شود.
-
-                    C نشان دهنده ستون است و عددی که بعد از آن آورده می‌شود برای مشخص کردن ستون مورد نظر است.
-                    برای نمونه ستون اول با
-                    <code>C0</code>و ستون دوم با <code>C1</code>
-                    نشان داده می‌شود.
-
-                </p>
-                <p class="help-block small">
-                    {{ 'مثال' | translate }}<br />
-                    ستون اول از ردیف قبلی :
-                    <code>{R-1, C0}</code>
-                    <br />
-                    اختلاف ستون اول با ستون اول از ردیف قبلی :
-                    <code>{R+0, C0} - {R-1, C0}</code>
-                    <br />
-                </p>
+               
                 <p class="label label-info">پیشنهاد می‌شود به جای استفاده از ایندکس ستون از نام ستون استفاده شود تا در حالت‌ مرتب کردن مشکلی به وجود نیاید </p>
 
-                <ul>
+                <ul style="font-size:0.8em;">
                     لیست ستون‌ها
                     <li ng-repeat="k in parent.$parent.ngModel.series">
                         <span class="inline pointer" ng-click="addColumn(k, $index)" style="font-size: 0.8em;background-color: #efefef;padding: 4px 8px;border-radius: 4px;margin-top:4px;">c{{$index}} یا [{{k}}]</span> :{{k}}
                     </li>
                 </ul>
+
+                <div ng-click="helpC = !helpC" style="font-size:0.8em; color:gray;cursor:pointer;">{{'help' | translate}}</div>
+                <div style="font-size:0.8em; color:gray;" uib-collapse="!helpC">
+                    <p class="help-block small desc">
+                        از این فرمول برای دسترسی به مقادیر ردیف‌های دیگر اطلاعات استفاده می‌شود.
+                        هر سلول از جدول اطلاعات به صورت
+                        <span style="display:inline-block; direction:ltr">
+
+                            <code>{R<+ یا ->&lt;number&gt;, C&lt;number&gt;}</code>
+                        </span>
+                        نمایش داده می‌شود. R نشان دهنده ردیف است و عددی که بعد از آن نمایش داده می‌شود
+                        مکان نسبی ردیف مورد نظر به ردیف جاری را نشان می‌دهد. برای مثال ردیف قبلی با
+                        <code>R-1</code> و ردیف بعدی با <code>R+1</code>
+                        نمایش داده می‌شود.
+
+                        C نشان دهنده ستون است و عددی که بعد از آن آورده می‌شود برای مشخص کردن ستون مورد نظر است.
+                        برای نمونه ستون اول با
+                        <code>C0</code>و ستون دوم با <code>C1</code>
+                        نشان داده می‌شود.
+
+                    </p>
+                    <p class="help-block small">
+                        {{ 'مثال' | translate }}<br />
+                        ستون اول از ردیف قبلی :
+                        <code>{R-1, C0}</code>
+                        <br />
+                        اختلاف ستون اول با ستون اول از ردیف قبلی :
+                        <code>{R+0, C0} - {R-1, C0}</code>
+                        <br />
+                    </p>
+                </div>
             </div>
-             
+
 
         </md-dialog-content>
         <md-dialog-actions layout="row">
