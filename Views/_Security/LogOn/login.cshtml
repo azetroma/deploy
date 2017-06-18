@@ -72,9 +72,10 @@
                             <div class="text-left">
                                 <a href="http://www.sadafdashboard.ir/files/sadaf.apk" class="label label-info" style="background-color:#424242;">دانلود نسخه اندروید</a>
                             </div>
-                            <div style="margin-top:30px">
-                                <a href="http://www.sadafdashboard.ir" target="_blank">تمامی حقوق متعلق به <b>داشبورد مدیریت صدف</b> است</a>
-                            </div>
+
+                                <div style="margin-top:30px">
+                                    <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">تمامی حقوق متعلق به <b>داشبورد مدیریت صدف</b> است</a>
+                                </div>
 
                         </div>
                     </div>
@@ -86,7 +87,7 @@
                                 <input name="UserName" type="text" class="form-control" placeholder="@ViewBag.msg["username"]" autofocus>
                                 <input name="Password" type="password" class="form-control" placeholder="@ViewBag.msg["password"]">
                             </div>
-                            <label class="checkbox login-label" style="    margin-bottom: 30px;">
+                            <label class="checkbox login-label" style=" margin-bottom 30px;">
                                 <input type="checkbox" value="remember-me" name="rememberme">
                                 @ViewBag.msg["remember"]
                             </label>

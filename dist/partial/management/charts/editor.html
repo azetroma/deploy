@@ -1,6 +1,6 @@
 ﻿
 <div class="chart-editor" layout="row" flex style="background-color:#fff">
-    
+
     <div flex="50" layout="row">
 
         <!--Properties Container-->
@@ -323,18 +323,100 @@
                 </md-button>
 
                 <span flex></span>
-                
-                <md-select ng-model="chartType" style="margin:0">
-                    <md-option class="select-chart-btn" value="1"  >{{ 'نمودار میله‌ای - خطی' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="2"  >{{ 'نمودار دایره‌ای' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="4"  >{{ 'نمودار عقربه‌ای' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="8"  >{{ 'نمودار رادار' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="9"  >{{ 'نمودار درختی' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="6"  >{{ 'نقشه' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="5"  >{{ 'جدول' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="7"  >{{ 'کنترل کاربری' | translate}}</md-option>
-                    <!--<md-option class="select-chart-btn" value="10" >{{ 'text' | translate}}</md-option>-->
-                </md-select>
+
+                <!--<md-select ng-model="chartType" style="margin:0">
+                    <md-option class="select-chart-btn" value="1">{{ 'نمودار میله‌ای - خطی' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="2">{{ 'نمودار دایره‌ای' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="4">{{ 'نمودار عقربه‌ای' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="8">{{ 'نمودار رادار' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="9">{{ 'نمودار درختی' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="6">{{ 'نقشه' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="5">{{ 'جدول' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="7">{{ 'کنترل کاربری' | translate}}</md-option>
+                    <md-option class="select-chart-btn" value="10" >{{ 'text' | translate}}</md-option>
+                </md-select>-->
+
+                <style>
+                    .active .chart-type-item {
+                        background-color:#f5f5f5;
+                    }
+                    .chart-type-item {
+                        padding: 10px 14px;
+                        cursor: pointer;
+                        font-size: 13px;
+                        /*border-radius: 4px;*/
+                    }
+                        .chart-type-item:hover {
+                            background-color: #efefef;
+                        }
+                </style>
+                <md-menu>
+                    <md-button ng-click="$mdMenu.open($event)"  style="font-size:10px">
+                         {{chartNameMap[expandedChartType].name}}
+                    </md-button>
+                    <md-menu-content >
+                        <div>
+
+                        <div layout="row" layout-wrap>
+                            <div flex="25" ng-class="{'active': expandedChartType == 1  }" ng-click="$mdMenu.hide();changeChartType(1)"><div class="chart-type-item">میله‌ای</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 2  }" ng-click="$mdMenu.hide();changeChartType(2)"><div class="chart-type-item">میله‌ای - پشته</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 21 }" ng-click="$mdMenu.hide();changeChartType(21)"><div class="chart-type-item">میله‌ای - پشته درصدی</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 3  }" ng-click="$mdMenu.hide();changeChartType(3)"><div class="chart-type-item"> خطی </div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 4  }" ng-click="$mdMenu.hide();changeChartType(4)"><div class="chart-type-item"> خطی - پشته </div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 22 }" ng-click="$mdMenu.hide();changeChartType(22)"><div class="chart-type-item"> خطی - پشته درصدی</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 5  }" ng-click="$mdMenu.hide();changeChartType(5)"><div class="chart-type-item"> سطح </div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 6  }" ng-click="$mdMenu.hide();changeChartType(6)"><div class="chart-type-item"> سطح - پشته </div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 23 }" ng-click="$mdMenu.hide();changeChartType(23)"><div class="chart-type-item"> سطح - پشته درصدی</div></div>
+                        </div>
+                        <md-divider></md-divider>
+                             
+                        
+                        <div layout="row"  layout-wrap>
+                            <div flex="25"  ng-class="{'active': expandedChartType == 7 }" ng-click="$mdMenu.hide();changeChartType(7)"><div class="chart-type-item">دایره‌ای</div></div>
+                            <div flex="25"  ng-class="{'active': expandedChartType == 8 }" ng-click="$mdMenu.hide();changeChartType(8)"><div class="chart-type-item">دونات</div></div>
+                        </div>
+                        <md-divider></md-divider>
+                        
+                        
+                        <div layout="row" layout-wrap>
+                            <div flex="25" ng-class="{'active': expandedChartType == 9 }" ng-click="$mdMenu.hide();changeChartType(9)"><div class="chart-type-item">عقربه‌ای هلالی</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 24 }" ng-click="$mdMenu.hide();changeChartType(24)"><div class="chart-type-item">عقربه‌ای هلالی - چند بخشی</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 25 }" ng-click="$mdMenu.hide();changeChartType(25)"><div class="chart-type-item">عقربه‌ای خطی</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 26 }" ng-click="$mdMenu.hide();changeChartType(26)"><div class="chart-type-item">عقربه‌ای خطی - چند بخشی</div></div>
+                        </div>
+
+                        <md-divider></md-divider>
+
+                        <div layout="row" layout-wrap>
+                            <div flex="25" ng-class="{'active': expandedChartType == 10 }" ng-click="$mdMenu.hide();changeChartType(10)"><div class="chart-type-item">رادار</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 11 }" ng-click="$mdMenu.hide();changeChartType(11)"><div class="chart-type-item">نقشه</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 12 }" ng-click="$mdMenu.hide();changeChartType(12)"><div class="chart-type-item">درختی</div></div>
+                        </div>
+                        
+                        <md-divider></md-divider>
+
+                        <div layout="row" layout-wrap>
+                            <div flex="25" ng-class="{'active': expandedChartType == 13 }" ng-click="$mdMenu.hide();changeChartType(13)"><div class="chart-type-item">جدول - تجمیعی</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 14 }" ng-click="$mdMenu.hide();changeChartType(14)"><div class="chart-type-item">جدول عادی</div></div>
+                        </div>
+                        
+                        <md-divider></md-divider>
+
+                        <div layout="row" layout-wrap>
+                            <div flex="25" ng-class="{'active': expandedChartType == 15 }" ng-click="$mdMenu.hide();changeChartType(15)"><div class="chart-type-item">انتخاب تک مقداری</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 16 }" ng-click="$mdMenu.hide();changeChartType(16)"><div class="chart-type-item">انتخاب چند مقداری</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 17 }" ng-click="$mdMenu.hide();changeChartType(17)"><div class="chart-type-item">انتخاب تاریخ</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 18 }" ng-click="$mdMenu.hide();changeChartType(18)"><div class="chart-type-item">انتخاب محدوده تاریخ</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 19 }" ng-click="$mdMenu.hide();changeChartType(19)"><div class="chart-type-item">انتخاب محدوده عدد</div></div>
+                            <div flex="25" ng-class="{'active': expandedChartType == 20 }" ng-click="$mdMenu.hide();changeChartType(20)"><div class="chart-type-item">جستجو</div></div>
+                        </div>
+
+                        </div>
+                    </md-menu-content>
+                </md-menu>
+
+
+
 
                 <md-button class="md-icon-button" ng-click="save($event)" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
                     <span class="material-icons md-accent gray">done</span>
@@ -357,11 +439,11 @@
 
             <md-card-content id="chart-content" flex style="overflow:auto">
                 {{chartProp.text.info.romoteDate}}
-                
-                <div ng-if="chartType==10" text-angular="text-angular" ng-model="chartProp.text.info.html" ></div>
 
-                <!-- درصورتی که از 
-                    ng-if 
+                <div ng-if="chartType==10" text-angular="text-angular" ng-model="chartProp.text.info.html"></div>
+
+                <!-- درصورتی که از
+                    ng-if
                     استفاده شود تریگرها درست کار نمیکنند.
                      -->
                 <div ng-show="chartRenderError && (chartType!=10 || (chartProp.text.info.romoteDate && chartType==10))" طng-show="chartRenderError">{{chartRenderError}}</div>
@@ -379,7 +461,7 @@
                 <div class="datasource-item-header">{{ 'dimestions' | translate }} <span style="font-size:0.7em; color:gray">{{ 'categorical_fields' | translate }}</span></div>
                 <md-content flex id="divX" class="item-container" ui-sortable="sortableOptions" ng-model="dimensions">
                     <div flex layout="row" layout-align="start center" ng-click="gotoDimentionSettings(i, $index)" ng-repeat="i in dimensions track by $index" class="pointer datasource-item">
-                        <span class="material-icons small small-size" ng-click="dimensions.splice($index,1)">close</span>
+                        <span class="material-icons small small-size" ng-click="dimensions.splice($index,1);refreshChart();">close</span>
                         <img src="Images/hierarchy1.png">
                         {{i.Name}}
                         <span flex></span>
@@ -395,7 +477,7 @@
                 <div class="datasource-item-header">{{ 'measures' | translate }} <span style="font-size:0.7em; color:gray">{{ 'numerical_fields' | translate }}</span></div>
                 <md-content flex id="divY" class="item-container" ui-sortable="sortableOptions" ng-model="measures" layout-fill>
                     <div flex layout="row" layout-align="start center" ng-click="gotoMeasureSettings(i, $index)" ng-repeat="i in measures track by $index" class="pointer datasource-item">
-                        <span class="material-icons small small-size" ng-click="measures.splice($index,1)">close</span>
+                        <span class="material-icons small small-size" ng-click="measures.splice($index,1);refreshChart();">close</span>
                         <img ng-src="Images/{{i.type && i.type=='measure' ? 'measure' :i.type && i.type=='kpi' ? 'kpi' :'hierarchy1'}}.png">
                         {{i.Name}}
                         <span flex></span>
@@ -421,7 +503,7 @@
                 <div class="datasource-item-header">{{ 'شرط' | translate }}</div>
                 <md-content flex id="divProv" class="item-container" ui-sortable="sortableOptions" ng-model="where">
                     <div flex layout="row" layout-align="start center" ng-click="gotoWhereSettings(i, $index)" ng-repeat="i in where track by $index" class="pointer datasource-item">
-                        <span class="material-icons small small-size" ng-click="where.splice($index,1)">close</span>
+                        <span class="material-icons small small-size" ng-click="where.splice($index,1);refreshChart();">close</span>
                         <img src="Images/hierarchy1.png">
                         {{i.Name}}
                         <span flex></span>
@@ -633,7 +715,7 @@
 
         </md-dialog-content>
         <md-dialog-actions layout="row">
-            <md-button ng-click="cancel()">
+            <md-button ng-click="cancel(); parent.refreshChart();">
                 {{ 'بستن' | translate }}
             </md-button>
         </md-dialog-actions>

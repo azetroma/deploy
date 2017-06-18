@@ -1,15 +1,10 @@
-<menu-item class="panel prop-section-panel">
-    <menu-header style="position:relative" class=" pointer">
-
+<menu-item class="">
+    <menu-header style="position:relative" class="pointer">
         <div data-toggle="" href="#alerts">{{ 'هشدارها' | translate }}</div>
-        <!--<span class="glyphicon glyphicon-plus pointer icon-btn settings-section-btn" ></span>-->
     </menu-header>
-
     <menu-body id="alerts" class="prop-section   form-horizontal">
         <div layout="row" layout-align="start center">
             <p ng-hide="model[config.name].alerts && model[config.name].alerts.length>0" style="font-size: 0.8em;">{{ 'هنوز هشداری تعریف نشده است' | translate }}</p>
-            
-
             <span flex></span>
              <span >
             {{ 'add_new_alert' | translate}}
@@ -120,8 +115,5 @@
 
             </div>
         </fieldset>
-
-
-
     </menu-body>
 </menu-item>
