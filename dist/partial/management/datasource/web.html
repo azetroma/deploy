@@ -58,28 +58,57 @@
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>{{'Content Type' | translate}}</label>
                                     <md-select ng-model="model.contentType" class="ltr">
-                                        <md-option value="1">XML(text/xml)</md-option>
-                                        <md-option value="2">XML(application/xml)</md-option>
+                                        <md-option value="1">text/xml</md-option>
+                                        <md-option value="2">application/xml</md-option>
+                                        <md-option value="3">application/soap+xml</md-option>
                                     </md-select>
                                 </md-input-container>
 
-                                <md-input-container class="md-block" >
-                                    <label>{{'Body' | translate}}</label> 
-                                    <textarea ng-model="model.rawBody" class="ltr" rows="5" xmd-select-on-focus></textarea>
+                                <md-input-container class="md-block">
+                                    <label>{{'Body' | translate}}</label>
+                                    <textarea ng-model="model.rawBody" class="ltr" rows="5"style="min-height:100px;"></textarea>
                                 </md-input-container>
 
                                 <md-input-container class="md-block">
                                     <label>{{'Result Tag' | translate}}</label>
-                                    <input   ng-model="model.resultTag">
+                                    <input ng-model="model.resultTag">
                                 </md-input-container>
                                 <md-input-container class="md-block">
                                     <label>{{'Result Tag Namespace' | translate}}</label>
-                                    <input  ng-model="model.resultTagNameSpace">
+                                    <input ng-model="model.resultTagNameSpace">
                                 </md-input-container>
-                                    <md-switch  ng-model="model.resultTagUseValue">
-                                    <label>{{'Use inner value' | translate}}</label>
 
-                                    </md-switch>
+                                <div style="font-size:0.8em; color:gray;">
+                                    <a ng-click="c = !c" class="pointer">راهنما</a>
+                                <p uib-collapse="!c">
+                                    در صورتی که خروجی پیام شما به شکل زیر باشد
+
+                                    <textarea disabled="disabled" rows="13" style="border: none;margin: 0px;direction: ltr;font-family: monospace;width: 100%;resize: none;">
+<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+    <soapenv:Body>
+        <ns1:getBankResponse xmlns:ns1="http://thomas-bayer.com/blz/">
+            <ns1:details>
+                <ns1:bezeichnung>SEB</ns1:bezeichnung>
+                <ns1:bic>ESSEDE5F130</ns1:bic>
+                <ns1:ort>Rostock</ns1:ort>
+                <ns1:plz>18055</ns1:plz>
+            </ns1:details>
+        </ns1:getBankResponse>
+    </soapenv:Body>
+</soapenv:Envelope>
+                                    </textarea>
+                                    تنظیمات مربوطه به صورت زیر است
+                                    <ul class="ltr">
+                                        <li> <b>Result Tag: </b> getBankResponse</li>
+                                        <li> <b>Result Tag NameSpace: </b> http://thomas-bayer.com/blz/</li>
+                                    </ul>
+
+                                </p>
+                                </div>
+
+                                <md-switch ng-model="model.resultTagUseValue">
+                                    <label>{{'Use inner value' | translate}}</label>
+                                </md-switch>
 
 
                             </div>
@@ -91,7 +120,7 @@
                             <div layout="column" uib-collapse="!showParams" ng-hide="model.type == 'SOAP'">
                                 <div>
 
-                                    <div layout="row" ng-repeat="param in parameters" layout-padding>
+                                    <div layout="row" ng-repeat="param in parameters" xlayout-padding>
                                         <md-input-container md-no-float class="no-margin">
                                             <input ng-model="param.name" placeholder="{{'نام'|translate}}">
                                         </md-input-container>
@@ -107,15 +136,16 @@
                                             </md-select>
                                         </md-input-container>
 
-                                        <span flex></span>
+                                        <div  layout="row" layout-margin>
 
-                                        <md-button class="md-icon-button" ng-click="parameters.push({})">
-                                            <span class="material-icons">add</span>
-                                        </md-button>
+                                        <div class="md-icon-button" ng-click="parameters.push({select: 'Query'})">
+                                            <span class="material-icons small small-size pointer">add</span>
+                                        </div>
 
-                                        <md-button class="md-icon-button" ng-click="parameters.splice($index, 1)" ng-show="parameters.length > 1">
-                                            <span class="material-icons">delete</span>
-                                        </md-button>
+                                        <div class="md-icon-button" ng-click="parameters.splice($index, 1)" ng-show="parameters.length > 1">
+                                            <span class="material-icons small small-size pointer">delete</span>
+                                        </div>
+                                        </div>
 
                                     </div>
                                 </div>
