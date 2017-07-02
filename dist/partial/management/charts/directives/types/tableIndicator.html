@@ -31,15 +31,10 @@
 
             <span flex></span>
 
-            <span>
-                {{ 'add_new_indicator' | translate }}
-                
-            </span>
-            <md-button class="md-icon-button" ng-click="prop[config.name].indicator.push({})">
+            <md-button class="md-icon-button" ng-click="prop[config.name].indicator.push({})" title="{{'add' | translate}}">
                 <span class="material-icons">add</span>
-                <md-tooltip>{{'add' | translate}}</md-tooltip>
             </md-button>
-        </div>
+        </div> 
         <fieldset ng-repeat="item in prop[config.name].indicator">
             <legend>
                 <span layout="row" layout-align="start center">

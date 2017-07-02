@@ -1,4 +1,6 @@
 {    
+    "permissions":"مجوزهای دسترسی",
+    "help":"راهنما",
     "text":"متن",
     "No results found.":"نتیجه‌ای پیدا نشد.",
     "Create Time Datasource":"ساخت منبع داده زمان",

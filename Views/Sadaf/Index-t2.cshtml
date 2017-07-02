@@ -100,7 +100,7 @@
                     </div>
                 </div>
 
-                <div class="connected-sortable" uib-collapse="!mc.open" ui-sortable="sortableOptions">
+                <div class="connected-sortable" uib-collapse="!mc.open" ui-sortable="sortableOptions" ng-style="{ 'min-height': !mc.menus.length ? '10px' : 'auto' }">
                     <div class="side-menu-item side-menu-item-child dashboard-menu" ng-repeat="m in mc.menus" href="#dashboard/{{m.menu.Id}}" data-id="{{m.menu.Id}}" on-finish-render="ngRepeatFinished" ng-class="{active: m.active}" ng-click="$event.stopPropagation();">
 
                         <a href="#/dashboard/{{m.menu.Id}}" ng-click="closeSidebar(); cancelRequests();">
@@ -119,11 +119,11 @@
             </div>
 
 
-            <div class="" style="padding:20px 7px; font-size:11px; cursor:pointer" ng-show="menuCategories.hasAddPer">
-                <i class="icon sort icon-animate  left floated"
+            <div class="reorder-menus-container" style="padding:20px 7px; font-size:11px; cursor:pointer" ng-show="menuCategories.hasAddPer">
+                <i class="icon sort icon-animate reorder-menus"
                    ng-click="toggleEdit()"
                    ng-show="reorderPermission"
-                   style="float:left;font-size: 1.4em;padding:0 20px;"></i>
+                   style=""></i>
                 <div class="btn btn-link" ng-click="addCat()">
                     <i class="icon add circle"></i>
                     {{'add new group' | translate}}

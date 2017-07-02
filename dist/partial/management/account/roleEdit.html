@@ -51,7 +51,7 @@
                                     <menu-item>
                                         <menu-header>{{'menus' | translate}}</menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px 0 0">
+                                            <div style="margin:0 20px">
                                                 <collapse ng-repeat="(k,v) in menus">
                                                     <div layout="row">
                                                         <collapse-header>
@@ -66,7 +66,7 @@
                                                         </md-select>
                                                     </div>
                                                     <collapse-body>
-                                                        <div style="margin:0 20px 0 0">
+                                                        <div style="margin:0 20px">
                                                             <div ng-repeat="r in v" layout="row" layout-align="start center">
                                                                 <md-checkbox ng-model="r.check" ng-change="setViewPermission(k, v)">{{r.name}}</md-checkbox>
                                                                 <span flex></span>
@@ -105,14 +105,14 @@
                                             <div style="margin:0 20px">
                                                 <div layout="row" layout-align="start center">
                                                     <span class="form-divider" flex></span>
+                                                    <md-button class="" ng-click="$event.stopPropagation(); addDatasource($event)" layout="row" layout-align="start center">
                                                     {{'add' | translate}}
-                                                    <md-button class="md-icon-button" ng-click="$event.stopPropagation(); addDatasource($event)" layout="row" layout-align="start center">
                                                         <span class="material-icons">add</span>
                                                         <md-tooltip>{{'add' | translate}}</md-tooltip>
                                                     </md-button>
 
+                                                    <md-button class="" ng-click="$event.stopPropagation(); clearDatasources()" layout="row" layout-align="start center">
                                                     {{'remove_all' | translate}}
-                                                    <md-button class="md-icon-button" ng-click="$event.stopPropagation(); clearDatasources()" layout="row" layout-align="start center">
                                                         <span class="material-icons">delete</span>
                                                         <md-tooltip>{{'remove_all' | translate}}</md-tooltip>
                                                     </md-button>
@@ -148,14 +148,14 @@
                                             <div style="margin:0 20px">
                                                 <div layout="row" layout-align="start center">
                                                     <span class="form-divider" flex></span>
+                                                    <md-button class="" ng-click="$event.stopPropagation(); addChart($event)" layout="row" layout-align="start center">
                                                     {{'add' | translate}}
-                                                    <md-button class="md-icon-button" ng-click="$event.stopPropagation(); addChart($event)" layout="row" layout-align="start center">
                                                         <span class="material-icons">add</span>
                                                         <md-tooltip>{{'add' | translate}}</md-tooltip>
                                                     </md-button>
 
+                                                    <md-button class="" ng-click="$event.stopPropagation(); clearCharts()" layout="row" layout-align="start center">
                                                     {{'remove_all' | translate}}
-                                                    <md-button class="md-icon-button" ng-click="$event.stopPropagation(); clearCharts()" layout="row" layout-align="start center">
                                                         <span class="material-icons">delete</span>
                                                         <md-tooltip>{{'remove_all' | translate}}</md-tooltip>
                                                     </md-button>

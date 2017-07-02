@@ -1,4 +1,6 @@
 {
+    "permissions": "Permissions",
+    "help":"Help",
     "No results found.":"No results found.",
     "Create Time Datasource":"Create Time Datasource",
     "Enter the datasource name.":"Enter the datasource name.",

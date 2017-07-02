@@ -562,7 +562,7 @@
                     </collapse-header>
 
                     <collapse-body>
-                        <div style="margin:0 20px 0 0">
+                        <div style="margin:0 20px">
                             <collapse ng-repeat="(k,v) in parent.menus">
                                 <div layout="row">
                                     <collapse-header>
@@ -571,7 +571,7 @@
                                     <span flex></span>
                                 </div>
                                 <collapse-body>
-                                    <div style="margin:0 20px 0 0">
+                                    <div style="margin:0 20px">
                                         <div ng-repeat="r in v" layout="row" layout-align="start center">
                                             <md-checkbox ng-model="r.check">{{r.name}}</md-checkbox>
                                             <span flex></span>

@@ -13,6 +13,7 @@
     <meta name="fontiran.com:license" content="X4ZQZ">
     @{ 
         var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+        
         var rMode = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
         if (!rMode) {
             v=( DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
@@ -164,7 +165,6 @@
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
         app.hashUrlPrefix = "@Url.Action("management", "sadaf")" + "/";
         app.version = "@v";
-
     </script>
 
     <style>
