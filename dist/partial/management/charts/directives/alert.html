@@ -6,13 +6,9 @@
         <div layout="row" layout-align="start center">
             <p ng-hide="model[config.name].alerts && model[config.name].alerts.length>0" style="font-size: 0.8em;">{{ 'هنوز هشداری تعریف نشده است' | translate }}</p>
             <span flex></span>
-             <!--<span >
-            {{ 'add_new_alert' | translate}}
-             </span>-->
  
-            <md-button class="md-icon-button" ng-click="newAlert()">
+            <md-button class="md-icon-button" ng-click="newAlert()" title="{{'add' | translate}}">
                     <span class="material-icons">add</span>
-                <md-tooltip>{{'add' | translate}}</md-tooltip>
             </md-button>
         </div>
 
