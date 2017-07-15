@@ -29,7 +29,7 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-model="ngModel.table.info.sortMeasures" ng-change="refreshChart('refreshWithData')" />{{ 'مرتب کردن شاخص‌ها در حالت تجمیع' | translate }}
+                                <input type="checkbox" ng-model="ngModel.table.info.sortMeasures" ng-change="refreshChart('refreshWithData')" /> {{ 'مرتب کردن شاخص‌ها در حالت تجمیع' | translate }}
                             </label>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                             <label class="">
                                 <input type="checkbox"
                                        ng-model="ngModel.table.info.useDistinct"
-                                       ng-change="setTableInfoLimit(ngModel.table.info.limit, ngModel.table.info.useDistinct);refreshChart()" />{{ 'یکی کردن ردیف‌های تکراری' | translate }}
+                                       ng-change="setTableInfoLimit(ngModel.table.info.limit, ngModel.table.info.useDistinct);refreshChart()" /> {{ 'یکی کردن ردیف‌های تکراری' | translate }}
                             </label>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showRowNumber" />{{ 'نمایش شماره ردیف' | translate }}
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showRowNumber" /> {{ 'نمایش شماره ردیف' | translate }}
                             </label>
                         </div>
                     </div>
@@ -69,17 +69,7 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showHeader" />{{ 'نمایش نام ستون‌ها' | translate }}
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row" layout="row" layout-align="start center">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.condensed" />{{ 'نمایش فشرده‌تر ردیف‌ها' | translate }}
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showHeader" /> {{ 'نمایش نام ستون‌ها' | translate }}
                             </label>
                         </div>
                     </div>
@@ -89,7 +79,17 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.bordered" />{{ 'نمایش خط‌های حاشیه‌ای' | translate }}
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.condensed" /> {{ 'نمایش فشرده‌تر ردیف‌ها' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.bordered" /> {{ 'نمایش خط‌های حاشیه‌ای' | translate }}
                             </label>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.stripped" />{{ 'یکی در میان پررنگ کردن' | translate }}
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.stripped" /> {{ 'یکی در میان پررنگ کردن' | translate }}
                             </label>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.hover" />{{ 'پررنگ کردن ردیف با حرکت موس' | translate }}
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.hover" /> {{ 'پررنگ کردن ردیف با حرکت موس' | translate }}
                             </label>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                         <div class="col-sm-offset-4 col-sm-8">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.rowAsKey" />{{ 'داشتن یک مقدار برای کل ردیف' | translate }}
+                                    <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.rowAsKey" /> {{ 'داشتن یک مقدار برای کل ردیف' | translate }}
                                 </label>
                             </div>
                         </div>
@@ -179,7 +179,7 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('cumulative')" ng-model="ngModel.table.series[ngModel.selectedSeries].isHtml" />{{ 'table_is_html' | translate }}
+                                <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('cumulative')" ng-model="ngModel.table.series[ngModel.selectedSeries].isHtml" /> {{ 'table_is_html' | translate }}
                             </label>
                         </div>
                     </div>
@@ -290,7 +290,7 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('isHidden')" ng-model="ngModel.table.series[ngModel.selectedSeries].isHidden" />{{ 'مخفی کردن ستون' | translate }}
+                                <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('isHidden')" ng-model="ngModel.table.series[ngModel.selectedSeries].isHidden" /> {{ 'مخفی کردن ستون' | translate }}
                             </label>
                         </div>
                     </div>

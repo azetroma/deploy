@@ -1,5 +1,4 @@
-﻿
-<div class="chart-editor" layout="row" flex style="background-color:#fff">
+﻿<div class="chart-editor" layout="row" flex style="background-color:#fff">
 
     <div flex="50" layout="row">
 
@@ -624,15 +623,15 @@
                         <md-content class="md-padding">
                             <div ng-hide="parent.userProperty&&parent.userProperty.length>0">   هنوز متغیری برای کاربران خود نساخته‌اید. برای ساخت متغیر کاربری، به قسمت ویرایش کاربر بروید.</div>
                             <div ng-show="parent.userProperty&&parent.userProperty.length>0">
-                                <div><label><input type="checkbox" ng-model="allUserProp" ng-change="parent.checkAll(parent.userProperty, allUserProp)">{{ 'انتخاب همه' | translate }}</label></div>
-                                <div ng-repeat="i in parent.userProperty"><label><input type="checkbox" ng-model="i.Checked">{{i.Name}}</label></div>
+                                <div><label><input type="checkbox" ng-model="allUserProp" ng-change="parent.checkAll(parent.userProperty, allUserProp)"> {{ 'انتخاب همه' | translate }}</label></div>
+                                <div ng-repeat="i in parent.userProperty"><label><input type="checkbox" ng-model="i.Checked"> {{i.Name}}</label></div>
                             </div>
                         </md-content>
                     </md-tab>
                     <md-tab label="{{ 'متغیرهای سراسری' | translate }}">
                         <md-content class="md-padding">
-                            <div><label><input type="checkbox" ng-change="parent.checkAll(parent.globalVariable, allGlobVar)" ng-model="allGlobVar">{{ 'انتخاب همه' | translate }}</label></div>
-                            <div ng-repeat="i in parent.globalVariable"><label><input type="checkbox" ng-model="i.Checked">{{i.Name}}</label></div>
+                            <div><label><input type="checkbox" ng-change="parent.checkAll(parent.globalVariable, allGlobVar)" ng-model="allGlobVar"> {{ 'انتخاب همه' | translate }}</label></div>
+                            <div ng-repeat="i in parent.globalVariable"><label><input type="checkbox" ng-model="i.Checked"> {{i.Name}}</label></div>
 
                         </md-content>
                     </md-tab>
@@ -703,8 +702,8 @@
                                 <div class="md-padding" layout="column" layout-align="center center" ng-hide="parent.members">
                                     <md-progress-circular md-mode='indeterminate'></md-progress-circular>
                                 </div>
-                                <div><label><input type="checkbox" ng-model="allmember" ng-change="parent.checkAll(parent.members.list, allmember)">{{ 'انتخاب همه' | translate }}</label></div>
-                                <div ng-repeat="i in parent.members.list"><label><input type="checkbox" ng-model="i.Checked">{{i.Name}}</label></div>
+                                <div><label><input type="checkbox" ng-model="allmember" ng-change="parent.checkAll(parent.members.list, allmember)"> {{ 'انتخاب همه' | translate }}</label></div>
+                                <div ng-repeat="i in parent.members.list"><label><input type="checkbox" ng-model="i.Checked"> {{i.Name}}</label></div>
 
                             </div>
                         </md-content>
