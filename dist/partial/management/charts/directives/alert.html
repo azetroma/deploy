@@ -6,14 +6,14 @@
         <div layout="row" layout-align="start center">
             <p ng-hide="model[config.name].alerts && model[config.name].alerts.length>0" style="font-size: 0.8em;">{{ 'هنوز هشداری تعریف نشده است' | translate }}</p>
             <span flex></span>
- 
+
             <md-button class="md-icon-button" ng-click="newAlert()" title="{{'add' | translate}}">
-                    <span class="material-icons">add</span>
+                <span class="material-icons">add</span>
             </md-button>
         </div>
 
-        <fieldset  ng-repeat="alert in model[config.name].alerts">
-            <legend> 
+        <fieldset ng-repeat="alert in model[config.name].alerts">
+            <legend>
                 <span layout="row" layout-align="start center">
                     <span>{{'alert' | translate}} {{$index+1}}</span>
 
@@ -22,7 +22,7 @@
                     </md-button>
                 </span>
 
-            
+
             </legend>
 
             <div class="alert-form-group">
@@ -46,19 +46,19 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-12">
                         <label class="left-margin">
-                            <input type="checkbox" ng-model="alert.showDatasourceTime" />{{ 'نمایش زمان به‌روز رسانی منبع داده' | translate }}
+                            <input type="checkbox" ng-model="alert.showDatasourceTime" /> {{ 'نمایش زمان به‌روز رسانی منبع داده' | translate }}
                         </label>
                     </div>
                 </div>
-
             </div>
 
-                    <md-button ng-hide="alert.rules && alert.rules.length>0" ng-click="alert.rules.push({})">
-                        اضافه کردن
-                    </md-button>
-            <fieldset ng-repeat="item in alert.rules" >
+            <md-button class="md-raised" style="font-size:12px;" xng-hide="alert.rules && alert.rules.length>0" ng-click="alert.rules.push({})">
+                {{'new rule' | translate}}
+            </md-button>
+
+            <fieldset ng-repeat="item in alert.rules">
                 <legend>{{ 'شرط‌' | translate }}</legend>
-                        <sadaf-indicator ng-model="item" series="model.series" hide-then="true"></sadaf-indicator>
+                <sadaf-indicator ng-model="item" series="model.series" hide-then="true"></sadaf-indicator>
             </fieldset>
 
             <fieldset>

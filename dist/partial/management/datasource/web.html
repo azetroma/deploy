@@ -78,9 +78,9 @@
                                     <input ng-model="model.resultTagNameSpace">
                                 </md-input-container>
 
-                                <div style="font-size:0.8em; color:gray;">
+                                <div style="font-size:0.8em; color:gray;margin-top: -20px;">
                                     <a ng-click="c = !c" class="pointer">راهنما</a>
-                                <p uib-collapse="!c">
+                                <div uib-collapse="!c">
                                     در صورتی که خروجی پیام شما به شکل زیر باشد
 
                                     <textarea disabled="disabled" rows="13" style="border: none;margin: 0px;direction: ltr;font-family: monospace;width: 100%;resize: none;">
@@ -103,7 +103,7 @@
                                         <li> <b>Result Tag NameSpace: </b> http://thomas-bayer.com/blz/</li>
                                     </ul>
 
-                                </p>
+                                </div>
                                 </div>
 
                                 <md-switch ng-model="model.resultTagUseValue">

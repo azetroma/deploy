@@ -1,4 +1,5 @@
 {
+    "new rule": "New Rule",
     "permissions": "Permissions",
     "help":"Help",
     "No results found.":"No results found.",
