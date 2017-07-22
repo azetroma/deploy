@@ -13,8 +13,12 @@
 
     @{
         var isRelease = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
-        var ver = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+        var ver = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
         var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+        if (!isRelease) {
+            ver = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+        }
+
     }
 
     <link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.2" rel="stylesheet" />
@@ -66,7 +70,7 @@
             <img src="~/Images/icon-inverse.png" class="" style="max-width:100%" alt="Alternate Text" />
         </div>
 
-        <div class="my-fix-flex-container" ui-sortable="sortableCatOptions">
+        <div class="my-fix-flex-container" ui-sortable="sortableCatOptions" xng-model="menuCategories.data">
             <div class="side-menu-item-container menu-category" ng-repeat="mc in menuCategories.data" ng-class="{active: mc.active}" on-finish-render="ngRepeatFinished" data-id="{{mc.category.Id}}">
                 <div class="side-menu-item side-menu-item-parent" ng-click="closeAll(mc, true);" ng-dblclick="closeAll(mc, false);">
                     <i class="icon angle down icon-animate large left floated" ng-class="{rotate: mc.open}"></i>  {{mc.category.Name}}
@@ -80,7 +84,7 @@
                     </div>
                 </div>
 
-                <div class="connected-sortable" uib-collapse="!mc.open" ui-sortable="sortableOptions" ng-style="{ 'min-height': !mc.menus.length ? '10px' : 'auto' }">
+                <div class="connected-sortable" uib-collapse="!mc.open" xng-model="mc.menus" ui-sortable="sortableOptions" ng-style="{ 'min-height': !mc.menus.length ? '10px' : 'auto' }">
                     <div class="side-menu-item side-menu-item-child dashboard-menu" ng-repeat="m in mc.menus" href="#dashboard/{{m.menu.Id}}" data-id="{{m.menu.Id}}" on-finish-render="ngRepeatFinished" ng-class="{active: m.active}" ng-click="$event.stopPropagation();">
 
                         <a href="#/dashboard/{{m.menu.Id}}" ng-click="closeSidebar(); cancelRequests();">
@@ -328,19 +332,19 @@
     </div>
 
     @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
-        <script src="~/src/js/dashboardPage/navbar/navbar.js"></script>
-        <script src="~/src/js/collapse.js"></script>
-        <script src="~/src/js/dashboard-app.js"></script>
-        <script src="~/src/js/heartBeat.js"></script>
-        <script src="~/src/js/dashboardPage/filterBox.js"></script>
-        <script src="~/src/js/dashboardPage/su.DashboardPageUtils.js"></script>
-        <script src="~/src/js/dashboardPage/su.dashboardLayout.js"></script>
-        <script src="~/src/js/dashboardPage/su.dashboardPage.js"></script>
-        <script src="~/src/js/dashboardPage/su.app.js"></script>
-        <script src="~/src/js/dashboardPage/bootstrap.sit.helper.js"></script>
-        <script src="~/src/js/dashboardPage/globalVariableHelper.js"></script>
-        <script src="~/src/js/dashboardPage/su.packages.js"></script>
-        <script src="~/src/js/dashboardPage/JqueryHelper.js"></script>
+        <script src="~/src/js/dashboardPage/navbar/navbar.js?v=@ver"></script>
+        <script src="~/src/js/collapse.js?v=@ver"></script>
+        <script src="~/src/js/dashboard-app.js?v=@ver"></script>
+        <script src="~/src/js/heartBeat.js?v=@ver"></script>
+        <script src="~/src/js/dashboardPage/filterBox.js?v=@ver"></script>
+        <script src="~/src/js/dashboardPage/su.DashboardPageUtils.js?v=@ver"></script>
+        <script src="~/src/js/dashboardPage/su.dashboardLayout.js?v=@ver"></script>
+        <script src="~/src/js/dashboardPage/su.dashboardPage.js?v=@ver"></script>
+        <script src="~/src/js/dashboardPage/su.app.js?v=@ver"></script>
+        <script src="~/src/js/dashboardPage/bootstrap.sit.helper.js?v=@ver"></script>
+        <script src="~/src/js/dashboardPage/globalVariableHelper.js?v=@ver"></script>
+        <script src="~/src/js/dashboardPage/su.packages.js?v=@ver"></script>
+        <script src="~/src/js/dashboardPage/JqueryHelper.js?v=@ver"></script>
 
     } else {
         <script src="~/dist/js/dashboard-app-theme2.js?v=@ver"></script>
@@ -360,10 +364,6 @@
         if(dontShowUserAccount){
             $('.user-account-hide-segment').hide();
         }
-
-    </script>
-
-    <script>
         var app = app || {};
         app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
