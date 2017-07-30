@@ -32,27 +32,42 @@
                                 <span ng-bind-html="fileName" class=""></span>
                             </div>
 
+
+
                             <div layout="row" style="margin:18px 0">
                                 <md-progress-linear md-mode="determinate" value="{{progress}}" ng-hide="progress == -1"></md-progress-linear>
                             </div>
 
-                            <div layout="row" style="margin:18px 0">
-                                <md-input-container class="md-block" flex-gt-sm ng-show="uploadData">
+                            <div layout="row" style="margin:18px 0"ng-show="uploadData">
+                                <md-input-container class="md-block" flex-gt-sm >
                                     <label>نوع فایل</label>
                                     <md-select ng-model="extention">
                                         <md-option value="XLS">XLS</md-option>
                                         <md-option value="CSV">CSV</md-option>
                                     </md-select>
                                 </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>نسخه Microsoft.ACE.OLEDB </label>
+                                    <md-select ng-model="aceProvider">
+                                        <md-option value="12">12</md-option>
+                                        <md-option value="16">16</md-option>
+                                    </md-select>
+                                </md-input-container>
 
                                 <md-button class="md-primary" ng-click="upload()" ng-show="uploadData">آپلود فایل</md-button>
-                            </div>
+                            </div> 
 
-                            <md-input-container class="md-block" flex-gt-sm>
+                            <md-input-container class="md-block" ng-show="sheets" flex-gt-sm>
                                 <label>صفحه</label>
-                                <md-select ng-model="sheetName" ng-change="changeSheet()" ng-show="sheets">
+                                <md-select ng-model="sheetName" ng-change="changeSheet()" >
                                     <md-option ng-repeat="sheet in sheets" value="{{sheet}}">{{sheet}}</md-option>
                                 </md-select>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <md-checkbox xng-disabled="id > 0" ng-model="keepHistory">
+                                    ذخیره تاریخچه تغییرات
+                                </md-checkbox>
                             </md-input-container>
 
 
