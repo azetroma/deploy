@@ -30,10 +30,10 @@
                         <td  >
                             <div layout="row" layout-sm="row" layout-align="start center" style="width:100px">
 
-                            <md-button class="md-icon-button gray" ng-click="cnl.delete($event, i)" title="{{'add' | translate}}">
+                            <md-button class="md-icon-button gray" ng-click="cnl.delete($event, i)" title="{{'remove' | translate}}">
                                 <span class="material-icons">delete</span>
                             </md-button>
-                            <md-button class="md-icon-button gray"ng-show="!i.progress" ng-click="cnl.sync($event, i)" title="{{'add' | translate}}">
+                            <md-button class="md-icon-button gray"ng-show="!i.progress" ng-click="cnl.sync($event, i)" title="{{'Sync' | translate}}">
                                 <span class="material-icons">sync</span>
                             </md-button>
                             <md-progress-circular ng-show="i.progress" md-mode="indeterminate" md-diameter="15"></md-progress-circular>
