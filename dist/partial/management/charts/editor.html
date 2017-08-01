@@ -30,9 +30,8 @@
                             <div layout="row" layout-align="start center" class="datasource-item-header">
                                 <span>{{ 'data' | translate }}</span>
                                 <span flex></span>
-                                <span class="material-icons small small-size pointer" ng-click="showRelatedDatasource($event)">
-                                    add
-                                    <md-tooltip md-direction="bottom">add</md-tooltip>
+                                <span class="material-icons small small-size pointer" ng-click="showRelatedDatasource($event)" title="{{'add' | translate}}">
+add                                    <!--<md-tooltip md-direction="bottom">add</md-tooltip>-->
                                 </span>
                             </div>
 
@@ -79,9 +78,9 @@
                                                 <span>{{u.Name}} <small class="gray"><small> {{u.xUniqueName}}</small></small></span>
                                             </div>
                                             <span flex></span>
-                                            <span class="material-icons small small-size pointer" ng-click="removeRelatedDatasource($index, u)" ng-hide="$index==0">
+                                            <span class="material-icons small small-size pointer" ng-click="removeRelatedDatasource($index, u)" ng-hide="$index==0" title="{{'remove' | translate}}">
                                                 remove
-                                                <md-tooltip>{{'remove' | translate}}</md-tooltip>
+                                                <!--<md-tooltip>{{'remove' | translate}}</md-tooltip>-->
                                             </span>
                                             <span class="material-icons small small-size pointer" ng-click="gotoDatasource(u)">open_in_new</span>
 
@@ -159,9 +158,9 @@
                                                 <div layout="row" layout-align="start center">
                                                     <b>{{ 'comboKpi_synonym' | translate }}</b>
                                                     <span flex></span>
-                                                    <md-button class="md-icon-button" ng-click="combo.synonyms.push([{}]); refreshChart('refreshWithData')">
+                                                    <md-button class="md-icon-button" ng-click="combo.synonyms.push([{}]); refreshChart('refreshWithData')" title="{{'add' | translate}}">
                                                         <span class="material-icons">add</span>
-                                                        <md-tooltip>{{ 'add' | translate }}</md-tooltip>
+                                                        <!--<md-tooltip>{{ 'add' | translate }}</md-tooltip>-->
                                                     </md-button>
                                                 </div>
 
@@ -316,9 +315,9 @@
                     <input ng-model="chartName" type="text" placeholder="{{ 'نام' | translate }}" />
                 </md-input-container>
 
-                <md-button class="md-icon-button" ng-click="showDialog($event)">
+                <md-button class="md-icon-button" ng-click="showDialog($event)" title="{{'dashboard' | translate}}">
                     <span class="material-icons md-accent gray">view_module</span>
-                    <md-tooltip>{{'dashboads' | translate}}</md-tooltip>
+                    <!--<md-tooltip>{{'dashboads' | translate}}</md-tooltip>-->
                 </md-button>
 
                 <span flex></span>
@@ -417,19 +416,19 @@
 
 
 
-                <md-button class="md-icon-button" ng-click="save($event)" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
+                <md-button class="md-icon-button" ng-click="save($event)" title="{{'save' | translate}}" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
                     <span class="material-icons md-accent gray">done</span>
-                    <md-tooltip>{{'save' | translate}}</md-tooltip>
+                    <!--<md-tooltip>{{'save' | translate}}</md-tooltip>-->
                 </md-button>
 
-                <md-button class="md-icon-button" ng-click="cancel()">
+                <md-button class="md-icon-button" ng-click="cancel()" title="{{'cancel' | translate}}">
                     <span class="material-icons gray">clear</span>
-                    <md-tooltip>{{'cancel' | translate}}</md-tooltip>
+                    <!--<md-tooltip>{{'cancel' | translate}}</md-tooltip>-->
                 </md-button>
 
-                <md-button class="md-icon-button" ng-click="delete($event)" ng-show="isEdit">
+                <md-button class="md-icon-button" ng-click="delete($event)" ng-show="isEdit" title="{{'delete' | translate}}">
                     <span class="material-icons gray">delete</span>
-                    <md-tooltip>{{'delete' | translate}}</md-tooltip>
+                    <!--<md-tooltip>{{'delete' | translate}}</md-tooltip>-->
                 </md-button>
 
 

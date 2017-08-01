@@ -1,6 +1,6 @@
 ﻿
 
-<div layout="row">
+<div layout="row" flex>
     <md-content flex no-background>
         <div layout="column" flex>
 
@@ -9,22 +9,22 @@
                     <h3>{{'Active Directory Integration' | translate}}</h3>
                 </div>
 
-                <div layout-gt-sm="row">
+                <div layout-gt-sm="row" layout-wrap>
 
-                    <md-input-container class="md-block" flex-gt-sm>
+                    <md-input-container class="md-block" flex-gt-sm="33">
                         <label>{{'سرور' | translate}}</label>
                         <input required name="name" ng-model="ad.server">
                         <div class="hint">نام سرور یا شماره آی پی سرور اکتیو دایرکتوری</div>
 
                     </md-input-container>
 
-                    <md-input-container class="md-block" flex-gt-sm>
+                    <md-input-container class="md-block" flex-gt-sm="33">
                         <label>{{'container' | translate}}</label>
                         <input name="name" ng-model="ad.container">
                         <div class="hint"> ریشه جستجو مثل DC=csroll,DC=local</div>
                     </md-input-container>
 
-                    <md-input-container class="md-block" flex-gt-sm>
+                    <md-input-container class="md-block" flex-gt-sm="33">
                         <label>{{'bind_option' | translate}}</label>
                         <md-select name="name" ng-model="ad.bindOption">
                             <md-option value="1">Negotiate</md-option>
@@ -38,12 +38,12 @@
                     </md-input-container>
 
 
-                    <md-input-container class="md-block" flex-gt-sm>
+                    <md-input-container class="md-block" flex-gt-sm="33">
                         <label>{{'نام کاربری' | translate}}</label>
                         <input required name="name" ng-model="ad.user">
                     </md-input-container>
 
-                    <md-input-container class="md-block" flex-gt-sm>
+                    <md-input-container class="md-block" flex-gt-sm="33">
                         <label>{{'کلمه عبور' | translate}}</label>
                         <input required name="name" ng-model="ad.pass" type="password">
                     </md-input-container>

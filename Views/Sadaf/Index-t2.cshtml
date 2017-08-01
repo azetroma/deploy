@@ -119,8 +119,16 @@
         </div>
 
         <div class="sadaf-footer">
+            @{ 
+                try {
+                    <text>
             <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
             - نسخه @(version.Major + "." + version.Minor + "." + version.Build )
+                    </text>
+                } catch (Exception) {
+
+                }
+            }
         </div>
     </div>
 
@@ -328,6 +336,20 @@
         <div class="actions">
             <div class="ui button deny black">{{'انصراف' | translate}}</div>
             <div class="ui button red action-btn" onclick="dashboard.deleteChart()">{{'حذف'|translate}}</div>
+        </div>
+    </div>
+
+
+    <div class="ui modal small" id="change-pass">
+        <div class="header">
+            پیام
+        </div>
+        <div class="content">
+           به دلایل امنیتی لازم است کلمه عبور شما تغییر پیدا کند. لطفا به صفحه تغییر کلمه عبور بروید.
+
+        </div>
+        <div class="actions">
+            <a class="ui button green" href="~/Profile/#/changepass">تغییر کلمه عبور</a>
         </div>
     </div>
 

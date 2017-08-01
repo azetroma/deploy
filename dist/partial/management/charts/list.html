@@ -105,8 +105,19 @@
                     </th>
                     <th>#</th>
                     <th></th>
-                    <th>{{'name' | translate}}</th>
-                    <th>{{'last update' | translate}}</th>
+                    <th class="pointer" ng-click="sort('name')">
+                        <div layout="row" layout-align="start center">
+                            {{'name' | translate}}
+                            <span ng-show="sortDetail['name']" ng-class="{'rotate': sortDetail['name'].isDesc}" class="material-icons icon-animate  rotate">keyboard_arrow_up</span>
+                        </div>
+                    </th>
+                    <th class="pointer" ng-click="sort('timestamp')">
+                        <div layout="row" layout-align="start center">
+                            {{'last update' | translate}}
+                            <span ng-show="sortDetail['timestamp']" ng-class="{'rotate': sortDetail['timestamp'].isDesc}" class="material-icons icon-animate  rotate">keyboard_arrow_up</span>
+                        </div>
+
+                    </th>
                     <th></th>
                 </tr>
 

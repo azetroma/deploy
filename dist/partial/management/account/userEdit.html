@@ -1,9 +1,9 @@
 ﻿
 <div layout="column" flex>
-    <md-content flex class="content" layout="row">
+    <md-content flex class="content " layout="row" >
 
         <div flex="20" hide-sm hide-xs></div>
-        <div flex="60" flex-xs="100" flex-sm="100">
+        <div flex="60" flex-xs="100" flex-sm="100" class="content-scroll">
 
             <md-card>
                 <md-card-title>
@@ -28,7 +28,7 @@
                                         <div ng-message="required">{{'form_username_required' | translate}}</div>
                                     </div>
                                 </md-input-container>
-                                
+
                                 <md-input-container flex>
                                     <label>{{'name' | translate}}</label>
                                     <input name="name" ng-model="model.FirstName">
@@ -71,7 +71,7 @@
                                     <label>{{'profile_phone' | translate}}</label>
                                     <input type="tel" ng-model="model.Mobile">
                                 </md-input-container>
-                                
+
                                 <md-input-container flex="50">
                                     <label>{{'profile_email' | translate}}</label>
                                     <input type="email" ng-model="model.Email" name="email" ng-pattern="/^.+@.+\..+$/">
@@ -82,17 +82,21 @@
 
                             </div>
 
+                            <md-switch ng-model="model.PasswordPolicy">
+                                کلمه عبور پیچیده
+                            </md-switch>
 
-                            <div>
-                                <h3>
-                                    {{'profile_settings' | translate}}
-                                    <md-divider></md-divider>
-                                </h3>
-                            </div>
+                            <md-switch ng-model="model.ForceChangePass">
+                                تغییر کلمه عبور در اولین ورود بعد از تاریخ فعلی
+                            </md-switch>
+
+
+
+                            <h3 class="sadaf-header">
+                                {{'profile_settings' | translate}}
+                            </h3>
 
                             <div layout-gt-sm="row" flex>
-
-
 
                                 <md-input-container class="md-block" flex>
                                     <label>{{'profile_slide_timeout' | translate}}</label>
@@ -114,10 +118,9 @@
 
                                 </md-input-container>
 
-
                             </div>
 
-                            <fieldset>
+                            <fieldset class="sadaf-header">
                                 <legend layout="row" layout-align="start center">
                                     <span>
                                         {{'متغیرها' | translate}}
@@ -176,7 +179,7 @@
                             </fieldset>
 
                             <collapse>
-                                <collapse-header>Roles</collapse-header>
+                                <collapse-header>{{'roles'| translate}}</collapse-header>
                                 <collapse-body>
                                     <div style="margin:0 20px">
                                         <div ng-repeat="r in roles" layout="row" layout-align="start center">

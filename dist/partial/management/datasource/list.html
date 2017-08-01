@@ -17,7 +17,7 @@
                 <input ng-model="search" placeholder="{{'جستجو' | translate}}">
             </md-input-container>
 
-            <md-button class="md-icon-button "  ng-click="addTimeDatasoure($event)" title="{{'Time datasource' | translate}}">
+            <md-button class="md-icon-button " ng-click="addTimeDatasoure($event)" title="{{'Time datasource' | translate}}">
                 <span class="material-icons">date_range</span>
             </md-button>
 
@@ -53,16 +53,32 @@
                     </th>
                     <th>#</th>
                     <th></th>
-                    <th>{{'name' | translate}}</th>
-                    <th></th>
-                    <th>{{'last update' | translate}}</th>
+                    <th class="pointer" ng-click="sort('name')">
+                        <div layout="row" layout-align="start center">
+                            {{'name' | translate}}
+                            <span ng-show="sortDetail['name']" ng-class="{'rotate': sortDetail['name'].isDesc}" class="material-icons icon-animate  rotate">keyboard_arrow_up</span>
+                        </div>
+                    </th>
+                    <th class="pointer" ng-click="sort('dsType')">
+                        <div layout="row" layout-align="start center">
+                            {{'type' | translate}}
+                            <span ng-show="sortDetail['dsType']" ng-class="{'rotate': sortDetail['dsType'].isDesc}" class="material-icons icon-animate  rotate">keyboard_arrow_up</span>
+                        </div>
+                    </th>
+                    <th class="pointer" ng-click="sort('timestamp')">
+                        <div layout="row" layout-align="start center">
+                            {{'last update' | translate}}
+                            <span ng-show="sortDetail['timestamp']" ng-class="{'rotate': sortDetail['timestamp'].isDesc}" class="material-icons icon-animate  rotate">keyboard_arrow_up</span>
+                        </div>
+
+                    </th>
                     <th></th>
                     <th></th>
                 </tr>
 
                 <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select; menuInvalidate()" ng-dblclick="goto(row, $event)">
                     <td width="20">
-                        <md-checkbox ng-model="row.select" ng-click=" $event.stopPropagation()" ng-change="menuInvalidate()" aria-label="{{'select' | translate}}"></md-checkbox>
+                        <md-checkbox ng-model="row.select" ng-click="$event.stopPropagation()" ng-change="menuInvalidate()" aria-label="{{'select' | translate}}"></md-checkbox>
                     </td>
                     <td width="20">{{utils.persian($index+1)}}</td>
                     <td width="20"><span class="material-icons" style="color:#757575">{{row.type == 1 ? 'folder' : 'storage'}}</span></td>
@@ -96,7 +112,7 @@
                         </div>
                     </td>
                 </tr>
-                
+
             </table>
             <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
                 <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
