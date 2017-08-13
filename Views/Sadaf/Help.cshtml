@@ -1,0 +1,170 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <base href="@Href("~")">
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    @{
+        var isRelease = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+        var ver = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+        var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+        if (!isRelease) {
+            ver = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+        }
+
+    }
+
+    <link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.2" rel="stylesheet" />
+    <link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@ver" rel="stylesheet" />
+    <link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=@ver" rel="stylesheet" />
+    <link href="~/dist/css/help/help.css?v=@ver" rel="stylesheet" />
+
+    <script src="~/dist/lib/jquery-1.11.1.min.js"></script>
+    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="~/dist/lib/jquery.fileupload.min.js"></script>
+    <script src="~/dist/lib/jquery.gridster.with-extras.min.js"></script>
+    <script src="~/dist/lib/jquery.gridster.with-extras.min2.js"></script>
+    <script src="~/dist/lib/jquery.ui.widget.min.js"></script>
+    <script src="~/dist/lib/angular@(isRelease ? ".min" : "").js"></script>
+    <script src="~/dist/lib/angular-messages.min.js"></script>
+    <script src="~/dist/lib/angular-sanitize.min.js"></script>
+    <script src="~/dist/lib/angular-translate.min.js"></script>
+    <script src="~/dist/lib/angular-translate-loader-static-files.min.js"></script>
+    <script src="~/dist/lib/angular-animate.min.js"></script>
+    <script src="~/dist/lib/angular-route.min.js"></script>
+    <script src="~/dist/lib/bootstrap-datepicker.fa.min.js"></script>
+    <script src="~/dist/lib/bootstrap-datepicker.min.js"></script>
+    <script src="~/dist/lib/bootstrap-select.min.js"></script>
+    <script src="~/dist/lib/bootstrap-select-defaults-@(ViewBag.isRtl ? "fa_IR" : "en_US").js"></script>
+    <script src="~/dist/lib/semantic.min.js"></script>
+    <script src="~/dist/lib/d3.v3.min.js"></script>
+    <script src="~/dist/lib/sortable.min.js"></script>
+    <script src="~/dist/lib/topojson.min.js"></script>
+    <script src="~/dist/lib/lodash.min.js"></script>
+    <script src="~/dist/lib/jquery.treeview.js"></script>
+
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+            display: none !important;
+        }
+    </style>
+
+    <meta name="fontiran.com:license" content="X4ZQZ">
+</head>
+
+<body ng-app="sadafHelp" ng-cloak ng-controller="sideMenuCtrl as sc">
+    <input type="hidden" value="@ViewBag.lang" id="lang" />
+    <div class="side-menu ui segment my-fix inverted no-padd no-margin">
+
+        <div class="" style="text-align:center; padding:30px 16px;">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDozRDUyMkVDRDBFRTlFNTExOUUwRENCMkFDOUFCOTFBRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo0N0EyNUI2NzMwQjUxMUU3QTk2MTlFMTNDM0YxMUZGMiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo0N0EyNUI2NjMwQjUxMUU3QTk2MTlFMTNDM0YxMUZGMiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IFdpbmRvd3MiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDRTJEMzkzQkI1MzBFNzExQThCQkM4REE1NDQ2N0RGMSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozRDUyMkVDRDBFRTlFNTExOUUwRENCMkFDOUFCOTFBRCIvPiA8L3JkZjpEZXNjcmlwdGlv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" class="" style="max-width:100%" alt="Alternate Text" />
+            <div>مستندات داشبورد صدف</div>
+        </div>
+
+        <div class="my-fix-flex-container">
+            <div class="side-menu-item-container menu-category" ng-repeat="mc in sc.parents" ng-class="{active: mc.active}">
+                <div class="side-menu-item side-menu-item-parent" ng-click="sc.closeAll(mc);">
+                    <i class="icon angle down icon-animate large left floated" ng-class="{rotate: mc.open}"></i>  {{mc.name}}
+                </div>
+
+                <div uib-collapse="!mc.open">
+                    <div class="side-menu-item side-menu-item-child dashboard-menu" ng-repeat="m in mc.menus" href="{{sc.app.hashUrlPrefix}}#/content/{{m.id}}" ng-class="{active: m.active}" ng-click="$event.stopPropagation();">
+                        <a href="{{sc.app.hashUrlPrefix}}#/content/{{m.id}}" ng-click="closeSidebar();">{{m.name}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sadaf-footer">
+            @{
+                try {
+                    <text>
+                        <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
+                        - نسخه @(version.Major + "." + version.Minor + "." + version.Build )
+                    </text>
+                } catch (Exception) {
+
+                }
+            }
+        </div>
+    </div>
+
+    <div class="pusher" id="">
+        <div class="main-container" style="padding-top:40px;padding-bottom:80px;height: 100vh;max-height: 100vh;overflow: auto;">
+            <div class="ui container">
+
+                <div class="ui secondary  menu">
+                    @*<a class="active item">
+                            Home
+                        </a>
+                        <a class="item">
+                            Messages
+                        </a>
+                        <a class="item">
+                            Friends
+                        </a>*@
+
+                    <div class="right menu">
+                        <a class="ui item" href="{{app.urlPrefix}}">
+                            {{'dashboard' | translate}}
+                        </a>
+
+                        <div class="ui right aligned search focus" style="text-align:left;">
+                            <div class="ui icon input">
+                                <input class="prompt" type="text" placeholder="جستجو در عناوین...">
+                                <i class="search icon"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+
+                        @*<div class="item">
+                                <div class="ui icon input">
+                                    <input type="text" placeholder="Search...">
+                                    <i class="search link icon"></i>
+                                </div>
+                            </div>
+                            <a class="ui item">
+                                Logout
+                            </a>*@
+                    </div>
+                </div>
+
+
+
+
+                <ng-view></ng-view>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        var app = app || {};
+        app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        app.hashUrlPrefix = "@Url.Action("help", "sadaf")" + "/";
+        app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
+            ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : ver.ToString())';
+
+    </script>
+
+    @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
+        <script src="~/src/js/collapse.js?v=@ver"></script>
+        <script src="~/src/js/help-app.js?v=@ver"></script>
+        <script src="~/src/js/help/controller.js?v=@ver"></script>
+
+    } else {
+        <script src="~/dist/js/help-app.js?v=@ver"></script>
+    }
+
+</body>
+</html>
