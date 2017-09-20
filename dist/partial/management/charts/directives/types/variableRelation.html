@@ -41,6 +41,17 @@
                     </div>
                 </div>
 
+                <div class="form-row" layout="row" layout-align="start center" ng-show="prop.userControl.info.variableDefault">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="prop.userControl.info.disableClear" /> {{ 'جلوگیری از حذف مقدار' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="form-row" layout="row" layout-align="start center" ng-show="(['GetDate','MonthToDate','YearToDate','DaysAgo','MonthAgo']).indexOf(prop.userControl.info.variableDefaultFunction)!=-1">
                     <label class="col-sm-4">{{ 'فرمت تاریخ تابع زمان حال' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
@@ -99,9 +110,9 @@
 
             </div>
 
-            <div class="form-group gb-content">
+            <!--<div class="form-group gb-content">
                 <a class="pointer new-gb-btn" ng-click="AddGlobalVariables()">{{ 'ساخت متغیر جدید' | translate }}</a>
-            </div>
+            </div>-->
         </div>
     </menu-body>
 </menu-item>
