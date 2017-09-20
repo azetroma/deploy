@@ -35,7 +35,7 @@
                                 <input type="checkbox" ng-model="ngModel.bar.info.showSortBox" ng-change="refreshChart('refresh')" /> {{ 'نمایش گزینه مرتب کردن' | translate }}
                             </label>
                         </div>
-                    </div>
+                    </div> 
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
@@ -200,6 +200,15 @@
                         <div class="checkbox">
                             <label class="">
                                 <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('hidden')" ng-model="ngModel.bar.series[ngModel.selectedSeries].hidden" /> {{ 'مخفی کردن' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.bar.series[ngModel.selectedSeries].seriesType!='bar'">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.bar.series[ngModel.selectedSeries].dontShowZeroValue" ng-change="refreshChart('refresh');changeAllSeries('dontShowZeroValue')" /> {{ 'عدم نمایش مقادیر صفر' | translate }}
                             </label>
                         </div>
                     </div>

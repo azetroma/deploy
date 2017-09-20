@@ -1,4 +1,6 @@
 {
+    "عدم نمایش مقادیر صفر":"Dont show zero value",
+    "Forms":"Forms",
     "new rule": "New Rule",
     "permissions": "Permissions",
     "help":"Help",

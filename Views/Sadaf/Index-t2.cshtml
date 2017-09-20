@@ -38,6 +38,8 @@
     <script src="~/dist/lib/angular-translate-loader-static-files.min.js"></script>
     <script src="~/dist/lib/angular-animate.min.js"></script>
     <script src="~/dist/lib/angular-route.min.js"></script>
+    <script src="~/dist/lib/angular-aria.min.js"></script>
+    <script src="~/dist/lib/angular-material.min.js"></script>
     <script src="~/dist/lib/bootstrap-datepicker.fa.min.js"></script>
     <script src="~/dist/lib/bootstrap-datepicker.min.js"></script>
     <script src="~/dist/lib/bootstrap-select.min.js"></script>
@@ -49,6 +51,8 @@
     <script src="~/dist/lib/lodash.min.js"></script>
     <script src="~/dist/lib/jquery.treeview.js"></script>
 
+    <script src="~/dist/lib/angular-semantic-ui.min.js"></script>
+
     <style>
         [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
             display: none !important;
@@ -56,10 +60,37 @@
     </style>
 
     <meta name="fontiran.com:license" content="X4ZQZ">
+
+    @*<style>
+            .side-menu-item-container.active {
+                /*رنگ گروه منوی فعال*/
+                background-color: #efefef;
+            }
+
+            .ui.inverted.segment, .ui.primary.inverted.segment {
+                /*رنگ پشت منوی سمت راست*/
+                background-color: #f9f9f9;
+                /*رنگ متن منوی سمت راست*/
+                color: #333;
+            }
+
+            .side-menu-item.active {
+                /*رنگ خط سمت راست منوی فعال*/
+                border-right: 5px solid #00bfe9;
+            }
+
+            .side-menu-item:hover {
+                /*رنگ منو در حالتی موس روی آن است*/
+                background-color: #e9e9e9;
+            }
+
+            .sadaf-footer a {
+                /*رنگ لینک پایین */
+                color: #333;
+            }
+        </style>*@
 </head>
 <body ng-app="sadaf" ng-cloak ng-controller="dashboardPageCtrl" class="theme2">
-    <style>
-    </style>
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" id="isFullscreen" value="@ViewBag.UserProfile.IsFullScreen" />
 
@@ -119,11 +150,11 @@
         </div>
 
         <div class="sadaf-footer">
-            @{ 
+            @{
                 try {
                     <text>
-            <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
-            - نسخه @(version.Major + "." + version.Minor + "." + version.Build )
+                        <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
+                        - نسخه @(version.Major + "." + version.Minor + "." + version.Build )
                     </text>
                 } catch (Exception) {
 
@@ -133,11 +164,14 @@
     </div>
 
     <div class="pusher" id="">
-        <div class="main-container" style="height: 100vh;max-height: 100vh;overflow-y: scroll;">
+        <div class="main-container full-height-container" xstyle="height: 100vh;max-height: 100vh;overflow-y: scroll;">
+
             <div class="" style="display:flex;flex-direction:row;padding:10px 0 0 10px;flex-wrap: wrap-reverse;justify-content: flex-end;">
 
-                <div ng-show="menuCategories.licenceRemain.remain <= 15" class="ui label red">تعداد روز باقیمانده از جواز استفاده: 
-                <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز</div>
+                <div ng-show="menuCategories.licenceRemain.remain <= 15" class="ui label red">
+                    تعداد روز باقیمانده از جواز استفاده:
+                    <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
+                </div>
 
                 <div class="" id="filter-box" ng-app="filterBox" style="transition:width 0.4s ease; flex:1 1 auto;">
                     <div ng-controller="filterBoxController" id="filter-box-controller">
@@ -170,7 +204,7 @@
 
                 </div>
 
-                <div class="dashboard-edit-panel" xng-class="{'show': hasEditPermission}" style="margin:-5px 14px 0 14px;">
+                <div class="dashboard-edit-panel" xng-class="{'show': hasEditPermission}" style="margin:-5px 14px 0 14px;user-select: none;">
                     <div class="chart-container dashboard-page-header" style="direction:ltr;">
                         <div style="display:table-row">
                             <div id="device-selector" class="dashboard-navbar-item devices no-padd">
@@ -191,8 +225,16 @@
 
                             <div class="dashboard-navbar-item dashboard-navbar-item-devider no-padd"></div>
 
-                            <div class="dashboard-navbar-item no-padd">
+                            <div class="dashboard-navbar-item no-padd" title="اضافه کردن نمودار">
                                 <i class="link icon add square add-chart-btn"></i>
+                            </div>
+                            <div class="dashboard-navbar-item no-padd" title="اضافه کردن فرم">
+                                @*<button class="ui right labeled icon tiny button" ng-click="">
+                                    <i class="sticky note  icon"></i>
+                                    اضافه کردن فرم
+                                </button>*@
+                                <i class="link icon add square outline" ng-click="addFormSettings.visible = true"></i>
+                                <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
                             </div>
 
                         </div>
@@ -230,10 +272,13 @@
             <ng-view></ng-view>
 
         </div>
-
-
+        <sm-modal class="edit-form-modal" visible="visible" settings="formInfo.modalSettings">
+            <div class="content" >
+                <div sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" ></div>
+            </div>
+        </sm-modal>
+        
     </div>
-
 
     @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
         <script src="~/src/js/charts/su.ChartCommons.js?v=@ver"></script>
@@ -256,8 +301,6 @@
     }
 
     <script>
-
-
 
         $('.ui.modal').modal();
         $('.ui.dropdown').dropdown();
@@ -339,13 +382,12 @@
         </div>
     </div>
 
-
     <div class="ui modal small" id="change-pass">
         <div class="header">
             پیام
         </div>
         <div class="content">
-           به دلایل امنیتی لازم است کلمه عبور شما تغییر پیدا کند. لطفا به صفحه تغییر کلمه عبور بروید.
+            به دلایل امنیتی لازم است کلمه عبور شما تغییر پیدا کند. لطفا به صفحه تغییر کلمه عبور بروید.
 
         </div>
         <div class="actions">
@@ -353,7 +395,15 @@
         </div>
     </div>
 
+
     @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
+        <script src="~/src/js/management/services/services-app.js?v=@ver"></script>
+        <script src="~/src/js/management/services/datasources.js?v=@ver"></script>
+
+        <script src="~/src/js/forms/forms-app.js?v=@ver"></script>
+        <script src="~/src/js/forms/editor/form-generator-editor.js?v=@ver"></script>
+        <script src="~/src/js/forms/render-form.js?v=@ver"></script>
+
         <script src="~/src/js/dashboardPage/navbar/navbar.js?v=@ver"></script>
         <script src="~/src/js/collapse.js?v=@ver"></script>
         <script src="~/src/js/dashboard-app.js?v=@ver"></script>
@@ -369,6 +419,8 @@
         <script src="~/src/js/dashboardPage/JqueryHelper.js?v=@ver"></script>
 
     } else {
+        <script src="~/dist/js/services.js?v=@ver"></script>
+        <script src="~/dist/js/forms-app.js?v=@ver"></script>
         <script src="~/dist/js/dashboard-app-theme2.js?v=@ver"></script>
     }
 
@@ -407,8 +459,5 @@
 
     </script>
 </body>
-
-
-
 
 </html>

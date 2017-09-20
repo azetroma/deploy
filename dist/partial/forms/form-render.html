@@ -1,0 +1,63 @@
+﻿<div ng-init="c.activePage = 0" class="">
+    <!--{{c.data.name}}-->
+    <div class="ui active inverted dimmer" ng-show="c.formLoading">
+        <div class="ui text loader">در حال بارگذاری</div>
+    </div>
+    <div>
+
+        <div ng-show="c.submittedStatus == 0">
+
+            <div ng-repeat="page in c.data.pages" ng-show="$index == c.activePage" class="form-page ui form " ng-class="page.size">
+                
+                <div class="ui grid stackable content-form">
+                    <form-control ng-repeat="component in page.controls" ng-model="component" id="{{c.id}}"></form-control>
+                </div>
+
+                <div class="ui message red" ng-show="page.error">{{page.error}}</div>
+
+            </div>
+
+
+            <div class="ui grid">
+                <div class="left floated nine wide column">
+                <button class="ui button green" ng-show="c.activePage == c.data.pages.length-1 && c.editPermission" ng-disabled="c.isValid()" ng-click="c.submit()" ng-class="{loading: c.loading}">
+                    {{c.rowId ? 'ویرایش' : 'ذخیره'}} 
+                </button>
+                <button class="ui button blue" ng-show="c.activePage != c.data.pages.length-1" ng-click="c.activePage = c.activePage+1">ادامه</button>
+                <button class="ui button blue" ng-show="c.activePage != 0" ng-click="c.activePage = c.activePage-1">قبلی</button>
+                <button class="ui button black" ng-show="c.rowId" ng-click="c.cancel()">لغو</button>
+
+                </div>
+
+                <div class="right floated three wide column right aligned">
+                <button class="ui button red" ng-show="c.rowId && c.deletePermission" ng-click="c.remove()">حذف</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui success message" ng-show="c.submittedStatus==1">
+            اطلاعات با موفقیت دریافت شد
+        </div>
+
+        <div class="ui error message" ng-show="c.submittedStatus==2">
+            <div ng-show="c.error">
+                <h3>{{c.error.title}}</h3>
+                <p>{{c.error.desc}}</p>
+            </div>
+            <span ng-hide="c.error">
+            مشکلی در سرور به وجود آمده است. لطفا دوباره امتحان کنید.
+            </span>
+        </div>
+            <div class="ui error message" ng-show="c.data.pages.length > 1 && c.pagesContainError.length">
+                در صفحه‌های زیر اشکال وجود دارد
+                <div ng-repeat="p in c.pagesContainError">{{p.name}}</div>
+            </div>
+
+        <button class="ui basic mini button" ng-show="c.submittedStatus!=0" ng-click="c.clearForm()">
+            <i class="icon file outline"></i>
+            ورود اطلاعات جدید
+        </button>
+    </div>
+
+    <!--<pre class="ltr">{{c.data | json}}</pre>-->
+</div>

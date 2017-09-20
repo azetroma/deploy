@@ -86,18 +86,18 @@
                     <td width="20"><span class="md-caption" lang="en">{{getTypeName(row.dsType)}}</span></td>
                     <td class="md-caption">{{utils.persian(row.lastRefresh)}}</td>
                     <td width="20">
-                        <md-button class="md-icon-button" ng-click="insertChart(row, $event); $event.stopPropagation();" ng-if="row.type == 2">
+                        <md-button class="md-icon-button"title="{{'add_chart' | translate}}" ng-click="insertChart(row, $event); $event.stopPropagation();" ng-if="row.type == 2">
                             <span class="material-icons" style="color:#757575">insert_chart</span>
-                            <md-tooltip>{{'add_chart' | translate}}</md-tooltip>
+                            <!--<md-tooltip>{{'add_chart' | translate}}</md-tooltip>-->
                         </md-button>
                     </td>
                     <td>
                         <div ng-show="row.type == 2 && row.charts.length">
 
                             <md-menu md-offset="0 -7">
-                                <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event); $event.stopPropagation();">
+                                <md-button title="{{'charts_list' | translate}}" aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event); $event.stopPropagation();">
                                     <span class="material-icons" style="color:#757575">toc</span>
-                                    <md-tooltip>{{'charts_list' | translate}}</md-tooltip>
+                                    <!--<md-tooltip>{{'charts_list' | translate}}</md-tooltip>-->
 
                                 </md-button>
                                 <md-menu-content width="4">

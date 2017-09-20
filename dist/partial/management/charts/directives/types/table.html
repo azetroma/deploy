@@ -9,8 +9,6 @@
 
                 <general-settings ng-model="ngModel.table.info"></general-settings>
 
-
-
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع تجمیع' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
@@ -21,9 +19,6 @@
                         </select>
                     </div>
                 </div>
-
-
-
 
                 <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.table.info.aggregation!=-1">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -54,7 +49,6 @@
                                ng-model="ngModel.table.info.limit" />
                     </div>
                 </div>
-
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -122,6 +116,7 @@
                             <option value="none">{{ 'عدم انتخاب' | translate }}</option>
                             <option value="one">{{ 'یک مقدار' | translate }}</option>
                             <option value="multi">{{ 'چند مقدار' | translate }}</option>
+                            <option value="edit">{{ 'ویرایش سطر (مخصوص فرم‌ها)' | translate }}</option>
                         </select>
                     </div>
                 </div>

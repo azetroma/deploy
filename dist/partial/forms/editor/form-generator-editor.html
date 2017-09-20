@@ -1,0 +1,148 @@
+﻿<style>
+    .fg-header .item {
+        padding: 10px;
+    }
+
+    .fg-component {
+        /*padding: 5px 5px;
+        border: 1px solid #efefef;
+        border-radius: 2px;
+        margin: 6px;
+        min-width: 80px;
+        background-color: #f9f9f9;
+        z-index: 114;
+        font-size: 13px;*/
+        margin:5px;
+
+        /*min-height: 50px;*/
+        /*font-size:13px;*/
+    }
+
+    .cursor {
+        cursor: move;
+    }
+
+
+    .inline-input {
+        border: none !important;
+        border-radius: 0 !important;
+    }
+
+        .inline-input:hover, .inline-input:focus {
+            background-color: #efefef !important;
+        }
+
+    .editor.ui.form .field {
+        margin-bottom: 0;
+    }
+
+        .editor.ui.form .field.active {
+            background-color: rgba(220, 237, 200, 0.35);
+        }
+
+    .editor.ui.form .column {
+        /* در سی اس اس بار چارت ارتفاع حداقل ست شده است که نمیدانم چرا!*/
+        min-height: initial;
+    }
+
+    .editor .ui.grid.content-form .column {
+        padding: 10px 5px;
+        padding-top: 0px;
+    }
+
+    .form-control-highlight {
+        border: 1px dashed #077847;
+        background-color: #b9ffe1;
+        width: 100px;
+        /*min-width: 100px;*/
+        height: 80px;
+    }
+
+    .form-components .form-control-highlight {
+        width: 0px;
+        height: 0px;
+        border: none;
+    }
+
+    .form-generator-side-column {
+        padding: 0 16px;
+    }
+</style>
+
+
+<div layout="column" layout-fill>
+
+    <div class="fg-header ">
+        <div class="item ui input">
+            <input type="text" class="inline-input ui tiny header aligned center " ng-model="c.name" />
+            <!--<span class="material-icons small small-size pointer gray" ng-click="c.save()">save</span>-->
+            <div class="ui basic mini button" ng-click="c.save()" ng-class="{loading: c.saveProgress}">
+                <i class="icon save"></i>
+                ذخیره
+            </div>
+        </div>
+    </div>
+
+
+    <div layout="row" flex>
+
+        <md-content flex="25" class="form-generator-side-column">
+            <div class="ui left tiny secondary pointing   menu" >
+                <div class="item header">
+                    تنظیمات
+                </div>
+
+                <div class="item">
+                    <span ng-show="!c.control.active.name">{{c.pages.activePage.name}}</span>
+                    <span ng-show="c.control.active.name">{{c.control.active.name}}</span>
+                </div>
+
+            </div>
+
+            <ng-include src="c.app.urlPrefix + 'dist/partial/forms/editor/form-generator-editor-properties.html'"></ng-include>
+        </md-content>
+
+        <div flex="50" class="form-generator-side-column" layout="column">
+            <div class="ui left tiny secondary pointing menu">
+                <div class="item pointer" ng-repeat="p in c.pages.data track by $index" ng-click="c.pages.setActive(p)" ng-class="{active: p.active}">
+                    {{p.name | persian}}
+                    &nbsp;
+                    <i class="icon remove gray pointer" ng-click="c.pages.remove($index)" style="margin:0"></i>
+                </div>
+
+                <div class="item pointer" ng-click="c.pages.add()" ng-class="{active: p.active}">
+                    صفحه جدید
+                    <i class="add icon gray pointer"></i>
+                </div>
+
+            </div>
+            <md-content flex class="ui form editor " ng-class="c.pages.activePage.size" style="padding:0 16px;">
+
+                <!--<input type="text" class="inline-input ui header aligned center grid" ng-model="c.pages.activePage.name" />-->
+                <div ui-sortable="c.sortableOptions" class="drop-target ui grid content-form" ng-model="c.pages.activePage.controls" style="min-height:50px;">
+                    <form-control ng-repeat="component in c.pages.activePage.controls track by $index"
+                                  ng-model="component"
+                                  id="{{c.id}}"
+                                  edit="true"
+                                  ng-class="{active: component.isActive}"
+                                  remove="c.pages.removeControl($index, component)"
+                                  settings-click="c.control.setActive(component); "
+                                  ng-click="c.control.setActive(component); "></form-control>
+                </div>
+            </md-content>
+
+        </div>
+
+        <div class="form-generator-side-column" flex="25" layout="column">
+            <div class="ui left tiny secondary pointing   menu" >
+                <div class="item header">
+                    جعبه ابزار
+                </div>
+            </div>
+            <ng-include flex src="c.app.urlPrefix + 'dist/partial/forms/editor/form-generator-editor-component.html'"></ng-include>
+        </div>
+    </div>
+
+</div>
+
+

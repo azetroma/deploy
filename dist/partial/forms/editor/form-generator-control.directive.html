@@ -1,0 +1,164 @@
+﻿<div class="field form-control form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{!model.canEdit? 'disabled':''}} {{!model.canView? 'ng-hide':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}" >
+    
+    <span ng-show="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
+
+        <div class="control-actions" ng-show="edit">
+            <span class="material-icons small small-size pointer gray" ng-click="remove()">delete</span>
+            <span class="material-icons small small-size pointer gray drag-handle">drag_handle</span>
+        </div>
+
+        <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 0">
+            <label ng-hide="settings.showLabel===false">{{model.label}} </label>
+            <input type="text" name="model.name" ng-model="model.value" placeholder="{{model.label}}">
+            <small class="helper">{{model.error}}</small>
+            <div></div>
+            <small>{{model.description}}</small>
+        </div>
+
+        <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 1">
+            <label ng-hide="settings.showLabel===false">{{model.label}} </label>
+            <textarea ng-model="model.value"></textarea>
+            <small class="helper">{{model.error}}</small>
+            <div></div>
+            <small>{{model.description}}</small>
+        </div>
+
+        <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 2">
+            <label ng-hide="settings.showLabel===false">{{model.label}}</label>
+            <input type="number" placeholder="{{model.label}}" ng-model="model.value">
+            <small class="helper">{{model.error}}</small>
+            <div></div>
+            <small>{{model.description}}</small>
+        </div>
+
+        <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 6">
+            <label ng-hide="settings.showLabel===false">&nbsp;</label>
+            <sm-checkbox model="model.value" label="{{model.label}}"></sm-checkbox>
+            <small class="helper">{{model.error}}</small>
+            <div></div>
+            <small>{{model.description}}</small>
+        </div>
+
+        <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 7">
+            هنوز پیاده‌سازی نشده است
+            <small class="helper">{{model.error}}</small>
+            <div></div>
+            <small>{{model.description}}</small>
+        </div>
+
+        <div class="field {{model.name}} form-{{id}} index-{{model.rowIndex}} {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 4">
+            <label ng-hide="settings.showLabel===false">{{model.label}} </label>
+            <!--<sm-dropdown ng-if="model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData"
+                         class="selection multiple search"
+                         model="model.value"
+                         settings="dropdownSettings"
+                         on-add="onAdd"
+                         xitems="model.items"
+                         on-remove="onRemove"
+                         on-init="initDropdown"
+                         label="item.label"
+                         value="item.value"
+                         default-text="model.value"></sm-dropdown>-->
+
+            <div ng-if="model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData">
+                <sadaf-dropdwon ng-model="model" form-id="{{id}}" class="multiple" edit="{{edit}}"></sadaf-dropdwon>
+            </div>
+
+            <sm-dropdown ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData"
+                         class="selection multiple search fluid"
+                         model="model.dropdown.listValue"
+                         items="model.dropdown.items"
+                         label="item.label"
+                         value="item.value"
+                         settings="simpleDropdownsettings"
+                         default-text="model.value"></sm-dropdown>
+
+            <div ng-if="!model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData">
+                <sadaf-dropdwon ng-model="model" form-id="{{id}}" edit="{{edit}}"></sadaf-dropdwon>
+
+            </div>
+            <!--<sm-dropdown ng-if="!model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData"
+                         settings="dropdownSettings"
+                         class="selection search"
+                         label="item.label"
+                         on-change="change"
+                         value="item.value"
+                         default-text="model.value"></sm-dropdown>-->
+
+            <sm-dropdown ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData"
+                         class="selection fluid"
+                         model="model.value"
+                         items="model.dropdown.items"
+                         label="item.label"
+                         value="item.value"
+                         default-text="model.value"></sm-dropdown>
+
+            <small class="helper">{{model.error}}</small>
+            <div></div>
+            <small>{{model.description}}</small>
+        </div>
+
+        <div class="field" ng-if="model.type == 3">
+            <label ng-hide="settings.showLabel===false">{{model.label}} </label>
+            <small>{{model.description}}</small>
+        </div>
+
+        <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 9">
+            <label ng-hide="settings.showLabel===false">{{model.label}}</label>
+            <sadaf-calendar ng-model="model.value"></sadaf-calendar>
+            <small class="helper">{{model.error}}</small>
+            <div></div>
+            <small>{{model.description}}</small>
+        </div>
+
+        <div class="field {{model.validations.isRequire ? 'required' : ''}} {{model.name}} form-{{id}}-type-12" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 12">
+            <label ng-hide="settings.showLabel===false">{{model.label}}</label>
+            <!--<small><small><pre class="ltr">{{model.formLookup | json}}</pre></small></small>-->
+            <form-lookup-get-id ng-model="model" id="{{id}}"></form-lookup-get-id>
+            <small class="helper">{{model.error}}</small>
+            <div></div>
+            <small>{{model.description}}</small>
+        </div>
+
+        <div class="field {{model.validations.isRequire ? 'required' : ''}} {{model.name}} form-{{id}}-type-13" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 13">
+            <!--<small><small><pre class="ltr">{{model.multiRowForm | json}}</pre></small></small>-->
+            <multi-row-form ng-model="model" id="{{id}}" edit="{{edit}}"></multi-row-form>
+            <small class="helper">{{model.error}}</small>
+            <div></div>
+            <small>{{model.description}}</small>
+        </div>
+
+        <div class="field {{model.validations.isRequire ? 'required' : ''}} {{model.name}} form-{{id}}-type-13"
+             ng-class="{required : model.validations.isRequire, error: model.error}"
+             ng-if="model.type == 15">
+            <label>&nbsp;</label>
+            <div class="ui submit button fluid {{model.button.colorClass}} {{model.button.size}}" ng-class="model.button.colorClass+ ' '+ model.button.colorClass" ng-click="buttonClick()">{{model.label}}</div>
+            <div></div>
+            <small>{{model.description}}</small>
+            <new-form-modal ng-model="model.button"></new-form-modal>
+
+
+        </div>
+
+        <div class="field " ng-class="{error: model.error}" ng-if="model.type == 5">
+            <label ng-hide="settings.showLabel===false">{{model.label}}</label>
+            <div class="calculate-field">
+                <div ng-show="edit" class="ltr formula gray"><small> {{model.calculate.expression}}</small></div>
+                <div ng-hide="edit"><span>{{model.value | formatNumber:model.format | persian}}</span></div>
+            </div>
+            <small class="helper">{{model.error}}</small>
+            <div></div>
+            <small>{{model.description}}</small>
+        </div>
+        <div class="field " ng-class="{error: model.error}" ng-if="model.type == 16">
+            <label ng-hide="settings.showLabel===false">{{model.label}}</label>
+            <div class="calculate-field">
+                <div ng-show="edit" class="ltr formula gray"><small> {{model.calculate.expression}}</small></div>
+                <div ng-hide="edit"><span>{{model.value | formatNumber:model.format | persian}}</span></div>
+            </div>
+            <small class="helper">{{model.error}}</small>
+            <div></div>
+            <small>{{model.description}}</small>
+        </div>
+
+</div>

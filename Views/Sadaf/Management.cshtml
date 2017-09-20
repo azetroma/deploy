@@ -34,6 +34,7 @@
     <link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.2" rel="stylesheet" />
     @*<link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />*@
 
+
     <script src="~/dist/lib/ace.js"></script>
     <script src="~/dist/lib/mode-sqlserver.js"></script>
     <script src="~/dist/lib/ext-beautify.js"></script>
@@ -67,9 +68,19 @@
     <link href="~/dist/lib/textAngular.css" rel="stylesheet" />
     <link href="~/dist/lib/font-awesome.min.css" rel="stylesheet" />
 
+    <script src="~/dist/lib/angular-semantic-ui.min.js"></script>
+
+
     @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
 
         <script src="~/src/js/collapse.js?v=@v"></script>
+        <script src="~/src/js/forms/forms-app.js?v=@v"></script>
+        <script src="~/src/js/forms/editor/form-generator-editor.js?v=@v"></script>
+        <script src="~/src/js/forms/render-form.js?v=@v"></script>
+
+        <script src="~/src/js/management/services/services-app.js?v=@v"></script>
+        <script src="~/src/js/management/services/datasources.js?v=@v"></script>
+
         <script src="~/src/js/admin-app.js?v=@v"></script>
         <script src="~/src/js/heartBeat.js?v=@v"></script>
         <script src="~/src/js/management/templates.js?v=@v"></script>
@@ -107,7 +118,6 @@
         <script src="~/src/js/management/menu.js?v=@v"></script>
 
         <script src="~/src/js/management/services/menus.js?v=@v"></script>
-        <script src="~/src/js/management/services/datasources.js?v=@v"></script>
         <script src="~/src/js/management/services/roles.js?v=@v"></script>
         <script src="~/src/js/management/services/utils.js?v=@v"></script>
 
@@ -151,7 +161,10 @@
 
         <script src="~/src/js/dashboardPage/app.js?v=@v"></script>
 
+
     } else {
+        <script src="~/dist/js/services.js?v=@v"></script>
+        <script src="~/dist/js/forms-app.js?v=@v"></script>
         <script src="~/dist/js/admin-app.js?v=@v"></script>
         <script src="~/dist/js/charts-theme2.js?v=@v"></script>
         <link href="~/dist/css/management/mian.css?v=@v" rel="stylesheet" />

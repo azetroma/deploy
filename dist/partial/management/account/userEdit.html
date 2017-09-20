@@ -182,8 +182,9 @@
                                 <collapse-header>{{'roles'| translate}}</collapse-header>
                                 <collapse-body>
                                     <div style="margin:0 20px">
+
                                         <div ng-repeat="r in roles" layout="row" layout-align="start center">
-                                            <md-checkbox ng-model="r.check">{{r.name}}</md-checkbox>
+                                            <md-checkbox style="margin:5px 0;"ng-model="r.check">{{r.name}}</md-checkbox>
                                             <a href="{{app.hashUrlPrefix + '#/roles/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
                                         </div>
                                     </div>
