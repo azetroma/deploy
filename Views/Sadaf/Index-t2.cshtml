@@ -186,7 +186,7 @@
                         <div ng-repeat="j in otherFilters | filter:{value:''}"
                              class="ui label"
                              title="{{j.value}}">
-                            <b>{{j.key}}: </b>{{j.value}}
+                            <b>{{j.key}}: </b>{{getCleanValue(j.value)}}
                             <i class="delete icon" ng-click="removeDrillDown($index)"></i>
 
                         </div>
