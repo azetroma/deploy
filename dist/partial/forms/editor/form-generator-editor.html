@@ -117,9 +117,10 @@
 
             </div>
             <md-content flex class="ui form editor " ng-class="c.pages.activePage.size" style="padding:0 16px;">
-
-                <!--<input type="text" class="inline-input ui header aligned center grid" ng-model="c.pages.activePage.name" />-->
-                <div ui-sortable="c.sortableOptions" class="drop-target ui grid content-form" ng-model="c.pages.activePage.controls" style="min-height:50px;">
+                <div ng-repeat="i in c.pages.activePage.controls" ng-show="i.type==12">
+                {{i.formLookup | json }}
+                </div>
+                <div ui-sortable="c.sortableOptions" class="drop-target ui grid content-form sortable-refresh" ng-model="c.pages.activePage.controls" style="min-height:50px;">
                     <form-control ng-repeat="component in c.pages.activePage.controls track by $index"
                                   ng-model="component"
                                   id="{{c.id}}"

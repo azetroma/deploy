@@ -21,7 +21,7 @@
 <div class="form-components" layout="row" layout-fill layout-wrap layout-align="start start" style="overflow:auto">
     <div class="draggable-element" ng-repeat="i in c.drags track by $index" ui-sortable="c.draggableOptions" ng-model="i" flex="50">
         <div class="fg-component cursor" ng-repeat="o in  i track by $index" style="margin:5px;">
-            <div class="ui label fluid" style="text-align:right;">
+            <div class="ui tiny label fluid" style="text-align:right;">
                 <i class="{{o.icon}} icon"></i>
                 {{o.key}}
             </div>
