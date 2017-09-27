@@ -84,6 +84,7 @@
         <input ng-model="c.control.active.validations.maxNumber" placeholder="بیشترین مقدار">
     </div>
 
+    <!-- تنظیمات مربوط به دراپ دان -->
     <div ng-show="c.control.active.type == 4" class="field">
 
         <div class="field">
@@ -109,6 +110,12 @@
         <div ng-if="c.control.active.dropdown.useRemoteData">
             <select-datasource-columns ng-model="c.control.active.dropdown"></select-datasource-columns>
         </div>
+        <!--<div class="field">
+            <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
+                استفاده از فیلتر
+            </sadaf-checkbox>
+            <filter-property ng-show="c.control.active.useFilter"ng-model="c.control.active.filters" controls="c.activeSibling"></filter-property>
+        </div>-->
 
     </div>
 
@@ -124,7 +131,19 @@
 
     <!-- تنظیمات مربوط به ارجاع به فرم -->
     <div ng-show="c.control.active.type == 12" class="field">
-        <form-lookup-property ng-model="c.control.active.formLookup"></form-lookup-property>
+
+        <div class="field">
+            <form-lookup-property ng-model="c.control.active.formLookup" ></form-lookup-property>
+        </div>
+        
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
+                استفاده از فیلتر
+            </sadaf-checkbox>
+            <!--<pre>{{c.control.active.filters | json}}</pre>--> 
+            <filter-property ng-show="c.control.active.useFilter" ng-model="c.control.active.filters"source-fields="c.formLookupSourceFields"  controls="c.activeSibling" ></filter-property>
+        </div>
+
     </div>
 
     <!-- تنظیمات مربوط به فرم چند ردیفه -->
@@ -285,7 +304,7 @@
         <label>نام صفحه</label>
         <input ng-model="c.pages.activePage.name" placeholder="نام صفحه">
     </div>
-     
+
     <div class="field">
         <sadaf-checkbox ng-model="c.pages.activePage.rowValidation.uniqueMultiField" label="">مقدار یکتا برای ترکیب فیلد‌ها</sadaf-checkbox>
     </div>

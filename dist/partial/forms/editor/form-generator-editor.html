@@ -83,10 +83,9 @@
         </div>
     </div>
 
-
     <div layout="row" flex>
 
-        <md-content flex="25" class="form-generator-side-column">
+        <md-content flex="25" class="form-generator-side-column form-property-section">
             <div class="ui left tiny secondary pointing   menu" >
                 <div class="item header">
                     تنظیمات
@@ -117,9 +116,9 @@
 
             </div>
             <md-content flex class="ui form editor " ng-class="c.pages.activePage.size" style="padding:0 16px;">
-                <div ng-repeat="i in c.pages.activePage.controls" ng-show="i.type==12">
+                <!--<div ng-repeat="i in c.pages.activePage.controls track by $index" ng-show="i.type==12">
                 {{i.formLookup | json }}
-                </div>
+                </div>-->
                 <div ui-sortable="c.sortableOptions" class="drop-target ui grid content-form sortable-refresh" ng-model="c.pages.activePage.controls" style="min-height:50px;">
                     <form-control ng-repeat="component in c.pages.activePage.controls track by $index"
                                   ng-model="component"

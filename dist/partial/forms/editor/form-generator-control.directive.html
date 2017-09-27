@@ -1,5 +1,4 @@
 ﻿<div class="field form-control  form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{!model.canEdit? 'disabled':''}} {{!model.canView? 'ng-hide':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}" >
-    
     <span ng-show="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
 
         <div class="control-actions" ng-show="edit">
@@ -113,7 +112,6 @@
 
         <div class="field {{model.validations.isRequire ? 'required' : ''}} {{model.name}} form-{{id}}-type-12" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 12">
             <label ng-hide="settings.showLabel===false">{{model.label}}</label>
-            <!--<small><small><pre class="ltr">{{model.formLookup | json}}</pre></small></small>-->
             <form-lookup-get-id ng-model="model" id="{{id}}"></form-lookup-get-id>
             <small class="helper">{{model.error}}</small>
             <div></div>
