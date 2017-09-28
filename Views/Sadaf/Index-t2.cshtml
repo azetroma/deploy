@@ -204,7 +204,9 @@
 
                 </div>
 
-                <div class="dashboard-edit-panel" xng-class="{'show': hasEditPermission}" style="margin:-5px 14px 0 14px;user-select: none;">
+
+
+                <div class="dashboard-edit-panel" ng-show="@(ViewBag.isLoginByLink ??false)" style="margin:-5px 14px 0 14px;user-select: none;">
                     <div class="chart-container dashboard-page-header" style="direction:ltr;">
                         <div style="display:table-row">
                             <div id="device-selector" class="dashboard-navbar-item devices no-padd">
@@ -243,11 +245,11 @@
 
                 </div>
 
-                <div class="" style="margin:0 10px;">
+                <div class="" style="margin:0 10px;"ng-show="@(ViewBag.isLoginByLink ??false)">
                     <i class="large icon link full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
                 </div>
 
-                <div class="ui dropdown">
+                <div class="ui dropdown" ng-show="@(ViewBag.isLoginByLink ??false)">
                     <div style="white-space:nowrap">
                         <span class="user-account-hide-segment">
                             @{
@@ -263,7 +265,7 @@
                         <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
                     </div>
                 </div>
-                <div class="">
+                <div class=""ng-show="@(ViewBag.isLoginByLink ??false)">
                     <i class="large icon sidebar link toc-toggle"></i>
                 </div>
 
