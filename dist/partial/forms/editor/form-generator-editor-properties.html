@@ -123,9 +123,10 @@
     <div ng-show="c.control.active.type == 2 || c.control.active.type == 5 || c.control.active.type == 16" class="field">
         <div class="inline fields">
             <label>فرمت نمایش</label>
-            <sm-dropdown items="['عادی', '#,#', '#,#:00', 'سفارشی']"
+            'عادی', '#,#', '#,#:00', 'سفارشی'
+            <sm-dropdown items="[{key:'سفارشی', value:'سفارشی'}, {key:'#,#:00', value:'#,#:00'}, {key:'#,#', value:'#,#'}, {key:'عادی', value:''},]"
                          class=""
-                         model="c.control.active.format" label="item" value="item"></sm-dropdown>
+                         model="c.control.active.format" label="item.value" value="item.key"></sm-dropdown>
         </div>
     </div>
 
@@ -233,7 +234,7 @@
             <label>کنترل‌های قابل استفاده</label>
             <div class="ui mini labels">
                 <div class="ui label pointer" ng-repeat="f in c.activeSibling.row track by $index"
-                     ng-show="f.type === 2 || ((f.type === 5 || f.type == 16) && f.name !== c.control.active.name && $index < c.activeSibling.index )"
+                     ng-show="f.type === 2 || f.type == 8 || ((f.type === 5 || f.type == 16) && f.name !== c.control.active.name && $index < c.activeSibling.index )"
                      ng-click="c.control.active.calculate.expression = c.control.active.calculate.expression + '['+ f.name + ']'">
                     {{f.name}} {{f.label}}
                 </div>

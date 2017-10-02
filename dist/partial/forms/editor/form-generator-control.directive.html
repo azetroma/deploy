@@ -3,7 +3,7 @@
 
         <div class="control-actions" ng-show="edit">
             <span class="material-icons small small-size pointer gray" ng-click="remove()">delete</span>
-            <span class="material-icons small small-size pointer gray drag-handle" sv-handle>drag_handle</span>
+            <!--<span class="material-icons small small-size pointer gray drag-handle" sv-handle>drag_handle</span>-->
         </div>
 
         <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 0">
@@ -148,6 +148,7 @@
             <div></div>
             <small>{{model.description}}</small>
         </div>
+
         <div class="field " ng-class="{error: model.error}" ng-if="model.type == 16">
             <label ng-hide="settings.showLabel===false">{{model.label}}</label>
             <div class="calculate-field">
@@ -159,4 +160,14 @@
             <small>{{model.description}}</small>
         </div>
 
-</div>
+    <div class="field " ng-class="{error: model.error}" ng-if="model.type == 8">
+        <label ng-hide="settings.showLabel===false">{{model.label}} </label>
+
+        <sadaf-time ng-model="model" ng-change="onChange()"></sadaf-time>
+
+        <small class="helper">{{model.error}}</small>
+        <div></div>
+        <small>{{model.description}}</small>
+    </div>
+
+</div> 

@@ -18,10 +18,25 @@
 </div>-->
 
 
-<div class="form-components" layout="row" layout-fill layout-wrap layout-align="start start" style="overflow:auto">
-    <div class="draggable-element" ng-repeat="i in c.drags track by $index" ui-sortable="c.draggableOptions" ng-model="i" flex="50">
+<!--<div class="form-components" layout="row" layout-fill layout-wrap layout-align="start start" style="overflow:auto">
+    <div class="draggable-element" ng-repeat="i in c.drags track by $index" xui-sortable="c.draggableOptions" ng-model="i" flex="50" xsadaf-draggable>
         <div class="fg-component cursor" ng-repeat="o in  i track by $index" style="margin:5px;">
             <div class="ui tiny label fluid" style="text-align:right;">
+                <i class="{{o.icon}} icon"></i>
+                {{o.key}}
+            </div>
+        </div>
+    </div>
+</div>-->
+<style>
+    .form-components .wide.column{
+        min-height:initial;
+    }
+</style>
+<div class="form-components" ng-sortable="c.compConf"layout="row" layout-fill layout-wrap layout-align="start start" style="overflow:auto">
+    <div class="draggable-element "  ng-repeat="o in c.items track by $index" xui-sortable="c.draggableOptions" xng-model="i" xflex="50" xsadaf-draggable>
+        <div class="fg-component cursor" style="margin:5px;">
+            <div class="ui label teal fluid" style="text-align:right;">
                 <i class="{{o.icon}} icon"></i>
                 {{o.key}}
             </div>
