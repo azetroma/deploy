@@ -45,7 +45,7 @@
         <sadaf-checkbox ng-model="c.control.active.hidden">مخفی کردن</sadaf-checkbox>
     </div>
 
-    <div class="field" ng-show="c.controlProperty(c.control.active).unique">
+    <div class="field" ng-show="c.controlProperty(c.control.active).showUniqueProp">
         <sadaf-checkbox ng-model="c.control.active.validations.enforceUnique">
             {{'یکتا بودن' | translate}}
         </sadaf-checkbox>
@@ -233,7 +233,7 @@
             <label>کنترل‌های قابل استفاده</label>
             <div class="ui mini labels">
                 <div class="ui label pointer" ng-repeat="f in c.activeSibling.row track by $index"
-                     ng-show="f.type === 2 || f.type == 8 || ((f.type === 5 || f.type == 16) && f.name !== c.control.active.name && $index < c.activeSibling.index )"
+                     ng-show="f.type === 2 || f.type == 8 || f.type == 9 || ((f.type === 5 || f.type == 16) && f.name !== c.control.active.name && $index < c.activeSibling.index )"
                      ng-click="c.control.active.calculate.expression = c.control.active.calculate.expression + '['+ f.name + ']'">
                     {{f.name}} {{f.label}}
                 </div>
