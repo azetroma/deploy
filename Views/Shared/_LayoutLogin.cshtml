@@ -20,11 +20,14 @@
     <meta property="og:type" content="business.business">
     <meta property="og:title" content="نرم افزار داشبورد مدیریت">
     <meta property="og:url" content="http://www.sadafdashboard.ir/">
+    <link href="~/dist/css/dash-all-rtl.css" rel="stylesheet" />
 
 
 
-    <link href="~/dist/lib/bootstrap-rtl.css" rel="stylesheet" />
-    <link href="~/dist/css/dashboard/mian-dash-rtl.css" rel="stylesheet" />
+    @*<link href="~/dist/lib/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/dist/css/dashboard/mian-dash-rtl.css" rel="stylesheet" />*@
+
+
 
     @*@Styles.Render("~/Content/css-rtl")*@
     <style>
@@ -39,12 +42,12 @@
 </head>
 <body>
     @RenderBody()
-    @*@Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bs")*@
 
-    <script src="~/dist/lib/jquery-1.11.1.min.js"></script>
+    <script src="~/dist/js/lib-all.js"></script>
+
+    @*<script src="~/dist/lib/jquery-1.11.1.min.js"></script>
     <script src="~/dist/lib/bootstrap.min.js"></script>
-    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js"></script>*@
 
 
     @RenderSection("scripts", required: false)

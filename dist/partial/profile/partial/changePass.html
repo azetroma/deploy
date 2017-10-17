@@ -1,23 +1,23 @@
-﻿<h3 class="page-header">{{'profile_change_pass' | translate}}</h3>
-<form class="col-md-6">
-    <div class="form-group ">
+﻿<h3 class="ui header">{{'profile_change_pass' | translate}}</h3>
+<form class="ui form">
+    <div class="field">
         <label class="control-label">{{'profile_password_old' | translate}}</label>
         <input class="form-control" type="password" ng-model="oldPass" placeholder="{{'profile_password_old' | translate}}" />
     </div>
-    <div class="form-group ">
+    <div class="field ">
         <label class="control-label">{{'profile_password_new' | translate}}</label>
         <input class="form-control" type="password" ng-model="newPass" placeholder="{{'profile_password_new' | translate}}" />
     </div>
-    <div class="form-group ">
+    <div class="field ">
         <label class="control-label">{{'profile_password_repeat' | translate}}</label>
         <input class="form-control" type="password" ng-model="repeatPass" placeholder="{{'profile_password_repeat' | translate}}" />
     </div>
 
-    <div class="alert  " ng-class="{'alert-danger': error, 'alert-success': success}" ng-show="result">
+    <div class="ui message" ng-class="{'red': error, 'green': success}" ng-show="result">
         <span ng-click="result = null" class="close">&times;</span>
         <p ng-bind-html="message"></p>
     </div>
 
-    <a class="btn btn-primary" ng-click="changePass()">{{'ذخیره' | translate}}</a>
+    <a class="ui blue button" ng-click="changePass()">{{'ذخیره' | translate}}</a>
 </form>
 

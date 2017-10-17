@@ -13,51 +13,53 @@
 
     @{
         var isRelease = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
-        var ver = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+        var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
         var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
         if (!isRelease) {
-            ver = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+            v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
         }
 
     }
 
-    <link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.2" rel="stylesheet" />
-    <link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@ver" rel="stylesheet" />
-    <link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=@ver" rel="stylesheet" />
+    @* <link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.2" rel="stylesheet" />
+        <link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
+        <link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
 
-    <script src="~/dist/lib/jquery-1.11.1.min.js"></script>
-    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js"></script>
-    <script src="~/dist/lib/jquery.fileupload.min.js"></script>
-    <script src="~/dist/lib/jquery.gridster.with-extras.min.js"></script>
-    <script src="~/dist/lib/jquery.gridster.with-extras.min2.js"></script>
-    <script src="~/dist/lib/jquery.ui.widget.min.js"></script>
-    <script src="~/dist/lib/angular@(isRelease ? ".min" : "").js"></script>
-    <script src="~/dist/lib/angular-messages.min.js"></script>
-    <script src="~/dist/lib/angular-sanitize.min.js"></script>
-    <script src="~/dist/lib/angular-translate.min.js"></script>
-    <script src="~/dist/lib/angular-translate-loader-static-files.min.js"></script>
-    <script src="~/dist/lib/angular-animate.min.js"></script>
-    <script src="~/dist/lib/angular-route.min.js"></script>
-    <script src="~/dist/lib/angular-aria.min.js"></script>
-    <script src="~/dist/lib/angular-material.min.js"></script>
-    <script src="~/dist/lib/bootstrap-datepicker.fa.min.js"></script>
-    <script src="~/dist/lib/bootstrap-datepicker.min.js"></script>
-    <script src="~/dist/lib/bootstrap-select.min.js"></script>
-    <script src="~/dist/lib/bootstrap-select-defaults-@(ViewBag.isRtl ? "fa_IR" : "en_US").js"></script>
-    <script src="~/dist/lib/semantic.min.js"></script>
-    <script src="~/dist/lib/d3.v3.min.js"></script>
-    <script src="~/dist/lib/sortable.min.js"></script>
-    <script src="~/dist/lib/topojson.min.js"></script>
-    <script src="~/dist/lib/lodash.min.js"></script>
-    <script src="~/dist/lib/jquery.treeview.js"></script>
+        <script src="~/dist/lib/jquery-1.11.1.min.js"></script>
+        <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="~/dist/lib/jquery.fileupload.min.js"></script>
+        <script src="~/dist/lib/jquery.gridster.with-extras.min.js"></script>
+        <script src="~/dist/lib/jquery.gridster.with-extras.min2.js"></script>
+        <script src="~/dist/lib/jquery.ui.widget.min.js"></script>
+        <script src="~/dist/lib/angular@(isRelease ? ".min" : "").js"></script>
+        <script src="~/dist/lib/angular-messages.min.js"></script>
+        <script src="~/dist/lib/angular-sanitize.min.js"></script>
+        <script src="~/dist/lib/angular-translate.min.js"></script>
+        <script src="~/dist/lib/angular-translate-loader-static-files.min.js"></script>
+        <script src="~/dist/lib/angular-animate.min.js"></script>
+        <script src="~/dist/lib/angular-route.min.js"></script>
+        <script src="~/dist/lib/angular-aria.min.js"></script>
+        <script src="~/dist/lib/angular-material.min.js"></script>
+        <script src="~/dist/lib/bootstrap-datepicker.fa.min.js"></script>
+        <script src="~/dist/lib/bootstrap-datepicker.min.js"></script>
+        <script src="~/dist/lib/bootstrap-select.min.js"></script>
+        <script src="~/dist/lib/bootstrap-select-defaults-@(ViewBag.isRtl ? "fa_IR" : "en_US").js"></script>
+        <script src="~/dist/lib/semantic.min.js"></script>
+        <script src="~/dist/lib/d3.v3.min.js"></script>
+        <script src="~/dist/lib/sortable.min.js"></script>
+        <script src="~/dist/lib/topojson.min.js"></script>
+        <script src="~/dist/lib/lodash.min.js"></script>
+        <script src="~/dist/lib/jquery.treeview.js"></script>
+        <script src="~/dist/lib/angular-semantic-ui.min.js"></script>
+        <script src="~/dist/lib/sortable-n.min.js"></script>
+        <script src="~/dist/lib/sortable-ng.min.js"></script>
+        <script src="~/dist/lib/moment.min.js"></script>
+        <script src="~/dist/lib/moment-jalaali.js"></script>
+        <script src="~/dist/lib/moment-duration-format.min.js"></script>*@
+    <link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
 
-    <script src="~/dist/lib/angular-semantic-ui.min.js"></script>
-    <script src="~/dist/lib/sortable-n.min.js"></script>
-    <script src="~/dist/lib/sortable-ng.min.js"></script>
 
-    <script src="~/dist/lib/moment.min.js"></script>
-    <script src="~/dist/lib/moment-jalaali.js"></script>
-    <script src="~/dist/lib/moment-duration-format.min.js"></script>
+
 
     <style>
         [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
@@ -100,7 +102,6 @@
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" id="isFullscreen" value="@ViewBag.UserProfile.IsFullScreen" />
 
-
     <div class="side-menu ui segment my-fix inverted no-padd no-margin">
 
         <div class="" style="text-align:center; padding:30px 16px;">
@@ -109,7 +110,7 @@
 
         <div class="my-fix-flex-container" ui-sortable="sortableCatOptions" xng-model="menuCategories.data">
             <div class="side-menu-item-container menu-category" ng-repeat="mc in menuCategories.data" ng-class="{active: mc.active}" on-finish-render="ngRepeatFinished" data-id="{{mc.category.Id}}">
-                <div class="side-menu-item side-menu-item-parent" ng-click="closeAll(mc, true);" ng-dblclick="closeAll(mc, false);">
+                <div class="side-menu-item side-menu-item-parent" ng-click="closeAll(mc, true);">
                     <i class="icon angle down icon-animate large left floated" ng-class="{rotate: mc.open}"></i>  {{mc.category.Name}}
                     <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="mc.hasAddPer || mc.hasEditPer || mc.hasDeletePer" style="line-height:1.5em">
                         <i class="setting icon"></i>
@@ -158,10 +159,10 @@
         <div class="sadaf-footer">
             @{
                 try {
-                    <text>
-                        <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
-                        - نسخه @(version.Major + "." + version.Minor + "." + version.Build )
-                    </text>
+            <text>
+                <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
+                - نسخه @(version.Major + "." + version.Minor + "." + version.Build )
+            </text>
                 } catch (Exception) {
 
                 }
@@ -170,6 +171,7 @@
     </div>
 
     <div class="pusher" id="">
+
         <div class="main-container full-height-container" xstyle="height: 100vh;max-height: 100vh;overflow-y: scroll;">
 
             <div class="" style="display:flex;flex-direction:row;padding:10px 0 0 10px;flex-wrap: wrap-reverse;justify-content: flex-end;">
@@ -238,9 +240,9 @@
                             </div>
                             <div class="dashboard-navbar-item no-padd" title="اضافه کردن فرم">
                                 @*<button class="ui right labeled icon tiny button" ng-click="">
-                                    <i class="sticky note  icon"></i>
-                                    اضافه کردن فرم
-                                </button>*@
+                                        <i class="sticky note  icon"></i>
+                                        اضافه کردن فرم
+                                    </button>*@
                                 <i class="link icon add square outline" ng-click="addFormSettings.visible = true"></i>
                                 <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
                             </div>
@@ -251,7 +253,7 @@
 
                 </div>
 
-                <div class="" style="margin:0 10px;"ng-show="@(ViewBag.isLoginByLink ??false)">
+                <div class="" style="margin:0 10px;" ng-show="@(ViewBag.isLoginByLink ??false)">
                     <i class="large icon link full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
                 </div>
 
@@ -271,49 +273,26 @@
                         <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
                     </div>
                 </div>
-                <div class=""ng-show="@(ViewBag.isLoginByLink ??false)">
+                <div class="" ng-show="@(ViewBag.isLoginByLink ??false)">
                     <i class="large icon sidebar link toc-toggle"></i>
                 </div>
 
             </div>
 
+
+
             <ng-view></ng-view>
 
         </div>
         <sm-modal class="edit-form-modal" visible="visible" settings="formInfo.modalSettings">
-            <div class="content" >
-                <div sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" ></div>
+            <div class="content">
+                <div sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()"></div>
             </div>
         </sm-modal>
-        
+
     </div>
 
-    @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
-        <script src="~/src/js/charts/su.ChartCommons.js?v=@ver"></script>
-        <script src="~/src/js/charts/su.d3-utils.js?v=@ver"></script>
-        <script src="~/src/js/charts/su.filterMemberDialog.js?v=@ver"></script>
-        <script src="~/src/js/charts/su.jquery.sit.BarChart.js?v=@ver"></script>
-        <script src="~/src/js/charts/jquery.sit.Chart.js?v=@ver"></script>
-        <script src="~/src/js/charts/su.jquery.sit.Gauge.js?v=@ver"></script>
-        <script src="~/src/js/charts/jquery.sit.Map.js?v=@ver"></script>
-        <script src="~/src/js/charts/jquery.sit.PieChart.js?v=@ver"></script>
-        <script src="~/src/js/charts/jquery.sit.Radar.js?v=@ver"></script>
-        <script src="~/src/js/charts/su.jquery.sit.Table.js?v=@ver"></script>
-        <script src="~/src/js/charts/su.jquery.sit.Tree.js?v=@ver"></script>
-        <script src="~/src/js/charts/jquery.sit.Text.js?v=@ver"></script>
-        <script src="~/src/js/charts/su.jquery.sit.UserControl.js?v=@ver"></script>
-        <script src="~/src/js/charts/tipsy.js?v=@ver"></script>
 
-    } else {
-        <script src="~/dist/js/charts-theme2.js?v=@ver"></script>
-    }
-
-    <script>
-
-        $('.ui.modal').modal();
-        $('.ui.dropdown').dropdown();
-
-    </script>
 
     <div class="ui modal small" id="edit-menus">
         <i class="close icon"></i>
@@ -403,36 +382,84 @@
         </div>
     </div>
 
+    <div class="ui modal small" id="input-comments">
+        <i class="close icon"></i>
+        <div class="header">
+            کامنت
+        </div>
+        <div class="content">
+            <div class="ui form">
+                <div class="field">
+                    <label>کامنت</label>
+                    <input ng-model="comment.value" type="text" class="" placeholder="">
+                </div>
+            </div>
+            <div class="alert alert-danger" ng-show="comment.error">
+                <div ng-show="comment.error.title">
+                    <b>{{comment.error.title}}</b>
+                    <p>{{comment.error.desc}}</p>
+                </div>
+            </div>
 
+        </div>
+        <div class="actions">
+            <div class="ui button deny black">{{'انصراف' | translate}}</div>
+            <div class="ui button green" ng-class="{disabled: modal.inProgress, loading : modal.inProgress}" ng-click="comment.ok()">{{modal.btnText}}</div>
+        </div>
+    </div>
+
+
+
+        <script src="~/dist/js/lib-all.js"></script>
     @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
-        <script src="~/src/js/management/services/services-app.js?v=@ver"></script>
-        <script src="~/src/js/management/services/datasources.js?v=@ver"></script>
 
-        <script src="~/src/js/forms/forms-app.js?v=@ver"></script>
-        <script src="~/src/js/forms/editor/form-generator-editor.js?v=@ver"></script>
-        <script src="~/src/js/forms/render-form.js?v=@ver"></script>
+        <script src="~/src/js/charts/su.ChartCommons.js?v=@v"></script>
+        <script src="~/src/js/charts/su.d3-utils.js?v=@v"></script>
+        <script src="~/src/js/charts/su.filterMemberDialog.js?v=@v"></script>
+        <script src="~/src/js/charts/su.jquery.sit.BarChart.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Chart.js?v=@v"></script>
+        <script src="~/src/js/charts/su.jquery.sit.Gauge.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Map.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.PieChart.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Radar.js?v=@v"></script>
+        <script src="~/src/js/charts/su.jquery.sit.Table.js?v=@v"></script>
+        <script src="~/src/js/charts/su.jquery.sit.Tree.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Text.js?v=@v"></script>
+        <script src="~/src/js/charts/su.jquery.sit.UserControl.js?v=@v"></script>
+        <script src="~/src/js/charts/tipsy.js?v=@v"></script>
 
-        <script src="~/src/js/dashboardPage/navbar/navbar.js?v=@ver"></script>
-        <script src="~/src/js/collapse.js?v=@ver"></script>
-        <script src="~/src/js/dashboard-app.js?v=@ver"></script>
-        <script src="~/src/js/heartBeat.js?v=@ver"></script>
-        <script src="~/src/js/dashboardPage/filterBox.js?v=@ver"></script>
-        <script src="~/src/js/dashboardPage/su.DashboardPageUtils.js?v=@ver"></script>
-        <script src="~/src/js/dashboardPage/su.dashboardLayout.js?v=@ver"></script>
-        <script src="~/src/js/dashboardPage/su.dashboardPage.js?v=@ver"></script>
-        <script src="~/src/js/dashboardPage/su.app.js?v=@ver"></script>
-        <script src="~/src/js/dashboardPage/bootstrap.sit.helper.js?v=@ver"></script>
-        <script src="~/src/js/dashboardPage/globalVariableHelper.js?v=@ver"></script>
-        <script src="~/src/js/dashboardPage/su.packages.js?v=@ver"></script>
-        <script src="~/src/js/dashboardPage/JqueryHelper.js?v=@ver"></script>
+
+        <script src="~/src/js/management/services/services-app.js?v=@v"></script>
+        <script src="~/src/js/management/services/datasources.js?v=@v"></script>
+        <script src="~/src/js/forms/forms-app.js?v=@v"></script>
+        <script src="~/src/js/forms/editor/form-generator-editor.js?v=@v"></script>
+        <script src="~/src/js/forms/render-form.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/navbar/navbar.js?v=@v"></script>
+        <script src="~/src/js/collapse.js?v=@v"></script>
+        <script src="~/src/js/dashboard-app.js?v=@v"></script>
+        <script src="~/src/js/heartBeat.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/filterBox.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.DashboardPageUtils.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.dashboardLayout.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.dashboardPage.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.app.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/bootstrap.sit.helper.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/globalVariableHelper.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.packages.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/JqueryHelper.js?v=@v"></script>
 
     } else {
-        <script src="~/dist/js/services.js?v=@ver"></script>
-        <script src="~/dist/js/forms-app.js?v=@ver"></script>
-        <script src="~/dist/js/dashboard-app-theme2.js?v=@ver"></script>
+        <script src="~/dist/js/dashboard-all.js?v=@v"></script>
+
+        @*<script src="~/dist/js/charts-theme2.js?v=@v"></script>
+            <script src="~/dist/js/services.js?v=@v"></script>
+            <script src="~/dist/js/forms-app.js?v=@v"></script>
+            <script src="~/dist/js/dashboard-app-theme2.js?v=@v"></script>*@
     }
 
     <script>
+        $('.ui.modal').modal();
+        $('.ui.dropdown').dropdown();
         var userVariable = @Html.Raw(Json.Encode(ViewBag.userVariable));
         if(_.isArray(userVariable)){
             localStorage.setItem('userVariable',JSON.stringify( userVariable));
@@ -449,10 +476,10 @@
         var app = app || {};
         app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
-        app.version = "@ver";
+        app.version = "@v";
         app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
         app.setAboluteUrl("@Request.Url.AbsoluteUri");
-
+        app.userId = @user.Id;
 
         var hash = "@ViewBag.returnUrlHash";
         if (hash) {
@@ -461,9 +488,7 @@
         app.lang.setLangTyle(@ViewBag.lang);
         app.lang.setLang();
         app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
-            ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : ver.ToString())';
-
-
+            ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : v.ToString())';
 
     </script>
 </body>

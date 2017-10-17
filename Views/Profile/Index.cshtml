@@ -13,10 +13,10 @@
 <div ng-app="profileCat" ng-cloak>
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <div ng-controller="cGeneral">
-        <div class="container-fluid" style="margin-top:70px">
+        <div class="ui container" style="margin-top:70px">
             <ng-include src="'@Href("~")dist/partial/dashboardPage/navbar/navbar.html'"></ng-include>
-            <div class="row">
-                <div class="col-md-2">
+            <div class="ui grid stackable">
+                <div class="two wide column">
                     <div class="panel panel-default">
                         <div class="panel-heading">{{'profile_personal_settings' | translate}}</div>
                         <ul class="list-group">
@@ -28,7 +28,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-10">
+                <div class="ten wide column">
                     <ng-view>
 
                     </ng-view>

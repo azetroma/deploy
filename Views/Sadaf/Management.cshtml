@@ -11,79 +11,73 @@
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="fontiran.com:license" content="X4ZQZ">
-    @{ 
+    @{
         var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
-        
+
         var rMode = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
         if (!rMode) {
-            v=( DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+            v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
         }
     }
-    <script src="~/dist/lib/jquery-1.11.1.min.js"></script>
-    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js"></script>
-    <script src="~/dist/lib/jquery.fileupload.min.js"></script>
-    <script src="~/dist/lib/d3.v3.min.js"></script>
-    <script src="~/dist/lib/topojson.min.js"></script>
-    <script src="~/dist/lib/bootstrap-datepicker.min.js"></script>
-    <script src="~/dist/lib/bootstrap-datepicker.fa.min.js"></script>
-    <link href="~/dist/lib/bootstrap-datepicker.min.css" rel="stylesheet" />
-    <link href="~/dist/lib/jquery.ui.slider.css" rel="stylesheet" />
-    <script src="~/dist/lib/bootstrap-select.min.js"></script>
-    <script src="~/dist/lib/collapse.js"></script>
-    <script src="~/dist/lib/semantic.min.js"></script>
-    <link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.2" rel="stylesheet" />
-    @*<link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />*@
+    @*<link href="~/dist/lib/bootstrap-datepicker.min.css" rel="stylesheet" />
+        <link href="~/dist/lib/jquery.ui.slider.css" rel="stylesheet" />
+        <link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.213" rel="stylesheet" />
+        <link href="~/dist/lib/angular-material.min.css" rel="stylesheet" />
+        <link href="~/dist/lib/mdColorPicker.min.css" rel="stylesheet" />
+        <link href="~/dist/lib/textAngular.css" rel="stylesheet" />
+        <link href="~/dist/lib/font-awesome.min.css" rel="stylesheet" />
+        <link href="~/dist/css/management/mian.css?v=@v" rel="stylesheet" />
+        <link href="~/dist/css/management/mian@(ViewBag.isRtl ? "-rtl" : "-ltr").css?v=@v" rel="stylesheet" />
+        <link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
 
+        <script src="~/dist/lib/jquery-1.11.1.min.js"></script>
+        <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="~/dist/lib/jquery.fileupload.min.js"></script>
+        <script src="~/dist/lib/d3.v3.min.js"></script>
+        <script src="~/dist/lib/topojson.min.js"></script>
+        <script src="~/dist/lib/bootstrap-datepicker.min.js"></script>
+        <script src="~/dist/lib/bootstrap-datepicker.fa.min.js"></script>
+        <script src="~/dist/lib/bootstrap-select.min.js"></script>
+        <script src="~/dist/lib/collapse.js"></script>
+        <script src="~/dist/lib/semantic.min.js"></script>
+        <script src="~/dist/lib/ace.js"></script>
+        <script src="~/dist/lib/mode-sqlserver.js"></script>
+        <script src="~/dist/lib/ext-beautify.js"></script>
+        <script src="~/dist/lib/theme-sqlserver.js"></script>
+        <script src="~/dist/lib/lodash.min.js"></script>
+        <script src="~/dist/lib/angular.min.js"></script>
+        <script src="~/dist/lib/angular-route.min.js"></script>
+        <script src="~/dist/lib/angular-animate.min.js"></script>
+        <script src="~/dist/lib/angular-aria.min.js"></script>
+        <script src="~/dist/lib/angular-messages.min.js"></script>
+        <script src="~/dist/lib/angular-sanitize.min.js"></script>
+        <script src="~/dist/lib/ui-ace.min.js"></script>
+        <script src="~/dist/lib/angular-material.min.js"></script>
+        <script src="~/dist/lib/angular-translate.min.js"></script>
+        <script src="~/dist/lib/angular-translate-loader-static-files.min.js"></script>
+        <script src="~/dist/lib/sortable.min.js"></script>
+        <script src="~/dist/lib/tinycolor-min.js"></script>
+        <script src="~/dist/lib/mdColorPicker.min.js"></script>
+        <script src="~/dist/lib/textAngular-sadaf.min.js"></script>
+        <script src="~/dist/lib/angular-semantic-ui.min.js"></script>
+        <script src="~/dist/lib/sortable-n.min.js"></script>
+        <script src="~/dist/lib/sortable-ng.min.js"></script>
+        <script src="~/dist/lib/moment.min.js"></script>
+        <script src="~/dist/lib/moment-jalaali.js"></script>
+        <script src="~/dist/lib/moment-duration-format.min.js"></script>*@
 
-    <script src="~/dist/lib/ace.js"></script>
-    <script src="~/dist/lib/mode-sqlserver.js"></script>
-    <script src="~/dist/lib/ext-beautify.js"></script>
-    <script src="~/dist/lib/theme-sqlserver.js"></script>
+    <link href="~/dist/css/admin-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
 
-    <script src="~/dist/lib/lodash.min.js"></script>
-    <script src="~/dist/lib/angular.min.js"></script>
-    <script src="~/dist/lib/angular-route.min.js"></script>
-    <script src="~/dist/lib/angular-animate.min.js"></script>
-    <script src="~/dist/lib/angular-aria.min.js"></script>
-    <script src="~/dist/lib/angular-messages.min.js"></script>
-    <script src="~/dist/lib/angular-sanitize.min.js"></script>
-
-    <script src="~/dist/lib/ui-ace.min.js"></script>
-
-    <link href="~/dist/lib/angular-material.min.css" rel="stylesheet" />
-    <script src="~/dist/lib/angular-material.min.js"></script>
-
-    <script src="~/dist/lib/angular-translate.min.js"></script>
-    <script src="~/dist/lib/angular-translate-loader-static-files.min.js"></script>
-    <script src="~/dist/lib/sortable.min.js"></script>
-
-    <script src="~/dist/lib/tinycolor-min.js"></script>
-    <link href="~/dist/lib/mdColorPicker.min.css" rel="stylesheet" />
-    <script src="~/dist/lib/mdColorPicker.min.js"></script>
-
-    <script src="~/dist/lib/textAngular-sadaf.min.js"></script>
-    <link href="~/dist/lib/textAngular.css" rel="stylesheet" />
-    <link href="~/dist/lib/font-awesome.min.css" rel="stylesheet" />
-
-    <script src="~/dist/lib/angular-semantic-ui.min.js"></script>
-
-    <script src="~/dist/lib/sortable-n.min.js"></script>
-    <script src="~/dist/lib/sortable-ng.min.js"></script>
-
-    <script src="~/dist/lib/moment.min.js"></script>
-    <script src="~/dist/lib/moment-jalaali.js"></script>
-    <script src="~/dist/lib/moment-duration-format.min.js"></script>
-
+        <script src="~/dist/js/lib-all.js"></script>
+        <script src="~/dist/js/lib-admin-extra.js"></script>
     @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
 
         <script src="~/src/js/collapse.js?v=@v"></script>
         <script src="~/src/js/forms/forms-app.js?v=@v"></script>
         <script src="~/src/js/forms/editor/form-generator-editor.js?v=@v"></script>
         <script src="~/src/js/forms/render-form.js?v=@v"></script>
-
         <script src="~/src/js/management/services/services-app.js?v=@v"></script>
         <script src="~/src/js/management/services/datasources.js?v=@v"></script>
-
         <script src="~/src/js/admin-app.js?v=@v"></script>
         <script src="~/src/js/heartBeat.js?v=@v"></script>
         <script src="~/src/js/management/templates.js?v=@v"></script>
@@ -93,7 +87,6 @@
         <script src="~/src/js/management/datasource/list.js?v=@v"></script>
         <script src="~/src/js/management/datasource/new.js?v=@v"></script>
         <script src="~/src/js/management/datasource/mssql.js?v=@v"></script>
-
         <script src="~/src/js/ui-mask.js?v=@v"></script>
         <script src="~/src/js/management/datasource/PartitionExprission.js?v=@v"></script>
         <script src="~/src/js/management/datasource/Schedule.js?v=@v"></script>
@@ -103,8 +96,6 @@
         <script src="~/src/js/management/datasource/join.js?v=@v"></script>
         <script src="~/src/js/management/charts/list.js?v=@v"></script>
         <script src="~/src/js/management/datasource/interRelation.js?v=@v"></script>
-
-
         <script src="~/src/js/management/charts/directives/types/mapSelector.js?v=@v"></script>
         <script src="~/src/js/management/charts/directives/types/table.js?v=@v"></script>
         <script src="~/src/js/management/charts/directives/types/userControl.js?v=@v"></script>
@@ -117,13 +108,10 @@
         <script src="~/src/js/management/charts/directives/NumberFormat.js?v=@v"></script>
         <script src="~/src/js/management/charts/directives/TextEditor.js?v=@v"></script>
         <script src="~/src/js/management/charts/editor.js?v=@v"></script>
-
         <script src="~/src/js/management/menu.js?v=@v"></script>
-
         <script src="~/src/js/management/services/menus.js?v=@v"></script>
         <script src="~/src/js/management/services/roles.js?v=@v"></script>
         <script src="~/src/js/management/services/utils.js?v=@v"></script>
-
         <script src="~/src/js/management/account/roleEdit.js?v=@v"></script>
         <script src="~/src/js/management/account/roleList.js?v=@v"></script>
         <script src="~/src/js/management/account/userEdit.js?v=@v"></script>
@@ -136,7 +124,6 @@
         <script src="~/src/js/management/account/licence.js?v=@v"></script>
         <script src="~/src/js/management/account/activeDirectory.js?v=@v"></script>
         <script src="~/src/js/management/account/syncUserVariablesList.js?v=@v"></script>
-
         <script src="~/src/js/charts/su.ChartCommons.js?v=@v"></script>
         <script src="~/src/js/charts/su.d3-utils.js?v=@v"></script>
         <script src="~/src/js/charts/filterMemberDialog.js?v=@v"></script>
@@ -151,10 +138,7 @@
         <script src="~/src/js/charts/jquery.sit.Text.js?v=@v"></script>
         <script src="~/src/js/charts/su.jquery.sit.UserControl.js?v=@v"></script>
         <script src="~/src/js/charts/tipsy.js"></script>
-
-        @*<link href="~/Areas/Charts/Content/barChart.css" rel="stylesheet" />
-            <link href="~/Areas/Charts/Content/dashboardPage.css" rel="stylesheet" />
-            <link href="~/Areas/Charts/Content/tipsy.css" rel="stylesheet" />*@
+        <script src="~/src/js/dashboardPage/app.js?v=@v"></script>
 
         <link href="~/src/css/management/OlapChartDesign.css?v=@v" rel="stylesheet" />
         <link href="~/src/css/management/bootstarp-chart.css?v=@v" rel="stylesheet" />
@@ -162,20 +146,15 @@
         <link href="~/src/css/management/sadaf@(ViewBag.isRtl ? "-rtl" : "-ltr").css?v=@v" rel="stylesheet" />
         <link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
 
-        <script src="~/src/js/dashboardPage/app.js?v=@v"></script>
-
-
     } else {
-        <script src="~/dist/js/services.js?v=@v"></script>
+        <script src="~/dist/js/admin-all.js?v=@v"></script>
+        @*<script src="~/dist/js/services.js?v=@v"></script>
         <script src="~/dist/js/forms-app.js?v=@v"></script>
         <script src="~/dist/js/admin-app.js?v=@v"></script>
-        <script src="~/dist/js/charts-theme2.js?v=@v"></script>
-        <link href="~/dist/css/management/mian.css?v=@v" rel="stylesheet" />
-        <link href="~/dist/css/management/mian@(ViewBag.isRtl ? "-rtl" : "-ltr").css?v=@v" rel="stylesheet" />
-        <link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
+        <script src="~/dist/js/charts-theme2.js?v=@v"></script>*@
     }
-    <script>
 
+    <script>
         var app = app || {};
         app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
@@ -190,9 +169,7 @@
     </style>
 </head>
 
-
 <body layout="row" layout-fill @(ViewBag.isRtl ? @"dir=rtl" : "")>
-
 
     <div ng-app="management" ng-controller="menusCtrl" ng-cloak layout="row" flex layout-fill>
         <input type="hidden" value="@ViewBag.lang" id="lang" />
@@ -212,7 +189,6 @@
                         <h2><span>{{'تنظیمات' | translate}}</span></h2>
                     </div>
                 </md-toolbar>*@
-
 
             <md-content flex>
                 <md-list>
@@ -235,7 +211,6 @@
                     </div>
                 </md-list>
             </md-content>
-
         </md-sidenav>
 
         <div layout="column" flex>
@@ -265,7 +240,6 @@
                         {{'help' | translate}}
                         @*<span class="material-icons">dashboard</span>*@
                     </md-button>
-                   
 
                     <md-menu>
                         <md-button class="md-icon-button" ng-click="$mdMenu.open($event)">
@@ -280,7 +254,6 @@
                             <md-menu-item>
                                 <md-button href="Account/LogOff"><span>{{'signout' | translate }}</span></md-button>
                             </md-menu-item>
-
                     </md-menu>
                 </div>
             </md-toolbar>
@@ -294,8 +267,6 @@
         app.lang.setLangTyle(@ViewBag.lang);
         app.lang.setLang();
         app.version = '@v';
-
     </script>
-
 </body>
 </html>

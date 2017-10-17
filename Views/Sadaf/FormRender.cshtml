@@ -21,14 +21,12 @@
 
     }
 
-    @*<link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.2" rel="stylesheet" />
+    <link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.2" rel="stylesheet" />
     <link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@ver" rel="stylesheet" />
-    <link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=@ver" rel="stylesheet" />*@
+    <link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=@ver" rel="stylesheet" />
     <link href="~/dist/css/help/help.css?v=@ver" rel="stylesheet" />
-    <link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@ver" rel="stylesheet" />
-    <script src="~/dist/js/lib-all.js"></script>
 
-    @*<script src="~/dist/lib/jquery-1.11.1.min.js"></script>
+    <script src="~/dist/lib/jquery-1.11.1.min.js"></script>
     <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="~/dist/lib/jquery.fileupload.min.js"></script>
     <script src="~/dist/lib/jquery.gridster.with-extras.min.js"></script>
@@ -50,7 +48,7 @@
     <script src="~/dist/lib/sortable.min.js"></script>
     <script src="~/dist/lib/topojson.min.js"></script>
     <script src="~/dist/lib/lodash.min.js"></script>
-    <script src="~/dist/lib/jquery.treeview.js"></script>*@
+    <script src="~/dist/lib/jquery.treeview.js"></script>
 
     <style>
         [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
@@ -100,7 +98,7 @@
 
     <div class="pusher" id="">
         <div class="main-container" style="padding-top:40px;padding-bottom:80px;height: 100vh;max-height: 100vh;overflow: auto;">
-            <div class="uixcontainer help-content" style="padding: 0px 40px;">
+            <div class="ui container help-content">
 
                 <div class="ui secondary  menu">
                     @*<a class="active item">

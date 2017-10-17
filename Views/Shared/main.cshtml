@@ -13,7 +13,9 @@
     } else {
         @Styles.Render("~/Content/css")
     }*@
-    <link href="~/dist/lib/bootstrap@(ViewBag.isRtl ? "-rtl" : "").min.css?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version" rel="stylesheet" />
+
+
+    @*<link href="~/dist/lib/bootstrap@(ViewBag.isRtl ? "-rtl" : "").min.css?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version" rel="stylesheet" />
     <link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version" rel="stylesheet" />
     <script src="~/dist/lib/jquery-1.11.1.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
     <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
@@ -50,9 +52,13 @@
     <script src="~/dist/lib/d3.v3.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
     <script src="~/dist/lib/sortable.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
     <script src="~/dist/lib/topojson.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    @*<script src="~/dist/lib/underscore.min.js"></script>*@
     <script src="~/dist/lib/lodash.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/jquery.treeview.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+    <script src="~/dist/lib/jquery.treeview.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>*@
+
+    <link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version" rel="stylesheet" />
+    <script src="~/dist/js/lib-all.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+
+
     <style>
         [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
             display: none !important;
@@ -62,25 +68,6 @@
 </head>
 <body>
     @RenderBody()
-
-    <div class="modal fade" id="divAjaxErr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">خطا</h4>
-                </div>
-                <div class="modal-body">
-                    <div>مشکلی در روند اجرای برنامه به وجود آمده است. برای اطلاعات بیشتر با مدیر سیستم تماس بگیرید.</div>
-                    <br><a data-toggle="collapse" class="pointer" hrefx="#error-detail" onclick="javascript:$('#error-detail').collapse('toggle')"><span data-trans-key="مشاهده جزییات"> </span></a>\
-                    <div id="error-detail" style="direction:ltr" class="panel-collapse collapse"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" style="">تایید</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         $(document).ready(function () {
