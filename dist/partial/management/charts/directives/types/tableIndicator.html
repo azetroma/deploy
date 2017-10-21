@@ -31,18 +31,26 @@
 
             <span flex></span>
 
-            <md-button class="md-icon-button" ng-click="prop[config.name].indicator.push({})" title="{{'add' | translate}}">
+            <div class="ui compact mini icon basic button" ng-click="prop[config.name].indicator.push({})" title="{{'add' | translate}}">
+             {{'add' | translate}}  <i class="icon plus"></i>
+            </div>
+            <!--<md-button class="md-icon-button" ng-click="prop[config.name].indicator.push({})" title="{{'add' | translate}}">
                 <span class="material-icons">add</span>
-            </md-button>
+            </md-button>-->
         </div> 
         <fieldset ng-repeat="item in prop[config.name].indicator">
             <legend>
                 <span layout="row" layout-align="start center">
-                    <span>{{ 'indicator' | translate }} {{$index+1}}</span>
+                    <span>{{ 'indicator' | translate }} {{$index+1}} </span>
 
-                    <md-button class="md-icon-button" ng-click="prop[config.name].indicator.splice($index, 1)">
+                    <!--<md-button class="md-icon-button" ng-click="prop[config.name].indicator.splice($index, 1)">
                         <span class="material-icons">delete</span>
-                    </md-button>
+                    </md-button>-->
+
+                    <span class="ui compact mini icon basic pointer" ng-click="prop[config.name].indicator.splice($index, 1)" title="{{'remove' | translate}}">
+                         <i class="icon remove"></i>
+                    </span>
+
                 </span>
             </legend>
             <div>

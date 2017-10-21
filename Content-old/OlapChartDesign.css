@@ -1,7 +1,7 @@
 ﻿body {
 }
 
-.chart {
+/*.chart {
     background-image: url("../Images/property-icon-sprite.png");
     width: 25px;
     height: 25px;
@@ -95,7 +95,7 @@
 
 .pie-circle {
     background-position: -30px 0px;
-}
+}*/
 
 .prop-section-header {
     background: none repeat scroll 0 0 #EEEEEE;
