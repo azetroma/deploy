@@ -700,7 +700,7 @@
         </menu-body>
     </menu-item>
 
-    <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'gauge', show:[1,2,3,4,5]}"></table-indicator>
+    <table-indicator ng-if="ngModel.gauge.info.style == 'number'" dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'gauge', show:[1,2,3,4,5]}"></table-indicator>
 
     <menu-item ng-show="ngModel.series && ngModel.series.length>0" name="series">
         <menu-header>{{ 'مشخصات شاخص‌ها' | translate }}</menu-header>
