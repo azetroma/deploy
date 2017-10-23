@@ -33,10 +33,12 @@
 
         <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 6">
             <div ng-hide="settings.showLabel===false">&nbsp;</div>
-            <sm-checkbox model="model.value" label="{{model.label}}"></sm-checkbox>
+            <sadaf-checkbox ng-model="model.value" label="{{model.label}}">
+                {{model.label}}
+            </sadaf-checkbox>
             <small class="helper">{{model.error}}</small>
             <div></div>
-            <small>{{model.description}}</small>
+            <small>{{model.description}}</small> 
         </div>
 
         <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 7">
