@@ -116,9 +116,6 @@
 
             </div>
             <md-content flex class="ui form editor " ng-class="c.pages.activePage.size" style="padding:16px 16px;">
-                <!--<div ng-repeat="i in c.pages.activePage.controls track by $index" ng-show="i.type==0">
-                {{i     | json }} 
-                </div>-->
                 <div xsadaf-sortable xui-sortable="c.sortableOptions" ng-sortable="{group: {name: 'form', pull:true, put:true}, animation:150}" 
                      class="xdrop-target ui grid content-form sortable-refresh" xng-model="c.pages.activePage.controls" 
                      style="margin:0;padding:0; min-height:50px;">
@@ -132,26 +129,6 @@
                                   settings-click="c.control.setActive(component); "
                                   ng-click="c.control.setActive(component); "></form-control>
                 </div>
-                <!--<style>
-                    .xxx {
-                        float: left;
-                        width: 100px;
-                        height: 100px;
-                        background: #ffe346;
-                        text-align: center;
-                        display:inline-block;
-                        border: 1px solid #000;
-                        margin:10px;
-                    }
-                </style>
-                <div  ng-controller="demo">
-                    <div ng-sortable="{animation:150}">
-                        <div ng-repeat="item in items track by $index" class="xxx">
-                            {{item}}
-                        </div>
-                    </div>
-                </div>-->
-
 
             </md-content>
 

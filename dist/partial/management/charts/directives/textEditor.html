@@ -1,86 +1,108 @@
 
 <div class="well" layout="row" layout-align="start center" layout-wrap>
-    <!--<switch-button ng-model="click" ng-click="click = !click">
-        Test Switch
-    </switch-button>-->
-    <div layout="row">
-        <switch-button ng-model="model.bold" ng-click="$parent.refreshChart('refresh') ">
-            <span><strong>B</strong></span>
-        </switch-button>
-        <switch-button ng-model="model.italic" ng-click="$parent.refreshChart('refresh')">
-            <span style="font-style:italic">I</span>
-        </switch-button>
+
+
+    <div class="ui mini icon compact button" sm-popup-variation="very wide" sm-popup-inline="{on:'click', boundary: '.menu-body-container', inline     : true}">
+        <i class="icon font"></i>
     </div>
+    <div class="ui custom popup top left transition hidden">
 
-    <!--<div class="btn-group inline">
-        <label class="btn btn-sm btn-default" ng-class="model.bold?'active':''" >
-            <span><strong>B</strong></span>
-        </label>
-        <label class="btn btn-sm btn-default" ng-class="model.italic?'active':''" ng-click="model.italic=!model.italic;$parent.refreshChart('refresh')">
-            <span style="font-style:italic">I</span>
-        </label>
-        <div class="color-palet form-control btn btn-sm btn-default inline"
-             ng-style="{'background-color':model.color}"
-             ng-click="$parent.changeColor($event, model, 'color');$parent.refreshChart('refresh')">
+
+
+        <div class="form-row" layout="row" layout-align="start center" >
+            <label >{{ 'حالت نوشته' | translate }}</label>
+            <span class="form-divider" flex></span>
+            <switch-button ng-model="model.bold" ng-click="$parent.refreshChart('refresh') ">
+                <span><strong>B</strong></span>
+            </switch-button>
+            <switch-button ng-model="model.italic" ng-click="$parent.refreshChart('refresh')">
+                <span style="font-style:italic">I</span>
+            </switch-button>
         </div>
-    </div>-->
 
-    <select class="btn btn-xs" ng-model="model.fontSize" ng-change="$parent.refreshChart('refresh')">
-        <option value="8px">8</option>
-        <option value="9px">9</option>
-        <option value="10px">10</option>
-        <option value="11px">11</option>
-        <option value="12px">12</option>
-        <option value="13px">13</option>
-        <option value="14px">14</option>
-        <option value="15px">15</option>
-        <option value="16px">16</option>
-        <option value="18px">18</option>
-        <option value="22px">22</option>
-        <option value="24px">24</option>
-        <option value="28px">28</option>
-        <option value="30px">30</option>
-        <option value="32px">32</option>
-        <option value="34px">34</option>
-        <option value="36px">36</option>
-        <option value="40px">40</option>
-        <option value="46px">46</option>
-        <option value="52px">52</option>
-        <option value="72px">72</option> 
-        <option value="95px">95</option>
-    </select>
+        <div class="form-row" layout="row" layout-align="start center">
+            <label>{{ 'اندازه نوشته' | translate }}</label>
+            <span class="form-divider" flex></span>
+            <select class="btn btn-xs" ng-model="model.fontSize" ng-change="$parent.refreshChart('refresh')">
+                <option value="8px">8</option>
+                <option value="9px">9</option>
+                <option value="10px">10</option>
+                <option value="11px">11</option>
+                <option value="12px">12</option>
+                <option value="13px">13</option>
+                <option value="14px">14</option>
+                <option value="15px">15</option>
+                <option value="16px">16</option>
+                <option value="18px">18</option>
+                <option value="22px">22</option>
+                <option value="24px">24</option>
+                <option value="28px">28</option>
+                <option value="30px">30</option>
+                <option value="32px">32</option>
+                <option value="34px">34</option>
+                <option value="36px">36</option>
+                <option value="40px">40</option>
+                <option value="46px">46</option>
+                <option value="52px">52</option>
+                <option value="72px">72</option>
+                <option value="95px">95</option>
+            </select>
+        
+                </div>
 
-    <select class="btn btn-xs" ng-model="model.fontName" ng-change="$parent.refreshChart('refresh')">
-        <option value="IRANSans">IRANSans</option> 
-        <option value="Droid">Droid</option>
-        <option value="Tahoma">Tahoma</option>
-        <option value="Arial">Arial</option>
-        <option value="adobe">Adobe</option>
-        <option value="sadaf_yekan">Yekan</option>
+        <div class="form-row" layout="row" layout-align="start center">
+            <label>{{ 'فونت' | translate }}</label>
+            <span class="form-divider" flex></span>
+            <select class="btn btn-xs" ng-model="model.fontName" ng-change="$parent.refreshChart('refresh')">
+                <option value="IRANSans">IRANSans</option>
+                <option value="Droid">Droid</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Arial">Arial</option>
+                <option value="adobe">Adobe</option>
+                <option value="sadaf_yekan">Yekan</option>
 
-    </select>
-
-    <div md-color-picker ng-model="model.color" md-color-default-tab="'genericPalette'" ng-change="$parent.refreshChart('refresh')"></div>
+            </select>
 
 
-    <select class="btn btn-xs" ng-change="$parent.refreshChart('refresh')" ng-model="model.formatString">
-        <option value="A">{{ 'عادی' | translate }}</option>
-        <option value="%">{{ 'درصد' | translate }}</option>
-        <option value=",.0f">#,#</option>
-        <option value=",.1f">#,#.0</option>
-        <option value=",.2f">#,#.00</option>
-        <option value=",.1%">#,#.0%</option>
-        <option value=",.2%">#,#.00%</option>
-        <option value=",.3s">#,#K</option>
-        <option value="custom">{{ 'سفارشی' | translate }}</option>
-    </select>
+        </div>
 
-    <input type="text" class="ltr"
-           placeholder="{{ 'قالب' | translate }}"
-           ng-disabled=" model.formatString!='custom' "
-           ng-change="$parent.refreshChart('refresh')"
-           ng-model-options="{ updateOn: 'blur' }"
-           ng-model="model.formatStringCustom" />
+        <div class="form-row" layout="row" layout-align="start center">
+            <label>{{ 'رنگ نوشته' | translate }}</label>
+            <span class="form-divider" flex></span>
+            <div md-color-picker ng-model="model.color" md-color-default-tab="'genericPalette'" ng-change="$parent.refreshChart('refresh')"></div>
+
+        </div>
+
+        <div class="form-row" layout="row" layout-align="start center">
+            <label>{{ 'فرمت نمایش' | translate }}</label>
+            <span class="form-divider" flex></span>
+            <select class="btn btn-xs" ng-change="$parent.refreshChart('refresh')" ng-model="model.formatString">
+                <option value="A">{{ 'عادی' | translate }}</option>
+                <option value="%">{{ 'درصد' | translate }}</option>
+                <option value=",.0f">#,#</option>
+                <option value=",.1f">#,#.0</option>
+                <option value=",.2f">#,#.00</option>
+                <option value=",.1%">#,#.0%</option>
+                <option value=",.2%">#,#.00%</option>
+                <option value=",.3s">#,#K</option>
+                <option value="custom">{{ 'سفارشی' | translate }}</option>
+            </select>
+
+            <input type="text" class="ltr"
+                   placeholder="{{ 'قالب' | translate }}"
+                   ng-disabled="model.formatString!='custom'"
+                   ng-hide="model.formatString!='custom'"
+                   ng-change="$parent.refreshChart('refresh')"
+                   ng-model-options="{ updateOn: 'blur' }"
+                   ng-model="model.formatStringCustom" />
+        </div>
+
+        
+
+
+
+           </div>
+
 
 </div>
 

@@ -7,44 +7,127 @@
 
                 <general-settings ng-model="ngModel.map.info"></general-settings>
 
-
-
                 <map-selector prop="ngModel.map.info.map"></map-selector>
-
-
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'رنگ مرزها' | translate }}</label>
-                    <span class="form-divider" flex></span><div class="col-sm-8">
-                        <!--<div class="color-palet form-control"
-                             ng-style="{'background-color':ngModel.map.info.borderColor}"
-                             ng-click="changeColor($event, ngModel.map.info, 'borderColor')">
-                        </div>-->
+                    <span class="form-divider" flex></span>
+                    <div class="col-sm-8">
                         <div md-color-picker ng-model="ngModel.map.info.borderColor" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
 
                     </div>
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
-                    <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
                                 <input type="checkbox" ng-model="ngModel.map.info.showName" ng-change="refreshChart('refresh')" /> {{ 'نمایش اسامی شهرها' | translate }}
                             </label>
                         </div>
+                        <span class="form-divider" ng-show="ngModel.map.info.showName"flex></span>
+                        <text-editor prop="ngModel.map.info.nameEditor" ng-show="ngModel.map.info.showName"></text-editor>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" >
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.map.info.showLegend" ng-change="refreshChart('refresh')" /> {{ 'نمایش طیف رنگ' | translate }}
+                            </label>
+                        </div>
                     </div>
                 </div>
-                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.map.info.showName">
-                    <text-editor prop="ngModel.map.info.nameEditor"></text-editor>
-                </div>
+
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-model="ngModel.map.info.showLegend" ng-change="refreshChart('refresh')" /> {{ 'نمایش راهنمای رنگ‌ها' | translate }}
+                                <input type="checkbox" ng-model="ngModel.map.info.showChart" ng-change="refreshChart('refresh')" /> {{ 'show chart' | translate }}
                             </label>
                         </div>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.map.info.showChart">
+                    <label class="col-sm-4">{{ 'نوع نمودار' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select ng-model="ngModel.map.info.chartType" ng-change="refreshChart('refresh')">
+                            <option value="pie" selected="selected">{{ 'pie' | translate }}</option>
+                            <option value="bar">{{ 'bar' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.map.info.showChart">
+                    <div class="checkbox">
+                        <label class="">
+                            <input type="checkbox" ng-model="ngModel.map.info.showChartLegend" ng-change="refreshChart('refresh')" /> {{ 'show chart legend' | translate }}
+                        </label>
+                    </div>
+                    <span class="form-divider" ng-show="ngModel.map.info.showChartLegend" flex></span>
+                    <text-editor prop="ngModel.map.info.legendFont" ng-show="ngModel.map.info.showChartLegend"></text-editor>
+                </div>
+
+
+
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'مکان نمایش راهنما' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <style>
+                            .position-circles {
+                                width: 33px;
+                                height: 33px;
+                                position: relative;
+                                font-size: 11px;
+                            }
+
+                                .position-circles .icon.active {
+                                    color: #424242;
+                                }
+
+                                .position-circles .icon {
+                                    position: absolute;
+                                    padding: 0;
+                                    margin: 0;
+                                    line-height: 11px;
+                                    color: darkgray;
+                                    cursor: pointer;
+                                    width: 11px;
+                                    height: 11px;
+                                }
+                        </style>
+                        <div class="position-circles">
+                            <i ng-click="ngModel.map.info.legendPosition='top left';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='top left'}" class="icon circle" style="top:0;left:0"></i>
+                            <i ng-click="ngModel.map.info.legendPosition='top right';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='top right'}" class="icon circle" style="top:0;right:0"></i>
+                            <i ng-click="ngModel.map.info.legendPosition='top center';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='top center'}" class="icon circle" style="top:0;left:11px"></i>
+                            <i ng-click="ngModel.map.info.legendPosition='bottom left';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='bottom left'}" class="icon circle" style="bottom:0;left:0"></i>
+                            <i ng-click="ngModel.map.info.legendPosition='bottom right';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='bottom right'}" class="icon circle" style="bottom:0;right:0"></i>
+                            <i ng-click="ngModel.map.info.legendPosition='bottom center';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='bottom center'}" class="icon circle" style="bottom:0;left:11px"></i>
+                            <i ng-click="ngModel.map.info.legendPosition='center right';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='center right'}" class="icon circle" style="top:11px;right:0"></i>
+                            <i ng-click="ngModel.map.info.legendPosition='center left';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='center left'}" class="icon circle" style="top:11px;left:0"></i>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.map.info.showName">
+                    <div>فونت راهنمای رنگ‌ها</div>
+                    <text-editor prop="ngModel.map.info.nameEditor"></text-editor>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'رنگ شروع' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <div md-color-picker ng-model="ngModel.map.info.colorStart" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'رنگ پایان' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <div md-color-picker ng-model="ngModel.map.info.colorEnd" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
                     </div>
                 </div>
 
@@ -52,9 +135,9 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'حالت نمایش راهنما' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class=" selectpicker-x form-control" ng-model="ngModel.map.info.tooltip" ng-change="refreshChart('refresh')">
+                        <select class="selectpicker-x form-control" ng-model="ngModel.map.info.tooltip" ng-change="refreshChart('refresh')">
                             <option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
-                            <!--<option value="2" >{{ 'تمام شاخص‌های پیدا' | translate }}</option>-->
+                            <option value="2">{{ 'تمام شاخص‌های پیدا' | translate }}</option>
                             <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>
                         </select>
                     </div>
@@ -133,14 +216,24 @@
                     </div>
                 </div>
 
-                <!--<div class="form-row" layout="row" layout-align="start center">
+                <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.map.series[ngModel.selectedSeries].hidden" />{{ 'مخفی کردن' | translate }}</label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.map.series[ngModel.selectedSeries].hidden" /> {{ 'مخفی کردن' | translate }}
+                            </label>
                         </div>
                     </div>
-                </div>-->
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.map.info.showChart">
+                    <label class="col-sm-4">{{ 'رنگ' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <div class="col-sm-8">
+                        <div md-color-picker ng-model="ngModel.map.series[ngModel.selectedSeries].color" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
+                    </div>
+                </div>
+
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'قالب نمایش' | translate }}</label>
@@ -155,27 +248,6 @@
                     </div>
                 </div>
 
-                <div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'رنگ شروع' | translate }}</label>
-                    <span class="form-divider" flex></span><div class="col-sm-8">
-                        <!--<div class="color-palet form-control"
-                             ng-style="{'background-color':ngModel.map.series[ngModel.selectedSeries].colorStart}"
-                             ng-click="changeColor($event, ngModel.map.series[ngModel.selectedSeries], 'colorStart')">
-                        </div>-->
-                        <div md-color-picker ng-model="ngModel.map.series[ngModel.selectedSeries].colorStart" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
-                    </div>
-                </div>
-                <div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'رنگ پایان' | translate }}</label>
-                    <span class="form-divider" flex></span><div class="col-sm-8">
-                        <!--<div class="color-palet form-control"
-                             ng-style="{'background-color':ngModel.map.series[ngModel.selectedSeries].colorEnd}"
-                             ng-click="changeColor($event, ngModel.map.series[ngModel.selectedSeries], 'colorEnd')">
-
-                        </div>-->
-                        <div md-color-picker ng-model="ngModel.map.series[ngModel.selectedSeries].colorEnd" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
-                    </div>
-                </div>
                 <top-measure ng-model="ngModel.map.series[ngModel.selectedSeries].top" ng-change="refreshChart('refreshWithData');"></top-measure>
 
             </div>

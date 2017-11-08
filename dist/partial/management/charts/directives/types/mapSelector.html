@@ -1,14 +1,16 @@
 
 <div class="form-row" layout="row" layout-align="start center">
-    <label>{{ 'نقشه' | translate }}<span class="help-box" onclick="app.help.toggleHelpWindow('Help/Moderation/Map/General.html')">?</span></label>
+    <label>{{ 'نقشه' | translate }}
+    <!--<span class="help-box" onclick="app.help.toggleHelpWindow('Help/Moderation/Map/General.html')">?</span>-->
+    </label>
     <span class="form-divider" flex></span>
     <select class="form-control" ng-options="i.id+'' as i.name for i in list" ng-model="model.selectedMap"
             ng-change="$parent.refreshChart('refresh')"></select>
 </div>
 
 <div class="form-row" layout="row" layout-align="start center">
-    <span class="help-box" onclick="app.help.toggleHelpWindow('Help/Moderation/Map/UploadMap.html')">?</span>
-    <md-button ng-click="showUploadDialog($event)">{{ 'آپلود کردن فایل نقشه' | translate }}</md-button>
+    <!--<span class="help-box" onclick="app.help.toggleHelpWindow('Help/Moderation/Map/UploadMap.html')">?</span>-->
+    <div class="ui button mini" ng-click="showUploadDialog($event)">{{ 'آپلود کردن فایل نقشه' | translate }}</div>
 </div>
 
 <!--<style>

@@ -44,6 +44,8 @@
                         <select class="selectpicker-x-x form-control" ng-model="ngModel.bar.info.formatString" ng-change="refreshChart('refresh')">
                             <option value="A">{{ 'عادی' | translate }}</option>
                             <option value="%">{{ 'درصد' | translate }}</option>
+                            <option value=",.1%">#,#.0%</option>
+                            <option value=",.2%">#,#.00%</option>
                             <option value=",.0f">#,#</option>
                             <option value=",.1f">#,#.0</option>
                             <option value=",.2f" selected="selected">#,#.00</option>
@@ -281,11 +283,10 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'رنگ' | translate }}</label>
-
                     <span class="form-divider" flex></span>
-
                     <div class="col-sm-8">
                         <div md-color-picker ng-model="ngModel.bar.series[ngModel.selectedSeries].seriesColor" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
                     </div>

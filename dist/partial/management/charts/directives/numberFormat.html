@@ -5,6 +5,8 @@
         <select class="selectpicker-x form-control" ng-change="refreshChart('refresh'); $parent.changeAllSeries('formatString', model.formatString)" ng-model="model.formatString">
             <option value="A" >{{ 'عادی' | translate }}</option>
             <option value="%" >{{ 'درصد' | translate }}</option>
+            <option value=",.1%">#,#.0%</option>
+            <option value=",.2%">#,#.00%</option>
             <option value=",.0f">#,#</option>
             <option value=",.1f">#,#.0</option>
             <option value=",.2f">#,#.00</option>

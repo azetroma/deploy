@@ -1,18 +1,19 @@
 ﻿<div class="chart-editor" layout="row" flex style="background-color:#fff">
-
     <div flex="50" layout="row">
 
         <!--Properties Container-->
         <div flex="50" layout="column" layout-fill>
+
+
             <div layout="row" layout-align="start center" class="datasource-item-header">
                 <span>{{ 'تنظیمات' | translate }}</span>
                 <span flex></span>
             </div>
 
-            <md-content flex>
+            <div flex class="div-prop-container" style="overflow:auto">
                 <div id="divProp" class="rtl prop-section">
                 </div>
-            </md-content>
+            </div>
 
         </div>
 
@@ -31,7 +32,8 @@
                                 <span>{{ 'data' | translate }}</span>
                                 <span flex></span>
                                 <span class="material-icons small small-size pointer" ng-click="showRelatedDatasource($event)" title="{{'add' | translate}}">
-add                                    <!--<md-tooltip md-direction="bottom">add</md-tooltip>-->
+                                    add
+                                    <!--<md-tooltip md-direction="bottom">add</md-tooltip>-->
                                 </span>
                             </div>
 
@@ -207,7 +209,11 @@ add                                    <!--<md-tooltip md-direction="bottom">add
                             </div>
 
                             <md-content flex id="columnList" ng-hide="gettingData">
-
+                                <style>
+                                    #columnList collapse .title {
+                                    padding:0;
+                                    }
+                                </style>
                                 <div>
                                     <div layout="row" layout-align="start center" class="datasource-item">
                                         <span class="material-icons icon-animate pointer right-arrow" ng-click="measureExp = !measureExp" ng-class="{'rotate-90' : !measureExp}">keyboard_arrow_right</span>
@@ -218,15 +224,45 @@ add                                    <!--<md-tooltip md-direction="bottom">add
                                     <div>
 
                                         <div uib-collapse="measureExp">
-                                            <div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Measures"
-                                                 ng-hide="existIn(i, measures)"
-                                                 index="{{$index}}" type="measure" draggable-items>
-                                                <img src="Images/measure.png" class="chart-editor-data-hicon" />
-                                                {{i.Name}}
-                                            </div>
+
+                                            <collapse style="margin-right:25px">
+                                                <collapse-header>
+                                                    all
+                                                </collapse-header>
+
+                                                <collapse-body>
+                                                    <div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Measures"
+                                                         ng-hide="existIn(i, measures)"
+                                                         index="{{$index}}"
+                                                         data-name="{{i.UniqueName}}" type="measure" draggable-items>
+                                                        <img src="Images/measure.png" class="chart-editor-data-hicon" />
+                                                        {{i.Name}}
+                                                    </div>
+                                                </collapse-body>
+                                            </collapse>
+                                            <collapse ng-repeat="(k,v) in olapCubes[+selectedOlapCube].measureGroup" ng-hide="k==''" style="margin-right:25px">
+                                                <collapse-header>
+                                                    {{k}}
+                                                </collapse-header>
+
+                                                <collapse-body>
+                                                    <div class="pointer datasource-field" ng-repeat="i in v"
+                                                         ng-hide="existIn(i, measures)"
+                                                         index="{{$index}}"
+                                                         data-name="{{i.UniqueName}}" type="measure" draggable-items>
+                                                        <img src="Images/measure.png" class="chart-editor-data-hicon" />
+                                                        {{i.Name}}
+                                                    </div>
+                                                </collapse-body>
+                                            </collapse>
+
                                         </div>
                                     </div>
                                 </div>
+
+
+
+
                                 <div>
                                     <div layout="row" layout-align="start center" class="datasource-item">
                                         <span class="material-icons icon-animate pointer right-arrow" ng-click="kpiExp = !kpiExp" ng-class="{'rotate-90' : !kpiExp}">keyboard_arrow_right</span>
@@ -236,12 +272,46 @@ add                                    <!--<md-tooltip md-direction="bottom">add
                                     </div>
                                     <div>
                                         <div uib-collapse="kpiExp">
-                                            <div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Kpis"
+                                            <!--<div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Kpis"
                                                  ng-hide="existIn(i, measures)"
                                                  index="{{$index}}" type="kpi" draggable-items>
                                                 <img src="Images/measure.png" class="chart-editor-data-hicon" />
                                                 {{i.Name}}
-                                            </div>
+                                            </div>-->
+
+
+                                            <collapse style="margin-right:25px">
+                                                <collapse-header>
+                                                    all
+                                                </collapse-header>
+
+                                                <collapse-body>
+                                                    <div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Kpis"
+                                                         ng-hide="existIn(i, measures)"
+                                                         index="{{$index}}"
+                                                         data-name="{{i.UniqueName}}" type="measure" draggable-items>
+                                                        <img src="Images/measure.png" class="chart-editor-data-hicon" />
+                                                        {{i.Name}}
+                                                    </div>
+                                                </collapse-body>
+                                            </collapse>
+                                            <collapse ng-repeat="(k,v) in olapCubes[+selectedOlapCube].kpiGroup" ng-hide="k==''" style="margin-right:25px">
+                                                <collapse-header>
+                                                    {{k}}
+                                                </collapse-header>
+
+                                                <collapse-body>
+                                                    <div class="pointer datasource-field" ng-repeat="i in v"
+                                                         ng-hide="existIn(i, measures)"
+                                                         index="{{$index}}"
+                                                         data-name="{{i.UniqueName}}" type="measure" draggable-items>
+                                                        <img src="Images/measure.png" class="chart-editor-data-hicon" />
+                                                        {{i.Name}}
+                                                    </div>
+                                                </collapse-body>
+                                            </collapse>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -309,7 +379,7 @@ add                                    <!--<md-tooltip md-direction="bottom">add
     <div flex="50" layout="column">
 
         <!--Chart Container-->
-        <md-card flex="65" layout="column">
+        <md-content flex="65" layout="column" style="padding:7px;">
             <div layout="row" layout-align="start center">
                 <md-input-container class="md-block no-errors-spacer" md-no-float style="margin:0 10px">
                     <input ng-model="chartName" type="text" placeholder="{{ 'نام' | translate }}" />
@@ -336,79 +406,81 @@ add                                    <!--<md-tooltip md-direction="bottom">add
 
                 <style>
                     .active .chart-type-item {
-                        background-color:#f5f5f5;
+                        background-color: #f5f5f5;
                     }
+
                     .chart-type-item {
                         padding: 10px 14px;
                         cursor: pointer;
                         font-size: 13px;
                         /*border-radius: 4px;*/
                     }
+
                         .chart-type-item:hover {
                             background-color: #efefef;
                         }
                 </style>
                 <md-menu>
-                    <md-button ng-click="$mdMenu.open($event)"  style="font-size:10px">
-                         {{chartNameMap[expandedChartType].name}}
+                    <md-button ng-click="$mdMenu.open($event)" style="font-size:10px">
+                        {{chartNameMap[expandedChartType].name}}
                     </md-button>
-                    <md-menu-content >
+                    <md-menu-content>
                         <div>
 
-                        <div layout="row" layout-wrap>
-                            <div flex="25" ng-class="{'active': expandedChartType == 1  }" ng-click="$mdMenu.hide();changeChartType(1)"><div class="chart-type-item">میله‌ای</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 2  }" ng-click="$mdMenu.hide();changeChartType(2)"><div class="chart-type-item">میله‌ای - پشته</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 21 }" ng-click="$mdMenu.hide();changeChartType(21)"><div class="chart-type-item">میله‌ای - پشته درصدی</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 3  }" ng-click="$mdMenu.hide();changeChartType(3)"><div class="chart-type-item"> خطی </div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 4  }" ng-click="$mdMenu.hide();changeChartType(4)"><div class="chart-type-item"> خطی - پشته </div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 22 }" ng-click="$mdMenu.hide();changeChartType(22)"><div class="chart-type-item"> خطی - پشته درصدی</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 5  }" ng-click="$mdMenu.hide();changeChartType(5)"><div class="chart-type-item"> سطح </div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 6  }" ng-click="$mdMenu.hide();changeChartType(6)"><div class="chart-type-item"> سطح - پشته </div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 23 }" ng-click="$mdMenu.hide();changeChartType(23)"><div class="chart-type-item"> سطح - پشته درصدی</div></div>
-                        </div>
-                        <md-divider></md-divider>
-                             
-                        
-                        <div layout="row"  layout-wrap>
-                            <div flex="25"  ng-class="{'active': expandedChartType == 7 }" ng-click="$mdMenu.hide();changeChartType(7)"><div class="chart-type-item">دایره‌ای</div></div>
-                            <div flex="25"  ng-class="{'active': expandedChartType == 8 }" ng-click="$mdMenu.hide();changeChartType(8)"><div class="chart-type-item">دونات</div></div>
-                        </div>
-                        <md-divider></md-divider>
-                        
-                        
-                        <div layout="row" layout-wrap>
-                            <div flex="25" ng-class="{'active': expandedChartType == 9 }" ng-click="$mdMenu.hide();changeChartType(9)"><div class="chart-type-item">عقربه‌ای هلالی</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 24 }" ng-click="$mdMenu.hide();changeChartType(24)"><div class="chart-type-item">عقربه‌ای هلالی - چند بخشی</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 25 }" ng-click="$mdMenu.hide();changeChartType(25)"><div class="chart-type-item">عقربه‌ای خطی</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 26 }" ng-click="$mdMenu.hide();changeChartType(26)"><div class="chart-type-item">عقربه‌ای خطی - چند بخشی</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 27 }" ng-click="$mdMenu.hide();changeChartType(27)"><div class="chart-type-item">عدد</div></div>
-                        </div>
+                            <div layout="row" layout-wrap>
+                                <div flex="25" ng-class="{'active': expandedChartType == 1  }" ng-click="$mdMenu.hide();changeChartType(1)"><div class="chart-type-item">میله‌ای</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 2  }" ng-click="$mdMenu.hide();changeChartType(2)"><div class="chart-type-item">میله‌ای - پشته</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 21 }" ng-click="$mdMenu.hide();changeChartType(21)"><div class="chart-type-item">میله‌ای - پشته درصدی</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 3  }" ng-click="$mdMenu.hide();changeChartType(3)"><div class="chart-type-item"> خطی </div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 4  }" ng-click="$mdMenu.hide();changeChartType(4)"><div class="chart-type-item"> خطی - پشته </div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 22 }" ng-click="$mdMenu.hide();changeChartType(22)"><div class="chart-type-item"> خطی - پشته درصدی</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 5  }" ng-click="$mdMenu.hide();changeChartType(5)"><div class="chart-type-item"> سطح </div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 6  }" ng-click="$mdMenu.hide();changeChartType(6)"><div class="chart-type-item"> سطح - پشته </div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 23 }" ng-click="$mdMenu.hide();changeChartType(23)"><div class="chart-type-item"> سطح - پشته درصدی</div></div>
+                            </div>
+                            <md-divider></md-divider>
 
-                        <md-divider></md-divider>
 
-                        <div layout="row" layout-wrap>
-                            <div flex="25" ng-class="{'active': expandedChartType == 10 }" ng-click="$mdMenu.hide();changeChartType(10)"><div class="chart-type-item">رادار</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 11 }" ng-click="$mdMenu.hide();changeChartType(11)"><div class="chart-type-item">نقشه</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 12 }" ng-click="$mdMenu.hide();changeChartType(12)"><div class="chart-type-item">درختی</div></div>
-                        </div>
-                        
-                        <md-divider></md-divider>
+                            <div layout="row" layout-wrap>
+                                <div flex="25" ng-class="{'active': expandedChartType == 7 }" ng-click="$mdMenu.hide();changeChartType(7)"><div class="chart-type-item">دایره‌ای</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 8 }" ng-click="$mdMenu.hide();changeChartType(8)"><div class="chart-type-item">دونات</div></div>
+                            </div>
+                            <md-divider></md-divider>
 
-                        <div layout="row" layout-wrap>
-                            <div flex="25" ng-class="{'active': expandedChartType == 13 }" ng-click="$mdMenu.hide();changeChartType(13)"><div class="chart-type-item">جدول - تجمیعی</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 14 }" ng-click="$mdMenu.hide();changeChartType(14)"><div class="chart-type-item">جدول عادی</div></div>
-                        </div>
-                        
-                        <md-divider></md-divider>
 
-                        <div layout="row" layout-wrap>
-                            <div flex="25" ng-class="{'active': expandedChartType == 15 }" ng-click="$mdMenu.hide();changeChartType(15)"><div class="chart-type-item">انتخاب تک مقداری</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 16 }" ng-click="$mdMenu.hide();changeChartType(16)"><div class="chart-type-item">انتخاب چند مقداری</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 17 }" ng-click="$mdMenu.hide();changeChartType(17)"><div class="chart-type-item">انتخاب تاریخ</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 18 }" ng-click="$mdMenu.hide();changeChartType(18)"><div class="chart-type-item">انتخاب محدوده تاریخ</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 19 }" ng-click="$mdMenu.hide();changeChartType(19)"><div class="chart-type-item">انتخاب محدوده عدد</div></div>
-                            <div flex="25" ng-class="{'active': expandedChartType == 20 }" ng-click="$mdMenu.hide();changeChartType(20)"><div class="chart-type-item">جستجو</div></div>
-                        </div>
+                            <div layout="row" layout-wrap>
+                                <div flex="25" ng-class="{'active': expandedChartType == 9 }" ng-click="$mdMenu.hide();changeChartType(9)"><div class="chart-type-item">عقربه‌ای هلالی</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 24 }" ng-click="$mdMenu.hide();changeChartType(24)"><div class="chart-type-item">عقربه‌ای هلالی - چند بخشی</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 25 }" ng-click="$mdMenu.hide();changeChartType(25)"><div class="chart-type-item">عقربه‌ای خطی</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 26 }" ng-click="$mdMenu.hide();changeChartType(26)"><div class="chart-type-item">عقربه‌ای خطی - چند بخشی</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 27 }" ng-click="$mdMenu.hide();changeChartType(27)"><div class="chart-type-item">عدد</div></div>
+                            </div>
+
+                            <md-divider></md-divider>
+
+                            <div layout="row" layout-wrap>
+                                <div flex="25" ng-class="{'active': expandedChartType == 10 }" ng-click="$mdMenu.hide();changeChartType(10)"><div class="chart-type-item">رادار</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 11 }" ng-click="$mdMenu.hide();changeChartType(11)"><div class="chart-type-item">نقشه</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 12 }" ng-click="$mdMenu.hide();changeChartType(12)"><div class="chart-type-item">درختی</div></div>
+                            </div>
+
+                            <md-divider></md-divider>
+
+                            <div layout="row" layout-wrap>
+                                <div flex="25" ng-class="{'active': expandedChartType == 13 }" ng-click="$mdMenu.hide();changeChartType(13)"><div class="chart-type-item">جدول - تجمیعی</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 14 }" ng-click="$mdMenu.hide();changeChartType(14)"><div class="chart-type-item">جدول عادی</div></div>
+                            </div>
+
+                            <md-divider></md-divider>
+
+                            <div layout="row" layout-wrap>
+                                <div flex="25" ng-class="{'active': expandedChartType == 15 }" ng-click="$mdMenu.hide();changeChartType(15)"><div class="chart-type-item">انتخاب تک مقداری</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 16 }" ng-click="$mdMenu.hide();changeChartType(16)"><div class="chart-type-item">انتخاب چند مقداری</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 17 }" ng-click="$mdMenu.hide();changeChartType(17)"><div class="chart-type-item">انتخاب تاریخ</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 18 }" ng-click="$mdMenu.hide();changeChartType(18)"><div class="chart-type-item">انتخاب محدوده تاریخ</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 19 }" ng-click="$mdMenu.hide();changeChartType(19)"><div class="chart-type-item">انتخاب محدوده عدد</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 20 }" ng-click="$mdMenu.hide();changeChartType(20)"><div class="chart-type-item">جستجو</div></div>
+                            </div>
 
                         </div>
                     </md-menu-content>
@@ -450,7 +522,7 @@ add                                    <!--<md-tooltip md-direction="bottom">add
             </md-card-content>
 
 
-        </md-card>
+        </md-content>
 
         <!--Drop Dimentions Area-->
         <md-divider></md-divider>
