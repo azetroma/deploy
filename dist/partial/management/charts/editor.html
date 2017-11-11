@@ -33,8 +33,14 @@
                                 <span flex></span>
                                 <span class="material-icons small small-size pointer" ng-click="showRelatedDatasource($event)" title="{{'add' | translate}}">
                                     add
-                                    <!--<md-tooltip md-direction="bottom">add</md-tooltip>-->
                                 </span>
+                            </div>
+
+                            <div class="ui mini form" style="margin:7px;">
+                                    <div class="field icon ui input fluid">
+                                        <input type="text" ng-model="query" placeholder="{{'جستجو' | translate}}" />
+                                        <i class="icon" ng-class="{remove: query.length, search: !query}" ng-click="query = ''" style="cursor:pointer !important; pointer-events:all !important"></i>
+                                    </div>
                             </div>
 
                             <md-content flex>
@@ -82,7 +88,6 @@
                                             <span flex></span>
                                             <span class="material-icons small small-size pointer" ng-click="removeRelatedDatasource($index, u)" ng-hide="$index==0" title="{{'remove' | translate}}">
                                                 remove
-                                                <!--<md-tooltip>{{'remove' | translate}}</md-tooltip>-->
                                             </span>
                                             <span class="material-icons small small-size pointer" ng-click="gotoDatasource(u)">open_in_new</span>
 
@@ -90,7 +95,7 @@
 
                                         <div uib-collapse="u.expand">
 
-                                            <div class="pointer datasource-field" ng-repeat="i in u.Hierarchies" index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
+                                            <div class="pointer datasource-field" ng-hide="hide(i, 'check-name')" ng-repeat="i in u.Hierarchies" index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
                                                 <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
                                                 {{i.Name}}
                                             </div>
@@ -204,6 +209,23 @@
                                 </select>
                             </div>
 
+                            <div class="ui mini form" style="margin:7px;">
+                                <div class="fields">
+
+                                    <sm-dropdown class="selection search mini"
+                                                 
+                                                 model="selectedMeasureGroup"
+                                                 items="olapCubes[+selectedOlapCube].MeasureGroups"
+                                                 label="item.caption"
+                                                 value="item.name"></sm-dropdown>
+                                    <div class="field icon ui input">
+                                        <input type="text" ng-model="query" placeholder="{{'جستجو' | translate}}" />
+                                        <i class="icon" ng-class="{remove: query.length, search: !query}" ng-click="query = ''" style="cursor:pointer !important; pointer-events:all !important"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <div class="md-padding" ng-show="gettingData" layout-align="center center" layout="column">
                                 <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
                             </div>
@@ -214,6 +236,7 @@
                                     padding:0;
                                     }
                                 </style>
+
                                 <div>
                                     <div layout="row" layout-align="start center" class="datasource-item">
                                         <span class="material-icons icon-animate pointer right-arrow" ng-click="measureExp = !measureExp" ng-class="{'rotate-90' : !measureExp}">keyboard_arrow_right</span>
@@ -221,47 +244,17 @@
                                             <span>Measures</span>
                                         </div>
                                     </div>
-                                    <div>
 
-                                        <div uib-collapse="measureExp">
-
-                                            <collapse style="margin-right:25px">
-                                                <collapse-header>
-                                                    all
-                                                </collapse-header>
-
-                                                <collapse-body>
-                                                    <div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Measures"
-                                                         ng-hide="existIn(i, measures)"
-                                                         index="{{$index}}"
-                                                         data-name="{{i.UniqueName}}" type="measure" draggable-items>
-                                                        <img src="Images/measure.png" class="chart-editor-data-hicon" />
-                                                        {{i.Name}}
-                                                    </div>
-                                                </collapse-body>
-                                            </collapse>
-                                            <collapse ng-repeat="(k,v) in olapCubes[+selectedOlapCube].measureGroup" ng-hide="k==''" style="margin-right:25px">
-                                                <collapse-header>
-                                                    {{k}}
-                                                </collapse-header>
-
-                                                <collapse-body>
-                                                    <div class="pointer datasource-field" ng-repeat="i in v"
-                                                         ng-hide="existIn(i, measures)"
-                                                         index="{{$index}}"
-                                                         data-name="{{i.UniqueName}}" type="measure" draggable-items>
-                                                        <img src="Images/measure.png" class="chart-editor-data-hicon" />
-                                                        {{i.Name}}
-                                                    </div>
-                                                </collapse-body>
-                                            </collapse>
-
+                                    <div uib-collapse="measureExp">
+                                        <div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Measures"
+                                             ng-hide="existIn(i, measures) || hide(i, 'measure')"
+                                             index="{{$index}}"
+                                             data-name="{{i.UniqueName}}" type="measure" draggable-items>
+                                            <img src="Images/measure.png" class="chart-editor-data-hicon" />
+                                            {{i.Name}}
                                         </div>
                                     </div>
                                 </div>
-
-
-
 
                                 <div>
                                     <div layout="row" layout-align="start center" class="datasource-item">
@@ -272,46 +265,13 @@
                                     </div>
                                     <div>
                                         <div uib-collapse="kpiExp">
-                                            <!--<div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Kpis"
-                                                 ng-hide="existIn(i, measures)"
-                                                 index="{{$index}}" type="kpi" draggable-items>
+                                            <div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Kpis"
+                                                 ng-hide="existIn(i, measures) || hide(i, 'measure')"
+                                                 index="{{$index}}"
+                                                 data-name="{{i.UniqueName}}" type="measure" draggable-items>
                                                 <img src="Images/measure.png" class="chart-editor-data-hicon" />
                                                 {{i.Name}}
-                                            </div>-->
-
-
-                                            <collapse style="margin-right:25px">
-                                                <collapse-header>
-                                                    all
-                                                </collapse-header>
-
-                                                <collapse-body>
-                                                    <div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Kpis"
-                                                         ng-hide="existIn(i, measures)"
-                                                         index="{{$index}}"
-                                                         data-name="{{i.UniqueName}}" type="measure" draggable-items>
-                                                        <img src="Images/measure.png" class="chart-editor-data-hicon" />
-                                                        {{i.Name}}
-                                                    </div>
-                                                </collapse-body>
-                                            </collapse>
-                                            <collapse ng-repeat="(k,v) in olapCubes[+selectedOlapCube].kpiGroup" ng-hide="k==''" style="margin-right:25px">
-                                                <collapse-header>
-                                                    {{k}}
-                                                </collapse-header>
-
-                                                <collapse-body>
-                                                    <div class="pointer datasource-field" ng-repeat="i in v"
-                                                         ng-hide="existIn(i, measures)"
-                                                         index="{{$index}}"
-                                                         data-name="{{i.UniqueName}}" type="measure" draggable-items>
-                                                        <img src="Images/measure.png" class="chart-editor-data-hicon" />
-                                                        {{i.Name}}
-                                                    </div>
-                                                </collapse-body>
-                                            </collapse>
-
-
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -320,7 +280,7 @@
                                     <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
                                 </div>
 
-                                <div ng-repeat="u in olapCubes[+selectedOlapCube].Dimensions" ng-init="u.index = $index">
+                                <div ng-repeat="u in olapCubes[+selectedOlapCube].Dimensions" ng-init="u.index = $index" ng-hide="hide(u, 'dimension')">
 
                                     <div layout="row" layout-align="start center" class="datasource-item">
                                         <span class="material-icons icon-animate pointer right-arrow" ng-click="u.expand = !u.expand" ng-class="{'rotate-90' : !u.expand}">keyboard_arrow_right</span>
@@ -339,7 +299,7 @@
                                             <collapse-body>
                                                 <div class="pointer datasource-field"
                                                      ng-repeat="i in v" type="dimension"
-                                                     ng-hide="existIn(i, measures.concat(dimensions).concat(where))"
+                                                     ng-hide="existIn(i, measures.concat(dimensions).concat(where)) || hide(i, 'check-name')"
                                                      group-name="{{k}}"
                                                      index="{{$index}}" dimindex="{{u.index}}" hi="i" draggable-items>
                                                     <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
@@ -352,7 +312,7 @@
                                         <div class="pointer datasource-field"
                                              ng-repeat="i in u.group['']" type="dimension"
                                              group-name=""
-                                             ng-hide="existIn(i, measures.concat(dimensions).concat(where))"
+                                             ng-hide="existIn(i, measures.concat(dimensions).concat(where))|| hide(i, 'check-name')"
                                              index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
                                             <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
                                             {{i.Name}}
@@ -501,7 +461,10 @@
 
                 <md-button class="md-icon-button" ng-click="delete($event)" ng-show="isEdit" title="{{'delete' | translate}}">
                     <span class="material-icons gray">delete</span>
-                    <!--<md-tooltip>{{'delete' | translate}}</md-tooltip>-->
+                    >
+                     <
+                    !--<md-tooltip>{{'delete' | translate}}</md-tooltip>-->
+                    <
                 </md-button>
 
 
