@@ -263,12 +263,12 @@
                                             <span>KPIs</span>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div> 
                                         <div uib-collapse="kpiExp">
                                             <div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Kpis"
                                                  ng-hide="existIn(i, measures) || hide(i, 'measure')"
                                                  index="{{$index}}"
-                                                 data-name="{{i.UniqueName}}" type="measure" draggable-items>
+                                                 data-name="{{i.UniqueName}}" type="kpi" draggable-items>
                                                 <img src="Images/measure.png" class="chart-editor-data-hicon" />
                                                 {{i.Name}}
                                             </div>

@@ -137,6 +137,8 @@
 
                             <partition-expression ng-show="model.AutoRefresh==-2" ng-model="schedulePartition"> </partition-expression>
 
+                            <interval-fetch ng-hide="model.AutoRefresh == -2" ng-model="model.intervalFetch" fields="fields" , datasource-id="{{id}}"></interval-fetch>
+
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
 
                         </form>
@@ -175,7 +177,7 @@
 
             <md-card ng-show="testResult" flex>
                 <md-content style="max-height:200px;" id="card-resize" layout="column" flex>
-                    <div ng-bind-html="testResult" flex></div>
+                    <div ng-bind-html="testResult" flex style="overflow: auto;"></div>
                 </md-content>
             </md-card>
 

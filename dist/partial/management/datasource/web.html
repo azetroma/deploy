@@ -194,8 +194,9 @@
                                 </md-select>
                             </md-input-container>
 
-
                             <datasource-schedule ng-show="model.autoRefresh==-1" ng-model="schedule"> </datasource-schedule>
+
+                            <interval-fetch ng-model="model.intervalFetch" fields="fields", datasource-id="{{id}}"></interval-fetch>
 
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
 
