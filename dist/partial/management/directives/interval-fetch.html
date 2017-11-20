@@ -1,0 +1,113 @@
+﻿<div class="ui form">
+    <!--<div class="ui mini header">دریافت دوره‌ای اطلاعات  </div>-->
+
+    <div class="field">
+        <label style="font-weight:initial">
+            <input type="checkbox" ng-model="model.enable" /> دریافت دوره‌ای اطلاعات
+        </label>
+    </div>
+
+    <div class="fields" ng-show="model.enable">
+
+
+        <div class="four wide field">
+            <label>نوع تاریخ</label>
+            <select ng-model="model.dateType">
+                <option value="jalali-date">شمسی</option>
+                <option value="miladi-date">میلادی</option>
+                <!--<option value="jalali-date">شمسی - فقط تاریخ</option>
+                <option value="jalali-date-time">شمسی - تاریخ و ساعت</option>
+                <option value="jalali-date-time-mili">شمسی - تاریخ و ساعت - میلی ثانیه</option>
+                <option value="miladi-date">میلادی - فقط تاریخ</option>
+                <option value="miladi-date-time">میلادی - تاریخ و ساعت</option>
+                <option value="miladi-date-time-mili">میلادی - تاریخ و ساعت - میلی ثانیه</option>-->
+            </select>
+        </div>
+        <div class="four wide field">
+            <label>فرمت تاریخ</label>
+            <input type="text" ng-model="model.format" placeholder="فرمت تاریخ" />
+        </div>
+
+        <div class="four wide field">
+            <label>مقدار شروع</label>
+            <input type="text" ng-model="model.start" placeholder="مقدار شروع" />
+        </div>
+
+    </div>
+
+    <div class="fields" ng-show="model.enable">
+
+        <div class="four wide field">
+            <label>فیلد شناسه</label>
+            <small ng-hide="fields">برای انتخاب ابتدا داده‌های تستی را دریافت کنید</small>
+            <!--<select ng-show="fields" ng-model="model.fieldId" ng-options="i for i in fields"></select>-->
+            <sm-dropdown class="selection search multiple" model="model.fieldId" items="fields"></sm-dropdown>
+        </div>
+
+        <div class="four wide field">
+            <label>فیلد حذف</label>
+            <small ng-hide="fields">برای انتخاب ابتدا داده‌های تستی را دریافت کنید</small>
+            <select ng-show="fields" ng-model="model.fieldTrash" ng-options="i for i in fields"></select>
+        </div>
+    </div>
+
+    <small class="" ng-show="model.enable">
+         دو متغیر برای استفاده در منبع داده تولید می‌شود که به صورت خودکار براساس تنظیمات شما و زمان اجرای دریافت، مقداردهی خواهند شد.
+        <span class="ui mini label">
+            متغیر شروع <span class="ltr inline">@{from}</span>
+        </span>
+        <span class="ui mini label">
+            متغیر پایان <span class="ltr inline">@{to}</span>
+        </span>
+    </small>
+
+
+    <!--Requests-->
+    <div class="ui ui dimmable dimmed" ng-show="model.enable">
+
+        <div class="ui inverted dimmer" ng-class="{active : loadRequests}">
+            <div class="ui text loader">در حال بارگذاری</div>
+        </div>
+        <div style="margin-top:20px;">
+
+            <collapse>
+                <collapse-header>
+                    <div class="">تاریخچه دریافت‌ها</div>
+                </collapse-header>
+                <collapse-body>
+                    <table class="ui very basic small table">
+                        <tr>
+                            <th style="border:none;">ردیف</th>
+                            <th style="border:none;">تاریخ</th>
+                            <th style="border:none;">متغیر اول</th>
+                            <th style="border:none;">متغیر دوم</th>
+                            <th style="border:none;">تعداد رکورد </th>
+                            <th style="border:none;">زمان اجرا</th>
+                            <th style="width:40px; border:none;"></th>
+                        </tr>
+
+                        <tr ng-repeat="row in requests">
+                            <td>{{persian($index + 1, true)}}</td>
+                            <td>{{ row.time }} <small class="gray">{{ row.timex }}</small></td>
+                            <td>{{row.from}}</td>
+                            <td>{{row.to}}</td>
+                            <td>{{persian(row.effectedRows, true)}}</td>
+                            <td>{{persian(row.duration, true)}}</td>
+
+                            <td>
+                                <div ng-hide="row.refreshProgress" class="" title="دریافت دوباره اطلاعات" ng-click="refresh(row)"><i class="icon refresh pointer gray"></i></div>
+                                <div ng-show="row.refreshProgress" class="ui inline active mini loader"></div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="ui mini gray button right floated" ng-hide="noMore" ng-click="more()">دریافت اطلاعات بیشتر...</div>
+                    <div class="ui mini red button right floated" ng-class="{loading: deleteAllProgress}" ng-click="deleteAll()">حذف همه</div>
+                </collapse-body>
+            </collapse>
+        </div>
+
+    </div>
+
+
+</div>
