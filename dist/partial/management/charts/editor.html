@@ -265,13 +265,29 @@
                                     </div>
                                     <div> 
                                         <div uib-collapse="kpiExp">
-                                            <div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Kpis"
+                                            <collapse ng-repeat="(k,v) in olapCubes[+selectedOlapCube].pkiGroup"style="margin-right:25px">
+                                                <collapse-header>
+                                                    {{v[0].ParentName}}
+                                                </collapse-header>
+                                                <collapse-body>
+                                                    <div class="pointer datasource-field" 
+                                                         ng-repeat="i in v"
+                                                         ng-hide="existIn(i, measures) || hide(i, 'measure')"
+                                                         index="{{$index}}"
+                                                         data-name="{{i.UniqueName}}" type="kpi" draggable-items>
+                                                        <img src="Images/kpi.png" class="chart-editor-data-hicon" />
+                                                        {{i.Name}}
+                                                    </div>
+                                                </collapse-body>
+                                            </collapse>
+
+                                            <!--<div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Kpis"
                                                  ng-hide="existIn(i, measures) || hide(i, 'measure')"
                                                  index="{{$index}}"
                                                  data-name="{{i.UniqueName}}" type="kpi" draggable-items>
                                                 <img src="Images/measure.png" class="chart-editor-data-hicon" />
                                                 {{i.Name}}
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +307,7 @@
 
                                     <div uib-collapse="u.expand">
 
-                                        <collapse ng-repeat="(k,v) in u.group" ng-hide="k==''" style="margin-right:25px">
+                                        <collapse ng-repeat="(k,v) in u.group" ng-hide="k==''" style="margin-right:25px" >
                                             <collapse-header>
                                                 {{k}}
                                             </collapse-header>
@@ -299,7 +315,7 @@
                                             <collapse-body>
                                                 <div class="pointer datasource-field"
                                                      ng-repeat="i in v" type="dimension"
-                                                     ng-hide="existIn(i, measures.concat(dimensions).concat(where)) || hide(i, 'check-name')"
+                                                     ng-hide="existIn(i, measures.concat(dimensions).concat(where)) || hide(i, 'check-name', v)"
                                                      group-name="{{k}}"
                                                      index="{{$index}}" dimindex="{{u.index}}" hi="i" draggable-items>
                                                     <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
@@ -527,7 +543,7 @@
                 <div flex layout="row" layout-align="start center" ng-repeat="i in olapData.kpis track by $index" class="pointer datasource-item">
                     <span class="material-icons small small-size" ng-click="olapData.kpis.splice($index,1)">close</span>
                     <img src="Images/kpi.png">
-                    {{i.Name}}
+                     {{i.Name}}
                 </div>
             </div>
 

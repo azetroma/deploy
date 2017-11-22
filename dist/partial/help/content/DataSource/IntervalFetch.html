@@ -1,0 +1,452 @@
+﻿<h2 class="ui dividing header">دریافت دوره‌ای اطلاعات </h2>
+
+    <p dir="RTL">هماهنگ کردن داده&zwnj;ها در پایگاه داده&zwnj;های مختلف، با اطلاعات موجود در داشبورد، با توجه به شرایط مختلف و نیازمندی های مختلف می&zwnj;تواند یکی از دغدغه&zwnj;های سازمان&zwnj;ها باشد. در اغلب موارد داده&zwnj;ها به صورت دوره&zwnj;ای به صورت کلی در داشبورد کپی می&zwnj;شوند و نیازی به استفاده از روش&zwnj;های پیچیده برای اطمینان از یکسان بودن داده&zwnj;ها در پایگاه&zwnj;های داده و داشبورد نیست.</p>
+    <p dir="RTL">دریافت دوره&zwnj;ای اطلاعات به این صورت است که در هر باز بروز رسانی منبع داده، اطلاعاتی که در داشبورد مدیریت وجود ندارد از پایگاه داده یا وب سرویس دریافت می&zwnj;شوند. در این حالت هر بار تمام اطلاعات در داشبورد وارد نشده و تنها اطلاعات جدید یا ویرایش شده وارد داشبورد می&zwnj;شود و بهبود قابل توجهی در سرعت و کارایی بروز رسانی منابع داده دارد.</p>
+    <p dir="RTL">برای استفاده از این روش زمان ایجاد یا ویرایش داده&zwnj;های موجود در پایگاه داده باید توسط یک فیلد زمان مشخص شود. برای مثال هر ردیف اطلاعاتی شامل ستونی باشد که آخرین زمان ویرایش را مشخص کند.</p>
+    <p dir="RTL">فرض کنید داده&zwnj;های ما به صورت زیر باشد</p>
+    <div dir="rtl" align="center">
+        <table dir="rtl" border="0" width="100%" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr>
+                    <td nowrap="nowrap" bgcolor="#92D050" width="12%" height="1">
+                        <p dir="RTL" align="center">شناسه</p>
+                    </td>
+                    <td nowrap="nowrap" bgcolor="#92D050" width="15%" height="1">
+                        <p dir="RTL" align="center">کالا</p>
+                    </td>
+                    <td nowrap="nowrap" bgcolor="#92D050" width="20%" height="1">
+                        <p dir="RTL" align="center">شماره فاکتور</p>
+                    </td>
+                    <td nowrap="nowrap" bgcolor="#92D050" width="18%" height="1">
+                        <p dir="RTL" align="center">مبلغ فروش</p>
+                    </td>
+                    <td nowrap="nowrap" bgcolor="#92D050" width="34%" height="1">
+                        <p dir="RTL" align="center">تاریخ ویرایش</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap" width="12%" height="1">
+                        <p dir="LTR" align="center">1</p>
+                    </td>
+                    <td nowrap="nowrap" width="15%" height="1">
+                        <p dir="RTL" align="center">موبایل</p>
+                    </td>
+                    <td nowrap="nowrap" width="20%" height="1">
+                        <p dir="LTR" align="center">10240</p>
+                    </td>
+                    <td nowrap="nowrap" width="18%" height="1">
+                        <p dir="LTR" align="center">1750000</p>
+                    </td>
+                    <td nowrap="nowrap" width="34%" height="1">
+                        <p dir="LTR" align="center">2017-11-20 19:45</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap" width="12%" height="1">
+                        <p dir="LTR" align="center">2</p>
+                    </td>
+                    <td nowrap="nowrap" width="15%" height="1">
+                        <p dir="RTL" align="center">ساعت</p>
+                    </td>
+                    <td nowrap="nowrap" width="20%" height="1">
+                        <p dir="LTR" align="center">10241</p>
+                    </td>
+                    <td nowrap="nowrap" width="18%" height="1">
+                        <p dir="LTR" align="center">1300000</p>
+                    </td>
+                    <td nowrap="nowrap" width="34%" height="1">
+                        <p dir="LTR" align="center">2017-11-20 19:46</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap" width="12%" height="1">
+                        <p dir="LTR" align="center">3</p>
+                    </td>
+                    <td nowrap="nowrap" width="15%" height="1">
+                        <p dir="RTL" align="center">لپ تاپ</p>
+                    </td>
+                    <td nowrap="nowrap" width="20%" height="1">
+                        <p dir="LTR" align="center">10242</p>
+                    </td>
+                    <td nowrap="nowrap" width="18%" height="1">
+                        <p dir="LTR" align="center">4600000</p>
+                    </td>
+                    <td nowrap="nowrap" width="34%" height="1">
+                        <p dir="LTR" align="center">2017-11-20 19:47</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap" width="12%" height="1">
+                        <p dir="LTR" align="center">4</p>
+                    </td>
+                    <td nowrap="nowrap" width="15%" height="1">
+                        <p dir="RTL" align="center">تلویزیون</p>
+                    </td>
+                    <td nowrap="nowrap" width="20%" height="1">
+                        <p dir="LTR" align="center">10243</p>
+                    </td>
+                    <td nowrap="nowrap" width="18%" height="1">
+                        <p dir="LTR" align="center">3800000</p>
+                    </td>
+                    <td nowrap="nowrap" width="34%" height="1">
+                        <p dir="LTR" align="center">2017-11-20 19:48</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p dir="RTL">&nbsp;</p>
+    <p dir="RTL">با توجه به داشتن ستون تاریخ ویرایش، این امکان را خواهیم داشت تا بتوانیم داده&zwnj;هایی که قبلا در داشبورد دریافت کرده&zwnj;ایم را دوباره دریافت نکنیم. برای اینکار هنگام ساخت منبع داده گزینه دریافت دوره&zwnj;ای اطلاعات را فعال می&zwnj;کنیم.</p>
+    <p dir="RTL">روش کلی کار به این صورت است که سیستم با توجه به تنظیمات کاربر و تاریخچه&zwnj;ی قبلی دریافت اطلاعات دو متغیر <span dir="LTR">@{from}</span> و <span dir="LTR">@{to}</span> را تولید کرده و به صورت تاریخ مقداردهی میکند. کاربر باید در پرس&zwnj;وجوی منبع داده یا پارامترهای وب سرویس از این دو متغیر استفاده کرده و داده&zwnj;هایی که قبلا دریافت کرده را دوباره دریافت نکند برای نمونه در صورتی که داده&zwnj;های جدول بالا را بخواهیم دریافت کنیم باید در قسمت پرس&zwnj;وجو شرط زیر را اضافه کنیم</p>
+    <p dir="LTR">WHERE [<span dir="RTL">تاریخ ویرایش</span>] &gt;= @{from} AND [<span dir="RTL">تاریخ ویرایش</span>] &lt; @{to}</p>
+    <p dir="RTL">&nbsp;</p>
+    <p dir="RTL">با فعال کردن این گزینه، امکان تنظیم نوع تاریخ و ... را خواهیم داشت.</p>
+    <p dir="RTL" style="text-align:center;"><span dir="LTR">
+        <img src="data:image/png;base64,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" 
+             style="
+    border: 1px solid silver;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 4px;
+" />
+        </span></p>
+    <p dir="RTL">در قسمت اول نوع تاریخ ایجاد شده توسط سیستم را مشخص می&zwnj;کنیم که میلادی باشد یا شمسی. سپس فرمت تاریخ تولیدی را تعیین می&zwnj;کنیم. با هر بار بروز رسانی منبع داده، تاریخ اجرای قبلی و تاریخ فعلی سیستم به عنوان متغیرها به پرس&zwnj;وجو یا وب سرویس ارجاع داده می&zwnj;شوند. در اولین اجرا چون اجرای قبلی نداریم باید یک مقدار اولیه برای متغیر <span dir="LTR">@{from}</span> تعیین شود که توسط گزینه مقدار شروع این امکان فراهم شده است.</p>
+    <p dir="RTL">با این تنظیمات در هر بار بروز رسانی منبع داده، ردیف&zwnj;هایی از منبع داده به داشبورد ارسال می&zwnj;شوند که تاریخ ویرایش آن&zwnj;ها بین تاریخ اجرای قبلی سیستم و تاریخ فعلی باشد.</p>
+    <p dir="RTL">برای مثال در داده&zwnj;های جدول یک تنظیمات زیر را در ایجاد منبع داده انجام می&zwnj;دهیم:</p>
+    <ul>
+        <li dir="RTL">نوع تاریخ: میلادی</li>
+        <li dir="RTL">فرمت تاریخ: <span dir="LTR">yyyy-MM-dd HH:mm</span></li>
+        <li dir="RTL">مقدار شروع: <span dir="LTR">2017-11-20 19:00</span></li>
+        <li dir="RTL">شرط وارد شده در پرس&zwnj;وجو:</li>
+    </ul>
+    <p dir="LTR">WHERE [<span dir="RTL">تاریخ ویرایش</span>] &gt;= @{from} AND [<span dir="RTL">تاریخ ویرایش</span>] &lt; @{to}</p>
+    <p dir="RTL">در صورتی که در تاریخ <span dir="LTR">2017-11-20 19:47</span> داده&zwnj;های منبع داده دریافت شود دو ردیف اول اطلاعات وارد داشبورد می&zwnj;شوند و در صورتی که که تاریخ <span dir="LTR">2017-11-20 19:49</span> دوباره اطلاعات منبع داده دریافت شود، ردیف&zwnj;هایی از جدول وارد داشبورد می&zwnj;شوند که بین تاریخ <span dir="LTR">2017-11-20 19:47</span> و <span dir="LTR">2017-11-20 19:49</span> باشند که در این حالت ردیف&zwnj;های سوم و چهارم جدول نیز وارد داشبورد می&zwnj;شوند.</p>
+    <p dir="RTL">در صورتی که در پایگاه داده امکان ویرایش داده&zwnj;ها وجود داشته باشد با هر بار ویرایش، تاریخ ویرایش ردیف اطلاعاتی در پایگاه داده نیز تغییر می&zwnj;کند و بنابراین در دور بعدی دریافت اطلاعات به دلیل تغییر تاریخ ویرایش، آن ردیف اطلاعاتی دوباره وارد داشبورد می&zwnj;شود. برای اجتناب از داده&zwnj;های تکراری در داشبورد منبع داده باید شامل یک یا چند فیلد شناسه نیز باشد. در صورت وجود فیلد شناسه، قبل از وارد کردن داده&zwnj;ها در داشبورد فیلد&zwnj;های شناسه بررسی می&zwnj;شوند که در قبلا در داشبورد وجود داشته&zwnj;اند یا خیر. در صورت وجود ردیف&zwnj;های اطلاعاتی با شناسه تکراری، ردیف&zwnj;های تکراری حذف شده و ردیف اطلاعاتی جدید به داشبورد اضافه می&zwnj;شوند. برای معرفی فیلدهای شناسه به داشبورد گزینه دارای فیلد شناسه را فعال کرده و سپس فیلدهای شناسه را به داشبورد معرفی می&zwnj;کنیم.</p>
+    <p dir="RTL">در صورتی که در پایگاه داده امکان حذف داده&zwnj;ها نیز وجود داشته باشد باید اطلاعات حذف شده در داشبورد نیز حذف شوند. برای فراهم کردن این امکان با حذف یک ردیف اطلاعاتی، بدون حذف کردن فیزیکی آن ردیف تنها یک فیلد از ردیف اطلاعاتی را تغییر داده و آن&zwnj;را به عنوان یک ردیف حذف شده در نظر می&zwnj;گیریم.</p>
+    <p dir="RTL">برای نمونه در جدول شماره یک برای داشتن امکان حذف باید شکل جدول به صورت زیر تغییر کند.</p>
+    <div dir="rtl" align="right">
+        <table dir="rtl" border="0" width="100%" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr>
+                    <td nowrap="nowrap" bgcolor="#92D050" width="9%" height="27">
+                        <p dir="RTL" align="center">شناسه</p>
+                    </td>
+                    <td nowrap="nowrap" bgcolor="#92D050" width="11%" height="27">
+                        <p dir="RTL" align="center">کالا</p>
+                    </td>
+                    <td nowrap="nowrap" bgcolor="#92D050" width="14%" height="27">
+                        <p dir="RTL" align="center">شماره فاکتور</p>
+                    </td>
+                    <td nowrap="nowrap" bgcolor="#92D050" width="13%" height="27">
+                        <p dir="RTL" align="center">مبلغ فروش</p>
+                    </td>
+                    <td nowrap="nowrap" bgcolor="#92D050" width="25%" height="27">
+                        <p dir="RTL" align="center">تاریخ ویرایش</p>
+                    </td>
+                    <td bgcolor="#92D050" width="25%" height="27">
+                        <p dir="RTL" align="center">حذف</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap" width="9%" height="27">
+                        <p dir="LTR" align="center">1</p>
+                    </td>
+                    <td nowrap="nowrap" width="11%" height="27">
+                        <p dir="RTL" align="center">موبایل</p>
+                    </td>
+                    <td nowrap="nowrap" width="14%" height="27">
+                        <p dir="LTR" align="center">10240</p>
+                    </td>
+                    <td nowrap="nowrap" width="13%" height="27">
+                        <p dir="LTR" align="center">1750000</p>
+                    </td>
+                    <td nowrap="nowrap" width="25%" height="27">
+                        <p dir="LTR" align="center">2017-11-20 19:45</p>
+                    </td>
+                    <td width="25%" height="27">
+                        <p dir="LTR" align="center">0</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap" width="9%" height="27">
+                        <p dir="LTR" align="center">2</p>
+                    </td>
+                    <td nowrap="nowrap" width="11%" height="27">
+                        <p dir="RTL" align="center">ساعت</p>
+                    </td>
+                    <td nowrap="nowrap" width="14%" height="27">
+                        <p dir="LTR" align="center">10241</p>
+                    </td>
+                    <td nowrap="nowrap" width="13%" height="27">
+                        <p dir="LTR" align="center">1300000</p>
+                    </td>
+                    <td nowrap="nowrap" width="25%" height="27">
+                        <p dir="LTR" align="center">2017-11-20 19:46</p>
+                    </td>
+                    <td width="25%" height="27">
+                        <p dir="LTR" align="center">0</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap" width="9%" height="27">
+                        <p dir="LTR" align="center">3</p>
+                    </td>
+                    <td nowrap="nowrap" width="11%" height="27">
+                        <p dir="RTL" align="center">لپ تاپ</p>
+                    </td>
+                    <td nowrap="nowrap" width="14%" height="27">
+                        <p dir="LTR" align="center">10242</p>
+                    </td>
+                    <td nowrap="nowrap" width="13%" height="27">
+                        <p dir="LTR" align="center">4600000</p>
+                    </td>
+                    <td nowrap="nowrap" width="25%" height="27">
+                        <p dir="LTR" align="center">2017-11-20 19:47</p>
+                    </td>
+                    <td width="25%" height="27">
+                        <p dir="LTR" align="center">0</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap" width="9%" height="27">
+                        <p dir="LTR" align="center">4</p>
+                    </td>
+                    <td nowrap="nowrap" width="11%" height="27">
+                        <p dir="RTL" align="center">تلویزیون</p>
+                    </td>
+                    <td nowrap="nowrap" width="14%" height="27">
+                        <p dir="LTR" align="center">10243</p>
+                    </td>
+                    <td nowrap="nowrap" width="13%" height="27">
+                        <p dir="LTR" align="center">3800000</p>
+                    </td>
+                    <td nowrap="nowrap" width="25%" height="27">
+                        <p dir="LTR" align="center">2017-11-20 19:48</p>
+                    </td>
+                    <td width="25%" height="27">
+                        <p dir="LTR" align="center">0</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p dir="RTL">&nbsp;</p>
+    <p dir="RTL">در صورت حذف کردن ستون ۳ تنها کافیست مقدار ستون حذف را برابر ۱ قرار داده و تاریخ ویرایش آن&zwnj;را تغییر داد.</p>
+    <div dir="rtl" align="right">
+        <table dir="rtl" border="0" width="100%" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr>
+                    <td valign="bottom" nowrap="nowrap" bgcolor="#92D050" width="9%" height="27">
+                        <p dir="RTL" align="center">شناسه</p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" bgcolor="#92D050" width="11%" height="27">
+                        <p dir="RTL" align="center">کالا</p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" bgcolor="#92D050" width="14%" height="27">
+                        <p dir="RTL" align="center">شماره فاکتور</p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" bgcolor="#92D050" width="13%" height="27">
+                        <p dir="RTL" align="center">مبلغ فروش</p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" bgcolor="#92D050" width="25%" height="27">
+                        <p dir="RTL" align="center">تاریخ ویرایش</p>
+                    </td>
+                    <td valign="top" bgcolor="#92D050" width="25%" height="27">
+                        <p dir="RTL" align="center">حذف</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="bottom" nowrap="nowrap" width="9%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">1</span></p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="11%" height="27">
+                        <p dir="RTL" align="center">موبایل</p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="14%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">10240</span></p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="13%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">1750000</span></p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="25%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">2017-11-20 19:45</span></p>
+                    </td>
+                    <td valign="top" width="25%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">0</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="bottom" nowrap="nowrap" width="9%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">2</span></p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="11%" height="27">
+                        <p dir="RTL" align="center">ساعت</p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="14%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">10241</span></p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="13%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">1300000</span></p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="25%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">2017-11-20 19:46</span></p>
+                    </td>
+                    <td valign="top" width="25%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">0</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="bottom" nowrap="nowrap" width="9%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">3</span></p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="11%" height="27">
+                        <p dir="RTL" align="center">لپ تاپ</p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="14%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">10242</span></p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="13%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">4600000</span></p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="25%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">2017-11-20 20:12</span></p>
+                    </td>
+                    <td valign="top" width="25%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">1</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="bottom" nowrap="nowrap" width="9%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">4</span></p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="11%" height="27">
+                        <p dir="RTL" align="center">تلویزیون</p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="14%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">10243</span></p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="13%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">3800000</span></p>
+                    </td>
+                    <td valign="bottom" nowrap="nowrap" width="25%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">2017-11-20 19:48</span></p>
+                    </td>
+                    <td valign="top" width="25%" height="27">
+                        <p dir="RTL" align="center"><span dir="LTR">0</span></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p dir="RTL">&nbsp;</p>
+    <p dir="RTL">در صورتی که پایگاه داده برای حذف داده&zwnj;ها از روش بالا استفاده کند و در تنظیمات منبع داده با فعال کردن گزینه دارای فیلد حذف، فیلد حذف را به منبع داده معرفی کنیم، زمانی که داده&zwnj;های منبع داده بروز رسانی می&zwnj;شوند به دلیل اینکه تاریخ ویرایش ردیف&zwnj;های حذف شده تغییر می&zwnj;کنند در لیست داده&zwnj;های معتبر بازه زمانی منبع داده قرار می&zwnj;گیرند و با توجه به مقدار ۱ برای ستون حذف، داشبورد این ردیف&zwnj;های اطلاعاتی را از داده&zwnj;های خود حذف می&zwnj;کند.</p>
+
+
+<h2 dir="RTL">فرمت تاریخ</h2>
+<p dir="RTL">فرمت تاریخ براساس فرمت استاندارد تاریخ در زبان <span dir="LTR">C#</span> در نظر گرفته شده است. در جدول زیر الگوها و تاریخ معادل ذکر شده است:</p>
+<div dir="rtl" align="right">
+    <table dir="rtl" border="1" width="100%" cellspacing="0" cellpadding="0">
+        <tbody>
+            <tr>
+                <td valign="bottom" nowrap="nowrap" bgcolor="#92D050" width="28%" height="27">
+                    <p dir="RTL" align="center">فرمت</p>
+                </td>
+                <td valign="top" bgcolor="#92D050" width="35%" height="27">
+                    <p dir="RTL" align="center">شرح</p>
+                </td>
+                <td valign="bottom" nowrap="nowrap" bgcolor="#92D050" width="35%" height="27">
+                    <p dir="RTL" align="center">مثال</p>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom" nowrap="nowrap" width="28%" height="27">
+                    <p dir="RTL" align="center"><span dir="LTR">yyyy</span></p>
+                </td>
+                <td valign="top" width="35%" height="27">
+                    <p dir="RTL" align="center">سال چهار رقمی</p>
+                </td>
+                <td valign="bottom" nowrap="nowrap" width="35%" height="27">
+                    <p dir="RTL" align="center"><span dir="LTR">2017</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom" nowrap="nowrap" width="28%" height="27">
+                    <p dir="RTL" align="center"><span dir="LTR">yy</span></p>
+                </td>
+                <td valign="top" width="35%" height="27">
+                    <p dir="RTL" align="center">سال دو رقمی</p>
+                </td>
+                <td valign="bottom" nowrap="nowrap" width="35%" height="27">
+                    <p dir="RTL" align="center"><span dir="LTR">17</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom" nowrap="nowrap" width="28%" height="27">
+                    <p dir="RTL" align="center"><span dir="LTR">MM</span></p>
+                </td>
+                <td valign="top" width="35%" height="27">
+                    <p dir="RTL" align="center">ماه دو رقمی</p>
+                </td>
+                <td valign="bottom" nowrap="nowrap" width="35%" height="27">
+                    <p dir="RTL" align="center">01</p>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom" nowrap="nowrap" width="28%" height="27">
+                    <p dir="RTL" align="center"><span dir="LTR">dd</span></p>
+                </td>
+                <td valign="top" width="35%" height="27">
+                    <p dir="RTL" align="center">روز دو رقمی</p>
+                </td>
+                <td valign="bottom" nowrap="nowrap" width="35%" height="27">
+                    <p dir="RTL" align="center">21</p>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom" nowrap="nowrap" width="28%" height="27">
+                    <p dir="RTL" align="center"><span dir="LTR">HH</span></p>
+                </td>
+                <td valign="top" width="35%" height="27">
+                    <p dir="RTL" align="center">ساعت دو رقمی</p>
+                </td>
+                <td valign="bottom" nowrap="nowrap" width="35%" height="27">
+                    <p dir="RTL" align="center">19</p>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom" nowrap="nowrap" width="28%" height="27">
+                    <p dir="RTL" align="center"><span dir="LTR">mm</span></p>
+                </td>
+                <td valign="top" width="35%" height="27">
+                    <p dir="RTL" align="center">دقیقه دو رقمی</p>
+                </td>
+                <td valign="bottom" nowrap="nowrap" width="35%" height="27">
+                    <p dir="RTL" align="center">01</p>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom" nowrap="nowrap" width="28%" height="27">
+                    <p dir="RTL" align="center"><span dir="LTR">ss</span></p>
+                </td>
+                <td valign="top" width="35%" height="27">
+                    <p dir="RTL" align="center">ثانیه دو رقمی</p>
+                </td>
+                <td valign="bottom" nowrap="nowrap" width="35%" height="27">
+                    <p dir="RTL" align="center">01</p>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom" nowrap="nowrap" width="28%" height="27">
+                    <p dir="RTL" align="center"><span dir="LTR">ffff</span></p>
+                </td>
+                <td valign="top" width="35%" height="27">
+                    <p dir="RTL" align="center">میلی ثانیه چهار رقمی</p>
+                </td>
+                <td valign="bottom" nowrap="nowrap" width="35%" height="27">
+                    <p dir="RTL" align="center">5254</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p dir="RTL">&nbsp;</p>

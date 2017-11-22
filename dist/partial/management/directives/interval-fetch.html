@@ -5,6 +5,7 @@
         <label style="font-weight:initial">
             <input type="checkbox" ng-model="model.enable" /> دریافت دوره‌ای اطلاعات
         </label>
+        <small><a href="{{app.urlPrefix}}sadaf/help/#/content/8"> {{'help' | translate}}</a></small>
     </div>
 
     <div class="fields" ng-show="model.enable">
@@ -36,23 +37,35 @@
     </div>
 
     <div class="fields" ng-show="model.enable">
-
         <div class="four wide field">
+            <label style="font-weight:initial">
+                <input type="checkbox" ng-model="model.hasId" /> دارای فیلد شناسه
+            </label>
+        </div> 
+
+        <div class="four wide field" ng-show="model.hasId">
             <label>فیلد شناسه</label>
             <small ng-hide="fields">برای انتخاب ابتدا داده‌های تستی را دریافت کنید</small>
-            <!--<select ng-show="fields" ng-model="model.fieldId" ng-options="i for i in fields"></select>-->
-            <sm-dropdown class="selection search multiple" model="model.fieldId" items="fields"></sm-dropdown>
+            <sm-dropdown  ng-show="fields" class="selection search multiple" model="model.fieldId" items="fields"></sm-dropdown>
         </div>
 
+    </div>
+    <div class="fields" ng-show="model.enable">
         <div class="four wide field">
+            <label style="font-weight:initial">
+                <input type="checkbox" ng-model="model.hasTrash" /> دارای فیلد حذف
+            </label>
+        </div>
+
+
+        <div class="four wide field" ng-show="model.hasTrash">
             <label>فیلد حذف</label>
             <small ng-hide="fields">برای انتخاب ابتدا داده‌های تستی را دریافت کنید</small>
             <select ng-show="fields" ng-model="model.fieldTrash" ng-options="i for i in fields"></select>
         </div>
     </div>
-
     <small class="" ng-show="model.enable">
-         دو متغیر برای استفاده در منبع داده تولید می‌شود که به صورت خودکار براساس تنظیمات شما و زمان اجرای دریافت، مقداردهی خواهند شد.
+        دو متغیر برای استفاده در منبع داده تولید می‌شود که به صورت خودکار براساس تنظیمات شما و زمان اجرای دریافت، مقداردهی خواهند شد.
         <span class="ui mini label">
             متغیر شروع <span class="ltr inline">@{from}</span>
         </span>
