@@ -83,6 +83,24 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.headerNowrap" /> {{ 'چند خطی نشدن سرستون‌ها' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                        <label>{{ 'show chart legend' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <text-editor prop="ngModel.table.info.headerFont" ng-init="ngModel.table.info.headerFont = ngModel.table.info.headerFont || {bold:true, fontSize:'13px', fontName: 'IRANSans'}"></text-editor>
+                </div>
+
+
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
                                 <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.bordered" /> {{ 'نمایش خط‌های حاشیه‌ای' | translate }}
                             </label>
                         </div>
