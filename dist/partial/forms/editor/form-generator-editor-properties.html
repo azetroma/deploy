@@ -1,5 +1,11 @@
 ﻿<!-- تنظیمات مربوط به کنترل‌ها -->
 <div ng-show="c.control.active.name" class="ui tiny form">
+    <div class="fields">
+        <div class="field"><label>نام فیلد در جدول</label></div>
+        <span class="field" ng-show="c.control.active.name"> {{c.control.active.name}}</span>
+
+    </div>
+
 
     <div class="field">
         <input ng-model="c.control.active.label" placeholder="برچسب">
@@ -45,10 +51,25 @@
         <sadaf-checkbox ng-model="c.control.active.hidden">مخفی کردن</sadaf-checkbox>
     </div>
 
+
+
     <div class="field" ng-show="c.controlProperty(c.control.active).showUniqueProp">
         <sadaf-checkbox ng-model="c.control.active.validations.enforceUnique">
             {{'یکتا بودن' | translate}}
         </sadaf-checkbox>
+    </div>
+
+
+    <div class="fields" ng-show="c.control.active.type == 2" style="margin-bottom: 0;">
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.validations.autoIncrement">
+                {{'افزایش خودکار' | translate}}
+            </sadaf-checkbox>
+        </div>
+
+        <div class="field" ng-show="c.control.active.validations.autoIncrement">
+            <input ng-model="c.control.active.validations.autoIncrementSeed" placeholder="مقدار شروع">
+        </div>
     </div>
 
     <div class="field" ng-show="c.controlProperty(c.control.active).default">
@@ -110,12 +131,6 @@
         <div ng-if="c.control.active.dropdown.useRemoteData">
             <select-datasource-columns ng-model="c.control.active.dropdown"></select-datasource-columns>
         </div>
-        <!--<div class="field">
-            <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
-                استفاده از فیلتر
-            </sadaf-checkbox>
-            <filter-property ng-show="c.control.active.useFilter"ng-model="c.control.active.filters" controls="c.activeSibling"></filter-property>
-        </div>-->
 
     </div>
 
@@ -127,7 +142,7 @@
                                  , {key:'%', value:'%'}
                                  , {key:',.1%', value:'#,#.0%'}
                                  , {key:',.2%', value:'#,#.00%'}
-                                 , {key:',.0f', value:'#,#'} 
+                                 , {key:',.0f', value:'#,#'}
                                  , {key:',.1f', value:'#,#:0'}
                                  , {key:',.2f', value:'#,#:00'}
                                  , {key:'', value:'عادی'},]"
@@ -140,15 +155,14 @@
     <div ng-show="c.control.active.type == 12" class="field">
 
         <div class="field">
-            <form-lookup-property ng-model="c.control.active.formLookup" ></form-lookup-property>
+            <form-lookup-property ng-model="c.control.active.formLookup"></form-lookup-property>
         </div>
-        
+
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
                 استفاده از فیلتر
             </sadaf-checkbox>
-            <!--<pre>{{c.control.active.filters | json}}</pre>--> 
-            <filter-property ng-show="c.control.active.useFilter" ng-model="c.control.active.filters"source-fields="c.formLookupSourceFields"  controls="c.activeSibling" ></filter-property>
+            <filter-property ng-show="c.control.active.useFilter" name="c.control.active.name" ng-model="c.control.active.filters" source-fields="c.formLookupSourceFields" controls="c.activeSibling"></filter-property>
         </div>
 
     </div>

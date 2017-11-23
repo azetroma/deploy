@@ -92,8 +92,8 @@
                 </div>
 
                 <div class="item">
-                    <span ng-show="!c.control.active.name">{{c.pages.activePage.name}}</span>
-                    <span ng-show="c.control.active.name">{{c.control.active.name}}</span>
+                    <!--<span ng-show="!c.control.active.name">{{c.pages.activePage.name}}</span>
+                    <span ng-show="c.control.active.name">{{c.control.active.name}}</span>-->
                 </div>
 
             </div>
@@ -105,14 +105,15 @@
             <div class="ui left tiny secondary pointing menu">
                 <div class="item pointer" ng-repeat="p in c.pages.data track by $index" ng-click="c.pages.setActive(p)" ng-class="{active: p.active}">
                     {{p.name | persian}}
-                    &nbsp;
-                    <i class="icon remove gray pointer" ng-click="c.pages.remove($index)" style="margin:0"></i>
+                    &nbsp; {{c.pages.length}}
+                    <i class="icon remove gray pointer" ng-hide="c.pages.data.length == 1" ng-click="c.pages.remove($index)" style="margin:0"></i>
                 </div>
 
-                <div class="item pointer" ng-click="c.pages.add()" ng-class="{active: p.active}">
+                <div class="item pointer" ng-click="c.pages.add()" ng-class="{active: p.active}" style="opacity:0.4;">
                     صفحه جدید
                     <i class="add icon gray pointer"></i>
                 </div>
+
 
             </div>
             <md-content flex class="ui form editor " ng-class="c.pages.activePage.size" style="padding:16px 16px;">

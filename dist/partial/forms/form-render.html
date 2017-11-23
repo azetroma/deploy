@@ -23,9 +23,9 @@
                 <button class="ui button green" ng-show="c.activePage == c.data.pages.length-1 && c.editPermission" ng-disabled="c.isValid()" ng-click="c.submit()" ng-class="{loading: c.loading}">
                     {{c.rowId ? 'ویرایش' : 'ذخیره'}} 
                 </button>
-                <button class="ui button blue" ng-show="c.activePage != c.data.pages.length-1" ng-click="c.activePage = c.activePage+1">ادامه</button>
+                <button class="ui button blue"  ng-show="c.data.pages.length && c.activePage != c.data.pages.length-1" ng-click="c.activePage = c.activePage+1">ادامه</button>
                 <button class="ui button blue" ng-show="c.activePage != 0" ng-click="c.activePage = c.activePage-1">قبلی</button>
-                <button class="ui button black" ng-show="c.rowId" ng-click="c.cancel()">لغو</button>
+                <button class="ui button black"  ng-show="c.rowId || c.option.showCancel" ng-click="c.cancel()">لغو</button>
 
                 </div>
 

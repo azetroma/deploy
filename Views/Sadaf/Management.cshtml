@@ -70,6 +70,10 @@
 
         <script src="~/dist/js/lib-all.js"></script>
         <script src="~/dist/js/lib-admin-extra.js"></script>
+
+    @*<script src="~/dist/lib/sortable-n.js"></script>
+    <script src="~/dist/lib/sortable-ng.min.js"></script>*@
+
     @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
 
         <script src="~/src/js/collapse.js?v=@v"></script>
