@@ -1,4 +1,4 @@
-﻿<div class="ui form">
+﻿<div class="ui form" style="margin:20px 0;">
     <!--<div class="ui mini header">دریافت دوره‌ای اطلاعات  </div>-->
 
     <div class="field">
@@ -43,13 +43,14 @@
             </label>
         </div> 
 
-        <div class="four wide field" ng-show="model.hasId">
+        <div class="eight wide field" ng-show="model.hasId">
             <label>فیلد شناسه</label>
             <small ng-hide="fields">برای انتخاب ابتدا داده‌های تستی را دریافت کنید</small>
             <sm-dropdown  ng-show="fields" class="selection search multiple" model="model.fieldId" items="fields"></sm-dropdown>
         </div>
 
     </div>
+
     <div class="fields" ng-show="model.enable">
         <div class="four wide field">
             <label style="font-weight:initial">
@@ -58,12 +59,13 @@
         </div>
 
 
-        <div class="four wide field" ng-show="model.hasTrash">
+        <div class="eight wide field" ng-show="model.hasTrash">
             <label>فیلد حذف</label>
             <small ng-hide="fields">برای انتخاب ابتدا داده‌های تستی را دریافت کنید</small>
             <select ng-show="fields" ng-model="model.fieldTrash" ng-options="i for i in fields"></select>
         </div>
     </div>
+
     <small class="" ng-show="model.enable">
         دو متغیر برای استفاده در منبع داده تولید می‌شود که به صورت خودکار براساس تنظیمات شما و زمان اجرای دریافت، مقداردهی خواهند شد.
         <span class="ui mini label">
@@ -75,13 +77,36 @@
     </small>
 
 
-    <!--Requests-->
+    <!--Requests--> 
     <div class="ui ui dimmable dimmed" ng-show="model.enable">
+
+        <sm-modal class="edit-form-modal" visible="showModal" settings="formInfo.modalSettings">
+            <div class="content ui form">
+            <p>برای وارد کردن یک افراز از داده‌ها به صورت دستی از این فرم استفاده کنید. دقت کنید که مقادیر وارد شده به عنوان شروع و پایان اشتراکی با 
+            دیگر افرازها نداشته باشد زیرا باعث می‌شود برخی از داده‌ها تکرار شوند. </p>
+                <div class="fields">
+                <div class="six wide field">
+                    <label><span class="ltr inline">@{from}</span></label>
+                    <input type="text" ng-model="addModel.addFrom" placeholder="شروع" />
+                </div> 
+                <div class="six wide field">
+                    <label><span class="ltr inline">@{to}</span></label>
+                    <input type="text" ng-model="addModel.addTo" placeholder="پایان" />
+                </div>
+                </div>
+
+            </div>
+            <div class="actions">
+                <div class="ui button" ng-click="addNew()"ng-class="{loading: addNewProgress}">اضافه کردن</div>
+            </div>
+        </sm-modal>
+
 
         <div class="ui inverted dimmer" ng-class="{active : loadRequests}">
             <div class="ui text loader">در حال بارگذاری</div>
         </div>
-        <div style="margin-top:20px;">
+
+        <div style="margin-top:20px;" ng-show="datasourceId > 0">
 
             <collapse>
                 <collapse-header>
@@ -92,11 +117,11 @@
                         <tr>
                             <th style="border:none;">ردیف</th>
                             <th style="border:none;">تاریخ</th>
-                            <th style="border:none;">متغیر اول</th>
-                            <th style="border:none;">متغیر دوم</th>
+                            <th style="border:none;"><span class="ltr inline">@{from}</span></th>
+                            <th style="border:none;"><span class="ltr inline">@{to}</span></th>
                             <th style="border:none;">تعداد رکورد </th>
                             <th style="border:none;">زمان اجرا</th>
-                            <th style="width:40px; border:none;"></th>
+                            <th style="width:80px; border:none;"></th>
                         </tr>
 
                         <tr ng-repeat="row in requests">
@@ -108,13 +133,15 @@
                             <td>{{persian(row.duration, true)}}</td>
 
                             <td>
-                                <div ng-hide="row.refreshProgress" class="" title="دریافت دوباره اطلاعات" ng-click="refresh(row)"><i class="icon refresh pointer gray"></i></div>
+                                <span ng-hide="row.refreshProgress" class="" title="حذف" ng-click="delete(row)"><i class="icon trash pointer gray"></i></span>
+                                <span ng-hide="row.refreshProgress" class="" title="دریافت دوباره اطلاعات" ng-click="refresh(row)"><i class="icon refresh pointer gray"></i></span>
                                 <div ng-show="row.refreshProgress" class="ui inline active mini loader"></div>
                             </td>
                         </tr>
                     </table>
 
                     <div class="ui mini gray button right floated" ng-hide="noMore" ng-click="more()">دریافت اطلاعات بیشتر...</div>
+                    <div class="ui mini green button right floated"  ng-click="addModal()">اضافه کردن</div>
                     <div class="ui mini red button right floated" ng-class="{loading: deleteAllProgress}" ng-click="deleteAll()">حذف همه</div>
                 </collapse-body>
             </collapse>
