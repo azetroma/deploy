@@ -81,6 +81,7 @@
     <div class="ui ui dimmable dimmed" ng-show="model.enable">
 
         <sm-modal class="edit-form-modal" visible="showModal" settings="formInfo.modalSettings">
+            <div class="header">اضافه کردن افزار به صورت دستی</div>
             <div class="content ui form">
             <p>برای وارد کردن یک افراز از داده‌ها به صورت دستی از این فرم استفاده کنید. دقت کنید که مقادیر وارد شده به عنوان شروع و پایان اشتراکی با 
             دیگر افرازها نداشته باشد زیرا باعث می‌شود برخی از داده‌ها تکرار شوند. </p>
@@ -97,7 +98,8 @@
 
             </div>
             <div class="actions">
-                <div class="ui button" ng-click="addNew()"ng-class="{loading: addNewProgress}">اضافه کردن</div>
+                <div class="ui green button" ng-click="addNew()" ng-class="{loading: addNewProgress}">اضافه کردن</div>
+                <div class="ui black button deny" >لغو</div>
             </div>
         </sm-modal>
 

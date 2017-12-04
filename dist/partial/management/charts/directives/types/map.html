@@ -75,41 +75,7 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'مکان نمایش راهنما' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <style>
-                            .position-circles {
-                                width: 33px;
-                                height: 33px;
-                                position: relative;
-                                font-size: 11px;
-                            }
-
-                                .position-circles .icon.active {
-                                    color: #424242;
-                                }
-
-                                .position-circles .icon {
-                                    position: absolute;
-                                    padding: 0;
-                                    margin: 0;
-                                    line-height: 11px;
-                                    color: darkgray;
-                                    cursor: pointer;
-                                    width: 11px;
-                                    height: 11px;
-                                }
-                        </style>
-                        <div class="position-circles">
-                            <i ng-click="ngModel.map.info.legendPosition='top left';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='top left'}" class="icon circle" style="top:0;left:0"></i>
-                            <i ng-click="ngModel.map.info.legendPosition='top right';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='top right'}" class="icon circle" style="top:0;right:0"></i>
-                            <i ng-click="ngModel.map.info.legendPosition='top center';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='top center'}" class="icon circle" style="top:0;left:11px"></i>
-                            <i ng-click="ngModel.map.info.legendPosition='bottom left';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='bottom left'}" class="icon circle" style="bottom:0;left:0"></i>
-                            <i ng-click="ngModel.map.info.legendPosition='bottom right';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='bottom right'}" class="icon circle" style="bottom:0;right:0"></i>
-                            <i ng-click="ngModel.map.info.legendPosition='bottom center';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='bottom center'}" class="icon circle" style="bottom:0;left:11px"></i>
-                            <i ng-click="ngModel.map.info.legendPosition='center right';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='center right'}" class="icon circle" style="top:11px;right:0"></i>
-                            <i ng-click="ngModel.map.info.legendPosition='center left';refreshChart('refresh')" ng-class="{active: ngModel.map.info.legendPosition=='center left'}" class="icon circle" style="top:11px;left:0"></i>
-
-                        </div>
-
+                     <legend-position ng-model="ngModel.map.info.legendPosition" change="refreshChart('refresh')"></legend-position>
                     </div>
                 </div>
 
