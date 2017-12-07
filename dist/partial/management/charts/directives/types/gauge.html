@@ -41,12 +41,25 @@
                     </div>
                 </div>
 
-                <style>
-                    .menu-icon {
-                        padding: 10px !important;
-                    }
-                </style>
-                 
+                <div ng-show="ngModel.gauge.info.style == 'number'">
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label>{{ 'آیکن' | translate }}</label>
+                        <span class="form-divider" flex></span>
+                        <div class="ui button mini compact icon" ng-click="ngModel.gauge.info.icons.push({name: 'icon warning'})" ng-init="ngModel.gauge.info.icons = ngModel.gauge.info.icons || [{name:'icon warning'}]"><i class="icon add"></i></div>
+                    </div>
+                    <md-menu ng-repeat="icon in ngModel.gauge.info.icons track by $index" >
+                       <div>
+                         <span class="ui mini compact  icon button" ng-click="$mdMenu.open($event)"><i class="{{icon.name}}" ></i></span>
+                           <i class="icon remove gray" ng-click="ngModel.gauge.info.icons.splice($index, 1);refreshChart('refresh')"></i>
+                       </div>
+                        <md-menu-content>
+                            <div style="max-width:500px; overflow:auto;">
+                                <i ng-repeat="ic in icons track by $index" ng-click="$mdMenu.hide;icon.name = ic; refreshChart('refresh')" class="pointer menu-icon {{ic}}"></i>
+                            </div>
+                        </md-menu-content>
+                    </md-menu>
+
+                </div>                 
 
                 <div class="form-row" layout="row" layout-align="start center" ng-hide="ngModel.gauge.info.style == 'number'">
                     <label class="col-sm-4">{{ 'size' | translate }}</label>
@@ -117,52 +130,8 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label>{{ 'فونت' | translate }}</label>
                     <span class="form-divider" flex></span>
-                    <text-editor prop="ngModel.gauge.info.font"></text-editor>
+                    <text-editor prop="ngModel.gauge.info.font" on-change="refreshChart('refresh')"></text-editor>
                 </div>
-
-                <!--<div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'قالب نوشته‌' | translate }}</label>
-                    <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.formatString">
-                            <option value="A">{{ 'عادی' | translate }}</option>
-                            <option value="%">{{ 'درصد' | translate }}</option>
-                            <option value=",.0f">#,#</option>
-                            <option value=",.1f">#,#.0</option>
-                            <option value=",.2f" selected="selected">#,#.00</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'اندازه نوشته' | translate }}</label>
-                    <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.fontSize" class="selectpicker-x form-control">
-                            <option value="1em">{{ 'خیلی کوچک' | translate }}</option>
-                            <option value="2em">{{ 'کوچک' | translate }}</option>
-                            <option value="3em" selected="selected">{{ 'متوسط' | translate }}</option>
-                            <option value="4em">{{ 'بزرگ' | translate }}</option>
-                            <option value="5em">{{ 'خیلی بزرگ' | translate }}</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'حالت نوشته' | translate }}</label>
-                    <span class="form-divider" flex></span>
-                    <switch-button ng-model="ngModel.gauge.info.textBold" ng-click="refreshChart('refresh') ">
-                        <span><strong>B</strong></span>
-                    </switch-button>
-                    <switch-button ng-model="ngModel.gauge.info.textItalic" ng-click="refreshChart('refresh')">
-                        <span style="font-style:italic">I</span>
-                    </switch-button>
-                </div>
-
-
-                <div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'رنگ نوشته' | translate }}</label>
-                    <span class="form-divider" flex></span>
-                    <div md-color-picker ng-model="ngModel.gauge.info.color" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
-                </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'رنگ محدوده‌ها' | translate }}</label>

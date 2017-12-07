@@ -130,7 +130,7 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'انتخاب داده‌ها' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class=" selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.selectable">
+                        <select class="selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.selectable">
                             <option value="none">{{ 'عدم انتخاب' | translate }}</option>
                             <option value="one">{{ 'یک مقدار' | translate }}</option>
                             <option value="multi">{{ 'چند مقدار' | translate }}</option>
@@ -218,6 +218,14 @@
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
+                    <label>{{ 'فونت' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <text-editor prop="ngModel.table.series[ngModel.selectedSeries].font" on-change="refreshChart('refresh'); changeAllSeries('formatString')"></text-editor>
+                </div>
+
+
+
+                <!--<div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'قالب نوشته‌' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select class="selectpicker-x form-control" ng-change="refreshChart('refresh'); changeAllSeries('formatString')" ng-model="ngModel.table.series[ngModel.selectedSeries].formatString">
@@ -254,20 +262,6 @@
                     </switch-button>
 
 
-                    <!--<div class="col-sm-8">
-                        <div class="btn-group btn-group-justified">
-                            <label class="btn btn-default"
-                                   ng-class="ngModel.table.series[ngModel.selectedSeries].textBold?'active':''"
-                                   ng-click="ngModel.table.series[ngModel.selectedSeries].textBold=!ngModel.table.series[ngModel.selectedSeries].textBold;refreshChart('refresh'); changeAllSeries('textBold')">
-                                <span class="glyphicon glyphicon-bold"></span>
-                            </label>
-                            <label class="btn btn-default"
-                                   ng-class="ngModel.table.series[ngModel.selectedSeries].textItalic?'active':''"
-                                   ng-click="ngModel.table.series[ngModel.selectedSeries].textItalic=!ngModel.table.series[ngModel.selectedSeries].textItalic;refreshChart('refresh'); changeAllSeries('textItalic')">
-                                <span class="glyphicon glyphicon-italic"></span>
-                            </label>
-                        </div>
-                    </div>-->
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
@@ -275,15 +269,7 @@
                     <span class="form-divider" flex></span>
                     
                     <div md-color-picker ng-model="ngModel.table.series[ngModel.selectedSeries].color" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
-                    
-                    <!--<div class="col-sm-8">
-                        <div class="color-palet form-control"
-                             ng-style="{'background-color':ngModel.table.series[ngModel.selectedSeries].color}"
-                             ng-click="changeColor($event, ngModel.table.series[ngModel.selectedSeries], 'color'); ">
-                        </div>
-
-                    </div>-->
-                </div>
+                </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'ردیف نتیجه' | translate }}</label>

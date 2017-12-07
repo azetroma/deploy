@@ -56,7 +56,7 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label>{{ 'فونت محور افقی' | translate }}</label>
                     <span class="form-divider" flex></span>
-                    <text-editor prop="ngModel.bar.info.font"></text-editor>
+                    <text-editor prop="ngModel.bar.info.font" on-change="refreshChart('refresh')"></text-editor>
                 </div>
 
 
@@ -70,7 +70,7 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label>{{ 'فونت برچسب راهنما' | translate }}</label>
                     <span class="form-divider" flex></span>
-                    <text-editor prop="ngModel.bar.info.legendFont"></text-editor>
+                    <text-editor prop="ngModel.bar.info.legendFont"on-change="refreshChart('refresh')"></text-editor>
                 </div>
 
 
@@ -271,7 +271,7 @@
                     <div class="form-row" layout="row" layout-align="start center">
                         <label>{{ 'فونت' | translate }}</label>
                         <span class="form-divider" flex></span>
-                        <text-editor prop="ngModel.bar.series[ngModel.selectedSeries].font"></text-editor>
+                        <text-editor prop="ngModel.bar.series[ngModel.selectedSeries].font" on-change="refreshChart('refresh')"></text-editor>
                     </div>
 
                 </div>
