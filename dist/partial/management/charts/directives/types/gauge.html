@@ -31,27 +31,130 @@
                 </div>
 
 
-                <div class="form-row" layout="row" layout-align="start center">
+                <style>
+                    .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="12px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="12px"]::before {
+                        content: '12';
+                    }
+
+                    .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="14px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="14px"]::before {
+                        content: '14';
+                    }
+
+                    .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="16px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="16px"]::before {
+                        content: '16';
+                    }
+
+                    .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="18px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="18px"]::before {
+                        content: '18';
+                    }
+                    .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="20px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="20px"]::before {
+                        content: '20';
+                    }
+
+                    .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="24px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="24px"]::before {
+                        content: '24';
+                    }
+
+                    .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="28px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="28px"]::before {
+                        content: '28';
+                    }
+
+                    .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="32px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="32px"]::before {
+                        content: '32';
+                    }
+
+                    .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="38px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="38px"]::before {
+                        content: '38';
+                    }
+
+                    .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="48px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="48px"]::before {
+                        content: '48';
+                    }
+
+                    .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="72px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="72px"]::before {
+                        content: '72';
+                    }
+
+
+                    strong {
+                        font-weight: 800;
+                    }
+
+                    .ql-container {
+                        font-family: IRANSans;
+                    }
+                        .ql-container p {
+                        line-height:1.65;
+                        }
+
+                </style>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.gauge.info.style == 'number'">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.showLabels" checked="checked" /> {{ 'نمایش برچسب داده‌ها' | translate }}
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.haveCustomText" checked="checked" /> {{ 'فرمت دلخواه' | translate }}
                             </label>
                         </div>
                     </div>
+                </div>
+
+                <div ng-show="ngModel.gauge.info.haveCustomText && ngModel.gauge.info.style == 'number'">
+
+                    <ng-quill-editor on-content-changed="refreshChart('refresh')" style="direction:ltr;" ng-model="ngModel.gauge.info.customText"
+                                     ng-init="ngModel.gauge.info.customText = ngModel.gauge.info.customText || '<p><strong style=&quot;font-size: 32px;&quot;>@value @icon</strong></p><p> میزان فروش @label </p>'"></ng-quill-editor>
+
+                    <div class="ltr gray" style="font-size: 0.5em">
+
+                        <div><strong> @label</strong>: نمایش برچسب</div>
+                        <div><strong> @value</strong>: نمایش مقدار</div>
+                        <div><strong> @icon</strong>: نمایش آیکن</div>
+                    </div>
+                </div>
+
+                <!--<div class="ltr">{{ngModel.gauge.info.customText}}</div>-->
+
+                <div ng-hide="ngModel.gauge.info.haveCustomText">
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox">
+                                <label class="">
+                                    <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.showLabels" checked="checked" /> {{ 'نمایش برچسب داده‌ها' | translate }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.gauge.info.style == 'number'">
+                        <label>{{ 'متن دلخواه بالا' | translate }}</label>
+                        <span class="form-divider" flex></span>
+                        <div>
+                            <input type="text" class="form-control" placeholder="{{ 'متن دلخواه بالا' | translate }}" ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" ng-model="ngModel.gauge.info.valueStaticTop" />
+                        </div>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center"ng-show="ngModel.gauge.info.style == 'number'">
+                        <label>{{ 'متن دلخواه پایین' | translate }}</label>
+                        <span class="form-divider" flex></span>
+                        <div>
+                            <input type="text" class="form-control" placeholder="{{ 'متن دلخواه پایین' | translate }}" ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" ng-model="ngModel.gauge.info.valueStaticDown" />
+                        </div>
+                    </div>
+
                 </div>
 
                 <div ng-show="ngModel.gauge.info.style == 'number'">
                     <div class="form-row" layout="row" layout-align="start center">
                         <label>{{ 'آیکن' | translate }}</label>
                         <span class="form-divider" flex></span>
-                        <div class="ui button mini compact icon" ng-click="ngModel.gauge.info.icons.push({name: 'icon warning'})" ng-init="ngModel.gauge.info.icons = ngModel.gauge.info.icons || [{name:'icon warning'}]"><i class="icon add"></i></div>
+                        <div class="ui button mini compact icon" ng-click="ngModel.gauge.info.icons.push({name: 'icon warning'});refreshChart('refresh')" ng-init="ngModel.gauge.info.icons = ngModel.gauge.info.icons || [{name:'icon warning'}]"><i class="icon add"></i></div>
                     </div>
-                    <md-menu ng-repeat="icon in ngModel.gauge.info.icons track by $index" >
-                       <div>
-                         <span class="ui mini compact  icon button" ng-click="$mdMenu.open($event)"><i class="{{icon.name}}" ></i></span>
-                           <i class="icon remove gray" ng-click="ngModel.gauge.info.icons.splice($index, 1);refreshChart('refresh')"></i>
-                       </div>
+                    <md-menu ng-repeat="icon in ngModel.gauge.info.icons track by $index">
+                        <div>
+                            <span class="ui mini compact  icon button" ng-click="$mdMenu.open($event)"><i class="{{icon.name}}"></i></span>
+                            <i class="icon remove gray" ng-click="ngModel.gauge.info.icons.splice($index, 1);refreshChart('refresh')"></i>
+                        </div>
                         <md-menu-content>
                             <div style="max-width:500px; overflow:auto;">
                                 <i ng-repeat="ic in icons track by $index" ng-click="$mdMenu.hide;icon.name = ic; refreshChart('refresh')" class="pointer menu-icon {{ic}}"></i>
@@ -59,7 +162,15 @@
                         </md-menu-content>
                     </md-menu>
 
-                </div>                 
+                </div>
+                <!--formatString-->
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label>{{ 'فونت' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <text-editor prop="ngModel.gauge.info.font" on-change="refreshChart('refresh')"></text-editor>
+                </div>
+
 
                 <div class="form-row" layout="row" layout-align="start center" ng-hide="ngModel.gauge.info.style == 'number'">
                     <label class="col-sm-4">{{ 'size' | translate }}</label>
@@ -126,12 +237,7 @@
                 </div>
 
 
-                <!--formatString-->
-                <div class="form-row" layout="row" layout-align="start center">
-                    <label>{{ 'فونت' | translate }}</label>
-                    <span class="form-divider" flex></span>
-                    <text-editor prop="ngModel.gauge.info.font" on-change="refreshChart('refresh')"></text-editor>
-                </div>
+
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'رنگ محدوده‌ها' | translate }}</label>
