@@ -162,7 +162,10 @@
             <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
                 استفاده از فیلتر
             </sadaf-checkbox>
-            <filter-property ng-show="c.control.active.useFilter" name="c.control.active.name" ng-model="c.control.active.filters" source-fields="c.formLookupSourceFields" controls="c.activeSibling"></filter-property>
+            <filter-property ng-show="c.control.active.useFilter" name="c.control.active.name" 
+                             ng-model="c.control.active.filters" 
+                             source-fields="c.formLookupSourceFields" 
+                             controls="c.activeSibling"></filter-property>
         </div>
 
     </div>
@@ -310,6 +313,16 @@
         <div class="field" ng-show="c.control.active.accessControlEdit">
             <select-roles ng-model="c.control.active.accessControlEditRoles"></select-roles>
             <div><small>تنها کاربرانی اجازه <b>ویرایش</b> این کنترل را دارند که یکی از نقش‌های بالا را داشته باشند</small></div>
+        </div>
+
+    </div>
+
+    <!-- تنظیمات مربوط به فیلد مربوط به ارجاع به فرم -->
+    <div ng-show="c.control.active.type == 17" class="field">
+
+        <div class="field">
+            activeSibling {{c.activeSibling}}
+            <table-lookup ng-model="c.control.active.tableLookup" controls="c.activeSibling"></table-lookup>
         </div>
 
     </div>

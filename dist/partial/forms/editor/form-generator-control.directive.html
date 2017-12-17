@@ -165,9 +165,7 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{error: model.error, required:model.validations.isRequire}" ng-if="model.type == 8">
         <label ng-hide="settings.showLabel===false">{{model.label}} </label>
-
         <sadaf-time ng-model="model" ng-change="onChange()"></sadaf-time>
-
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
