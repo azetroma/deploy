@@ -1,6 +1,6 @@
 <menu-container open-menu-name="openMenuName">
 
-    <menu-item>
+    <menu-item> 
         <menu-header  data-toggle="" >{{ 'تنظیمات کلی' | translate }}</menu-header>
         <menu-body  class="prop-section  form-horizontal" >
             <div>
@@ -16,7 +16,7 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div> 
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -38,20 +38,34 @@
                     </div> 
                 </div>
 
-                <div class="form-row" layout="row" layout-align="start center">
+               <!-- <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'قالب اعداد محور عمودی' | translate }}</label>
-                    <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="selectpicker-x-x form-control" ng-model="ngModel.bar.info.formatString" ng-change="refreshChart('refresh')">
+                    <span class="form-divider" flex></span>
+                    <div>
+                        <select ng-model="ngModel.bar.info.formatString" ng-options="color.name as  color.value for color in [
+                                    {name:',.1%', value:'#,#.0%'}, 
+                                    {name:',.2%', value:'#,#.00%'}, 
+                                    {name:',.0f', value:'#,#'}, 
+                                    {name:',.1f', value:'#,#.0'}, 
+                                    {name:',.2f', value:'#,#.00'}, 
+                                    ]" ng-change="refreshChart('refresh')">
                             <option value="A">{{ 'عادی' | translate }}</option>
                             <option value="%">{{ 'درصد' | translate }}</option>
                             <option value=",.1%">#,#.0%</option>
                             <option value=",.2%">#,#.00%</option>
                             <option value=",.0f">#,#</option>
                             <option value=",.1f">#,#.0</option>
-                            <option value=",.2f" selected="selected">#,#.00</option>
+                            <option value=",.2f">#,#.00</option>
                         </select>
                     </div>
+                </div>-->
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label>{{ 'فونت محور عمودی' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <text-editor prop="ngModel.bar.info.fontYaxe" on-change="refreshChart('refresh')"></text-editor>
                 </div>
+
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label>{{ 'فونت محور افقی' | translate }}</label>
@@ -102,10 +116,15 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'پشته‌کردن میله‌ها' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class=" selectpicker-x-x form-control" ng-model="ngModel.bar.info.stackedBar" ng-change="refreshChart('refreshWithData')">
-                            <option value="1" selected="selected">{{ 'بدون پشته' | translate }}</option>
+                        <select ng-model="ngModel.bar.info.stackedBar" ng-change="refreshChart('refreshWithData')"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'1', value: 'بدون پشته'  }, 
+                                    {name:'2', value:'پشته کردن تمام میله‌ها' }, 
+                                    {name:'3', value:'پشته کردن درصدی تمام میله‌ها'}, 
+                                    ]">
+                            <!--<option value="1" selected="selected">{{ 'بدون پشته' | translate }}</option>
                             <option value="2">{{ 'پشته کردن تمام میله‌ها' | translate }}</option>
-                            <option value="3">{{ 'پشته کردن درصدی تمام میله‌ها' | translate }}</option>
+                            <option value="3">{{ 'پشته کردن درصدی تمام میله‌ها' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -113,10 +132,15 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'پشته‌کردن خط‌ها' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class=" selectpicker-x-x form-control" ng-model="ngModel.bar.info.stackedLine" ng-change="refreshChart('refreshWithData')">
-                            <option value="1" selected="selected">{{ 'بدون پشته' | translate }}</option>
+                        <select ng-model="ngModel.bar.info.stackedLine" ng-change="refreshChart('refreshWithData')"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'1', value: 'بدون پشته'  }, 
+                                    {name:'2', value:'پشته کردن تمام خط‌ها' }, 
+                                    {name:'3', value:'پشته کردن درصدی تمام خط‌ها'}, 
+                                    ]">
+                            <!--<option value="1" selected="selected">{{ 'بدون پشته' | translate }}</option>
                             <option value="2">{{ 'پشته کردن تمام خط‌ها' | translate }}</option>
-                            <option value="3">{{ 'پشته کردن درصدی تمام خط‌ها' | translate }}</option>
+                            <option value="3">{{ 'پشته کردن درصدی تمام خط‌ها' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -124,10 +148,15 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'حالت نمایش راهنما' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class=" selectpicker-x-x form-control" ng-model="ngModel.bar.info.tooltip" ng-change="refreshChart('refresh')">
-                            <option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
+                        <select ng-model="ngModel.bar.info.tooltip" ng-change="refreshChart('refresh')"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'1', value: 'مجزا'  }, 
+                                    {name:'2', value:'تمام شاخص‌های پیدا' }, 
+                                    {name:'3', value:'تمام شاخص‌ها'}, 
+                                    ]">
+                            <!--<option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
                             <option value="2">{{ 'تمام شاخص‌های پیدا' | translate }}</option>
-                            <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>
+                            <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -192,9 +221,10 @@
             <div>
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'شاخص' | translate }}</label>
-                    <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select id="series-selector" class="selectpicker-x-x form-control" ng-model="ngModel.selectedSeries"
-                                ng-options="i as i for i in ['{All}'].concat(ngModel.series) track by i"></select>
+                    <span class="form-divider" flex></span>
+                    <div>
+                        <select id="series-selector"ng-model="ngModel.selectedSeries" ng-init="ngModel.selectedSeries=ngModel.selectedSeries||'{All}'"
+                                ng-options="i as i for i in ['{All}'].concat(ngModel.series)"></select>
 
                     </div>
                 </div> 
@@ -245,10 +275,15 @@
                 <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.bar.series[ngModel.selectedSeries].cumulative">
                     <label class="col-sm-4">{{ 'aggregation_formula' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="selectpicker-x-x form-control" ng-model="ngModel.bar.series[ngModel.selectedSeries].cumulative_formula" ng-change="refreshChart('refresh')">
-                            <option value="sum">SUM</option>
+                        <select class="selectpicker-x-x form-control" ng-model="ngModel.bar.series[ngModel.selectedSeries].cumulative_formula" ng-change="refreshChart('refresh')"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'sum', value: 'SUM'  }, 
+                                    {name:'avg', value: 'AVG' }, 
+                                    {name:'var', value: 'VAR'}, 
+                                    ]">
+                            <!--<option value="sum">SUM</option>
                             <option value="avg">AVG</option>
-                            <option value="var">VAR</option>
+                            <option value="var">VAR</option>-->
                         </select>
                     </div>
 

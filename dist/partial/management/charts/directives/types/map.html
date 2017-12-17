@@ -51,9 +51,13 @@
                 <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.map.info.showChart">
                     <label class="col-sm-4">{{ 'نوع نمودار' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select ng-model="ngModel.map.info.chartType" ng-change="refreshChart('refresh')">
-                            <option value="pie" selected="selected">{{ 'pie' | translate }}</option>
-                            <option value="bar">{{ 'bar' | translate }}</option>
+                        <select ng-model="ngModel.map.info.chartType" ng-change="refreshChart('refresh')"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'pie', value: 'pie'  }, 
+                                    {name:'bar', value:'bar' }, 
+                                    ]">
+                            <!--<option value="pie" selected="selected">{{ 'pie' | translate }}</option>
+                            <option value="bar">{{ 'bar' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -97,10 +101,15 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'حالت نمایش راهنما' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="selectpicker-x form-control" ng-model="ngModel.map.info.tooltip" ng-change="refreshChart('refresh')">
-                            <option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
+                        <select class="selectpicker-x form-control" ng-model="ngModel.map.info.tooltip" ng-change="refreshChart('refresh')"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'1', value: 'مجزا'  }, 
+                                    {name:'2', value:'تمام شاخص‌های پیدا' }, 
+                                    {name:'3', value:'تمام شاخص‌ها' }, 
+                                    ]">
+                            <!--<option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
                             <option value="2">{{ 'تمام شاخص‌های پیدا' | translate }}</option>
-                            <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>
+                            <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -162,8 +171,9 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'شاخص' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select id="series-selector" class="selectpicker-x form-control" ng-model="ngModel.selectedSeries">
-                            <option ng-repeat="i in ngModel.series" value="{{i}}">{{i}} </option>
+                        <select id="series-selector" class="selectpicker-x form-control" ng-model="ngModel.selectedSeries"
+                                ng-options="i as i for i in ngModel.series">
+                            <!--<option ng-repeat="i in ngModel.series" value="{{i}}">{{i}} </option>-->
                         </select>
                     </div>
                 </div>
@@ -196,17 +206,10 @@
                     </div>
                 </div>
 
-
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'قالب نمایش' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.map.series[ngModel.selectedSeries].formatString">
-                            <option value="A">{{ 'عادی' | translate }}</option>
-                            <option value="%">{{ 'درصد' | translate }}</option>
-                            <option value=",.0f">#,#</option>
-                            <option value=",.1f">#,#.0</option>
-                            <option value=",.2f" selected="selected">#,#.00</option>
-                        </select>
+                        <sd-format ng-change="refreshChart('refresh')" ng-model="ngModel.map.series[ngModel.selectedSeries].formatString"></sd-format>
                     </div>
                 </div>
 

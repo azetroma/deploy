@@ -1,8 +1,21 @@
 <div class="form-row" layout="row" layout-align="start center"  >
     <label class="col-sm-4">{{ 'تازه شدن داده‌ها' | translate }}</label>
     <span class="form-divider" flex></span><div class="col-sm-8">
-        <select class="selectpicker-x form-control" ng-model="model.refreshPeriod" ng-change="refreshChart('refreshWithData')">
-            <option value="0" selected="selected" >{{ 'غیر فعال' | translate }}</option>
+        <select class="selectpicker-x form-control" ng-model="model.refreshPeriod" ng-change="refreshChart('refreshWithData')"
+                ng-options="color.name as  color.value for color in [
+                                    {name:'0', value: 'غیر فعال'  }, 
+                                    {name:'30', value: 'سی ثانیه'  }, 
+                                    {name:'60', value:'یک دقیقه' }, 
+                                    {name:'120', value:'دو دقیقه' }, 
+                                    {name:'300', value:'پنج دقیقه' }, 
+                                    {name:'600', value:'ده دقیقه' }, 
+                                    {name:'1800', value:'سی دقیقه' }, 
+                                    {name:'3600', value:'یک ساعت' }, 
+                                    {name:'7200', value:'دو ساعت' }, 
+                                    {name:'86400', value:'یک روز' }, 
+                                    ]"
+                >
+            <!--<option value="0" selected="selected" >{{ 'غیر فعال' | translate }}</option>
             <option value="30" >{{ 'سی ثانیه' | translate }}</option>
             <option value="60" >{{ 'یک دقیقه' | translate }}</option>
             <option value="120" >{{ 'دو دقیقه' | translate }}</option>
@@ -11,7 +24,7 @@
             <option value="1800" >{{ 'سی دقیقه' | translate }}</option>
             <option value="3600" >{{ 'یک ساعت' | translate }}</option>
             <option value="7200" >{{ 'دو ساعت' | translate }}</option>
-            <option value="86400" >{{ 'یک روز' | translate }}</option>
+            <option value="86400" >{{ 'یک روز' | translate }}</option>-->
         </select>
     </div>
 </div>

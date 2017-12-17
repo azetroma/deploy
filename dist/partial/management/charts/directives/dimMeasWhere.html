@@ -8,8 +8,9 @@
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'بُعد' | translate }}</label>
                 <span class="form-divider" flex></span><div class="col-sm-8">
-                    <select class="selectpicker-x form-control" data-size="4" ng-model="model.selectedDimension" ng-init="model.selectedDimension = '0'">
-                        <option ng-repeat="i in dimensions track by $index" value="{{$index + ''}}">{{i.Name}}</option>
+                    <select class="selectpicker-x form-control" data-size="4" ng-model="model.selectedDimension" ng-init="model.selectedDimension = '0'"
+                            ng-options="id as i.Name  for (id, i) in dimensions">
+                        <!--<option ng-repeat="i in dimensions track by $index" value="{{$index + ''}}">{{i.Name}}</option>-->
                     </select>
                 </div>
             </div>
@@ -43,9 +44,13 @@
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'نوع مرتب کردن' | translate }}</label>
                 <span class="form-divider" flex></span><div class="col-sm-8">
-                    <select class="selectpicker-x form-control" ng-change="refreshChart()" ng-model="dimensions[model.selectedDimension].sortOrder">
-                        <option value="ASC">{{ 'صعودی' | translate }}</option>
-                        <option value="DESC">{{ 'نزولی' | translate }}</option>
+                    <select class="selectpicker-x form-control" ng-change="refreshChart()" ng-model="dimensions[model.selectedDimension].sortOrder"
+                            ng-options="color.name as  color.value for color in [
+                                    {name:'ASC', value: 'صعودی'  }, 
+                                    {name:'DESC', value:'نزولی' }, 
+                                    ]">
+                        <!--<option value="ASC">{{ 'صعودی' | translate }}</option>
+                        <option value="DESC">{{ 'نزولی' | translate }}</option>-->
                     </select>
                 </div>
             </div>
@@ -53,10 +58,11 @@
                 <label class="col-sm-4">{{ 'مرتب کردن بر اساس' | translate }}</label>
                 <span class="form-divider" flex></span><div class="col-sm-8">
                     <select class="selectpicker-x form-control" ng-model="dimensions[model.selectedDimension].sortKey" data-size="4"
-                            ng-change="refreshChart()">
-                        <option value="NONE">{{ 'خودش' | translate }}</option>
+                            ng-change="refreshChart()"
+                             ng-options="color.UniqueName as  color.Name for color in dimentionWithNone">
+                        <!--<option value="NONE">{{ 'خودش' | translate }}</option>
                         <option value="CUSTOM_FORMULA">سفارشی ...</option>
-                        <option ng-repeat="i in datasource.CubeInfo.Dimensions[0].Hierarchies" value="{{i.UniqueName}}">{{i.Name}}</option>
+                        <option ng-repeat="i in datasource.CubeInfo.Dimensions[0].Hierarchies" value="{{i.UniqueName}}">{{i.Name}}</option>-->
                     </select>
                 </div>
             </div>
@@ -75,15 +81,16 @@
 </menu-item>
 
 <menu-item class="panel " ng-show="measures && measures.length>0" name="measure">
-    <menu-header class=" pointer" data-toggle="" href="#measures-info">{{ 'شاخص‌ها (ستون‌های عددی)' | translate }}</menu-header>
+    <menu-header class="pointer" data-toggle="" href="#measures-info">{{ 'شاخص‌ها (ستون‌های عددی)' | translate }}</menu-header>
     <menu-body id="measures-info" class="prop-section form-horizontal ">
         <div class="prop-section-contain" id="measures-section" data-object="measures.default">
 
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'ستون' | translate }}</label>
                 <span class="form-divider" flex></span><div class="col-sm-8">
-                    <select id="measures-selector" class="selectpicker-x form-control" data-size="4" ng-model="model.selectedMeasure" ng-init="model.selectedMeasure = '0'">
-                        <option ng-repeat="i in measures track by $index" value="{{$index + ''}}">{{i.Name}}</option>
+                    <select id="measures-selector" class="selectpicker-x form-control" data-size="4" ng-model="model.selectedMeasure" ng-init="model.selectedMeasure = '0'"
+                            ng-options="id as  color.Name for (id, color) in measures">
+                        <!--<option ng-repeat="i in measures track by $index" value="{{$index + ''}}">{{i.Name}}</option>-->
                     </select>
                 </div>
             </div>
@@ -93,7 +100,7 @@
                 <span class="form-divider" flex></span><div class="col-sm-8">
                     <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}"
                            ng-model-options="{ updateOn: 'blur' }"
-                           ng-change=" changeDimensionName('{{measures[model.selectedMeasure].Name}}',measures[model.selectedMeasure])"
+                           ng-change="changeDimensionName('{{measures[model.selectedMeasure].Name}}',measures[model.selectedMeasure])"
                            ng-model="measures[model.selectedMeasure].Name" />
                 </div>
             </div>
@@ -104,18 +111,29 @@
                 <span class="form-divider" flex></span><div class="col-sm-8">
                     <select class="selectpicker-x form-control" data-size="4"
                             ng-model="measures[model.selectedMeasure].aggregation"
-                            ng-change="changeMeasureAggregation(model.selectedMeasure);refreshChart()">
-                        <option value="NONE">NONE</option>
+                            ng-change="changeMeasureAggregation(model.selectedMeasure);refreshChart()"
+                            ng-options="color.name as  color.value for color in [
+                                    {name:'NONE', value: 'NONE'  }, 
+                                    {name:'SUM', value: 'SUM'  }, 
+                                    {name:'AVG', value: 'AVG'  }, 
+                                    {name:'COUNT', value: 'COUNT'  }, 
+                                    {name:'MIN', value: 'MIN'  }, 
+                                    {name:'MAX', value: 'MAX'  }, 
+                                    {name:'VAR', value: 'VAR'  }, 
+                                    {name:'VARP', value: 'VARP'  }, 
+                                    {name:'STDEV', value: 'STDEV'  }, 
+                                    {name:'STDEVP', value: 'STDEVP'  }, 
+                                    ]">
+                        <!--<option value="NONE">NONE</option>
                         <option value="SUM">SUM</option>
                         <option value="AVG">AVG</option>
                         <option value="COUNT">COUNT</option>
-                        <!--<option value="DISTINCT COUNT">DISTINCT COUNT</option>-->
                         <option value="MIN">MIN</option>
                         <option value="MAX">MAX</option>
                         <option value="VAR">VAR</option>
                         <option value="VARP">VARP</option>
                         <option value="STDEV">STDEV</option>
-                        <option value="STDEVP">STDEVP</option>
+                        <option value="STDEVP">STDEVP</option>-->
                     </select>
                 </div>
             </div>
@@ -170,15 +188,16 @@
     </menu-body>
 </menu-item>
 
-<menu-item class="panel " ng-show="where && where.length>0" name="where">
-    <menu-header class=" pointer" data-toggle="" href="#where-info">{{ 'ستون‌های شرط' | translate }}</menu-header>
+<menu-item class="panel" ng-show="where && where.length>0" name="where">
+    <menu-header class="pointer" data-toggle="" href="#where-info">{{ 'ستون‌های شرط' | translate }}</menu-header>
     <menu-body id="where-info" class="prop-section form-horizontal  ">
         <div class="prop-section-contain" id="dimension-section">
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'ستون' | translate }}</label>
                 <span class="form-divider" flex></span><div class="col-sm-8">
-                    <select class="selectpicker-x form-control" data-size="4" ng-model="model.selectedwhere" ng-init="model.selectedwhere = '0'">
-                        <option ng-repeat="i in where track by $index" value="{{$index + '' }}">{{i.Name}}</option>
+                    <select  data-size="4" ng-model="model.selectedwhere" ng-init="model.selectedwhere = '0'"
+                            ng-options="id as i.Name for (id,i) in where">
+                        <!--<option ng-repeat="i in where track by $index" value="{{$index + '' }}">{{i.Name}}</option>-->
                     </select>
                 </div>
             </div>
@@ -188,7 +207,7 @@
                 <span class="form-divider" flex></span><div class="col-sm-8">
                     <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}"
                            ng-model-options="{ updateOn: 'blur' }"
-                           ng-change=" changeDimensionName('{{where[model.selectedwhere].Name}}',where[model.selectedwhere])"
+                           ng-change="changeDimensionName('{{where[model.selectedwhere].Name}}',where[model.selectedwhere])"
                            ng-model="where[model.selectedwhere].Name" />
                 </div>
             </div>

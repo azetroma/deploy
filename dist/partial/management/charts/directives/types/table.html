@@ -12,10 +12,14 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع تجمیع' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class=" selectpicker-x form-control" ng-change="chagePivotFormula(ngModel.table.info.aggregation); refreshChart('refreshWithData')"
-                                ng-model="ngModel.table.info.aggregation">
-                            <option value="-1" selected="selected">{{ 'بدون تجمیع' | translate }}</option>
-                            <option value="1">{{ 'حالت تجمیعی' | translate }}</option>
+                        <select ng-change="chagePivotFormula(ngModel.table.info.aggregation); refreshChart('refreshWithData')"
+                                ng-model="ngModel.table.info.aggregation"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'-1', value: 'بدون تجمیع'  }, 
+                                    {name:'1', value: 'حالت تجمیعی'  }, 
+                                    ]">
+                            <!--<option value="-1" selected="selected">{{ 'بدون تجمیع' | translate }}</option>
+                            <option value="1">{{ 'حالت تجمیعی' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -130,11 +134,17 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'انتخاب داده‌ها' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.selectable">
-                            <option value="none">{{ 'عدم انتخاب' | translate }}</option>
+                        <select class="selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.selectable"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'none', value: 'عدم انتخاب'  }, 
+                                    {name:'one', value: 'یک مقدار'  }, 
+                                    {name:'multi', value: 'چند مقدار'  }, 
+                                    {name:'edit', value: 'ویرایش سطر (مخصوص فرم‌ها)'  }, 
+                                    ]">
+                            <!--<option value="none">{{ 'عدم انتخاب' | translate }}</option>
                             <option value="one">{{ 'یک مقدار' | translate }}</option>
                             <option value="multi">{{ 'چند مقدار' | translate }}</option>
-                            <option value="edit">{{ 'ویرایش سطر (مخصوص فرم‌ها)' | translate }}</option>
+                            <option value="edit">{{ 'ویرایش سطر (مخصوص فرم‌ها)' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -274,13 +284,22 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'ردیف نتیجه' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="selectpicker-x form-control" ng-change="refreshChart('refreshWithData'); changeAllSeries('rowResult')" ng-model="ngModel.table.series[ngModel.selectedSeries].rowResult">
-                            <option value="0" selected="selected">{{ 'خالی' | translate }}</option>
+                        <select class="selectpicker-x form-control" ng-change="refreshChart('refreshWithData'); changeAllSeries('rowResult')" 
+                                ng-model="ngModel.table.series[ngModel.selectedSeries].rowResult"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'0', value: 'خالی'  }, 
+                                    {name:'1', value: 'جمع'  }, 
+                                    {name:'2', value: 'میانگین'  }, 
+                                    {name:'3', value: 'تعداد'  }, 
+                                    {name:'4', value: 'کمترین'  }, 
+                                    {name:'5', value: 'بیشترین'  }, 
+                                    ]">
+                            <!--<option value="0" selected="selected">{{ 'خالی' | translate }}</option>
                             <option value="1">{{ 'جمع' | translate }}</option>
                             <option value="2">{{ 'میانگین' | translate }}</option>
                             <option value="3">{{ 'تعداد' | translate }}</option>
                             <option value="4">{{ 'کمترین' | translate }}</option>
-                            <option value="5">{{ 'بیشترین' | translate }}</option>
+                            <option value="5">{{ 'بیشترین' | translate }}</option>-->
                         </select>
                     </div>
                 </div>

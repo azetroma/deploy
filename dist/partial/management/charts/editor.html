@@ -197,16 +197,19 @@
                         <div ng-show="type != 'combo-kpi' && isOlap" layout="column" layout-fill>
                             <div layout="row" layout-align="start center" class="datasource-item-header">
                                 <span>{{ 'data' | translate }}</span>
-                                <span flex></span>
+                                <span flex></span> 
 
                                 <span style="font-size: 0.8em; margin:4px" ng-init="toggle = false" ng-click="toggle = !toggle; collapseAll(toggle)" layout="row" layout-align="start center">
                                     <span class="material-icons icon-animate pointer">{{ toggle ? 'add' : 'remove' }}</span>
                                     <span class="pointer small">{{ toggle ? 'باز کردن همه' : 'بستن همه' }}</span>
                                 </span>
-
-                                <select ng-model="selectedOlapCube" ng-change="changeCube(selectedOlapCube)">
-                                    <option ng-repeat="i in olapCubes" value="{{$index}}">{{i.Caption}}</option>
+                                <select ng-model="selectedOlapCube" ng-change="changeCube(selectedOlapCube)" ng-options="id as color.Caption  for (id, color) in olapCubes">
+                                    <!--<option ng-repeat="i in olapCubes" value="{{$index}}">{{i.Caption}}</option>-->
                                 </select>
+                                <div style="padding:0 5px;width:30px;">
+                                    <span class="pointer gray" title="پاک کردن حافظه پنهان - تنها برای کیوب انتخاب شده" ng-hide="refreshCube" ng-click="refreshingCube()"><i class="icon refresh" ></i></span>
+                                    <span class="ui inline loader mini" ng-class="{active : refreshCube}"></span>
+                                </div>
                             </div>
 
                             <div class="ui mini form" style="margin:7px;">
@@ -237,6 +240,7 @@
                                     }
                                 </style>
 
+                                <!--Measures-->
                                 <div>
                                     <div layout="row" layout-align="start center" class="datasource-item">
                                         <span class="material-icons icon-animate pointer right-arrow" ng-click="measureExp = !measureExp" ng-class="{'rotate-90' : !measureExp}">keyboard_arrow_right</span>
@@ -256,6 +260,7 @@
                                     </div>
                                 </div>
 
+                                <!--KPIs-->
                                 <div>
                                     <div layout="row" layout-align="start center" class="datasource-item">
                                         <span class="material-icons icon-animate pointer right-arrow" ng-click="kpiExp = !kpiExp" ng-class="{'rotate-90' : !kpiExp}">keyboard_arrow_right</span>
@@ -291,6 +296,24 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+                                <collapse style="margin-right:8px">
+                                    <collapse-header>
+                                        Named Sets
+                                    </collapse-header>
+
+                                    <collapse-body> 
+                                        <div class="pointer datasource-field"
+                                             ng-repeat="i in olapCubes[+selectedOlapCube].NamedSets" type="namedset"
+                                             ng-hide="existIn(i, measures.concat(dimensions).concat(where)) || hide(i, 'check-name', i)"
+                                             index="{{$index}}" dimindex="{{$index}}" hi="i" draggable-items>
+                                            <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                            {{i.Name}}
+                                        </div>
+                                    </collapse-body>
+                                </collapse>
+
 
                                 <div class="md-padding" ng-hide="olapCubes[+selectedOlapCube].Dimensions" layout-align="center center" layout="column">
                                     <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
@@ -693,8 +716,14 @@
                                 <div class="form-row" layout="row" layout-align="start center">
                                     <label class="col-sm-4">{{ 'نوع فیلتر' | translate }}</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" ng-model="parent.members.numericFilter.type" ng-init="parent.members.numericFilter.type='condition'">
-                                            <option value="condition">{{ 'شرط' | translate}}</option>
+                                        <select class="form-control" 
+                                                ng-model="parent.members.numericFilter.type" 
+                                                ng-init="parent.members.numericFilter.type='condition'"
+                                                ng-options="color.name as  color.value for color in [
+                                                                {name:'condition', value: 'شرط'  }, 
+                                                            ]"
+                                                >
+                                            <!--<option value="condition">{{ 'شرط' | translate}}</option>-->
                                         </select>
                                     </div>
                                 </div>
@@ -702,32 +731,54 @@
                                 <div ng-show="parent.members.numericFilter.type=='condition'" class="form-row" style="font-size:12px">
 
                                     <span>{{parent.members.name}}</span>
-                                    <select class="condition-style" ng-model="parent.members.numericFilter.conditions[0].condition">
-                                        <option value="none"> </option>
+                                    <select class="condition-style" ng-model="parent.members.numericFilter.conditions[0].condition"
+                                            ng-options="color.name as  color.value for color in [
+                                                                {name:'none', value: ''  }, 
+                                                                {name:'eq', value: 'برابر'  }, 
+                                                                {name:'neq', value: 'نابرابر'  }, 
+                                                                {name:'gre', value: 'بزرگتر'  }, 
+                                                                {name:'greeq', value: 'بزرگتر مساوی'  }, 
+                                                                {name:'les', value: 'کوچکتر'  }, 
+                                                                {name:'leseq', value: 'کوچکتر مساوی'  }, 
+                                                            ]">
+                                        <!--<option value="none"> </option>
                                         <option value="eq">{{ 'برابر' | translate}}</option>
                                         <option value="neq">{{ 'نابرابر' | translate}}</option>
                                         <option value="gre">{{ 'بزرگتر' | translate}}</option>
                                         <option value="greeq">{{ 'بزرگتر مساوی' | translate}}</option>
                                         <option value="les">{{ 'کوچکتر' | translate}}</option>
-                                        <option value="leseq">{{ 'کوچکتر مساوی' | translate}}</option>
+                                        <option value="leseq">{{ 'کوچکتر مساوی' | translate}}</option>-->
                                     </select>
 
                                     <input class="condition-style" style="width:50px;" type="text" ng-model="parent.members.numericFilter.conditions[0].parameter" />
 
 
-                                    <select class="condition-style" ng-model="parent.members.numericFilter.conditionType">
-                                        <option value="and">{{ 'و' | translate}}</option>
-                                        <option value="or">{{ 'یا' | translate}}</option>
+                                    <select class="condition-style" ng-model="parent.members.numericFilter.conditionType"
+                                            ng-options="color.name as  color.value for color in [
+                                                                {name:'and', value: 'و'  }, 
+                                                                {name:'or', value: 'یا'  }, 
+                                                            ]">
+                                        <!--<option value="and">{{ 'و' | translate}}</option>
+                                        <option value="or">{{ 'یا' | translate}}</option>-->
                                     </select>
 
-                                    <select class="condition-style" ng-model="parent.members.numericFilter.conditions[1].condition">
-                                        <option value="none"> </option>
+                                    <select class="condition-style" ng-model="parent.members.numericFilter.conditions[1].condition"
+                                            ng-options="color.name as  color.value for color in [
+                                                                {name:'none', value: ''  }, 
+                                                                {name:'eq', value: 'برابر'  }, 
+                                                                {name:'neq', value: 'نابرابر'  }, 
+                                                                {name:'gre', value: 'بزرگتر'  }, 
+                                                                {name:'greeq', value: 'بزرگتر مساوی'  }, 
+                                                                {name:'les', value: 'کوچکتر'  }, 
+                                                                {name:'leseq', value: 'کوچکتر مساوی'  }, 
+                                                            ]">
+                                        <!--<option value="none"> </option>
                                         <option value="eq">{{ 'برابر' | translate}}</option>
                                         <option value="neq">{{ 'نابرابر' | translate}}</option>
                                         <option value="gre">{{ 'بزرگتر' | translate}}</option>
                                         <option value="greeq">{{ 'بزرگتر مساوی' | translate}}</option>
                                         <option value="les">{{ 'کوچکتر' | translate}}</option>
-                                        <option value="leseq">{{ 'کوچکتر مساوی' | translate}}</option>
+                                        <option value="leseq">{{ 'کوچکتر مساوی' | translate}}</option>-->
                                     </select>
                                     <input class="condition-style" style="width:50px;" type="text" ng-model="parent.members.numericFilter.conditions[1].parameter" />
 
@@ -737,9 +788,13 @@
                                     <div class="form-row" layout="row" layout-align="start center">
                                         <label class="col-sm-4">{{ 'انتخاب تابع' | translate }}</label>
                                         <div class="col-sm-8">
-                                            <select class="form-control" ng-model="parent.members.numericFilter.func">
-                                                <option value="aboveAvg">{{ 'بالای میانگین' | translate}}</option>
-                                                <option value="belowAvg">{{ 'زیر میانگین' | translate}}</option>
+                                            <select class="form-control" ng-model="parent.members.numericFilter.func"
+                                                    ng-options="color.name as  color.value for color in [
+                                                                {name:'aboveAvg', value: 'بالای میانگین'  }, 
+                                                                {name:'belowAvg', value: 'زیر میانگین'  }, 
+                                                            ]">
+                                                <!--<option value="aboveAvg">{{ 'بالای میانگین' | translate}}</option>
+                                                <option value="belowAvg">{{ 'زیر میانگین' | translate}}</option>-->
                                             </select>
                                         </div>
                                     </div>

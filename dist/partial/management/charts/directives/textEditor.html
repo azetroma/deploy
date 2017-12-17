@@ -23,8 +23,31 @@
         <div class="form-row" layout="row" layout-align="start center">
             <label>{{ 'اندازه نوشته' | translate }}</label>
             <span class="form-divider" flex></span>
-            <select class="btn btn-xs" ng-model="model.fontSize" ng-change="onChange()">
-                <option value="8px">8</option>
+            <select class="btn btn-xs" ng-model="model.fontSize" ng-change="onChange()" ng-options="color.name as  color.value for color in [
+                                    {name:'8px', value: '8'  }, 
+                                    {name:'9px', value: '9'  }, 
+                                    {name:'10px', value: '10'  }, 
+                                    {name:'11px', value: '11'  }, 
+                                    {name:'12px', value: '12'  }, 
+                                    {name:'13px', value: '13'  }, 
+                                    {name:'14px', value: '14'  }, 
+                                    {name:'15px', value: '15'  }, 
+                                    {name:'16px', value: '16'  }, 
+                                    {name:'18px', value: '18'  }, 
+                                    {name:'22px', value: '22'  }, 
+                                    {name:'24px', value: '24'  }, 
+                                    {name:'28px', value: '28'  }, 
+                                    {name:'30px', value: '30'  }, 
+                                    {name:'32px', value: '32'  }, 
+                                    {name:'34px', value: '34'  }, 
+                                    {name:'36px', value: '36'  }, 
+                                    {name:'40px', value: '40'  }, 
+                                    {name:'46px', value: '46'  }, 
+                                    {name:'52px', value: '52'  }, 
+                                    {name:'72px', value: '72'  }, 
+                                    {name:'95px', value: '95'  }, 
+                                    ]">
+                <!--<option value="8px">8</option>
                 <option value="9px">9</option>
                 <option value="10px">10</option>
                 <option value="11px">11</option>
@@ -45,7 +68,7 @@
                 <option value="46px">46</option>
                 <option value="52px">52</option>
                 <option value="72px">72</option>
-                <option value="95px">95</option>
+                <option value="95px">95</option>-->
             </select>
         
                 </div>
@@ -53,13 +76,20 @@
         <div class="form-row" layout="row" layout-align="start center">
             <label>{{ 'فونت' | translate }}</label>
             <span class="form-divider" flex></span>
-            <select class="btn btn-xs" ng-model="model.fontName" ng-change="onChange()">
-                <option value="IRANSans">IRANSans</option>
+            <select class="btn btn-xs" ng-model="model.fontName" ng-change="onChange()"  ng-options="color.name as  color.value for color in [
+                                    {name:'IRANSans', value: 'IRANSans'  }, 
+                                    {name:'Droid', value:'Droid' }, 
+                                    {name:'Tahoma', value:'Tahoma'}, 
+                                    {name:'Arial', value:'Arial'}, 
+                                    {name:'adobe', value:'Adobe'}, 
+                                    {name:'sadaf_yekan', value:'Yekan'}, 
+                                    ]">
+                <!--<option value="IRANSans">IRANSans</option>
                 <option value="Droid">Droid</option>
                 <option value="Tahoma">Tahoma</option>
                 <option value="Arial">Arial</option>
                 <option value="adobe">Adobe</option>
-                <option value="sadaf_yekan">Yekan</option>
+                <option value="sadaf_yekan">Yekan</option>-->
 
             </select>
 
@@ -76,17 +106,8 @@
         <div class="form-row" layout="row" layout-align="start center">
             <label>{{ 'فرمت نمایش' | translate }}</label>
             <span class="form-divider" flex></span>
-            <select class="btn btn-xs" ng-change="onChange()" ng-model="model.formatString">
-                <option value="A">{{ 'عادی' | translate }}</option>
-                <option value="%">{{ 'درصد' | translate }}</option>
-                <option value=",.0f">#,#</option>
-                <option value=",.1f">#,#.0</option>
-                <option value=",.2f">#,#.00</option>
-                <option value=",.1%">#,#.0%</option>
-                <option value=",.2%">#,#.00%</option>
-                <option value=",.3s">#,#K</option>
-                <option value="custom">{{ 'سفارشی' | translate }}</option>
-            </select>
+            <sd-format ng-change="onChange()" ng-model="model.formatString"></sd-format>
+            <div>
 
             <input type="text" class="ltr"
                    placeholder="{{ 'قالب' | translate }}"
@@ -95,6 +116,7 @@
                    ng-change="onChange()"
                    ng-model-options="{ updateOn: 'blur' }"
                    ng-model="model.formatStringCustom" />
+            </div>
         </div>
 
         

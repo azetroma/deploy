@@ -12,9 +12,13 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.segmentType" class="selectpicker-x form-control">
-                            <option value="multiSegment">{{ 'چند بخشی' | translate }}</option>
-                            <option value="singleSegment" selected="selected">{{ 'یک بخشی' | translate }}</option>
+                        <select ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.segmentType" class="selectpicker-x form-control"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'multiSegment', value: 'چند بخشی'  }, 
+                                    {name:'singleSegment', value:'یک بخشی' }, 
+                                    ]">
+                            <!--<option value="multiSegment">{{ 'چند بخشی' | translate }}</option>
+                            <option value="singleSegment" selected="selected">{{ 'یک بخشی' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -22,10 +26,15 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'شکل نمودار عقربه‌ای' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.style" class="selectpicker-x form-control">
-                            <option value="horizontal">{{ 'افقی' | translate }}</option>
+                        <select ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.style" class="selectpicker-x form-control"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'horizontal', value: 'افقی'  }, 
+                                    {name:'arc', value:'هلال' }, 
+                                    {name:'number', value:'عدد' }, 
+                                    ]">
+                            <!--<option value="horizontal">{{ 'افقی' | translate }}</option>
                             <option value="arc" selected="selected">{{ 'هلال' | translate }}</option>
-                            <option value="number" selected="selected">{{ 'number' | translate }}</option>
+                            <option value="number" selected="selected">{{ 'number' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -175,11 +184,17 @@
                 <div class="form-row" layout="row" layout-align="start center" ng-hide="ngModel.gauge.info.style == 'number'">
                     <label class="col-sm-4">{{ 'size' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.height">
-                            <option value="small">{{ 'کوچک' | translate }}</option>
+                        <select class="selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.height"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'small', value: 'کوچک'  }, 
+                                    {name:'medium', value:'متوسط' }, 
+                                    {name:'large', value:'بزرگ' }, 
+                                    {name:'veryLarge', value:'خیلی بزرگ' }, 
+                                    ]">
+                            <!--<option value="small">{{ 'کوچک' | translate }}</option>
                             <option value="medium" selected="selected">{{ 'متوسط' | translate }}</option>
                             <option value="large">{{ 'بزرگ' | translate }}</option>
-                            <option value="veryLarge">{{ 'خیلی بزرگ' | translate }}</option>
+                            <option value="veryLarge">{{ 'خیلی بزرگ' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -261,8 +276,8 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'شاخص' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="selectpicker-x form-control" ng-model="ngModel.selectedSeries">
-                            <option ng-repeat="i in ngModel.series" value="{{i}}">{{i}} </option>
+                        <select class="selectpicker-x form-control" ng-model="ngModel.selectedSeries" ng-options="i as i for i in ngModel.series">
+                            <!--<option ng-repeat="i in ngModel.series" value="{{i}}">{{i}} </option>-->
                         </select>
                     </div>
                 </div>

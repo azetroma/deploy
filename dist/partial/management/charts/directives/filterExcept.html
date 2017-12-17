@@ -5,7 +5,7 @@
         <div class="prop-section-contain">
 
             <div class="form-row" layout="row" layout-align="start center">
-                <div class=" col-sm-12">
+                <div class="col-sm-12">
                     <div class="checkbox">
                         <label class="">
                             <input type="checkbox" ng-model="filterException.disableFilter"> {{ 'عدم اعمال فیلتر' | translate }}
@@ -87,6 +87,7 @@
                     }
             </style>
             <div style="height:250px; overflow:auto; padding:8px 16px">
+
                 <div ng-show="parent.datasource">
                     <div class="datasource-blockx pull-left" ng-repeat="u in parent.datasource.CubeInfo.Dimensions">
                         <div class="title">

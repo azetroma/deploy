@@ -23,7 +23,7 @@
 
 
 
-                <div class="form-row" layout="row" layout-align="start center">
+                <!--<div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'قالب اعداد' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select class="selectpicker-x form-control" ng-model="ngModel.tree.info.formatString" ng-change="refreshChart('refresh')">
@@ -34,16 +34,27 @@
                             <option value=",.2f" selected="selected">#,#.00</option>
                         </select>
                     </div>
-                </div>
+                </div>-->
+                <!--<div class="form-row" layout="row" layout-align="start center">
+                    <label>{{ 'قالب اعداد' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <text-editor prop="ngModel.tree.info.font" on-change="refreshChart('refresh')"></text-editor>
+                </div>-->
+
 
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'انتخاب داده‌ها' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class=" selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.tree.info.selectable">
-                            <option value="none">{{ 'عدم انتخاب' | translate }}</option>
+                        <select ng-change="refreshChart('refresh')" ng-model="ngModel.tree.info.selectable"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'none', value: 'عدم انتخاب'  }, 
+                                    {name:'one', value: 'یک مقدار'  }, 
+                                    {name:'multi', value: 'چند مقدار'  }, 
+                                    ]">
+                            <!--<option value="none">{{ 'عدم انتخاب' | translate }}</option>
                             <option value="one">{{ 'یک مقدار' | translate }}</option>
-                            <option value="multi">{{ 'چند مقدار' | translate }}</option>
+                            <option value="multi">{{ 'چند مقدار' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -52,9 +63,13 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'حالت نمایش راهنما' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class=" selectpicker-x form-control" ng-model="ngModel.tree.info.tooltip" ng-change="refreshChart('refresh')">
-                            <option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
-                            <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>
+                        <select ng-model="ngModel.tree.info.tooltip" ng-change="refreshChart('refresh')"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'1', value: 'مجزا'  }, 
+                                    {name:'3', value: 'تمام شاخص‌ها'  }, 
+                                    ]">
+                            <!--<option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
+                            <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>-->
                         </select>
                     </div>
                 </div>

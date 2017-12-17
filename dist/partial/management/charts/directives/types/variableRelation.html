@@ -22,13 +22,21 @@
                     <label class="col-sm-4">{{ 'پیش فرض براساس' | translate }}</label>
                     <span class="form-divider" flex>
                     </span><div class="col-sm-8">
-                        <select ng-model="prop.userControl.info.variableDefaultFunction">
-                            <option value="GetDate">{{ 'زمان حال' | translate }}</option>
+                        <select ng-model="prop.userControl.info.variableDefaultFunction"
+                                ng-options="color.name as  color.value for color in [
+                                    {name:'GetDate', value: 'زمان حال'  }, 
+                                    {name:'MonthToDate', value: 'از ابتدای ماه تا کنون'  }, 
+                                    {name:'YearToDate', value: 'از ابتدای سال تا کنون'  }, 
+                                    {name:'DaysAgo', value: 'تعداد روز قبل'  }, 
+                                    {name:'MonthAgo', value: 'تعداد ماه قبل'  }, 
+                                    {name:'NONE', value: 'انتخاب از روی نمودار'  }, 
+                                    ]">
+                            <!--<option value="GetDate">{{ 'زمان حال' | translate }}</option>
                             <option value="MonthToDate">{{ 'از ابتدای ماه تا کنون' | translate }}</option>
                             <option value="YearToDate">{{ 'از ابتدای سال تا کنون' | translate }}</option>
                             <option value="DaysAgo">{{ 'تعداد روز قبل' | translate }}</option>
                             <option value="MonthAgo">{{ 'تعداد ماه قبل' | translate }}</option>
-                            <option value="NONE">{{'custom_value' | translate}}</option>
+                            <option value="NONE">{{'custom_value' | translate}}</option>-->
                         </select>
                     </div>
                 </div>

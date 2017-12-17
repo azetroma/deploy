@@ -29,10 +29,13 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع هشدار' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="form-control" ng-change="" ng-model="alert.type">
-                            <option value="sms">{{ 'پیام کوتاه' | translate }}</option>
+                        <select class="form-control" ng-change="" ng-model="alert.type"ng-options="color.name as  color.value for color in [
+                                    {name:'sms', value: 'پیام کوتاه'  }, 
+                                    {name:'email', value: 'پست الکترونیک'  }, 
+                                    ]">
+                            <!--<option value="sms">{{ 'پیام کوتاه' | translate }}</option>
                             <option value="email">{{ 'پست الکترونیک' | translate }}</option>
-                            <!--<option value="webservice">{{ 'اجرای وب سرویس' | translate }}</option>
+                            <option value="webservice">{{ 'اجرای وب سرویس' | translate }}</option>
                             <option value="command">{{ 'اجرای دستور' | translate }}</option>-->
                         </select>
                     </div>

@@ -8,7 +8,15 @@
 
                 <general-settings ng-model="ngModel.radar.info"></general-settings>
 
+
+
                 <div class="form-row" layout="row" layout-align="start center">
+                    <label>{{ 'قالب اعداد' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <text-editor prop="ngModel.radar.info.font" on-change="refreshChart('refresh')"></text-editor>
+                </div>
+
+                <!--<div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'قالب اعداد' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select class="selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.radar.info.formatString">
@@ -19,7 +27,7 @@
                             <option value=",.2f" selected="selected">#,#.00</option>
                         </select>
                     </div>
-                </div>
+                </div>-->
 
             </div>
 
