@@ -33,12 +33,12 @@
         min-height:initial;
     }
 </style>
-<div class="form-components" ng-sortable="c.compConf"layout="row" layout-fill layout-wrap layout-align="start start" style="overflow:auto">
+<div class="form-components" ng-sortable="c.compConf"layout="row" layout-fill layout-wrap layout-align="start start" style="overflow:auto; font-size:12px;">
     <div class="draggable-element"  ng-repeat="o in c.items track by $index" style="width:50%; display:inline-block;">
         <div class="fg-component cursor" style="margin:5px;">
             <div class="ui xlabel teal fluid" style="text-align:right;">
                 <i class="{{o.icon}} icon"></i>
-                {{o.key}}
+                {{o.key}} 
             </div>
         </div>
     </div>
