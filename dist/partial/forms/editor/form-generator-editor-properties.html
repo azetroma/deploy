@@ -135,11 +135,11 @@
     </div>
 
     <!-- تنظیمات مربوط به کنترل عددی -->
-    <div ng-show="c.control.active.type == 2 || c.control.active.type == 5 || c.control.active.type == 16" class="field">
+    <div ng-show="c.control.active.type == 2 || c.control.active.type == 5 || c.control.active.type == 16|| c.control.active.type == 17" class="field">
         <div class="inline fields">
             <label>فرمت نمایش</label>
             <sm-dropdown items="[{key:'سفارشی', value:'سفارشی'}
-                                 , {key:'%', value:'%'}
+                                 , {key:'.0%', value:'%'}
                                  , {key:',.1%', value:'#,#.0%'}
                                  , {key:',.2%', value:'#,#.00%'}
                                  , {key:',.0f', value:'#,#'}
@@ -149,6 +149,18 @@
                          class=""
                          model="c.control.active.format" label="item.value" value="item.key"></sm-dropdown>
         </div>
+
+
+        <div class="inline fields" ng-hide="c.control.active.type == 2">
+            <label class="wide four field">متن قبل</label>
+            <input ng-model="c.control.active.prefix" placeholder="متن قبل">
+        </div>
+
+        <div class="inline fields" ng-hide="c.control.active.type == 2">
+            <label class="wide four field">متن بعدی</label>
+            <input ng-model="c.control.active.postfix" placeholder="متن بعدی">
+        </div>
+
     </div>
 
     <!-- تنظیمات مربوط به ارجاع به فرم -->
@@ -164,7 +176,7 @@
             </sadaf-checkbox>
             <filter-property ng-show="c.control.active.useFilter" name="c.control.active.name" 
                              ng-model="c.control.active.filters" 
-                             source-fields="c.formLookupSourceFields" 
+                             source-fields="c.control.active.formLookupSourceFields" 
                              controls="c.activeSibling"></filter-property>
         </div>
 
@@ -321,7 +333,6 @@
     <div ng-show="c.control.active.type == 17" class="field">
 
         <div class="field">
-            activeSibling {{c.activeSibling}}
             <table-lookup ng-model="c.control.active.tableLookup" controls="c.activeSibling"></table-lookup>
         </div>
 
