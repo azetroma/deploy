@@ -22,7 +22,7 @@
         </small>
     </div>
 
-    <div class="inline fields " ng-hide="c.control.active.childOfMultiRow">
+    <div class="inline fields " ng-hide="c.control.active.childOfMultiRow || c.control.active.dontShowColumnSize">
         <label>تعداد ستون</label>
         <sm-dropdown class="scrolling" items="[
                              {k:'twelve',v:'12' },
@@ -47,7 +47,7 @@
         </sadaf-checkbox>
     </div>
 
-    <div class="field">
+    <div class="field" ng-hide="c.control.active.dontShowHide">
         <sadaf-checkbox ng-model="c.control.active.hidden">مخفی کردن</sadaf-checkbox>
     </div>
 
@@ -308,7 +308,7 @@
     </div>
 
     <!-- تنظیمات مربوط به کنترل دسترسی -->
-    <div ng-show="c.control.active.type != 13 " class="field">
+    <div ng-hide="c.control.active.dontShowAccessControl" class="field">
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.accessControlView" label="کنترل دسترسی نمایش">کنترل دسترسی نمایش</sadaf-checkbox>
         </div>

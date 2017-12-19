@@ -711,7 +711,31 @@
                     </md-tab>
                     <md-tab label="{{ 'مقادیر' | translate }}">
                         <md-content class="md-padding" flex>
-                            <div ng-show="parent.members.isNumeric" class="form-horizontal">
+
+                            <div class="ui form">
+                                <div class="inline fields">
+                                    <label>نوع شرط</label>
+                                    <div class="field">
+                                        <div class="ui radio">
+                                            <label><input type="radio" ng-model="parent.members.filter.type" value="number"> عددی</label>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="ui radio">
+                                            
+                                            <label><input type="radio" ng-model="parent.members.filter.type" value="value"> انتخاب مقدار</label>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="ui radio">
+                                            <label><input type="radio"  ng-model="parent.members.filter.type" value="function"> تابع</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--شرط عددی-->
+                            <div xng-show="parent.members.isNumeric" ng-show="parent.members.filter.type == 'number'" class="form-horizontal">
 
                                 <div class="form-row" layout="row" layout-align="start center">
                                     <label class="col-sm-4">{{ 'نوع فیلتر' | translate }}</label>
@@ -741,13 +765,6 @@
                                                                 {name:'les', value: 'کوچکتر'  }, 
                                                                 {name:'leseq', value: 'کوچکتر مساوی'  }, 
                                                             ]">
-                                        <!--<option value="none"> </option>
-                                        <option value="eq">{{ 'برابر' | translate}}</option>
-                                        <option value="neq">{{ 'نابرابر' | translate}}</option>
-                                        <option value="gre">{{ 'بزرگتر' | translate}}</option>
-                                        <option value="greeq">{{ 'بزرگتر مساوی' | translate}}</option>
-                                        <option value="les">{{ 'کوچکتر' | translate}}</option>
-                                        <option value="leseq">{{ 'کوچکتر مساوی' | translate}}</option>-->
                                     </select>
 
                                     <input class="condition-style" style="width:50px;" type="text" ng-model="parent.members.numericFilter.conditions[0].parameter" />
@@ -772,13 +789,6 @@
                                                                 {name:'les', value: 'کوچکتر'  }, 
                                                                 {name:'leseq', value: 'کوچکتر مساوی'  }, 
                                                             ]">
-                                        <!--<option value="none"> </option>
-                                        <option value="eq">{{ 'برابر' | translate}}</option>
-                                        <option value="neq">{{ 'نابرابر' | translate}}</option>
-                                        <option value="gre">{{ 'بزرگتر' | translate}}</option>
-                                        <option value="greeq">{{ 'بزرگتر مساوی' | translate}}</option>
-                                        <option value="les">{{ 'کوچکتر' | translate}}</option>
-                                        <option value="leseq">{{ 'کوچکتر مساوی' | translate}}</option>-->
                                     </select>
                                     <input class="condition-style" style="width:50px;" type="text" ng-model="parent.members.numericFilter.conditions[1].parameter" />
 
@@ -793,8 +803,6 @@
                                                                 {name:'aboveAvg', value: 'بالای میانگین'  }, 
                                                                 {name:'belowAvg', value: 'زیر میانگین'  }, 
                                                             ]">
-                                                <!--<option value="aboveAvg">{{ 'بالای میانگین' | translate}}</option>
-                                                <option value="belowAvg">{{ 'زیر میانگین' | translate}}</option>-->
                                             </select>
                                         </div>
                                     </div>
@@ -802,8 +810,9 @@
                                 </div>
 
                             </div>
-
-                            <div ng-show="!parent.members.isNumeric">
+                            
+                            <!--شرط غیر عددی-->
+                            <div xng-show="!parent.members.isNumeric" ng-show="parent.members.filter.type == 'value'">
 
                                 <div class="md-padding" layout="column" layout-align="center center" ng-hide="parent.members">
                                     <md-progress-circular md-mode='indeterminate'></md-progress-circular>
@@ -812,6 +821,23 @@
                                 <div ng-repeat="i in parent.members.list"><label><input type="checkbox" ng-model="i.Checked"> {{i.Name}}</label></div>
 
                             </div>
+
+                            <div ng-show="parent.members.filter.type == 'function'">
+                                <div class="form-row" layout="row" layout-align="start center">
+                                    <label class="col-sm-4">{{ 'نوع تابع' | translate }}</label>
+                                    <span class="form-divider" flex></span>
+                                    <div class="col-sm-8">
+                                        <select class="form-control"
+                                                ng-model="parent.members.filter.funcType"
+                                                ng-options="i.name as i.value for i in [
+                                                                        {name:'time', value: 'تاریخ'  },
+                                                                    ]"></select>
+                                    </div>
+                                </div>
+                                <sd-time-function ng-model="parent.members.filter.funcTime"></sd-time-function>
+                            </div>
+
+
                         </md-content>
                     </md-tab>
                 </md-tabs>
