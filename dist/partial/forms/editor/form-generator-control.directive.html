@@ -3,13 +3,13 @@
 
     <div class="control-actions" ng-show="edit">
         <span class="material-icons small small-size pointer gray" ng-click="remove()">delete</span>
-        <!--<span class="material-icons small small-size pointer gray drag-handle" sv-handle>drag_handle</span>-->
         <span class="material-icons small small-size pointer grays" ng-click="copy()">content_copy</span>
     </div>
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 0">
         <label ng-hide="settings.showLabel===false">{{model.label}} </label>
-        <input type="text" name="model.name" ng-model="model.value" placeholder="{{model.label}}">
+        <input ng-hide="model.readonly" type="text" name="model.name" ng-model="model.value" placeholder="{{model.label}}">
+        <div ng-show="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
@@ -17,7 +17,8 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 1">
         <label ng-hide="settings.showLabel===false">{{model.label}} </label>
-        <textarea ng-model="model.value"></textarea>
+        <textarea ng-hide="model.readonly" ng-model="model.value"></textarea>
+        <div ng-show="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
@@ -25,17 +26,22 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 2">
         <label ng-hide="settings.showLabel===false">{{model.label}}</label>
-        <input type="number" placeholder="{{model.label}}" ng-model="model.value">
+        <input type="number" placeholder="{{model.label}}" ng-hide="model.readonly" ng-model="model.value">
+        <div ng-show="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
     </div>
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 6">
-        <div ng-hide="settings.showLabel===false">&nbsp;</div>
-        <sadaf-checkbox ng-model="model.value" label="{{model.label}}">
+        <div ng-hide="settings.showLabel===false || model.readonly">&nbsp;</div>
+        <sadaf-checkbox ng-hide="model.readonly" ng-model="model.value" label="{{model.label}}">
             {{model.label}}
         </sadaf-checkbox>
+        <div ng-show="model.readonly">
+            <i class="icon" ng-class="{'square outline':!model.value, 'checkmark box':model.value}"></i>
+            <b ng-hide="settings.showLabel===false">{{model.label}}</b> 
+        </div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
@@ -50,23 +56,16 @@
 
     <div class="field {{model.name}} form-{{id}} index-{{model.rowIndex}} {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 4">
         <label ng-hide="settings.showLabel===false">{{model.label}} </label>
-        <!--<sm-dropdown ng-if="model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData"
-                     class="selection multiple search"
-                     model="model.value"
-                     settings="dropdownSettings"
-                     on-add="onAdd"
-                     xitems="model.items"
-                     on-remove="onRemove"
-                     on-init="initDropdown"
-                     label="item.label"
-                     value="item.value"
-                     default-text="model.value"></sm-dropdown>-->
-
-        <div ng-if="model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData">
-            <sadaf-dropdwon ng-model="model" form-id="{{id}}" class="multiple" edit="{{edit}}"></sadaf-dropdwon>
+        <div ng-if="model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData"ng-hide="model.readonly">
+            <sadaf-dropdwon  ng-model="model" form-id="{{id}}" class="multiple" edit="{{edit}}"></sadaf-dropdwon>
         </div>
 
-        <sm-dropdown ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData"
+        <div ng-show="model.readonly" ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData">
+            {{model.dropdown.listValue.join(', ')}}
+        </div>
+        
+        <sm-dropdown ng-hide="model.readonly"
+                     ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData"
                      class="selection multiple search fluid"
                      model="model.dropdown.listValue"
                      items="model.dropdown.items"
@@ -75,19 +74,19 @@
                      settings="simpleDropdownsettings"
                      default-text="model.value"></sm-dropdown>
 
-        <div ng-if="!model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData">
+        <div ng-if="!model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData"ng-hide="model.readonly">
             <sadaf-dropdwon ng-model="model" form-id="{{id}}" edit="{{edit}}"></sadaf-dropdwon>
-
         </div>
-        <!--<sm-dropdown ng-if="!model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData"
-                     settings="dropdownSettings"
-                     class="selection search"
-                     label="item.label"
-                     on-change="change"
-                     value="item.value"
-                     default-text="model.value"></sm-dropdown>-->
+        <div ng-show="model.readonly" ng-if="model.dropdown.useRemoteData">
+            {{model.dropdown.selected.join(', ')}}
+        </div>
 
-        <sm-dropdown ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData"
+        <div ng-show="model.readonly" ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData">
+            {{_.find(model.dropdown.items, {value: model.value}).label}}
+        </div>
+
+        <sm-dropdown ng-hide="model.readonly"
+                     ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData"
                      class="selection fluid"
                      model="model.value"
                      items="model.dropdown.items"
@@ -107,7 +106,8 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 9">
         <label ng-hide="settings.showLabel===false">{{model.label}}</label>
-        <sadaf-calendar ng-model="model.value"></sadaf-calendar>
+        <sadaf-calendar ng-hide="model.readonly" ng-model="model.value"></sadaf-calendar>
+        <div ng-show="model.readonly">{{model.value | persian}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
@@ -115,14 +115,14 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}} {{model.name}} form-{{id}}-type-12" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 12">
         <label ng-hide="settings.showLabel===false">{{model.label}}</label>
-        <form-lookup-get-id ng-model="model" id="{{id}}"></form-lookup-get-id>
+        <form-lookup-get-id ng-hide="model.readonly" ng-model="model" id="{{id}}"></form-lookup-get-id>
+        <div ng-show="model.readonly">{{model.formLookup.selected ? model.formLookup.selected.join(', ') : model.formLookup.keyControlsBindedValue.join(', ')}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
     </div>
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}} {{model.name}} form-{{id}}-type-13" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 13">
-        <!--<small><small><pre class="ltr">{{model.multiRowForm | json}}</pre></small></small>-->
         <multi-row-form ng-model="model" id="{{id}}" edit="{{edit}}"></multi-row-form>
         <small class="helper">{{model.error}}</small>
         <div></div>
@@ -137,8 +137,6 @@
         <div></div>
         <small>{{model.description}}</small>
         <new-form-modal ng-model="model.button"></new-form-modal>
-
-
     </div>
 
     <div class="field " ng-class="{error: model.error}" ng-if="model.type == 5">
@@ -155,15 +153,16 @@
     <div class="field " ng-class="{error: model.error}" ng-if="model.type == 16">
         <label ng-hide="settings.showLabel===false">{{model.label}}</label>
         <div class="calculate-field">
-            <div ng-show="edit" class="ltr formula gray"><small>
-                
-                                                             <span>{{model.prefix}} </span>
-                                                             {{model.calculate.expression}}
-                                                             <span> {{model.postfix}}</span>
- </small></div>
+            <div ng-show="edit" class="ltr formula gray">
+                <small>
+                    <span>{{model.prefix}} </span>
+                    {{model.calculate.expression}}
+                    <span> {{model.postfix}}</span>
+                </small>
+            </div>
             <div ng-hide="edit">
                 <span>{{model.prefix}} </span>
-            <span>{{model.value | formatNumber:model.format | persian}}</span>
+                <span>{{model.value | formatNumber:model.format | persian}}</span>
                 <span> {{model.postfix}}</span>
 
             </div>
@@ -195,8 +194,8 @@
             <div ng-hide="edit">
                 <div class="ui inline mini loader" ng-class="{active: model.inProgress}"></div>
                 <span>{{model.prefix}} </span>
-                <span>{{model.value | formatNumber:model.format | persian}}</span>
-                <span> {{model.postfix}}</span>
+                <span ng-show="model.value!=null">{{model.value | formatNumber:model.format | persian}}</span>
+                <span> {{model.postfix}}</span>&nbsp;
             </div>
         </div>
 

@@ -84,9 +84,9 @@
     </div>
 
     <div layout="row" flex>
+        <div flex="25" layout="column" >
 
-        <md-content flex="25" class="form-generator-side-column form-property-section">
-            <div class="ui left tiny secondary pointing   menu">
+            <div class="ui left tiny secondary pointing menu">
                 <div class="item header">
                     تنظیمات
                 </div>
@@ -97,9 +97,11 @@
                 </div>
 
             </div>
+        <md-content  layout="column" flex class="form-generator-side-column form-property-section">
 
             <ng-include src="c.app.urlPrefix + 'dist/partial/forms/editor/form-generator-editor-properties.html'"></ng-include>
         </md-content>
+        </div>
 
         <div flex="50" class="form-generator-side-column" layout="column">
             <div class="ui left tiny secondary pointing menu">

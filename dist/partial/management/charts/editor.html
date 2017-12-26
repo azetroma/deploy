@@ -14,7 +14,7 @@
                 <div id="divProp" class="rtl prop-section">
                 </div>
             </div>
-
+             
         </div>
 
         <md-divider></md-divider>
@@ -216,8 +216,8 @@
                                 <div class="fields">
 
                                     <sm-dropdown class="selection search mini"
-                                                 
                                                  model="selectedMeasureGroup"
+                                                 settings="{fullTextSearch:true}"
                                                  items="olapCubes[+selectedOlapCube].MeasureGroups"
                                                  label="item.caption"
                                                  value="item.name"></sm-dropdown>
@@ -511,7 +511,6 @@
             </div>
 
             <md-card-content id="chart-content" flex style="overflow:auto">
-                {{chartProp.text.info.romoteDate}}
 
                 <div ng-if="chartType==10" text-angular="text-angular" ng-model="chartProp.text.info.html"></div>
 
