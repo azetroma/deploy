@@ -62,81 +62,95 @@
 
 
     <style>
-               [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
-                   display: none !important;
-               }
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+            display: none !important;
+        }
 
-               /* max-height - the only parameter in this file that needs to be edited.
+        /* max-height - the only parameter in this file that needs to be edited.
         * Change it to suit your needs. The rest is recommended to leave as is.
         */
-               /*.clusterize-scroll {
+        /*.clusterize-scroll {
                    max-height: 200px;
                    overflow: auto;
                }*/
 
-               /**
+        /**
         * Avoid vertical margins for extra tags
         * Necessary for correct calculations when rows have nonzero vertical margins
         */
-               .clusterize-extra-row {
-                   margin-top: 0 !important;
-                   margin-bottom: 0 !important;
-               }
+        .clusterize-extra-row {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
 
-                   /* By default extra tag .clusterize-keep-parity added to keep parity of rows.
+            /* By default extra tag .clusterize-keep-parity added to keep parity of rows.
         * Useful when used :nth-child(even/odd)
         */
-                   .clusterize-extra-row.clusterize-keep-parity {
-                       display: none;
-                   }
+            .clusterize-extra-row.clusterize-keep-parity {
+                display: none;
+            }
 
-               /* During initialization clusterize adds tabindex to force the browser to keep focus
+        /* During initialization clusterize adds tabindex to force the browser to keep focus
         * on the scrolling list, see issue #11
         * Outline removes default browser's borders for focused elements.
         */
-               .clusterize-content {
-                   outline: 0;
-               }
+        .clusterize-content {
+            outline: 0;
+        }
 
-               /* Centering message that appears when no data provided
+        /* Centering message that appears when no data provided
         */
-               .clusterize-no-data td {
-                   text-align: center;
-               }
-
-            
+        .clusterize-no-data td {
+            text-align: center;
+        }
     </style>
 
     <meta name="fontiran.com:license" content="X4ZQZ">
 
     @*<style>
-            .side-menu-item-container.active {
-                /*رنگ گروه منوی فعال*/
-                background-color: #efefef;
-            }
+        .my-fix::-webkit-scrollbar {
+            background-color: darkgrey;
+        }
 
-            .ui.inverted.segment, .ui.primary.inverted.segment {
-                /*رنگ پشت منوی سمت راست*/
-                background-color: #f9f9f9;
-                /*رنگ متن منوی سمت راست*/
-                color: #333;
-            }
+        .my-fix {
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12) !important;
+        }
 
-            .side-menu-item.active {
-                /*رنگ خط سمت راست منوی فعال*/
-                border-right: 5px solid #00bfe9;
-            }
+        .side-menu-item-parent {
+            font-weight: bold;
+        }
 
-            .side-menu-item:hover {
-                /*رنگ منو در حالتی موس روی آن است*/
-                background-color: #e9e9e9;
-            }
+        .side-menu-item-container.active {
+            /*رنگ گروه منوی فعال*/
+            background-color: #fafafa;
+        }
 
-            .sadaf-footer a {
-                /*رنگ لینک پایین */
-                color: #333;
-            }
-        </style>*@
+        .ui.inverted.segment, .ui.primary.inverted.segment {
+            /*رنگ پشت منوی سمت راست*/
+            background-color: #fafafa;
+            /*رنگ متن منوی سمت راست*/
+            color: #000;
+        }
+
+        .side-menu-item.active {
+            /*رنگ خط سمت راست منوی فعال*/
+            border-right: 5px solid #ff5722;
+            font-weight:bold;
+            color:#ff5722;
+        }
+        .side-menu-item {
+            color:#333;
+        }
+        .side-menu-item:hover {
+            /*رنگ منو در حالتی موس روی آن است*/
+            background-color: #e8e8e8;
+        }
+
+        .sadaf-footer a {
+            /*رنگ لینک پایین */
+            color: #333;
+        }
+    </style>*@
 </head>
 <body ng-app="sadaf" ng-cloak ng-controller="dashboardPageCtrl" class="theme2">
     <input type="hidden" value="@ViewBag.lang" id="lang" />
@@ -302,7 +316,7 @@
                         <span class="user-account-hide-segment">
                             @{
                                 var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
-                            <text> @user.FirstName @user.LastName</text>
+                                <text> @user.FirstName @user.LastName</text>
                             }
                         </span>
                         <i class="icon user large circle"></i>
