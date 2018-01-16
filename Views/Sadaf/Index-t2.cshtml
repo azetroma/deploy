@@ -338,11 +338,9 @@
             <ng-view></ng-view>
 
         </div>
-        <sm-modal class="edit-form-modal" visible="visible" settings="formInfo.modalSettings">
-            <div class="content">
-                <div sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()"></div>
-            </div>
-        </sm-modal>
+                <div sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="{modal:true}"></div>
+        @*<sm-modal class="edit-form-modal" visible="visible" settings="formInfo.modalSettings">
+        </sm-modal>*@
 
     </div>
 
@@ -512,16 +510,16 @@
     }
 
     <script>
-        $('.ui.modal').modal();
-        $('.ui.dropdown').dropdown();
         var userVariable = @Html.Raw(Json.Encode(ViewBag.userVariable));
         if(_.isArray(userVariable)){
             localStorage.setItem('userVariable',JSON.stringify( userVariable));
         }
 
         localStorage.setItem('defaultDashboard','@ViewBag.defaultDashboard');
+
+        $('.ui.dropdown').dropdown();
         $('.ui.checkbox').checkbox();
-        $('.ui.modal').modal();
+        //$('.ui.modal').modal();
 
         var dontShowUserAccount = JSON.parse("@((ViewBag.isLoginByLink ??false ).ToString().ToLower())");
         if(dontShowUserAccount){

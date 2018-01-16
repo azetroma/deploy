@@ -1,16 +1,19 @@
-﻿<div ng-init="c.activePage = 0" class="">
+﻿<div class="ui  " ng-class="{'form-editor': c.settings.modal, 'modal': c.settings.modal}">
+
+<div ng-show="c.settings.modal" class="header">{{c.data.name}}</div>
 
     <div class="ui active inverted dimmer" ng-show="c.formLoading">
         <div class="ui text loader">در حال بارگذاری</div>
-    </div>
+    </div> 
 
-    <div style="margin:1rem 0;">
+
+    <div class="content">
 
         <div ng-show="c.submittedStatus == 0 ||c.submittedStatus==1">
 
-            <div ng-repeat="page in c.data.pages" ng-show="$index == c.activePage" class="form-page ui form " ng-class="page.size">
-                
-                <div class="ui grid stackable content-form" >
+            <div ng-repeat="page in c.data.pages" ng-show="$index == c.activePage" class="form-page ui form "ng-init="c.activePage = 0" ng-class="page.size">
+
+                <div class="ui grid stackable content-form">
                     <form-control ng-repeat="component in page.controls" ng-model="component" id="{{c.id}}"></form-control>
                 </div>
 
@@ -19,21 +22,6 @@
             </div>
 
 
-            <div class="ui grid" ng-show="!c.formLoading">
-                <div class="left floated nine wide column">
-                <button class="ui button green" ng-show="c.activePage == c.data.pages.length-1 && c.editPermission && c.submittedStatus == 0" ng-disabled="c.isValid()" ng-click="c.submit()" ng-class="{loading: c.loading}">
-                    {{c.rowId ? 'ویرایش' : 'ذخیره'}} 
-                </button>
-                <button class="ui button blue"  ng-show="c.data.pages.length && c.activePage != c.data.pages.length-1" ng-click="c.activePage = c.activePage+1">ادامه</button>
-                <button class="ui button blue" ng-show="c.activePage != 0" ng-click="c.activePage = c.activePage-1">قبلی</button>
-                <button class="ui button black"  ng-show="(c.rowId || c.option.showCancel) && c.submittedStatus == 0" ng-click="c.cancel()">لغو</button>
-
-                </div>
-
-                <div class="right floated three wide column right aligned">
-                <button class="ui button red" ng-show="c.rowId && c.deletePermission && c.submittedStatus == 0" ng-click="c.remove()">حذف</button>
-                </div>
-            </div>
         </div>
 
         <div class="ui success message" ng-show="c.submittedStatus==1">
@@ -46,18 +34,44 @@
                 <p>{{c.error.desc}}</p>
             </div>
             <span ng-hide="c.error">
-            مشکلی در سرور به وجود آمده است. لطفا دوباره امتحان کنید.
+                مشکلی در سرور به وجود آمده است. لطفا دوباره امتحان کنید.
             </span>
         </div>
-            <div class="ui error message" ng-show="c.data.pages.length > 1 && c.pagesContainError.length">
-                در صفحه‌های زیر اشکال وجود دارد
-                <div ng-repeat="p in c.pagesContainError">{{p.name}}</div>
-            </div>
 
-        <button class="ui basic mini button" ng-show="c.submittedStatus!=0" ng-click="c.submitNewInfo()">
-            <i class="icon file outline"></i>
-          {{c.rowId ? 'بستن' : 'ورود اطلاعات جدید'}}  
-        </button>
+        <div class="ui error message" ng-show="c.data.pages.length > 1 && c.pagesContainError.length">
+            در صفحه‌های زیر اشکال وجود دارد
+            <div ng-repeat="p in c.pagesContainError">{{p.name}}</div>
+        </div>
+
+
+
+
     </div>
 
+        <div  class="actions" ng-show="!c.formLoading">
+
+            <dvi class="ui grid" ng-show="c.submittedStatus == 0 || c.submittedStatus==1">
+                <div class="left floated eight wide column left aligned">
+                    <button class="ui button blue" ng-show="c.data.pages.length>1" ng-disabled="c.activePage == 0" ng-click="c.activePage = c.activePage-1">قبلی</button>
+                    <button class="ui button blue" ng-show="c.data.pages.length>1" ng-disabled="c.activePage == c.data.pages.length-1" ng-click="c.activePage = c.activePage+1">ادامه</button>
+                    <button class="ui button green" ng-disabled="c.activePage != c.data.pages.length-1 || !c.editPermission || c.submittedStatus != 0 || c.isValid()"  ng-click="c.submit()" ng-class="{loading: c.loading}">
+                        {{c.rowId ? 'ویرایش' : 'ذخیره'}}
+                    </button>
+                    <button class="ui button black" ng-show="(c.rowId || c.option.showCancel) && c.submittedStatus == 0" ng-click="c.cancel()">لغو</button>
+
+                </div>
+
+                <div class="right floated four wide column right aligned">
+                    <button class="ui button red" ng-show="c.rowId && c.deletePermission && c.submittedStatus == 0" ng-click="c.remove()">حذف</button>
+            <button class="ui basic button" ng-show="c.submittedStatus!=0" ng-click="c.submitNewInfo()">
+                <i class="icon file outline"></i>
+                {{c.rowId ? 'بستن' : 'ورود اطلاعات جدید'}}
+            </button>
+
+                </div>
+            </dvi>
+
+        </div>
+
 </div>
+
