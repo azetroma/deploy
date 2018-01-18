@@ -62,7 +62,7 @@
                                                     <md-progress-circular ng-hide="$scope.relatedDatasourceList" md-mode='indeterminate'></md-progress-circular>
                                                 </div>-->
 
-                                                <div class="ui inline centered tiny loader" ng-class="{active: !relatedDatasourceList}"></div>
+                                                <div class="ui inline centered tiny loader" ng-hide="$scope.relatedDatasourceList" ng-class="{active: !relatedDatasourceList}"></div>
 
 
                                                 <table class="table">
