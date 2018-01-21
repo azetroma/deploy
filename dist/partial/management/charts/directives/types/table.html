@@ -94,9 +94,9 @@
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
-                    <label>{{ 'show chart legend' | translate }}</label>
+                    <label>{{ 'فونت سرستون‌ها' | translate }}</label>
                     <span class="form-divider" flex></span>
-                    <text-editor prop="ngModel.table.info.headerFont" ng-init="ngModel.table.info.headerFont = ngModel.table.info.headerFont || {bold:true, fontSize:'13px', fontName: 'IRANSans'}"></text-editor>
+                    <text-editor on-change="refreshChart('refresh')" prop="ngModel.table.info.headerFont" ng-init="ngModel.table.info.headerFont = ngModel.table.info.headerFont || {bold:true, fontSize:'13px', fontName: 'IRANSans'}"></text-editor>
                 </div>
 
 
