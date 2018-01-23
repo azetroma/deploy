@@ -169,7 +169,7 @@
                         </div>
                     </div>
                 </div>
-
+                 
                 <div ng-show="ngModel.tableInfo.Order.length">
 
                     <div class="form-row" layout="row" layout-align="start center">
@@ -180,11 +180,11 @@
                         </div>
                     </div>
 
-                    <div>
-                        <div ng-repeat="i in ngModel.tableInfo.Order">
+                    <small>
+                        <div ng-repeat="i in ngModel.tableInfo.Order | orderBy:'':true">
                             ستون شماره {{i.Index + 1}} {{i.DescType == 1 ? 'صعودی' : 'نزولی'}}
                         </div>
-                    </div>
+                    </small>
                 </div>
 
             </div>
