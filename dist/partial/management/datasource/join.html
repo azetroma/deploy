@@ -403,7 +403,7 @@
                         <md-option><</md-option>
                     </md-select>
                     <md-select flex ng-model="item.right" aria-label="item right">
-                        <md-option ng-repeat=" i in ($scope.selectedDatasource | filter:{ Id: $scope.modalRelationObject.right } )[0].Fields" value="{{i}}">{{i}}</md-option>
+                        <md-option ng-repeat="i in ($scope.selectedDatasource | filter:{ Id: $scope.modalRelationObject.right } )[0].Fields" value="{{i}}">{{i}}</md-option>
                     </md-select>
                     <md-button class="md-icon-button" ng-click="$scope.addRelationLimit()">
                         <span class="material-icons">add</span>

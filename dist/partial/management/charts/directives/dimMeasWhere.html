@@ -10,7 +10,6 @@
                 <span class="form-divider" flex></span><div class="col-sm-8">
                     <select class="selectpicker-x form-control" data-size="4" ng-model="model.selectedDimension" ng-init="model.selectedDimension = '0'"
                             ng-options="id as i.Name  for (id, i) in dimensions">
-                        <!--<option ng-repeat="i in dimensions track by $index" value="{{$index + ''}}">{{i.Name}}</option>-->
                     </select>
                 </div>
             </div>
@@ -31,12 +30,6 @@
                               ng-change="changeFormula(dimensions[model.selectedDimension]);refreshChart()" ng-model-options="{ updateOn: 'blur' }"></textarea>
 
                     <span class="material-icons small" ng-click="showDialog('dimention', $event)">fullscreen</span>
-                    <!--<span class="glyphicon glyphicon-edit icon-btn pointer"
-                          data-toggle="modal" data-target="#formula-modal"
-                          ng-click="setEditor('dimention')"
-                          style="top: 4px;position: absolute;right: -4px;"></span>-->
-
-
                 </div>
             </div>
 
@@ -73,6 +66,25 @@
                               ng-change="changeFormula(dimensions[model.selectedDimension]);refreshChart()"
                               ng-model-options="{ updateOn: 'blur' }"></textarea>
 
+                </div>
+            </div>
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label>{{ 'سطح' | translate }}</label>
+                <span class="form-divider" flex></span>
+                <div>
+                    <select class="selectpicker-x form-control" ng-model="dimensions[model.selectedDimension].applyLevel" data-size="4"
+                            ng-change="refreshChart()"
+                            ng-options="a.value as  a.name for a in [
+                                {name: 'خودکار', value: 0},
+                                {name: 'سطح اول', value: 1},
+                                {name: 'سطح دوم', value: 2},
+                                {name: 'سطح سوم', value: 3},
+                                {name: 'سطح چهارم', value: 4},
+                                {name: 'سطح پنجم', value: 5},
+                                {name: 'سطح ششم', value: 6}
+                            ]">
+                    </select>
                 </div>
             </div>
 

@@ -54,7 +54,7 @@
                     </div>
                 </div>
 
-                <div class="form-row" layout="row" layout-align="start center">
+                <!--<div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label>
@@ -62,7 +62,8 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div>-->
+
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
@@ -73,7 +74,7 @@
                     </div>
                 </div>
 
-                <div class="form-row" layout="row" layout-align="start center">
+                <!--<div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label>
@@ -81,7 +82,7 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -169,7 +170,7 @@
                         </div>
                     </div>
                 </div>
-                 
+                  
                 <div ng-show="ngModel.tableInfo.Order.length">
 
                     <div class="form-row" layout="row" layout-align="start center">
@@ -180,12 +181,32 @@
                         </div>
                     </div>
 
-                    <small>
+                    <small> 
                         <div ng-repeat="i in ngModel.tableInfo.Order | orderBy:'':true">
                             ستون شماره {{i.Index + 1}} {{i.DescType == 1 ? 'صعودی' : 'نزولی'}}
                         </div>
                     </small>
                 </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'جایگزین مقدار خالی' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="{{ 'جایگزین مقدار خالی' | translate }}" 
+                               ng-change="refreshChart('refresh')"
+                               ng-model-options="{ updateOn: 'blur' }"
+                               ng-model="ngModel.table.info.nullReplacement" />
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.table.info.columnsWidth">
+                    <!--<label>{{ 'اندازه دلخواه ستون‌ها' | translate }}</label>
+                    <span class="form-divider" flex></span>-->
+                    <div class="ui button mini icon fluid" ng-click="ngModel.table.info.columnsWidth =null;refreshChart('refresh')" title="بازنشانی اندازه ستون‌ها">
+                        {{ 'بازنشانی اندازه ستون‌ها' | translate }}
+                        <i class="icon trash gray pointer"></i>
+                    </div>
+                </div>
+
 
             </div>
 
@@ -319,7 +340,6 @@
                             
                             </
                         </select>
-                        se
                     </div>
                 </div>
 
