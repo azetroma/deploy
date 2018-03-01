@@ -158,8 +158,8 @@
 
     <div class="side-menu ui segment my-fix inverted no-padd no-margin">
 
-        <div class="" style="text-align:center; padding:30px 16px;">
-            <img src="~/Images/icon-inverse.png" class="" style="max-width:100%" alt="Alternate Text" />
+        <div class="" style="text-align:center; padding:16px 16px;">
+            <img src="~/Images/icon-inverse.png" class="" style="max-width:100%; max-height:128px;" alt="Alternate Text" />
         </div>
 
         <div class="my-fix-flex-container" ui-sortable="sortableCatOptions" xng-model="menuCategories.data">
@@ -247,8 +247,8 @@
 
                         <div ng-repeat="j in otherFilters | filter:{value:''}"
                              class="ui label"
-                             title="{{j.value}}">
-                            <b>{{j.key}}: </b>{{getCleanValue(j.value)}}
+                             title="{{j.valueCaption}}">
+                            <b>{{j.keyCaption}}: </b>{{getCleanValue(j.valueCaption)}}
                             <i class="delete icon" ng-click="removeDrillDown($index)"></i>
 
                         </div>
@@ -338,9 +338,11 @@
             <ng-view></ng-view>
 
         </div>
-                <div sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="{modal:true}"></div>
-        @*<sm-modal class="edit-form-modal" visible="visible" settings="formInfo.modalSettings">
-        </sm-modal>*@
+
+
+        <sadaf-form  id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="formSettings"></sadaf-form>
+
+        @*<sm-modal class="edit-form-modal" visible="visible" settings="formInfo.modalSettings"></sm-modal>*@
 
     </div>
 
@@ -354,13 +356,13 @@
         <div class="content">
             <p ng-show="modal.body" ng-bind-html="modal.body"></p>
 
-
             <div class="ui form">
                 <div class="field" ng-show="modal.label">
                     <label>{{modal.label}}</label>
                     <input ng-model="modal.val" type="text" class="" placeholder="">
                 </div>
             </div>
+
             <div class="alert alert-danger" ng-show="modal.error">
                 <div ng-show="modal.error.title">
                     <b>{{modal.error.title}}</b>
