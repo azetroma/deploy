@@ -211,5 +211,11 @@
         <small>{{model.description}}</small>
     </div>
 
+    <div class="field " ng-class="{error: model.error}" ng-if="model.type == 19">
+        <!--<label ng-hide="settings.showLabel===false">{{model.label}}</label>-->
+        <sadaf-file ng-model="model" ></sadaf-file>
+        
+        <small>{{model.description}}</small>
+    </div>
 
 </div> 
