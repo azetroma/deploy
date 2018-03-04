@@ -42,8 +42,16 @@
 </head>
 <body>
     @RenderBody()
+    @{
+        var isRelease = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+        var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+        var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+        if (!isRelease) {
+            v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+        }
 
-    <script src="~/dist/js/lib-all.js"></script>
+    }
+    <script src="~/dist/js/lib-all.js?v=@version"></script>
 
     @*<script src="~/dist/lib/jquery-1.11.1.min.js"></script>
     <script src="~/dist/lib/bootstrap.min.js"></script>
