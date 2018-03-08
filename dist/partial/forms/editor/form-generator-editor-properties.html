@@ -238,7 +238,7 @@
 
         <div class="inline fields">
             <label>نوع</label>
-            <sm-dropdown items="[{label:'رفتن به صفحه داشبورد', value:0}, {label:'داده فرمی جدید', value:1}]"
+            <sm-dropdown items="[{label:'رفتن به صفحه داشبورد', value:0}, {label:'داده فرمی جدید', value:1}, {label:'اجرای وب سرویس', value:2}]"
                          class=""
                          model="c.control.active.button.type" label="item.label" value="item.value"></sm-dropdown>
         </div>
@@ -259,6 +259,10 @@
             <form-lookup-property ng-model="c.control.active.button.formInfo" settings="{selectableColumns:false}"></form-lookup-property>
         </div>
 
+        <div class="field" ng-show="c.control.active.button.type == 2">
+            <label>آدرس وب سرویس</label>
+            <input ng-model="c.control.active.button.webserviceUrl" placeholder="آدرس وب سرویس">
+        </div>
 
     </div>
 

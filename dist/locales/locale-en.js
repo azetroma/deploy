@@ -1,4 +1,6 @@
 {
+    "اضافه کردن گروهی کاربرها":"Bulk Insert Users",
+
     "عدم نمایش مقادیر صفر":"Dont show zero value",
     "Forms":"Forms",
     "new rule": "New Rule",
