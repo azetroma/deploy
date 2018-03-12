@@ -108,49 +108,49 @@
     <meta name="fontiran.com:license" content="X4ZQZ">
 
     @*<style>
-        .my-fix::-webkit-scrollbar {
-            background-color: darkgrey;
-        }
+            .my-fix::-webkit-scrollbar {
+                background-color: darkgrey;
+            }
 
-        .my-fix {
-            box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12) !important;
-        }
+            .my-fix {
+                box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12) !important;
+            }
 
-        .side-menu-item-parent {
-            font-weight: bold;
-        }
+            .side-menu-item-parent {
+                font-weight: bold;
+            }
 
-        .side-menu-item-container.active {
-            /*رنگ گروه منوی فعال*/
-            background-color: #fafafa;
-        }
+            .side-menu-item-container.active {
+                /*رنگ گروه منوی فعال*/
+                background-color: #fafafa;
+            }
 
-        .ui.inverted.segment, .ui.primary.inverted.segment {
-            /*رنگ پشت منوی سمت راست*/
-            background-color: #fafafa;
-            /*رنگ متن منوی سمت راست*/
-            color: #000;
-        }
+            .ui.inverted.segment, .ui.primary.inverted.segment {
+                /*رنگ پشت منوی سمت راست*/
+                background-color: #fafafa;
+                /*رنگ متن منوی سمت راست*/
+                color: #000;
+            }
 
-        .side-menu-item.active {
-            /*رنگ خط سمت راست منوی فعال*/
-            border-right: 5px solid #ff5722;
-            font-weight:bold;
-            color:#ff5722;
-        }
-        .side-menu-item {
-            color:#333;
-        }
-        .side-menu-item:hover {
-            /*رنگ منو در حالتی موس روی آن است*/
-            background-color: #e8e8e8;
-        }
+            .side-menu-item.active {
+                /*رنگ خط سمت راست منوی فعال*/
+                border-right: 5px solid #ff5722;
+                font-weight:bold;
+                color:#ff5722;
+            }
+            .side-menu-item {
+                color:#333;
+            }
+            .side-menu-item:hover {
+                /*رنگ منو در حالتی موس روی آن است*/
+                background-color: #e8e8e8;
+            }
 
-        .sadaf-footer a {
-            /*رنگ لینک پایین */
-            color: #333;
-        }
-    </style>*@
+            .sadaf-footer a {
+                /*رنگ لینک پایین */
+                color: #333;
+            }
+        </style>*@
 </head>
 <body ng-app="sadaf" ng-cloak ng-controller="dashboardPageCtrl" class="theme2">
     <input type="hidden" value="@ViewBag.lang" id="lang" />
@@ -316,7 +316,7 @@
                         <span class="user-account-hide-segment">
                             @{
                                 var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
-                                <text> @user.FirstName @user.LastName</text>
+                            <text> @user.FirstName @user.LastName</text>
                             }
                         </span>
                         <i class="icon user large circle"></i>
@@ -340,7 +340,7 @@
         </div>
 
 
-        <sadaf-form  id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="formSettings"></sadaf-form>
+        <sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="formSettings"></sadaf-form>
 
         @*<sm-modal class="edit-form-modal" visible="visible" settings="formInfo.modalSettings"></sm-modal>*@
 
@@ -545,6 +545,22 @@
             ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : v.ToString())';
 
     </script>
+
+    <script>
+        //iframe communication
+        var $el = $('[ng-controller=dashboardPageCtrl]');
+        window.addEventListener('message', function (e) {
+            if (!_.isString(e.data)) return;
+
+            var message = JSON.parse(e.data);
+
+            var scope = angular.element($el).scope();
+            scope.iframeService.handleMessage(message);
+            scope.$apply();
+        });
+
+    </script>
+
 </body>
 
 </html>

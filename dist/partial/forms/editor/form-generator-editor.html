@@ -76,13 +76,47 @@
 <div layout="column" layout-fill>
 
     <div class="fg-header ">
-        <div class="item ui input">
-            <input type="text" class="inline-input ui tiny header aligned center " ng-model="c.name" />
+        <div class="item ui input" flex="25">
+            <input type="text" class="inline-input ui header aligned center " ng-model="c.name" />
             <!--<span class="material-icons small small-size pointer gray" ng-click="c.save()">save</span>-->
-            <div class="ui basic mini button" ng-click="c.save()" ng-class="{loading: c.saveProgress}" style="line-height: 1.3rem;    padding: 7px 20px;">
+        </div>
+        <div style="display:inline-block; padding: 0 10px;">
+
+            <div class="ui labeled icon button teal" ng-click="c.save()" ng-class="{loading: c.saveProgress}">
                 <i class="icon save"></i>
                 ذخیره
             </div>
+
+            <div class="ui labeled icon button" ng-show="c.id" ng-click="c.publishVisible = true" ng-class="{loading: c.publishProgress}">
+                <i class="icon cloud"></i>
+                انتشار عمومی
+            </div>
+
+            <sm-modal visible="c.publishVisible">
+                <div class="header">
+                    انتشار فرم روی وب
+                </div>
+
+                <div class="content">
+                    در صورت انتشار فرم روی وب، لینکی برای شما تولید می‌شود که می‌توانید آن را در اختیار دیگران قرار دهید و بدون نیاز به لاگین به
+                    فرم دسترسی داشته باشید.
+                    <br />
+                    <br />
+                    <div ng-show="c.publish">
+                        <b style="font-weight: 800;">لینک فرم:</b> <a class="ui label ltr" href="{{app.urlPrefix + 'sadaf/form/' + c.url}}" target="_blank">{{app.urlPrefix + 'sadaf/form/' + c.url}}</a>
+                    </div>
+                </div>
+                <div class="actions">
+                    <div  class="ui labeled icon button " ng-click="c.publishFrom(!c.publish)" ng-class="{loading: c.publishProgress, green: !c.publish, red: c.publish }">
+                        <i class="icon cloud" ></i>{{ !c.publish ? 'انتشار' : 'عدم انتشار'}}
+                    </div>
+                    
+                    <div class="ui black deny button">
+                        لغو
+                    </div>
+
+                </div>
+            </sm-modal>
         </div>
     </div>
 
