@@ -184,6 +184,7 @@
                         </code>
                     </p>
                 </div>
+
                 <div class="form-row" layout="column">
                     <label class="control-label">{{ 'قالب نمایش راهنما' | translate }}</label>
                     <textarea class="form-control"
@@ -209,6 +210,17 @@
                     </p>
                 </div>
 
+
+                <div class="form-row" layout="column" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.bar.info.overlapBars" ng-change="refreshChart('refresh')" /> {{ 'قراردادن میله‌ها روی هم در نمودار میله‌ای' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                    <small class="grey">استفاده از این گزینه برای نمایش میزان پیشرفت و هدف و مقدار واقعی روی هم کاربرد دارد</small>
+                </div>
 
                
             </div>
