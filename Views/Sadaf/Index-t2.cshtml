@@ -311,6 +311,8 @@
                     <i class="large icon link full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
                 </div>
 
+                    <notification></notification>
+
                 <div class="ui dropdown" ng-show="@(ViewBag.isLoginByLink ??false)">
                     <div style="white-space:nowrap">
                         <span class="user-account-hide-segment">
@@ -483,6 +485,7 @@
         <script src="~/src/js/charts/tipsy.js?v=@v"></script>
 
 
+        <script src="~/web/src/js/dashboardPage/notification.js?v=@v"></script>
         <script src="~/src/js/management/services/services-app.js?v=@v"></script>
         <script src="~/src/js/management/services/datasources.js?v=@v"></script>
         <script src="~/src/js/forms/forms-app.js?v=@v"></script>
@@ -540,6 +543,7 @@
             location.hash = hash;
         }
         app.lang.setLangTyle(@ViewBag.lang);
+        
         app.lang.setLang();
         app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
             ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : v.ToString())';

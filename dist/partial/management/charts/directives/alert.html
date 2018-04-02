@@ -55,21 +55,45 @@
                 </div>
             </div>
 
-            <md-button class="md-raised" style="font-size:12px;" xng-hide="alert.rules && alert.rules.length>0" ng-click="alert.rules.push({})">
+            <!--<md-button class="md-raised" style="font-size:12px;" xng-hide="alert.rules && alert.rules.length>0" ng-click="alert.rules.push({})">
                 {{'new rule' | translate}}
-            </md-button>
+            </md-button>-->
 
-            <fieldset ng-repeat="item in alert.rules">
+            <div ng-repeat="item in alert.rules" ng-init="alert.rules = alert.rules || [{}]">
+                <div class="ui tiny secondary pointing menu">
+                    <div class="active item">{{ 'شرط‌' | translate }}</div>
+                    <div class="right menu">
+                        <!--<div class="ui item">
+                            <div class="ui tiny pointer" ng-click="alert.rules.push({})"><i class="ui icon plus"></i></div>
+                            <div class="ui tiny pointer" ng-click="alert.rules.splice($index, 1)" ng-show="alert.rules.length > 1"><i class="ui icon minus"></i></div>
+                        </div>-->
+                    </div>
+                </div>
+                <sadaf-indicator ng-model="item" series="model.series" hide-then="true"></sadaf-indicator>
+            </div>
+
+            <!--<fieldset ng-repeat="item in alert.rules">
                 <legend>{{ 'شرط‌' | translate }}</legend>
                 <sadaf-indicator ng-model="item" series="model.series" hide-then="true"></sadaf-indicator>
-            </fieldset>
+            </fieldset>-->
 
-            <fieldset>
+            <div class="ui tiny dividing header">{{ 'مخاطبین' | translate }}</div>
+            <div>
+                <sadaf-contact-list ng-model="alert.contactList"></sadaf-contact-list>
+            </div>
+
+            <div class="" style="margin:16px 0;">
+                <b class="ui tiny header">{{ 'نقش‌ها' | translate }}</b>
+                <select-roles ng-model="alert.roles" class="ui tiny form"></select-roles>
+                <small class="grey">در صورت انتخاب نقش، به تمام کاربران آن نقش هشدار فرستاده می‌شود</small>
+            </div>
+            
+            <!--<fieldset>
                 <legend>{{ 'مخاطبین' | translate }}</legend>
                 <div>
                     <sadaf-contact-list ng-model="alert.contactList"></sadaf-contact-list>
                 </div>
-            </fieldset>
+            </fieldset>-->
 
             <div class="form-row" layout="row" layout-align="start center" ng-show="alert.type=='command'">
                 <label class="col-sm-4 control-label">دستور: </label>
@@ -85,7 +109,7 @@
                 </div>
             </div>
 
-            <datasource-schedule ng-model="alert.schedule"> </datasource-schedule>
+            <datasource-schedule style="margin-top:10px;display:block;" ng-model="alert.schedule"> </datasource-schedule>
 
             <div class="form-row" layout="row" layout-align="start center" ng-show="alert.type=='sms' || alert.type=='email' ">
                 <div class="alert-section" style="margin-top:10px">{{ 'فرمت نمایش' | translate }}</div>
