@@ -290,14 +290,14 @@
                             <div class="dashboard-navbar-item dashboard-navbar-item-devider no-padd"></div>
 
                             <div class="dashboard-navbar-item no-padd" title="اضافه کردن نمودار">
-                                <i class="link icon add square add-chart-btn"></i>
+                                <i class="link icon chart bar add-chart-btn"></i>
                             </div>
                             <div class="dashboard-navbar-item no-padd" title="اضافه کردن فرم">
                                 @*<button class="ui right labeled icon tiny button" ng-click="">
                                         <i class="sticky note  icon"></i>
                                         اضافه کردن فرم
                                     </button>*@
-                                <i class="link icon add square outline" ng-click="addFormSettings.visible = true"></i>
+                                <i class="link icon wpforms" ng-click="addFormSettings.visible = true"></i>
                                 <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
                             </div>
 
@@ -341,8 +341,10 @@
 
         </div>
 
-
+        <div id="form-holder">
         <sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="formSettings"></sadaf-form>
+
+        </div>
 
         @*<sm-modal class="edit-form-modal" visible="visible" settings="formInfo.modalSettings"></sm-modal>*@
 
