@@ -3,7 +3,7 @@
 
     <div class="control-actions" ng-show="edit">
         <span class="material-icons small small-size pointer gray" ng-click="remove()">delete</span>
-        <span class="material-icons small small-size pointer grays" ng-click="copy()">content_copy</span>
+        <!--<span class="material-icons small small-size pointer grays" ng-click="copy()">content_copy</span>-->
     </div>
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 0">
