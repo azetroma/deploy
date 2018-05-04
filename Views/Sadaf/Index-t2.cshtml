@@ -165,7 +165,7 @@
         <div class="my-fix-flex-container" ui-sortable="sortableCatOptions" xng-model="menuCategories.data">
             <div class="side-menu-item-container menu-category" ng-repeat="mc in menuCategories.data" ng-class="{active: mc.active}" on-finish-render="ngRepeatFinished" data-id="{{mc.category.Id}}">
                 <div class="side-menu-item side-menu-item-parent" ng-click="closeAll(mc, true);">
-                    <i class="icon angle down icon-animate large left floated" ng-class="{rotate: mc.open}"></i>  {{mc.category.Name}}
+                    <i class="icon angle down icon-animate large" style="float:left;"ng-class="{rotate: mc.open}"></i>  {{mc.category.Name}}
                     <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="mc.hasAddPer || mc.hasEditPer || mc.hasDeletePer" style="line-height:1.5em">
                         <i class="setting icon"></i>
                         <div class="menu transition hidden" tabindex="-1">
@@ -268,24 +268,26 @@
 
 
 
-                <div class="dashboard-edit-panel" ng-show="@(ViewBag.isLoginByLink ??false)" style="margin:-5px 14px 0 14px;user-select: none;">
+                <div class="dashboard-edit-panel" ng-show="@(ViewBag.isLoginByLink ??false)" style="margin:-3px 10px 0 0px;user-select: none;">
+                    
+                    
                     <div class="chart-container dashboard-page-header" style="direction:ltr;">
                         <div style="display:table-row">
                             <div id="device-selector" class="dashboard-navbar-item devices no-padd">
                                 <i id="laptop" class="icon laptop"></i>
-                                <i id="tablet" class="icon tablet"></i>
-                                <i id="smartphone" class="icon mobile" style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i>
-                                <i id="smartphone-land" class="icon mobile"></i>
+                                <i id="tablet" class="icon alternate tablet"></i>
+                                <i id="smartphone" class="icon alternate mobile" style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i>
+                                <i id="smartphone-land" class="icon alternate mobile"></i>
                             </div>
 
                             <div class="dashboard-navbar-item-devider dashboard-navbar-item no-padd"></div>
 
-                            <div class="dashboard-navbar-item no-padd">
+                            @*<div class="dashboard-navbar-item no-padd">
                                 <div class="ui left input icon mini" style="max-width:75px">
                                     <input id="dashboard-col" type="number" value="12" />
                                     <i class="icon columns"></i>
                                 </div>
-                            </div>
+                            </div>*@
 
                             <div class="dashboard-navbar-item dashboard-navbar-item-devider no-padd"></div>
 
@@ -297,9 +299,17 @@
                                         <i class="sticky note  icon"></i>
                                         اضافه کردن فرم
                                     </button>*@
-                                <i class="link icon wpforms" ng-click="addFormSettings.visible = true"></i>
+
+                                <i class="icons link"ng-click="addFormSettings.visible = true">
+                                    <i class="clipboard list icon"></i>
+                                    <i class="corner add icon"></i>
+                                </i>
+
+                                @*<i class="link icon wpforms" ng-click="addFormSettings.visible = true"></i>*@
                                 <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
                             </div>
+                            
+                            <span class="navbar-text pull-right sadaf-circular-preogress " style="padding: 0 10px;display: table-cell;vertical-align: bottom;"></span>
 
                         </div>
 
@@ -307,8 +317,9 @@
 
                 </div>
 
-                <div class="" style="margin:0 10px;" ng-show="@(ViewBag.isLoginByLink ??false)">
+                <div class="" style="margin:0px 10px;" ng-show="@(ViewBag.isLoginByLink ??false)">
                     <i class="large icon link full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
+                    <i class="large icon link play-toggle" ng-show="isFullscreen"ng-class="{play : !slidePlay, pause: slidePlay}" ng-click="slidePlayToggle()" title="full screen"></i>
                 </div>
 
                     <notification></notification>

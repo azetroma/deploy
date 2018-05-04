@@ -1,4 +1,4 @@
-﻿<div class="ui" ng-class="{'form-editor': settings.modal, 'modal': settings.modal}">
+﻿<div class="ui large {{settings.selector}}" id="{{selector}}" ng-class="{'form-editor': settings.modal, 'modal': settings.modal}">
 
     <div ng-show="settings.modal" class="header">{{data.name}}</div>
 
@@ -7,12 +7,22 @@
         <div class="ui active inverted dimmer" ng-show="formLoading">
             <div class="ui text loader">در حال بارگذاری</div>
         </div>
+        <div class="ui one column grid" style="padding: 1rem;">
+            <div class="column">
+                <div class="ui steps mini  fluid" ng-show="data.pages.length>1" >
+                    <div class="step pointer" ng-repeat="page in data.pages" ng-class="{active: $index == activePage}"ng-click="setActivePage($index+0)">
+                        <div class="content" >
+                            <div class="title"> {{page.name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
-        <div ng-show="submittedStatus == 0 ||submittedStatus==1">
+        <div ng-show="submittedStatus == 0 || submittedStatus==1">
             <div ng-repeat="page in data.pages" ng-show="$index == activePage" class="form-page ui form">
                 <div class="ui grid stackable content-form">
-                    <form-control ng-repeat="component in page.controls" ng-model="component" id="{{id}}"></form-control>
+                    <form-control ng-repeat="component in page.controls" ng-model="component" id="{{id}}" sd-submit="submit()"></form-control>
                 </div>
                 <div class="ui message red" ng-show="page.error">{{page.error}}</div>
             </div>
@@ -40,19 +50,21 @@
     </div>
 
     <div class="actions" ng-show="!formLoading">
-        <dvi class="ui grid" ng-show="submittedStatus == 0 || submittedStatus==1">
+         
+        <dvi class="ui grid content-form" ng-show="submittedStatus == 0 || submittedStatus==1">
             <div class="left floated eight wide column left aligned">
                 <div ng-hide="submittedStatus!=0">
                     <button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == 0" ng-click="activePage = activePage-1">قبلی</button>
                     <button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == data.pages.length-1" ng-click="activePage = activePage+1">ادامه</button>
-                    <button class="ui button green" ng-disabled="activePage != data.pages.length-1 || (!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading" ng-click="submit()" ng-class="{loading: loading}">
-                        {{rowId ? 'ذخیره تغییرات' : 'ذخیره'}}
+                    <button class="ui button green relative" ng-disabled="activePage != data.pages.length-1 || (!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading" ng-click="submit()" ng-class="{loading: loading}">
+                        {{rowId ? 'ذخیره تغییرات' : 'ذخیره'}} 
+                        <span class="below-btn-helper" ng-hide="settings.modal"> Ctrl + Enter </span>
                     </button>
-                    <button class="ui button black" ng-show="(rowId || option.showCancel) && submittedStatus == 0" ng-click="cancel()">لغو</button>
+                    <button class="ui button black" ng-show="(settings.modal || option.showCancel) && submittedStatus == 0" ng-click="cancel()">لغو</button>
                 </div>
-                <button class="ui basic button" ng-show="submittedStatus!=0" ng-click="submitNewInfo()">
-                    <i class="icon refresh"></i>
-                    {{rowId ? 'بستن' : 'ورود اطلاعات جدید'}}
+                <button class="ui basic button close-btn" ng-show="submittedStatus!=0" ng-click="submitNewInfo()" ng-keyup="colseBtn($event)" >
+                    <i class="icon " ng-class="{refresh: !settings.modal , 'window close outline' : settings.modal }"></i>
+                    {{settings.modal ? 'بستن' : 'ورود اطلاعات جدید'}} 
                 </button>
 
             </div>

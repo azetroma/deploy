@@ -167,6 +167,13 @@
     <div ng-show="c.control.active.type == 12" class="field">
 
         <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.formLookup.showAddButton" ng-change="c.control.resetListValue()">
+                نمایش دکمه امکان ایجاد رکورد جدید
+            </sadaf-checkbox>
+        </div>
+
+
+        <div class="field">
             <form-lookup-property ng-model="c.control.active.formLookup"></form-lookup-property>
         </div>
 
