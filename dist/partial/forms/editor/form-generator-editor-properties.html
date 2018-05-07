@@ -1,13 +1,18 @@
 ﻿<!-- تنظیمات مربوط به کنترل‌ها -->
 <div ng-show="c.control.active.name" class="ui tiny form">
     <div class="fields">
-        <div class="field"><label>نام فیلد در جدول</label></div>
+        <div class="field"><label>شناسه فیلد</label></div>
         <span class="field" ng-show="c.control.active.name"> {{c.control.active.name}}</span>
 
     </div>
-
+     
+    <div class="field">
+        <label>نام فیلد در جدول</label>
+        <input ng-model="c.control.active.columnName" placeholder="برچسب" ng-model-options="{ updateOn: 'blur' }" ng-change="c.checkColumnName(c.control.active, '{{c.control.active.columnName}}')">
+    </div> 
 
     <div class="field">
+        <label>نام</label>
         <input ng-model="c.control.active.label" placeholder="برچسب">
     </div>
 

@@ -4,47 +4,54 @@
 
     <div class="content">
 
-        <div class="ui active inverted dimmer" ng-show="formLoading">
-            <div class="ui text loader">در حال بارگذاری</div>
+        <div class="" ng-show="formLoading">
+            <div class="" style="text-align: center">
+                <i class="notched circle loading icon"></i>
+                در حال بارگذاری
+            </div>
         </div>
-        <div class="ui one column grid" style="padding: 1rem;">
-            <div class="column">
-                <div class="ui steps mini  fluid" ng-show="data.pages.length>1" >
-                    <div class="step pointer" ng-repeat="page in data.pages" ng-class="{active: $index == activePage}"ng-click="setActivePage($index+0)">
-                        <div class="content" >
-                            <div class="title"> {{page.name}}</div>
+
+        <div ng-show="!formLoading">
+
+            <div class="ui one column grid" style="padding: 1rem;">
+                <div class="column">
+                    <div class="ui steps mini  fluid" ng-show="data.pages.length>1">
+                        <div class="step pointer" ng-repeat="page in data.pages" ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
+                            <div class="content">
+                                <div class="title"> {{page.name}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div ng-show="submittedStatus == 0 || submittedStatus==1">
-            <div ng-repeat="page in data.pages" ng-show="$index == activePage" class="form-page ui form">
-                <div class="ui grid stackable content-form">
-                    <form-control ng-repeat="component in page.controls" ng-model="component" id="{{id}}" sd-submit="submit()"></form-control>
+            <div ng-show="submittedStatus == 0 || submittedStatus==1">
+                <div ng-repeat="page in data.pages" ng-show="$index == activePage" class="form-page ui form">
+                    <div class="ui grid stackable content-form">
+                        <form-control ng-repeat="component in page.controls" ng-model="component" id="{{id}}" sd-submit="submit()"></form-control>
+                    </div>
+                    <div class="ui message red" ng-show="page.error">{{page.error}}</div>
                 </div>
-                <div class="ui message red" ng-show="page.error">{{page.error}}</div>
             </div>
-        </div>
 
-        <div class="ui success message" ng-show="submittedStatus==1">
-            اطلاعات با موفقیت ذخیره شد
-        </div>
-
-        <div class="ui error message" ng-show="submittedStatus==2">
-            <div ng-show="error">
-                <h3>{{error.title}}</h3>
-                <p>{{error.desc}}</p>
+            <div class="ui success message" ng-show="submittedStatus==1">
+                اطلاعات با موفقیت ذخیره شد
             </div>
-            <span ng-hide="error">
-                مشکلی در سرور به وجود آمده است. لطفا دوباره امتحان کنید.
-            </span>
-        </div>
 
-        <div class="ui error message" ng-show="data.pages.length > 1 && pagesContainError.length">
-            در صفحه‌های زیر اشکال وجود دارد
-            <div ng-repeat="p in pagesContainError">{{p.name}}</div>
+            <div class="ui error message" ng-show="submittedStatus==2">
+                <div ng-show="error">
+                    <h3>{{error.title}}</h3>
+                    <p>{{error.desc}}</p>
+                </div>
+                <span ng-hide="error">
+                    مشکلی در سرور به وجود آمده است. لطفا دوباره امتحان کنید.
+                </span>
+            </div>
+
+            <div class="ui error message" ng-show="data.pages.length > 1 && pagesContainError.length">
+                در صفحه‌های زیر اشکال وجود دارد
+                <div ng-repeat="p in pagesContainError">{{p.name}}</div>
+            </div>
         </div>
 
     </div>

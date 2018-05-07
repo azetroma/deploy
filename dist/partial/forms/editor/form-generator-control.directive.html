@@ -83,7 +83,6 @@
         <div ng-show="model.readonly" ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData">
             {{_.find(model.dropdown.items, {value: model.value}).label}}
         </div>
-
         <sm-dropdown ng-hide="model.readonly"
                      ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData"
                      class="selection fluid"
