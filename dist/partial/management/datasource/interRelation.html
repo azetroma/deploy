@@ -19,7 +19,7 @@
     </md-toolbar>
 
     <div flex layout="column">
-        <md-content flex>
+        <md-content flex  >
             <table class="sadaf-table">
                 <tr>
                     <th>
@@ -30,7 +30,7 @@
                 </tr>
 
                 <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select; menuInvalidate()" ng-dblclick="goto(row, $event)">
-                    <td width="20">
+                    <td width="20" style="padding:13px 16px;">
                         <md-checkbox ng-model="row.select" ng-click="$event.stopPropagation(); menuInvalidate()" aria-label="{{'select' | translate}}"></md-checkbox>
                     </td>
                     <td width="20">{{utils.persian($index+1)}}</td>
@@ -50,14 +50,13 @@
 
 
 <script type="text/ng-template" id="datasourceRelation/add-relation.html">
-    <md-dialog aria-label="{{'interRelation' | translate}}" ng-cloak id="inter-relation-dialog">
+    <md-dialog aria-label="{{'interRelation' | translate}}" ng-cloak id="inter-relation-dialog" flex="80">
         <style>
             #inter-relation-dialog md-input-container .md-errors-spacer {
                 min-height: 0px !important;
             }
         </style>
 
-        <form>
             <md-toolbar md-theme="default">
                 <div class="md-toolbar-tools">
                     <h2>{{'interRelation' | translate}}</h2>
@@ -67,7 +66,7 @@
                     </md-button>
                 </div>
             </md-toolbar>
-            <md-dialog-content>
+            <md-dialog-content style="padding:30px;">
 
                 <div layout="row" layout-align="start center" ng-hide="parent.datasourceList" style="padding:0 18px; font-size:0.8em">
                     <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
@@ -77,13 +76,13 @@
                 <div ng-show="parent.datasourceList" layout="column">
 
                     <div class="xform-row" layout="row" layout-align="start center" layout-sm="column" layout-margin>
-                        <md-input-container flex>
+                        <md-input-container flex="40">
                             <md-select ng-model="parent.modalRelationObject.left">
                                 <md-option ng-repeat="i in parent.datasourceList" value="{{i.Id}}">{{i.Name}} :: id{{i.Id}}</md-option>
                             </md-select>
                         </md-input-container>
-                        <div style="text-align:center; white-space:nowrap">{{ 'مرتبط شود با' | translate }}</div>
-                        <md-input-container flex>
+                        <div flex="20"style="text-align:center; white-space:nowrap">{{ 'مرتبط شود با' | translate }}</div>
+                        <md-input-container flex="40">
                             <md-select ng-model="parent.modalRelationObject.right">
                                 <md-option ng-repeat="i in parent.datasourceList | filter:{Id:'!'+parent.modalRelationObject.left}" value="{{i.Id}}">{{i.Name}} :: id{{i.Id}}</md-option>
                             </md-select>
@@ -91,6 +90,7 @@
                     </div>
 
                     <div layout="row" layout-sm="column" layout-align="start center" layout-margin ng-repeat="item in parent.modalRelationObject.conditions">
+                        
                         <div class="sadaf-group icon" style="margin-bottom:0" layout="row">
                             <span class="sadaf-group-item icon" ng-click="item.left.isText=false" ng-class="{active : !item.left.isText}"><span class="material-icons">view_headline</span></span>
                             <span class="sadaf-group-item icon" ng-click="item.left.isText=true" ng-class="{active : item.left.isText}"><span class="material-icons">title</span></span>
@@ -100,14 +100,14 @@
                             <md-option ng-repeat="i in (parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Fields| filterColumns:parent.modalRelationObject.conditions:true:$index" value="{{i}}">{{i}}</md-option>
                         </md-select>
 
-                        <md-input-container md-no-float flex>
+                        <md-input-container md-no-float flex ng-show="item.left.isText">
                             <input type="text"
                                    ng-click="parent.getLastFocus($event)"
                                    style="direction: ltr;"
-                                   ng-show="item.left.isText" ng-model="item.left.formula">
+                                   ng-model="item.left.formula">
                         </md-input-container>
 
-                        <md-select ng-model="item.op">
+                        <md-select ng-model="item.op" flex="20">
                             <md-option value="=">=</md-option>
                             <!--<md-option>!=</md-option>
                             <md-option>></md-option>
@@ -125,9 +125,9 @@
                             <md-option ng-repeat="i in (parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Fields | filterColumns:parent.modalRelationObject.conditions:false:$index" value="{{i}}">{{i}}</md-option>
                         </md-select>
 
-                        <md-input-container md-no-float flex>
+                        <md-input-container md-no-float flex ng-show="item.right.isText">
                             <input type="text" ng-click="parent.getLastFocus($event)" style="direction: ltr;"
-                                   ng-show="item.right.isText" ng-model="item.right.formula">
+                                    ng-model="item.right.formula">
                         </md-input-container>
 
                         <md-button class="md-icon-button" ng-click="parent.modalRelationObject.conditions.push({op:'='})">
@@ -194,7 +194,6 @@
                     {{'cancel' | translate}}
                 </md-button>
             </md-dialog-actions>
-        </form>
     </md-dialog>
 
 

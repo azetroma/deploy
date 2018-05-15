@@ -1,6 +1,6 @@
 ﻿
 <div layout="column" flex>
-    <md-content flex class="content" layout="row">
+    <md-content flex class="content" layout="row"  no-background>
 
         <div flex="20" hide-sm hide-xs></div>
         <div flex="60" flex-xs="100" flex-sm="100">
@@ -150,7 +150,7 @@
 
                                                         <th style="padding-right:15px;">
                                                             <input type="checkbox" ng-click="toggleSelectedFieldsCheckAll(i,$event)">
-                                                            {{i.Name}}
+                                                             {{i.Name}}
                                                         </th>
                                                         <th style="width:50%">{{ 'نام جایگزین' | translate}}</th>
                                                     </tr>
@@ -163,7 +163,7 @@
                                                                        name="selectedFieldsName[]"
                                                                        value="{{i.Id +','+ $index}}"
                                                                        ng-checked="selectedFields.indexOf(i.Id +','+ $index)>-1"
-                                                                       ng-click="toggleSelectedFields(i.Id +','+ $index)">{{j}}
+                                                                       ng-click="toggleSelectedFields(i.Id +','+ $index)"> {{j}}
                                                             </label>
                                                         </div>
                                                     </td>

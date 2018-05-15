@@ -191,6 +191,8 @@
                             {{m.menu.Name}}
                         </a>
                     </div>
+
+                    <div ng-hide="mc.menus.length"> <div style="padding:10px 30px; color:gray; font-size:8px;">بدون صفحه داشبورد</div></div>
                 </div>
             </div>
 
@@ -250,7 +252,6 @@
                              title="{{j.valueCaption}}">
                             <b>{{j.keyCaption}}: </b>{{getCleanValue(j.valueCaption)}}
                             <i class="delete icon" ng-click="removeDrillDown($index)"></i>
-
                         </div>
 
 
@@ -273,7 +274,7 @@
                     
                     <div class="chart-container dashboard-page-header" style="direction:ltr;">
                         <div style="display:table-row">
-                            <div id="device-selector" class="dashboard-navbar-item devices no-padd">
+                            <div id="device-selector" class="dashboard-navbar-item devices ">
                                 <i id="laptop" class="icon laptop"></i>
                                 <i id="tablet" class="icon alternate tablet"></i>
                                 <i id="smartphone" class="icon alternate mobile" style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i>
@@ -291,10 +292,10 @@
 
                             <div class="dashboard-navbar-item dashboard-navbar-item-devider no-padd"></div>
 
-                            <div class="dashboard-navbar-item no-padd" title="اضافه کردن نمودار">
+                            <div class="dashboard-navbar-item " title="اضافه کردن نمودار">
                                 <i class="link icon chart bar add-chart-btn"></i>
                             </div>
-                            <div class="dashboard-navbar-item no-padd" title="اضافه کردن فرم">
+                            <div class="dashboard-navbar-item " title="اضافه کردن فرم">
                                 @*<button class="ui right labeled icon tiny button" ng-click="">
                                         <i class="sticky note  icon"></i>
                                         اضافه کردن فرم
@@ -307,8 +308,13 @@
 
                                 @*<i class="link icon wpforms" ng-click="addFormSettings.visible = true"></i>*@
                                 <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
+
+
                             </div>
-                            
+                            <div class="dashboard-navbar-item " title="اشتراک صفحه" ng-click="publishDashboard.show()">
+                                <i class="share alternate icon link"></i>
+                            </div>
+
                             <span class="navbar-text pull-right sadaf-circular-preogress " style="padding: 0 10px;display: table-cell;vertical-align: bottom;"></span>
 
                         </div>
@@ -362,7 +368,31 @@
     </div>
 
 
+    <sm-modal visible="publishDashboard.showModal">
+        <div class="header">
+            انتشار صفحه داشبورد به صورت عمومی
+        </div>
 
+        <div class="content">
+            در صورت انتشار صفحه داشبورد روی وب، لینکی برای شما تولید می‌شود که می‌توانید آن را در اختیار دیگران قرار دهید و بدون نیاز به لاگین به
+            گزارش‌ها دسترسی داشته باشید.
+            <br />
+            <br />
+            <div ng-show="publishDashboard.publish">
+                <b style="font-weight: 800;">لینک داشبورد:</b> <a class="ui label ltr" href="{{app.urlPrefix + 'sadaf/dashboard/' + publishDashboard.url}}" target="_blank">{{app.urlPrefix + 'sadaf/dashboard/' + publishDashboard.url}}</a>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui button " ng-click="publishDashboard.publishing(!publishDashboard.publish)" ng-class="{loading: publishDashboard.publishProgress, green: !publishDashboard.publish, red: publishDashboard.publish }">
+                <i class="icon mini cloud"></i>{{ !publishDashboard.publish ? 'انتشار' : 'عدم انتشار'}}
+            </div>
+
+            <div class="ui black deny button">
+                لغو
+            </div>
+
+        </div>
+    </sm-modal>
     <div class="ui modal small" id="edit-menus">
         <i class="close icon"></i>
         <div class="header">
