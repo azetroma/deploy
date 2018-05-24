@@ -1,0 +1,129 @@
+﻿<div layout="row" flex>
+    <md-content flex no-background>
+        <div layout="column" flex>
+
+            <md-card style="margin:40px; padding:16px" flex>
+
+                <div class="">
+                    <h3 style="margin-bottom:40px">{{'اطلاعات ممیزی' | translate}}</h3>
+                </div>
+
+                <div flex="50">
+                    <div>
+                        <b>از چه اتفاق‌هایی در سیستم لاگ گرفته شود؟</b>
+                        <small>توجه داشته باشید گرفتن لاگ از همه اتفاق‌ها ممکن است روی سرعت سیستم تاثیر منفی داشته باشد</small>
+                    </div>
+
+                    <div><md-checkbox ng-model="model.login" style="margin:5px 0">ورود و خروج از سیستم</md-checkbox>                                             </div>
+                    <div><md-checkbox ng-model="model.showDashboard" style="margin:5px 0">مشاهده صفحه داشبورد</md-checkbox>                                              </div>
+                    <div><md-checkbox ng-model="model.showChart" style="margin:5px 0">مشاهده نمودار</md-checkbox>                                                    </div>
+                    <div><md-checkbox ng-model="model.management" style="margin:5px 0">ایجاد، تغییر و یا حذف نمودار، صفحه، منبع داده و یا فرم</md-checkbox>   </div>
+                    <div><md-checkbox ng-model="model.heartbeat" style="margin:5px 0">سیگنال آنلاین بودن کاربر</md-checkbox>   </div>
+
+                    <div class="alert alert-warning" role="alert" ng-show="error">
+                        <button type="button" class="close" ng-click="error=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>خطا!</strong> <span ng-bind-html="error"></span>
+                    </div>
+
+
+                    <div layout="row">
+
+                        <md-button ng-click="save($event)" ng-disabled="saveProgress">
+                            {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+                        </md-button>
+
+                        <!--<md-button ng-click="cancel()">
+                            {{'cancel' | translate}}
+                        </md-button>-->
+
+
+                    </div>
+                </div>
+
+
+
+            </md-card>
+
+
+            <md-card style="margin:40px; padding:16px" flex>
+
+                <div class="">
+                    <h3 style="margin-bottom:40px">{{'لیست لاگ‌ها' | translate}}</h3>
+                </div>
+                <div class="ui mini form" style="margin-bottom:30px;">
+                    <div class="fields">
+                        <div class="field"><label>IP</label><input ng-model="filters.ip" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
+                        <div class="field"><label>Url</label><input ng-model="filters.url" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
+                        <div class="field"><label>QueryString</label><input ng-model="filters.query" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
+                        <div class="field"><label>PostParameters</label><input ng-model="filters.post" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
+                        <div class="field"><label>RequestMethod</label><input ng-model="filters.method" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
+                        <div class="field"><label>Username</label><input ng-model="filters.username" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
+                        <div class="field"><label>UserAgent</label><input ng-model="filters.useragent" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
+                    </div>
+                </div>
+                <style>
+                    .log-table th, .log-table td {
+                        max-width: 120px;
+                        -ms-word-break: break-all;
+                        word-break: break-all;
+                    }
+                </style>
+                <div style="overflow:auto; max-height:400px;">
+                    <table class="ui very basic small table very compact log-table">
+                        <thead>
+                            <tr>
+                                <th><div> ClientIp             </div></th>
+                                <th><div> Id                   </div></th>
+                                <th><div> PostParameters       </div></th>
+                                <th><div> QueryString          </div></th>
+                                <th><div> RequestMethod        </div></th>
+                                <th><div> RequestType          </div></th>
+                                <th><div> Sign                 </div></th>
+                                <th><div> Time                 </div></th>
+                                <th><div> Url                  </div></th>
+                                <th><div> UserAgent            </div></th>
+                                <th><div> Username             </div></th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="row in logs">
+                            <td>{{row. ClientIp       }}        </td>
+                            <td>{{row. Id             }}        </td>
+                            <td>{{row. PostParameters }}        </td>
+                            <td>{{row. QueryString    }}        </td>
+                            <td>{{row. RequestMethod  }}        </td>
+                            <td>{{row. RequestType    }}        </td>
+                            <td><i ng-show="checkList[$index]" class="ui icon green check"></i><i ng-hide="checkList[$index]" class="ui icon red times"></i>        </td>
+                            <td>{{row. Time           }}        </td>
+                            <td>{{row. Url            }}        </td>
+                            <td>{{row. UserAgent      }}        </td>
+                            <td>{{row. Username       }}   </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="" style="margin:20px 0;">
+                    <i class="ui icon angle right link" ng-click="prevPage()"></i>
+                    <span class="item">{{page+1}}</span> /
+                    <span class="item">{{pageCount}}</span>
+                    <i class="ui icon angle left link" ng-click="nextPage()"></i>
+                    <span> - </span>
+                    تعداد ردیف در صفحه
+                    <select ng-model="filters.rowCount" ng-options="r as r for r in [10,20,30, 50,100]" ng-change="filter()">
+                    </select>
+                </div>
+
+
+
+            </md-card>
+
+        </div>
+    </md-content>
+</div>
+
+
+<!--<div flex layout="column">
+    <md-content layout-margin flex>
+
+
+    </md-content>
+
+</div>-->
