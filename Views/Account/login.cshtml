@@ -26,7 +26,7 @@
         }
 
         .logo {
-            max-width: 100%;
+            max-width: 55%;
             height: auto;
             margin: 0 auto;
             margin-bottom: 16px;
@@ -85,8 +85,17 @@
                             <a href="http://www.sadafdashboard.ir/files/sadaf.apk" class="ui xblack label" style="xbackground-color:#424242;">دانلود نسخه اندروید</a>
                         </div>
 
-                        <div style="margin-top:30px">
-                            <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">تمامی حقوق متعلق به <b>داشبورد مدیریت صدف</b> است</a>
+                        <div style="margin-top:30px;">
+
+                            <a style="display:flex; align-items:center;" href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">
+                                @if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["showCopyRightLogo"] ?? "true")) {
+                                 <img class="logo" style="width:50px; margin-left:10px; margin-right:0;" src="~/Images/copy_right_logo.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                                }
+
+                                <span>
+                                تمامی حقوق متعلق به <b>داشبورد مدیریت صدف</b> است
+                                </span>
+                            </a>
                         </div>
 
                     </div>

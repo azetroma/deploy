@@ -8,17 +8,16 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع کنترل' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select ng-change="ngModel.userControl.info.variableDefault=null; refreshChart('refresh');" 
+                        <select ng-change="ngModel.userControl.info.variableDefault=null; refreshChart('refresh');"
                                 ng-model="ngModel.userControl.info.type"
                                 ng-options="color.name as  color.value for color in [
-                                    {name:'combo', value: 'کشویی تک مقداری'  }, 
-                                    {name:'multi', value:'کشویی چند مقداری' }, 
-                                    {name:'datepicker', value:'تاریخ' }, 
-                                    {name:'datepicker-range', value:'محدوده تاریخ' }, 
-                                    {name:'slider', value:'لغزنده' }, 
-                                    {name:'text', value:'جستجو' }, 
-                                    ]">
-                        </select>
+                                    {name:'combo', value: 'کشویی تک مقداری'  },
+                                    {name:'multi', value:'کشویی چند مقداری' },
+                                    {name:'datepicker', value:'تاریخ' },
+                                    {name:'datepicker-range', value:'محدوده تاریخ' },
+                                    {name:'slider', value:'لغزنده' },
+                                    {name:'text', value:'جستجو' },
+                                    ]"></select>
                     </div>
                 </div>
 
@@ -39,10 +38,9 @@
                         <span class="form-divider" flex></span><div class="col-sm-8">
                             <select ng-change="refreshChart('refresh')" ng-model="ngModel.userControl.info.comboStyle"
                                     ng-options="color.name as  color.value for color in [
-                                    {name:'bootstrap', value: 'حالت 1'  }, 
-                                    {name:'default', value: 'پیش فرض مرورگر'  }, 
-                                    ]">
-                            </select>
+                                    {name:'bootstrap', value: 'حالت 1'  },
+                                    {name:'default', value: 'پیش فرض مرورگر'  },
+                                    ]"></select>
                         </div>
                     </div>
 
@@ -69,14 +67,13 @@
                             <span class="form-divider" flex></span><div class="col-sm-8">
                                 <select ng-change="refreshChart('refresh')" ng-model="ngModel.userControl.info.dateOp"
                                         ng-options="color.name as  color.value for color in [
-                                                                {name:'eq', value: 'برابر'  }, 
-                                                                {name:'nteq', value: 'نابرابر'  }, 
-                                                                {name:'gr', value: 'بزرگتر'  }, 
-                                                                {name:'eqgr', value: 'بزرگتر مساوی'  }, 
-                                                                {name:'ls', value: 'کوچکتر'  }, 
-                                                                {name:'eqls', value: 'کوچکتر مساوی'  }, 
-                                                            ]">
-                                </select>
+                                                                {name:'eq', value: 'برابر'  },
+                                                                {name:'nteq', value: 'نابرابر'  },
+                                                                {name:'gr', value: 'بزرگتر'  },
+                                                                {name:'eqgr', value: 'بزرگتر مساوی'  },
+                                                                {name:'ls', value: 'کوچکتر'  },
+                                                                {name:'eqls', value: 'کوچکتر مساوی'  },
+                                                            ]"></select>
                             </div>
                         </div>
 
@@ -88,31 +85,51 @@
                     <div class="form-row" layout="row" layout-align="start center">
                         <label class="col-sm-4">{{ 'عملوند' | translate }}</label>
                         <span class="form-divider" flex></span><div class="col-sm-8">
-                            <select ng-change="ngModel.userControl.info.variableDefault.values[1] = ngModel.userControl.info.textOperand" 
+                            <select ng-change="ngModel.userControl.info.variableDefault.values[1].op = ngModel.userControl.info.textOperand"
                                     ng-model="ngModel.userControl.info.textOperand"
                                     ng-options="color.name as  color.value for color in [
-                                                                {name:'and', value: 'AND'  }, 
-                                                                {name:'or', value: 'OR'  }, 
-                                                            ]">
-                                <!--<option value="and">AND</option>
-                                <option value="or">OR</option>-->
-                            </select>
+                                                                {name:'and', value: 'AND'  },
+                                                                {name:'or', value: 'OR'  },
+                                                            ]"></select>
                         </div>
                     </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <div class="checkbox">
+                            <label class="">
+
+                                <input type="checkbox"
+                                       ng-model="ngModel.userControl.info.useLike"
+                                       ng-change="ngModel.userControl.info.variableDefault.values[1].useLike = ngModel.userControl.info.useLike" />
+                                جستجوی براساس شباهت
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox"
+                                       ng-model="ngModel.userControl.info.useNormal"
+                                       ng-change="ngModel.userControl.info.variableDefault.values[1].useNormal = ngModel.userControl.info.useNormal" />
+                                نرمال کردن متن
+                            </label>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="" ng-show="ngModel.userControl.info.type=='slider'">
                     <div class="form-row" layout="row" layout-align="start center">
                         <label class="col-sm-4">{{ 'حالت اسلایدر' | translate }}</label>
                         <span class="form-divider" flex></span><div class="col-sm-8">
-                            <select ng-change="refreshChart('refresh')" 
+                            <select ng-change="refreshChart('refresh')"
                                     ng-model="ngModel.userControl.info.sliderRange"
                                     ng-options="color.name as  color.value for color in [
-                                                                {name:'min', value: 'کاهشی'  }, 
-                                                                {name:'max', value: 'افزایشی'  }, 
-                                                                {name:'min-max', value: 'افزایشی کاهشی'  }, 
-                                                            ]">
-                            </select>
+                                                                {name:'min', value: 'کاهشی'  },
+                                                                {name:'max', value: 'افزایشی'  },
+                                                                {name:'min-max', value: 'افزایشی کاهشی'  },
+                                                            ]"></select>
                         </div>
                     </div>
 
@@ -150,8 +167,7 @@
                     <label class="col-sm-4">{{ 'شاخص' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select class="selectpicker-x form-control" ng-model="ngModel.selectedSeries"
-                                ng-options="i as i for i in ngModel.series">
-                        </select>
+                                ng-options="i as i for i in ngModel.series"></select>
                     </div>
                 </div>
 
