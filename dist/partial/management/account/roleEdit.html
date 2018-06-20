@@ -29,8 +29,8 @@
                                 </md-input-container>
                                 <md-input-container flex="50">
                                     <label>{{'role_default_menu' | translate}}</label>
-                                    <md-select required name="defaultPage" ng-model="model.FirstMenuId" style="margin-bottom:0">
-                                        <md-optgroup ng-repeat="(gk, gv) in menus" label="{{jsonParse(gk).name}}">
+                                    <md-select required name="defaultPage" ng-model="model.FirstMenuId" style="margin-bottom:0" ng-click="renderSelect = true">
+                                        <md-optgroup ng-repeat="(gk, gv) in menus" label="{{jsonParse(gk).name}}" xng-if="renderSelect">
                                             <md-option ng-repeat="menu in gv" value="{{menu.id + ''}}">{{menu.name}}</md-option>
                                         </md-optgroup>
                                     </md-select>
@@ -55,11 +55,12 @@
                             <div class="prop-section role-edit">
 
                                 <menu-container>
+                                    
                                     <menu-item>
-                                        <menu-header>{{'menus' | translate}}</menu-header>
+                                        <menu-header ng-click="renderMenu = true">{{'menus' | translate}}</menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px">
-                                                <collapse ng-repeat="(k,v) in menus">
+                                            <div style="margin:0 20px" ng-if="renderMenu">
+                                                <collapse ng-repeat="(k,v) in menus" >
                                                     <div layout="row">
                                                         <collapse-header>
                                                             {{jsonParse(k).name}}
@@ -94,9 +95,9 @@
                                     </menu-item>
 
                                     <menu-item>
-                                        <menu-header>{{'users' | translate}}</menu-header>
+                                        <menu-header ng-click="renderUsers = true">{{'users' | translate}}</menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px">
+                                            <div style="margin:0 20px" ng-if="renderUsers">
                                                 <div ng-repeat="r in users" layout="row" layout-align="start center">
                                                     <md-checkbox ng-model="r.check">{{r.username}} - {{r.name}}</md-checkbox>
                                                     <a href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
@@ -107,9 +108,9 @@
                                     </menu-item>
 
                                     <menu-item>
-                                        <menu-header>{{'datasources' | translate}}</menu-header>
+                                        <menu-header ng-click="renderDatasource = true">{{'datasources' | translate}}</menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px">
+                                            <div style="margin:0 20px" ng-if="renderDatasource">
                                                 <div layout="row" layout-align="start center">
                                                     <span class="form-divider" flex></span>
                                                     <md-button class="" ng-click="$event.stopPropagation(); addDatasource($event)" layout="row" layout-align="start center">
@@ -150,9 +151,9 @@
                                     </menu-item>
 
                                     <menu-item>
-                                        <menu-header>{{'charts' | translate}}</menu-header>
+                                        <menu-header ng-click="renderCharts = true">{{'charts' | translate}}</menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px">
+                                            <div style="margin:0 20px" ng-click="renderCharts">
                                                 <div layout="row" layout-align="start center">
                                                     <span class="form-divider" flex></span>
                                                     <md-button class="" ng-click="$event.stopPropagation(); addChart($event)" layout="row" layout-align="start center">
@@ -192,12 +193,10 @@
                                         </menu-body>
                                     </menu-item>
 
-
-
                                     <menu-item>
-                                        <menu-header>{{'Forms' | translate}}</menu-header>
+                                        <menu-header ng-click="renderForms = true">{{'Forms' | translate}}</menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px">
+                                            <div style="margin:0 20px" ng-click="renderForms">
                                                 <div layout="row" layout-align="start center">
                                                     <span class="form-divider" flex></span>
                                                     <!--<md-button class="" ng-click="$event.stopPropagation(); addDatasource($event)" layout="row" layout-align="start center">
@@ -244,9 +243,6 @@
                                         </menu-body>
                                     </menu-item>
 
-
-
-
                                     <menu-item>
                                         <menu-header>
                                             {{'انتخاب مجوزهای عملیاتی' | translate}}
@@ -265,6 +261,7 @@
                                             </div>
                                         </menu-body>
                                     </menu-item>
+
                                 </menu-container>
                             </div>
 
