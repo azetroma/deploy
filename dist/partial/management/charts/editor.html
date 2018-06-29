@@ -75,9 +75,6 @@
                                     </md-dialog>
                                 </script>
 
-                                <!--<div class="md-padding" ng-show="gettingData" layout-align="center center" layout="column">
-                                    <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
-                                </div>-->
                                 <div class="ui inline centered tiny loader" ng-class="{active: gettingData}"></div>
 
 
@@ -101,7 +98,7 @@
 
                                         <div uib-collapse="u.expand">
 
-                                            <div class="pointer datasource-field" ng-hide="hide(i, 'check-name')" ng-repeat="i in u.Hierarchies" index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
+                                            <div class="pointer datasource-field" ng-hide="hide(i, 'check-name')" ng-repeat="i in u.Hierarchies" index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items ng-click="addToChart(i)">
                                                 <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
                                                 {{i.Name}}
                                             </div>
@@ -501,7 +498,6 @@
 
                 <md-button class="md-icon-button" ng-click="save($event)" title="{{'save' | translate}}" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
                     <span class="material-icons md-accent gray">done</span>
-                    <!--<md-tooltip>{{'save' | translate}}</md-tooltip>-->
                 </md-button>
 
                 <md-button class="md-icon-button" ng-click="cancel()" title="{{'cancel' | translate}}">
@@ -511,7 +507,10 @@
 
                 <md-button class="md-icon-button" ng-click="delete($event)" ng-show="isEdit" title="{{'delete' | translate}}">
                     <span class="material-icons gray">delete</span>
+                </md-button>
                     
+                <md-button style="font-size:10px"class="" ng-click="save($event , true)" title="" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
+                    {{'ذخیره و خروج' | translate}}                   
                 </md-button>
 
 
