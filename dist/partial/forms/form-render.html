@@ -63,8 +63,8 @@
                 <div ng-hide="submittedStatus!=0">
                     <button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == 0" ng-click="activePage = activePage-1">قبلی</button>
                     <button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == data.pages.length-1" ng-click="activePage = activePage+1">ادامه</button>
-                    <button class="ui button green relative" ng-disabled="activePage != data.pages.length-1 || (!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading" ng-click="submit()" ng-class="{loading: loading}">
-                        {{rowId ? 'ذخیره تغییرات' : 'ذخیره'}} 
+                    <button class="ui button green relative" ng-disabled="(activePage != data.pages.length-1 && !rowId) || (!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading" ng-click="submit()" ng-class="{loading: loading}">
+                        {{rowId ? 'ذخیره تغییرات' : 'ذخیره'}}  
                         <span class="below-btn-helper" ng-hide="settings.modal"> Ctrl + Enter </span>
                     </button>
                     <button class="ui button black" ng-show="(settings.modal || option.showCancel) && submittedStatus == 0" ng-click="cancel()">لغو</button>
