@@ -16,7 +16,7 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 1">
         <label ng-hide="settings.showLabel===false">{{model.label}} </label>
-        <textarea ng-hide="model.readonly" ng-model="model.value" ng-keyup="keyup($event)"></textarea>
+        <textarea class="sadaf-form-textarea" ng-hide="model.readonly" ng-model="model.value" ng-keyup="keyup($event)"></textarea>
         <div ng-show="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>

@@ -4,7 +4,7 @@
 
 <div flex layout="column">
     <md-content flex>
-        <table class="sadaf-table">
+        <table class="sadaf-table" style="margin-top:60px;">
             <tr>
 
                 <th>#</th>
@@ -18,8 +18,8 @@
 
             <tr ng-repeat="row in data" ng-class="{active : row.select}" xng-click="row.select = !row.select; menuInvalidate()" ng-dblclick="goto(row, $event)">
                 <td width="20">{{utils.persian($index+1)}}</td>
-                <td><span>{{row.username}}</span></td>
-                <td><span>{{row.name}}</span></td>
+                <td style="height:48px;"><span>{{row.username}}</span></td>
+                <td><span >{{row.name}}</span></td>
                 <td><span ng-repeat="r in row.roles">{{$index==0 ? '' :', '}}{{r.name}}</span></td>
                 <td class="md-caption" style="direction:ltr">{{utils.persian(row.lastLogin)}}</td>
                 <td class="md-caption" style="direction:ltr">{{utils.persian(row.lastActivity)}}</td>
