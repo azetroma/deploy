@@ -1,7 +1,14 @@
 ﻿
 <div layout="column" flex>
-    <md-content flex class="content" layout="row">
+    <md-content flex class="content role-container" layout="row">
+        <style>
+            .role-container select {
+                border:none;
+                border-bottom:1px solid #efefef;
+                background:none;
+            }
 
+        </style>
         <div flex="20" hide-sm hide-xs></div>
         <div flex="60" flex-xs="100" flex-sm="100">
 
@@ -35,12 +42,12 @@
                                     </md-select>
                                     <div class="errors" ng-messages="roleForm.defaultPage.$error">
                                         <div ng-message="required">{{'default_page_required' | translate}}</div>
-                                    </div>
+                                    </div> 
 
-                                </md-input-container>
-
-
+                                </md-input-container> 
                             </div>
+                            
+
 
                             <style>
                                 .role-edit h3{
@@ -98,9 +105,8 @@
                                         <menu-body>
                                             <div style="margin:0 20px" ng-if="renderUsers">
                                                 <div ng-repeat="r in users" layout="row" layout-align="start center">
-                                                    <md-checkbox ng-model="r.check">{{r.username}} - {{r.name}}</md-checkbox>
+                                                    <label ><input type="checkbox" ng-model="r.check"/> {{r.username}} - {{r.name}}</label>
                                                     <a href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
-
                                                 </div>
                                             </div>
                                         </menu-body>
@@ -133,17 +139,22 @@
 
                                                 <div ng-repeat="r in datasources" layout="row" layout-align="start center">
                                                     <md-button class="md-icon-button" ng-click="datasources.splice($index, 1)" layout="row" layout-align="start center">
-                                                        <span class="material-icons">delete</span>
+                                                        <span class="material-icons">clear</span>
                                                         <md-tooltip>{{'remove' | translate}}</md-tooltip>
                                                     </md-button>
 
                                                     <span>{{r.name}}</span>
                                                     <span flex></span>
-                                                    <md-select style="margin:0" class="" ng-model="r.action" aria-label="{{'permission' | translate}}">
+                                                    <!--<md-select style="margin:0" class="" ng-model="r.action" aria-label="{{'permission' | translate}}">
                                                         <md-option value="1">{{'permission_view' | translate}}</md-option>
                                                         <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
                                                         <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
-                                                    </md-select>
+                                                    </md-select>-->
+
+                                                    <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
+                                                            (item.v == 2 && !r.permissions.EditPermission)||
+                                                            (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
+
                                                 </div>
                                             </div>
                                         </menu-body>
@@ -152,7 +163,7 @@
                                     <menu-item>
                                         <menu-header ng-click="renderCharts = true">{{'charts' | translate}}</menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px" ng-click="renderCharts">
+                                            <div style="margin:0 20px" ng-if="renderCharts">
                                                 <div layout="row" layout-align="start center">
                                                     <span class="form-divider" flex></span>
                                                     <md-button class="" ng-click="$event.stopPropagation(); addChart($event)" layout="row" layout-align="start center">
@@ -166,27 +177,31 @@
                                                         <span class="material-icons">delete</span>
                                                         <md-tooltip>{{'remove_all' | translate}}</md-tooltip>
                                                     </md-button>
-                                                    <md-select style="margin:0" class="" ng-model="chartActionAll" ng-change="actionAll('chart', chartActionAll)" aria-label="{{'permission' | translate}}">
-                                                        <md-option value="1">{{'permission_view' | translate}}</md-option>
-                                                        <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
-                                                        <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
-                                                    </md-select>
+                                                    <select style="margin:0" class="" ng-model="chartActionAll" ng-change="actionAll('chart', chartActionAll)" aria-label="{{'permission' | translate}}">
+                                                        <option value="1">{{'permission_view' | translate}}</option>
+                                                        <option value="2">{{'permission_view_edit' | translate}}</option>
+                                                        <option value="4">{{'permission_view_edit_delete' | translate}}</option>
+                                                    </select>
+
 
                                                     <span class="form-divider" flex></span>
                                                 </div>
                                                 <div ng-repeat="r in charts" layout="row" layout-align="start center">
                                                     <md-button class="md-icon-button" ng-click="charts.splice($index, 1)" layout="row" layout-align="start center">
-                                                        <span class="material-icons">delete</span>
+                                                        <span class="material-icons">clear</span>
                                                         <md-tooltip>{{'remove' | translate}}</md-tooltip>
                                                     </md-button>
 
                                                     <span>{{r.name}}</span>
                                                     <span flex></span>
-                                                    <md-select style="margin:0" class="" ng-model="r.action" aria-label="{{'permission' | translate}}">
-                                                        <md-option value="1">{{'permission_view' | translate}}</md-option>
-                                                        <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
-                                                        <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
-                                                    </md-select>
+                                                    <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
+                                                            (item.v == 2 && !r.permissions.EditPermission)||
+                                                            (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
+                                                    <!--<select style="margin:0" class="" ng-model="r.action" aria-label="{{'permission' | translate}}">
+                                                        <option value="1" ng-disabled="!r.permissions.ViewPermission ">  {{'permission_view' | translate}}</option>
+                                                        <option value="2" ng-disabled="!r.permissions.EditPermission ">  {{'permission_view_edit' | translate}}</option>
+                                                        <option value="4" ng-disabled="!r.permissions.DeletePermission ">{{'permission_view_edit_delete' | translate}}</option>
+                                                    </select>-->
                                                 </div>
                                             </div>
                                         </menu-body>
@@ -226,7 +241,7 @@
 
                                                 <div ng-repeat="r in forms" layout="row" layout-align="start center">
                                                     <md-button class="md-icon-button" ng-click="forms.splice($index, 1)" layout="row" layout-align="start center" title="{{'remove' | translate}}">
-                                                        <span class="material-icons">delete</span>
+                                                        <span class="material-icons">clear</span>
                                                     </md-button>
 
                                                     <span>{{r.name}}</span>
@@ -270,7 +285,24 @@
 
                     </div>
 
-                    <div style="margin:60px 0" ng-if="isEdit">
+                    <div style="margin:60px 0 100px 0" >
+                        <div class="ui form" style="margin-bottom:50px;">
+                            <div class="field">
+                                <label>نقش پدر
+                                    <i class="icon ui mini trash pointer" ng-show="isAdmin" ng-click="parent=0" ></i>
+                                </label>
+                                <select ng-options="item.id as item.name for item in roles" ng-model="parent" ng-change="changeParent()">
+                                </select>
+                                </div>
+                                <div class="field">
+                                    <label>مدیران نقش</label>
+                                    <sm-dropdown class="selection search multiple fluid" items="users" model="model.Admins" label="item.username" value="item.id"></sm-dropdown>
+                                    <small class="gray">مدیر نقش می‌تواند نقش‌های زیر مجموعه برای این نقش تعریف کند و زیر مجموعه‌ای از دسترسی‌های این نقش را به زیر مجموعه اعطا کند</small>
+                                </div>
+                            </div>
+                         
+                        <div ng-if="isEdit">
+
                         <h3 class="">نقش‌های زیر مجموعه
                             <a class="ui button icon mini right floated" href="{{app.hashUrlPrefix + '#/roles/edit/0/' + id}}">
                                 اضافه کردن
@@ -278,8 +310,18 @@
                             </a>
                         </h3>
                         <div>
-                           <small>هنوز نقشی تعریف نشده است</small>
-                            
+                           <small ng-hide="childs && childs.length">هنوز نقشی تعریف نشده است</small>
+                            <table class="ui table" ng-show="childs && childs.length">
+                                <tr><th>#</th><th>نام</th></tr>
+                            <tr ng-repeat="c in childs">
+                                <td> {{$index+1}}</td>
+                                <td>
+
+                                <a href="{{app.hashUrlPrefix + '#/roles/edit/' + c.id}}">{{c.name}}</a>
+                                </td>
+                            </tr>
+                            </table>
+                        </div>
                         </div>
                     </div>
 
@@ -288,8 +330,11 @@
                 <md-card-actions layout="row">
                     <span flex></span>
 
-                    <md-button ng-click="save()" ng-disabled="saveProgress">
-                        {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+                    <md-button ng-click="save(false)" ng-disabled="saveProgress">
+                        {{saveProgress == false || saveProgressState != 'stay' ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی...' | translate)}}
+                    </md-button>
+                    <md-button ng-click="save(true)" ng-disabled="saveProgress">
+                        {{saveProgress == false || saveProgressState != 'exit'? ('ذخیره و بازگشت' | translate) : ('در حال ذخیره‌سازی...' | translate)}}
                     </md-button>
 
                 </md-card-actions>
