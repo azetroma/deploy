@@ -1,7 +1,6 @@
 ﻿<div class="ui large {{settings.selector}}" id="{{selector}}" ng-class="{'form-editor': settings.modal, 'modal': settings.modal}">
 
     <div ng-if="settings.modal" class="header">{{data.name}}
-    
         <div class="ui pagination mini menu  right floated" ng-show="data.pages.length>1">
             <div class="item pointer" ng-repeat="page in data.pages" ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
                 <div class="content">
@@ -9,8 +8,6 @@
                 </div>
             </div>
         </div>
-
-    
     </div>
 
     <div class="content scrolling">
@@ -18,7 +15,7 @@
         <div class="" ng-show="formLoading">
             <div class="" style="text-align: center">
                 <i class="notched circle loading icon"></i>
-                در حال بارگذاری
+                {{'form_loading' | translate}}
             </div>
         </div>
 
@@ -46,7 +43,7 @@
             </div>
 
             <div class="ui success message" ng-show="submittedStatus==1">
-                اطلاعات با موفقیت ذخیره شد
+                {{'Information was saved successfully' | translate}}
             </div>
 
             <div class="ui error message" ng-show="submittedStatus==2">
@@ -55,12 +52,12 @@
                     <p>{{error.desc}}</p>
                 </div>
                 <span ng-hide="error">
-                    مشکلی در سرور به وجود آمده است. لطفا دوباره امتحان کنید.
+                    {{'server error try again' | translate}}
                 </span>
             </div>
 
             <div class="ui error message" ng-show="data.pages.length > 1 && pagesContainError.length">
-                در صفحه‌های زیر اشکال وجود دارد
+                {{'error in pages'|translate}}
                 <div ng-repeat="p in pagesContainError">{{p.name}}</div>
             </div>
         </div>
@@ -69,32 +66,29 @@
 
     <div class="actions" ng-show="!formLoading">
          
-        <dvi class="ui grid content-form" ng-show="submittedStatus == 0 || submittedStatus==1">
-            <div class="left floated eight wide column left aligned">
+        <div class="ui grid content-form rtl" ng-show="submittedStatus == 0 || submittedStatus==1">
+            <div xclass="left floated eight wide column left aligned">
                 <div ng-hide="submittedStatus!=0">
                     <button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == 0" ng-click="activePage = activePage-1">قبلی</button>
-                    
-
-                    
                     <button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == data.pages.length-1" ng-click="activePage = activePage+1">ادامه</button>
                     <button class="ui button green relative" ng-disabled="(activePage != data.pages.length-1 && !rowId ) || (!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading" ng-click="submit()" ng-class="{loading: loading}">
-                        {{rowId ? 'ذخیره تغییرات' : 'ذخیره'}}  
+                        {{rowId ? ('edit' | translate) : ('save' | translate )}}  
                         <span class="below-btn-helper" ng-hide="settings.modal"> Ctrl + Enter </span>
                     </button>
-                    <button class="ui button black" ng-show="(settings.modal || option.showCancel) && submittedStatus == 0" ng-click="cancel()">لغو</button>
+                    <button class="ui button black" ng-show="(settings.modal || option.showCancel) && submittedStatus == 0" ng-click="cancel()">{{'cancel' | translate}}</button>
                 </div>
                 <button class="ui basic button close-btn" ng-show="submittedStatus!=0" ng-click="submitNewInfo()" ng-keyup="colseBtn($event)" >
                     <i class="icon " ng-class="{refresh: !settings.modal , 'window close outline' : settings.modal }"></i>
-                    {{settings.modal ? 'بستن' : 'ورود اطلاعات جدید'}} 
+                    {{settings.modal ? ('close' | translate) : ('new record' | translate)}} 
                 </button>
 
             </div>
 
-            <div class="right floated four wide column right aligned">
-                <button class="ui button red" ng-show="rowId && deletePermission && submittedStatus == 0" ng-click="remove()">حذف</button>
+            <div xclass="right floated four wide column right aligned">
+                <button class="ui button red" ng-show="rowId && deletePermission && submittedStatus == 0" ng-click="remove()">{{'delete' | translate}}</button>
 
             </div>
-        </dvi>
+        </div>
 
     </div>
 

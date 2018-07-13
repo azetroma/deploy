@@ -359,13 +359,16 @@
 
 <!-- تنظیمات صفحه -->
 <div ng-show="!c.control.active.name" class="ui tiny form">
-    <!--<p><b>{{'تنظیمات' | translate}}</b> {{c.pages.activePage.name}}</p>-->
 
     <div class="field">
         <label>نام صفحه</label>
         <input ng-model="c.pages.activePage.name" placeholder="نام صفحه">
     </div>
 
+
+    <div class="field">
+        <sadaf-checkbox ng-model="c.showSubmitedInfo" label="">نمایش خلاصه اطلاعات ارسال شده بعد از ذخیره</sadaf-checkbox>
+    </div>
     <div class="field">
         <sadaf-checkbox ng-model="c.pages.activePage.rowValidation.uniqueMultiField" label="">مقدار یکتا برای ترکیب فیلد‌ها</sadaf-checkbox>
     </div>
