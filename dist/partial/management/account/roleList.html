@@ -35,7 +35,7 @@
 
                 <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select;" ng-dblclick="goto(row, $event)">
                     <td width="20" style="height:48px;">
-                        <md-checkbox class="no-margin" ng-model="row.select" ng-click=" $event.stopPropagation();" aria-label="{{ 'choose' | translate}}"></md-checkbox>
+                        <md-checkbox class="no-margin" ng-model="row.select" ng-click="$event.stopPropagation();" aria-label="{{ 'choose' | translate}}"></md-checkbox>
                     </td>
                     <td width="20">{{utils.persian($index+1)}}</td>
 
@@ -86,7 +86,7 @@
     </div>
 
 
-    <div class="ui modal role-delete-modal" id="">
+    <div class="ui modal role-delete-modal">
         <div class="header">حذف نقش</div>
         <div class="content">موارد درخواستی برای همیشه حذف شوند؟</div>
         <div class="actions">

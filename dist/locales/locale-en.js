@@ -777,5 +777,12 @@
 	"ابعاد (ستون‌های رشته‌ای)":"Dimensions",
 	"نمودار میله‌ای - خطی":"Bar-Line",
 	"bar-stack":"Stack Bar",
-	"search":"Search"
+	"search":"Search",
+	"no dashboard to show":"There is no chart on this page",
+	"no_chart_msg_part_1":"Using the key",
+	"no_chart_msg_part_2":"You can add your chart to this page. If you have not yet created a chart, use the options in the section",
+	"no_chart_msg_part_3":"Create your own charts.",
+	"no access to page":"There is no access to the dashboard",
+	"no access to page desc":"The Dashboard is either deleted or you do not have access to it. Please contact the system administrator.",
+	"ذخیره و بازگشت":"Save and Exit"
 }

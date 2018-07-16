@@ -1,6 +1,6 @@
 @{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
-    ViewBag.Title = "ورود به سامانه داشبورد";
+    ViewBag.Title = ViewBag.msg["title"];
 }
 
 <div class="ui container">
@@ -76,13 +76,10 @@
                         <img class="logo" src="~/Images/logo_half.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
 
                         <p>
-                            <h1 class="inline-h1" style="font-family:IRANSans !important">نرم افزار داشبورد مدیریتی</h1> ‌به شما کمک می‌کند وضعیت جاری کسب و کار خود را به روشی مناسب، ساده و قابل فهم درک کنید. داشبورد صدف با اتصال به سیستم‌های اطلاعاتی موجود در شرکت یا سازمان شما و با ترکیب اطلاعات آن‌ها، گزارش‌های ترکیبی و جامعی از وضعیت شرکت به صورت درلحظه به شما ارائه می‌کند.
+                            @Html.Raw(ViewBag.msg["info"])
                         </p>
-                        @*<p>
-                                به کمک داشبورد مدیریتی صدف شما می‌توانید، میزان فروش در لحظه، میزان کار پرسنل، سود واقعی، هزینه‌های جاری و هر اطلاعات دیگری در مورد شرکت خود را در یک صفحه وب مشاهده کنید. صدف با اتصال به سیستم‌های اطلاعاتی مختلف، با سرعتی مناسب، اطلاعات پیچیده‌ی تجاری شما را خلاصه کرده و در دسترس شما قرار می‌دهد.
-                            </p>*@
                         <div class="text-left">
-                            <a href="http://www.sadafdashboard.ir/files/sadaf.apk" class="ui xblack label" style="xbackground-color:#424242;">دانلود نسخه اندروید</a>
+                            <a href="http://www.sadafdashboard.ir/files/sadaf.apk" class="ui xblack label" >@ViewBag.msg["download android"]</a>
                         </div>
 
                         <div style="margin-top:30px;">
@@ -92,9 +89,7 @@
                                  <img class="logo" style="width:50px; margin-left:10px; margin-right:0;" src="~/Images/copy_right_logo.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
                                 }
 
-                                <span>
-                                تمامی حقوق متعلق به <b>داشبورد مدیریت صدف</b> است
-                                </span>
+                                <span>@Html.Raw(ViewBag.msg["copy right"])</span>
                             </a>
                         </div>
 
@@ -102,7 +97,6 @@
                 </div>
                 <div class="col-md-6 six wide column">
                     <div class="card">
-                        @*<p class="h2 form-signin-heading ui header " style="margin-bottom: 20px;">@ViewBag.msg["login_message"]</p>*@
                         <div style="direction: ltr">
                             <div class="ui fluid left icon input big">
                                 <input name="UserName" type="text" class="" placeholder="@ViewBag.msg["username"]" autofocus>
@@ -131,7 +125,7 @@
 
                         <div class="xpull-right" style="font-size: 10px; padding: 30px 0;">
                             @{ var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;}
-                            <div>@ViewBag.msg["version"] : نسخه @(version.Major + "." + version.Minor + "." + version.Build )  </div>
+                            <div>@ViewBag.msg["version"] : @(version.Major + "." + version.Minor + "." + version.Build )  </div>
                             <div>@ViewBag.msg["db version"]: @ViewBag.DbVersion</div>
                             <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
                         </div>
@@ -143,9 +137,6 @@
 
 
             </div>
-
-
-            @*<h2 class="form-signin-heading">@ViewBag.msg["login_message"]</h2>*@
 
                                     }
     </div>
