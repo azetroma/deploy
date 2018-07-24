@@ -784,5 +784,8 @@
 	"no_chart_msg_part_3":"Create your own charts.",
 	"no access to page":"There is no access to the dashboard",
 	"no access to page desc":"The Dashboard is either deleted or you do not have access to it. Please contact the system administrator.",
-	"ذخیره و بازگشت":"Save and Exit"
+	"ذخیره و بازگشت":"Save and Exit",
+	"wrap content":"Wrap Content",
+	"left to right":"Right To Left",
+	"cell height":"Cell Height"
 }
