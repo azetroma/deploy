@@ -231,7 +231,7 @@
 
     <div class="pusher" id="">
 
-        <div class="main-container full-height-container" @(!(ViewBag.noframe ?? false) ?"":"style=margin-left:0;" ) >
+        <div class="main-container full-height-container" @(!(ViewBag.noframe ?? false) ?"":"style=margin-left:0;margin-right:0;" ) >
 
             <div class="dashboard-page-top-side" style="">
 
@@ -594,16 +594,19 @@
     <script>
 
         //iframe communication
-        var $el = $('[ng-controller=dashboardPageCtrl]');
         window.addEventListener('message', function (e) {
+            console.log(e.data);
             if (!_.isString(e.data)) return;
 
             try {
                 var message = JSON.parse(e.data);
+                var $el = $('[ng-controller=dashboardPageCtrl]');
                 var scope = angular.element($el).scope();
+                console.log('#scope', scope);
                 scope.iframeService.handleMessage(message);
                 scope.$apply();
             } catch (e) {
+                console.log(e);
             }
 
         });
