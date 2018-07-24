@@ -595,18 +595,15 @@
 
         //iframe communication
         window.addEventListener('message', function (e) {
-            console.log(e.data);
             if (!_.isString(e.data)) return;
 
             try {
                 var message = JSON.parse(e.data);
                 var $el = $('[ng-controller=dashboardPageCtrl]');
                 var scope = angular.element($el).scope();
-                console.log('#scope', scope);
                 scope.iframeService.handleMessage(message);
                 scope.$apply();
             } catch (e) {
-                console.log(e);
             }
 
         });
