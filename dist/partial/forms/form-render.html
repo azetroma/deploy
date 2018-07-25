@@ -20,7 +20,6 @@
 
         <div ng-show="!formLoading">
             <div ng-if="!settings.modal">
-
                 <div style="margin-top:1rem;"></div>
                 <div class="ui small menu" ng-show="data.pages.length>1">
                     <div class="item pointer" ng-repeat="page in data.pages" ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
