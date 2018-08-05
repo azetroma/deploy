@@ -122,6 +122,10 @@
                             </div>
                             }
                         <button class="ui blue fluid button big" type="submit">@ViewBag.msg["login"]</button>
+                        @if (ViewBag.publicSignup) {
+                            <br />
+                            <a class="ui basic fluid button big" href="@Url.Action("signup", "account")">@ViewBag.msg["signup"]</a>
+                        }
 
                         <div class="xpull-right" style="font-size: 10px; padding: 30px 0;">
                             @{ var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;}

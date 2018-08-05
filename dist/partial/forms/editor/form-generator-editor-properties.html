@@ -1,23 +1,23 @@
 ﻿<!-- تنظیمات مربوط به کنترل‌ها -->
 <div ng-show="c.control.active.name" class="ui tiny form">
     <div class="fields">
-        <div class="field"><label>شناسه فیلد</label></div>
+        <div class="field"><label>{{'identity'|translate}}</label></div>
         <span class="field" ng-show="c.control.active.name"> {{c.control.active.name}}</span>
 
     </div>
      
     <div class="field">
-        <label>نام فیلد در جدول</label>
-        <input ng-model="c.control.active.columnName" placeholder="برچسب" ng-model-options="{ updateOn: 'blur' }" ng-change="c.checkColumnName(c.control.active, '{{c.control.active.columnName}}')">
+        <label>{{'column name in table'|translate}}</label>
+        <input ng-model="c.control.active.columnName" placeholder="{{'label'|translate}}" ng-model-options="{ updateOn: 'blur' }" ng-change="c.checkColumnName(c.control.active, '{{c.control.active.columnName}}')">
     </div> 
 
     <div class="field">
-        <label>نام</label>
-        <input ng-model="c.control.active.label" placeholder="برچسب">
+        <label>{{'name'|translate}}</label>
+        <input ng-model="c.control.active.label" placeholder="{{'label'|translate}}">
     </div>
 
     <div class="field">
-        <textarea ng-model="c.control.active.description" placeholder="توضیحات" rows="2"></textarea>
+        <textarea ng-model="c.control.active.description" placeholder="{{'desc'|translate}}" rows="2"></textarea>
     </div>
 
     <div class="field" ng-show="c.control.active.value || c.control.active.dropdown.listValue.length">
@@ -28,7 +28,7 @@
     </div>
 
     <div class="inline fields " ng-hide="c.control.active.childOfMultiRow || c.control.active.dontShowColumnSize">
-        <label>تعداد ستون</label>
+        <label>{{'column count'|translate}}</label>
         <sm-dropdown class="scrolling" items="[
                              {k:'twelve',v:'12' },
                              {k:'eleven',v:'11' },
@@ -43,24 +43,24 @@
                              {k:'two',v:'2' },
                              {k:'one',v:'1' }
                              ]" model="c.control.active.columnClass" label="item.v" value="item.k"></sm-dropdown>
-        <span style="margin:0 10px;"> از ۱۲ ستون</span>
+        <span style="margin:0 10px;"> {{'from 12 column'|translate}}</span>
     </div>
 
     <div class="field" ng-show="c.controlProperty(c.control.active).require">
         <sadaf-checkbox ng-model="c.control.active.validations.isRequire">
-            {{'الزامی بودن' | translate}}
+            {{'require' | translate}}
         </sadaf-checkbox>
     </div>
 
     <div class="field" ng-hide="c.control.active.dontShowHide">
-        <sadaf-checkbox ng-model="c.control.active.hidden">مخفی کردن</sadaf-checkbox>
+        <sadaf-checkbox ng-model="c.control.active.hidden">{{'مخفی کردن'|translate}}</sadaf-checkbox>
     </div>
 
 
 
     <div class="field" ng-show="c.controlProperty(c.control.active).showUniqueProp">
         <sadaf-checkbox ng-model="c.control.active.validations.enforceUnique">
-            {{'یکتا بودن' | translate}}
+            {{'unique' | translate}}
         </sadaf-checkbox>
     </div>
 
@@ -68,46 +68,46 @@
     <div class="fields" ng-show="c.control.active.type == 2" style="margin-bottom: 0;">
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.validations.autoIncrement">
-                {{'افزایش خودکار' | translate}}
+                {{'auto increment' | translate}}
             </sadaf-checkbox>
         </div>
 
         <div class="field" ng-show="c.control.active.validations.autoIncrement">
-            <input ng-model="c.control.active.validations.autoIncrementSeed" placeholder="مقدار شروع">
+            <input ng-model="c.control.active.validations.autoIncrementSeed" placeholder="{{'begin value'|translate}}">
         </div>
     </div>
 
     <div class="field" ng-show="c.controlProperty(c.control.active).default">
-        <sadaf-checkbox ng-model="c.control.active.hasDefault">داشتن مقدار پیش فرض</sadaf-checkbox>
+        <sadaf-checkbox ng-model="c.control.active.hasDefault">{{'has default'|translate}}</sadaf-checkbox>
     </div>
 
     <div class="field" ng-show="c.controlProperty(c.control.active).default && c.control.active.hasDefault">
-        <input ng-model="c.control.active.defaultValue" placeholder="مقدار پیش فرض">
+        <input ng-model="c.control.active.defaultValue" placeholder="{{'مقدار پیش‌فرض'|translate}}">
     </div>
 
     <div class="field" ng-show="c.control.active.type == 1 || c.control.active.type == 0 || c.control.active.type == 2">
-        <sadaf-checkbox ng-model="c.control.active.validations.checkLen">محدودیت طول</sadaf-checkbox>
+        <sadaf-checkbox ng-model="c.control.active.validations.checkLen">{{'length limit'|translate}}</sadaf-checkbox>
     </div>
 
     <div class="field" ng-show="c.control.active.validations.checkLen">
-        <input ng-model="c.control.active.validations.minLen" placeholder="کمترین طول">
+        <input ng-model="c.control.active.validations.minLen" placeholder="{{'min length'|translate}}">
     </div>
 
     <div class="field" ng-show="c.control.active.validations.checkLen">
-        <input ng-model="c.control.active.validations.maxLen" placeholder="بیشترین طول">
+        <input ng-model="c.control.active.validations.maxLen" placeholder="{{'max length'|translate}}">
     </div>
 
     <div class="field" ng-show="c.control.active.type == 2">
         <sadaf-checkbox ng-model="c.control.active.validations.checkNumber">
-            <span>محدودیت مقدار</span>
+            <span>{{'value limit'|translate}}</span>
         </sadaf-checkbox>
     </div>
     <div class="field" ng-show="c.control.active.validations.checkNumber">
-        <input ng-model="c.control.active.validations.minNumber" placeholder="کمترین مقدار">
+        <input ng-model="c.control.active.validations.minNumber" placeholder="{{'min value'|translate}}">
     </div>
 
     <div class="field" ng-show="c.control.active.validations.checkNumber">
-        <input ng-model="c.control.active.validations.maxNumber" placeholder="بیشترین مقدار">
+        <input ng-model="c.control.active.validations.maxNumber" placeholder="{{'max value'|translate}}">
     </div>
 
     <!-- تنظیمات مربوط به دراپ دان -->
@@ -115,22 +115,22 @@
 
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.dropdown.multiSelectDropdown">
-                {{'چند انتخابی' | translate}}
+                {{'drop down multi select' | translate}}
             </sadaf-checkbox>
         </div>
 
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.dropdown.useRemoteData" ng-change="c.control.resetListValue()">
-                استفاده از داده‌های ریموت
+                {{'use remote data'|translate}}
             </sadaf-checkbox>
         </div>
 
         <div class="field" ng-show="!c.control.active.dropdown.useRemoteData">
-            <label>مقادیر قابل انتخاب</label>
+            <label>{{'selectable values' | translate}}</label>
             <textarea layout-fill
                       ng-model="c.control.active.dropdown.itemsTemp"
                       ng-change="c.control.createItems(c.control.active)"
-                      placeholder="هر خط یک مقدار" rows="5"></textarea>
+                      placeholder="{{'each line one value' | translate}}" rows="5"></textarea>
         </div>
 
         <div ng-if="c.control.active.dropdown.useRemoteData">
@@ -142,28 +142,27 @@
     <!-- تنظیمات مربوط به کنترل عددی -->
     <div ng-show="c.control.active.type == 2 || c.control.active.type == 5 || c.control.active.type == 16|| c.control.active.type == 17" class="field">
         <div class="inline fields">
-            <label>فرمت نمایش</label>
-            <sm-dropdown items="[{key:'سفارشی', value:'سفارشی'}
+            <label>{{'فرمت نمایش' | translate}}</label>
+            <sm-dropdown items="[{key:'سفارشی', value:('سفارشی' | translate)}
                                  , {key:'.0%', value:'%'}
                                  , {key:',.1%', value:'#,#.0%'}
                                  , {key:',.2%', value:'#,#.00%'}
                                  , {key:',.0f', value:'#,#'}
                                  , {key:',.1f', value:'#,#:0'}
                                  , {key:',.2f', value:'#,#:00'}
-                                 , {key:'', value:'عادی'},]"
+                                 , {key:'', value:('normal' | translate)},]"
                          class=""
                          model="c.control.active.format" label="item.value" value="item.key"></sm-dropdown>
         </div>
 
-
         <div class="inline fields" ng-hide="c.control.active.type == 2">
-            <label class="wide four field">متن قبل</label>
-            <input ng-model="c.control.active.prefix" placeholder="متن قبل">
+            <label class="wide four field">{{'prefix' | translate}}</label>
+            <input ng-model="c.control.active.prefix" placeholder="{{'prefix' | translate}}">
         </div>
 
         <div class="inline fields" ng-hide="c.control.active.type == 2">
-            <label class="wide four field">متن بعدی</label>
-            <input ng-model="c.control.active.postfix" placeholder="متن بعدی">
+            <label class="wide four field">{{'postfix' | translate}}</label>
+            <input ng-model="c.control.active.postfix" placeholder="{{'postfix' | translate}}">
         </div>
 
     </div>
@@ -173,7 +172,7 @@
 
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.formLookup.showAddButton" ng-change="c.control.resetListValue()">
-                نمایش دکمه امکان ایجاد رکورد جدید
+                {{'show new record botton' | translate}}            
             </sadaf-checkbox>
         </div>
 
@@ -184,7 +183,7 @@
 
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
-                استفاده از فیلتر
+            {{'filter' | translate}}
             </sadaf-checkbox>
             <filter-property ng-show="c.control.active.useFilter" name="c.control.active.name" 
                              ng-model="c.control.active.filters" 
@@ -198,23 +197,23 @@
     <div ng-show="c.control.active.type == 13" class="field">
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.multiRowForm.separator">
-                نمایش خط جدا کننده بین ردیف‌ها
+                {{'row separator' | translate}}
             </sadaf-checkbox>
         </div>
 
         <div class="inline fields">
-            <label>تعداد ستون‌های فرم</label>
-            <sm-dropdown items="[1,2,3,4,5,6,8]" model="c.control.active.multiRowForm.columns" label="item  + ' ستونه'" value="item" ng-init="c.control.active.multiRowForm.columns = 2"></sm-dropdown>
+            <label>{{'column count' | translate}}</label>
+            <sm-dropdown items="[1,2,3,4,5,6,8]" model="c.control.active.multiRowForm.columns" label="item  +('column' | translate)" value="item" ng-init="c.control.active.multiRowForm.columns = 2"></sm-dropdown>
         </div>
 
         <div class="inline fields">
-            <label>اندازه کنترل‌ها</label>
+            <label>{{'controls size' | translate}}</label>
             <control-size ng-model="c.control.active.multiRowForm.controlSize"></control-size>
         </div>
 
         <div class="field">
-            <label>متن کلید اضافه کردن ردیف</label>
-            <input ng-model="c.control.active.multiRowForm.addKeyText" placeholder="ردیف جدید">
+            <label>{{'new record botton text' | translate}}</label>
+            <input ng-model="c.control.active.multiRowForm.addKeyText" placeholder="{{'new record' | translate}}">
         </div>
 
 
@@ -225,43 +224,43 @@
     <div ng-show="c.control.active.type == 15" class="field">
 
         <div class="inline fields">
-            <label>رنگ</label>
-            <sm-dropdown items="[{label:'قرمز', value:'red'},
-                                 {label:'نارنجی', value:'orange'},
-                                 {label:'زرد', value:'yellow'},
-                                 {label:'فسفری', value:'olive'},
-                                 {label:'سبز', value:'green'},
-                                 {label:'سبز تیره', value:'teal'},
-                                 {label:'آبی', value:'blue'},
-                                 {label:'بنفش تیره', value:'violet'},
-                                 {label:'بنفش', value:'purple'},
-                                 {label:'صورتی', value:'pink'},
-                                 {label:'قهوه‌ای', value:'brown'},
-                                 {label:'خاکستری', value:'grey'},
-                                 {label:'مشکی', value:'black'}]"
+            <label>{{'color'|translate}}</label>
+            <sm-dropdown items="[{label:('red'     |translate), value:'red'},
+                                 {label:('orange'   |translate), value:'orange'},
+                                 {label:('yellow'      |translate), value:'yellow'},
+                                 {label:('olive'    |translate), value:'olive'},
+                                 {label:('green'      |translate), value:'green'},
+                                 {label:('teal' |translate), value:'teal'},
+                                 {label:('blue'      |translate), value:'blue'},
+                                 {label:('violet'|translate), value:'violet'},
+                                 {label:('purple'     |translate), value:'purple'},
+                                 {label:('pink'    |translate), value:'pink'},
+                                 {label:('brown'   |translate)   , value:'brown'},
+                                 {label:('grey'  |translate)    , value:'grey'},
+                                 {label:('black'     |translate), value:'black'}]"
                          class=""
                          model="c.control.active.button.colorClass" label="item.label" value="item.value"></sm-dropdown>
         </div>
 
         <div class="inline fields">
-            <label>اندازه</label>
+            <label>{{'size' | translate}}</label>
             <control-size ng-model="c.control.active.button.size"></control-size>
         </div>
 
         <div class="inline fields">
-            <label>نوع</label>
-            <sm-dropdown items="[{label:'رفتن به صفحه داشبورد', value:0}, {label:'داده فرمی جدید', value:1}, {label:'اجرای وب سرویس', value:2}]"
+            <label>{{'type' | translate}}</label>
+            <sm-dropdown items="[{label:('goto dashboard' | translate), value:0}, {label: ('open form'| translate), value:1}, {label:('web service' | translate), value:2}]"
                          class=""
                          model="c.control.active.button.type" label="item.label" value="item.value"></sm-dropdown>
         </div>
 
         <div class="field" ng-show="c.control.active.button.type == 0">
-            <label>انتخاب صفحه داشبورد</label>
+            <label>{{'dashboard'|translate}}</label>
             <select-menu ng-model="c.control.active.button.dashboardId"></select-menu>
         </div>
 
         <div class="field" ng-show="c.control.active.button.type == 0">
-            <sm-dropdown items="[{label:'باز کردن در صفحه جدید', value:0}, {label:'باز کردن در صفحه جاری', value:1}]"
+            <sm-dropdown items="[{label:('new page' | translate), value:0}, {label:('current page' | translate), value:1}]"
                          class=""
                          model="c.control.active.button.openLinkType" label="item.label" value="item.value"></sm-dropdown>
         </div>
@@ -272,8 +271,8 @@
         </div>
 
         <div class="field" ng-show="c.control.active.button.type == 2">
-            <label>آدرس وب سرویس</label>
-            <input ng-model="c.control.active.button.webserviceUrl" placeholder="آدرس وب سرویس">
+            <label>{{'آدرس' | translate}}</label>
+            <input ng-model="c.control.active.button.webserviceUrl" placeholder="{{'آدرس' | translate}}">
         </div>
 
     </div>
@@ -282,7 +281,7 @@
     <div ng-show="c.control.active.type == 5" class="field">
 
         <div class="field">
-            <label>کنترل‌های قابل استفاده</label>
+            <label>{{'selectable controls' | translate}}</label>
             <div class="ui mini labels">
                 <div class="ui label pointer" ng-repeat="f in c.activeSibling.row track by $index"
                      ng-show="f.type === 2 || f.type == 8 || f.type == 9|| f.type == 14 || ((f.type === 5 || f.type == 16) && f.name !== c.control.active.name && $index < c.activeSibling.index )"
@@ -293,7 +292,7 @@
         </div>
 
         <div class="field">
-            <label>فرمول</label>
+            <label>{{'فرمول' | translate}}</label>
             <textarea class="code ltr" ng-model="c.control.active.calculate.expression"></textarea>
         </div>
 
@@ -302,11 +301,11 @@
     <!-- فیلد محاسباتی - مجموع -->
     <div ng-show="c.control.active.type == 16" class="field">
         <div class="inline fields">
-            <label>تابع تجمیع</label>
+            <label>{{'تابع تجمیع' | translate}}</label>
             <sm-dropdown items="['sum','avg','var']" model="c.control.active.calculate.func" ng-init="c.control.active.calculate.func = 'sum'"></sm-dropdown>
         </div>
         <div class="field">
-            <label>کنترل‌های قابل استفاده</label>
+            <label>{{'selectable controls' | translate}}</label>
             <div class="ui mini labels">
                 <div class="ui label pointer" ng-repeat="f in c.controlList track by $index"
                      ng-show="f.childOfMultiRow && (f.type === 2 || f.type === 5)"
@@ -317,7 +316,7 @@
         </div>
 
         <div class="field">
-            <label>فرمول</label>
+            <label>{{'فرمول' | translate}}</label>
             <textarea class="code ltr" ng-model="c.control.active.calculate.expression"></textarea>
         </div>
 
@@ -326,21 +325,21 @@
     <!-- تنظیمات مربوط به کنترل دسترسی -->
     <div ng-hide="c.control.active.dontShowAccessControl" class="field">
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.accessControlView" label="کنترل دسترسی نمایش">کنترل دسترسی نمایش</sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.accessControlView" label="{{'view access control' | translate}}">{{'view access control' | translate}}</sadaf-checkbox>
         </div>
 
         <div class="field" ng-show="c.control.active.accessControlView">
             <select-roles ng-model="c.control.active.accessControlViewRoles"></select-roles>
-            <div><small>تنها کاربرانی اجازه <b>مشاهده</b> این کنترل را دارند که یکی از نقش‌های بالا را داشته باشند</small></div>
+            <div><small>{{'view access control desc' | translate}}</small></div>
         </div>
 
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.accessControlEdit" label="کنترل دسترسی ویرایش">کنترل دسترسی ویرایش</sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.accessControlEdit" label="{{'edit access control' | translate}}">{{'edit access control' | translate}}</sadaf-checkbox>
         </div>
 
         <div class="field" ng-show="c.control.active.accessControlEdit">
             <select-roles ng-model="c.control.active.accessControlEditRoles"></select-roles>
-            <div><small>تنها کاربرانی اجازه <b>ویرایش</b> این کنترل را دارند که یکی از نقش‌های بالا را داشته باشند</small></div>
+            <div><small>{{'edit access control desc' | translate}}</small></div>
         </div>
 
     </div>
@@ -361,16 +360,16 @@
 <div ng-show="!c.control.active.name" class="ui tiny form">
 
     <div class="field">
-        <label>نام صفحه</label>
+        <label>{{'name' | translate}}</label>
         <input ng-model="c.pages.activePage.name" placeholder="نام صفحه">
     </div>
 
 
     <div class="field">
-        <sadaf-checkbox ng-model="c.showSubmitedInfo" label="">نمایش خلاصه اطلاعات ارسال شده بعد از ذخیره</sadaf-checkbox>
+        <sadaf-checkbox ng-model="c.showSubmitedInfo" label="">{{'show submitted info' | translate}}</sadaf-checkbox>
     </div>
     <div class="field">
-        <sadaf-checkbox ng-model="c.pages.activePage.rowValidation.uniqueMultiField" label="">مقدار یکتا برای ترکیب فیلد‌ها</sadaf-checkbox>
+        <sadaf-checkbox ng-model="c.pages.activePage.rowValidation.uniqueMultiField" label="">{{'unique value for multi control' | translate}}</sadaf-checkbox>
     </div>
 
     <div ng-show="c.pages.activePage.rowValidation.uniqueMultiField" class="field">
@@ -390,8 +389,8 @@
     </div>
 
     <div class="inline fields">
-        <label>اندازه کنترل‌ها</label>
-        <sm-dropdown items="[{label:'خیلی کوچک', value:'mini'}, {label:'کوچک', value:'tiny'}, {label:'معمولی', value:''}]"
+        <label>{{'size' | translate}}</label>
+        <sm-dropdown items="[{label:('خیلی کوچک' | translate), value:'mini'}, {label:('کوچک' | translate), value:'tiny'}, {label:('normal' | translate), value:''}]"
                      class="selection fluid "
                      model="c.pages.activePage.size" label="item.label" value="item.value" ng-init="c.control.active.multiRowForm.controlSize = ''"></sm-dropdown>
     </div>

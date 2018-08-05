@@ -84,35 +84,34 @@
 
             <div class="ui labeled icon button teal" ng-click="c.save()" ng-class="{loading: c.saveProgress}">
                 <i class="icon save"></i>
-                ذخیره
+                {{'save' | translate}}
             </div>
 
             <div class="ui labeled icon button" ng-show="c.id" ng-click="c.publishVisible = true" ng-class="{loading: c.publishProgress}">
                 <i class="icon cloud"></i>
-                انتشار عمومی
+                {{'publish' | translate}}
             </div>
 
             <sm-modal visible="c.publishVisible">
                 <div class="header">
-                    انتشار فرم روی وب
+                    {{'publish' | translate}}
                 </div>
 
                 <div class="content">
-                    در صورت انتشار فرم روی وب، لینکی برای شما تولید می‌شود که می‌توانید آن را در اختیار دیگران قرار دهید و بدون نیاز به لاگین به
-                    فرم دسترسی داشته باشید.
-                    <br />
+                        {{'form publish desc' | translate}}
+                     <br />
                     <br />
                     <div ng-show="c.publish">
-                        <b style="font-weight: 800;">لینک فرم:</b> <a class="ui label ltr" href="{{app.urlPrefix + 'sadaf/form/' + c.url}}" target="_blank">{{app.urlPrefix + 'sadaf/form/' + c.url}}</a>
+                        <b style="font-weight: 800;">{{'link' | translate}}:</b> <a class="ui label ltr" href="{{app.urlPrefix + 'sadaf/form/' + c.url}}" target="_blank">{{app.urlPrefix + 'sadaf/form/' + c.url}}</a>
                     </div>
                 </div>
                 <div class="actions">
                     <div  class="ui labeled icon button " ng-click="c.publishFrom(!c.publish)" ng-class="{loading: c.publishProgress, green: !c.publish, red: c.publish }">
-                        <i class="icon cloud" ></i>{{ !c.publish ? 'انتشار' : 'عدم انتشار'}}
+                        <i class="icon cloud" ></i>{{ !c.publish ? ('publish' | translate) : ('unpublish' | translate)}}
                     </div>
                     
                     <div class="ui black deny button">
-                        لغو
+                        {{'cancel' | translate}}
                     </div>
 
                 </div>
@@ -125,7 +124,7 @@
 
             <div class="ui left tiny secondary pointing menu">
                 <div class="item header">
-                    تنظیمات
+                    {{'تنظیمات' | translate}}
                 </div>
 
                 <div class="item">
@@ -149,7 +148,7 @@
                 </div>
 
                 <div class="item pointer" ng-click="c.pages.add()" ng-class="{active: p.active}" style="opacity:0.4;">
-                    صفحه جدید
+                    {{'new page' | translate}}
                     <i class="add icon gray pointer"></i>
                 </div>
 
@@ -177,7 +176,7 @@
         <div class="form-generator-side-column" flex="25" layout="column">
             <div class="ui left tiny secondary pointing   menu">
                 <div class="item header">
-                    جعبه ابزار
+                    {{'toolbox' | translate}}
                 </div>
             </div>
             <ng-include flex src="c.app.urlPrefix + 'dist/partial/forms/editor/form-generator-editor-component.html'"></ng-include>

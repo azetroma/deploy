@@ -1,0 +1,255 @@
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = ViewBag.msg["signup"];
+}
+
+<div class="ui container">
+    <style>
+        .form-signin {
+            max-width: 970px;
+            margin-top: 80px;
+        }
+
+        .same-height {
+            margin-bottom: -99999px;
+            padding-bottom: 99999px;
+        }
+
+        .hide-overflow {
+            overflow: hidden;
+        }
+
+        .card {
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 6px;
+        }
+
+        .logo {
+            max-width: 55%;
+            height: auto;
+            margin: 0 auto;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .sadaf-desc {
+            font-size: 13px;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        body {
+            margin: 0;
+            padding-top: 0px;
+            padding-bottom: 40px;
+            background-color: #eee;
+            overflow: auto;
+        }
+
+        .inline-h1 {
+            display: inline;
+            font-size: inherit;
+            font-family: Droid !important;
+        }
+
+        #activationModal .content li {
+            margin: 7px 0;
+        }
+
+        .form-signin {
+            transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+        }
+    </style>
+
+
+
+    <div class="form-signin" ng-app="signup" ng-controller="cntl">
+        <div class="ui stackable grid">
+            <div class="col-md-6 six wide column">
+                <div class="sadaf-desc">
+
+                    <img class="logo" src="~/Images/logo_half.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                    <p>
+                        @Html.Raw(ViewBag.msg["info"])
+                    </p>
+                    <div class="text-left">
+                        <a href="http://www.sadafdashboard.ir/files/sadaf.apk" class="ui xblack label">@ViewBag.msg["download android"]</a>
+                    </div>
+
+                    <div style="margin-top:30px;">
+
+                        <a style="display:flex; align-items:center;" href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">
+                            @if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["showCopyRightLogo"] ?? "true")) {
+                            <img class="logo" style="width:50px; margin-left:10px; margin-right:0;" src="~/Images/copy_right_logo.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                                    }
+
+                            <span>@Html.Raw(ViewBag.msg["copy right"])</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 six wide column">
+                <div class="card">
+                    <div style="">
+
+                        <div class="ui big form">
+
+                            <div class="field" ng-class="{error: !checkUsernameState && model.username.length}">
+                                <label>@ViewBag.msg["username"]</label>
+                                <div class="ui icon input" ng-class="{loading: checkUsernameProgress}">
+                                    <input name="username" ng-model-options="{ debounce: 500 }" ng-change="checkUsername()" ng-model="model.username" type="text" autocomplete="off" class="ui fuild input" />
+                                    <i class="user icon" ng-class="{'link green check' : checkUsernameState && model.username.length, user : !checkUsernameState || !model.username.length}"></i>
+                                </div>
+                                <small ng-show="!checkUsernameState && model.username.length">نام کاربری در سامانه وجود دارد</small>
+                            </div>
+                            <div class="field">
+                                <label>@ViewBag.msg["password"]</label>
+                                <div class="ui icon input">
+                                    <input name="password" ng-model="model.password" type="{{showPass ? 'text':'password'}}" autocomplete="off" class="ui fuild input" />
+                                    <i class="lock icon"></i>
+                                </div>
+                                <label class="" style="font-weight:200; margin:10px 0; font-size:0.8em">
+                                    <input type="checkbox" ng-model="showPass">
+                                    @ViewBag.msg["show password"]
+                                </label>
+                            </div>
+
+                            <div class="field" >
+                                <label>@ViewBag.msg["name"]</label>
+                                <div class="ui icon input">
+                                    <input name="email" ng-model="model.name" type="text" autocomplete="off" class="ui fuild input" />
+                                    <i class="address book outline icon"></i>
+                                </div>
+                            </div>
+
+                            <div class="field" ng-class="{error : error.email.length}">
+                                <label>@ViewBag.msg["email"]</label>
+                                <div class="ui icon input">
+                                    <input name="email" ng-model="model.email" ng-change="testEmail()" type="text" autocomplete="off" class="ui fuild input" />
+                                    <i class="mail icon" ng-class="{'green link check' : !error.email.length && model.email.length, mail: error.email.length|| !model.email.length}"></i>
+                                </div>
+                                <small class="gray">{{error.email}}</small>
+                            </div>
+
+                            <div class="field" ng-class="{error : error.mobile.length}">
+                                <label>@ViewBag.msg["mobile"]</label>
+                                <div class="ui icon input">
+                                    <input name="mobile" ng-change="testMobile()" ng-model="model.mobile" type="text" autocomplete="off" class="ui fuild input" />
+                                    <i class="phone icon" ng-class="{'green link check' : !error.mobile.length && model.mobile.length, phone: error.mobile.length|| !model.mobile.length}"></i>
+                                </div>
+                                <small class="gray">{{error.mobile}}</small>
+                            </div>
+
+                            <button class="ui blue fluid button big submit" ng-class="{loading: loading, disabled: loading || !checkUsernameState || (error.email && model.email.length) || (error.mobile && model.mobile.length)}" ng-click="submit()" type="submit" style="margin-top:35px;">ثبت نام</button>
+
+                        </div>
+
+                    </div>
+
+
+
+
+                    @if (ViewBag.error != null) {
+                        <div class="ui negative message">
+                            @Html.Raw(ViewBag.error)
+                        </div>
+                    }
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    @section scripts{
+
+        <script>
+
+            app = angular.module('signup', []);
+            app.controller('cntl', ['$scope', '$http', function ($scope, $http) {
+                $scope.model = {};
+                $scope.error = {};
+                $scope.loading = false;
+
+                $scope.testEmail = function () {
+                    $scope.error.email = null;
+                    if (!validateEmail($scope.model.email)) {
+                        $scope.error.email = 'لطفا یک ایمیل معتبر وارد کنید';
+                    }
+                }
+                $scope.testMobile = function () {
+                    $scope.error.mobile = null;
+                    if (!validateMobile($scope.model.mobile)) {
+                        $scope.error.mobile = 'موبایل وارد شده معتبر نیست';
+                    }
+                }
+
+                $scope.checkUsername = function () {
+                    console.log('check', $scope.model.username);
+                    var link = "@Url.Action("checkusername", "account")";
+                    $scope.checkUsernameProgress = true;
+                    $scope.checkUsernameState = false;
+                    $http.post(link, { username: $scope.model.username })
+                    .then(function (res) {
+                        $scope.checkUsernameProgress = false;
+                        $scope.checkUsernameState = !res.data.exist;
+                    });
+
+                }
+
+                $scope.submit = function () {
+
+                    var link = "@Url.Action("signup", "account")";
+                    $scope.loading = true;
+                    $http.post(link, { model: $scope.model })
+                    .then(function () {
+                        $scope.loading = false;
+                        window.location = '/'
+                    })
+                    .catch(function () {
+                        $scope.loading = false;
+                    });
+                }
+
+
+                function validateEmail(email) {
+                    if (!email) return true;
+                    var re = /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    return re.test(String(email).toLowerCase());
+                }
+
+                function validateMobile(email) {
+                    if (!email) return true;
+                    var re = /^0[1-9][0-9]{9}$/;
+                    return re.test(String(email).toLowerCase());
+                }
+
+            }]);
+
+        </script>
+
+    }
+
+
+
+
+</div>
+
+<script>
+    localStorage.removeItem('userVariable');
+
+    window.addEventListener('message', function (e) {
+        if (!_.isString(e.data)) return;
+
+        var message = JSON.parse(e.data);
+        window.location.href = message.param
+    });
+
+</script>

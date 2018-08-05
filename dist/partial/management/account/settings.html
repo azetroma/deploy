@@ -10,19 +10,29 @@
 
                 <div flex="50">
 
-
                     <md-input-container class="md-block">
                         <label>{{'نام سازمان' | translate}}</label>
-                        <input required name="name" ng-model="brand">
+                        <input required name="name" ng-model="model.Brand">
                     </md-input-container>
 
-
-                    <!--<md-input-container class="md-block">
-                        <label>{{'زبان' | translate}}</label>
-                        <md-select ng-model="language">
-                            <md-option ng-repeat="i in langs" value="{{i.key}}">{{i.value}}</md-option>
-                        </md-select>
+                    <!--<md-input-container >
+                        <md-checkbox class="md-block" ng-model="model.publicSignup">
+                           {{'can signup' | translate}}
+                        </md-checkbox>
                     </md-input-container>-->
+
+                    <md-input-container class="md-block" ng-show="model.publicSignup">
+                        <label>{{'default role' | translate}}</label>
+                        <md-select ng-model="model.defaultRole">
+                            <md-option ng-repeat="item in roles" ng-value="item.id">{{item.name}}</md-option>
+                        </md-select>
+                        <small><small>{{'default role desc' | translate}}</small></small>
+                    </md-input-container>
+                    <br />
+                    <md-input-container class="md-block">
+                        <label>{{'login desc' | translate}}</label>
+                        <textarea ng-model="model.loginPageText"></textarea>
+                    </md-input-container>
 
 
 
@@ -54,10 +64,3 @@
 </div>
 
 
-<!--<div flex layout="column">
-    <md-content layout-margin flex>
-
-
-    </md-content>
-
-</div>-->
