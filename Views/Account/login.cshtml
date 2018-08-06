@@ -122,7 +122,7 @@
                             </div>
                             }
                         <button class="ui blue fluid button big" type="submit">@ViewBag.msg["login"]</button>
-                        @if (ViewBag.publicSignup) {
+                        @if (ViewBag.publicSignup ?? false) {
                             <br />
                             <a class="ui basic fluid button big" href="@Url.Action("signup", "account")">@ViewBag.msg["signup"]</a>
                         }
