@@ -430,13 +430,13 @@
                 <md-menu>
                     <md-button ng-click="$mdMenu.open($event)" style="font-size:10px">
                         {{chartNameMap[expandedChartType].name}}
-                    </md-button>
+                    </md-button> 
                     <md-menu-content>
                         <div>
 
                             <div layout="row" layout-wrap>
                                 <div flex="25" ng-class="{'active': expandedChartType == 1  }" ng-click="$mdMenu.hide();changeChartType(1)"><div class="chart-type-item">{{'bar' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 2  }" ng-click="$mdMenu.hide();changeChartType(2)"><div class="chart-type-item">{{'stack-bar' | translate}}</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 2  }" ng-click="$mdMenu.hide();changeChartType(2)"><div class="chart-type-item">{{'bar-stack' | translate}}</div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 21 }" ng-click="$mdMenu.hide();changeChartType(21)"><div class="chart-type-item">{{'percent-stack-bar' | translate}}</div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 3  }" ng-click="$mdMenu.hide();changeChartType(3)"><div class="chart-type-item">{{'خطی' | translate}}  </div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 4  }" ng-click="$mdMenu.hide();changeChartType(4)"><div class="chart-type-item">{{'stack-line' | translate}}  </div></div>

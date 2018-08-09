@@ -5,7 +5,7 @@
 	"aggregated table":"Aggregated Table",
 	"table":"Table",
 	"number":"Number",
-	"multi part linear gaugexx":"Multipart Linear Gauge",
+	"multi part linear gauge":"Multipart Linear Gauge",
 	"linear gauge":"Linear Gauge",
 	"multi part arc gauge":"Mutipart arc Gauge",
 	"arc gauge":"Arc Gauge",
@@ -887,5 +887,6 @@
 	"default role":"Default Role",
 	"default role desc":"When the user registers the system, this role is assigned to him by default.",
 	"can signup":"Possibility to register users in the system",
-	"login desc":"Login Page Text"
+	"login desc":"Login Page Text",
+	"percent-stack-line":"Percent Stack Line"
 }

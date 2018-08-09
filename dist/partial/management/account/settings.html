@@ -8,18 +8,18 @@
                     <h3 style="margin-bottom:40px">{{'تنظیمات کلی برنامه' | translate}}</h3>
                 </div>
 
-                <div flex="50">
+                <div flex="50"> 
 
                     <md-input-container class="md-block">
                         <label>{{'نام سازمان' | translate}}</label>
                         <input required name="name" ng-model="model.Brand">
                     </md-input-container>
 
-                    <!--<md-input-container >
+                    <md-input-container >
                         <md-checkbox class="md-block" ng-model="model.publicSignup">
                            {{'can signup' | translate}}
                         </md-checkbox>
-                    </md-input-container>-->
+                    </md-input-container>
 
                     <md-input-container class="md-block" ng-show="model.publicSignup">
                         <label>{{'default role' | translate}}</label>

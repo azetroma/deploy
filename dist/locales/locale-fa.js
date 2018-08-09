@@ -5,7 +5,7 @@
 	"aggregated table":"جدول تجمیعی",
 	"table":"جدول",
 	"number":"عدد",
-	"multi part linear gaugexx":"عقربه‌ای خطی - چند بخشی",
+	"multi part linear gauge":"عقربه‌ای خطی - چند بخشی",
 	"linear gauge":"عقربه‌ای خطی",
 	"multi part arc gauge":"عقربه‌ای هلالی - چند بخشی",
 	"arc gauge":"عقربه‌ای هلالی",
@@ -887,5 +887,6 @@
 	"default role":"نقش پیش فرض",
 	"default role desc":"زمانی که کاربر در سامانه ثبت نام می‌کند این نقش به صورت پیش فرض به وی تخصیص داده می‌شود.",
 	"can signup":"امکان ثبت نام کاربران در سامانه",
-	"login desc":"متن صفحه لاگین"
+	"login desc":"متن صفحه لاگین",
+	"percent-stack-line":"خطی پشته درصدی"
 }
