@@ -64,14 +64,14 @@
                 <collapse class="block" ng-model="data" hide-icon="{{(!data.nodes || !data.nodes.length ) &&  ( !data.contents || !data.contents.length) }}">
                     <collapse-header class="block hide-item-parent">
                         <span style="margin:0" href="{{app.hashUrlPrefix}}#/roles/edit/{{data.id}}">{{data.name}} </span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="ui gray icon mini right floated  hide-item" href="{{app.hashUrlPrefix}}#/roles/edit/{{data.id}}">
-                            <i class="ui icon mini edit" title="{{'ویرایش' | translate}}"></i>
+                        <a class="ui gray icon small right floated  hide-item" href="{{app.hashUrlPrefix}}#/roles/edit/{{data.id}}">
+                            <i class="ui icon small edit" title="{{'ویرایش' | translate}}"></i>
                         </a>
-                        <a class="ui gray icon mini right floated hide-item" href="{{app.hashUrlPrefix + '#/roles/edit/0/' + data.id}}">
-                            <i class="ui icon mini add" title="{{'add' | translate}}"></i>
+                        <a class="ui gray icon small right floated hide-item" href="{{app.hashUrlPrefix + '#/roles/edit/0/' + data.id}}">
+                            <i class="ui icon small add" title="{{'add' | translate}}"></i>
                         </a>
-                        <a class="ui gray icon mini right floated hide-item" ng-click="deleteOne(data)">
-                            <i class="ui icon mini trash" title="{{'delete' | translate}}"></i>
+                        <a class="ui gray icon small right floated hide-item" ng-click="deleteOne(data)">
+                            <i class="ui icon small trash" title="{{'delete' | translate}}"></i>
                         </a>
                     </collapse-header>
                     <collapse-body class="block">
@@ -87,12 +87,12 @@
 
 
     <div class="ui modal role-delete-modal">
-        <div class="header">حذف نقش</div>
-        <div class="content">موارد درخواستی برای همیشه حذف شوند؟</div>
+        <div class="header">{{'حذف نقش' | translate}}</div>
+        <div class="content">{{'delete role desc' | translate}}</div>
         <div class="actions">
-            <div ng-click="" class="ui button deny">لغو</div>
-            <div ng-click="deleteRole(false)" ng-class="{loading:deleteProgress && deleteType !='with-child'}" class="ui button red">حذف</div>
-            <div ng-click="deleteRole(true)" ng-class="{loading:deleteProgress&& deleteType =='with-child'}" class="ui button black">حذف به همراه فرزندان</div>
+            <div ng-click="" class="ui button deny">{{'cancel' | translate}}</div>
+            <div ng-click="deleteRole(false)" ng-class="{loading:deleteProgress && deleteType !='with-child'}" class="ui button red">{{'delete' | translate}}</div>
+            <div ng-click="deleteRole(true)" ng-class="{loading:deleteProgress&& deleteType =='with-child'}" class="ui button black">{{'delete with childes' | translate}}</div>
         </div>
     </div>
 

@@ -888,5 +888,12 @@
 	"default role desc":"When the user registers the system, this role is assigned to him by default.",
 	"can signup":"Possibility to register users in the system",
 	"login desc":"Login Page Text",
-	"percent-stack-line":"Percent Stack Line"
+	"percent-stack-line":"Percent Stack Line",
+	"upload chart list":"Uploaded Charts List",
+	"delete role desc":"Remove the selected role forever?",
+	"delete with childes":"Delete With Childes",
+	"upload new chart":"Upload New Chart",
+	"upload new chart desc":"Enter the new chart codes in the appropriate fields",
+	"settings template":"Settings Template",
+	"delete custom chart desc":"Are you sure you want to remove the selected template template?"
 }

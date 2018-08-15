@@ -429,7 +429,7 @@
                 </style>
                 <md-menu>
                     <md-button ng-click="$mdMenu.open($event)" style="font-size:10px">
-                        {{chartNameMap[expandedChartType].name}}
+                        {{chartNameMap[expandedChartType].name || 'Custom Chart' }}
                     </md-button> 
                     <md-menu-content>
                         <div>
@@ -487,6 +487,10 @@
                                 <div flex="25" ng-class="{'active': expandedChartType == 18 }" ng-click="$mdMenu.hide();changeChartType(18)"><div class="chart-type-item">{{'محدوده تاریخ' | translate}} </div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 19 }" ng-click="$mdMenu.hide();changeChartType(19)"><div class="chart-type-item">{{'range number' | translate}}</div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 20 }" ng-click="$mdMenu.hide();changeChartType(20)"><div class="chart-type-item">{{'search' | translate}}</div></div>
+                            </div>
+                            <md-divider></md-divider>
+                            <div layout="row" layout-wrap>
+                                <div ng-repeat="c in customCharts" flex="25" ng-class="{'active': expandedChartType == c.id+1000 }" ng-click="$mdMenu.hide();changeChartType(c.id+1000, true)"><div class="chart-type-item">{{c.name}}</div></div>
                             </div>
 
                         </div>

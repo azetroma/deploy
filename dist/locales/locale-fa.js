@@ -888,5 +888,12 @@
 	"default role desc":"زمانی که کاربر در سامانه ثبت نام می‌کند این نقش به صورت پیش فرض به وی تخصیص داده می‌شود.",
 	"can signup":"امکان ثبت نام کاربران در سامانه",
 	"login desc":"متن صفحه لاگین",
-	"percent-stack-line":"خطی پشته درصدی"
+	"percent-stack-line":"خطی پشته درصدی",
+	"upload chart list":"لیست نمودارهای آپلود شده",
+	"delete role desc":"نقش انتخاب شده برای همیشه حذف شود؟",
+	"delete with childes":"حذف به همراه فرزندان",
+	"upload new chart":"آپلود نمودار جدید",
+	"upload new chart desc":"کدهای نمودار جدید را در قسمت‌های مناسب وارد کنید",
+	"settings template":"الگوی تنظیمات",
+	"delete custom chart desc":"آیا برای حذف قالب نمودار انتخاب شده اطمینان دارید؟"
 }

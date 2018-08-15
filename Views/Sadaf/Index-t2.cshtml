@@ -526,7 +526,7 @@
         <script src="~/src/js/charts/tipsy.js?v=@v"></script>
 
 
-        <script src="~/web/src/js/dashboardPage/notification.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/notification.js?v=@v"></script>
         <script src="~/src/js/management/services/services-app.js?v=@v"></script>
         <script src="~/src/js/management/services/datasources.js?v=@v"></script>
         <script src="~/src/js/forms/forms-app.js?v=@v"></script>
@@ -555,7 +555,7 @@
             <script src="~/dist/js/dashboard-app-theme2.js?v=@v"></script>*@
     }
 
-    <script>
+        <script>
         var userVariable = @Html.Raw(Json.Encode(ViewBag.userVariable));
         if(_.isArray(userVariable)){
             localStorage.setItem('userVariable',JSON.stringify( userVariable));
@@ -578,18 +578,19 @@
         app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
         app.setAboluteUrl("@Request.Url.AbsoluteUri");
         app.userId = @user.Id;
-
+        app.commentOnChart = JSON.parse("@ViewBag.CommentOnChart.ToString().ToLower()");
+        
         var hash = "@ViewBag.returnUrlHash";
         if (hash) {
             location.hash = hash;
         }
         app.lang.setLangTyle(@ViewBag.lang);
-        
+
         app.lang.setLang();
         app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
             ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : v.ToString())';
 
-    </script>
+        </script>
 
     <script>
 
