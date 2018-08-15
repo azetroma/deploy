@@ -1,0 +1,89 @@
+﻿<div flex layout="column">
+    <md-toolbar xstyle="background-color:white; color:#666" class="md-primary md-hue-3" md-theme="t1">
+        <div class="md-toolbar-tools">
+            <div>{{'upload chart list'|translate}}</div>
+            <span flex></span>
+
+            <md-input-container md-no-float class="md-block" style="margin-top:30px">
+                <input ng-model="search" placeholder="{{'search' | translate}}">
+            </md-input-container>
+
+            <md-button class="md-icon-button cssFade" ng-show="isSelected()" ng-click="delete($event)" title="حذف">
+                <span class="material-icons">delete</span>
+                <md-tooltip>{{'remove' | translate}}</md-tooltip>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="add()">
+                <span class="material-icons">add_circle</span>
+                <md-tooltip>{{'add' | translate}}</md-tooltip>
+            </md-button>
+
+        </div>
+    </md-toolbar>
+
+    <div flex layout="column">
+        <md-content flex>
+
+            <table class="sadaf-table">
+                <tr>
+                    <th>#</th>
+                    <th><span>{{'name' | translate}}</span></th>
+                    <th></th>
+                </tr>
+
+                <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select;" ng-dblclick="goto(row, $event)" style="min-height:48px">
+                    <td width="20">{{utils.persian($index+1)}}</td>
+                    <td ng-click="goto(row, $event); $event.stopPropagation();"> <span class="pointer">{{row.name}}</span></td>
+                    <td width="100">
+                        <i ng-click="edit(row)" class="ui icon edit pointer" ></i>
+                        <i ng-click="remove(row, $index)" class="ui icon delete pointer" ></i>
+                    </td>
+                </tr>
+            </table>
+            <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
+                <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
+            </div>
+            <p ng-bind-html="error" ng-show="error" class="danger " layout-padding></p>
+            <div ng-hide="(data && data.length) || progress || error" class="md-caption" style="padding:16px; text-align:center">داده‌ای برای نمایش وجود ندارد</div>
+
+        </md-content>
+
+        <div class="ui modal new-custom-chart-modal">
+            <div class="header">{{'upload new chart' | translate}}</div>
+            <div class="content">
+                {{'upload new chart desc' | translate}}
+                <br />
+                <br />
+                <br />
+                <div class="ui inverted dimmer" ng-class="{active: editProgress}">
+                    <div class="ui loader"></div>
+                </div>
+                <div class="ui form">
+                    <div class="field">
+                        <label>{{'name' | translate}}</label>
+                        <input type="text" ng-model="model.name" />
+                    </div>
+
+                        <div class=" field">
+                            <label>Javascript</label>
+                            <textarea style="direction:ltr; font-family:monospace; font-size:11px;" ng-model="model.java"></textarea>
+                        </div>
+                        <div class=" field">
+                            <label>CSS</label>
+                            <textarea style="direction:ltr; font-family:monospace; font-size:11px;"" ng-model="model.css"></textarea>
+                        </div>
+                        <div class=" field">
+                            <label>{{'settings template' | translate}}</label>
+                            <textarea style="direction:ltr; font-family:monospace; font-size:11px;" ng-model="model.settingsTemplate"></textarea>
+                        </div>
+                </div>
+
+            </div>
+            <div class="actions">
+                <div ng-click="" class="ui button deny">{{'cancel' | translate}}</div>
+                <div ng-click="save()" ng-class="{loading:saveProgress}" class="ui button green">{{'save' | translate}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

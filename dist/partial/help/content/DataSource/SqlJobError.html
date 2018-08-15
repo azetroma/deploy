@@ -1,0 +1,33 @@
+﻿
+<h1 class="ui dividing header"> خطا در صورت استفاده از زمانبدی منبع داده</h1>
+
+در صورتی که با ذخیره منبع داده با خطای زیر مواجه می‌شوید به احتمال زیاد کاربر پایگاه داده شما دسترسی کاملی به پایگاه داده و سرویس زمانبندی ندارد
+
+<div class="ltr">An exception occurred while executing a Transact-SQL statement or batch. 
+</div>
+
+برای رفع این مشکل باید دستورات زیر را با کاربر ادمین در پایگاه داده اجرا کنید
+
+<br />
+    <li>
+      
+	  
+use msdb;
+GO
+CREATE ROLE db_executor;
+GO
+grant SELECT on dbo.sysjobs_view to db_executor;
+grant EXECUTE on dbo.sp_delete_job to db_executor;
+grant EXECUTE on dbo.sp_add_job to db_executor;
+grant EXECUTE on dbo.sp_add_jobschedule to db_executor;
+grant EXECUTE on dbo.sp_add_jobstep to db_executor;
+grant EXECUTE on dbo.sp_help_jobstep to db_executor;
+grant EXECUTE on dbo.sp_help_proxy to db_executor;
+grant EXECUTE on dbo.sp_add_jobserver to db_executor;
+GO
+
+CREATE USER [sadaf] FOR LOGIN [sadaf]
+GO
+
+ALTER ROLE [db_executor] ADD MEMBER [sadaf]
+GO

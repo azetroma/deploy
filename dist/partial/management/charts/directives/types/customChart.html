@@ -1,0 +1,109 @@
+<menu-container open-menu-name="openMenuName">
+
+    <menu-item> 
+        <menu-header  data-toggle="" >{{ 'تنظیمات کلی' | translate }}</menu-header>
+        <menu-body  class="prop-section  form-horizontal" >
+            <div>
+                <div ng-repeat="item in ngModel.customChartSettingTemplat.general">
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'checkbox'">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox">
+                                <label class="">
+                                    <input type="checkbox" ng-model="ngModel.customChart.general[item.key]" ng-change="refreshChart('refresh')" /> {{item.title}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'text' || item.type == 'number'">
+                        <label class="col-sm-4">{{item.title}}</label>
+                        <span class="form-divider" flex></span>
+                        <div class="col-sm-8">
+                            <input type="{{item.type}}" class="form-control" placeholder="{{item.title }}" ng-model="ngModel.customChart.general[item.key]"
+                                   ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" />
+                        </div>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'select'">
+                        <label class="col-sm-4">{{ item.title }}</label>
+                        <span class="form-divider" flex></span>
+                            <select ng-model="ngModel.customChart.general[item.key]" ng-change="refreshChart('refreshWithData')"
+                                    ng-options="i.value as i.name for i in item.entries">
+                            </select>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </menu-body>
+    </menu-item>
+
+    <menu-item  ng-show="ngModel.series && ngModel.series.length>0" name="series" > 
+        <menu-header  data-toggle="" >{{ 'مشخصات شاخص‌ها' | translate }}</menu-header>
+        <menu-body class="prop-section form-horizontal   ">
+            <div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'شاخص' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <div>
+                        <select id="series-selector" ng-model="ngModel.selectedSeries" ng-init="ngModel.selectedSeries=ngModel.selectedSeries||'{All}'"
+                                ng-options="i as i for i in ['{All}'].concat(ngModel.series)"></select>
+
+                    </div>
+                </div>
+
+                <top-measure dims="dimensions" ng-model="ngModel.customChart.series[ngModel.selectedSeries].top" ng-change="refreshChart('refreshWithData');"></top-measure>
+
+                <div ng-repeat="item in ngModel.customChartSettingTemplat.measures">
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'checkbox'">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox">
+                                <label class="">
+                                    <input type="checkbox" ng-model="ngModel.customChart.series[ngModel.selectedSeries][item.key]" ng-change="refreshChart('refresh')" /> {{item.title}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'text' || item.type == 'number'">
+                        <label class="col-sm-4">{{item.title}}</label>
+                        <span class="form-divider" flex></span>
+                        <div class="col-sm-8">
+                            <input type="{{item.type}}" class="form-control" placeholder="{{item.title }}" ng-model="ngModel.customChart.series[ngModel.selectedSeries][item.key]"
+                                   ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" />
+                        </div>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'select'">
+                        <label class="col-sm-4">{{ item.title }}</label>
+                        <span class="form-divider" flex></span>
+                        <select ng-model="ngModel.customChart.series[ngModel.selectedSeries][item.key]" ng-change="refreshChart('refreshWithData')"
+                                ng-options="i.value as i.name for i in item.entries"></select>
+                    </div>
+
+                </div>
+            </div>
+
+        </menu-body>
+    </menu-item>
+
+    <alert prop="ngModel" config="{name:'bar'}"></alert>
+
+    <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'bar', show:[1]}"></table-indicator>
+
+    <global-variable dimensions="dimensions" measures="measures" prop="ngModel"></global-variable>
+
+    <dim-meas-where model="openMenuName" ng-if="!isOlap" dimensions="dimensions" measures="measures" where="where" datasource="datasource"></dim-meas-where>
+
+    <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
+
+    <calculate-fields calculated-fields="calculatedFields"></calculate-fields>
+
+</menu-container>
