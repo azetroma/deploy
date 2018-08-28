@@ -59,7 +59,7 @@
 
                 <top-measure dims="dimensions" ng-model="ngModel.customChart.series[ngModel.selectedSeries].top" ng-change="refreshChart('refreshWithData');"></top-measure>
 
-                <div ng-repeat="item in ngModel.customChartSettingTemplat.measures">
+                <div ng-repeat="item in ngModel.customChartSettingTemplat.series">
 
                     <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'checkbox'">
                         <div class="col-sm-offset-4 col-sm-8">

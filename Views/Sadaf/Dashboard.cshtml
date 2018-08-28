@@ -120,58 +120,58 @@
     <input type="hidden" id="isFullscreen" value="true" />
 
     <input type="hidden" id="dashboardPublishMenuId" value="@ViewBag.MenuId" />
-    
-
-
-        <div class="main-container full-height-container" style="height:initial;max-height:initial;overflow-y:initial;">
-
-            <div class="" style="display:flex;flex-direction:row;padding:10px 0 0 10px;flex-wrap: wrap-reverse;justify-content: flex-end;">
-
-                <div ng-show="menuCategories.licenceRemain.remain <= 3" class="ui label red">
-                    تعداد روز باقیمانده از جواز استفاده:
-                    <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
-                </div>
-
-                <div class="" id="filter-box" ng-app="filterBox" style="transition:width 0.4s ease; flex:1 1 auto;">
-                    <div ng-controller="filterBoxController" id="filter-box-controller">
-
-                        <div ng-if="otherFilters.length + userControlFilter.length >1"
-                             class="ui label"
-                             title="{{'clear'| translate}}">
-                            <a ng-click="clearAll()" class="pointer"><b>{{'clear all'| translate}}</b></a>
-                        </div>
-
-
-                        <div ng-repeat="j in otherFilters | filter:{value:''}"
-                             class="ui label"
-                             title="{{j.valueCaption}}">
-                            <b>{{j.keyCaption}}: </b>{{getCleanValue(j.valueCaption)}}
-                            <i class="delete icon" ng-click="removeDrillDown($index)"></i>
-                        </div>
 
 
 
-                        <div ng-repeat="i in userControlFilter "
-                             ng-if="i.values && i.values.length"
-                             class="ui label"
-                             title="{{i.values.join(', ')}}">
-                            <b>{{i.key}}: </b>{{i.xCaption}} <span ng-bind-html="i.Caption"></span>
-                            <i class="delete icon" ng-hide="i.disableClear" ng-click="removeUserControl($index)"></i>
-                        </div>
-                    </div>
+    <div class="main-container full-height-container" style="height:initial;max-height:initial;overflow-y:initial;">
 
-                </div>
+        <div class="" style="display:flex;flex-direction:row;padding:10px 0 0 10px;flex-wrap: wrap-reverse;justify-content: flex-end;">
 
-              
+            <div ng-show="menuCategories.licenceRemain.remain <= 3" class="ui label red">
+                تعداد روز باقیمانده از جواز استفاده:
+                <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
             </div>
 
-            <ng-view></ng-view>
+            <div class="" id="filter-box" ng-app="filterBox" style="transition:width 0.4s ease; flex:1 1 auto;">
+                <div ng-controller="filterBoxController" id="filter-box-controller">
+
+                    <div ng-if="otherFilters.length + userControlFilter.length >1"
+                         class="ui label"
+                         title="{{'clear'| translate}}">
+                        <a ng-click="clearAll()" class="pointer"><b>{{'clear all'| translate}}</b></a>
+                    </div>
+
+
+                    <div ng-repeat="j in otherFilters | filter:{value:''}"
+                         class="ui label"
+                         title="{{j.valueCaption}}">
+                        <b>{{j.keyCaption}}: </b>{{getCleanValue(j.valueCaption)}}
+                        <i class="delete icon" ng-click="removeDrillDown($index)"></i>
+                    </div>
+
+
+
+                    <div ng-repeat="i in userControlFilter "
+                         ng-if="i.values && i.values.length"
+                         class="ui label"
+                         title="{{i.values.join(', ')}}">
+                        <b>{{i.key}}: </b>{{i.xCaption}} <span ng-bind-html="i.Caption"></span>
+                        <i class="delete icon" ng-hide="i.disableClear" ng-click="removeUserControl($index)"></i>
+                    </div>
+                </div>
+
+            </div>
+
 
         </div>
 
-        <div id="form-holder">
-            <sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="formSettings"></sadaf-form>
-        </div>
+        <ng-view></ng-view>
+
+    </div>
+
+    <div id="form-holder">
+        <sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="formSettings"></sadaf-form>
+    </div>
 
     <div class="ui modal small" id="filter-member-dialog">
         <i class="close icon"></i>
@@ -250,7 +250,7 @@
         <script src="~/src/js/charts/tipsy.js?v=@v"></script>
 
 
-        <script src="~/web/src/js/dashboardPage/notification.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/notification.js?v=@v"></script>
         <script src="~/src/js/management/services/services-app.js?v=@v"></script>
         <script src="~/src/js/management/services/datasources.js?v=@v"></script>
         <script src="~/src/js/forms/forms-app.js?v=@v"></script>
@@ -269,6 +269,7 @@
         <script src="~/src/js/dashboardPage/globalVariableHelper.js?v=@v"></script>
         <script src="~/src/js/dashboardPage/su.packages.js?v=@v"></script>
         <script src="~/src/js/dashboardPage/JqueryHelper.js?v=@v"></script>
+
 
     } else {
         <script src="~/dist/js/dashboard-all.js?v=@v"></script>
@@ -302,7 +303,7 @@
             location.hash = hash;
         }
         app.lang.setLangTyle(@ViewBag.lang);
-        
+
         app.lang.setLang();
         app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
             ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : v.ToString())';
