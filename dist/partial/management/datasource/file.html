@@ -26,13 +26,13 @@
                             </md-input-container>
 
                             <div layout="row" style="margin:18px 0">
-                                <input id="input-file-id" class="ng-hide" type="file" />
+                                <input id="input-file-id" class="ng-hide" type="file" accept=".xlsx,.csv,.xls" />
                                 <label for="input-file-id" class="md-button md-primary ">انتخاب فایل</label>
                                 <span flex></span>
                                 <span ng-bind-html="fileName" class=""></span>
                             </div>
 
-
+                              
 
                             <div layout="row" style="margin:18px 0">
                                 <md-progress-linear md-mode="determinate" value="{{progress}}" ng-hide="progress == -1"></md-progress-linear>

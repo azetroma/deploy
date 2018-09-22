@@ -33,18 +33,35 @@
                                         <div ng-message="required">{{'form_name_required' | translate}}</div>
                                     </div>
                                 </md-input-container>
-                                <md-input-container flex="50">
+                                <!--<md-input-container flex="50">
+        <label>{{'role_default_menu' | translate}}</label>
+        <md-select required name="defaultPage" ng-model="model.FirstMenuId" style="margin-bottom:0" ng-click="renderSelect = true">
+            <md-optgroup ng-repeat="(gk, gv) in menus" label="{{jsonParse(gk).name}}" xng-if="renderSelect">
+                <md-option ng-repeat="menu in gv" value="{{menu.id + ''}}">{{menu.name}}</md-option>
+            </md-optgroup>
+        </md-select>
+
+        <sm-dropdown class="scrolling search" items="menus" model="model.FirstMenuId" label="item.name" value="item.id"></sm-dropdown>
+
+
+        <div class="errors" ng-messages="roleForm.defaultPage.$error">
+            <div ng-message="required">{{'default_page_required' | translate}}</div>
+        </div>
+
+    </md-input-container>-->
+
+
+                                <div flex="50" class="ui form">
+                                    <div class="field">
                                     <label>{{'role_default_menu' | translate}}</label>
-                                    <md-select required name="defaultPage" ng-model="model.FirstMenuId" style="margin-bottom:0" ng-click="renderSelect = true">
-                                        <md-optgroup ng-repeat="(gk, gv) in menus" label="{{jsonParse(gk).name}}" xng-if="renderSelect">
-                                            <md-option ng-repeat="menu in gv" value="{{menu.id + ''}}">{{menu.name}}</md-option>
-                                        </md-optgroup>
-                                    </md-select>
+                                    <sm-dropdown class="selection search" items="menus" model="model.FirstMenuId" label="item.name" value="item.id"></sm-dropdown>
                                     <div class="errors" ng-messages="roleForm.defaultPage.$error">
                                         <div ng-message="required">{{'default_page_required' | translate}}</div>
-                                    </div> 
+                                    </div>
 
-                                </md-input-container> 
+                                    </div>
+                                </div>
+
                             </div>
                             
 

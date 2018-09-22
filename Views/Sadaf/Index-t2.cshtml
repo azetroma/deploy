@@ -109,7 +109,7 @@
     <style>
 
     body.theme2 {
-        background-color: #EFEBE9!important;
+        /*background-color: #EFEBE9!important;*/
     }
     </style>
     @*<style>
@@ -561,6 +561,7 @@
     }
 
         <script>
+            //sdsd
         var userVariable = @Html.Raw(Json.Encode(ViewBag.userVariable));
         if(_.isArray(userVariable)){
             localStorage.setItem('userVariable',JSON.stringify( userVariable));
@@ -580,8 +581,11 @@
         app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
         app.version = "@v";
+
+        var AbsoluteUri = '@(System.Configuration.ConfigurationManager.AppSettings["AbsoluteUri"] ?? "")' ||"@Request.Url.AbsoluteUri";
+
         app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
-        app.setAboluteUrl("@Request.Url.AbsoluteUri");
+            app.setAboluteUrl(AbsoluteUri);
         app.userId = @user.Id;
         app.commentOnChart = JSON.parse("@ViewBag.CommentOnChart.ToString().ToLower()");
         
