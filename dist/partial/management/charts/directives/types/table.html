@@ -19,7 +19,7 @@
                                     {name:'1', value: 'حالت تجمیعی'  },
                                     ]">
                             <!--<option value="-1" selected="selected">{{ 'بدون تجمیع' | translate }}</option>
-                            <option value="1">{{ 'حالت تجمیعی' | translate }}</option>-->
+                <option value="1">{{ 'حالت تجمیعی' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -29,6 +29,15 @@
                         <div class="checkbox">
                             <label class="">
                                 <input type="checkbox" ng-model="ngModel.table.info.sortMeasures" ng-change="refreshChart('refreshWithData')" /> {{ 'مرتب کردن شاخص‌ها در حالت تجمیع' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center" >
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.table.info.transpose" ng-change="refreshChart('refreshWithData')" /> {{ 'transpose' | translate }}
                             </label>
                         </div>
                     </div>
@@ -55,14 +64,14 @@
                 </div>
 
                 <!--<div class="form-row" layout="row" layout-align="start center">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showRowNumber" /> {{ 'نمایش شماره ردیف' | translate }}
-                            </label>
-                        </div>
-                    </div>
-                </div>-->
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showRowNumber" /> {{ 'نمایش شماره ردیف' | translate }}
+                </label>
+            </div>
+        </div>
+    </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -75,14 +84,14 @@
                 </div>
 
                 <!--<div class="form-row" layout="row" layout-align="start center">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.condensed" /> {{ 'نمایش فشرده‌تر ردیف‌ها' | translate }}
-                            </label>
-                        </div>
-                    </div>
-                </div>-->
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.condensed" /> {{ 'نمایش فشرده‌تر ردیف‌ها' | translate }}
+                </label>
+            </div>
+        </div>
+    </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -144,8 +153,8 @@
                 <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.table.info.wrapContent">
                     <label class="col-sm-4">{{ 'cell height' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <input type="text" class="form-control" 
-                               placeholder="{{ 'cell height' | translate }}" 
+                        <input type="text" class="form-control"
+                               placeholder="{{ 'cell height' | translate }}"
                                ng-change="refreshChart('refresh');"
                                ng-model-options="{ updateOn: 'blur' }"
                                ng-model="ngModel.table.info.cellHeight" />
@@ -163,8 +172,7 @@
                                     {name:'one', value: 'یک مقدار'  },
                                     {name:'multi', value: 'چند مقدار'  },
                                     {name:'edit', value: 'ویرایش سطر (مخصوص فرم‌ها)'  },
-                                    ]">
-                        </select>
+                                    ]"></select>
                     </div>
                 </div>
 
@@ -197,7 +205,7 @@
                         </div>
                     </div>
                 </div>
-                  
+
                 <div ng-show="ngModel.tableInfo.Order.length">
 
                     <div class="form-row" layout="row" layout-align="start center">
@@ -208,17 +216,17 @@
                         </div>
                     </div>
 
-                        <div ng-repeat="i in ngModel.tableInfo.Order | orderBy:'':true">
-                    <small> 
+                    <div ng-repeat="i in ngModel.tableInfo.Order | orderBy:'':true">
+                        <small>
                             ستون شماره {{i.Index + 1}} {{i.DescType == 1 ? 'صعودی' : 'نزولی'}}
-                    </small>
-                        </div>
+                        </small>
+                    </div>
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'جایگزین مقدار خالی' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <input type="text" class="form-control" placeholder="{{ 'جایگزین مقدار خالی' | translate }}" 
+                        <input type="text" class="form-control" placeholder="{{ 'جایگزین مقدار خالی' | translate }}"
                                ng-change="refreshChart('refresh')"
                                ng-model-options="{ updateOn: 'blur' }"
                                ng-model="ngModel.table.info.nullReplacement" />

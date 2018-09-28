@@ -14,14 +14,14 @@
                     <md-input-container class="md-block" flex-gt-sm="33">
                         <label>{{'سرور' | translate}}</label>
                         <input required name="name" ng-model="ad.server">
-                        <div class="hint">نام سرور یا شماره آی پی سرور اکتیو دایرکتوری</div>
+                        <div class="hint">{{'AD server desc' | translate}}</div>
 
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="33">
                         <label>{{'container' | translate}}</label>
                         <input name="name" ng-model="ad.container">
-                        <div class="hint"> ریشه جستجو مثل DC=csroll,DC=local</div>
+                        <div class="hint">{{'AD search desc' | translate}} </div>
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="33">
@@ -34,7 +34,7 @@
                             <md-option value="16">Sealing</md-option>
                             <md-option value="32">Server Bind</md-option>
                         </md-select>
-                        <div class="hint">نوع ارتباط با سرور</div>
+                        <div class="hint">{{'AD server connection type' | translate}}</div>
                     </md-input-container>
 
 
@@ -50,7 +50,7 @@
 
                     <div layout="row" layout-align="center center" style="min-width:200px">
                         <md-button class="md-primary" ng-click="ad.getList()" ng-hide="ad.progress" ng-disabled=" !ad.server || !ad.user || !ad.pass" flex-gt-sm>
-                            {{'دریافت لیست' | translate}}
+                            {{'get' | translate}}
                         </md-button>
 
                         <md-button ng-show="ad.progress" disabled="true" layout="row" layout-align="center center">
@@ -71,8 +71,8 @@
                                 <md-checkbox ng-model="selectAllCheckbox" ng-change="ad.selectAll(selectAllCheckbox)" aria-label="{{'select_all' | translate}}"></md-checkbox>
                             </th>
                             <th>#</th>
-                            <th>نام و نام خانوادگی</th>
-                            <th>نام کاربری</th>
+                            <th>{{'نام و نام خانوادگی' | translate}}</th>
+                            <th>{{'username' | translate}}</th>
                         </tr>
 
                         <tr ng-repeat="row in ad.data" ng-class="{active : row.select}" ng-click="row.select = !row.select; " ng-dblclick="goto(row, $event)">
@@ -102,8 +102,7 @@
                     </div>
 
                     <div style="margin:20px" ng-show="(ad.roles|filter:{check:true}).length && ad.data">
-                        نقش‌های انتخاب شده
-
+                        {{'selected roles' | translate}}
                         <div class="inline" ng-repeat="s in ad.roles|filter:{check:true}">
                             <div class="chip">
                                 {{s.name}}
@@ -116,7 +115,9 @@
                     <md-card ng-show="ad.error" layout="row" flex>
                         <md-content style="background-color:#f2dede" flex layout-padding>
                             <div class="" style="float:left; cursor:pointer" ng-click="ad.error=null"><span aria-hidden="true">&times;</span></div>
-                            <strong>خطا!</strong>کاربرهای زیر قبلا در سیستم ثبت شده‌اند و امکان ثبت دوباره آن‌ها وجود ندارد. مابقی کاربران با موفقیت به سیستم اضافه شدند. <span ng-bind-html="ad.error"></span>
+                            <strong>{{'error' | translate}}!</strong>
+                            {{'AD duplicate user error' | translate}}
+                            <span ng-bind-html="ad.error"></span>
                         </md-content>
                     </md-card>
 

@@ -54,7 +54,7 @@
                                 <div flex="50" class="ui form">
                                     <div class="field">
                                     <label>{{'role_default_menu' | translate}}</label>
-                                    <sm-dropdown class="selection search" items="menus" model="model.FirstMenuId" label="item.name" value="item.id"></sm-dropdown>
+                                    <sm-dropdown class="selection search" items="menusFlat" model="model.FirstMenuId" label="item.name" value="item.id"></sm-dropdown>
                                     <div class="errors" ng-messages="roleForm.defaultPage.$error">
                                         <div ng-message="required">{{'default_page_required' | translate}}</div>
                                     </div>
@@ -305,31 +305,34 @@
                     <div style="margin:60px 0 100px 0" >
                         <div class="ui form" style="margin-bottom:50px;">
                             <div class="field">
-                                <label>نقش پدر
+                                <label>{{'parent role' | translate}}
                                     <i class="icon ui small trash pointer" ng-show="isAdmin" ng-click="parent=0;changeParent();" ></i>
                                 </label>
                                 <select ng-options="item.id as item.name for item in roles" ng-model="parent" ng-change="changeParent()">
                                 </select>
                                 </div>
                                 <div class="field">
-                                    <label>مدیران نقش</label>
+                                    <label>{{'role managers' | translate}}</label>
                                     <sm-dropdown class="selection search multiple fluid" items="users" model="model.Admins" label="item.username" value="item.id"></sm-dropdown>
-                                    <small class="gray">مدیر نقش می‌تواند نقش‌های زیر مجموعه برای این نقش تعریف کند و زیر مجموعه‌ای از دسترسی‌های این نقش را به زیر مجموعه اعطا کند</small>
+                                    <small class="gray">
+                                        {{'role manager desc' | translate}}
+                                    </small>
                                 </div>
                             </div>
                          
                         <div ng-if="isEdit">
 
-                        <h3 class="">نقش‌های زیر مجموعه
-                            <a class="ui button icon mini right floated" href="{{app.hashUrlPrefix + '#/roles/edit/0/' + id}}">
-                                اضافه کردن
-                                <i class="ui icon add" title="add Role"></i>
-                            </a>
-                        </h3>
+                            <h3 class="">
+                                {{'child roles' | translate}}
+                                <a class="ui button icon mini right floated" href="{{app.hashUrlPrefix + '#/roles/edit/0/' + id}}">
+                                    {{'add' | translate}}
+                                    <i class="ui icon add" title="add Role"></i>
+                                </a>
+                            </h3>
                         <div>
-                           <small ng-hide="childs && childs.length">هنوز نقشی تعریف نشده است</small>
+                            <small ng-hide="childs && childs.length">{{'no role' | translate}}</small>
                             <table class="ui table" ng-show="childs && childs.length">
-                                <tr><th>#</th><th>نام</th></tr>
+                                <tr><th>#</th><th>{{'name' | translate}}</th></tr>
                             <tr ng-repeat="c in childs">
                                 <td> {{$index+1}}</td>
                                 <td>

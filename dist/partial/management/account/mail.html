@@ -3,23 +3,23 @@
         <div layout="column" flex>
 
             <md-card style="margin:40px; padding:16px" flex>
-                <h3>   تنظیمات سرور پست الکترونیک</h3>
+                <h3>   {{'email settings' | translate}}</h3>
                 <p>
-                    برای اتصال به سرور پست الکترونیک باید اطلاعات اتصال به سرور SMTP را تنظیم کنید.
-                    برای نمونه در صورتی که بخواهید از طریق حساب Gmail خود پست الکترونیک
-                    ارسال کنید باید موارد زیر را به عنوان تنظیمات این قسمت قرار دهید.
+                    {{'email settings desc' | translate}}
                 </p>
                 <p class="">
-                    برای ارسال پست الکترونیک از طریق حساب کاربری Gmail
-                    به آدرس <a href="https://myaccount.google.com/security" target="_blank">https://myaccount.google.com/security</a>
-                    بروید و گزینه <b>Allow less secure apps</b>
-                    را فعال کنید.
+
+                    {{'email settings desc2' | translate}}
+
+                    <a href="https://myaccount.google.com/security" target="_blank">https://myaccount.google.com/security</a>
+                    <span data-ng-bind-html="'email settings desc3' | translate | htmlSafe"></span>
+
                 </p>
 
                 <div layout="row" layout-sm="column" layout-align="start center" ng-show="infoProgress" layout-margin>
                     <span flex></span>
                     <md-progress-circular md-mode="indeterminate" md-diameter="15"></md-progress-circular>
-                    <span>در حال دریافت اطلاعات</span>
+                    <span>{{'receiving information' | translate}}</span>
                     <span flex></span>
                 </div>
 
@@ -29,32 +29,32 @@
                         <label>{{'شماره پورت' | translate}}</label>
                         <md-icon class="material-icons gray">input</md-icon>
                         <input required name="port" ng-model="port">
-                        <div class="hint">شماره پورت سرور برای مثال شماره پورت سرور ایمیل گوگل ۵۸۷ است</div>
+                        <div class="hint">  {{'email port desc' | translate}}</div>
                     </md-input-container>
 
                     <md-input-container class="md-block">
                         <label>{{'آدرس سرور' | translate}}</label>
                         <md-icon class="material-icons gray">computer</md-icon>
                         <input required name="host" ng-model="host">
-                        <div class="hint">آدرس سرور برای مثال آدرس سرور ایمیل گوگل smtp.gmail.com است</div>
+                        <div class="hint">{{'email host desc' | translate}}</div>
                     </md-input-container>
 
                     <md-switch ng-model="ssl">
-                        <label>استفاده از SSL</label>
+                        <label>{{'use ssl' | translate}}</label>
                     </md-switch>
 
                     <md-input-container class="md-block">
                         <label>{{'مهلت دریافت پاسخ' | translate}}</label>
                         <md-icon class="material-icons gray">timer</md-icon>
                         <input required name="timeout" ng-model="timeout">
-                        <div class="hint">زمان مجاز برای ارسال پست  الکترونیک به میلی ثانیه</div>
+                        <div class="hint">{{'email timeout desc' | translate}}</div>
                     </md-input-container>
 
                     <md-input-container class="md-block">
                         <label>{{'نام کاربری' | translate}}</label>
                         <md-icon class="material-icons gray">email</md-icon>
                         <input required name="username" ng-model="username">
-                        <div class="hint">آدرس پست الکترونیکی که توسط آن ایمیل‌های برنامه ارسال می‌شود</div>
+                        <div class="hint">{{'email address desc' | translate}}</div>
                     </md-input-container>
 
                     <md-input-container class="md-block">
@@ -64,11 +64,11 @@
                     </md-input-container>
 
                     <div class="ui negative  message" ng-show="error">
-                        <strong>خطا!</strong> <span ng-bind-html="error"></span>
+                        <strong>{{'error' | translate}}!</strong> <span ng-bind-html="error"></span>
                     </div>
 
                     <div class="ui success  message" ng-show="message">
-                        <strong>تبریک!</strong> <span ng-bind-html="message"></span>
+                        <strong>{{'successfull run' | translate}}!</strong> <span ng-bind-html="message"></span>
                     </div>
 
                     <div style="direction: ltr" layout="row">
@@ -77,7 +77,7 @@
                         <span layout="row" layout-sm="column" layout-align="start center" ng-show="progress" layout-margin>
                             <span flex></span>
                             <md-progress-circular md-mode="indeterminate" md-diameter="15"></md-progress-circular>
-                            <span>در حال دریافت اطلاعات</span>
+                            <span>{{'receiving information' | translate}}</span>
                             <span flex></span>
                         </span>
 

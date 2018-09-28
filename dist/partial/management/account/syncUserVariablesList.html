@@ -45,7 +45,10 @@
                 <div layout="row" layout-sm="column" layout-align="space-around" ng-show="cnl.progress" layout-margin>
                     <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
                 </div>
-                <div ng-hide="(cnl.data && cnl.data.length) || cnl.progress" class="md-caption" style="padding:10px 16px; text-align:right">داده‌ای برای نمایش وجود ندارد</div>
+                <div ng-hide="(cnl.data && cnl.data.length) || cnl.progress" class="md-caption" style="padding:10px 16px; text-align:right">
+                    {{'داده‌ای برای نمایش وجود ندارد' | translate}}
+
+                </div>
 
             </md-card>
         </div>
