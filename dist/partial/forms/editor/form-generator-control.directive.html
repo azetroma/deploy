@@ -1,4 +1,4 @@
-﻿<div class="field form-control  form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ !model.canEdit? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
+﻿<div class="field form-control {{model.name}}  form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ !model.canEdit? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
     <span ng-show="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
 
     <div class="control-actions" ng-show="edit">

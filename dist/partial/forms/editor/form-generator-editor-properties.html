@@ -249,7 +249,9 @@
 
         <div class="inline fields">
             <label>{{'type' | translate}}</label>
-            <sm-dropdown items="[{label:('goto dashboard' | translate), value:0}, {label: ('open form'| translate), value:1}, {label:('web service' | translate), value:2}]"
+            <sm-dropdown items="[{label:('goto dashboard' | translate), value:0}, {label: ('open form'| translate), value:1}
+                         , {label:('web service' | translate), value:2}
+                         , {label:('javascript' | translate), value:3}]"
                          class=""
                          model="c.control.active.button.type" label="item.label" value="item.value"></sm-dropdown>
         </div>
@@ -273,6 +275,10 @@
         <div class="field" ng-show="c.control.active.button.type == 2">
             <label>{{'آدرس' | translate}}</label>
             <input ng-model="c.control.active.button.webserviceUrl" placeholder="{{'آدرس' | translate}}">
+        </div>
+        <div class="field" ng-show="c.control.active.button.type == 3">
+            <label>{{'javascript' | translate}}</label>
+            <textarea ng-model="c.control.active.button.script" style="direction:ltr; font-family:monospace;"placeholder="{{'javascript' | translate}}"></textarea>
         </div>
 
     </div>
