@@ -947,5 +947,15 @@
 	"second":"ثانیه",
 	"minute":"دقیقه",
 	"start":"شروع",
-	"stop":"پایان"
+	"stop":"پایان",
+	"sql server title":"پایگاه داده Microsoft SQL Server",
+	"sql server desc":"در این قسمت می‌توانید به پایگاه داده‌ MSSQL متصل شوید",
+	"analysis service title":"Microsoft Analysis Service",
+	"analysis service desc":"در این قسمت می‌توانید به سرویس آنالیز مایکروسافت متصل شوید",
+	"file title":"آپلود کردن فایل",
+	"file desc":"آپلود کردن فایل‌های Excel یا CSV",
+	"web service title":"منابع روی وب",
+	"web service desc":"دسترسی به منابع داده‌ای مثل XML, CSV, JSON از طریق وب. برای دسترسی به این منابع داده باید آدرس URL مربوط به منبع داده را در اختیار داشته باشید",
+	"datasource join title":"یکی کردن منابع داده",
+	"datasource join desc":"یکپارچه کردن منابع داده موجود. ارتباط منابع داده خود را در این قسمت تعریف کنید."
 }

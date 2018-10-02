@@ -947,5 +947,15 @@
 	"second":"Second",
 	"minute":"Minute",
 	"start":"Start",
-	"stop":"Stop"
+	"stop":"Stop",
+	"sql server title":"Microsoft SQL Server database",
+	"sql server desc":"In this section, you can connect to the MSSQL database",
+	"analysis service title":"Microsoft Analysis Service",
+	"analysis service desc":"Here you can connect to the Microsoft Analysis service",
+	"file title":"Upload File",
+	"file desc":"Uploading Excel or CSV files",
+	"web service title":"Web Services",
+	"web service desc":"Access data sources like XML, CSV, JSON through the web.",
+	"datasource join title":"Data source unification",
+	"datasource join desc":"Integrate existing data sources."
 }
