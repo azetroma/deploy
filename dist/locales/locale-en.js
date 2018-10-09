@@ -957,5 +957,19 @@
 	"web service title":"Web Services",
 	"web service desc":"Access data sources like XML, CSV, JSON through the web.",
 	"datasource join title":"Data source unification",
-	"datasource join desc":"Integrate existing data sources."
+	"datasource join desc":"Integrate existing data sources.",
+	"page settings":"Page Settings",
+	"open type":"Open Type",
+	"add task":"Add Task",
+	"add task on event":"Add Task On Event",
+	"event":"Event",
+	"edit record":"Edit Record",
+	"delete record":"Delete Record",
+	"run on event":"Run On Event",
+	"page":"Page",
+	"method":"Method",
+	"new row":"New Row",
+	"parameters":"Parameters",
+	"sms body":"SMS Body",
+	"sms":"SMS"
 }
