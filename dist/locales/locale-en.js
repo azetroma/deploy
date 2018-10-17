@@ -443,7 +443,7 @@
 	"ویرایش منبع داده":"Edit",
 	"مدیریت صفحات داشبوردی و کاربران و نقش‌ها":"Manage Pages, Users and Roles",
 	"تغییر ترتیب منوها":"Change menus order",
-	"مدیریت کاربران و نقش‌ها":"Manage Users and Roles",
+	"مدیریت کاربران و نقش‌ها":"System Manager",
 	"دسترسی کامل":"Full Access",
 	"دسترسی کامل به تمام نمودارها":"Full Access to Charts",
 	"دسترسی کامل به تمام منوها":"Full Access to Menus",
@@ -971,5 +971,8 @@
 	"new row":"New Row",
 	"parameters":"Parameters",
 	"sms body":"SMS Body",
-	"sms":"SMS"
+	"sms":"SMS",
+	"members":"Members",
+	"manageable users":"List of Manageable Users",
+	"value on chart font":"Value On Chart Font"
 }

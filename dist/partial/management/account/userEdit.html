@@ -181,12 +181,36 @@
                             <collapse>
                                 <collapse-header>{{'roles'| translate}}</collapse-header>
                                 <collapse-body>
-                                    <div style="margin:0 20px">
+                                    <div xstyle="margin:0 20px">
 
-                                        <div ng-repeat="r in roles" layout="row" layout-align="start center">
-                                            <md-checkbox style="margin:5px 0;"ng-model="r.check">{{r.name}}</md-checkbox>
-                                            <a href="{{app.hashUrlPrefix + '#/roles/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
+                                        <!--<div ng-repeat="r in roles" layout="row" layout-align="start center">
+        <md-checkbox style="margin:5px 0;"ng-model="r.check" ng-show="r.isAdmin">{{r.name}}</md-checkbox>
+        <a ng-show="r.isAdmin" href="{{app.hashUrlPrefix + '#/roles/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
+    </div>-->
+
+
+                                        <div class="sadaf-tree" style="margin: 0 40px;">
+                                            <div class="tree-element ul" style="list-style:none">
+                                                <div ng-repeat="data in root.nodes track by $index" class="tree-element li" ng-include="'xtree.html'"></div>
+                                            </div>
+
                                         </div>
+                                        <script type="text/ng-template" id="xtree.html">
+                                            <collapse class="block" ng-model="data" hide-icon="{{(!data.nodes || !data.nodes.length ) &&  ( !data.contents || !data.contents.length) }}">
+                                                <collapse-header class="block hide-item-parent">
+                                                    <span style="margin:0" >
+                                                        <md-checkbox style="margin:5px 0;" ng-model="data.check" ng-click="$event.stopPropagation()">{{data.name}}</md-checkbox>
+                                                    </span>
+                                                </collapse-header>
+                                                <collapse-body class="block">
+                                                    <div class="tree-element ul" style="list-style:none">
+                                                        <div ng-repeat="data in data.nodes track by $index" class="tree-element li" ng-include="'xtree.html'"></div>
+                                                    </div>
+                                                </collapse-body>
+                                            </collapse>
+                                        </script>
+
+
                                     </div>
                                 </collapse-body>
                             </collapse>

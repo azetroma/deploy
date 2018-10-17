@@ -235,11 +235,11 @@
                     <label class="col-sm-4">{{ 'شاخص' | translate }}</label>
                     <span class="form-divider" flex></span>
                     <div>
-                        <select id="series-selector"ng-model="ngModel.selectedSeries" ng-init="ngModel.selectedSeries=ngModel.selectedSeries||'{All}'"
+                        <select id="series-selector" ng-model="ngModel.selectedSeries" ng-init="ngModel.selectedSeries=ngModel.selectedSeries||'{All}'"
                                 ng-options="i as i for i in ['{All}'].concat(ngModel.series)"></select>
 
                     </div>
-                </div> 
+                </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نام شاخص' | translate }}</label>
@@ -250,9 +250,6 @@
                                ng-model="ngModel.bar.series[ngModel.selectedSeries].name" />
                     </div>
                 </div>
-
-
-
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -289,13 +286,13 @@
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select class="selectpicker-x-x form-control" ng-model="ngModel.bar.series[ngModel.selectedSeries].cumulative_formula" ng-change="refreshChart('refresh')"
                                 ng-options="i.name as  i.value for i in [
-                                    {name:'sum', value: 'SUM'  }, 
-                                    {name:'avg', value: 'AVG' }, 
-                                    {name:'var', value: 'VAR'}, 
+                                    {name:'sum', value: 'SUM'  },
+                                    {name:'avg', value: 'AVG' },
+                                    {name:'var', value: 'VAR'},
                                     ]">
                             <!--<option value="sum">SUM</option>
-                            <option value="avg">AVG</option>
-                            <option value="var">VAR</option>-->
+                <option value="avg">AVG</option>
+                <option value="var">VAR</option>-->
                         </select>
                     </div>
 
@@ -314,22 +311,14 @@
                 </div>
 
                 <div id="showValueColorSeg" ng-show="ngModel.bar.series[ngModel.selectedSeries].showValues">
-
                     <div class="form-row" layout="row" layout-align="start center">
-                        <label>{{ 'فونت' | translate }}</label>
+                        <label>{{ 'value on chart font' | translate }}</label>
                         <span class="form-divider" flex></span>
                         <text-editor prop="ngModel.bar.series[ngModel.selectedSeries].font" on-change="refreshChart('refresh'); changeAllSeries('font')"></text-editor>
                     </div>
-
                 </div>
 
-
-
-
                 <number-format ng-model="ngModel.bar.series[ngModel.selectedSeries]"></number-format>
-
-
-
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع نمودار' | translate }}</label>
@@ -340,12 +329,12 @@
                                    ng-repeat="i in [{t:'bar', n:'ستونی'}, {t:'line', n:'خطی'}]"
                                    ng-click="ngModel.bar.series[ngModel.selectedSeries].seriesType=i.t;refreshChart('refresh'); changeAllSeries('seriesType')">
 
-                               <span class="sadaf-group-item-text">{{i.n}}</span> 
+                                <span class="sadaf-group-item-text">{{i.n}}</span>
                             </label>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'رنگ' | translate }}</label>
                     <span class="form-divider" flex></span>
