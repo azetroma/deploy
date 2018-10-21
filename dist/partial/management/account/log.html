@@ -53,12 +53,12 @@
                 <div class="ui mini form" style="margin-bottom:30px;">
                     <div class="fields">
                         <div class="field"><label>IP</label><input ng-model="filters.ip" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
-                        <div class="field"><label>Url</label><input ng-model="filters.url" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
-                        <div class="field"><label>QueryString</label><input ng-model="filters.query" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
-                        <div class="field"><label>PostParameters</label><input ng-model="filters.post" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
-                        <div class="field"><label>RequestMethod</label><input ng-model="filters.method" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
                         <div class="field"><label>Username</label><input ng-model="filters.username" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
                         <div class="field"><label>UserAgent</label><input ng-model="filters.useragent" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
+                        <div class="field"><label>Type</label><input ng-model="filters.type" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
+                        <div class="field"><label>Operation</label><input ng-model="filters.operation" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
+                        <div class="field"><label>ResultCode</label><input ng-model="filters.result" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
+                        <div class="field"><label>Detail</label><input ng-model="filters.detail" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
                     </div>
                 </div>
                 <style>
@@ -72,31 +72,42 @@
                     <table class="ui very basic small table very compact log-table">
                         <thead>
                             <tr>
-                                <th><div> ClientIp             </div></th>
-                                <th><div> Id                   </div></th>
-                                <th><div> PostParameters       </div></th>
-                                <th><div> QueryString          </div></th>
-                                <th><div> RequestMethod        </div></th>
-                                <th><div> RequestType          </div></th>
-                                <th><div> Sign                 </div></th>
-                                <th><div> Time                 </div></th>
-                                <th><div> Url                  </div></th>
-                                <th><div> UserAgent            </div></th>
-                                <th><div> Username             </div></th>
+
+
+                                <th ng-repeat="t in [
+                                    {name:'Id', key:'id'},
+                                    {name:'IP', key:'ip'},
+                                    {name:'Username', key:'username'},
+                                    {name:'UserAgent', key:'agent'},
+                                    {name:'Time', key:'time'},
+                                    {name:'Type', key:'type'},
+                                    {name:'Operation', key:'operation'},
+                                    {name:'ResultCode', key:'result'},
+                                    {name:'Sign', key:'sign'},
+                                    {name:'Detail', key:'detail'}
+                                    ]" ng-click="sortBy(t.key)"><div class="pointer"> {{t.name}}<i class="ui icon caret" ng-class="orderIcon(t.key)"></i></div></th>
+                                <!--<th ng-click="sortBy('ip')"><div> IP</div></th>
+                                <th ng-click="sortBy('username')"><div> Username </div></th>
+                                <th ng-click="sortBy('agent')"><div> UserAgent </div></th>
+                                <th ng-click="sortBy('time')"><div> Time </div></th>
+                                <th ng-click="sortBy('type')"><div> Type </div></th>
+                                <th ng-click="sortBy('operation')"><div> Operation </div></th>
+                                <th ng-click="sortBy('result')"><div> ResultCode </div></th>
+                                <th><div> Sign </div></th>
+                                <th ng-click="sortBy('detail')"><div> Detail </div></th>-->
                             </tr>
                         </thead>
                         <tr ng-repeat="row in logs">
-                            <td>{{row. ClientIp       }}        </td>
                             <td>{{row. Id             }}        </td>
-                            <td>{{row. PostParameters }}        </td>
-                            <td>{{row. QueryString    }}        </td>
-                            <td>{{row. RequestMethod  }}        </td>
-                            <td>{{row. RequestType    }}        </td>
-                            <td><i ng-show="checkList[$index]" class="ui icon green check"></i><i ng-hide="checkList[$index]" class="ui icon red times"></i>        </td>
-                            <td>{{row. Time           }}        </td>
-                            <td>{{row. Url            }}        </td>
+                            <td>{{row. ClientIp       }}        </td>
+                            <td>{{row. Username       }}        </td>
                             <td>{{row. UserAgent      }}        </td>
-                            <td>{{row. Username       }}   </td>
+                            <td>{{row. Date           }}        </td>
+                            <td>{{row. EntityType    }}        </td>
+                            <td>{{row. Operation    }}        </td>
+                            <td>{{row. ResultCode    }}        </td>
+                            <td><i ng-show="checkList[$index]" class="ui icon green check"></i><i ng-hide="checkList[$index]" class="ui icon red times"></i>        </td>
+                            <td>{{row. Detail            }}        </td>
                         </tr>
                     </table>
                 </div>
@@ -107,8 +118,7 @@
                     <i class="ui icon angle left link" ng-click="nextPage()"></i>
                     <span> - </span>
                     تعداد ردیف در صفحه
-                    <select ng-model="filters.rowCount" ng-options="r as r for r in [10,20,30, 50,100]" ng-change="filter()">
-                    </select>
+                    <select ng-model="filters.rowCount" ng-options="r as r for r in [10,20,30, 50,100]" ng-change="filter()"></select>
                 </div>
 
 

@@ -60,6 +60,21 @@
         .form-signin {
             transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
         }
+
+        .field-info {
+            font-weight: 200;
+            font-size: 0.8em;
+            color: gray;
+        }
+
+        .field.error .field-info {
+            color: #9f3a38;
+        }
+
+        .form-signin .field input {
+            line-height: 1em !important;
+            padding: 8px 16px !important;
+        }
     </style>
 
 
@@ -81,8 +96,8 @@
 
                         <a style="display:flex; align-items:center;" href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">
                             @if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["showCopyRightLogo"] ?? "true")) {
-                            <img class="logo" style="width:50px; margin-left:10px; margin-right:0;" src="~/Images/copy_right_logo.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
-                                    }
+                                <img class="logo" style="width:50px; margin-left:10px; margin-right:0;" src="~/Images/copy_right_logo.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                            }
 
                             <span>@Html.Raw(ViewBag.msg["copy right"])</span>
                         </a>
@@ -90,67 +105,133 @@
 
                 </div>
             </div>
+
             <div class="col-md-6 six wide column">
                 <div class="card">
                     <div style="">
 
                         <div class="ui big form">
 
-                            <div class="field" ng-class="{error: !checkUsernameState && model.username.length}">
-                                <label>@ViewBag.msg["username"]</label>
+                            <div ng-show="step==1" class="field" ng-class="{error: validation.username==-1}">
+                                <label>@ViewBag.msg["national code"]</label>
                                 <div class="ui icon input" ng-class="{loading: checkUsernameProgress}">
-                                    <input name="username" ng-model-options="{ debounce: 500 }" ng-change="checkUsername()" ng-model="model.username" type="text" autocomplete="off" class="ui fuild input" />
-                                    <i class="user icon" ng-class="{'link green check' : checkUsernameState && model.username.length, user : !checkUsernameState || !model.username.length}"></i>
+                                    <input autocomplete="off" ng-model-options="{ allowInvalid: true, debounce: 500 }" ng-change="checkUsername()" ng-model="model.username" type="number" class="ui fuild input" />
+                                    <i class="user icon" ng-class="{'link green check' : validation.username==1, 'user' : validation.username!=1}"></i>
                                 </div>
-                                <small ng-show="!checkUsernameState && model.username.length">نام کاربری در سامانه وجود دارد</small>
-                            </div>
-                            <div class="field">
-                                <label>@ViewBag.msg["password"]</label>
-                                <div class="ui icon input">
-                                    <input name="password" ng-model="model.password" type="{{showPass ? 'text':'password'}}" autocomplete="off" class="ui fuild input" />
-                                    <i class="lock icon"></i>
-                                </div>
-                                <label class="" style="font-weight:200; margin:10px 0; font-size:0.8em">
-                                    <input type="checkbox" ng-model="showPass">
-                                    @ViewBag.msg["show password"]
-                                </label>
+                                <div class="field-info" ng-show="error.username.length">{{error.username}}</div>
+                                <div class="field-info" ng-show="!model.username.length">کد ملی ۱۰ رقمی</div>
                             </div>
 
-                            <div class="field" >
-                                <label>@ViewBag.msg["name"]</label>
-                                <div class="ui icon input">
-                                    <input name="email" ng-model="model.name" type="text" autocomplete="off" class="ui fuild input" />
-                                    <i class="address book outline icon"></i>
-                                </div>
-                            </div>
-
-                            <div class="field" ng-class="{error : error.email.length}">
+                            <div ng-show="step==1" class="field" ng-class="{error: validation.email==-1}">
                                 <label>@ViewBag.msg["email"]</label>
                                 <div class="ui icon input">
                                     <input name="email" ng-model="model.email" ng-change="testEmail()" type="text" autocomplete="off" class="ui fuild input" />
-                                    <i class="mail icon" ng-class="{'green link check' : !error.email.length && model.email.length, mail: error.email.length|| !model.email.length}"></i>
+                                    <i class="mail icon" xng-class="{'green link check' : validation.email==1, 'mail':  validation.email==1}"></i>
                                 </div>
-                                <small class="gray">{{error.email}}</small>
+                                <div class="field-info">{{error.email}}</div>
                             </div>
 
-                            <div class="field" ng-class="{error : error.mobile.length}">
+                            <div ng-show="step==1" class="field" ng-class="{error: validation.password==-1}">
+                                <label>@ViewBag.msg["password"]</label>
+                                <div class="ui icon input">
+                                    <input autocomplete="off" ng-model="model.password" type="{{showPass ? 'text':'password'}}" class="ui fuild input" />
+                                    <i class="lock icon"></i>
+                                </div>
+                                <div class="field-info">حداقل ۸ کاراکتر شامل حروف بزرگ، کوچک و علامت</div>
+                                <div class="field-info">{{error.password}}</div>
+                                @*<label class="" style="font-weight:200; margin:10px 0; font-size:0.8em">
+                                        <input type="checkbox" ng-model="showPass">
+                                        @ViewBag.msg["show password"]
+                                    </label>*@
+                            </div>
+
+                            <div ng-show="step==1" class="field" ng-class="{error: validation.passwordRepeat==-1}">
+                                <label>@ViewBag.msg["password repeat"]</label>
+                                <div class="ui icon input">
+                                    <input type="password" autocomplete="off" ng-model="model.passwordRepeat" class="ui fuild input" />
+                                    <i class="lock icon"></i>
+                                </div>
+                                <small class="field-info">{{error.passwordRepeat}}</small>
+                            </div>
+
+                            @*<div class="field">
+                                    <label>@ViewBag.msg["name"]</label>
+                                    <div class="ui icon input">
+                                        <input name="email" ng-model="model.name" type="text" autocomplete="off" class="ui fuild input" />
+                                        <i class="address book outline icon"></i>
+                                    </div>
+                                </div>*@
+
+                            <div ng-show="step==2" class="field" ng-class="{error: validation.mobile==-1}">
                                 <label>@ViewBag.msg["mobile"]</label>
                                 <div class="ui icon input">
-                                    <input name="mobile" ng-change="testMobile()" ng-model="model.mobile" type="text" autocomplete="off" class="ui fuild input" />
-                                    <i class="phone icon" ng-class="{'green link check' : !error.mobile.length && model.mobile.length, phone: error.mobile.length|| !model.mobile.length}"></i>
+                                    <input style="direction:ltr;text-align:left;padding-left: 70px !important;" ng-model="model.mobile" type="text" autocomplete="off" class="ui fuild input" />
+                                    <div style="position: absolute;left: 45px !important;top: 9px;font-weight:800">۰۹</div>
+                                    <i class="phone icon" xng-class="{'green link check' : validation.mobile==1, 'phone':  validation.email==1}"></i>
                                 </div>
-                                <small class="gray">{{error.mobile}}</small>
+                                <small class="field-info">{{error.mobile}}</small>
                             </div>
 
-                            <button class="ui blue fluid button big submit" ng-class="{loading: loading, disabled: loading || !checkUsernameState || (error.email && model.email.length) || (error.mobile && model.mobile.length)}" ng-click="submit()" type="submit" style="margin-top:35px;">ثبت نام</button>
 
+                            <div ng-show="step==2" class="field" ng-class="{error : error.captcha.length}">
+                                <div style="text-align:center;">
+                                    <div style="float:right;">
+                                        <img ng-src="data:image/jpeg;base64,{{captchaPic}}" />
+                                    </div>
+                                    <div class="ui button basic icon" ng-click="reCaptcha()" style="float:left; margin:0;"><i class="ui icon refresh"></i></div>
+                                </div>
+                                <div class="ui icon input">
+                                    <input ng-model="model.captcha" type="text" class="ui fuild input" />
+                                    <i class="chess board icon"></i>
+                                </div>
+                                <small class="field-info">{{error.captcha}}</small>
+                            </div>
+
+                            <div ng-show="step==3" class="field" ng-class="{error: validation.activationCode==-1}">
+                                <label>@ViewBag.msg["activation code"]</label>
+                                <div class="ui icon input">
+                                    <input ng-model="model.activationCode" type="text" autocomplete="off" class="ui fuild input" />
+                                    <i class="barcode icon"></i>
+                                </div>
+                                <div class="field-info">{{error.activationCode}}</div>
+                                <div class="field-info">زمان باقیمانده {{persian(timer)}} ثانیه </div>
+                            </div>
+
+                            <button ng-show="step==1" class="ui blue fluid button big submit" ng-class="{loading: loading, disabled: loading }" ng-click="submit()" type="submit" style="margin-top:35px;">
+                                مرحله بعد
+                            </button>
+
+                            <button ng-show="step==2" class="ui blue fluid button big submit" ng-class="{loading: smsloading, disabled: smsloading }" ng-click="sendPhoneCode()" type="submit" style="margin-top:35px;">
+                                ارسال کد فعال‌سازی
+                            </button>
+
+                            <button ng-show="step==3" class="ui blue fluid basic button big submit" ng-class="{loading: smsloading, disabled: smsloading }" ng-click="sendSmsAgain()" type="submit" style="margin-top:35px;">
+                                ارسال مجدد کد فعال‌سازی
+                            </button>
+
+                            <button ng-show=" step==3" class="ui green fluid button big submit" ng-class="{loading: loading, disabled: loading }" ng-click="submit()" type="submit" style="margin-top:35px;">
+                                فعال‌سازی و ثبت نام
+                            </button>
+
+                            <div class="ui red message" ng-show="error.submit.length">
+                                {{error.submit}}
+                            </div>
+                            <button ng-show="error.submit.length" class="ui green fluid basic button big submit" ng-click="resetForm()">
+                                انجام دوباره عملیات
+                            </button>
+
+
+
+                        </div>
+                    </div>
+                    <div class="ui modal info-modal">
+                        <div class="header">پیام</div>
+                        <div class="content">حساب کاربری شما با موفقیت ساخته شد</div>
+                        <div class="actions">
+                            <div class="ui green button" ng-click="login()">ورود</div>
                         </div>
 
                     </div>
-
-
-
-
                     @if (ViewBag.error != null) {
                         <div class="ui negative message">
                             @Html.Raw(ViewBag.error)
@@ -158,66 +239,159 @@
                     }
 
                 </div>
-
-
             </div>
-
-
         </div>
-
     </div>
 
 
     @section scripts{
 
         <script>
-
             app = angular.module('signup', []);
-            app.controller('cntl', ['$scope', '$http', function ($scope, $http) {
+            app.controller('cntl', ['$scope', '$http', '$interval', function ($scope, $http, $interval) {
+
+                $scope.step =1;
+                $scope.persian = function persian(s) {
+                    if (s == null) return s;
+                    var reps = {
+                        0: '۰',
+                        1: '۱',
+                        2: '۲',
+                        3: '۳',
+                        4: '۴',
+                        5: '۵',
+                        6: '۶',
+                        7: '۷',
+                        8: '۸',
+                        9: '۹',
+                    };
+                    s = s + "";
+                    return s.replace(/(\d)/g, function (s, key) {
+                        return reps[key] || s;
+                    });
+                };
                 $scope.model = {};
                 $scope.error = {};
                 $scope.loading = false;
-
-                $scope.testEmail = function () {
-                    $scope.error.email = null;
-                    if (!validateEmail($scope.model.email)) {
-                        $scope.error.email = 'لطفا یک ایمیل معتبر وارد کنید';
-                    }
-                }
-                $scope.testMobile = function () {
-                    $scope.error.mobile = null;
-                    if (!validateMobile($scope.model.mobile)) {
-                        $scope.error.mobile = 'موبایل وارد شده معتبر نیست';
-                    }
-                }
+                $scope.captchaPic = "@ViewBag.captcha";
+                var signupLink = "@Url.Action("signup", "account")";
+                var checkusernameLink = "@Url.Action("checkusername", "account")";
+                var getCaptchalink = "@Url.Action("getCaptcha", "account")";
+                var smsLink = "@Url.Action("sendActivationSms", "account")";
+                $scope.validation = {};
+                $scope.validation.username = 0;
+                $scope.validation.password = 0;
+                $scope.validation.passwordRepeat = 0;
+                $scope.validation.email = 0;
+                $scope.validation.mobile = 0;
 
                 $scope.checkUsername = function () {
-                    console.log('check', $scope.model.username);
-                    var link = "@Url.Action("checkusername", "account")";
                     $scope.checkUsernameProgress = true;
-                    $scope.checkUsernameState = false;
-                    $http.post(link, { username: $scope.model.username })
+                    //$scope.checkUsernameState = false;
+                    $http.post(checkusernameLink , { username: $scope.model.username })
                     .then(function (res) {
                         $scope.checkUsernameProgress = false;
-                        $scope.checkUsernameState = !res.data.exist;
+                        //$scope.checkUsernameState = !res.data.exist;
+                        $scope.validation.username = (!res.data.exist && res.data.isValid)? 1:-1;
+                        if ($scope.validation.username == -1) {
+
+                            if (res.data.exist)
+                                $scope.error.username = 'کد ملی وارد شده قبلا در سامانه ثبت نام شده است';
+
+                            if (!res.data.isValid)
+                                $scope.error.username = 'کد ملی وارد شده معتبر نیست';
+
+                        } else { $scope.error.username = null;}
                     });
 
                 }
 
-                $scope.submit = function () {
+                $scope.resetForm = function () {
+                    $scope.step = 1;
+                    $scope.error.submit = null;
+                }
 
-                    var link = "@Url.Action("signup", "account")";
+                $scope.login = function () {
+                    window.location = '/'
+                }
+
+                $scope.submit = function () {
+                    if (!validate()) return;
+
+                    if ($scope.step == 1) {
+                        $scope.step = 2;
+                        return;
+                    }
+
                     $scope.loading = true;
-                    $http.post(link, { model: $scope.model })
-                    .then(function () {
+                    $http.post(signupLink , { model: $scope.model })
+                    .then(function (res) {
                         $scope.loading = false;
-                        window.location = '/'
+                        if (res.data.result) {
+                            $('.info-modal')
+                                .modal({ closable : false })
+                                .modal('show');
+
+                        } else {
+                            $scope.error.submit = res.data.error;
+                        }
                     })
                     .catch(function () {
                         $scope.loading = false;
                     });
                 }
 
+                $scope.sendSmsAgain = function () {
+                    $scope.step = 2;
+                    $scope.model.captcha = null;
+                    $scope.model.activationCode = null;
+                    $scope.error.captcha = null;
+                    $scope.error.submit = null;
+                    $scope.reCaptcha();
+                    $interval.cancel($scope.interval);
+                }
+
+                function gotoStep3() {
+                    $scope.step = 3;
+                    $scope.timer = 120;
+                    $scope.interval = $interval(function () {
+                        $scope.timer--;
+                        if ($scope.timer == 0) {
+                            $scope.sendSmsAgain();
+                        }
+                    }, 1000);
+                }
+
+                $scope.sendPhoneCode = function () {
+                    if (!validate()) return;
+
+                    $scope.smsloading = true;
+                    $http.post(smsLink, { mobile: $scope.model.mobile, captcha: $scope.model.captcha })
+                        .then(function (res) {
+                            $scope.smsloading = false;
+
+                            if (!res.data.result && res.data.type == 'mobile') {
+                                $scope.error.mobile = res.data.error;
+                                $scope.validation.mobile = -1;
+
+                            }else if (!res.data.result && res.data.type=='captcha') {
+                                $scope.error.captcha= res.data.error;
+
+                            } else {
+                                gotoStep3();
+                            }
+                        })
+                        .catch(function () {
+                            $scope.smsloading = false;
+                        });
+                }
+
+                $scope.reCaptcha = function () {
+                    $http.post(getCaptchalink).then(function (res) {
+                        $scope.captchaPic = res.data;
+                    });
+
+                }
 
                 function validateEmail(email) {
                     if (!email) return true;
@@ -227,10 +401,69 @@
 
                 function validateMobile(email) {
                     if (!email) return true;
-                    var re = /^0[1-9][0-9]{9}$/;
+                    var re = /^[0-9]{9}$/;
                     return re.test(String(email).toLowerCase());
                 }
 
+                function validate() {
+
+                    $scope.validation.username = 0;
+                    $scope.validation.password = 0;
+                    $scope.validation.passwordRepeat = 0;
+                    $scope.validation.email = 0;
+                    $scope.validation.mobile = 0;
+
+                    if (!$scope.model.username || $scope.model.username <= 0) {
+                        $scope.validation.username = -1;
+                        $scope.error.username = 'کد ملی را وارد کنید';
+                    }
+
+                    if ($scope.model.password !== $scope.model.passwordRepeat) {
+                        $scope.error.passwordRepeat = 'تکرار کلمه عبور با کلمه عبور یکسان نیست';
+                        $scope.validation.passwordRepeat = -1;
+                    }
+
+                    if (!$scope.model.password || !$scope.model.password.length) {
+                        $scope.error.password = 'کلمه عبور را وارد کنید';
+                        $scope.validation.password = -1;
+                    }
+
+                    if ($scope.model.password && $scope.model.password.length
+                        && ($scope.model.password.length < 8
+                            || !$scope.model.password.match(/.*[A-Z].*/)
+                            || !$scope.model.password.match(/.*[a-z].*/)
+                            || !$scope.model.password.match(/.*[@@!%\$\^#&\*].*/)
+                        )) {
+                        $scope.error.password = 'کلمه عبور معتبر نیست';
+                        $scope.validation.password = -1;
+                    }
+
+                    if ($scope.model.email && $scope.model.email.length) {
+                        $scope.validation.email = validateEmail($scope.model.email) ? 1 : -1;
+                        if ($scope.validation.email==-1) {
+                            $scope.error.email = 'لطفا یک ایمیل معتبر وارد کنید';
+                        }
+                    }
+
+                    if (!$scope.model.email || !$scope.model.email.length) {
+                        $scope.validation.email = -1;
+                        $scope.error.email = 'لطفا یک ایمیل معتبر وارد کنید';
+                    }
+
+                    if ($scope.model.mobile && $scope.model.mobile.length) {
+                        $scope.validation.mobile = validateMobile($scope.model.mobile)?1:-1;
+                        if ($scope.validation.mobile==-1) {
+                            $scope.error.mobile = 'موبایل وارد شده معتبر نیست';
+                        }
+                    }
+
+
+                    return $scope.validation.username != -1 &&
+                        $scope.validation.password != -1&&
+                        $scope.validation.passwordRepeat != -1&&
+                        $scope.validation.email != -1&&
+                        $scope.validation.mobile != -1;
+                }
             }]);
 
         </script>
