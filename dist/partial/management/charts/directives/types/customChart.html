@@ -26,12 +26,17 @@
                         </div>
                     </div>
 
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'font'">
+                        <label>{{item.title}}</label>
+                        <span class="form-divider" flex></span>
+                        <text-editor prop="ngModel.customChart.general[item.key]" on-change="refreshChart('refresh')"></text-editor>
+                    </div>
+
                     <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'select'">
                         <label class="col-sm-4">{{ item.title }}</label>
                         <span class="form-divider" flex></span>
-                            <select ng-model="ngModel.customChart.general[item.key]" ng-change="refreshChart('refreshWithData')"
-                                    ng-options="i.value as i.name for i in item.entries">
-                            </select>
+                        <select ng-model="ngModel.customChart.general[item.key]" ng-change="refreshChart('refreshWithData')"
+                                ng-options="i.value as i.name for i in item.entries"></select>
                     </div>
 
                 </div>

@@ -5,6 +5,10 @@
 
 <div class="ui container">
     <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+            display: none !important;
+        }
+
         .form-signin {
             max-width: 970px;
             margin-top: 80px;
@@ -72,8 +76,16 @@
         }
 
         .form-signin .field input {
-            line-height: 1em !important;
+            line-height: 1.7em !important;
             padding: 8px 16px !important;
+        }
+
+        .form-signin input[type=number]::-webkit-inner-spin-button,
+        .form-signin input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            opacity: 0;
+            margin: 0;
         }
     </style>
 
@@ -121,6 +133,14 @@
                                 <div class="field-info" ng-show="error.username.length">{{error.username}}</div>
                                 <div class="field-info" ng-show="!model.username.length">کد ملی ۱۰ رقمی</div>
                             </div>
+                            <div ng-show="step==1" class="field">
+                                <label>@ViewBag.msg["name"]</label>
+                                <div class="ui icon input">
+                                    <input ng-model="model.name" type="text" autocomplete="off" class="ui fuild input" />
+                                    <i class="address book outline icon"></i>
+                                </div>
+                            </div>
+
 
                             <div ng-show="step==1" class="field" ng-class="{error: validation.email==-1}">
                                 <label>@ViewBag.msg["email"]</label>
@@ -153,14 +173,6 @@
                                 </div>
                                 <small class="field-info">{{error.passwordRepeat}}</small>
                             </div>
-
-                            @*<div class="field">
-                                    <label>@ViewBag.msg["name"]</label>
-                                    <div class="ui icon input">
-                                        <input name="email" ng-model="model.name" type="text" autocomplete="off" class="ui fuild input" />
-                                        <i class="address book outline icon"></i>
-                                    </div>
-                                </div>*@
 
                             <div ng-show="step==2" class="field" ng-class="{error: validation.mobile==-1}">
                                 <label>@ViewBag.msg["mobile"]</label>
@@ -195,6 +207,10 @@
                                 </div>
                                 <div class="field-info">{{error.activationCode}}</div>
                                 <div class="field-info">زمان باقیمانده {{persian(timer)}} ثانیه </div>
+                            </div>
+
+                            <div class="ui message red" ng-if="error.general && error.general.length">
+                                {{error.general}}
                             </div>
 
                             <button ng-show="step==1" class="ui blue fluid button big submit" ng-class="{loading: loading, disabled: loading }" ng-click="submit()" type="submit" style="margin-top:35px;">
@@ -271,6 +287,7 @@
                     });
                 };
                 $scope.model = {};
+                //$scope.model = { email: 'az@s.com', password: '123!aA123', passwordRepeat: '123!aA123' };
                 $scope.error = {};
                 $scope.loading = false;
                 $scope.captchaPic = "@ViewBag.captcha";
@@ -284,6 +301,7 @@
                 $scope.validation.passwordRepeat = 0;
                 $scope.validation.email = 0;
                 $scope.validation.mobile = 0;
+                var lastUsernameOnlinValidation = 0;
 
                 $scope.checkUsername = function () {
                     $scope.checkUsernameProgress = true;
@@ -301,8 +319,10 @@
                             if (!res.data.isValid)
                                 $scope.error.username = 'کد ملی وارد شده معتبر نیست';
 
-                        } else { $scope.error.username = null;}
-                    });
+                        } else { $scope.error.username = null; }
+
+                        lastUsernameOnlinValidation = $scope.validation.username;
+                        });
 
                 }
 
@@ -364,7 +384,7 @@
 
                 $scope.sendPhoneCode = function () {
                     if (!validate()) return;
-
+                    $scope.error.general = null;
                     $scope.smsloading = true;
                     $http.post(smsLink, { mobile: $scope.model.mobile, captcha: $scope.model.captcha })
                         .then(function (res) {
@@ -376,6 +396,9 @@
 
                             }else if (!res.data.result && res.data.type=='captcha') {
                                 $scope.error.captcha= res.data.error;
+
+                            } else if (!res.data.result) {
+                                $scope.error.general= res.data.error;
 
                             } else {
                                 gotoStep3();
@@ -407,7 +430,7 @@
 
                 function validate() {
 
-                    $scope.validation.username = 0;
+                    $scope.validation.username = lastUsernameOnlinValidation;
                     $scope.validation.password = 0;
                     $scope.validation.passwordRepeat = 0;
                     $scope.validation.email = 0;

@@ -75,7 +75,6 @@
 
 
                                 <th ng-repeat="t in [
-                                    {name:'Id', key:'id'},
                                     {name:'IP', key:'ip'},
                                     {name:'Username', key:'username'},
                                     {name:'UserAgent', key:'agent'},
@@ -98,7 +97,6 @@
                             </tr>
                         </thead>
                         <tr ng-repeat="row in logs">
-                            <td>{{row. Id             }}        </td>
                             <td>{{row. ClientIp       }}        </td>
                             <td>{{row. Username       }}        </td>
                             <td>{{row. UserAgent      }}        </td>
