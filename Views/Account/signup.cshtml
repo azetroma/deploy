@@ -133,19 +133,29 @@
                                 <div class="field-info" ng-show="error.username.length">{{error.username}}</div>
                                 <div class="field-info" ng-show="!model.username.length">کد ملی ۱۰ رقمی</div>
                             </div>
-                            <div ng-show="step==1" class="field">
+
+                            <div ng-show="step==1" class="field" ng-class="{error: validation.name==-1}">
                                 <label>@ViewBag.msg["name"]</label>
                                 <div class="ui icon input">
-                                    <input ng-model="model.name" type="text" autocomplete="off" class="ui fuild input" />
+                                    <input ng-model="model.name" ng-blur="fieldValidate('name')" type="text" autocomplete="off" class="ui fuild input" />
                                     <i class="address book outline icon"></i>
                                 </div>
+                                <div class="field-info" ng-show="error.name.length">{{error.name}}</div>
                             </div>
 
+                            <div ng-show="step==1" class="field" ng-class="{error: validation.family==-1}">
+                                <label>@ViewBag.msg["family"]</label>
+                                <div class="ui icon input">
+                                    <input ng-model="model.family" ng-blur="fieldValidate('family')" type="text" autocomplete="off" class="ui fuild input" />
+                                    <i class="address book outline icon"></i>
+                                </div>
+                                <div class="field-info" ng-show="error.family.length">{{error.family}}</div>
+                            </div>
 
                             <div ng-show="step==1" class="field" ng-class="{error: validation.email==-1}">
                                 <label>@ViewBag.msg["email"]</label>
                                 <div class="ui icon input">
-                                    <input name="email" ng-model="model.email" ng-change="testEmail()" type="text" autocomplete="off" class="ui fuild input" />
+                                    <input name="email" ng-model="model.email" ng-blur="fieldValidate('email')" type="text" autocomplete="off" class="ui fuild input" />
                                     <i class="mail icon" xng-class="{'green link check' : validation.email==1, 'mail':  validation.email==1}"></i>
                                 </div>
                                 <div class="field-info">{{error.email}}</div>
@@ -154,21 +164,21 @@
                             <div ng-show="step==1" class="field" ng-class="{error: validation.password==-1}">
                                 <label>@ViewBag.msg["password"]</label>
                                 <div class="ui icon input">
-                                    <input autocomplete="off" ng-model="model.password" type="{{showPass ? 'text':'password'}}" class="ui fuild input" />
+                                    <input autocomplete="off" ng-model="model.password" ng-blur="fieldValidate('password')" type="{{showPass ? 'text':'password'}}" class="ui fuild input" />
                                     <i class="lock icon"></i>
                                 </div>
-                                <div class="field-info">حداقل ۸ کاراکتر شامل حروف بزرگ، کوچک و علامت</div>
+                                <div class="field-info">حداقل ۸ کاراکتر شامل حروف بزرگ و کوچک انگلیسی و علامت</div>
                                 <div class="field-info">{{error.password}}</div>
-                                @*<label class="" style="font-weight:200; margin:10px 0; font-size:0.8em">
-                                        <input type="checkbox" ng-model="showPass">
-                                        @ViewBag.msg["show password"]
-                                    </label>*@
+                                <label class="" style="font-weight:200; margin:10px 0; font-size:0.8em">
+                                    <input type="checkbox" ng-model="showPass">
+                                    @ViewBag.msg["show password"]
+                                </label>
                             </div>
 
                             <div ng-show="step==1" class="field" ng-class="{error: validation.passwordRepeat==-1}">
                                 <label>@ViewBag.msg["password repeat"]</label>
                                 <div class="ui icon input">
-                                    <input type="password" autocomplete="off" ng-model="model.passwordRepeat" class="ui fuild input" />
+                                    <input ng-model="model.passwordRepeat" ng-blur="fieldValidate('passwordRepeat')" type="{{showPass ? 'text':'password'}}" autocomplete="off" class="ui fuild input" />
                                     <i class="lock icon"></i>
                                 </div>
                                 <small class="field-info">{{error.passwordRepeat}}</small>
@@ -177,7 +187,7 @@
                             <div ng-show="step==2" class="field" ng-class="{error: validation.mobile==-1}">
                                 <label>@ViewBag.msg["mobile"]</label>
                                 <div class="ui icon input">
-                                    <input style="direction:ltr;text-align:left;padding-left: 70px !important;" ng-model="model.mobile" type="text" autocomplete="off" class="ui fuild input" />
+                                    <input ng-model="model.mobile" ng-blur="fieldValidate('mobile')" style="direction:ltr;text-align:left;padding-left: 70px !important;" type="text" autocomplete="off" class="ui fuild input" />
                                     <div style="position: absolute;left: 45px !important;top: 9px;font-weight:800">۰۹</div>
                                     <i class="phone icon" xng-class="{'green link check' : validation.mobile==1, 'phone':  validation.email==1}"></i>
                                 </div>
@@ -228,6 +238,9 @@
                             <button ng-show=" step==3" class="ui green fluid button big submit" ng-class="{loading: loading, disabled: loading }" ng-click="submit()" type="submit" style="margin-top:35px;">
                                 فعال‌سازی و ثبت نام
                             </button>
+                            <button ng-show="step!=1" class="ui basic fluid button big submit" ng-click="step = step - 1" type="submit" style="margin-top:35px;">
+                                مرحله قبل
+                            </button>
 
                             <div class="ui red message" ng-show="error.submit.length">
                                 {{error.submit}}
@@ -235,8 +248,6 @@
                             <button ng-show="error.submit.length" class="ui green fluid basic button big submit" ng-click="resetForm()">
                                 انجام دوباره عملیات
                             </button>
-
-
 
                         </div>
                     </div>
@@ -287,7 +298,7 @@
                     });
                 };
                 $scope.model = {};
-                //$scope.model = { email: 'az@s.com', password: '123!aA123', passwordRepeat: '123!aA123' };
+                $scope.model = {username:1288432410,name:'sd', family:'sd', email: 'az@s.com', password: '123!aA123', passwordRepeat: '123!aA123' };
                 $scope.error = {};
                 $scope.loading = false;
                 $scope.captchaPic = "@ViewBag.captcha";
@@ -322,6 +333,7 @@
                         } else { $scope.error.username = null; }
 
                         lastUsernameOnlinValidation = $scope.validation.username;
+                        lastUsernameOnlinValidationError = $scope.error.username;
                         });
 
                 }
@@ -336,7 +348,21 @@
                 }
 
                 $scope.submit = function () {
-                    if (!validate()) return;
+                    generalValidationItem('name');
+                    generalValidationItem('family');
+                    generalValidationItem('password');
+                    generalValidationItem('username');
+                    generalValidationItem('email');
+                    generalValidationItem('passwordRepeat');
+
+                    if ($scope.validation.username       == -1 ||
+                        $scope.validation.name           == -1 ||
+                        $scope.validation.family         == -1 ||
+                        $scope.validation.password       == -1 ||
+                        $scope.validation.passwordRepeat == -1 ||
+                        $scope.validation.email          == -1) {
+                        return;
+                    }
 
                     if ($scope.step == 1) {
                         $scope.step = 2;
@@ -383,7 +409,9 @@
                 }
 
                 $scope.sendPhoneCode = function () {
-                    if (!validate()) return;
+                    generalValidationItem('mobile');
+                    if ($scope.validation.mobile == -1) return;
+
                     $scope.error.general = null;
                     $scope.smsloading = true;
                     $http.post(smsLink, { mobile: $scope.model.mobile, captcha: $scope.model.captcha })
@@ -428,64 +456,128 @@
                     return re.test(String(email).toLowerCase());
                 }
 
-                function validate() {
+                var validationStruct = {
+                    username: [{ dataType: 'number', type: 'require', error:'کد ملی را وارد کنید'}],
+                    name:     [{dataType:'string', type: 'require', error:'نام را وارد کنید'}],
+                    family:   [{dataType:'string', type: 'require', error:'نام خانوادگی را وارد کنید'}],
+                    email: [{ dataType: 'string', type: 'require', error: 'پست الکترونیک را وارد کنید' },
+                            { dataType: 'string', type: 'email', error: 'پست الکترونیک معتبر نیست' }],
+                    password: [{ dataType: 'string', type: 'require', error: 'کلمه عبور را وارد کنید' },
+                        {
+                            dataType: 'string', type: 'passwordPolicy',
+                            error: 'کلمه عبور معتبر نیست',
+                            errorLen: 'طول کلمه عبور باید ۸ کاراکتر باشد',
+                            errorUppercase: 'حداقل یک حرف از کلمه عبور باید بزرگ باشد',
+                            errorLowercase: 'حداقل یک حرف از کلمه عبور باید کوچک باشد',
+                            errorNoChar: 'حداقل یک کاراکتر از !@@#$%^& باید استفاده شده باشد',
+                            errorInvaliChar: 'استفاده از کاراکترهای |/:*?>< مجاز نیست'
+                        }],
+                    passwordRepeat: [{ dataType: 'string', type: 'require', error: 'تکرار کلمه عبور را وارد کنید' },
+                                     { dataType: 'string', type: 'passwordRepeat', error: 'تکرار کلمه عبور با کلمه عبور یکسان نیست' }],
+                    mobile: [{ dataType: 'string', type: 'require', error: 'تلفن را وارد کنید' },
+                             { dataType: 'string', type: 'mobile', error: 'موبایل وارد شده معتبر نیست' }]
+                };
 
-                    $scope.validation.username = lastUsernameOnlinValidation;
-                    $scope.validation.password = 0;
-                    $scope.validation.passwordRepeat = 0;
-                    $scope.validation.email = 0;
-                    $scope.validation.mobile = 0;
+                $scope.fieldValidate = function (key) {
+                    generalValidationItem(key);
+                    return $scope.validation[key] != -1;
+                };
 
-                    if (!$scope.model.username || $scope.model.username <= 0) {
-                        $scope.validation.username = -1;
-                        $scope.error.username = 'کد ملی را وارد کنید';
+                var generalValidationItem = function (key) {
+
+                    var validationList = validationStruct[key];
+                    $scope.validation[key] = 0;
+                    $scope.error[key] = null;
+
+                    if (key == 'username') {
+                        $scope.validation.username = lastUsernameOnlinValidation;
+                        if (lastUsernameOnlinValidation == -1)
+                            $scope.error.username = lastUsernameOnlinValidationError;
                     }
 
-                    if ($scope.model.password !== $scope.model.passwordRepeat) {
-                        $scope.error.passwordRepeat = 'تکرار کلمه عبور با کلمه عبور یکسان نیست';
-                        $scope.validation.passwordRepeat = -1;
-                    }
 
-                    if (!$scope.model.password || !$scope.model.password.length) {
-                        $scope.error.password = 'کلمه عبور را وارد کنید';
-                        $scope.validation.password = -1;
-                    }
+                    _.each(validationList, function (item) {
 
-                    if ($scope.model.password && $scope.model.password.length
-                        && ($scope.model.password.length < 8
-                            || !$scope.model.password.match(/.*[A-Z].*/)
-                            || !$scope.model.password.match(/.*[a-z].*/)
-                            || !$scope.model.password.match(/.*[@@!%\$\^#&\*].*/)
-                        )) {
-                        $scope.error.password = 'کلمه عبور معتبر نیست';
-                        $scope.validation.password = -1;
-                    }
+                        if (item.type == 'require' && item.dataType == 'string') {
+                            if (!$scope.model[key] || !$scope.model[key].length) {
+                                $scope.validation[key] = -1;
+                                $scope.error[key] = item.error;
+                                return false; //break!
+                            }
 
-                    if ($scope.model.email && $scope.model.email.length) {
-                        $scope.validation.email = validateEmail($scope.model.email) ? 1 : -1;
-                        if ($scope.validation.email==-1) {
-                            $scope.error.email = 'لطفا یک ایمیل معتبر وارد کنید';
                         }
-                    }
 
-                    if (!$scope.model.email || !$scope.model.email.length) {
-                        $scope.validation.email = -1;
-                        $scope.error.email = 'لطفا یک ایمیل معتبر وارد کنید';
-                    }
-
-                    if ($scope.model.mobile && $scope.model.mobile.length) {
-                        $scope.validation.mobile = validateMobile($scope.model.mobile)?1:-1;
-                        if ($scope.validation.mobile==-1) {
-                            $scope.error.mobile = 'موبایل وارد شده معتبر نیست';
+                        if (item.type == 'require' && item.dataType == 'number') {
+                            if (!$scope.model[key] || $scope.model[key]<=0) {
+                                $scope.validation[key] = -1;
+                                $scope.error[key] = item.error;
+                                return false; //break!
+                            }
                         }
-                    }
 
 
-                    return $scope.validation.username != -1 &&
-                        $scope.validation.password != -1&&
-                        $scope.validation.passwordRepeat != -1&&
-                        $scope.validation.email != -1&&
-                        $scope.validation.mobile != -1;
+                        if (item.type == 'passwordRepeat' ) {
+                            if ($scope.model.password !== $scope.model.passwordRepeat) {
+                                $scope.error.passwordRepeat = item.error;
+                                $scope.validation.passwordRepeat = -1;
+                                return false; //break!
+                            }
+                        }
+
+                        if (item.type == 'passwordPolicy' ) {
+                            if ($scope.model.password.length < 8) {
+                                $scope.error.password = item.errorLen;
+                                $scope.validation.password = -1;
+                                return false; //break!
+                            }
+                            if (!$scope.model.password.match(/.*[A-Z].*/)) {
+                                $scope.error.password = item.errorUppercase;
+                                $scope.validation.password = -1;
+                                return false; //break!
+                            }
+                            if (!$scope.model.password.match(/.*[a-z].*/)) {
+                                $scope.error.password = item.errorLowercase;
+                                $scope.validation.password = -1;
+                                return false; //break!
+                            }
+                            if (!$scope.model.password.match(/.*[@@!%\$\^#&].*/)) {
+                                $scope.error.password = item.errorNoChar;
+                                $scope.validation.password = -1;
+                                return false; //break!
+                            }
+                            if ($scope.model.password.match(/.*[\|\/\:\*\?><].*/)) {
+                                $scope.error.password = item.errorInvaliChar;
+                                $scope.validation.password = -1;
+                                return false; //break!
+                            }
+
+                        }
+
+                        if (item.type == 'email' ) {
+                            if ($scope.model.email && $scope.model.email.length) {
+                                $scope.validation.email = validateEmail($scope.model.email) ? 1 : -1;
+                                if ($scope.validation.email == -1) {
+                                    $scope.error.email = item.error;
+                                    return false; //break!
+                                }
+                            }
+                        }
+
+                        if (item.type == 'mobile' ) {
+                            if ($scope.model.mobile && $scope.model.mobile.length) {
+                                $scope.validation.mobile = validateMobile($scope.model.mobile)?1:-1;
+                                if ($scope.validation.mobile==-1) {
+                                    $scope.error.mobile = item.error;
+                                    return false; //break!
+                                }
+                            }
+                        }
+
+                    });
+
+                }
+
+                function validateAllField() {
                 }
             }]);
 
