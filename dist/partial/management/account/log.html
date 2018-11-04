@@ -2,23 +2,44 @@
     <md-content flex no-background>
         <div layout="column" flex>
 
-            <md-card style="margin:40px; padding:16px" flex>
+            <div class="ui modal settings">
 
-                <div class="">
-                    <h3 style="margin-bottom:40px">{{'اطلاعات ممیزی' | translate}}</h3>
+                <div class="header">
+                    <h3 xstyle="margin-bottom:40px">{{'اطلاعات ممیزی' | translate}}</h3>
                 </div>
 
-                <div flex="50">
+                <div class="content">
                     <div>
                         <b>از چه اتفاق‌هایی در سیستم لاگ گرفته شود؟</b>
                         <small>توجه داشته باشید گرفتن لاگ از همه اتفاق‌ها ممکن است روی سرعت سیستم تاثیر منفی داشته باشد</small>
                     </div>
+                    <br />
+                    <br />
 
                     <div><md-checkbox ng-model="model.login" style="margin:5px 0">ورود و خروج از سیستم</md-checkbox>                                             </div>
                     <div><md-checkbox ng-model="model.showDashboard" style="margin:5px 0">مشاهده صفحه داشبورد</md-checkbox>                                              </div>
                     <div><md-checkbox ng-model="model.showChart" style="margin:5px 0">مشاهده نمودار</md-checkbox>                                                    </div>
                     <div><md-checkbox ng-model="model.management" style="margin:5px 0">ایجاد، تغییر و یا حذف نمودار، صفحه، منبع داده و یا فرم</md-checkbox>   </div>
                     <div><md-checkbox ng-model="model.heartbeat" style="margin:5px 0">سیگنال آنلاین بودن کاربر</md-checkbox>   </div>
+                    <br />
+                    <br />
+                    <div><label>هشدار در صورت تجاوز رکوردهای ممیزی از مقدار تعریف شده</label>
+                    <small>در صورت بیشتر شدن از حد آستانه هشداری برای کاربران با دسترسی 
+                        <b>مدیری اصلی سیستم</b>
+                        ارسال می‌شود
+                        </small>
+                    </div>
+                    <br />
+                    <div class="ui form">
+                        <div class="fields">
+                            <div class="field">
+                                <label>تعداد رکورد</label>   <input type="text" ng-model="model.maxRecordNumber" />
+                            </div>
+                            <div class="field">
+                                <label> حجم جدول <small>MB</small></label>   <input type="text" ng-model="model.maxTableSize" />
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="alert alert-warning" role="alert" ng-show="error">
                         <button type="button" class="close" ng-click="error=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -26,31 +47,30 @@
                     </div>
 
 
-                    <div layout="row">
+                </div>
 
-                        <md-button ng-click="save($event)" ng-disabled="saveProgress">
-                            {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
-                        </md-button>
-
-                        <!--<md-button ng-click="cancel()">
-                            {{'cancel' | translate}}
-                        </md-button>-->
-
-
+                <div class="actions">
+                    <div class="ui button green" ng-click="save($event)" ng-disabled="saveProgress">
+                        {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
                     </div>
                 </div>
 
+            </div>
 
-
-            </md-card>
+            <!--<md-card style="margin:40px; padding:16px" flex>
+            </md-card>-->
 
 
             <md-card style="margin:40px; padding:16px" flex>
 
                 <div class="">
+                    <button style="float:left" class="ui icon button basic " ng-click="showModal()">
+                        <i class="ui icon setting"></i>
+                        {{'تنظیمات' | translate}}
+                    </button>
                     <h3 style="margin-bottom:40px">{{'لیست لاگ‌ها' | translate}}</h3>
                 </div>
-                <div class="ui mini form" style="margin-bottom:30px;">
+                <!--<div class="ui mini form" style="margin-bottom:30px;">
                     <div class="fields">
                         <div class="field"><label>IP</label><input ng-model="filters.ip" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
                         <div class="field"><label>Username</label><input ng-model="filters.username" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
@@ -60,12 +80,13 @@
                         <div class="field"><label>ResultCode</label><input ng-model="filters.result" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
                         <div class="field"><label>Detail</label><input ng-model="filters.detail" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></div>
                     </div>
-                </div>
+                </div>-->
                 <style>
                     .log-table th, .log-table td {
                         max-width: 120px;
                         -ms-word-break: break-all;
                         word-break: break-all;
+                        font-size: 11px;
                     }
                 </style>
                 <div style="overflow:auto; max-height:400px;">
@@ -75,35 +96,43 @@
 
 
                                 <th ng-repeat="t in [
+                                    {name:'تاریخ', key:'date'},
+                                    {name:'زمان', key:'time'},
                                     {name:'IP', key:'ip'},
-                                    {name:'Username', key:'username'},
-                                    {name:'UserAgent', key:'agent'},
-                                    {name:'Time', key:'time'},
-                                    {name:'Type', key:'type'},
-                                    {name:'Operation', key:'operation'},
-                                    {name:'ResultCode', key:'result'},
-                                    {name:'Sign', key:'sign'},
-                                    {name:'Detail', key:'detail'}
+                                    {name:'نام کاربری', key:'username'},
+                                    {name:'مرورگر', key:'agent'},
+                                    {name:'نوع', key:'type'},
+                                    {name:'عملیات', key:'operation'},
+                                    {name:'نتیجه', key:'result'},
+                                    {name:'موضوع', key:'subject'},
+                                    {name:'صحت', key:'sign'},
+                                    {name:'جزییات', key:'detail'}
                                     ]" ng-click="sortBy(t.key)"><div class="pointer"> {{t.name}}<i class="ui icon caret" ng-class="orderIcon(t.key)"></i></div></th>
-                                <!--<th ng-click="sortBy('ip')"><div> IP</div></th>
-                                <th ng-click="sortBy('username')"><div> Username </div></th>
-                                <th ng-click="sortBy('agent')"><div> UserAgent </div></th>
-                                <th ng-click="sortBy('time')"><div> Time </div></th>
-                                <th ng-click="sortBy('type')"><div> Type </div></th>
-                                <th ng-click="sortBy('operation')"><div> Operation </div></th>
-                                <th ng-click="sortBy('result')"><div> ResultCode </div></th>
-                                <th><div> Sign </div></th>
-                                <th ng-click="sortBy('detail')"><div> Detail </div></th>-->
                             </tr>
                         </thead>
+                        <tr class="ui form">
+                            <td class="field"><input ng-model="filters.date" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
+                            <td class="field"><input ng-model="filters.time" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
+                            <td class="field"><input ng-model="filters.ip" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
+                            <td class="field"><input ng-model="filters.username" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
+                            <td class="field"><input ng-model="filters.useragent" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
+                            <td class="field"><input ng-model="filters.type" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
+                            <td class="field"><input ng-model="filters.operation" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
+                            <td class="field"><input ng-model="filters.result" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
+                            <td class="field"><input ng-model="filters.subject" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
+                            <td class="field"></td>
+                            <td class="field"><input ng-model="filters.detail" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
+                        </tr>
                         <tr ng-repeat="row in logs">
-                            <td>{{row. ClientIp       }}        </td>
-                            <td>{{row. Username       }}        </td>
-                            <td>{{row. UserAgent      }}        </td>
-                            <td>{{row. Date           }}        </td>
-                            <td>{{row. EntityType    }}        </td>
-                            <td>{{row. Operation    }}        </td>
-                            <td>{{row. ResultCode    }}        </td>
+                            <td>{{row.Date           }}        </td>
+                            <td>{{row.Time           }}        </td>
+                            <td>{{row.ClientIp       }}        </td>
+                            <td>{{row.Username       }}        </td>
+                            <td>{{row.ClientAgent    }}        </td>
+                            <td>{{row.EntityType     }}        </td>
+                            <td>{{row.Operation      }}        </td>
+                            <td>{{row.ResultCode     }}        </td>
+                            <td>{{row.Subject        }}        </td>
                             <td><i ng-show="checkList[$index]" class="ui icon green check"></i><i ng-hide="checkList[$index]" class="ui icon red times"></i>        </td>
                             <td>{{row. Detail            }}        </td>
                         </tr>
