@@ -238,7 +238,7 @@
                             <button ng-show=" step==3" class="ui green fluid button big submit" ng-class="{loading: loading, disabled: loading }" ng-click="submit()" type="submit" style="margin-top:35px;">
                                 فعال‌سازی و ثبت نام
                             </button>
-                            <button ng-show="step!=1" class="ui basic fluid button big submit" ng-click="step = step - 1" type="submit" style="margin-top:35px;">
+                            <button ng-show="step != 1" class="ui basic fluid button big submit" ng-click="stepBack()" type="submit" style="margin-top:35px;">
                                 مرحله قبل
                             </button>
 
@@ -298,7 +298,7 @@
                     });
                 };
                 $scope.model = {};
-                //$scope.model = {username:1288432410,name:'sd', family:'sd', email: 'az@s.com', password: '123!aA123', passwordRepeat: '123!aA123' };
+                //$scope.model = {username:1288432410,name:'sd', family:'sd', email: 'az@s.com', password: '123!aA123', passwordRepeat: '123!aA123', mobile:'132103532' };
                 $scope.error = {};
                 $scope.loading = false;
                 $scope.captchaPic = "@ViewBag.captcha";
@@ -313,6 +313,13 @@
                 $scope.validation.email = 0;
                 $scope.validation.mobile = 0;
                 var lastUsernameOnlinValidation = 0;
+
+                $scope.stepBack = function () {
+                    $scope.step = $scope.step - 1;
+                    if ($scope.step == 2) {
+                        $scope.reCaptcha();
+                    }
+                }
 
                 $scope.checkUsername = function () {
                     $scope.checkUsernameProgress = true;
@@ -423,7 +430,7 @@
                                 $scope.validation.mobile = -1;
 
                             }else if (!res.data.result && res.data.type=='captcha') {
-                                $scope.error.captcha= res.data.error;
+                                $scope.error.captcha = res.data.error;
 
                             } else if (!res.data.result) {
                                 $scope.error.general= res.data.error;
@@ -438,6 +445,7 @@
                 }
 
                 $scope.reCaptcha = function () {
+                    $scope.model.captcha = null;
                     $http.post(getCaptchalink).then(function (res) {
                         $scope.captchaPic = res.data;
                     });

@@ -721,7 +721,6 @@
                     </md-tab>
                     <md-tab label="{{ 'مقادیر' | translate }}">
                         <md-content class="md-padding" flex>
-
                             <div class="ui form">
                                 <div class="inline fields">
                                     <label>نوع شرط</label>
@@ -732,13 +731,13 @@
                                     </div>
                                     <div class="field">
                                         <div class="ui radio">
-                                            
+
                                             <label><input type="radio" ng-model="parent.members.filter.type" value="value"> انتخاب مقدار</label>
                                         </div>
                                     </div>
                                     <div class="field">
                                         <div class="ui radio">
-                                            <label><input type="radio"  ng-model="parent.members.filter.type" value="function"> تابع</label>
+                                            <label><input type="radio" ng-model="parent.members.filter.type" value="function"> تابع</label>
                                         </div>
                                     </div>
                                 </div>
@@ -750,13 +749,12 @@
                                 <div class="form-row" layout="row" layout-align="start center">
                                     <label class="col-sm-4">{{ 'نوع فیلتر' | translate }}</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" 
-                                                ng-model="parent.members.numericFilter.type" 
+                                        <select class="form-control"
+                                                ng-model="parent.members.numericFilter.type"
                                                 ng-init="parent.members.numericFilter.type='condition'"
                                                 ng-options="color.name as  color.value for color in [
-                                                                {name:'condition', value: 'شرط'  }, 
-                                                            ]"
-                                                >
+                                                                {name:'condition', value: 'شرط'  },
+                                                            ]">
                                             <!--<option value="condition">{{ 'شرط' | translate}}</option>-->
                                         </select>
                                     </div>
@@ -767,39 +765,39 @@
                                     <span>{{parent.members.name}}</span>
                                     <select class="condition-style" ng-model="parent.members.numericFilter.conditions[0].condition"
                                             ng-options="color.name as  color.value for color in [
-                                                                {name:'none', value: ''  }, 
-                                                                {name:'eq', value: 'برابر'  }, 
-                                                                {name:'neq', value: 'نابرابر'  }, 
-                                                                {name:'gre', value: 'بزرگتر'  }, 
-                                                                {name:'greeq', value: 'بزرگتر مساوی'  }, 
-                                                                {name:'les', value: 'کوچکتر'  }, 
-                                                                {name:'leseq', value: 'کوچکتر مساوی'  }, 
-                                                            ]">
-                                    </select>
+                                                                {name:'none', value: ''  },
+                                                                {name:'eq', value: 'برابر'  },
+                                                                {name:'neq', value: 'نابرابر'  },
+                                                                {name:'gre', value: 'بزرگتر'  },
+                                                                {name:'greeq', value: 'بزرگتر مساوی'  },
+                                                                {name:'les', value: 'کوچکتر'  },
+                                                                {name:'leseq', value: 'کوچکتر مساوی'  },
+                                                            ]"></select>
 
                                     <input class="condition-style" style="width:50px;" type="text" ng-model="parent.members.numericFilter.conditions[0].parameter" />
 
 
                                     <select class="condition-style" ng-model="parent.members.numericFilter.conditionType"
                                             ng-options="color.name as  color.value for color in [
-                                                                {name:'and', value: 'و'  }, 
-                                                                {name:'or', value: 'یا'  }, 
+                                                                {name:'and', value: 'و'  },
+                                                                {name:'or', value: 'یا'  },
                                                             ]">
+
+
                                         <!--<option value="and">{{ 'و' | translate}}</option>
-                                        <option value="or">{{ 'یا' | translate}}</option>-->
+                <option value="or">{{ 'یا' | translate}}</option>-->
                                     </select>
 
                                     <select class="condition-style" ng-model="parent.members.numericFilter.conditions[1].condition"
                                             ng-options="color.name as  color.value for color in [
-                                                                {name:'none', value: ''  }, 
-                                                                {name:'eq', value: 'برابر'  }, 
-                                                                {name:'neq', value: 'نابرابر'  }, 
-                                                                {name:'gre', value: 'بزرگتر'  }, 
-                                                                {name:'greeq', value: 'بزرگتر مساوی'  }, 
-                                                                {name:'les', value: 'کوچکتر'  }, 
-                                                                {name:'leseq', value: 'کوچکتر مساوی'  }, 
-                                                            ]">
-                                    </select>
+                                                                {name:'none', value: ''  },
+                                                                {name:'eq', value: 'برابر'  },
+                                                                {name:'neq', value: 'نابرابر'  },
+                                                                {name:'gre', value: 'بزرگتر'  },
+                                                                {name:'greeq', value: 'بزرگتر مساوی'  },
+                                                                {name:'les', value: 'کوچکتر'  },
+                                                                {name:'leseq', value: 'کوچکتر مساوی'  },
+                                                            ]"></select>
                                     <input class="condition-style" style="width:50px;" type="text" ng-model="parent.members.numericFilter.conditions[1].parameter" />
 
                                 </div>
@@ -810,23 +808,22 @@
                                         <div class="col-sm-8">
                                             <select class="form-control" ng-model="parent.members.numericFilter.func"
                                                     ng-options="color.name as  color.value for color in [
-                                                                {name:'aboveAvg', value: 'بالای میانگین'  }, 
-                                                                {name:'belowAvg', value: 'زیر میانگین'  }, 
-                                                            ]">
-                                            </select>
+                                                                {name:'aboveAvg', value: 'بالای میانگین'  },
+                                                                {name:'belowAvg', value: 'زیر میانگین'  },
+                                                            ]"></select>
                                         </div>
                                     </div>
 
                                 </div>
 
                             </div>
-                            
+
                             <!--شرط غیر عددی-->
                             <div xng-show="!parent.members.isNumeric" ng-show="parent.members.filter.type == 'value'">
 
                                 <!--<div class="md-padding" layout="column" layout-align="center center" ng-hide="parent.members">
-                                    <md-progress-circular md-mode='indeterminate'></md-progress-circular>
-                                </div>-->
+            <md-progress-circular md-mode='indeterminate'></md-progress-circular>
+        </div>-->
                                 <div class="ui inline centered tiny loader" ng-class="{active: !parent.members}"></div>
 
 
