@@ -127,7 +127,7 @@
                             <div ng-show="step==1" class="field" ng-class="{error: validation.username==-1}">
                                 <label>@ViewBag.msg["national code"]</label>
                                 <div class="ui icon input" ng-class="{loading: checkUsernameProgress}">
-                                    <input autocomplete="off" ng-model-options="{ allowInvalid: true, debounce: 500 }" ng-change="checkUsername()" ng-model="model.username" type="number" class="ui fuild input" />
+                                    <input autocomplete="off" ng-model-options="{ allowInvalid: true, debounce: 500 }" ng-change="checkUsername()" ng-model="model.username" type="text" class="ui fuild input" />
                                     <i class="user icon" ng-class="{'link green check' : validation.username==1, 'user' : validation.username!=1}"></i>
                                 </div>
                                 <div class="field-info" ng-show="error.username.length">{{error.username}}</div>
@@ -231,9 +231,9 @@
                                 ارسال کد فعال‌سازی
                             </button>
 
-                            <button ng-show="step==3" class="ui blue fluid basic button big submit" ng-class="{loading: smsloading, disabled: smsloading }" ng-click="sendSmsAgain()" type="submit" style="margin-top:35px;">
+                            @*<button ng-show="step==3" class="ui blue fluid basic button big submit" ng-class="{loading: smsloading, disabled: smsloading }" ng-click="sendSmsAgain()" type="submit" style="margin-top:35px;">
                                 ارسال مجدد کد فعال‌سازی
-                            </button>
+                            </button>*@
 
                             <button ng-show=" step==3" class="ui green fluid button big submit" ng-class="{loading: loading, disabled: loading }" ng-click="submit()" type="submit" style="margin-top:35px;">
                                 فعال‌سازی و ثبت نام
@@ -317,7 +317,7 @@
                 $scope.stepBack = function () {
                     $scope.step = $scope.step - 1;
                     if ($scope.step == 2) {
-                        $scope.reCaptcha();
+                        $scope.sendSmsAgain();
                     }
                 }
 
@@ -465,7 +465,7 @@
                 }
 
                 var validationStruct = {
-                    username: [{ dataType: 'number', type: 'require', error:'کد ملی را وارد کنید'}],
+                    username: [{ dataType: 'string', type: 'require', error:'کد ملی را وارد کنید'}],
                     name:     [{dataType:'string', type: 'require', error:'نام را وارد کنید'}],
                     family:   [{dataType:'string', type: 'require', error:'نام خانوادگی را وارد کنید'}],
                     email: [{ dataType: 'string', type: 'require', error: 'پست الکترونیک را وارد کنید' },
