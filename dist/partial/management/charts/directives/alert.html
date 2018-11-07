@@ -13,8 +13,8 @@
         </div>
 
         <div class="ui segment" ng-repeat="alert in model[config.name].alerts">
-            <div class="pointer" style="float:left" ng-click="model[config.name].alerts.splice($index, 1)">
-                <i class="ui icon close"></i>
+            <div class="pointer" style="position: absolute;left: 0;top: 0;color: gray;" ng-click="model[config.name].alerts.splice($index, 1)">
+                <i class="ui small icon close"></i>
             </div>
 
             <div class="alert-form-group">
@@ -52,13 +52,54 @@
                 <sadaf-indicator ng-model="item" series="model.series" hide-then="true"></sadaf-indicator>
             </div>
 
+            <br />
 
-            <div class="" style="margin:16px 0;">
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'contact type' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select class="form-control" ng-change="" ng-model="alert.contactType" ng-options="color.name as  color.value for color in [
+                                    {name:'datasource', value: ('datasource' | translate)  },
+                                    {name:'role', value: ('roles' | translate)  },
+                                    ]"></select>
+                </div>
+            </div>
+            <br />
+
+            <div class="ui small form" ng-show="alert.contactType === 'datasource'">
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="ui mini button" ng-click="selectDatasource($event, alert)" aria-label="{{'انتخاب منبع داده' | translate}}">
+                        <span>{{'انتخاب منبع داده' | translate}}</span>
+                    </div>
+                    <span flex></span>
+                    <span ng-if="alert.selectedDatasource">{{alert.selectedDatasource.name}}</span>
+                </div>
+                <br />
+                <div ng-show="alert.datasourceColumns.length">
+
+                    <div class="field">
+                        <label class="col-sm-4">{{ 'Username Column' | translate }}</label>
+                        <sm-dropdown class="selection search" model="alert.datasourceUserColumn" items="alert.datasourceColumns" label="item.Name" value="item.Name"></sm-dropdown>
+                    </div>
+                    <div class="field">
+                        <label class="col-sm-4">{{ 'role column' | translate }}</label>
+                        <sm-dropdown class="selection search" model="alert.datasourceRoleColumn" items="alert.datasourceColumns" label="item.Name" value="item.Name"></sm-dropdown>
+                    </div>
+                    <div class="field">
+                        <label class="col-sm-4">{{ 'captions column' | translate }}</label>
+                        <sm-dropdown class="selection multiple search" model="alert.datasourceCaptionsColumn" items="alert.datasourceColumns" label="item.Name" value="item.Name"></sm-dropdown>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="ui small form" ng-show="alert.contactType === 'role'">
                 <b class="ui tiny header">{{ 'نقش‌ها' | translate }}</b>
                 <select-roles ng-model="alert.roles" class="ui tiny form"></select-roles>
                 <small class="grey">در صورت انتخاب نقش، به تمام کاربران آن نقش هشدار فرستاده می‌شود</small>
             </div>
 
+            <br />
 
             <div class="form-row" layout="row" layout-align="start center" ng-show="alert.type=='command'">
                 <label class="col-sm-4 control-label">دستور: </label>
@@ -76,43 +117,47 @@
 
             <datasource-schedule style="margin-top:10px;display:block;" ng-model="alert.schedule"> </datasource-schedule>
 
-            <div class="form-row" layout="row" layout-align="start center" ng-show="alert.type=='sms' || alert.type=='email' ">
-                <div class="alert-section" style="margin-top:10px">{{ 'فرمت نمایش' | translate }}</div>
-                <span class="form-divider" flex></span>
-                <div class="col-sm-12 ltr code">
-                    <input type="text" class="form-control" data-trans-key='فرمت نمایش' data-trans-attr='placeholder' ng-model="alert.format" />
+
+            <div class="ui small form">
+
+                <div class="field" ng-show="alert.type=='sms' || alert.type=='email' ">
+                    <div class="alert-section" style="margin-top:10px">{{ 'فرمت نمایش' | translate }}</div>
+                    <div class="col-sm-12 ltr code">
+                        <input type="text" class="form-control" data-trans-key='فرمت نمایش' data-trans-attr='placeholder' ng-model="alert.format" />
+                    </div>
+                    <div style="font-size:10px; color:gray;">
+                        <span> <code class="inline ltr">@{k}</code>: برچسب</span>
+                        <span> <code class="inline ltr">@{m}</code>: شاخص</span>
+                        <span> <code class="inline ltr">@{n}</code>: مقدار</span>
+                    </div>
                 </div>
-            </div>
 
-            <div style="text-align:left">
-                <span> <code class="inline ltr">@{k}</code>: برچسب</span>
-                <span> <code class="inline ltr">@{m}</code>: شاخص</span>
-                <span> <code class="inline ltr">@{n}</code>: مقدار</span>
-            </div>
 
-            <div class="form-row" layout="row" layout-align="start center">
-                <div layout-wrap>
-                    <span>{{ 'انتخاب شاخص‌ها' | translate }}</span>
-                    <label ng-repeat="s in model.series" class="left-margin">
+                <div class="field">
+                    <label>{{ 'انتخاب شاخص‌ها' | translate }}</label>
+                    <span ng-repeat="s in model.series" class="left-margin">
                         <input type="checkbox"
                                ng-click="toggleSelectedSeries(alert, s)"
                                ng-checked="alert.selectedSeries.indexOf(s)!=-1" /> {{s}}
-                    </label>
+                    </span>
+                </div>
+
+                <div class="field" ng-show="alert.type=='sms' || alert.type=='email' ">
+                    <label>{{ 'پیام ارسالی' | translate }}</label>
+                    <div>
+                        <textarea style="width:100%; line-height: 1.85em;" rows="5" ng-model="alert.body"></textarea>
+                    </div>
+                </div>
+                <div style="font-size:10px; color:gray;">
+                    <div> <b class="inline ltr">@{name}</b> نام نمودار </div>
+                    <div> <b class="inline ltr">@{update-time}</b> زمان به روز رسانی منبع داده </div>
+                    <div> <b class="inline ltr">@{filters}</b> فیلترهای نمودار </div>
+                    <div> <b class="inline ltr">@{content}</b> مقادیر شاخص‌ها</div>
                 </div>
             </div>
 
-            <div ng-show="alert.type=='sms' || alert.type=='email' ">
-                <label>{{ 'پیام ارسالی' | translate }}</label>
-                <div>
-                    <textarea style="width:100%; line-height: 1.85em;" rows="5" ng-model="alert.body"></textarea>
-                </div>
-            </div>
-            <div style="font-size:10px; color:gray;">
-                <div> <b class="inline ltr">@{name}</b> نام نمودار </div>
-                <div> <b class="inline ltr">@{update-time}</b> زمان به روز رسانی منبع داده </div>
-                <div> <b class="inline ltr">@{filters}</b> فیلترهای نمودار </div>
-                <div> <b class="inline ltr">@{content}</b> مقادیر شاخص‌ها</div>
-            </div>
+
+
 
 
             <div>
@@ -121,10 +166,16 @@
                     <i class="ui icon eye"></i> پیش نمایش
                 </div>
                 <br />
-
-                <div class="ui segment" ng-show="alert.preview!=null">
+                <div>
                     <div><b>نتیجه:</b> {{alert.preview.result}}</div>
-                    <div><b>متن پیام:</b><pre style="white-space: pre-wrap;">{{alert.preview.message}}</pre></div>
+                    <div ng-show="!alert.preview.result"><b>خطا:</b>{{alert.preview.errorMessage}}</div>
+                    <div class="ui segments" ng-repeat="m in alert.preview.messages">
+                        <div class="ui segment">
+                            {{'users'|translate}} <div ng-repeat="u in m.users" class="ui mini label"> {{u}}</div>
+                            <pre style="white-space: pre-wrap;">{{m.content}}</pre>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 

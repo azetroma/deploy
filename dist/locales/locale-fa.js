@@ -974,5 +974,9 @@
 	"sms":"پیام کوتاه",
 	"members":"کاربرهای عضو",
 	"manageable users":"لیست کاربران قابل مدیریت",
-	"value on chart font":"فونت مقادیر روی نمودار"
+	"value on chart font":"فونت مقادیر روی نمودار",
+	"contact type":"نوع مخاطب",
+	"datasource":"منبع داده",
+	"role column":"ستون حاوی نقش",
+	"captions column":"ستون حاوی برچسب‌های نمودار"
 }

@@ -974,5 +974,9 @@
 	"sms":"SMS",
 	"members":"Members",
 	"manageable users":"List of Manageable Users",
-	"value on chart font":"Value On Chart Font"
+	"value on chart font":"Value On Chart Font",
+	"contact type":"Contact Type",
+	"datasource":"Datasource",
+	"role column":"Role Column",
+	"captions column":"Captions Column"
 }

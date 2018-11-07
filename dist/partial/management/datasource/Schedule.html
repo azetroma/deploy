@@ -1,9 +1,12 @@
 
 <div style="padding: 5px 5px;margin: 0px -5px;position:relative">
     <div class="alert-section">
-        <b> زمانبندی: </b>
+        <div class="ui icon basic button"  ng-click="edit($event)">
+            <i class="ui icon clock"></i>
+        </div>
+        <!--<b> زمانبندی: </b>-->
         <span ng-show="model" style="color:#888; font-size:0.8em">
-           {{'اجرا هر' | translate}} 
+            {{'اجرا هر' | translate}}
             {{model.occure!='daily'? '' : (model.dailyRecurs>1?model.dailyRecurs:'') + ' روز'}}
 
             {{model.occure!='weekly'? '' : (model.weeklyRecurs>1?model.weeklyRecurs:'') + ' هفته' + ' در '}}
@@ -24,10 +27,9 @@
 
         </span>
 
-        <md-button class="md-icon-button" ng-click="edit($event)">
-            <span class="material-icons">edit</span>
-        </md-button>
-
+        <!--<md-button class="md-icon-button" ng-click="edit($event)">
+        <span class="material-icons">edit</span>
+    </md-button>-->
         <!--<pre>{{model | json}}</pre>-->
     </div>
 

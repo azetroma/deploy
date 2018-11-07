@@ -88,19 +88,18 @@
                     <td width="20">
                         <md-button class="md-icon-button"title="{{'add_chart' | translate}}" ng-click="insertChart(row, $event); $event.stopPropagation();" ng-if="row.type == 2">
                             <span class="material-icons" style="color:#757575">insert_chart</span>
-                            <!--<md-tooltip>{{'add_chart' | translate}}</md-tooltip>-->
+                             <!--<md-tooltip>{{'add_chart' | translate}}</md-tooltip>-->
                         </md-button>
                     </td>
                     <td>
-                        <div ng-show="row.type == 2 && row.charts.length" ng-click="row.render = true">
-
-                            <md-menu md-offset="0 -7" ng-if="row.render">
+                        <div ng-show="row.type == 2 && row.charts.length" >
+                            <md-menu md-offset="0 -7">
                                 <md-button title="{{'charts_list' | translate}}" aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event); $event.stopPropagation();">
                                     <span class="material-icons" style="color:#757575">toc</span>
                                     <!--<md-tooltip>{{'charts_list' | translate}}</md-tooltip>-->
 
                                 </md-button>
-                                <md-menu-content width="4">
+                                <md-menu-content width="4" >
                                     <md-menu-item ng-repeat="c in row.charts">
                                         <md-button href="{{app.hashUrlPrefix}}#/charts/edit/0/{{c.id}}">
                                             <span>{{c.name}}</span>

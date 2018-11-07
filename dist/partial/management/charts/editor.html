@@ -17,7 +17,7 @@
              
         </div>
 
-        <md-divider></md-divider>
+        <md-divider></md-divider> 
 
         <div flex="50">
             <div layout="row" flex layout-fill id="chartEditor">
@@ -31,7 +31,10 @@
                             <div layout="row" layout-align="start center" class="datasource-item-header">
                                 <span>{{ 'data' | translate }}</span>
                                 <span flex></span>
-                                <span class="material-icons small small-size pointer" ng-click="showRelatedDatasource($event)" title="{{'add' | translate}}">
+                                <span ng-hide="!chartType.isCustom && chartType.id==7"class="material-icons small small-size pointer" ng-click="showRelatedDatasource($event)" title="{{'add' | translate}}">
+                                    add
+                                </span>
+                                <span ng-show="!chartType.isCustom && chartType.id==7" class="material-icons small small-size pointer" ng-click="showAddDatasource()" title="{{'add' | translate}}">
                                     add
                                 </span>
                             </div>
