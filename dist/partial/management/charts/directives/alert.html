@@ -27,20 +27,8 @@
                                     ]"></select>
                     </div>
                 </div>
-                <!--<div class="form-row" layout="row" layout-align="start center" ng-show="alert.type=='sms' || alert.type=='email' ">
-                    <label class="col-sm-4">{{ 'عنوان پیام ارسالی' | translate }}</label>
-                    <span class="form-divider" flex></span><div class="col-sm-8">
-                        <input type="text" class="form-control" data-trans-key='عنوان' data-trans-attr='placeholder' ng-model="alert.title" />
-                    </div>
-                </div>
-                <div class="form-row" layout="row" layout-align="start center">
-                    <div class="col-sm-12">
-                        <label class="left-margin">
-                            <input type="checkbox" ng-model="alert.showDatasourceTime" /> {{ 'نمایش زمان به‌روز رسانی منبع داده' | translate }}
-                        </label>
-                    </div>
-                </div>-->
             </div>
+
 
 
             <div ng-repeat="item in alert.rules" ng-init="alert.rules = alert.rules || [{}]">
@@ -141,6 +129,24 @@
                                ng-checked="alert.selectedSeries.indexOf(s)!=-1" /> {{s}}
                     </span>
                 </div>
+
+
+                <!--<div class="field" layout="row" layout-align="start center">
+                    <label>{{ 'فرمت نمایش' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <sd-format ng-change="onChange()" ng-model="alert.formatString"></sd-format>
+                    <div>
+
+                        <input type="text" class="ltr"
+                               placeholder="{{ 'قالب' | translate }}"
+                               ng-disabled="model.formatString!='custom'"
+                               ng-hide="model.formatString!='custom'"
+                               ng-change="onChange()"
+                               ng-model-options="{ updateOn: 'blur' }"
+                               ng-model="alert.formatStringCustom" />
+                    </div>
+                </div>-->
+
 
                 <div class="field" ng-show="alert.type=='sms' || alert.type=='email' ">
                     <label>{{ 'پیام ارسالی' | translate }}</label>
