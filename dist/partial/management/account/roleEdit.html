@@ -318,12 +318,12 @@
                     <div style="margin:60px 0 100px 0" >
                         <div class="ui form" style="margin-bottom:50px;">
                             <div class="field">
-                                <label>{{'parent role' | translate}}
-                                    <i class="icon ui small trash pointer" ng-show="isAdmin" ng-click="parent=0;changeParent();" ></i>
+                                <label>
+                                    {{'parent role' | translate}}
+                                    <i class="icon ui small trash pointer" ng-show="isAdmin" ng-click="parent=0;changeParent();"></i>
                                 </label>
-                                <select ng-options="item.id as item.name for item in roles" ng-model="parent" ng-change="changeParent()">
-                                </select>
-                                </div>
+                                <select ng-options="item.id as item.name for item in roles" ng-model="parent" ng-change="changeParent()"></select>
+                            </div>
                                 <div class="field">
                                     <label>{{'role managers' | translate}}</label>
                                     <sm-dropdown class="selection search multiple fluid" items="users" model="model.Admins" label="item.username" value="item.id"></sm-dropdown>
