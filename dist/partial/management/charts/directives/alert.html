@@ -130,24 +130,6 @@
                     </span>
                 </div>
 
-
-                <!--<div class="field" layout="row" layout-align="start center">
-                    <label>{{ 'فرمت نمایش' | translate }}</label>
-                    <span class="form-divider" flex></span>
-                    <sd-format ng-change="onChange()" ng-model="alert.formatString"></sd-format>
-                    <div>
-
-                        <input type="text" class="ltr"
-                               placeholder="{{ 'قالب' | translate }}"
-                               ng-disabled="model.formatString!='custom'"
-                               ng-hide="model.formatString!='custom'"
-                               ng-change="onChange()"
-                               ng-model-options="{ updateOn: 'blur' }"
-                               ng-model="alert.formatStringCustom" />
-                    </div>
-                </div>-->
-
-
                 <div class="field" ng-show="alert.type=='sms' || alert.type=='email' ">
                     <label>{{ 'پیام ارسالی' | translate }}</label>
                     <div>
@@ -168,9 +150,10 @@
 
             <div>
                 <br />
-                <div class="ui mini icon button" ng-click="preview(alert)" title="{{'add' | translate}}">
+                <div class="ui mini icon button" ng-click="preview(alert)" ng-class="{'loading disabled': alert.previewProgress}" title="{{'add' | translate}}">
                     <i class="ui icon eye"></i> پیش نمایش
                 </div>
+                <br />
                 <br />
                 <div>
                     <div><b>نتیجه:</b> {{alert.preview.result}}</div>
