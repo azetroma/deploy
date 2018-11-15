@@ -78,7 +78,7 @@
                             <div class="prop-section role-edit">
 
                                 <menu-container>
-
+                                     
                                     <menu-item>
                                         <menu-header ng-click="renderMenu = true">{{'menus' | translate}}</menu-header>
                                         <menu-body>
@@ -101,11 +101,15 @@
                                                             <div ng-repeat="r in v" layout="row" layout-align="start center">
                                                                 <md-checkbox ng-model="r.check" ng-change="setViewPermission(k, v)">{{r.name}}</md-checkbox>
                                                                 <span flex></span>
-                                                                <md-select style="margin:0" class="" ng-model="r.action" ng-show="r.check" aria-label="{{'permission' | translate}}">
-                                                                    <md-option value="1">{{'permission_view' | translate}}</md-option>
-                                                                    <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
-                                                                    <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
-                                                                </md-select>
+                                                                <!--<md-select style="margin:0" class="" ng-model="r.action" ng-show="r.check" aria-label="{{'permission' | translate}}">
+                                                                        <md-option value="1">{{'permission_view' | translate}}</md-option>
+                                                                        <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
+                                                                        <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
+                                                                    </md-select>-->
+                                                                <select ng-show="r.check" ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
+                                                            (item.v == 2 && !r.permissions.EditPermission)||
+                                                            (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
+
 
                                                             </div>
                                                         </div>
