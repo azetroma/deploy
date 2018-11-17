@@ -978,5 +978,9 @@
 	"contact type":"Contact Type",
 	"datasource":"Datasource",
 	"role column":"Role Column",
-	"captions column":"Captions Column"
+	"captions column":"Captions Column",
+	"active":"Active",
+	"max fail login":"Max logged in failed",
+	"session timeout":"User Session Timeout",
+	"time minute":"Minute"
 }

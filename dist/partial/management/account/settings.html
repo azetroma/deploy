@@ -37,9 +37,15 @@
                     </md-input-container>
 
                     <md-input-container class="md-block">
-                        <label>{{'تعداد لاگین ناموفق' | translate}}</label>
-                        <input required name="name" ng-model="model.maxFailedLogin">
+                        <label>{{'max fail login' | translate}}</label>
+                        <input  ng-model="model.maxFailedLogin">
                         <small><small>{{'حداکثر تعداد تلاش ناموفق برای لاگین' | translate}}</small></small>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>{{'session timeout' | translate}}</label>
+                        <input ng-model="model.sessionTime">
+                        <small><small>{{'time minute' | translate}}</small></small>
                     </md-input-container>
 
                     <!--<md-input-container class="md-block">

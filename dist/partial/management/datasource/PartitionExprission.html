@@ -12,28 +12,38 @@
 
     <md-divider></md-divider>
 
-    <fieldset class="standard" ng-repeat="partitionPart in partition" style="margin-top:24px">
-        <legend>
+    <div class="ui segment" ng-repeat="partitionPart in partition" style="margin-top:24px">
+        <div>
             <span layout="row" layout-align="start center">
                 <span>قسمت {{getPartitionName($index)}}</span>
-                <md-button class="md-icon-button" ng-click="partitionPart.formulas.push({})">
+                <!--<md-button class="md-icon-button" ng-click="partitionPart.formulas.push({})">
                     <span class="material-icons">add</span>
-                </md-button>
+                </md-button>-->
                 <md-button class="md-icon-button" ng-click="partition.splice($index, 1)">
                     <span class="material-icons">delete</span>
                 </md-button>
             </span>
-        </legend>
-        <div layout="row" flex layout-wrap>
-            <div ng-repeat="param in partitionPart.formulas track by $index" flex="50" margin-top="-16px">
-                <md-input-container flex>
-                    <label style="direction:ltr">@{{'{'}}{{$index}}{{'}'}}</label>
-                    <textarea ng-model="param.formula"
-                              style="direction:ltr; text-align:left; font-family:monospace; resize:vertical"></textarea>
-                </md-input-container>
-                <md-button class="md-icon-button"  ng-show="partitionPart.formulas.length>1" ng-click="partitionPart.formulas.splice($index,1)">
-                    <span class="material-icons">close</span>
-                </md-button>
+        </div>
+        <div class="ui form">
+            <div class="fields"ng-repeat="param in partitionPart.formulas track by $index" >
+
+                    <div class="ten wide column field">
+                        <label >@{{'{'}}{{$index}}{{'}'}}</label>
+                        <input type="text" ng-model="param.formula" style="direction:ltr; text-align:left; font-family:monospace; resize:vertical" />
+                    </div>
+                    <div class="field">
+                        <label>&nbsp;</label>
+                        <div class="ui icon button"  ng-click="partitionPart.formulas.push({})">
+                            <i class="ui icon add"></i>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>&nbsp;</label>
+                        <div class="ui icon button" ng-show="partitionPart.formulas.length>1" ng-click="partitionPart.formulas.splice($index,1)">
+                            <i class="ui icon close"></i>
+                        </div>
+                    </div>
 
             </div>
         </div>
@@ -76,7 +86,7 @@
             <div layout="row">
                 <label><span> اضافه کردن منبع داده</span></label>
                 <span flex></span>
-                <md-button class="md-icon-button"  ng-click="partitionPart.datasources.push({})" title='اضافه کردن منبع داده مرتبط'>
+                <md-button class="md-icon-button" ng-click="partitionPart.datasources.push({})" title='اضافه کردن منبع داده مرتبط'>
                     <span class="material-icons">close</span>
                 </md-button>
             </div>
@@ -99,7 +109,7 @@
                     </ul>
                 </div>
 
-                <md-button class="md-icon-button"   ng-click="partitionPart.datasources.splice($index, 1)" title='حذف'>
+                <md-button class="md-icon-button" ng-click="partitionPart.datasources.splice($index, 1)" title='حذف'>
                     <span class="material-icons">delete</span>
                 </md-button>
 
@@ -107,7 +117,7 @@
 
         </div>
 
-    </fieldset>
+    </div>
 
 
 

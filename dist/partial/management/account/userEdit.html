@@ -83,11 +83,23 @@
                             </div>
 
                             <md-switch ng-model="model.PasswordPolicy">
+                                <md-tooltip>
+                                    <small>کلمه عبور پیچیده باید شامل موارد زیر باشد
+                                        <span>حداقل یک عدد</span>
+                                        <span>حداقل یک حرف بزرگ</span>
+                                        <span>حداقل یک حرف کوچک</span>
+                                        <span>حداقل یک کاراکتر از ( ) * &amp; ^ % $ # @ !</span>
+                                        <span>حداقل طول هشت کاراکتر</span>
+                                    </small>
+                                </md-tooltip>
                                 {{'complicate password' | translate}}
                             </md-switch>
-
                             <md-switch ng-model="model.ForceChangePass">
                                 {{'force change password' | translate}}
+                            </md-switch>
+
+                            <md-switch ng-model="model.active">
+                                {{'active' | translate}}
                             </md-switch>
 
 

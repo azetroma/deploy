@@ -978,5 +978,9 @@
 	"contact type":"نوع مخاطب",
 	"datasource":"منبع داده",
 	"role column":"ستون حاوی نقش",
-	"captions column":"ستون حاوی برچسب‌های نمودار"
+	"captions column":"ستون حاوی برچسب‌های نمودار",
+	"active":"فعال بودن",
+	"max fail login":"بیشترین تعداد لاگین ناموفق",
+	"session timeout":"زمان اعتبار نشست کاربران",
+	"time minute":"زمان به دقیقه"
 }
