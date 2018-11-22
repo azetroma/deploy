@@ -348,16 +348,8 @@
                             </h3>
                         <div>
                             <small ng-hide="childs && childs.length">{{'no role' | translate}}</small>
-                            <table class="ui table" ng-show="childs && childs.length">
-                                <tr><th>#</th><th>{{'name' | translate}}</th></tr>
-                            <tr ng-repeat="c in childs">
-                                <td> {{$index+1}}</td>
-                                <td>
 
-                                <a href="{{app.hashUrlPrefix + '#/roles/edit/' + c.id}}">{{c.name}}</a>
-                                </td>
-                            </tr>
-                            </table>
+                            <roles-tree root="childTree"></roles-tree>
                         </div>
                         </div>
                     </div>

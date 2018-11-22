@@ -31,7 +31,7 @@
                 <div style="margin-top:1rem;"></div>
             </div>
 
-            <div ng-show="submittedStatus == 0 || submittedStatus==1">
+            <div ng-show="submittedStatus == 0 || submittedStatus==1" style="min-height:300px;">
                 <div ng-repeat="page in data.pages" ng-show="$index == activePage" class="form-page ui form">
                     <div class="ui grid stackable content-form">
                         <form-control ng-repeat="component in page.controls" ng-model="component" id="{{id}}" sd-submit="submit()"></form-control>
