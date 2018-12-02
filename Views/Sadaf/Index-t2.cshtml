@@ -158,9 +158,10 @@
         </style>*@
 </head>
 <body ng-app="sadaf" ng-cloak ng-controller="dashboardPageCtrl" class="theme2">
+    @Html.AntiForgeryToken()
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" id="isFullscreen" value="@ViewBag.UserProfile.IsFullScreen" />
-    @if(!(ViewBag.noframe ?? false)) {
+    @if (!(ViewBag.noframe ?? false)) {
         <div class="side-menu ui segment my-fix inverted no-padd no-margin">
 
             <div class="" style="text-align:center; padding:16px 16px;">
@@ -230,13 +231,13 @@
                 }
             </div>
         </div>
-     }
+    }
 
-    
+
 
     <div class="pusher" id="">
 
-        <div class="main-container full-height-container" @(!(ViewBag.noframe ?? false) ?"":"style=margin-left:0;margin-right:0;" ) >
+        <div class="main-container full-height-container" @(!(ViewBag.noframe ?? false) ? "" : "style=margin-left:0;margin-right:0;" )>
 
             <div class="dashboard-page-top-side" style="">
 
@@ -278,8 +279,8 @@
 
 
                 <div class="dashboard-edit-panel" ng-show="@(ViewBag.isLoginByLink ??false)" style="">
-                    
-                    
+
+
                     <div class="chart-container dashboard-page-header" style="direction:ltr;">
                         <div style="display:table-row">
                             <div id="device-selector" class="dashboard-navbar-item devices ">
@@ -292,11 +293,11 @@
                             <div class="dashboard-navbar-item-devider dashboard-navbar-item no-padd"></div>
 
                             @*<div class="dashboard-navbar-item no-padd">
-                                <div class="ui left input icon mini" style="max-width:75px">
-                                    <input id="dashboard-col" type="number" value="12" />
-                                    <i class="icon columns"></i>
-                                </div>
-                            </div>*@
+                                    <div class="ui left input icon mini" style="max-width:75px">
+                                        <input id="dashboard-col" type="number" value="12" />
+                                        <i class="icon columns"></i>
+                                    </div>
+                                </div>*@
 
                             <div class="dashboard-navbar-item dashboard-navbar-item-devider no-padd"></div>
 
@@ -305,7 +306,7 @@
                             </div>
                             <div class="dashboard-navbar-item " title="{{'add form' | translate}}">
 
-                                <i class="icons link"ng-click="addFormSettings.visible = true">
+                                <i class="icons link" ng-click="addFormSettings.visible = true">
                                     <i class="clipboard list icon"></i>
                                     <i class="corner add icon"></i>
                                 </i>
@@ -328,17 +329,17 @@
 
                 <div class="" style="margin:0px 10px;" ng-show="@(ViewBag.isLoginByLink ??false)">
                     <i class="large icon link full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
-                    <i class="large icon link play-toggle" ng-show="isFullscreen"ng-class="{play : !slidePlay, pause: slidePlay}" ng-click="slidePlayToggle()" title="full screen"></i>
+                    <i class="large icon link play-toggle" ng-show="isFullscreen" ng-class="{play : !slidePlay, pause: slidePlay}" ng-click="slidePlayToggle()" title="full screen"></i>
                 </div>
 
-                    <notification></notification>
+                <notification></notification>
 
                 <div class="ui dropdown" ng-show="@(ViewBag.isLoginByLink ??false)">
                     <div style="white-space:nowrap">
                         <span class="user-account-hide-segment">
                             @{
                                 var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
-                            <text> @user.FirstName @user.LastName</text>
+                                <text> @user.FirstName @user.LastName</text>
                             }
                         </span>
                         <i class="icon user large circle"></i>
@@ -362,7 +363,7 @@
         </div>
 
         <div id="form-holder">
-        <sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="formSettings"></sadaf-form>
+            <sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="formSettings"></sadaf-form>
 
         </div>
 
@@ -376,7 +377,7 @@
         </div>
 
         <div class="content">
-            {{'share modal desc' | translate}}            
+            {{'share modal desc' | translate}}
             <br />
             <br />
             <div ng-show="publishDashboard.publish">
@@ -451,8 +452,8 @@
         </div>
         <div class="content">
             <div class="ui header">
-            {{'delete chart msg' | translate}}
-             </div>
+                {{'delete chart msg' | translate}}
+            </div>
             {{'delete chart msg desc' | translate}}
             <br />
             <br />
@@ -560,7 +561,7 @@
             <script src="~/dist/js/dashboard-app-theme2.js?v=@v"></script>*@
     }
 
-        <script>
+    <script>
             //sdsd
         var userVariable = @Html.Raw(Json.Encode(ViewBag.userVariable));
         if(_.isArray(userVariable)){
@@ -588,7 +589,7 @@
             app.setAboluteUrl(AbsoluteUri);
         app.userId = @user.Id;
         app.commentOnChart = JSON.parse("@ViewBag.CommentOnChart.ToString().ToLower()");
-        
+
         var hash = "@ViewBag.returnUrlHash";
         if (hash) {
             location.hash = hash;
@@ -599,7 +600,7 @@
         app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
             ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : v.ToString())';
 
-        </script>
+    </script>
 
     <script>
 

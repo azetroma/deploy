@@ -1,84 +1,94 @@
-﻿<div layout="row" flex>
-    <md-content flex no-background>
-        <div layout="column" flex>
+﻿<div layout="column" flex>
+    <md-content flex class="content " layout="row" no-background>
+        <div flex="20" hide-sm hide-xs></div>
+        <div flex="60" flex-xs="100" flex-sm="100">
 
-            <md-card style="margin:40px; padding:16px" flex>
+            <md-card style="margin:40px 0; padding:16px">
 
                 <div class="">
                     <h3 style="margin-bottom:40px">{{'تنظیمات کلی برنامه' | translate}}</h3>
                 </div>
 
-                <div flex="50">
+                <div>
 
-                    <md-input-container class="md-block">
-                        <label>{{'نام سازمان' | translate}}</label>
-                        <input required name="name" ng-model="model.Brand">
-                    </md-input-container>
+                    <div class="ui form">
 
-                    <md-input-container>
-                        <md-checkbox class="md-block" ng-model="model.publicSignup">
-                            {{'can signup' | translate}}
-                        </md-checkbox>
-                    </md-input-container>
+                        <div class="field">
+                            <label>{{'نام سازمان' | translate}}</label>
+                            <input required ng-model="model.Brand">
+                        </div>
 
-                    <md-input-container class="md-block" ng-show="model.publicSignup">
-                        <label>{{'default role' | translate}}</label>
-                        <md-select ng-model="model.defaultRole">
-                            <md-option ng-repeat="item in roles" ng-value="item.id">{{item.name}}</md-option>
-                        </md-select>
-                        <small><small>{{'default role desc' | translate}}</small></small>
-                    </md-input-container>
+                        <div class="field">
+                            <md-checkbox class="md-block" ng-model="model.publicSignup">
+                                {{'can signup' | translate}}
+                            </md-checkbox>
+                        </div>
 
-                    <br />
+                        <div class="field" ng-show="model.publicSignup">
+                            <label>{{'default role' | translate}}</label>
+                            <!--<md-select ng-model="model.defaultRole">
+                                <md-option ng-repeat="item in roles" ng-value="item.id">{{item.name}}</md-option>
+                            </md-select>-->
+                            <sm-dropdown class="search selection"model="model.defaultRole" items="roles" label="item.name" value="item.id"></sm-dropdown>
+                            <small><small>{{'default role desc' | translate}}</small></small>
+                        </div>
 
-                    <md-input-container class="md-block">
-                        <label>{{'login desc' | translate}}</label>
-                        <textarea ng-model="model.loginPageText"></textarea>
-                    </md-input-container>
+                        <br />
 
-                    <md-input-container class="md-block">
-                        <label>{{'max fail login' | translate}}</label>
-                        <input  ng-model="model.maxFailedLogin">
-                        <small><small>{{'حداکثر تعداد تلاش ناموفق برای لاگین' | translate}}</small></small>
-                    </md-input-container>
+                        <div class="field">
+                            <label>{{'login desc' | translate}}</label>
+                            <textarea ng-model="model.loginPageText" style="line-height: 2em;"></textarea>
+                        </div>
 
-                    <md-input-container class="md-block">
-                        <label>{{'session timeout' | translate}}</label>
-                        <input ng-model="model.sessionTime">
-                        <small><small>{{'time minute' | translate}}</small></small>
-                    </md-input-container>
+                        <div class="field" ng-show="securityCertPatch">
+                            <label>{{'max fail login' | translate}}</label>
+                            <input type="number"ng-model="model.maxFailedLogin">
+                            <small><small>{{'حداکثر تعداد تلاش ناموفق برای لاگین' | translate}}</small></small>
+                        </div>
 
-                    <!--<md-input-container class="md-block">
+                        <div class="field"ng-show="securityCertPatch">
+                            <label>{{'session timeout' | translate}}</label>
+                            <input type="number"ng-model="model.sessionTime">
+                            <small><small>{{'time minute' | translate}}</small></small>
+                        </div>
+                        <div class="field">
+                            <label>{{'export data max row count' | translate}}</label>
+                            <input type="number" ng-model="model.exportDataMaxRow">
+                        </div>
+
+                        <!--<md-input-container class="md-block">
                         <label>{{'زمان غیر فعال بودن کاربر' | translate}}</label>
                         <input required name="name" ng-model="model.maxFailedDeactiveTime">
                         <small><small>{{'مدت زمان غیر فعال کردن حساب در صورت حداکثر تلاش ناموفق برای لاگین' | translate}}</small></small>
                     </md-input-container>-->
 
 
-                    <div class="alert alert-warning" role="alert" ng-show="error">
-                        <button type="button" class="close" ng-click="error=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong>خطا!</strong> <span ng-bind-html="error"></span>
+                        <div class="alert alert-warning" role="alert" ng-show="error">
+                            <button type="button" class="close" ng-click="error=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>خطا!</strong> <span ng-bind-html="error"></span>
+                        </div>
+
+
+                        <div layout="row">
+
+                            <md-button ng-click="save($event)" ng-disabled="saveProgress">
+                                {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+                            </md-button>
+
+                            <md-button ng-click="cancel()">
+                                {{'cancel' | translate}}
+                            </md-button>
+
+
+                        </div>
                     </div>
 
-
-                    <div layout="row">
-
-                        <md-button ng-click="save($event)" ng-disabled="saveProgress">
-                            {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
-                        </md-button>
-
-                        <md-button ng-click="cancel()">
-                            {{'cancel' | translate}}
-                        </md-button>
-
-
-                    </div>
                 </div>
-
 
 
             </md-card>
         </div>
+        <div flex="20" hide-sm hide-xs></div>
     </md-content>
 </div>
 

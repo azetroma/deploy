@@ -19,6 +19,7 @@
             v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
         }
     }
+   
     @*<link href="~/dist/lib/bootstrap-datepicker.min.css" rel="stylesheet" />
         <link href="~/dist/lib/jquery.ui.slider.css" rel="stylesheet" />
         <link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.213" rel="stylesheet" />
@@ -180,6 +181,8 @@
 
     <div ng-app="management" ng-controller="menusCtrl" ng-cloak layout="row" flex layout-fill>
         <input type="hidden" value="@ViewBag.lang" id="lang" />
+        @Html.AntiForgeryToken()
+        
         @if (!ViewBag.noframe) {
             <md-sidenav class="md-sidenav-right site-sidenav"
                         md-component-id="r"

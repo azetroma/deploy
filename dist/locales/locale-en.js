@@ -982,5 +982,6 @@
 	"active":"Active",
 	"max fail login":"Max logged in failed",
 	"session timeout":"User Session Timeout",
-	"time minute":"Minute"
+	"time minute":"Minute",
+	"export data max row count":"Maximum number of records in Excel output"
 }
