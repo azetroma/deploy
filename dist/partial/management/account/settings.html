@@ -51,6 +51,11 @@
                             <input type="number"ng-model="model.sessionTime">
                             <small><small>{{'time minute' | translate}}</small></small>
                         </div>
+                        <div class="field"ng-show="securityCertPatch">
+                            <label>{{'حداکثر حجم فایل در آپلود' | translate}}</label>
+                            <input type="number"ng-model="model.maxUploadLength">
+                            <small><small>{{'حجم به کیلو بایت' | translate}}</small></small>
+                        </div>
                         <div class="field">
                             <label>{{'export data max row count' | translate}}</label>
                             <input type="number" ng-model="model.exportDataMaxRow">
@@ -63,8 +68,8 @@
                     </md-input-container>-->
 
 
-                        <div class="alert alert-warning" role="alert" ng-show="error">
-                            <button type="button" class="close" ng-click="error=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="ui message red" ng-show="error">
+                            <!--<button type="button" class="close" ng-click="error=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
                             <strong>خطا!</strong> <span ng-bind-html="error"></span>
                         </div>
 

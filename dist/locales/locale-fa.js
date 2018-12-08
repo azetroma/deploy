@@ -983,5 +983,6 @@
 	"max fail login":"بیشترین تعداد لاگین ناموفق",
 	"session timeout":"زمان اعتبار نشست کاربران",
 	"time minute":"زمان به دقیقه",
-	"export data max row count":"بیشترین تعداد رکورد در خروجی اکسل"
+	"export data max row count":"بیشترین تعداد رکورد در خروجی اکسل",
+	"login history":"تاریخچه ورود به سامانه"
 }

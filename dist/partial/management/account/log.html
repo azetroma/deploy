@@ -116,9 +116,12 @@
                             <td class="field"><input ng-model="filters.ip" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
                             <td class="field"><input ng-model="filters.username" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
                             <td class="field"><input ng-model="filters.useragent" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
-                            <td class="field"><input ng-model="filters.type" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
-                            <td class="field"><input ng-model="filters.operation" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
-                            <td class="field"><input ng-model="filters.result" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
+                            <td class="field"><select style="padding:0;width: calc(100% - 20px);display: inline-block;" ng-model="filters.type" ng-options="a.value as a.label for a in mapType" ng-change="filter()"></select><i class="ui icon close" ng-click="filters.type = null;filter()"></i></td>
+                            <td class="field"><select style="padding:0;width: calc(100% - 20px);display: inline-block;" ng-model="filters.operation" ng-options="a.value as a.label for a in mapOperation" ng-change="filter()"></select><i class="ui icon close" ng-click="filters.operation = null;filter()"></i></td>
+                            <td class="field"><select style="padding:0;width: calc(100% - 20px);display: inline-block;" ng-model="filters.result" ng-options="a.value as a.label for a in mapResult" ng-change="filter()"></select><i class="ui icon close" ng-click="filters.result = null;filter()"></i></td>
+                            <!--<td class="field"><input ng-model="filters.type" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>-->
+                            <!--<td class="field"><input ng-model="filters.operation" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
+                            <td class="field"><input ng-model="filters.result" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>-->
                             <td class="field"><input ng-model="filters.subject" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
                             <td class="field"></td>
                             <td class="field"><input ng-model="filters.detail" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
@@ -129,9 +132,9 @@
                             <td>{{row.ClientIp       }}        </td>
                             <td>{{row.Username       }}        </td>
                             <td>{{row.ClientAgent    }}        </td>
-                            <td>{{row.EntityType     }}        </td>
-                            <td>{{row.Operation      }}        </td>
-                            <td>{{row.ResultCode     }}        </td>
+                            <td>{{row.EntityType   | dicMap:'type'  }}        </td>
+                            <td>{{row.Operation   | dicMap:'operation'   }}        </td>
+                            <td>{{row.ResultCode  | dicMap:'result'   }}        </td>
                             <td>{{row.Subject        }}        </td>
                             <td><i ng-show="checkList[$index]" class="ui icon green check"></i><i ng-hide="checkList[$index]" class="ui icon red times"></i>        </td>
                             <td>{{row. Detail            }}        </td>

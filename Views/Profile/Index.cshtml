@@ -12,18 +12,20 @@
 
 <div ng-app="profileCat" ng-cloak>
     <input type="hidden" value="@ViewBag.lang" id="lang" />
+    @Html.AntiForgeryToken()
     <div ng-controller="cGeneral">
         <div class="ui container" style="margin-top:70px">
             <ng-include src="'@Href("~")dist/partial/dashboardPage/navbar/navbar.html'"></ng-include>
             <div class="ui grid stackable">
                 <div class="four wide column">
-                        <div class="ui header">{{'profile_personal_settings' | translate}}</div>
-                        <div class="ui secondary vertical pointing menu">
-                            @*<li class="list-group-item" ng-class="{activate : path == '/info'}"><a href="#info">مشخصات</a></li>*@
-                            <div class="item" ng-class="{active : path == '/profile'}"><a xhref="#profile"href="javascript:;" onclick="document.location.hash='profile';">{{'profile_change_info' | translate}}</a></div>
-                            <div class="item" ng-class="{active : path == '/changepass'}"><a xhref="#changepass" href="javascript:;" onclick="document.location.hash='changepass';">{{'profile_change_pass' | translate}}</a></div>
-                            <div class="item" ng-class="{active : path == '/settings'}"><a xhref="#settings" href="javascript:;" onclick="document.location.hash = 'settings';">{{'profile_general_setting' | translate}}</a></div>
-                        </div>
+                    <div class="ui header">{{'profile_personal_settings' | translate}}</div>
+                    <div class="ui secondary vertical pointing menu">
+                        @*<li class="list-group-item" ng-class="{activate : path == '/info'}"><a href="#info">مشخصات</a></li>*@
+                        <div class="item" ng-class="{active : path == '/profile'}"><a xhref="#profile" href="javascript:;" onclick="document.location.hash='profile';">{{'profile_change_info' | translate}}</a></div>
+                        <div class="item" ng-class="{active : path == '/changepass'}"><a xhref="#changepass" href="javascript:;" onclick="document.location.hash='changepass';">{{'profile_change_pass' | translate}}</a></div>
+                        <div class="item" ng-class="{active : path == '/history'}"><a xhref="#changepass" href="javascript:;" onclick="document.location.hash='history';">{{'login history' | translate}}</a></div>
+                        <div class="item" ng-class="{active : path == '/settings'}"><a xhref="#settings" href="javascript:;" onclick="document.location.hash = 'settings';">{{'profile_general_setting' | translate}}</a></div>
+                    </div>
 
                 </div>
                 <div class="eight wide column">
