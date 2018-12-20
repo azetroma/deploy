@@ -1,0 +1,179 @@
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = ViewBag.msg["title"];
+}
+
+<div class="ui container">
+    <style>
+        .form-signin {
+            max-width: 970px;
+            margin-top: 80px;
+        }
+
+        .same-height {
+            margin-bottom: -99999px;
+            padding-bottom: 99999px;
+        }
+
+        .hide-overflow {
+            overflow: hidden;
+        }
+
+        .card {
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 6px;
+        }
+
+        .logo {
+            max-width: 55%;
+            height: auto;
+            margin: 0 auto;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .sadaf-desc {
+            font-size: 13px;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        body {
+            margin: 0;
+            padding-top: 0px;
+            padding-bottom: 40px;
+            background-color: #eee;
+            overflow: auto;
+        }
+
+        .inline-h1 {
+            display: inline;
+            font-size: inherit;
+            font-family: Droid !important;
+        }
+
+        #activationModal .content li {
+            margin: 7px 0;
+        }
+    </style>
+
+
+
+
+    <div id="contentx">
+
+        @*@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-signin" })) {*@
+        <form class="form-signin" method="post" action="@Url.Action("VerifyCode")" >
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+            <input type="hidden" name="ReturnUrlHash" value="" />
+
+            <div class="ui stackable grid">
+                <div class="col-md-6 six wide column">
+                    <div class="sadaf-desc">
+
+                        <img class="logo" src="~/Images/logo_half.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+
+                        <p>
+                            @Html.Raw(ViewBag.msg["info"])
+                        </p>
+                        <div class="text-left">
+                            <a href="http://www.sadafdashboard.ir/files/sadaf.apk" class="ui xblack label">@ViewBag.msg["download android"]</a>
+                        </div>
+
+                        <div style="margin-top:30px;">
+
+                            <a style="display:flex; align-items:center;" href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">
+                                @if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["showCopyRightLogo"] ?? "true")) {
+                                    <img class="logo" style="width:50px; margin-left:10px; margin-right:0;" src="~/Images/copy_right_logo.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                                }
+
+                                <span>@Html.Raw(ViewBag.msg["copy right"])</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6 six wide column">
+                    <div class="card">
+                        <div style="direction: ltr">
+                            <div class="ui fluid left icon input big" style="margin-bottom:15px;">
+                                <input name="code" type="text" class="" placeholder="@ViewBag.msg["activation code"]" autofocus style="border-radius:4px; margin-bottom:0;">
+                                <i class="barcode icon"></i>
+                            </div>
+                        </div>
+
+                        @if (ViewBag.error != null) {
+                            <div class="ui negative message">
+                                @Html.Raw(ViewBag.error)
+                            </div>
+                        }
+
+                        <button class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</button>
+                        <a href="@Url.Action("login")">شروع مجدد</a>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </form>
+
+    </div>
+
+    
+    @section scripts{
+
+        <script>
+            (function () {
+                var needCaptch = JSON.parse("@(ViewBag.needCaptcha == null ? "False" : ViewBag.needCaptcha )".toLowerCase())
+
+                function showCapcha(f) {
+                    if (f) { $('#capcha').fadeIn(); }
+                    if (!f) { $('#capcha').fadeOut();}
+                }
+
+                $('#login-type').on('change', function () {
+                    invalidate();
+                });
+
+                invalidate();
+
+                function invalidate() {
+                    var type = $('#login-type').val();
+                    showCapcha(+type != 0 || needCaptch)
+                }
+
+                $('#reCaptcha').on('click', function () {
+                    $.post('@Url.Action("getCaptcha")', function (d) {
+                        $('#captcha-image').attr('src', 'data:image/jpeg;base64,'+d)
+                    })
+                });
+
+                $('input[name=ReturnUrlHash]').val(location.hash);
+
+            }) ();
+        </script>
+
+    }
+
+
+</div>
+
+<script>
+    localStorage.removeItem('userVariable');
+
+    window.addEventListener('message', function (e) {
+        if (!_.isString(e.data)) return;
+
+        var message = JSON.parse(e.data);
+        window.location.href = message.param
+    });
+
+</script>
