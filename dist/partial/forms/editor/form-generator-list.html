@@ -19,6 +19,7 @@
                         <th>{{'name' | translate}}</th>
                         <th>{{'last update' | translate}}</th>
                         <th></th>
+                        <th></th>
                     </tr>
                     <tr ng-repeat="i in c.data">
                         <td>{{c.utils.persian($index + 1)}}</td>
@@ -38,6 +39,9 @@
                             </div>
 
                         </td>
+                        <td ng-show="c.securityCertPatch "><i ng-show="i.sign" class="ui icon green check"></i><i ng-hide="i.sign" class="ui icon red times"></i></td>
+                        <td ng-hide="c.securityCertPatch "></td>
+
                     </tr>
                 </table>
                 <div layout="row" layout-sm="column" layout-align="space-around" ng-show="c.progress" layout-margin>

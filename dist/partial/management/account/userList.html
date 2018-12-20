@@ -42,10 +42,11 @@
                     <th>{{'username' | translate}}</th>
                     <th><span>{{'name' | translate}}</span></th>
                     <th>{{'roles' | translate}}</th>
+                    <th ng-show="securityCertPatch">{{'integrity check' | translate}}</th>
                 </tr>
 
                 <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select;" ng-dblclick="goto(row, $event)" style="min-height:48px">
-                    <td width="20"style="height:48px;">
+                    <td width="20" style="height:48px;">
                         <md-checkbox class="no-margin" ng-model="row.select" ng-click="$event.stopPropagation();" aria-label="{{ 'choose' | translate}}"></md-checkbox>
                     </td>
                     <td width="20">{{utils.persian($index+1)}}</td>
@@ -58,6 +59,9 @@
                             <a ng-repeat="i in row.roles" href="{{app.hashUrlPrefix+'#/roles/edit/'+ i.id}}"> {{i.name}}</a>
                         </div>
                     </td>
+                    <td ng-show="securityCertPatch"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></td>
+                    <td ng-hide="securityCertPatch"></td>
+
                 </tr>
             </table>
             <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>

@@ -240,7 +240,15 @@
         <div class="main-container full-height-container" @(!(ViewBag.noframe ?? false) ? "" : "style=margin-left:0;margin-right:0;" )>
 
             <div class="dashboard-page-top-side" style="">
-
+                <div ng-show="isFullscreen" style="text-align: right;
+    font-size: 25px;
+    font-family: iransans;
+    font-weight: 900;
+    background-color: #424242;
+    color: white;
+    padding: 3px 35px;
+    margin: 0 0 0 10px;
+    border-radius: 4px;">{{name}}</div>
                 <div ng-show="menuCategories.licenceRemain.remain <= 3" class="ui label red">
                     {{'licence remaining' | translate}}:
                     <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
@@ -293,11 +301,11 @@
                             <div class="dashboard-navbar-item-devider dashboard-navbar-item no-padd"></div>
 
                             @*<div class="dashboard-navbar-item no-padd">
-                                    <div class="ui left input icon mini" style="max-width:75px">
-                                        <input id="dashboard-col" type="number" value="12" />
-                                        <i class="icon columns"></i>
-                                    </div>
-                                </div>*@
+                        <div class="ui left input icon mini" style="max-width:75px">
+                            <input id="dashboard-col" type="number" value="12" />
+                            <i class="icon columns"></i>
+                        </div>
+                    </div>*@
 
                             <div class="dashboard-navbar-item dashboard-navbar-item-devider no-padd"></div>
 

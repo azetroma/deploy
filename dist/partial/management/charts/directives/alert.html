@@ -21,10 +21,8 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع هشدار' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="form-control" ng-change="" ng-model="alert.type" ng-options="color.name as  color.value for color in [
-                                    {name:'sms', value: 'پیام کوتاه'  },
-                                    {name:'email', value: 'پست الکترونیک'  },
-                                    ]"></select>
+                        <select class="form-control" ng-change="alert.preview = null;" ng-model="alert.type" 
+                                ng-options="color.name as  color.value for color in [{name:'sms', value: 'پیام کوتاه'  },{name:'email', value: 'پست الکترونیک'  }]"></select>
                     </div>
                 </div>
             </div>
@@ -37,7 +35,6 @@
                     <div class="right menu">
                     </div>
                 </div>
-                {{model.series}}
                 <sadaf-indicator ng-model="item" series="model.series" hide-then="true"></sadaf-indicator>
             </div>
 
@@ -46,10 +43,9 @@
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'contact type' | translate }}</label>
                 <span class="form-divider" flex></span><div class="col-sm-8">
-                    <select class="form-control" ng-change="" ng-model="alert.contactType" ng-options="color.name as  color.value for color in [
+                    <select class="form-control" ng-model="alert.contactType" ng-options="color.name as  color.value for color in [
                                     {name:'datasource', value: ('datasource' | translate)  },
-                                    {name:'role', value: ('roles' | translate)  },
-                                    ]"></select>
+                                    {name:'role', value: ('roles' | translate)  }]" ></select>
                 </div>
             </div>
             <br />
@@ -124,12 +120,21 @@
 
                 <div class="field">
                     <label>{{ 'انتخاب شاخص‌ها' | translate }}</label>
-                    <span ng-repeat="s in model.series" class="left-margin">
+                    <label style="font-weight:normal;" ng-repeat="s in model.series" class="left-margin">
                         <input type="checkbox"
                                ng-click="toggleSelectedSeries(alert, s)"
                                ng-checked="alert.selectedSeries.indexOf(s)!=-1" /> {{s}}
-                    </span>
+                    </label>
                 </div>
+
+                <div class="field" ng-show="alert.type=='email' ">
+                    <div class="alert-section" style="margin-top:10px">{{ 'عنوان ایمیل' | translate }}</div>
+                    <div class="col-sm-12 ltr ">
+                        <input type="text" class="form-control" ng-model="alert.title" />
+                    </div>
+                </div>
+
+
 
                 <div class="field" ng-show="alert.type=='sms' || alert.type=='email' ">
                     <label>{{ 'پیام ارسالی' | translate }}</label>
@@ -145,24 +150,32 @@
                 </div>
             </div>
 
-
-
-
-
             <div>
                 <br />
-                <div class="ui mini icon button" ng-click="preview(alert)" ng-class="{'loading disabled': alert.previewProgress}" title="{{'add' | translate}}">
-                    <i class="ui icon eye"></i> پیش نمایش
+                <div class="two mini basic ui buttons">
+                    <div class="ui mini icon  button" ng-click="getPreview(alert, true)" ng-class="{'loading disabled': alert.previewProgress}" title="{{'add' | translate}}">
+                        <i class="ui icon eye"></i> پیش نمایش
+                    </div>
+                    <div class="ui mini icon  button" ng-click="getPreview(alert, false)" ng-class="{'loading disabled': alert.previewProgress}" title="{{'add' | translate}}">
+                        <i class="ui icon paper plane"></i> ارسال
+                    </div>
+                </div>
+                <div style="font-size:10px; color:gray;">
+                    <div>  برای پیش نمایش و یا ارسال، باید نمودار <b>ذخیره</b> شده باشد </div>
                 </div>
                 <br />
                 <br />
-                <div>
-                    <div><b>نتیجه:</b> {{alert.preview.result}}</div>
+                <div ng-show="alert.preview">
+                    <div>
+                        <b>نتیجه:</b> <i ng-show="alert.preview.result" class="ui icon green check"></i><i ng-hide="alert.preview.result" class="ui icon red times"></i>
+                        <small> <a class="pointer" ng-show="alert.preview" ng-click="alert.preview = null">پاک کردن نتیجه</a></small>
+                    </div>
                     <div ng-show="!alert.preview.result"><b>خطا:</b>{{alert.preview.errorMessage}}</div>
                     <div class="ui segments" ng-repeat="m in alert.preview.messages">
                         <div class="ui segment">
                             {{'users'|translate}} <div ng-repeat="u in m.users" class="ui mini label"> {{u}}</div>
-                            <pre style="white-space: pre-wrap;">{{m.content}}</pre>
+                            <pre ng-if="alert.type == 'sms'" style="white-space: pre-wrap;">{{m.content}}</pre>
+                            <div ng-if="alert.type == 'email'"  ng-bind-html="s.trustAsHtml(m.content)"></div>
                         </div>
 
                     </div>

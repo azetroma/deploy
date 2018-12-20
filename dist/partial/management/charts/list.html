@@ -119,6 +119,7 @@
 
                     </th>
                     <th></th>
+                    <th>{{'integrity check' | translate}}</th>
                 </tr>
 
                 <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select; menuInvalidate()" ng-dblclick="goto(row, $event)">
@@ -136,9 +137,10 @@
                     <td>
                         <div ng-show="row.type == 2 && row.pages.length">
 
-                            <md-menu md-offset="0 -7" >
+                            <md-menu md-offset="0 -7">
                                 <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event); $event.stopPropagation(); row.render = true;" title="{{'chart_pages' | translate}}">
                                     <span class="material-icons" style="color:#757575" title="{{'chart_pages' | translate}}">toc</span>
+
                                     <!--<md-tooltip>{{'chart_pages' | translate}}</md-tooltip>-->
                                 </md-button>
                                 <md-menu-content width="4">
@@ -152,6 +154,9 @@
 
                         </div>
                     </td>
+
+                    <td ng-show="securityCertPatch && row.type == 2"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></td>
+                    <td ng-hide="securityCertPatch && row.type == 2"></td>
                 </tr>
             </table>
             <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>

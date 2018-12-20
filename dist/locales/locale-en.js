@@ -984,5 +984,18 @@
 	"session timeout":"User Session Timeout",
 	"time minute":"Minute",
 	"export data max row count":"Maximum number of records in Excel output",
-	"login history":"Login History"
+	"login history":"Login History",
+	"user agent":"User Agent",
+	"result":"Result",
+	"detail":"Detail",
+	"successfull":"Successfull",
+	"unsuccessfull":"Unsuccessfull",
+	"active sessions":"Active Sessions",
+	"last activity":"Last Activity",
+	"login":"Login",
+	"mobile":"Mobile",
+	"web":"Web",
+	"integrity check":"‌Integrity Check",
+	"multi factor authentication type":"Multi Factor Authentication Type",
+	"use multi factor authentication":"Use two-step authentication"
 }

@@ -27,9 +27,9 @@
                         <div class="field" ng-show="model.publicSignup">
                             <label>{{'default role' | translate}}</label>
                             <!--<md-select ng-model="model.defaultRole">
-                                <md-option ng-repeat="item in roles" ng-value="item.id">{{item.name}}</md-option>
-                            </md-select>-->
-                            <sm-dropdown class="search selection"model="model.defaultRole" items="roles" label="item.name" value="item.id"></sm-dropdown>
+            <md-option ng-repeat="item in roles" ng-value="item.id">{{item.name}}</md-option>
+        </md-select>-->
+                            <sm-dropdown class="search selection" model="model.defaultRole" items="roles" label="item.name" value="item.id"></sm-dropdown>
                             <small><small>{{'default role desc' | translate}}</small></small>
                         </div>
 
@@ -42,30 +42,33 @@
 
                         <div class="field" ng-show="securityCertPatch">
                             <label>{{'max fail login' | translate}}</label>
-                            <input type="number"ng-model="model.maxFailedLogin">
+                            <input type="number" ng-model="model.maxFailedLogin">
                             <small><small>{{'حداکثر تعداد تلاش ناموفق برای لاگین' | translate}}</small></small>
                         </div>
 
-                        <div class="field"ng-show="securityCertPatch">
+                        <div class="field" ng-show="securityCertPatch">
                             <label>{{'session timeout' | translate}}</label>
-                            <input type="number"ng-model="model.sessionTime">
+                            <input type="number" ng-model="model.sessionTime">
                             <small><small>{{'time minute' | translate}}</small></small>
                         </div>
-                        <div class="field"ng-show="securityCertPatch">
+                        
+                        <div class="field" ng-show="securityCertPatch">
                             <label>{{'حداکثر حجم فایل در آپلود' | translate}}</label>
-                            <input type="number"ng-model="model.maxUploadLength">
+                            <input type="number" ng-model="model.maxUploadLength">
                             <small><small>{{'حجم به کیلو بایت' | translate}}</small></small>
                         </div>
+
                         <div class="field">
                             <label>{{'export data max row count' | translate}}</label>
                             <input type="number" ng-model="model.exportDataMaxRow">
                         </div>
 
+
                         <!--<md-input-container class="md-block">
-                        <label>{{'زمان غیر فعال بودن کاربر' | translate}}</label>
-                        <input required name="name" ng-model="model.maxFailedDeactiveTime">
-                        <small><small>{{'مدت زمان غیر فعال کردن حساب در صورت حداکثر تلاش ناموفق برای لاگین' | translate}}</small></small>
-                    </md-input-container>-->
+        <label>{{'زمان غیر فعال بودن کاربر' | translate}}</label>
+        <input required name="name" ng-model="model.maxFailedDeactiveTime">
+        <small><small>{{'مدت زمان غیر فعال کردن حساب در صورت حداکثر تلاش ناموفق برای لاگین' | translate}}</small></small>
+    </md-input-container>-->
 
 
                         <div class="ui message red" ng-show="error">

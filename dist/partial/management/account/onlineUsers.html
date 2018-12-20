@@ -8,23 +8,26 @@
             <tr>
 
                 <th>#</th>
-                <th>نام کاربری</th>
-                <th>نام</th>
-                <th>نقش‌ها</th>
-                <th>زمان آخرین لاگین</th>
-                <th>زمان آخرین فعالیت</th>
+                <th>{{'username' | translate}}</th>
+                <th>{{'name' | translate}}</th>
+                <th>{{'type' | translate}}</th>
+                <th>{{'roles' | translate}}</th>
+                <th>{{'login' | translate}}</th>
+                <th>{{'last activity' | translate}}</th>
+
                 <th></th>
             </tr>
 
             <tr ng-repeat="row in data" ng-class="{active : row.select}" xng-click="row.select = !row.select; menuInvalidate()" ng-dblclick="goto(row, $event)">
                 <td width="20">{{utils.persian($index+1)}}</td>
                 <td style="height:48px;"><span>{{row.username}}</span></td>
-                <td><span >{{row.name}}</span></td>
+                <td><span>{{row.name}}</span></td>
+                <td>{{row.type == 0 ? ('web' | translate) : ('mobile' | translate)}}</td>
                 <td><span ng-repeat="r in row.roles">{{$index==0 ? '' :', '}}{{r.name}}</span></td>
                 <td class="md-caption" style="direction:ltr">{{utils.persian(row.lastLogin)}}</td>
                 <td class="md-caption" style="direction:ltr">{{utils.persian(row.lastActivity)}}</td>
                 <td width="20" ng-show="SecurityCertPatch">
-                    <md-button class="md-icon-button" ng-click="kick(row, $event); $event.stopPropagation();" >
+                    <md-button class="md-icon-button" ng-click="kick(row, $event); $event.stopPropagation();">
                         <span class="material-icons" style="color:#757575">exit_to_app</span>
                         <md-tooltip>{{'signout' | translate}}</md-tooltip>
                     </md-button>

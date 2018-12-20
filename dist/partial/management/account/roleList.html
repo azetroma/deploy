@@ -31,6 +31,7 @@
                     </th>
                     <th>#</th>
                     <th>{{'name' | translate}}</th>
+                    <th ng-show="securityCertPatch">{{'integrity check' | translate}}</th>
                 </tr>
 
                 <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select;" ng-dblclick="goto(row, $event)">
@@ -40,6 +41,8 @@
                     <td width="20">{{utils.persian($index+1)}}</td>
 
                     <td><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></td>
+                    <td ng-show="securityCertPatch"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></td>
+
                 </tr>
             </table>
 

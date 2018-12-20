@@ -16,119 +16,142 @@
 
                 <md-content layout-padding>
                     <div>
-
-                        <form name="mssql">
-
-                            <md-input-container class="md-block">
+                        <form name="mssql" class="ui form">
+                            <div class="field" ng-class="{error :mssql.name.$invalid &&(mssql.$submitted || mssql.name.$dirty)}">
                                 <label>نام</label>
                                 <input required name="name" ng-model="model.Name">
-                                <div ng-messages="mssql.name.$error">
-                                    <div ng-message="required">نام را وارد کنید</div>
+                                <div ng-if="mssql.$submitted || mssql.name.$dirty" ng-messages="mssql.name.$error">
+                                    <small class="helper" ng-message="required">نام را وارد کنید</small>
                                 </div>
-                            </md-input-container>
+                            </div>
 
                             <md-switch ng-model="model.Disable" aria-label="Disable">
                                 غیر فعال کردن موقت منبع داده
+                                <md-tooltip>
+                                    با انتخاب این گزینه تمام نمودارها و گزارشاتی که از این منبع داده ساخته‌اید پیغام
+                                    <b> «در حال تغییر منبع داده» </b>
+                                    نمایش داده می‌شود
+
+                                </md-tooltip>
                             </md-switch>
-                            <p class="md-caption">
-                                با انتخاب این گزینه تمام نمودارها و گزارشاتی که از این منبع داده ساخته‌اید پیغام
-                                <b> «در حال تغییر منبع داده» </b>
-                                نمایش داده می‌شود
-                            </p>
+                            <small class="gray">
+                            </small>
 
-                            <md-input-container class="md-block" ng-show="model.Disable">
+                            <div class="field" ng-show="model.Disable">
                                 <label>متن پیام نمایشی در گزارشات</label>
-                                <textarea ng-model="model.DisableMessage" md-maxlength="150" rows="5" md-select-on-focus></textarea>
-                            </md-input-container>
+                                <textarea ng-model="model.DisableMessage" xmd-maxlength="150" rows="5" md-select-on-focus></textarea>
+                            </div>
 
-                            <div layout-padding>
+                            <div class="ui header">
                                 <b>مشخصات اتصال</b>
                                 <md-divider></md-divider>
                             </div>
 
-                            <md-input-container class="md-block ">
-                                <label>سرور</label>
-                                <input required class="ltr" name="host" ng-model="model.Host">
-                                <div ng-messages="mssql.host.$error">
-                                    <div ng-message="required">IP یا نام را وارد کنید</div>
+                            <div class="three fields">
+                                <div class="field"  ng-class="{error :mssql.host.$invalid &&(mssql.$submitted || mssql.host.$dirty)}">
+                                    <label>سرور</label>
+                                    <input required class="ltr" name="host" ng-model="model.Host">
+                                    <div  ng-if="mssql.$submitted || mssql.host.$dirty"ng-messages="mssql.host.$error">
+                                        <small class="helper" ng-message="required">IP یا نام را وارد کنید</small>
+                                    </div>
                                 </div>
-                            </md-input-container>
 
-                            <md-input-container class="md-block" ng-if="type == 3 ">
-                                <label>شماره پورت</label>
-                                <input class="ltr" required name="port" ng-model="model.Port">
-                                <div ng-messages="mssql.port.$error">
-                                    <div ng-message="required">شماره پورت را وارد کنید</div>
+                                <div class="field" ng-if="type == 3"  ng-class="{error :mssql.port.$invalid &&(mssql.$submitted || mssql.port.$dirty)}">
+                                    <label>شماره پورت</label>
+                                    <input class="ltr" required name="port" ng-model="model.Port">
+                                    <div  ng-if="mssql.$submitted || mssql.port.$dirty"ng-messages="mssql.port.$error">
+                                        <small class="helper" ng-message="required">شماره پورت را وارد کنید</small>
+                                    </div>
                                 </div>
-                            </md-input-container>
 
-                            <md-input-container class="md-block">
-                                <label>پایگاه داده</label>
-                                <input class="ltr" required name="database" ng-model="model.Database">
-                                <div ng-messages="mssql.database.$error">
-                                    <div ng-message="required">نام پایگاه داده را وارد کنید</div>
+                                <div class="field"  ng-class="{error :mssql.database.$invalid &&(mssql.$submitted || mssql.database.$dirty)}">
+                                    <label>پایگاه داده</label>
+                                    <input class="ltr" required name="database" ng-model="model.Database">
+                                    <div  ng-if="mssql.$submitted || mssql.database.$dirty"ng-messages="mssql.database.$error" >
+                                        <small class="helper" ng-message="required">نام پایگاه داده را وارد کنید</small>
+                                    </div>
                                 </div>
-                            </md-input-container>
+                            </div>
 
-                            <md-input-container class="md-block" flex-gt-sm ng-show="type != 3">
-                                <label>احراز هویت</label>
-                                <md-select ng-model="model.Authentication">
-                                    <md-option value="0">SQL SERVER</md-option>
-                                    <md-option value="1">Windows</md-option>
-                                </md-select>
-                            </md-input-container>
+                            <div class="three fields">
 
-                            <md-input-container class="md-block " flex-gt-sm>
-                                <label>نام کاربری</label>
-                                <input class="ltr" required name="username-sql" ng-model="model.Username">
-                                <div ng-messages="mssql.username-sql.$error">
-                                    <div ng-message="required">نام کاربری را وارد نمایید</div>
+                                <div class="field" flex-gt-sm ng-show="type != 3">
+                                    <label>احراز هویت</label>
+                                    <select ng-model="model.Authentication" ng-options="a.val as a.label for a in [{val:0, label:'SQL SERVER'},{val:1, label:'Windows'}]">
+                                        <!--<option value="0">SQL SERVER</option>
+                <option value="1">Windows</option>-->
+                                    </select>
                                 </div>
-                            </md-input-container>
 
-                            <md-input-container class="md-block">
-                                <label>کلمه عبور</label>
-                                <input class="ltr" xrequired type="password" name="password-sql" ng-model="model.Password">
-                                <div ng-messages="mssql.password-sql.$error">
-                                    <div ng-message="required">کلمه عبور را وارد نمایید</div>
+                                <div class="field" flex-gt-sm ng-class="{error :mssql.username.$invalid &&(mssql.$submitted || mssql.username.$dirty)}">
+                                    <label>نام کاربری</label>
+                                    <input class="ltr" required name="username-sql" ng-model="model.Username">
+                                    <div  ng-if="mssql.$submitted || mssql.username-sql.$dirty"ng-messages="mssql.username-sql.$error">
+                                        <small  class="helper" ng-message="required">نام کاربری را وارد نمایید</small>
+                                    </div>
                                 </div>
-                            </md-input-container>
 
-                            <md-input-container class="md-block">
+                                <div class="field" ng-class="{error :mssql.password-sql.$invalid &&(mssql.$submitted || mssql.password-sql.$dirty)}">
+                                    <label>کلمه عبور</label>
+                                    <input class="ltr" xrequired type="password" name="password-sql" ng-model="model.Password">
+                                    <div  ng-if="mssql.$submitted || mssql.password-sql.$dirty"ng-messages="mssql.password-sql.$error">
+                                        <small class="helper" ng-message="required">کلمه عبور را وارد نمایید</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
                                 <label>پرس‌وجو</label>
-                                <textarea class="ltr" ng-model="model.Query" md-select-on-focus rows="3" style="resize:vertical;font-family:Courier, arial; direction:ltr; min-height:100px;"></textarea> 
+                                <textarea class="ltr" ng-model="model.Query" md-select-on-focus rows="3" style="resize:vertical;font-family:Courier, arial; direction:ltr; min-height:100px;"></textarea>
                                 <div style="text-align:left">
                                     <span class="material-icons small" ng-click="showDialog($event)" title="{{'edit_query' | translate}}">fullscreen</span>
                                 </div>
-                            </md-input-container>
+                            </div>
 
 
-                            <md-input-container class="md-block" flex-gt-sm ng-show="type == 2">
+                            <div class="field" flex-gt-sm ng-show="type == 2">
                                 <label>کدینگ داده‌های رشته‌ای - Collation</label>
-                                <md-select ng-model="model.CollationDefault">
-                                    <md-option value="1">پیش فرض پایگاه داده</md-option>
-                                    <md-option value="2">Arabic_CI_AS</md-option>
-                                    <md-option value="3">SQL_Latin1_General_CP1256_CI_AS</md-option>
-                                </md-select>
-                            </md-input-container>
+                                <select ng-model="model.CollationDefault" ng-options="a.val as a.label for a in [{val:0, label:'پیش فرض پایگاه داده'},{val:1, label:'Arabic_CI_AS'},{val:2, label:'SQL_Latin1_General_CP1256_CI_AS'}]">
+                                    <!--<option value="1">پیش فرض پایگاه داده</option>
+            <option value="2">Arabic_CI_AS</option>
+            <option value="3">SQL_Latin1_General_CP1256_CI_AS</option>-->
+                                </select>
+                            </div>
 
-                            <md-input-container class="md-block" flex-gt-sm>
+                            <md-switch ng-model="model.ColumnStoreIndex" ng-show="type == 2" aria-label="ColumnStoreIndex">
+                                ایندکس ستونی
+                            </md-switch>
+
+                            <div class="field" flex-gt-sm>
                                 <label>به‌روز رسانی</label>
-                                <md-select ng-model="model.AutoRefresh">
-                                    <md-option value="0">در لحظه</md-option>
-                                    <md-option value="1">هر یک دقیقه</md-option>
-                                    <md-option value="5">هر پنج دقیقه</md-option>
-                                    <md-option value="15">هر پانزده دقیقه</md-option>
-                                    <md-option value="30">هر سی دقیقه</md-option>
-                                    <md-option value="60">هر یک ساعت</md-option>
-                                    <md-option value="1440">هر روز</md-option>
-                                    <md-option value="10080">هر هفته</md-option>
-                                    <md-option value="40320">هر ماه</md-option>
-                                    <md-option value="2147483647">عدم به‌روز رسانی</md-option>
-                                    <md-option value="-1">زمانبندی...</md-option>
-                                    <md-option value="-2">تقسیم‌بندی...</md-option>
-                                </md-select>
-                            </md-input-container>
+                                <select ng-model="model.AutoRefresh" ng-options="a.val as a.label for a in [
+                                        {val:'0', label:'در لحظه'},
+                                        {val:'1', label:'هر یک دقیقه'},
+                                        {val:'5', label:'هر پنج دقیقه'},
+                                        {val:'15', label:'هر پانزده دقیقه'},
+                                        {val:'30', label:'هر سی دقیقه'},
+                                        {val:'60', label:'هر یک ساعت'},
+                                        {val:'1440', label:'هر روز'},
+                                        {val:'10080', label:'هر هفته'},
+                                        {val:'40320', label:'هر ماه'},
+                                        {val:'2147483647', label:'عدم به‌روز رسانی'},
+                                        {val:'-1', label:'زمانبندی...'},
+                                        {val:'-2', label:'تقسیم‌بندی...'},
+                                        ]">
+                                    <!--<option value="0">در لحظه</option>
+            <option value="1">هر یک دقیقه</option>
+            <option value="5">هر پنج دقیقه</option>
+            <option value="15">هر پانزده دقیقه</option>
+            <option value="30">هر سی دقیقه</option>
+            <option value="60">هر یک ساعت</option>
+            <option value="1440">هر روز</option>
+            <option value="10080">هر هفته</option>
+            <option value="40320">هر ماه</option>
+            <option value="2147483647">عدم به‌روز رسانی</option>
+            <option value="-1">زمانبندی...</option>
+            <option value="-2">تقسیم‌بندی...</option>-->
+                                </select>
+                            </div>
 
                             <!--<pre style="word-break:break-all; white-space:normal;">{{model | json}}</pre>-->
                             <!--<pre style="word-break:break-all; white-space:normal;">{{schedule | json}}</pre>-->
@@ -165,7 +188,7 @@
                         {{testProgress == false ? ('تست' | translate) : ('form_testing' | translate)}}
                     </md-button>
 
-                    <md-button ng-click="cancel()" >
+                    <md-button ng-click="cancel()">
                         {{'لغو' | translate}}
                     </md-button>
 

@@ -85,6 +85,9 @@
                         {{n.AlertTitle}}
                     </div>
 
+                        <div ng-if="n.Type==1">{{n.Content}}</div>
+
+                    <div ng-if="n.Type==0">
                     <div class="notification-summery">
                         نمودار <a href="#dashboard/{{n.MenuId}}">{{n.ChartName}}</a>
                         <span style="margin:0 7px;">|</span>
@@ -95,9 +98,7 @@
                         <b>زمان بروز رسانی منابع داده: </b>
                         <span ng-repeat="d in n.Content.lastRefresh"> {{d.name}} {{persian(d.date + ' ' + d.time)}}</span>
                     </div>
-
-                    <div>
-                        <ul>
+                        <ul >
                             <li ng-repeat="m in n.Content.resultRows">
                                 {{persian(m.Name)}}
                                 <ul>

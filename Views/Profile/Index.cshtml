@@ -23,7 +23,10 @@
                         @*<li class="list-group-item" ng-class="{activate : path == '/info'}"><a href="#info">مشخصات</a></li>*@
                         <div class="item" ng-class="{active : path == '/profile'}"><a xhref="#profile" href="javascript:;" onclick="document.location.hash='profile';">{{'profile_change_info' | translate}}</a></div>
                         <div class="item" ng-class="{active : path == '/changepass'}"><a xhref="#changepass" href="javascript:;" onclick="document.location.hash='changepass';">{{'profile_change_pass' | translate}}</a></div>
-                        <div class="item" ng-class="{active : path == '/history'}"><a xhref="#changepass" href="javascript:;" onclick="document.location.hash='history';">{{'login history' | translate}}</a></div>
+                        @if (ViewBag.securityCertPatch) {
+                            <div class="item" ng-class="{active : path == '/history'}"><a xhref="#changepass" href="javascript:;" onclick="document.location.hash='history';">{{'login history' | translate}}</a></div>
+                            <div class="item" ng-class="{active : path == '/active_sessions'}"><a xhref="#changepass" href="javascript:;" onclick="document.location.hash='active_sessions';">{{'active sessions' | translate}}</a></div>
+                        }
                         <div class="item" ng-class="{active : path == '/settings'}"><a xhref="#settings" href="javascript:;" onclick="document.location.hash = 'settings';">{{'profile_general_setting' | translate}}</a></div>
                     </div>
 

@@ -984,5 +984,18 @@
 	"session timeout":"زمان اعتبار نشست کاربران",
 	"time minute":"زمان به دقیقه",
 	"export data max row count":"بیشترین تعداد رکورد در خروجی اکسل",
-	"login history":"تاریخچه ورود به سامانه"
+	"login history":"تاریخچه ورود به سامانه",
+	"user agent":"واسط کاربر",
+	"result":"نتیجه",
+	"detail":"جزییات",
+	"successfull":"موفق",
+	"unsuccessfull":"ناموفق",
+	"active sessions":"نشست‌های فعال",
+	"last activity":"آخرین فعالیت",
+	"login":"ورود",
+	"mobile":"موبایل",
+	"web":"وب",
+	"integrity check":"صحت داده",
+	"multi factor authentication type":"نوع احراز هویت دو مرحله‌ای",
+	"use multi factor authentication":"استفاده از احراز هویت دو مرحله‌ای"
 }

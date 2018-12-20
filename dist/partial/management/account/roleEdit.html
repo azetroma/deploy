@@ -18,6 +18,10 @@
                         <span class="md-headline" ng-hide="isEdit">{{'new_role' | translate}}</span>
                         <span class="md-headline" ng-show="isEdit">{{'edit_role' | translate}}</span>
                     </md-card-title-text>
+                    <div ng-show="securityCertPatch" class="ui  label">
+                        {{'integrity check' | translate}} &nbsp;
+                        <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
+                    </div>
                 </md-card-title>
 
                 <md-content layout-padding>
@@ -328,14 +332,25 @@
                                 </label>
                                 <select ng-options="item.id as item.name for item in roles" ng-model="parent" ng-change="changeParent()"></select>
                             </div>
-                                <div class="field">
-                                    <label>{{'role managers' | translate}}</label>
-                                    <sm-dropdown class="selection search multiple fluid" items="users" model="model.Admins" label="item.username" value="item.id"></sm-dropdown>
-                                    <small class="gray">
-                                        {{'role manager desc' | translate}}
-                                    </small>
-                                </div>
+                            <div class="field">
+                                <label>{{'role managers' | translate}}</label>
+                                <sm-dropdown class="selection search multiple fluid" items="users" model="model.Admins" label="item.username" value="item.id"></sm-dropdown>
+                                <small class="gray">
+                                    {{'role manager desc' | translate}}
+                                </small>
                             </div>
+                            <!--<div class="field">
+                                <sm-checkbox model="model.multiFactorAuthentication" label="{{'use multi factor authentication' | translate}}"></sm-checkbox>
+                            </div>-->
+                            <div class="field" ng-show="securityCertPatch">
+                                <label>{{'multi factor authentication type' | translate}}</label>
+                                             <!--, {label:'دو عاملی - پیامک', val:2}-->
+                                <sm-dropdown class="selection fluid" items="[{label:'ساده', val:0}
+                                             ,{label:'دو عاملی - پست الکترونیک', val:1}
+                                             ]" model="model.multiFactorAuthenticationType" label="item.label" value="item.val"></sm-dropdown>
+                            </div>
+
+                        </div>
                          
                         <div ng-if="isEdit">
 
