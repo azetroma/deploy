@@ -997,5 +997,6 @@
 	"web":"وب",
 	"integrity check":"صحت داده",
 	"multi factor authentication type":"نوع احراز هویت دو مرحله‌ای",
-	"use multi factor authentication":"استفاده از احراز هویت دو مرحله‌ای"
+	"use multi factor authentication":"استفاده از احراز هویت دو مرحله‌ای",
+	"export png":"خروجی عکس"
 }

@@ -34,6 +34,7 @@
                         <div class="fields">
                             <div class="field">
                                 <label>تعداد رکورد</label>   <input type="text" ng-model="model.maxRecordNumber" />
+                                <small>حداقل ۱۰۰۰۰</small>
                             </div>
                             <!--<div class="field">
                                 <label> حجم جدول <small>MB</small></label>   <input type="text" ng-model="model.maxTableSize" />
@@ -41,8 +42,7 @@
                         </div>
                     </div>
 
-                    <div class="alert alert-warning" role="alert" ng-show="error">
-                        <button type="button" class="close" ng-click="error=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="ui red message" role="alert" ng-show="error">
                         <strong>خطا!</strong> <span ng-bind-html="error"></span>
                     </div>
 

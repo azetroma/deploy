@@ -146,7 +146,7 @@
                                 <select name="login-type" id="login-type" style="border: none;display: inline-block;width: 50%;border-bottom: 1px dashed;padding: 0;border-radius: 0;">
                                     <option value="0">معمولی</option>
                                     <option value="1">دو عاملی - پست الکترونیک</option>
-                                    <option value="2">دو عاملی - پیامک</option>
+                                    @*<option value="2">دو عاملی - پیامک</option>*@
                                 </select>
                             </div>
 
@@ -162,6 +162,7 @@
                             <div>@ViewBag.msg["version"] : @(version.Major + "." + version.Minor + "." + version.Build )  </div>
                             <div>@ViewBag.msg["db version"]: @ViewBag.DbVersion</div>
                             <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
+                            <a class="show-help pointer">@ViewBag.msg["help"]</a>
                         </div>
 
                     </div>
@@ -232,6 +233,7 @@
                 });
                     $('.ui.modal').modal();
                     $('#last-changes').modal('attach events', '.show-last-change', 'show');
+                    $('#login-help').modal('attach events', '.show-help', 'show');
 
 
                     $('input[name=ReturnUrlHash]').val(location.hash);
@@ -276,6 +278,30 @@
                     }
                 }
             </ul>
+
+        </div>
+
+        <div class="actions">
+            <div class="ui button deny black">تأیید</div>
+        </div>
+
+    </div>
+    <div id="login-help" class="ui modal">
+        <i class="close icon"></i>
+
+        <div class="header">
+            <div class="">راهنمای ورود</div>
+        </div>
+
+        <div class="content scrolling">
+           برای ورود به برنامه نیاز به نام کاربری و کلمه عبور است. 
+            ایجاد نام کاربری توسط مدیر سامانه انجام می‌شود. پس از دریافت اطلاعات ورود از مدیر، پس از وارد کردن
+            نام کاربری و کلمه عبور در قسمت‌های مربوطه. کلید ورود را فشار دهید.
+
+            <p>
+                در صورتی که دسترسی شما به صورت دو عاملی تعیین شده باشد، با انتخاب شیوه ورود به صورت دو عاملی با پست الکترنیک را انتخاب کنید. با وارد کردن اطلاعات ورود در سامانه
+                یک کد ورود به ایمیل شما ارسال می‌شود. ۲۰ دقیقه فرصت دارید تا با وارد کردن این کد وارد برنامه شوید.
+            </p>
 
         </div>
 

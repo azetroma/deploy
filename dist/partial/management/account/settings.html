@@ -1,8 +1,7 @@
 ﻿<div layout="column" flex>
     <md-content flex class="content " layout="row" no-background>
-        <div flex="20" hide-sm hide-xs></div>
-        <div flex="60" flex-xs="100" flex-sm="100">
-
+        <div flex="15" hide-sm hide-xs></div>
+        <div flex="70" flex-xs="100" flex-sm="100">
             <md-card style="margin:40px 0; padding:16px">
 
                 <div class="">
@@ -10,8 +9,14 @@
                 </div>
 
                 <div>
+                    <style>
+                        .sadaf-form .fields label {
+                            text-align: left;
+                            padding-top:4px;
+                        }
+                    </style>
 
-                    <div class="ui form">
+                    <div class="ui form sadaf-form">
 
                         <div class="field">
                             <label>{{'نام سازمان' | translate}}</label>
@@ -26,9 +31,6 @@
 
                         <div class="field" ng-show="model.publicSignup">
                             <label>{{'default role' | translate}}</label>
-                            <!--<md-select ng-model="model.defaultRole">
-            <md-option ng-repeat="item in roles" ng-value="item.id">{{item.name}}</md-option>
-        </md-select>-->
                             <sm-dropdown class="search selection" model="model.defaultRole" items="roles" label="item.name" value="item.id"></sm-dropdown>
                             <small><small>{{'default role desc' | translate}}</small></small>
                         </div>
@@ -51,7 +53,7 @@
                             <input type="number" ng-model="model.sessionTime">
                             <small><small>{{'time minute' | translate}}</small></small>
                         </div>
-                        
+
                         <div class="field" ng-show="securityCertPatch">
                             <label>{{'حداکثر حجم فایل در آپلود' | translate}}</label>
                             <input type="number" ng-model="model.maxUploadLength">
@@ -63,16 +65,108 @@
                             <input type="number" ng-model="model.exportDataMaxRow">
                         </div>
 
+                        <br />
+                        <div ng-show="securityCertPatch">
+                            <div class="field">
+                                <md-checkbox class="md-block" ng-model="model.preventLogin">
+                                    جلوگیری از ورود به برنامه
+                                </md-checkbox>
+                            </div>
+                            <div ng-show="model.preventLogin">
+                                <div class="ui pointing secondary menu">
+                                    <div class="active item">قوانین ورود مجاز</div>
+                                    <div class="right menu">
+                                        <div class="item pointer" ng-click="model.preventLoginRules.push({})"> <i class="icon add"></i> قانون جدید</div>
+                                    </div>
+                                </div>
+                                <small>تنها در صورتی به کاربر اجازه ورود داده می‌شود که یک قانون به وی اجازه ورود داده باشد. در صورتی 
+                                که اجازه ورود به کاربر یا نقشی داده نشود ولی قانون کلی اجازه بدهد، اولویت با قانونی است که 
+                                نقش یا کاربر را تعیین کرده است. بین نقش و کاربر نیز تعیین کاربر اولویت بالاتری دارد.</small>
 
-                        <!--<md-input-container class="md-block">
-        <label>{{'زمان غیر فعال بودن کاربر' | translate}}</label>
-        <input required name="name" ng-model="model.maxFailedDeactiveTime">
-        <small><small>{{'مدت زمان غیر فعال کردن حساب در صورت حداکثر تلاش ناموفق برای لاگین' | translate}}</small></small>
-    </md-input-container>-->
+                                <div ng-hide="model.preventLoginRules.length" class="ui segment center aligned">هنوز قانونی تعریف نشده است. با استفاده از کلید بالا یک قانون جدید ایجاد کنید.</div>
+                                <div ng-repeat="rule in model.preventLoginRules" class="ui segments">
+                                    <div class="ui small secondary segment">
+                                        <div class="pointer" style="position: absolute;left: 0;top: 0;border: none;box-shadow: none;" title="delete" ng-click="model.preventLoginRules.splice($index,1)">
+                                            <i class="ui small icon  close"></i>
+                                        </div>
+
+                                        <div class="fields">
+                                            <div class="two wide field">
+                                                <label>شناسه کاربر</label>
+                                            </div>
+                                            <div class="four wide field">
+                                                <sm-dropdown class="search selection multiple" model="rule.users" items="users" label="item.name" value="item.id"></sm-dropdown>
+                                            </div>
+                                            <div class="two wide field">
+                                                <label>نقش</label>
+                                            </div>
+                                            <div class="four wide field">
+                                                <sm-dropdown class="search selection multiple" model="rule.roles" items="roles" label="item.name" value="item.id"></sm-dropdown>
+                                            </div>
+                                        </div>
 
 
-                        <div class="ui message red" ng-show="error">
-                            <!--<button type="button" class="close" ng-click="error=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                                        <div class="fields">
+                                            <div class="two wide field">
+                                                <label>محدوه IP</label>
+                                            </div>
+                                            <div class="four wide field">
+                                                <input type="text" ng-model="rule.ip" placeholder="8.8.8.0/24" />
+                                            </div>
+                                            <div class="two wide field">
+                                                <label>مکان</label>
+                                            </div>
+                                            <div class="four wide field">
+                                                <sm-dropdown class="search selection multiple" model="rule.locations" items="locations" label="item" value="item"></sm-dropdown>
+                                            </div>
+
+                                        </div>
+                                        <div class="fields">
+                                            <div class="two wide field">
+                                                <label>شماره پورت</label>
+                                            </div>
+                                            <div class="four wide field">
+                                                <input type="number" ng-model="rule.port" />
+                                            </div>
+
+                                            <div class="two wide field">
+                                                <label>تعداد لاگین ناموفق</label>
+                                            </div>
+                                            <div class="four wide field">
+                                                <input type="number" ng-model="rule.maxFailedLogin" />
+                                            </div>
+                                        </div>
+
+
+                                        <div class="fields">
+                                            <div class="two wide field">
+                                                <label>محدوده تاریخ</label>
+                                            </div>
+                                            <div class="ten wide field">
+                                                <sadaf-calendar-range type="number" ng-model="rule.date"></sadaf-calendar-range>
+                                            </div>
+                                        </div>
+                                        <div class="fields">
+                                            <div class="two wide field">
+                                                <label>محدوده ساعت</label>
+                                            </div>
+                                            <div class="ten wide field">
+                                                <sadaf-time-range type="number" ng-model="rule.time"></sadaf-time-range>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                        <br />
+
+                        <div class="ui red message" ng-show="error">
                             <strong>خطا!</strong> <span ng-bind-html="error"></span>
                         </div>
 
@@ -96,7 +190,7 @@
 
             </md-card>
         </div>
-        <div flex="20" hide-sm hide-xs></div>
+        <div flex="15" hide-sm hide-xs></div>
     </md-content>
 </div>
 
