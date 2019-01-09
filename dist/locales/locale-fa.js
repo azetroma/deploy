@@ -998,5 +998,6 @@
 	"integrity check":"صحت داده",
 	"multi factor authentication type":"نوع احراز هویت دو مرحله‌ای",
 	"use multi factor authentication":"استفاده از احراز هویت دو مرحله‌ای",
-	"export png":"خروجی عکس"
+	"export png":"خروجی عکس",
+	"automatic axis range":"محدود کردن خودکار اعداد محور عمودی"
 }

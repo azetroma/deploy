@@ -998,5 +998,6 @@
 	"integrity check":"‌Integrity Check",
 	"multi factor authentication type":"Multi Factor Authentication Type",
 	"use multi factor authentication":"Use two-step authentication",
-	"export png":"Export PNG"
+	"export png":"Export PNG",
+	"automatic axis range":"Automatically restrict vertical axis numbers"
 }

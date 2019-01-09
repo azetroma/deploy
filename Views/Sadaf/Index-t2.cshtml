@@ -189,9 +189,9 @@
                                 <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="m.hasEditPer || m.hasDeletePer" style="line-height: 1.5em;">
                                     <i class="setting icon"></i>
                                     <div class="menu transition hidden" tabindex="-1">
-                                        <div class="item" ng-show="m.hasEditPer" ng-click="editMenu(m);$event.stopPropagation();"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
-                                        <div class="item" ng-show="m.hasDeletePer" ng-click="deleteMenu(m, mc, $index);$event.stopPropagation();"><i class="trash outline icon"></i>{{'حذف' | translate}}</div>
-                                        <div class="item" ng-show="m.hasEditPer" ng-click="duplicateMenu(m, mc);$event.stopPropagation();"><i class="copy icon"></i>{{'تکرار' | translate}}</div>
+                                        <div class="item" ng-show="m.hasEditPer" ng-click="editMenu(m)"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
+                                        <div class="item" ng-show="m.hasDeletePer" ng-click="deleteMenu(m, mc, $index)"><i class="trash outline icon"></i>{{'حذف' | translate}}</div>
+                                        <div class="item" ng-show="m.hasEditPer" ng-click="duplicateMenu(m, mc);"><i class="copy icon"></i>{{'تکرار' | translate}}</div>
                                     </div>
                                 </div>
                                 {{m.menu.Name}}
