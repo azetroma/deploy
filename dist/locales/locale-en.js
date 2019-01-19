@@ -999,5 +999,11 @@
 	"multi factor authentication type":"Multi Factor Authentication Type",
 	"use multi factor authentication":"Use two-step authentication",
 	"export png":"Export PNG",
-	"automatic axis range":"Automatically restrict vertical axis numbers"
+	"automatic axis range":"Automatically restrict vertical axis numbers",
+	"operation type":"Operation Type",
+	"at least one number":"At least one number",
+	"at least one upper case char":"At least one upper case char",
+	"at least one lower case char":"At least one lower case char",
+	"at least one special char":"At least one special char ( ) * & ^ % $ # @ !",
+	"minimum length":"Minimum length"
 }

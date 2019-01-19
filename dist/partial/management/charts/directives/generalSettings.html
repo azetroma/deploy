@@ -1,20 +1,19 @@
-<div class="form-row" layout="row" layout-align="start center"  >
+<div class="form-row" layout="row" layout-align="start center">
     <label class="col-sm-4">{{ 'تازه شدن داده‌ها' | translate }}</label>
     <span class="form-divider" flex></span><div class="col-sm-8">
         <select class="selectpicker-x form-control" ng-model="model.refreshPeriod" ng-change="refreshChart('refreshWithData')"
                 ng-options="color.name as  color.value for color in [
-                                    {name:'0', value: 'غیر فعال'  }, 
-                                    {name:'30', value: 'سی ثانیه'  }, 
-                                    {name:'60', value:'یک دقیقه' }, 
-                                    {name:'120', value:'دو دقیقه' }, 
-                                    {name:'300', value:'پنج دقیقه' }, 
-                                    {name:'600', value:'ده دقیقه' }, 
-                                    {name:'1800', value:'سی دقیقه' }, 
-                                    {name:'3600', value:'یک ساعت' }, 
-                                    {name:'7200', value:'دو ساعت' }, 
-                                    {name:'86400', value:'یک روز' }, 
-                                    ]"
-                >
+                                    {name:'0', value: 'غیر فعال'  },
+                                    {name:'30', value: 'سی ثانیه'  },
+                                    {name:'60', value:'یک دقیقه' },
+                                    {name:'120', value:'دو دقیقه' },
+                                    {name:'300', value:'پنج دقیقه' },
+                                    {name:'600', value:'ده دقیقه' },
+                                    {name:'1800', value:'سی دقیقه' },
+                                    {name:'3600', value:'یک ساعت' },
+                                    {name:'7200', value:'دو ساعت' },
+                                    {name:'86400', value:'یک روز' },
+                                    ]">
             <!--<option value="0" selected="selected" >{{ 'غیر فعال' | translate }}</option>
             <option value="30" >{{ 'سی ثانیه' | translate }}</option>
             <option value="60" >{{ 'یک دقیقه' | translate }}</option>
@@ -29,32 +28,41 @@
     </div>
 </div>
 
-<div class="form-row" layout="row" layout-align="start center"  >
+<div class="form-row" layout="row" layout-align="start center">
     <div class="col-sm-offset-4 col-sm-8">
         <div class="checkbox">
             <label class="">
-                <input type="checkbox" ng-model="model.openDashboard.checked" /> {{ 'باز کردن صفحه با کلیک روی نمودار' | translate }}</label>
+                <input type="checkbox" ng-model="model.openDashboard.checked" /> {{ 'باز کردن صفحه با کلیک روی نمودار' | translate }}
+            </label>
         </div>
     </div>
 </div>
 
-<div class="form-row" layout="row" layout-align="start center" ng-show="model.openDashboard && model.openDashboard.checked ">
-    <label class="col-sm-4">{{ 'انتخاب صفحه' | translate }}</label>
-    <span class="form-divider" flex></span><div class="col-sm-8">
-        <select class="selectpicker-x form-control" ng-model="model.openDashboard.dashboardId"
-                ng-options="i.id as i.name group by i.parent for i in menus">
-        </select>
+<div ng-show="model.openDashboard.checked" class="ui secondary segment">
+
+
+    <div class="form-row" layout="row" layout-align="start center" ng-show="model.openDashboard && model.openDashboard.checked ">
+        <label class="col-sm-4">{{ 'operation type' | translate }}</label>
+        <span class="form-divider" flex></span><div class="col-sm-8">
+            <select class="form-control" ng-model="model.openDashboard.type"
+                    ng-options="i.id as i.name for i in [ {id:'dashboard', name:'صفحه داشبورد'}, {id:'link', name:'لینک '},{id:'back', name:'بازگشت'}]"></select>
+        </div>
+    </div>
+
+    <div class="form-row" layout="row" layout-align="start center" ng-show="model.openDashboard.type == 'dashboard'">
+        <label class="col-sm-4">{{ 'انتخاب صفحه' | translate }}</label>
+        <span class="form-divider" flex></span><div class="col-sm-8">
+            <sm-dropdown class="selection search" model="model.openDashboard.dashboardId" items="menus" label="item.name" value="item.id"></sm-dropdown>
+        </div>
+    </div>
+
+    <div class="form-row" layout="row" layout-align="start center" ng-show="model.openDashboard.type == 'link'">
+        <label class="col-sm-4">{{ 'لینک' | translate }}</label>
+        <span class="form-divider" flex></span><div class="col-sm-8">
+            <input type="text" class="form-control ltr" placeholder="{{ 'لینک' | translate }}" ng-model="model.openDashboard.link"
+                   ng-change="$parent.refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" />
+        </div>
     </div>
 
 </div>
-
-<div class="form-row" layout="row" layout-align="start center" ng-show="+model.openDashboard.dashboardId == -1 && model.openDashboard.checked">
-    <label class="col-sm-4">{{ 'لینک' | translate }}</label>
-   
-    <span class="form-divider" flex></span><div class="col-sm-8">
-        <input type="text" class="form-control ltr" placeholder="{{ 'لینک' | translate }}"  ng-model="model.openDashboard.link" 
-               ng-change="$parent.refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }"/>
-    </div>
-</div>
-
 

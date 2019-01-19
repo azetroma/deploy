@@ -199,8 +199,9 @@
 
         <script>
             (function () {
-                var needCaptch = JSON.parse("@(ViewBag.needCaptcha == null ? "False" : ViewBag.needCaptcha )".toLowerCase())
-                var securityCertPatch = JSON.parse("@(ViewBag.securityCertPatch == null ? "False" : ViewBag.securityCertPatch )".toLowerCase())
+                var needCaptch = JSON.parse("@(ViewBag.needCaptcha == null ? "False" : ViewBag.needCaptcha )".toLowerCase());
+                var securityCertPatch = JSON.parse("@(ViewBag.securityCertPatch == null ? "False" : ViewBag.securityCertPatch )".toLowerCase());
+                var captcha = JSON.parse("@( System.Configuration.ConfigurationManager.AppSettings["captcha"] ?? "false")".toLowerCase());
 
                 if (securityCertPatch) {
                     var lastLoginTyep = localStorage.getItem('login-type') || "0";
@@ -221,7 +222,7 @@
 
                 function invalidate() {
                     var type = $('#login-type').val();
-                    showCapcha((+type != 0 || needCaptch) && securityCertPatch);
+                    showCapcha((+type != 0 || needCaptch) && (securityCertPatch || captcha));
                     var $loginTypeDiv = $('#login-type-div');
                     if (securityCertPatch) { $loginTypeDiv.show(); } else { $loginTypeDiv.hide();}
                 }
@@ -294,7 +295,7 @@
         </div>
 
         <div class="content scrolling">
-           برای ورود به برنامه نیاز به نام کاربری و کلمه عبور است. 
+            برای ورود به برنامه نیاز به نام کاربری و کلمه عبور است.
             ایجاد نام کاربری توسط مدیر سامانه انجام می‌شود. پس از دریافت اطلاعات ورود از مدیر، پس از وارد کردن
             نام کاربری و کلمه عبور در قسمت‌های مربوطه. کلید ورود را فشار دهید.
 

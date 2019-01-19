@@ -13,11 +13,25 @@
         <input class="form-control" type="password" ng-model="repeatPass" placeholder="{{'profile_password_repeat' | translate}}" />
     </div>
 
-    <div class="ui message" ng-class="{'red': error, 'green': success}" ng-show="result">
-        <span ng-click="result = null" class="close">&times;</span>
+    <div class="ui  inverted secondary segment" ng-class="{'red': error, 'green': success}" ng-show="result">
         <p ng-bind-html="message"></p>
     </div>
 
-    <a class="ui blue button" ng-click="changePass()">{{'ذخیره' | translate}}</a>
+
+    <div class="ui secondary gray segment" ng-show="help.policy">
+        <div class="ui header small">کلمه عبور باید شامل شرایط زیر باشد</div>
+        <div class="ui bulleted list">
+            <div class="item" ng-show="help.passwordPolicyDigit">{{'at least one number' | translate}}</div>
+            <div class="item" ng-show="help.passwordPolicyUpper">{{'at least one upper case char' | translate}}</div>
+            <div class="item" ng-show="help.passwordPolicyLower">{{'at least one lower case char' | translate}}</div>
+            <div class="item" ng-show="help.passwordPolicyChar">{{'at least one special char' | translate}}</div>
+            <div class="item" ng-show="help.passwordPolicyLength">{{'minimum length' | translate}} {{help.passwordPolicyLength}}</div>
+        </div>
+
+
+    </div>
+    <a class="ui blue button" ng-click="changePass()" ng-class="{loading:progress, disabled: progress}">{{'ذخیره' | translate}}</a>
+    <a class="ui button black" ng-show="success"href="{{app.urlPrefix}}">رفتن به صفحه داشبورد</a>
+
 </form>
 

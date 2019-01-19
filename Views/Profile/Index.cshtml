@@ -10,7 +10,7 @@
         </div>
     </div>*@
 
-<div ng-app="profileCat" ng-cloak>
+<div ng-app="profileCat" ng-cloak style="overflow: auto;height: 100%;">
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     @Html.AntiForgeryToken()
     <div ng-controller="cGeneral">

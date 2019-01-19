@@ -999,5 +999,11 @@
 	"multi factor authentication type":"نوع احراز هویت دو مرحله‌ای",
 	"use multi factor authentication":"استفاده از احراز هویت دو مرحله‌ای",
 	"export png":"خروجی عکس",
-	"automatic axis range":"محدود کردن خودکار اعداد محور عمودی"
+	"automatic axis range":"محدود کردن خودکار اعداد محور عمودی",
+	"operation type":"نوع عملکرد",
+	"at least one number":"حداقل یک عدد",
+	"at least one upper case char":"حداقل یک حرف بزرگ",
+	"at least one lower case char":"حداقل یک حرف کوچک",
+	"at least one special char":"حداقل یک کاراکتر ویژه ( ) * & ^ % $ # @ !",
+	"minimum length":"حداقل طول"
 }
