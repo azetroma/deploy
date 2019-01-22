@@ -24,20 +24,18 @@
                     </div>
                 </md-card-title>
 
-                <md-content layout-padding class="ui form">
+                <md-content layout-padding>
                     <div>
                         <form name="roleForm" >
-
-                            <div class="two fields">
-
-                                <div class="field" >
-                                    <label>{{'name' | translate}}</label>
-                                    <input required name="name" ng-model="model.RoleName">
-                                    <div ng-messages="roleForm.name.$error">
-                                        <div ng-message="required">{{'form_name_required' | translate}}</div>
+                            <div class="ui form">
+                                <div class="two fields">
+                                    <div class="field">
+                                        <label>{{'name' | translate}}</label>
+                                        <input required name="name" ng-model="model.RoleName">
+                                        <div ng-messages="roleForm.name.$error">
+                                            <div ng-message="required">{{'form_name_required' | translate}}</div>
+                                        </div>
                                     </div>
-                                </div>
-
 
                                     <div class="field">
                                         <label>{{'role_default_menu' | translate}}</label>
@@ -45,13 +43,10 @@
                                         <div class="errors" ng-messages="roleForm.defaultPage.$error">
                                             <div ng-message="required">{{'default_page_required' | translate}}</div>
                                         </div>
-
                                     </div>
-
+                                </div>
                             </div>
-
-
-
+                       
                             <style>
                                 .role-edit h3 {
                                     margin: 20px 0 0 0;
@@ -305,7 +300,7 @@
 
 
                     </div>
-                    <div style="margin:40px 0 ">
+                    <div style="margin:20px 0 0 0 " class="ui form">
                         <div class="field" ng-show="securityCertPatch">
                             <label>{{'multi factor authentication type' | translate}}</label>
                             <!--, {label:'دو عاملی - پیامک', val:2}-->
@@ -344,44 +339,44 @@
                         </div>
 
                     </div>
-                        <div style="margin:60px 0 100px 0">
-                            <div class="ui form" style="margin-bottom:50px;">
-                                <div class="field">
-                                    <label>
-                                        {{'parent role' | translate}}
-                                        <i class="icon ui small trash pointer" ng-show="isAdmin" ng-click="parent=0;changeParent();"></i>
-                                    </label>
-                                    <select ng-options="item.id as item.name for item in roles" ng-model="parent" ng-change="changeParent()"></select>
-                                </div>
-                                <div class="field">
-                                    <label>{{'role managers' | translate}}</label>
-                                    <sm-dropdown class="selection search multiple fluid" items="users" model="model.Admins" label="item.username" value="item.id"></sm-dropdown>
-                                    <small class="gray">
-                                        {{'role manager desc' | translate}}
-                                    </small>
-                                </div>
-                                <!--<div class="">
-                    <sm-checkbox mofielddel="model.multiFactorAuthentication" label="{{'use multi factor authentication' | translate}}"></sm-checkbox>
-                </div>-->
-
+                    <div style="margin:0 0 100px 0">
+                        <div class="ui form" style="margin-bottom:50px;">
+                            <div class="field">
+                                <label>
+                                    {{'parent role' | translate}}
+                                    <i class="icon ui small trash pointer" ng-show="isAdmin" ng-click="parent=0;changeParent();"></i>
+                                </label>
+                                <select ng-options="item.id as item.name for item in roles" ng-model="parent" ng-change="changeParent()"></select>
                             </div>
+                            <div class="field">
+                                <label>{{'role managers' | translate}}</label>
+                                <sm-dropdown class="selection search multiple fluid" items="users" model="model.Admins" label="item.username" value="item.id"></sm-dropdown>
+                                <small class="gray">
+                                    {{'role manager desc' | translate}}
+                                </small>
+                            </div>
+                            <!--<div class="">
+                <sm-checkbox mofielddel="model.multiFactorAuthentication" label="{{'use multi factor authentication' | translate}}"></sm-checkbox>
+            </div>-->
 
-                            <div ng-if="isEdit">
+                        </div>
 
-                                <h3 class="">
-                                    {{'child roles' | translate}}
-                                    <a class="ui button icon mini right floated" href="{{app.hashUrlPrefix + '#/roles/edit/0/' + id}}">
-                                        {{'add' | translate}}
-                                        <i class="ui icon add" title="add Role"></i>
-                                    </a>
-                                </h3>
-                                <div>
-                                    <small ng-hide="childs && childs.length">{{'no role' | translate}}</small>
+                        <div ng-if="isEdit">
 
-                                    <roles-tree root="childTree"></roles-tree>
-                                </div>
+                            <h3 class="">
+                                {{'child roles' | translate}}
+                                <a class="ui button icon mini right floated" href="{{app.hashUrlPrefix + '#/roles/edit/0/' + id}}">
+                                    {{'add' | translate}}
+                                    <i class="ui icon add" title="add Role"></i>
+                                </a>
+                            </h3>
+                            <div>
+                                <small ng-hide="childs && childs.length">{{'no role' | translate}}</small>
+
+                                <roles-tree root="childTree"></roles-tree>
                             </div>
                         </div>
+                    </div>
 
                 </md-content>
 

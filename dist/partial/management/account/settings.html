@@ -83,7 +83,7 @@
                                 که اجازه ورود به کاربر یا نقشی داده نشود ولی قانون کلی اجازه بدهد، اولویت با قانونی است که 
                                 نقش یا کاربر را تعیین کرده است. بین نقش و کاربر نیز تعیین کاربر اولویت بالاتری دارد.</small>
 
-                                <div ng-hide="model.preventLoginRules.length" class="ui segment center aligned">هنوز قانونی تعریف نشده است. با استفاده از کلید بالا یک قانون جدید ایجاد کنید.</div>
+                                <div ng-hide="model.preventLoginRules.length" class="ui secondary segment center aligned">هنوز قانونی تعریف نشده است. با استفاده از کلید بالا یک قانون جدید ایجاد کنید.</div>
                                 <div ng-repeat="rule in model.preventLoginRules" class="ui segments">
                                     <div class="ui small secondary segment">
                                         <div class="pointer" style="position: absolute;left: 0;top: 0;border: none;box-shadow: none;" title="delete" ng-click="model.preventLoginRules.splice($index,1)">
