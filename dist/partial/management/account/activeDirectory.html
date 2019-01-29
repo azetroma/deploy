@@ -24,7 +24,7 @@
                         <div class="hint">{{'AD search desc' | translate}} </div>
                     </md-input-container>
 
-                    <md-input-container class="md-block" flex-gt-sm="33">
+                    <!--<md-input-container class="md-block" flex-gt-sm="33">
                         <label>{{'bind_option' | translate}}</label>
                         <md-select name="name" ng-model="ad.bindOption">
                             <md-option value="1">Negotiate</md-option>
@@ -35,6 +35,12 @@
                             <md-option value="32">Server Bind</md-option>
                         </md-select>
                         <div class="hint">{{'AD server connection type' | translate}}</div>
+                    </md-input-container>-->
+
+                    <md-input-container class="md-block" flex-gt-sm="33">
+                        <md-switch ng-model="ad.ssl">
+                            {{'use ssl' | translate}}
+                        </md-switch>
                     </md-input-container>
 
 
@@ -136,7 +142,25 @@
                 </div>
 
 
-
+                <div class="ui modal cert-modal">
+                    <div class="header">گواهینامه نامعتبر</div>
+                    <div class="content ltr">
+                        <p>
+                            گواهینامه‌ای که سرور ارائه کرده است معتبر نیست. لطفا در صورتی که از گواهینامه ارائه شده اطمینان دارید گزینه تایید را انتخاب کنید.
+                        </p>
+                        <div class="ui xbulleted list">
+                            <div class="item"><b>Subject:     </b>  {{ad.cert.Subject}}</div>
+                            <div class="item"><b>Issuer:      </b>  {{ad.cert.Issuer}}</div>
+                            <div class="item"><b>Begin:       </b>  {{ad.moment(ad.cert.NotBefore)}}</div>
+                            <div class="item"><b>Expire:      </b>  {{ad.moment(ad.cert.NotAfter)}}</div>
+                            <div class="item"><b>SerialNumber:</b>  {{ad.cert.SerialNumber}}</div>
+                        </div>
+                    </div>
+                    <div class="ui actions">
+                        <div class="ui button green" ng-click="ad.approveCert()">{{'ok' | translate}}</div>
+                        <div class="ui button deny" ng-click="">{{'cancel' | translate}}</div>
+                    </div>
+                </div>
 
             </md-card>
         </div>

@@ -1,4 +1,5 @@
-﻿<div layout="row" flex>
+﻿
+<div layout="row" flex>
     <md-content flex no-background>
         <div layout="column" flex>
 
@@ -82,11 +83,34 @@
                         </span>
 
                     </div>
+
                 </div>
+
 
 
             </md-card>
         </div>
     </md-content>
+
+    <div class="ui modal mail-cert-modal">
+        <div class="header">گواهینامه نامعتبر</div>
+        <div class="content ltr">
+            <p>
+                گواهینامه‌ای که سرور ارائه کرده است معتبر نیست. لطفا در صورتی که از گواهینامه ارائه شده اطمینان دارید گزینه تایید را انتخاب کنید.
+            </p>
+            <div class="ui xbulleted list">
+                <div class="item"><b>Subject:     </b>  {{cert.Subject}}</div>
+                <div class="item"><b>Issuer:      </b>  {{cert.Issuer}}</div>
+                <div class="item"><b>Begin:       </b>  {{moment(cert.NotBefore)}}</div>
+                <div class="item"><b>Expire:      </b>  {{moment(cert.NotAfter)}}</div>
+                <div class="item"><b>SerialNumber:</b>  {{cert.SerialNumber}}</div>
+            </div>
+        </div>
+        <div class="ui actions">
+            <div class="ui button green" ng-class="{loading : progress, disabled: progress}" ng-click="approveCert()">{{'ok' | translate}}</div>
+            <div class="ui button deny" ng-click="">{{'cancel' | translate}}</div>
+        </div>
+    </div>
+
 </div>
 
