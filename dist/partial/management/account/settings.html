@@ -54,6 +54,11 @@
                             <small><small>{{'time minute' | translate}}</small></small>
                         </div>
 
+                        <div class="field" ng-show="securityCertPatch">
+                            <label>{{'integrity fail action' | translate}}</label>
+                            <sm-dropdown class="search selection multiple" model="model.integrityFailAction" items="[{id:0, name:'جلوگیری از انجام عملیات'},{id:1, name:'گرفتن لاگ'},{id:2, name:'هشدار به مدیر سیستم'}]" label="item.name" value="item.id"></sm-dropdown>
+                        </div>
+
                         <div class="field" >
                             <label>{{'حداکثر حجم فایل در آپلود' | translate}}</label>
                             <input type="number" ng-model="model.maxUploadLength">
