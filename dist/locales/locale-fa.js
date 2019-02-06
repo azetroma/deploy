@@ -1005,5 +1005,6 @@
 	"at least one upper case char":"حداقل یک حرف بزرگ",
 	"at least one lower case char":"حداقل یک حرف کوچک",
 	"at least one special char":"حداقل یک کاراکتر ویژه ( ) * & ^ % $ # @ !",
-	"minimum length":"حداقل طول"
+	"minimum length":"حداقل طول",
+	"integrity fail action":"عملیات در صورت خطای صحت"
 }

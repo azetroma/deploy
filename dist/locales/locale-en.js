@@ -1005,5 +1005,6 @@
 	"at least one upper case char":"At least one upper case char",
 	"at least one lower case char":"At least one lower case char",
 	"at least one special char":"At least one special char ( ) * & ^ % $ # @ !",
-	"minimum length":"Minimum length"
+	"minimum length":"Minimum length",
+	"integrity fail action":"Integrity Fail Action"
 }
