@@ -48,26 +48,26 @@
                             </div>
 
                             <div class="three fields">
-                                <div class="field"  ng-class="{error :mssql.host.$invalid &&(mssql.$submitted || mssql.host.$dirty)}">
+                                <div class="field" ng-class="{error :mssql.host.$invalid &&(mssql.$submitted || mssql.host.$dirty)}">
                                     <label>سرور</label>
                                     <input required class="ltr" name="host" ng-model="model.Host">
-                                    <div  ng-if="mssql.$submitted || mssql.host.$dirty"ng-messages="mssql.host.$error">
+                                    <div ng-if="mssql.$submitted || mssql.host.$dirty" ng-messages="mssql.host.$error">
                                         <small class="helper" ng-message="required">IP یا نام را وارد کنید</small>
                                     </div>
                                 </div>
 
-                                <div class="field" ng-if="type == 3"  ng-class="{error :mssql.port.$invalid &&(mssql.$submitted || mssql.port.$dirty)}">
+                                <div class="field" ng-if="type == 3" ng-class="{error :mssql.port.$invalid &&(mssql.$submitted || mssql.port.$dirty)}">
                                     <label>شماره پورت</label>
                                     <input class="ltr" required name="port" ng-model="model.Port">
-                                    <div  ng-if="mssql.$submitted || mssql.port.$dirty"ng-messages="mssql.port.$error">
+                                    <div ng-if="mssql.$submitted || mssql.port.$dirty" ng-messages="mssql.port.$error">
                                         <small class="helper" ng-message="required">شماره پورت را وارد کنید</small>
                                     </div>
                                 </div>
 
-                                <div class="field"  ng-class="{error :mssql.database.$invalid &&(mssql.$submitted || mssql.database.$dirty)}">
+                                <div class="field" ng-class="{error :mssql.database.$invalid &&(mssql.$submitted || mssql.database.$dirty)}">
                                     <label>پایگاه داده</label>
                                     <input class="ltr" required name="database" ng-model="model.Database">
-                                    <div  ng-if="mssql.$submitted || mssql.database.$dirty"ng-messages="mssql.database.$error" >
+                                    <div ng-if="mssql.$submitted || mssql.database.$dirty" ng-messages="mssql.database.$error">
                                         <small class="helper" ng-message="required">نام پایگاه داده را وارد کنید</small>
                                     </div>
                                 </div>
@@ -86,15 +86,15 @@
                                 <div class="field" flex-gt-sm ng-class="{error :mssql.username.$invalid &&(mssql.$submitted || mssql.username.$dirty)}">
                                     <label>نام کاربری</label>
                                     <input class="ltr" required name="username-sql" ng-model="model.Username">
-                                    <div  ng-if="mssql.$submitted || mssql.username-sql.$dirty"ng-messages="mssql.username-sql.$error">
-                                        <small  class="helper" ng-message="required">نام کاربری را وارد نمایید</small>
+                                    <div ng-if="mssql.$submitted || mssql.username-sql.$dirty" ng-messages="mssql.username-sql.$error">
+                                        <small class="helper" ng-message="required">نام کاربری را وارد نمایید</small>
                                     </div>
                                 </div>
 
                                 <div class="field" ng-class="{error :mssql.password-sql.$invalid &&(mssql.$submitted || mssql.password-sql.$dirty)}">
                                     <label>کلمه عبور</label>
                                     <input class="ltr" xrequired type="password" name="password-sql" ng-model="model.Password">
-                                    <div  ng-if="mssql.$submitted || mssql.password-sql.$dirty"ng-messages="mssql.password-sql.$error">
+                                    <div ng-if="mssql.$submitted || mssql.password-sql.$dirty" ng-messages="mssql.password-sql.$error">
                                         <small class="helper" ng-message="required">کلمه عبور را وارد نمایید</small>
                                     </div>
                                 </div>
@@ -163,6 +163,9 @@
                             <interval-fetch ng-hide="model.AutoRefresh == -2" ng-model="model.intervalFetch" fields="fields" , datasource-id="{{id}}"></interval-fetch>
 
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
+
+                            <sadaf-checkbox ng-show="isEdit" ng-model="model.saveData">{{'save with get data' | translate}}</sadaf-checkbox>
+
 
                         </form>
 

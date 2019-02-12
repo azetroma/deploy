@@ -1,0 +1,29 @@
+<div>
+    <style>
+        table.ui.table.schema select, table.ui.table.schema input {
+            border: none;
+            width: 100%;
+            line-height: 1em;
+            border: 1px solid transparent;
+        }
+            table.ui.table.schema select:hover, table.ui.table.schema input:hover,
+            table.ui.table.schema select:focus, table.ui.table.schema input:focus {
+                border:1px solid silver;
+            }
+    </style>
+
+    <table class="ui table compact celled schema">
+        <tr>
+            <th>{{'name' | translate}}</th>
+            <th>{{'type' | translate}}</th>
+        <tr ng-repeat="e in model">
+            <td>
+                <input ng-model="e.newName" />
+            </td>
+            <td>
+                <select ng-model="e.type" ng-options="o.type as o.name for o in types"></select>
+            </td>
+        </tr>
+        </tr>
+    </table>
+</div>

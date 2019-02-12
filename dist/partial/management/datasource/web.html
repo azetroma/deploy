@@ -66,7 +66,7 @@
 
                                 <md-input-container class="md-block">
                                     <label>{{'Body' | translate}}</label>
-                                    <textarea ng-model="model.rawBody" class="ltr" rows="5"style="min-height:100px;"></textarea>
+                                    <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px;"></textarea>
                                 </md-input-container>
 
                                 <md-input-container class="md-block">
@@ -80,30 +80,30 @@
 
                                 <div style="font-size:0.8em; color:gray;margin-top: -20px;">
                                     <a ng-click="c = !c" class="pointer">راهنما</a>
-                                <div uib-collapse="!c">
-                                    در صورتی که خروجی پیام شما به شکل زیر باشد
+                                    <div uib-collapse="!c">
+                                        در صورتی که خروجی پیام شما به شکل زیر باشد
 
-                                    <textarea disabled="disabled" rows="13" style="border: none;margin: 0px;direction: ltr;font-family: monospace;width: 100%;resize: none;">
+                                        <textarea disabled="disabled" rows="13" style="border: none;margin: 0px;direction: ltr;font-family: monospace;width: 100%;resize: none;">
 <soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
-    <soapenv:Body>
-        <ns1:getBankResponse xmlns:ns1="http://thomas-bayer.com/blz/">
-            <ns1:details>
-                <ns1:bezeichnung>SEB</ns1:bezeichnung>
-                <ns1:bic>ESSEDE5F130</ns1:bic>
-                <ns1:ort>Rostock</ns1:ort>
-                <ns1:plz>18055</ns1:plz>
+                                        <soapenv:Body>
+                                        <ns1:getBankResponse xmlns:ns1="http://thomas-bayer.com/blz/">
+                                        <ns1:details>
+                                        <ns1:bezeichnung>SEB</ns1:bezeichnung>
+                                        <ns1:bic>ESSEDE5F130</ns1:bic>
+                                        <ns1:ort>Rostock</ns1:ort>
+                                        <ns1:plz>18055</ns1:plz>
             </ns1:details>
         </ns1:getBankResponse>
     </soapenv:Body>
 </soapenv:Envelope>
                                     </textarea>
-                                    تنظیمات مربوطه به صورت زیر است
-                                    <ul class="ltr">
-                                        <li> <b>Result Tag: </b> getBankResponse</li>
-                                        <li> <b>Result Tag NameSpace: </b> http://thomas-bayer.com/blz/</li>
-                                    </ul>
+                                        تنظیمات مربوطه به صورت زیر است
+                                        <ul class="ltr">
+                                            <li> <b>Result Tag: </b> getBankResponse</li>
+                                            <li> <b>Result Tag NameSpace: </b> http://thomas-bayer.com/blz/</li>
+                                        </ul>
 
-                                </div>
+                                    </div>
                                 </div>
 
                                 <md-switch ng-model="model.resultTagUseValue">
@@ -136,15 +136,15 @@
                                             </md-select>
                                         </md-input-container>
 
-                                        <div  layout="row" layout-margin>
+                                        <div layout="row" layout-margin>
 
-                                        <div class="md-icon-button" ng-click="parameters.push({select: 'Query'})">
-                                            <span class="material-icons small small-size pointer">add</span>
-                                        </div>
+                                            <div class="md-icon-button" ng-click="parameters.push({select: 'Query'})">
+                                                <span class="material-icons small small-size pointer">add</span>
+                                            </div>
 
-                                        <div class="md-icon-button" ng-click="parameters.splice($index, 1)" ng-show="parameters.length > 1">
-                                            <span class="material-icons small small-size pointer">delete</span>
-                                        </div>
+                                            <div class="md-icon-button" ng-click="parameters.splice($index, 1)" ng-show="parameters.length > 1">
+                                                <span class="material-icons small small-size pointer">delete</span>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -196,12 +196,19 @@
 
                             <datasource-schedule ng-show="model.autoRefresh==-1" ng-model="schedule"> </datasource-schedule>
 
-                            <interval-fetch ng-model="model.intervalFetch" fields="fields", datasource-id="{{id}}"></interval-fetch>
+                            <interval-fetch ng-model="model.intervalFetch" fields="fields" , datasource-id="{{id}}"></interval-fetch>
 
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
 
+                            <sadaf-checkbox ng-show="isEdit" ng-model="model.saveData">{{'save with get data' | translate}}</sadaf-checkbox>
 
-                            <!--<pre class="ltr">{{model | json}}</pre>-->
+
+
+
+                            <schema-types ng-model="model.schema"></schema-types>
+
+
+
                         </form>
 
 

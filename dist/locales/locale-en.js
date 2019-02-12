@@ -1006,5 +1006,7 @@
 	"at least one lower case char":"At least one lower case char",
 	"at least one special char":"At least one special char ( ) * & ^ % $ # @ !",
 	"minimum length":"Minimum length",
-	"integrity fail action":"Integrity Fail Action"
+	"integrity fail action":"Integrity Fail Action",
+	"save with get data":"Save with receiving data",
+	"get incremental data":"Receive incremental data"
 }

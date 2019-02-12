@@ -1,10 +1,11 @@
 ﻿<div class="ui form" style="margin:20px 0;">
-    <!--<div class="ui mini header">دریافت دوره‌ای اطلاعات  </div>-->
 
     <div class="field">
-        <label style="font-weight:initial">
-            <input type="checkbox" ng-model="model.enable" /> دریافت افزایشی اطلاعات
-        </label>
+        <!--<label style="font-weight:initial">
+        <input type="checkbox" ng-model="model.enable" /> دریافت افزایشی اطلاعات
+    </label>-->
+        <sadaf-checkbox ng-model="model.enable">{{'get incremental data' | translate}}</sadaf-checkbox>
+
         <small><a href="{{app.urlPrefix}}sadaf/help/#/content/8"> {{'help' | translate}}</a></small>
     </div>
 

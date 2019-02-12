@@ -1006,5 +1006,7 @@
 	"at least one lower case char":"حداقل یک حرف کوچک",
 	"at least one special char":"حداقل یک کاراکتر ویژه ( ) * & ^ % $ # @ !",
 	"minimum length":"حداقل طول",
-	"integrity fail action":"عملیات در صورت خطای صحت"
+	"integrity fail action":"عملیات در صورت خطای صحت",
+	"save with get data":"ذخیره همراه با دریافت داده‌ها",
+	"get incremental data":"دریافت افزایشی اطلاعات"
 }
