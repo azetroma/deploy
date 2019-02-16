@@ -200,7 +200,7 @@
 
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
 
-                            <sadaf-checkbox ng-show="isEdit" ng-model="model.saveData">{{'save with get data' | translate}}</sadaf-checkbox>
+                            <!--<sadaf-checkbox ng-show="isEdit" ng-model="model.saveData">{{'save with get data' | translate}}</sadaf-checkbox>-->
 
                             <schema-types ng-model="model.schema" id="id"></schema-types>
 
@@ -221,6 +221,10 @@
 
                     <md-button ng-click="save()" ng-disabled="saveProgress">
                         {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+                    </md-button>
+
+                    <md-button ng-show="isEdit" ng-click="save(true)" ng-disabled="saveProgress">
+                        {{saveProgress == false ? ('save with get data' | translate) : ('در حال ذخیره‌سازی' | translate)}}
 
                     </md-button>
 

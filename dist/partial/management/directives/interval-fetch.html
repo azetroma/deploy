@@ -137,7 +137,7 @@
 
                             <tr ng-repeat="row in requests">
                                 <td>{{persian($index + 1, true)}}</td>
-                                <td>{{ row.time }} <small class="gray">{{ row.timex }}</small></td>
+                                <td>{{ row.time }} <br /><small class="gray">{{ row.timex }}</small></td>
                                 <td>{{row.from}}</td>
                                 <td>{{row.to}}</td>
                                 <td>{{persian(row.effectedRows, true)}}</td>
