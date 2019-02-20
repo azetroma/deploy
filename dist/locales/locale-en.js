@@ -1008,5 +1008,6 @@
 	"minimum length":"Minimum length",
 	"integrity fail action":"Integrity Fail Action",
 	"save with get data":"Save with receiving data",
-	"get incremental data":"Receive incremental data"
+	"get incremental data":"Receive incremental data",
+	"prevent click":"Prevent clicking"
 }

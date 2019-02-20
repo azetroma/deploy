@@ -1008,5 +1008,6 @@
 	"minimum length":"حداقل طول",
 	"integrity fail action":"عملیات در صورت خطای صحت",
 	"save with get data":"ذخیره همراه با دریافت داده‌ها",
-	"get incremental data":"دریافت افزایشی اطلاعات"
+	"get incremental data":"دریافت افزایشی اطلاعات",
+	"prevent click":"جلوگیری از کلیک"
 }
