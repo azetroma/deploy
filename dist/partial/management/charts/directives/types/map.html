@@ -19,16 +19,16 @@
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
-                        <div class="checkbox">
-                            <label class="">
-                                <input type="checkbox" ng-model="ngModel.map.info.showName" ng-change="refreshChart('refresh')" /> {{ 'نمایش اسامی شهرها' | translate }}
-                            </label>
-                        </div>
-                        <span class="form-divider" ng-show="ngModel.map.info.showName"flex></span>
-                        <text-editor prop="ngModel.map.info.nameEditor" ng-show="ngModel.map.info.showName"></text-editor>
+                    <div class="checkbox">
+                        <label class="">
+                            <input type="checkbox" ng-model="ngModel.map.info.showName" ng-change="refreshChart('refresh')" /> {{ 'نمایش اسامی شهرها' | translate }}
+                        </label>
+                    </div>
+                    <span class="form-divider" ng-show="ngModel.map.info.showName" flex></span>
+                    <text-editor prop="ngModel.map.info.nameEditor" ng-show="ngModel.map.info.showName"></text-editor>
                 </div>
 
-                <div class="form-row" layout="row" layout-align="start center" >
+                <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
@@ -53,8 +53,8 @@
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select ng-model="ngModel.map.info.chartType" ng-change="refreshChart('refresh')"
                                 ng-options="i.name as  i.value for i in [
-                                    {name:'pie', value: 'pie'  }, 
-                                    {name:'bar', value:'bar' }, 
+                                    {name:'pie', value: 'pie'  },
+                                    {name:'bar', value:'bar' },
                                     ]">
                             <!--<option value="pie" selected="selected">{{ 'pie' | translate }}</option>
                             <option value="bar">{{ 'bar' | translate }}</option>-->
@@ -79,7 +79,7 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'مکان نمایش راهنما' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                     <legend-position ng-model="ngModel.map.info.legendPosition" change="refreshChart('refresh')"></legend-position>
+                        <legend-position ng-model="ngModel.map.info.legendPosition" change="refreshChart('refresh')"></legend-position>
                     </div>
                 </div>
 
@@ -103,9 +103,9 @@
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select class="selectpicker-x form-control" ng-model="ngModel.map.info.tooltip" ng-change="refreshChart('refresh')"
                                 ng-options="i.name as  i.value for i in [
-                                    {name:'1', value: 'مجزا'  }, 
-                                    {name:'2', value:'تمام شاخص‌های پیدا' }, 
-                                    {name:'3', value:'تمام شاخص‌ها' }, 
+                                    {name:'1', value: 'مجزا'  },
+                                    {name:'2', value:'تمام شاخص‌های پیدا' },
+                                    {name:'3', value:'تمام شاخص‌ها' },
                                     ]">
                             <!--<option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
                             <option value="2">{{ 'تمام شاخص‌های پیدا' | translate }}</option>
@@ -219,6 +219,7 @@
 
         </menu-body>
     </menu-item>
+    <alert prop="ngModel" config="{name:'map'}"></alert>
 
     <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'map', show:[1]}"></table-indicator>
 

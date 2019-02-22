@@ -19,7 +19,7 @@
                                     {name:'1', value: 'حالت تجمیعی'  },
                                     ]">
                             <!--<option value="-1" selected="selected">{{ 'بدون تجمیع' | translate }}</option>
-                <option value="1">{{ 'حالت تجمیعی' | translate }}</option>-->
+                            <option value="1">{{ 'حالت تجمیعی' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-row" layout="row" layout-align="start center" >
+                <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
@@ -64,14 +64,14 @@
                 </div>
 
                 <!--<div class="form-row" layout="row" layout-align="start center">
-        <div class="col-sm-offset-4 col-sm-8">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showRowNumber" /> {{ 'نمایش شماره ردیف' | translate }}
-                </label>
-            </div>
-        </div>
-    </div>-->
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showRowNumber" /> {{ 'نمایش شماره ردیف' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -84,14 +84,14 @@
                 </div>
 
                 <!--<div class="form-row" layout="row" layout-align="start center">
-        <div class="col-sm-offset-4 col-sm-8">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.condensed" /> {{ 'نمایش فشرده‌تر ردیف‌ها' | translate }}
-                </label>
-            </div>
-        </div>
-    </div>-->
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.condensed" /> {{ 'نمایش فشرده‌تر ردیف‌ها' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -268,7 +268,7 @@
                     </div>
                 </div>
 
-                <div class="form-row" layout="row" layout-align="start center" >
+                <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
@@ -279,7 +279,7 @@
                     </div>
                 </div>
 
-                <div class="form-row" layout="row" layout-align="start center" >
+                <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
@@ -394,8 +394,8 @@
                             <option value="3">{{ 'تعداد' | translate }}</option>
                             <option value="4">{{ 'کمترین' | translate }}</option>
                             <option value="5">{{ 'بیشترین' | translate }}</option>-->
-                            
-                            
+
+
                         </select>
                     </div>
                 </div>
@@ -415,6 +415,8 @@
             </div>
         </menu-body>
     </menu-item>
+
+    <alert prop="ngModel" config="{name:'table'}"></alert>
 
     <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'table', show:[1,2,3,4,5]}"></table-indicator>
 

@@ -8,7 +8,7 @@
                 <general-settings ng-model="ngModel.pie.info"></general-settings>
 
                 <div class="form-row" layout="row" layout-align="start center">
-                    <div class="col-sm-offset-4 col-sm-8"> 
+                    <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
                                 <input type="checkbox" ng-model="ngModel.pie.info.showLabels" ng-change="refreshChart('refresh')" /> {{ 'نمایش برچسب‌ها' | translate }}
@@ -16,7 +16,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-row" layout="row" layout-align="start center" >
+                <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
@@ -47,10 +47,10 @@
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select class="selectpicker-x form-control" ng-model="ngModel.pie.info.hole" ng-change="refreshChart('refresh')"
                                 ng-options="i.name as  i.value for i in [
-                                    {name:'0', value: '0'  }, 
-                                    {name:'25', value:'25%' }, 
-                                    {name:'50', value:'50%'}, 
-                                    {name:'65', value:'65%'}, 
+                                    {name:'0', value: '0'  },
+                                    {name:'25', value:'25%' },
+                                    {name:'50', value:'50%'},
+                                    {name:'65', value:'65%'},
                                     ]">
                             <!--<option value="0">0</option>
                             <option value="25">25%</option>
@@ -64,18 +64,18 @@
                     <label class="col-sm-4">{{ 'الگوی رنگ' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select class="selectpicker-x form-control" ng-model="ngModel.pie.info.colorType" ng-change="refreshChart('refresh')"
-                                 ng-options="i.name as  i.value for i in [
-                                    {name:'1', value: 'الگوی رنگ 10 تایی'  }, 
-                                    {name:'2', value:'الگوی رنگ 20 تایی یک' }, 
-                                    {name:'3', value:'الگوی رنگ 20 تایی دو'}, 
-                                    {name:'4', value:'الگوی رنگ 20 تایی سه'}, 
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'1', value: 'الگوی رنگ 10 تایی'  },
+                                    {name:'2', value:'الگوی رنگ 20 تایی یک' },
+                                    {name:'3', value:'الگوی رنگ 20 تایی دو'},
+                                    {name:'4', value:'الگوی رنگ 20 تایی سه'},
                                     ]">
                             <!--<option value="1">الگوی رنگ 10 تایی</option>
                             <option value="2">الگوی رنگ 20 تایی یک</option>
                             <option value="3">الگوی رنگ 20 تایی دو</option>
                             <option value="4">الگوی رنگ 20 تایی سه</option>-->
                         </select>
-                    </div> 
+                    </div>
                 </div>
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'مکان نمایش راهنما' | translate }}</label>
@@ -95,8 +95,8 @@
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select ng-model="ngModel.pie.info.tooltip" ng-change="refreshChart('refresh')"
                                 ng-options="i.name as  i.value for i in [
-                                    {name:'1', value: 'مجزا'  }, 
-                                    {name:'3', value:'تمام شاخص‌ها' }, 
+                                    {name:'1', value: 'مجزا'  },
+                                    {name:'3', value:'تمام شاخص‌ها' },
                                     ]">
                             <option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
                             <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>
@@ -193,6 +193,7 @@
             </div>
         </menu-body>
     </menu-item>
+    <alert prop="ngModel" config="{name:'pie'}"></alert>
 
     <global-variable dimensions="dimensions" measures="measures" prop="ngModel"></global-variable>
 
