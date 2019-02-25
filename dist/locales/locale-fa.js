@@ -1009,5 +1009,6 @@
 	"integrity fail action":"عملیات در صورت خطای صحت",
 	"save with get data":"ذخیره همراه با دریافت داده‌ها",
 	"get incremental data":"دریافت افزایشی اطلاعات",
-	"prevent click":"جلوگیری از کلیک"
+	"prevent click":"جلوگیری از کلیک",
+	"remove schema":"حذف اسکیما"
 }

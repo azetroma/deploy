@@ -67,6 +67,6 @@
         </tr>
     </table>
     <div ng-show="error" class="ui segment inverted red secondary ltr"> {{error}}</div>
-    <div class="ui button" ng-show="change" ng-click="save()" ng-class="{loading: saveProgress}">{{'apply' | translate}}</div>
-    <!--<div class="ui button red" ng-click="remove()">{{'delete' | translate}}</div>-->
+    <div class="ui button" ng-show="model.length && change" ng-click="save()" ng-class="{loading: saveProgress}">{{'apply' | translate}}</div>
+    <div class="ui button red"  ng-show="model.length" ng-click="remove()" ng-class="{loading: removeProgress}">{{'remove schema' | translate}}</div> 
 </div>
