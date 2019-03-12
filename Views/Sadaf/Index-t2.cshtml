@@ -62,7 +62,6 @@
 
 
 
-
     <style>
         [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
             display: none !important;
@@ -303,11 +302,11 @@
                             <div class="dashboard-navbar-item-devider dashboard-navbar-item no-padd"></div>
 
                             @*<div class="dashboard-navbar-item no-padd">
-                        <div class="ui left input icon mini" style="max-width:75px">
-                            <input id="dashboard-col" type="number" value="12" />
-                            <i class="icon columns"></i>
-                        </div>
-                    </div>*@
+                                    <div class="ui left input icon mini" style="max-width:75px">
+                                        <input id="dashboard-col" type="number" value="12" />
+                                        <i class="icon columns"></i>
+                                    </div>
+                                </div>*@
 
                             <div class="dashboard-navbar-item dashboard-navbar-item-devider no-padd"></div>
 
@@ -570,6 +569,10 @@
             <script src="~/dist/js/forms-app.js?v=@v"></script>
             <script src="~/dist/js/dashboard-app-theme2.js?v=@v"></script>*@
     }
+
+    <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
+    <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
+
 
     <script>
             //sdsd

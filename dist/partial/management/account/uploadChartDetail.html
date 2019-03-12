@@ -1,0 +1,56 @@
+﻿<div flex layout="column">
+
+    <div layout="row" style="    padding: 10px 0;">
+        <div flex="50"><div class="ui center aligned header">JAVA         </div>       </div>
+        <div flex="25"><div class="ui center aligned header"> CSS         </div>       </div>
+        <div flex="25"><div class="ui center aligned header">Settings     </div>       </div>
+    </div>
+    <md-content flex layout="row">
+
+        <style>
+            .ace_editor {
+                border: 1px solid #efefef;
+            }
+
+                .ace_editor, .ace_editor div {
+                    font: 16px/normal 'Courier New', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+                }
+
+            .upload-chart-editor {
+                min-height: 100%;
+            }
+
+            sadaf-ace {
+                display: flex;
+                width: 100%;
+            }
+        </style>
+
+        <div flex="50" layout="row" class="ltr  upload-chart-editor" ui-ace="aceOption" ng-model="model.java">ssd</div>
+        <div flex="25" class="ltr  upload-chart-editor" ui-ace="aceOption" ng-model="model.css">sdsd</div>
+        <div flex="25" class="ltr  upload-chart-editor" ui-ace="aceOption" ng-model="model.settingsTemplate">sdsd</div>
+
+    </md-content>
+    <div class="" style="padding:14px;">
+        <div class="ui form">
+            <div class="fields">
+
+                <div class="inline field">
+                    <label>{{'name' | translate}}</label>
+                    <input type="text" ng-model="model.name" />
+                </div>
+
+                <div class=" field">
+                    <sadaf-checkbox ng-model="model.minify">{{'minify' | translate}}</sadaf-checkbox>
+                </div>
+
+                <div ng-click="save()" ng-class="{loading:saveProgress}" class="ui button green">{{'save' | translate}}</div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+

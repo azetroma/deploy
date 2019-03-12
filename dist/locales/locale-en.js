@@ -1010,5 +1010,9 @@
 	"save with get data":"Save with receiving data",
 	"get incremental data":"Receive incremental data",
 	"prevent click":"Prevent clicking",
-	"remove schema":"Remove schema"
+	"remove schema":"Remove schema",
+	"background color":"Background Color",
+	"Dont show title":"Dont show title",
+	"title font":"Title Font",
+	"align":"Align"
 }

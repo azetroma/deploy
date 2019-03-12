@@ -392,7 +392,7 @@
         <md-content flex="65" layout="column" style="padding:7px;">
             <div layout="row" layout-align="start center">
                 <md-input-container class="md-block no-errors-spacer" md-no-float style="margin:0 10px">
-                    <input ng-model="chartName" type="text" placeholder="{{ 'نام' | translate }}" />
+                    <input ng-model="chartName" ng-change="refreshChart()" type="text" placeholder="{{ 'نام' | translate }}" />
                 </md-input-container>
 
                 <md-button class="md-icon-button" ng-click="showDialog($event)" title="{{'dashboard' | translate}}">
@@ -401,18 +401,6 @@
                 </md-button>
 
                 <span flex></span>
-
-                <!--<md-select ng-model="chartType" style="margin:0">
-                    <md-option class="select-chart-btn" value="1">{{ 'نمودار میله‌ای - خطی' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="2">{{ 'نمودار دایره‌ای' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="4">{{ 'نمودار عقربه‌ای' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="8">{{ 'نمودار رادار' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="9">{{ 'نمودار درختی' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="6">{{ 'نقشه' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="5">{{ 'جدول' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="7">{{ 'کنترل کاربری' | translate}}</md-option>
-                    <md-option class="select-chart-btn" value="10" >{{ 'text' | translate}}</md-option>
-                </md-select>-->
 
                 <style>
                     .active .chart-type-item {
@@ -429,6 +417,12 @@
                         .chart-type-item:hover {
                             background-color: #efefef;
                         }
+                        #chart-content .chart-widget{
+                            flex:1;
+                            padding:0;
+                            margin:0;
+                        }
+                   
                 </style>
                 <md-menu>
                     <md-button ng-click="$mdMenu.open($event)" style="font-size:10px">
@@ -501,8 +495,6 @@
                 </md-menu>
 
 
-
-
                 <md-button class="md-icon-button" ng-click="save($event)" title="{{'save' | translate}}" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
                     <span class="material-icons md-accent gray">done</span>
                 </md-button>
@@ -524,7 +516,7 @@
 
             </div>
 
-            <md-card-content id="chart-content" flex style="overflow:auto">
+            <md-card-content id="chart-content" flex style="overflow:auto" layout="column">
 
                 <div ng-if="chartType==10" text-angular="text-angular" ng-model="chartProp.text.info.html"></div>
 
@@ -532,8 +524,8 @@
                     ng-if
                     استفاده شود تریگرها درست کار نمیکنند.
                      -->
-                <div ng-show="chartRenderError && (chartType!=10 || (chartProp.text.info.romoteDate && chartType==10))" طng-show="chartRenderError">{{chartRenderError}}</div>
-                <div ng-show="chartType!=10 || (chartProp.text.info.romoteDate && chartType==10)" id="divChart"></div>
+                <div ng-show="chartRenderError && (chartType!=10 || (chartProp.text.info.romoteDate && chartType==10))">{{chartRenderError}}</div>
+                <div ng-show="chartType!=10 || (chartProp.text.info.romoteDate && chartType==10)" id="divChart" style="flex:1;display:flex;"></div>
             </md-card-content>
 
 

@@ -1010,5 +1010,9 @@
 	"save with get data":"ذخیره همراه با دریافت داده‌ها",
 	"get incremental data":"دریافت افزایشی اطلاعات",
 	"prevent click":"جلوگیری از کلیک",
-	"remove schema":"حذف اسکیما"
+	"remove schema":"حذف اسکیما",
+	"background color":"رنگ پس زمینه",
+	"Dont show title":"عدم نمایش نام نمودار",
+	"title font":"فونت نام نمودار",
+	"align":"ترازبندی"
 }

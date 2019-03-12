@@ -5,6 +5,10 @@
         <menu-body>
             <div>
                 <input type="hidden" data-prop="canExportXlsx" value="false" />
+
+                <general-settings ng-model="ngModel.userControl.info" ng-change="refreshChart('refresh')"></general-settings>
+
+
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع کنترل' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
@@ -105,7 +109,7 @@
                             </label>
                         </div>
                     </div>
-                    
+
                     <div class="form-row" layout="row" layout-align="start center">
                         <div class="checkbox">
                             <label class="">

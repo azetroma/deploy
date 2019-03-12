@@ -19,7 +19,7 @@
             v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
         }
     }
-   
+
     @*<link href="~/dist/lib/bootstrap-datepicker.min.css" rel="stylesheet" />
         <link href="~/dist/lib/jquery.ui.slider.css" rel="stylesheet" />
         <link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.213" rel="stylesheet" />
@@ -68,9 +68,13 @@
         <script src="~/dist/lib/moment-duration-format.min.js"></script>*@
 
     <link href="~/dist/css/admin-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
+    <link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
+
+    @*<script src="~/dist/lib/src-noconflict/ace.js"type="text/javascript"charset="utf-8"></script>*@
 
     <script src="~/dist/js/lib-all.js?v=@v"></script>
     <script src="~/dist/js/lib-admin-extra.js?v=@v"></script>
+
 
     @*<script src="~/dist/lib/sortable-n.js"></script>
         <script src="~/dist/lib/sortable-ng.min.js"></script>*@
@@ -128,6 +132,7 @@
         <script src="~/src/js/management/account/settings.js?v=@v"></script>
         <script src="~/src/js/management/account/log.js?v=@v"></script>
         <script src="~/src/js/management/account/uploadChart.js?v=@v"></script>
+        <script src="~/src/js/management/account/uploadChartDetail.js?v=@v"></script>
         <script src="~/src/js/management/account/onlineUsers.js?v=@v"></script>
         <script src="~/src/js/management/account/licence.js?v=@v"></script>
         <script src="~/src/js/management/account/activeDirectory.js?v=@v"></script>
@@ -148,6 +153,7 @@
         <script src="~/src/js/charts/su.jquery.sit.UserControl.js?v=@v"></script>
         <script src="~/src/js/charts/tipsy.js"></script>
         <script src="~/src/js/dashboardPage/app.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.dashboardLayout.js?v=@v"></script>
 
         @*<link href="~/src/css/management/OlapChartDesign.css?v=@v" rel="stylesheet" />
             <link href="~/src/css/management/bootstarp-chart.css?v=@v" rel="stylesheet" />
@@ -162,6 +168,9 @@
             <script src="~/dist/js/admin-app.js?v=@v"></script>
             <script src="~/dist/js/charts-theme2.js?v=@v"></script>*@
     }
+
+    <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
+    <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 
     <script>
         var app = app || {};

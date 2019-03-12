@@ -5,7 +5,7 @@
             <div>
                 <input type="hidden" ng-model="ngModel.pie.info.canExportXlsx" value="true" />
 
-                <general-settings ng-model="ngModel.pie.info"></general-settings>
+                <general-settings ng-model="ngModel.pie.info"ng-change="refreshChart('refresh')"></general-settings>
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">

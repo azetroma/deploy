@@ -1,0 +1,31 @@
+﻿    <md-menu>
+    <div>
+        <span class="ui  compact  icon button" ng-click="$mdMenu.open($event)"><i ng-class="model.name"></i></span>
+        <!--<i class="icon remove gray" ng-click="ngModel.gauge.info.icons.splice($index, 1);refreshChart('refresh')"></i>-->
+    </div>
+    <md-menu-content>
+        <div style="width:500px; overflow:auto;" class="icons-menu">
+            <div class="ui fluid input" style="margin:0 10px">
+                <input type="text" ng-model="filterIcons"  ng-change="filter(filterIcons)" placeholder="{{'search' | translate}}">
+            </div>
+            <div>
+    <style>
+        .icons-menu i {
+            padding: 14px;
+            font-size: 16px;
+        }
+    </style>
+                <!--<i ng-repeat="ic in icons    | filter : filterIcons track by $index" ng-click="$mdMenu.hide;xicon.name = ic; refreshChart('refresh')" class="pointer menu-icon {{ic}}"></i>
+                <i ng-repeat="ic in faIcons  | filter : filterIcons track by $index" ng-click="$mdMenu.hide;xicon.name = 'fal fa-' + ic; refreshChart('refresh')" class="pointer menu-icon fal fa-{{ic}}"></i>
+                <i ng-repeat="ic in faIcons  | filter : filterIcons track by $index" ng-click="$mdMenu.hide;xicon.name = 'far fa-' + ic; refreshChart('refresh')" class="pointer menu-icon far fa-{{ic}}"></i>
+                <i ng-repeat="ic in faIcons  | filter : filterIcons track by $index" ng-click="$mdMenu.hide;xicon.name = 'fas fa-' + ic; refreshChart('refresh')" class="pointer menu-icon fas fa-{{ic}}"></i>
+                <i ng-repeat="ic in faBrand  | filter : filterIcons track by $index" ng-click="$mdMenu.hide;xicon.name = 'fab fa-' + ic; refreshChart('refresh')" class="pointer menu-icon fab fa-{{ic}}"></i>-->
+                <div id="scrollArea{{id}}" class="clusterize-scroll" style="max-height:250px;overflow:auto;width:500px;">
+                    <table id="contentArea{{id}}" class="clusterize-content">
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </md-menu-content>
+</md-menu>

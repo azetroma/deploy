@@ -32,7 +32,7 @@
 
                 <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select;" ng-dblclick="goto(row, $event)" style="min-height:48px">
                     <td width="20">{{utils.persian($index+1)}}</td>
-                    <td ng-click="goto(row, $event); $event.stopPropagation();"> <span class="pointer">{{row.name}}</span></td>
+                    <td ng-click="goto(row, $event); $event.stopPropagation();"> <span class="pointer"><a href="{{app.hashUrlPrefix}}#/upload_chart/{{row.id}}"> {{row.name}}</a></span></td>
                     <td width="100">
                         <i ng-click="edit(row)" class="ui icon edit pointer" ></i>
                         <i ng-click="remove(row, $index)" class="ui icon delete pointer" ></i>

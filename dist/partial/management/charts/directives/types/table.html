@@ -7,7 +7,7 @@
 
                 <input type="hidden" data-prop="canExportXlsx" value="true" />
 
-                <general-settings ng-model="ngModel.table.info"></general-settings>
+                <general-settings ng-model="ngModel.table.info"ng-change="refreshChart('refresh')"></general-settings>
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع تجمیع' | translate }}</label>
