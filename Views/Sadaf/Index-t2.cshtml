@@ -287,11 +287,13 @@
 
 
 
-                <div class="dashboard-edit-panel" ng-show="@(ViewBag.isLoginByLink ??false)" style="">
-
+                @*<div class="dashboard-edit-panel" ng-show="@(ViewBag.isLoginByLink ??false)" style="">
 
                     <div class="chart-container dashboard-page-header" style="direction:ltr;">
                         <div style="display:table-row">
+
+
+
                             <div id="device-selector" class="dashboard-navbar-item devices ">
                                 <i id="laptop" class="icon laptop"></i>
                                 <i id="tablet" class="icon alternate tablet"></i>
@@ -299,34 +301,6 @@
                                 <i id="smartphone-land" class="icon alternate mobile"></i>
                             </div>
 
-                            <div class="dashboard-navbar-item-devider dashboard-navbar-item no-padd"></div>
-
-                            @*<div class="dashboard-navbar-item no-padd">
-                                    <div class="ui left input icon mini" style="max-width:75px">
-                                        <input id="dashboard-col" type="number" value="12" />
-                                        <i class="icon columns"></i>
-                                    </div>
-                                </div>*@
-
-                            <div class="dashboard-navbar-item dashboard-navbar-item-devider no-padd"></div>
-
-                            <div class="dashboard-navbar-item " title="{{'add chart' | translate}}" ng-click="addChart()">
-                                <i class="link icon chart bar add-chart-btn"></i>
-                            </div>
-                            <div class="dashboard-navbar-item " title="{{'add form' | translate}}">
-
-                                <i class="icons link" ng-click="addFormSettings.visible = true">
-                                    <i class="clipboard list icon"></i>
-                                    <i class="corner add icon"></i>
-                                </i>
-
-                                <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
-
-
-                            </div>
-                            <div class="dashboard-navbar-item " title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
-                                <i class="share alternate icon link"></i>
-                            </div>
 
                             <span class="navbar-text pull-right sadaf-circular-preogress " style="padding: 0 10px;display: table-cell;vertical-align: bottom;"></span>
 
@@ -334,16 +308,57 @@
 
                     </div>
 
+                </div>*@
+
+                <div class="ui buttons " id="device-selector" style="margin-top:4px; display:block;  white-space:nowrap; margin-top: 6px;">
+                    <div class="ui icon compact button"><i id="laptop" class="icon laptop "></i></div>
+                    <div class="ui icon compact button"><i id="tablet" class="icon alternate tablet "></i></div>
+                    <div class="ui icon compact button"><i id="smartphone" class="icon alternate mobile " style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i></div>
+                    <div class="ui icon compact button"><i id="smartphone-land" class="icon alternate mobile "></i></div>
                 </div>
 
-                <div class="" style="margin:0px 10px;" ng-show="@(ViewBag.isLoginByLink ??false)">
-                    <i class="large icon link full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
-                    <i class="large icon link play-toggle" ng-show="isFullscreen" ng-class="{play : !slidePlay, pause: slidePlay}" ng-click="slidePlayToggle()" title="full screen"></i>
+                <div class="ui basic  buttons">
+
+
+
+                    <div class="ui icon button" title="{{'add chart' | translate}}" ng-click="addChart()">
+                        <i class="large pointer icon plus square outline add-chart-btn"></i>
+                    </div>
+                    <div class="ui icon button" title="{{'add form' | translate}}" ng-click="addFormSettings.visible = true">
+                        <i class="icons large pointer" ng-click="addFormSettings.visible = true">
+                            <i class="clipboard outline icon"></i>
+                            <i class="corner add icon"></i>
+                        </i>
+                        <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
+                    </div>
+                    <div class="ui icon button" title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
+                        <i class="large share square outline icon pointer"></i>
+                    </div>
+                    <notification class="ui icon button"></notification>
                 </div>
 
-                <notification></notification>
 
-                <div class="ui dropdown" ng-show="@(ViewBag.isLoginByLink ??false)">
+
+                @*<div class=" " style="margin:0px 10px;" title="{{'add chart' | translate}}" ng-click="addChart()">
+            <i class="large pointer icon plus square outline add-chart-btn"></i>
+        </div>
+        <div class=" " style="margin:0px 10px;" title="{{'add form' | translate}}">
+            <i class="icons large pointer" ng-click="addFormSettings.visible = true">
+                <i class="clipboard outline icon"></i>
+                <i class="corner add icon"></i>
+            </i>
+            <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
+        </div>
+        <div class=" " style="margin:0px 10px;" title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
+            <i class="large share square outline icon pointer"></i>
+        </div>
+        <div class="pointer" style="margin:0px 10px;" ng-show="@(ViewBag.isLoginByLink ??false)">
+            <i class="large icon pointer full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
+            <i class="large icon pointer play-toggle" ng-show="isFullscreen" ng-class="{play : !slidePlay, pause: slidePlay}" ng-click="slidePlayToggle()" title="full screen"></i>
+        </div>*@
+
+
+                <div class="ui dropdown icon basic button" ng-show="@(ViewBag.isLoginByLink ??false)">
                     <div style="white-space:nowrap">
                         <span class="user-account-hide-segment">
                             @{
@@ -351,7 +366,7 @@
                                 <text> @user.FirstName @user.LastName</text>
                             }
                         </span>
-                        <i class="icon user large circle"></i>
+                        <i class="icon user outline large "></i>
                     </div>
                     <div class="menu transition hidden" tabindex="-1">
                         <a ng-if="menuCategories.hasAminPermission" class="item user-account-hide-segment" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
@@ -364,7 +379,13 @@
                 </div>
 
             </div>
-
+            <style>
+                .dashboard-page-top-side .buttons .ui.button, .dashboard-page-top-side .ui.button, .dashboard-page-top-side .ui.buttons {
+                    box-shadow: none !important;
+                    border: none;
+                    border-radius: 0;
+                }
+            </style>
 
 
             <ng-view></ng-view>

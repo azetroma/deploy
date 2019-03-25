@@ -157,8 +157,8 @@
                             <a class="ui basic fluid button big" href="@Url.Action("signup", "account")">@ViewBag.msg["signup"]</a>
                         }
 
+                            <a style="margin-top:40px; display:block;" class="pointer" href="@Url.Action("resetPass", "account")">@ViewBag.msg["forgot password"]</a>
                             <div class="xpull-right" style="font-size: 10px; padding: 30px 0;">
-                                <a class="pointer" href="@Url.Action("resetPass", "account")">@ViewBag.msg["forgot password"]</a>
                                 <br />
                                 @{ var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;}
                                 <div>@ViewBag.msg["version"] : @(version.Major + "." + version.Minor + "." + version.Build )  </div>

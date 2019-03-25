@@ -1014,5 +1014,11 @@
 	"background color":"Background Color",
 	"Dont show title":"Dont show title",
 	"title font":"Title Font",
-	"align":"Align"
+	"align":"Align",
+	"send message after login":"Send Message To User After Login",
+	"successful login":"Successful Login",
+	"unsuccessful login":"Unsuccessful login",
+	"send when":"Send When",
+	"message template":"Message Template",
+	"request path":"Request path"
 }

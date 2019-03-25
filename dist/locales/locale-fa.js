@@ -1014,5 +1014,11 @@
 	"background color":"رنگ پس زمینه",
 	"Dont show title":"عدم نمایش نام نمودار",
 	"title font":"فونت نام نمودار",
-	"align":"ترازبندی"
+	"align":"ترازبندی",
+	"send message after login":"ارسال پیام  به کاربر زمان ورود",
+	"successful login":"ورود موفق",
+	"unsuccessful login":"ورود ناموفق",
+	"send when":"ارسال در زمان",
+	"message template":"قالب پیام",
+	"request path":"مسیر درخواست"
 }

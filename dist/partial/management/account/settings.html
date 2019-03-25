@@ -12,7 +12,7 @@
                     <style>
                         .sadaf-form .fields label {
                             text-align: left;
-                            padding-top:4px;
+                            padding-top: 4px;
                         }
                     </style>
 
@@ -23,19 +23,9 @@
                             <input required ng-model="model.Brand">
                         </div>
 
-                        <div class="field">
-                            <md-checkbox class="md-block" ng-model="model.publicSignup">
-                                {{'can signup' | translate}}
-                            </md-checkbox>
-                        </div>
 
-                        <div class="field" ng-show="model.publicSignup">
-                            <label>{{'default role' | translate}}</label>
-                            <sm-dropdown class="search selection" model="model.defaultRole" items="roles" label="item.name" value="item.id"></sm-dropdown>
-                            <small><small>{{'default role desc' | translate}}</small></small>
-                        </div>
 
-                        <br />
+
 
                         <div class="field">
                             <label>{{'login desc' | translate}}</label>
@@ -48,7 +38,7 @@
                             <small><small>{{'حداکثر تعداد تلاش ناموفق برای لاگین' | translate}}</small></small>
                         </div>
 
-                        <div class="field" ng-show="securityCertPatch">
+                        <div class="field">
                             <label>{{'session timeout' | translate}}</label>
                             <input type="number" ng-model="model.sessionTime">
                             <small><small>{{'time minute' | translate}}</small></small>
@@ -59,12 +49,12 @@
                             <sm-dropdown class="search selection multiple" model="model.integrityFailActions" items="[{id:0, name:'جلوگیری از انجام عملیات'},{id:1, name:'گرفتن لاگ'},{id:2, name:'هشدار به مدیر سیستم'}]" label="item.name" value="item.id"></sm-dropdown>
                         </div>
 
-                        <div class="field" >
+                        <div class="field">
                             <label>{{'حداکثر حجم فایل در آپلود' | translate}}</label>
                             <input type="number" ng-model="model.maxUploadLength">
                             <small><small>{{'حجم به کیلو بایت' | translate}}</small></small>
-                        </div> 
-                         
+                        </div>
+
                         <div class="field">
                             <label>{{'export data max row count' | translate}}</label>
                             <input type="number" ng-model="model.exportDataMaxRow">
@@ -84,9 +74,11 @@
                                         <div class="item pointer" ng-click="model.preventLoginRules.push({})"> <i class="icon add"></i> قانون جدید</div>
                                     </div>
                                 </div>
-                                <small>تنها در صورتی به کاربر اجازه ورود داده می‌شود که یک قانون به وی اجازه ورود داده باشد. در صورتی 
-                                که اجازه ورود به کاربر یا نقشی داده نشود ولی قانون کلی اجازه بدهد، اولویت با قانونی است که 
-                                نقش یا کاربر را تعیین کرده است. بین نقش و کاربر نیز تعیین کاربر اولویت بالاتری دارد.</small>
+                                <small>
+                                    تنها در صورتی به کاربر اجازه ورود داده می‌شود که یک قانون به وی اجازه ورود داده باشد. در صورتی
+                                    که اجازه ورود به کاربر یا نقشی داده نشود ولی قانون کلی اجازه بدهد، اولویت با قانونی است که
+                                    نقش یا کاربر را تعیین کرده است. بین نقش و کاربر نیز تعیین کاربر اولویت بالاتری دارد.
+                                </small>
 
                                 <div ng-hide="model.preventLoginRules.length" class="ui secondary segment center aligned">هنوز قانونی تعریف نشده است. با استفاده از کلید بالا یک قانون جدید ایجاد کنید.</div>
                                 <div ng-repeat="rule in model.preventLoginRules" class="ui segments">
@@ -169,6 +161,66 @@
                         </div>
 
 
+                        <br />
+                        <div class="field">
+                            <md-checkbox class="md-block" ng-model="model.publicSignup">
+                                {{'can signup' | translate}}
+                            </md-checkbox>
+                        </div>
+
+                        <div class="field" ng-show="model.publicSignup">
+                            <label>{{'default role' | translate}}</label>
+                            <sm-dropdown class="search selection" model="model.defaultRole" items="roles" label="item.name" value="item.id"></sm-dropdown>
+                            <small><small>{{'default role desc' | translate}}</small></small>
+                        </div>
+
+                        <br />
+
+                        <div class="field">
+                            <md-checkbox class="md-block" ng-model="model.sendMessageByLogin.enable">
+                                {{'send message after login' | translate}}
+                            </md-checkbox>
+                        </div>
+
+                        <div class="ui secondary segment" ng-show="model.sendMessageByLogin.enable">
+
+                            <div class="fields">
+                                <div class="two wide field">
+                                    <label>{{'type' | translate}}</label>
+                                </div>
+                                <div class="four wide field">
+                                    <sm-dropdown class="selection multiple" model="model.sendMessageByLogin.type" items="[{id:0, name:('sms'| translate)},{id:1, name:('email'| translate)}]" label="item.name" value="item.id"></sm-dropdown>
+                                </div>
+                                <div class="two wide field">
+                                    <label>{{'send when' | translate}}</label>
+                                </div>
+                                <div class="four wide field">
+                                    <sm-dropdown class="selection multiple" model="model.sendMessageByLogin.when" items="[{id:0, name:('successful login' | translate)},{id:1, name:('unsuccessful login' | translate)}]" label="item.name" value="item.id"></sm-dropdown>
+                                </div>
+                            </div>
+
+                            <div class="fields">
+                                <div class="two wide field">
+                                    <label>{{'message template' | translate}}</label>
+                                </div>
+                                <div class="ten wide field">
+                                    <textarea class="ltr" rows="3" ng-model="model.sendMessageByLogin.template" style="line-height: 2em;"></textarea>
+                                    <div class="ltr">
+                                        @when = [{{'successful login' | translate}} , {{'unsuccessful login' | translate}}],
+                                        @brand = {{'نام سازمان' | translate}},
+                                        @detail = {{'detail' | translate}}
+                                        @ip= IP
+                                        @agent=  {{'user agent' | translate}}
+                                        @path=  {{'request path' | translate}}
+                                        @time=  {{'time' | translate}}
+                                        @date=  {{'date' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <br />
                         <br />
 
                         <div class="ui red message" ng-show="error">
