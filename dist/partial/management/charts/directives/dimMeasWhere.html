@@ -9,8 +9,7 @@
                 <label class="col-sm-4">{{ 'بُعد' | translate }}</label>
                 <span class="form-divider" flex></span><div class="col-sm-8">
                     <select class="selectpicker-x form-control" data-size="4" ng-model="model.selectedDimension" ng-init="model.selectedDimension = '0'"
-                            ng-options="id as i.Name  for (id, i) in dimensions">
-                    </select>
+                            ng-options="id as i.Name  for (id, i) in dimensions"></select>
                 </div>
             </div>
 
@@ -18,7 +17,7 @@
                 <label class="col-sm-4">{{ 'نام' | translate }}</label>
                 <span class="form-divider" flex></span><div class="col-sm-8">
                     <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}"
-                           ng-change="changeDimensionName('{{dimensions[model.selectedDimension].Name}}',dimensions[model.selectedDimension])" 
+                           ng-change="changeDimensionName('{{dimensions[model.selectedDimension].Name}}',dimensions[model.selectedDimension])"
                            ng-model="dimensions[model.selectedDimension].Name" ng-model-options="{ updateOn: 'blur' }" />
                 </div>
             </div>
@@ -28,7 +27,6 @@
                 <div flex layout="row">
                     <textarea flex class="form-control disabled text-formula" ng-model="dimensions[model.selectedDimension].formula"
                               ng-change="changeFormula(dimensions[model.selectedDimension]);refreshChart()" ng-model-options="{ updateOn: 'blur' }"></textarea>
-
                     <span class="material-icons small" ng-click="showDialog('dimention', $event)">fullscreen</span>
                 </div>
             </div>
@@ -39,11 +37,9 @@
                 <span class="form-divider" flex></span><div class="col-sm-8">
                     <select class="selectpicker-x form-control" ng-change="refreshChart()" ng-model="dimensions[model.selectedDimension].sortOrder"
                             ng-options="color.name as  color.value for color in [
-                                    {name:'ASC', value: 'صعودی'  }, 
-                                    {name:'DESC', value:'نزولی' }, 
+                                    {name:'ASC', value: 'صعودی'  },
+                                    {name:'DESC', value:'نزولی' },
                                     ]">
-                        <!--<option value="ASC">{{ 'صعودی' | translate }}</option>
-                        <option value="DESC">{{ 'نزولی' | translate }}</option>-->
                     </select>
                 </div>
             </div>
@@ -52,10 +48,7 @@
                 <span class="form-divider" flex></span><div class="col-sm-8">
                     <select class="selectpicker-x form-control" ng-model="dimensions[model.selectedDimension].sortKey" data-size="4"
                             ng-change="refreshChart()"
-                             ng-options="color.UniqueName as  color.Name for color in dimentionWithNone">
-                        <!--<option value="NONE">{{ 'خودش' | translate }}</option>
-                        <option value="CUSTOM_FORMULA">سفارشی ...</option>
-                        <option ng-repeat="i in datasource.CubeInfo.Dimensions[0].Hierarchies" value="{{i.UniqueName}}">{{i.Name}}</option>-->
+                            ng-options="color.UniqueName as  color.Name for color in dimentionWithNone">
                     </select>
                 </div>
             </div>
@@ -83,9 +76,76 @@
                                 {name: 'سطح چهارم', value: 4},
                                 {name: 'سطح پنجم', value: 5},
                                 {name: 'سطح ششم', value: 6}
-                            ]">
-                    </select>
+                            ]"></select>
                 </div>
+            </div>
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <sadaf-checkbox  ng-change="refreshChart()"class="mini"ng-model="dimensions[model.selectedDimension].detail.histogramCategory.enable">دسته‌بندی مقادیر پیوسته</sadaf-checkbox>
+            </div>
+
+            <div class="ui secondary tiny segment" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.enable">
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label>{{ 'type' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <select class="" ng-change="refreshChart()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.type"
+                            ng-options="color.name as  color.value for color in [
+                                    {name:'auto', value: 'خودکار'  },
+                                    {name:'byCount', value:'تعداد ستون‌ها' },
+                                    {name:'byWidth', value:'عرض ستون' },
+                                    ]"></select>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.type == 'byCount'">
+                    <label>تعداد ستون‌ها</label>
+                    <span class="form-divider" flex></span>
+                    <input type="number" class="form-control" placeholder="تعداد ستون‌ها" ng-change="refreshChart()"
+                           ng-model="dimensions[model.selectedDimension].detail.histogramCategory.count" />
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.type == 'byWidth'">
+                    <label>عرض ستون</label>
+                    <span class="form-divider" flex></span>
+                    <input type="text" class="form-control" placeholder="عرض ستون" ng-change="refreshChart()"
+                           ng-model="dimensions[model.selectedDimension].detail.histogramCategory.width" ng-model-options="{ updateOn: 'blur' }" />
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <sadaf-checkbox class="mini" ng-change="refreshChart()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.overflowEnable">کران بالا</sadaf-checkbox>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.overflowEnable">
+                    <input style="flex:1" type="text" class="form-control" placeholder="کران بالا" ng-change="refreshChart()"
+                           ng-model="dimensions[model.selectedDimension].detail.histogramCategory.overflow" ng-model-options="{ updateOn: 'blur' }" />
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <sadaf-checkbox class="mini" ng-change="refreshChart()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.underflowEnable">کران پایین</sadaf-checkbox>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.underflowEnable">
+                    <input style="flex:1" type="text" class="form-control" placeholder="کران پایین" ng-change="refreshChart()"
+                           ng-model="dimensions[model.selectedDimension].detail.histogramCategory.underflow" ng-model-options="{ updateOn: 'blur' }" />
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <sadaf-checkbox class="mini" ng-change="refreshChart()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.customLabelEnable">استفاده از برچسب دلخواه</sadaf-checkbox>
+                </div>
+
+                <div class="mini segment ui" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.customLabelEnable">
+                    <div class="ui mini compact icon button">
+                        اضافه کردن
+                        <i class="ui icon pointer add" ng-click="dimensions[model.selectedDimension].detail.histogramCategory.customLabels.push({name:''})"></i>
+                    </div>
+                    <div class="form-row" layout="row" layout-align="start center" ng-repeat="label in dimensions[model.selectedDimension].detail.histogramCategory.customLabels">
+                        <input style="flex:1" type="text" class="form-control" placeholder="برچسب" ng-change="refreshChart()"
+                               ng-model="label.name" ng-model-options="{ updateOn: 'blur' }" />
+                        <i class="ui icon pointer add" ng-click="dimensions[model.selectedDimension].detail.histogramCategory.customLabels.splice($index, 0, {name:''});refreshChart();"></i>
+                        <i class="ui icon pointer close" ng-click="dimensions[model.selectedDimension].detail.histogramCategory.customLabels.splice($index, 1);refreshChart();"></i>
+                    </div>
+                </div>
+
+
             </div>
 
         </div>

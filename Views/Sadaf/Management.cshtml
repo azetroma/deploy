@@ -102,6 +102,7 @@
         <script src="~/src/js/management/datasource/schemaTypes.js?v=@v"></script>
         <script src="~/src/js/management/datasource/file.js?v=@v"></script>
         <script src="~/src/js/management/datasource/datasourcePermission.js?v=@v"></script>
+        <script src="~/src/js/management/datasource/datasourceMetainfo.js?v=@v"></script>
         <script src="~/src/js/management/datasource/web.js?v=@v"></script>
         <script src="~/src/js/management/datasource/join.js?v=@v"></script>
         <script src="~/src/js/management/charts/list.js?v=@v"></script>
@@ -306,6 +307,7 @@
         app.lang.setLangTyle(@ViewBag.lang);
         app.lang.setLang();
         app.version = '@v';
+        app.datasourceMetadata = @(BLL.ApplicationLicense.ClientLicenseManager.GetInstance().DatasourceMetadata ? "true": "false")
         var hash = "@ViewBag.returnUrlHash";
         console.log('### hash url', hash);
         if (hash) {

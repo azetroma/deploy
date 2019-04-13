@@ -241,16 +241,13 @@
         <div class="main-container full-height-container" @(!(ViewBag.noframe ?? false) ? "" : "style=margin-left:0;margin-right:0;" )>
 
             <div class="dashboard-page-top-side" style="">
-                <div ng-show="isFullscreen" style="text-align: right;
-    font-size: 25px;
-    font-family: iransans;
-    font-weight: 900;
-    background-color: #424242;
-    color: white;
-    padding: 3px 35px;
-    margin: 0 0 0 10px;
-    border-radius: 4px;">{{name}}</div>
-                <div ng-show="menuCategories.licenceRemain.remain <= 3" class="ui label red">
+
+                <div ng-show="isFullscreen" style="text-align: right;font-size: 25px;font-family: iransans;font-weight: 900;background-color: #424242;
+    color: white;padding: 3px 35px;margin: 0 0 0 10px;border-radius: 4px;">
+                    {{name}}
+                </div>
+
+                <div ng-show="menuCategories.licenceRemain.remain <= 3" class="ui label red" style="height:2rem;">
                     {{'licence remaining' | translate}}:
                     <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
                 </div>
@@ -289,52 +286,106 @@
 
                 @*<div class="dashboard-edit-panel" ng-show="@(ViewBag.isLoginByLink ??false)" style="">
 
-                    <div class="chart-container dashboard-page-header" style="direction:ltr;">
-                        <div style="display:table-row">
+            <div class="chart-container dashboard-page-header" style="direction:ltr;">
+                <div style="display:table-row">
 
 
 
-                            <div id="device-selector" class="dashboard-navbar-item devices ">
-                                <i id="laptop" class="icon laptop"></i>
-                                <i id="tablet" class="icon alternate tablet"></i>
-                                <i id="smartphone" class="icon alternate mobile" style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i>
-                                <i id="smartphone-land" class="icon alternate mobile"></i>
-                            </div>
-
-
-                            <span class="navbar-text pull-right sadaf-circular-preogress " style="padding: 0 10px;display: table-cell;vertical-align: bottom;"></span>
-
-                        </div>
-
+                    <div id="device-selector" class="dashboard-navbar-item devices ">
+                        <i id="laptop" class="icon laptop"></i>
+                        <i id="tablet" class="icon alternate tablet"></i>
+                        <i id="smartphone" class="icon alternate mobile" style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i>
+                        <i id="smartphone-land" class="icon alternate mobile"></i>
                     </div>
 
-                </div>*@
 
-                <div class="ui buttons " id="device-selector" style="margin-top:4px; display:block;  white-space:nowrap; margin-top: 6px;">
-                    <div class="ui icon compact button"><i id="laptop" class="icon laptop "></i></div>
-                    <div class="ui icon compact button"><i id="tablet" class="icon alternate tablet "></i></div>
-                    <div class="ui icon compact button"><i id="smartphone" class="icon alternate mobile " style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i></div>
-                    <div class="ui icon compact button"><i id="smartphone-land" class="icon alternate mobile "></i></div>
+                    <span class="navbar-text pull-right sadaf-circular-preogress " style="padding: 0 10px;display: table-cell;vertical-align: bottom;"></span>
+
                 </div>
 
-                <div class="ui basic  buttons">
+            </div>
 
+        </div>*@
+                <style>
+                    .top-menu.list .item {
+                        color: #424242;
+                    }
+                    .sadaf-circular-preogress svg {
+                        display: block;
+                    }
 
+                    #laptop, #tablet, #smartphone, #smartphone-land {
+                        color: gray;
+                        cursor: pointer;
+                    }
 
-                    <div class="ui icon button" title="{{'add chart' | translate}}" ng-click="addChart()">
-                        <i class="large pointer icon plus square outline add-chart-btn"></i>
+                        #laptop.active, #tablet.active, #smartphone.active, #smartphone-land.active {
+                            color: black;
+                        }
+                </style>
+                <div class="ui horizontal list top-menu" style="white-space: nowrap;">
+
+                    <div class="item sadaf-circular-preogress " style="position: relative;width: 20px;height: 18px;"></div>
+
+                    <div class="item dashboard-edit-panel" id="device-selector" cstyle="xmargin-top:4px; display:block;  white-space:nowrap; xmargin-top: 6px;">
+                        <div class="ui horizontal list">
+                            
+                            <div class="item"><i id="laptop" class="icon laptop "></i></div>
+                            <div class="item"><i id="tablet" class="icon alternate tablet "></i></div>
+                            <div class="item"><i id="smartphone" class="icon alternate mobile " style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i></div>
+                            <div class="item"><i id="smartphone-land" class="icon alternate mobile "></i></div>
+                        </div>
                     </div>
-                    <div class="ui icon button" title="{{'add form' | translate}}" ng-click="addFormSettings.visible = true">
+
+                    <div class="item dashboard-edit-panel" title="{{'add chart' | translate}}" ng-click="addChart()">
+                        <i class="icons large pointer xadd-chart-btn">
+                            <i class="chart area icon"></i>
+                            <i class="corner add icon"></i>
+                        </i>
+                    </div>
+
+                    <div class="item dashboard-edit-panel" title="{{'add form' | translate}}" ng-click="addFormSettings.visible = true">
                         <i class="icons large pointer" ng-click="addFormSettings.visible = true">
                             <i class="clipboard outline icon"></i>
                             <i class="corner add icon"></i>
                         </i>
                         <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
                     </div>
-                    <div class="ui icon button" title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
-                        <i class="large share square outline icon pointer"></i>
+
+                    <div class="item dashboard-edit-panel" title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
+                        <i class="large share alternate icon pointer"></i>
                     </div>
-                    <notification class="ui icon button"></notification>
+
+                    <div class="item" ng-show="@(ViewBag.isLoginByLink ??false)">
+                        <i class="large icon pointer full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="تمام صفحه"></i>
+                    </div>
+                    <div class="item" ng-show="@(ViewBag.isLoginByLink ??false)">
+                        <i class="large icon pointer play-toggle" ng-show="isFullscreen" ng-class="{play : !slidePlay, pause: slidePlay}" ng-click="slidePlayToggle()" title="اسلاید شو"></i>
+                    </div>
+
+                    <notification class="item"></notification>
+
+
+                    <div class="item ui dropdown" ng-show="@(ViewBag.isLoginByLink ??false)">
+                        <div style="white-space:nowrap">
+                            <span class="user-account-hide-segment">
+                                @{
+                                    var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
+                                    <text> @user.FirstName @user.LastName</text>
+                                }
+                            </span>
+                            <i class="icon user outline large "></i>
+                        </div>
+                        <div class="menu transition hidden" tabindex="-1">
+                            <a ng-if="menuCategories.hasAminPermission" class="item user-account-hide-segment" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
+                            <a class="item user-account-hide-segment" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
+                            <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
+                        </div>
+                    </div>
+                    <div class="item" ng-show="@(ViewBag.isLoginByLink ??false)">
+                        <i class="large icon sidebar link toc-toggle"></i>
+                    </div>
+
                 </div>
 
 
@@ -358,25 +409,6 @@
         </div>*@
 
 
-                <div class="ui dropdown icon basic button" ng-show="@(ViewBag.isLoginByLink ??false)">
-                    <div style="white-space:nowrap">
-                        <span class="user-account-hide-segment">
-                            @{
-                                var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
-                                <text> @user.FirstName @user.LastName</text>
-                            }
-                        </span>
-                        <i class="icon user outline large "></i>
-                    </div>
-                    <div class="menu transition hidden" tabindex="-1">
-                        <a ng-if="menuCategories.hasAminPermission" class="item user-account-hide-segment" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
-                        <a class="item user-account-hide-segment" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
-                        <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
-                    </div>
-                </div>
-                <div class="" ng-show="@(ViewBag.isLoginByLink ??false)">
-                    <i class="large icon sidebar link toc-toggle"></i>
-                </div>
 
             </div>
             <style>

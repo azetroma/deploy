@@ -1,8 +1,8 @@
 <menu-container open-menu-name="openMenuName">
-     
-    <menu-item> 
-        <menu-header  data-toggle="" >{{ 'تنظیمات کلی' | translate }}</menu-header>
-        <menu-body  class="prop-section  form-horizontal" >
+
+    <menu-item>
+        <menu-header data-toggle="">{{ 'تنظیمات کلی' | translate }}</menu-header>
+        <menu-body class="prop-section  form-horizontal">
             <div>
                 <input type="hidden" ng-model="ngModel.bar.info.canExportXlsx" value="true" />
 
@@ -38,32 +38,52 @@
                     </div>
                 </div>
 
-                <!-- <div class="form-row" layout="row" layout-align="start center">
-         <label class="col-sm-4">{{ 'قالب اعداد محور عمودی' | translate }}</label>
-         <span class="form-divider" flex></span>
-         <div>
-             <select ng-model="ngModel.bar.info.formatString" ng-options="color.name as  color.value for color in [
-                         {name:',.1%', value:'#,#.0%'},
-                         {name:',.2%', value:'#,#.00%'},
-                         {name:',.0f', value:'#,#'},
-                         {name:',.1f', value:'#,#.0'},
-                         {name:',.2f', value:'#,#.00'},
-                         ]" ng-change="refreshChart('refresh')">
-                 <option value="A">{{ 'عادی' | translate }}</option>
-                 <option value="%">{{ 'درصد' | translate }}</option>
-                 <option value=",.1%">#,#.0%</option>
-                 <option value=",.2%">#,#.00%</option>
-                 <option value=",.0f">#,#</option>
-                 <option value=",.1f">#,#.0</option>
-                 <option value=",.2f">#,#.00</option>
-             </select>
-         </div>
-     </div>-->
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.bar.info.showLegends" ng-change="refreshChart('refresh')" /> نمایش راهنمای نمودار
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label>{{ 'فونت محور عمودی' | translate }}</label>
                     <span class="form-divider" flex></span>
                     <text-editor prop="ngModel.bar.info.fontYaxe" on-change="refreshChart('refresh')"></text-editor>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label>تعداد برچسب‌های محور عمودی</label>
+                    <span class="form-divider" flex></span>
+                    <div>
+                        <select ng-model="ngModel.bar.info.AxeY.ticksType" ng-change="refreshChart('refresh')"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'auto', value: 'خودکار'  },
+                                    {name:'count', value:'براساس تعداد' },
+                                    {name:'space', value:'براساس فاصله'},
+                                    ]"></select>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.bar.info.AxeY.ticksType == 'count'">
+                    <label>تعداد برچسب‌ها</label>
+                    <span class="form-divider" flex></span>
+                    <div>
+                        <input type="text" class="form-control" placeholder="تعداد برچسب‌ها" ng-model="ngModel.bar.info.AxeY.ticksCount"
+                               ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" />
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.bar.info.AxeY.ticksType == 'space'">
+                    <label>فاصله برچسب‌ها</label>
+                    <span class="form-divider" flex></span>
+                    <div>
+                        <input type="text" class="form-control" placeholder="فاصله برچسب‌ها" ng-model="ngModel.bar.info.AxeY.ticksSpace"
+                               ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" />
+                    </div>
                 </div>
 
 
@@ -100,7 +120,7 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-model="ngModel.bar.info.yAxisAuto" ng-change="refreshChart('refresh')" /> 
+                                <input type="checkbox" ng-model="ngModel.bar.info.yAxisAuto" ng-change="refreshChart('refresh')" />
                                 {{ 'automatic axis range' | translate }}
                             </label>
                         </div>
@@ -164,13 +184,14 @@
                                     {name:'1', value: 'مجزا'  },
                                     {name:'2', value:'تمام شاخص‌های پیدا' },
                                     {name:'3', value:'تمام شاخص‌ها'},
-                                    ]">
-                            <!--<option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
-                <option value="2">{{ 'تمام شاخص‌های پیدا' | translate }}</option>
-                <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>-->
-                        </select>
+                                    ]"></select>
                     </div>
                 </div>
+
+
+
+
+                n"
 
 
 
@@ -190,7 +211,7 @@
                             set.sum
                         </code> ,<code class="inline">
                             set.avg
-                        </code>,<code class="inline">
+                        </code>,li<code class="inline">
                             set.points
                         </code>
                     </p>
@@ -222,7 +243,7 @@
                 </div>
 
 
-                <div class="form-row" layout="column" layout-align="start center">
+                <div class="form-row" layout="column" layout-align="start start">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
@@ -234,12 +255,71 @@
                 </div>
 
 
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.bar.info.secondaryY.enable" ng-change="refreshChart('refresh')" />
+                                محور دوم عمودی
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="xui secondary segment" ng-show="ngModel.bar.info.secondaryY.enable">
+
+                    <small>انتخاب شاخص‌های مربوط به محور دوم</small>
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label ng-repeat="i in ngModel.series">
+                            <input type="checkbox" ng-model="ngModel.bar.info.secondaryY.measures[i]" ng-change="refreshChart('refresh')" />
+                            {{i}}&nbsp;&nbsp;&nbsp;&nbsp;
+                        </label>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label>{{ 'فونت' | translate }}</label>
+                        <span class="form-divider" flex></span>
+                        <text-editor prop="ngModel.bar.info.secondaryY.font" on-change="refreshChart('refresh')"></text-editor>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label>تعداد برچسب‌های محور عمودی</label>
+                        <span class="form-divider" flex></span>
+                        <div>
+                            <select ng-model="ngModel.bar.info.secondaryY.ticksType" ng-change="refreshChart('refresh')"
+                                    ng-options="i.name as  i.value for i in [
+                                    {name:'auto', value: 'خودکار'  },
+                                    {name:'count', value:'براساس تعداد' },
+                                    {name:'space', value:'براساس فاصله'},
+                                    ]"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.bar.info.secondaryY.ticksType == 'count'">
+                        <label>تعداد برچسب‌ها</label>
+                        <span class="form-divider" flex></span>
+                        <div>
+                            <input type="text" class="form-control" placeholder="تعداد برچسب‌ها" ng-model="ngModel.bar.info.secondaryY.ticksCount"
+                                   ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" />
+                        </div>
+                    </div>
+                    <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.bar.info.secondaryY.ticksType == 'space'">
+                        <label>فاصله برچسب‌ها</label>
+                        <span class="form-divider" flex></span>
+                        <div>
+                            <input type="text" class="form-control" placeholder="فاصله برچسب‌ها" ng-model="ngModel.bar.info.secondaryY.ticksSpace"
+                                   ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" />
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </menu-body>
     </menu-item>
 
-    <menu-item  ng-show="ngModel.series && ngModel.series.length>0" name="series" > 
-        <menu-header  data-toggle="" >{{ 'مشخصات شاخص‌ها' | translate }}</menu-header>
+    <menu-item ng-show="ngModel.series && ngModel.series.length>0" name="series">
+        <menu-header data-toggle="">{{ 'مشخصات شاخص‌ها' | translate }}</menu-header>
         <menu-body class="prop-section form-horizontal   ">
             <div>
                 <div class="form-row" layout="row" layout-align="start center">
@@ -302,8 +382,8 @@
                                     {name:'var', value: 'VAR'},
                                     ]">
                             <!--<option value="sum">SUM</option>
-                <option value="avg">AVG</option>
-                <option value="var">VAR</option>-->
+                            <option value="avg">AVG</option>
+                            <option value="var">VAR</option>-->
                         </select>
                     </div>
 

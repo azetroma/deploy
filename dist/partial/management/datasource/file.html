@@ -32,7 +32,7 @@
                                 <span ng-bind-html="fileName" class=""></span>
                             </div>
 
-                              
+
 
                             <div layout="row" style="margin:18px 0">
                                 <md-progress-linear md-mode="determinate" value="{{progress}}" ng-hide="progress == -1"></md-progress-linear>
@@ -73,6 +73,7 @@
                             </md-input-container>
 
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
+                            <datasource-metainfo ng-model="metainfo"></datasource-metainfo>
 
                         </form>
 
@@ -89,7 +90,7 @@
                 <md-card-actions layout="row">
                     <span flex></span>
 
-                    <md-button ng-click="save()" ng-disabled="!testResult">
+                    <md-button ng-click="save()" ng-disabled="!testResult && !isEdit">
                         ذخیره
                     </md-button>
 

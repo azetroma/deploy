@@ -35,12 +35,38 @@
                 <div flex style="margin:0" layout="row" layout-align="start center">
                     <md-checkbox style="margin:5px 0;" ng-model="data.check" ng-click="$event.stopPropagation()">{{data.name}}</md-checkbox>
                     <span flex></span>
-                    <md-select ng-click="$event.stopPropagation()" style="margin:0; display:inline-block;" class="" ng-model="data.action" ng-style="{'visibility' : data.check ? 'visible':'hidden'}" aria-label="مجوز">
-                        <md-option value="1">{{'permission_view' | translate}}</md-option>
-                        <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
-                        <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
-                    </md-select>
 
+                    <div class="ui form mini" ng-style="{'visibility' : data.check ? 'visible':'hidden'}">
+                        <div class="inline fields" style="margin:0;">
+                            <div class="field" ng-if="type == 'chart'">
+                                <label>مجوزهای تکمیلی</label>
+                                <sm-dropdown class="multiple selection"
+                                             ng-click="$event.stopPropagation()"
+                                             items="[
+                                                                            {label:'کامنت', val:8}
+                                                                           ,{label:'خروجی اکسل', val:9}
+                                                                           ,{label:'فیلتر', val:10}
+                                                                           ,{label:'توضیحات', val:11}
+                                                                        ]" model="data.extra" label="item.label" value="item.val"></sm-dropdown>
+
+                            </div>
+
+                            <div class="field" ng-style="{'visibility' : data.check ? 'visible':'hidden'}" style="margin:5px;">
+                                <label>مجوزهای دسترسی</label>
+
+                                <sm-dropdown class=""
+                                             ng-click="$event.stopPropagation()"
+                                             items="[
+                                                                            {label:('permission_view' | translate), val:1}
+                                                                            ,{label:('permission_view_edit' | translate), val:2}
+                                                                            ,{label:('permission_view_edit_delete' | translate), val:4}
+                                                                        ]" model="data.action" label="item.label" value="item.val"></sm-dropdown>
+
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
             </collapse-header>
             <collapse-body class="block">

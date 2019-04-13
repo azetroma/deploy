@@ -164,8 +164,7 @@
 
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
 
-                            <sadaf-checkbox ng-show="isEdit" ng-model="model.saveData">{{'save with get data' | translate}}</sadaf-checkbox>
-
+                            <datasource-metainfo ng-model="model.metainfo"></datasource-metainfo>
 
                         </form>
 
@@ -182,9 +181,12 @@
                 <md-card-actions layout="row">
                     <span flex></span>
 
-                    <md-button ng-click="save()" ng-disabled="saveProgress">
+                    <md-button ng-click="save(false)" ng-disabled="saveProgress">
                         {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+                    </md-button>
 
+                    <md-button ng-show="isEdit" ng-click="save(true)" ng-disabled="saveProgress">
+                        {{saveProgress == false ? ('save with get data' | translate) : ('در حال ذخیره‌سازی' | translate)}}
                     </md-button>
 
                     <md-button ng-click="test()" ng-disabled="testProgress">

@@ -243,7 +243,7 @@
                     $('input[name=ReturnUrlHash]').val(location.hash);
 
                     var isChrome = !!window.chrome && !!window.chrome.webstore;
-                    var show = JSON.parse("@(System.Configuration.ConfigurationManager.AppSettings["justChrome"] ?? "true")");
+                    var show = JSON.parse("@(System.Configuration.ConfigurationManager.AppSettings["justChrome"] ?? "false")");
 
                     if (!isChrome && show) {
                         $('#content').hide();
