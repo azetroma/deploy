@@ -279,6 +279,8 @@
             <script src="~/dist/js/forms-app.js?v=@v"></script>
             <script src="~/dist/js/dashboard-app-theme2.js?v=@v"></script>*@
     }
+    <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
+    <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 
     <script>
         var userVariable = @Html.Raw(Json.Encode(ViewBag.userVariable));
