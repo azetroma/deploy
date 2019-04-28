@@ -185,76 +185,55 @@
                             ng-model="measures[model.selectedMeasure].aggregation"
                             ng-change="changeMeasureAggregation(model.selectedMeasure);refreshChart()"
                             ng-options="color.name as  color.value for color in [
-                                    {name:'NONE', value: 'NONE'  }, 
-                                    {name:'SUM', value: 'SUM'  }, 
-                                    {name:'AVG', value: 'AVG'  }, 
-                                    {name:'COUNT', value: 'COUNT'  }, 
-                                    {name:'MIN', value: 'MIN'  }, 
-                                    {name:'MAX', value: 'MAX'  }, 
-                                    {name:'VAR', value: 'VAR'  }, 
-                                    {name:'VARP', value: 'VARP'  }, 
-                                    {name:'STDEV', value: 'STDEV'  }, 
-                                    {name:'STDEVP', value: 'STDEVP'  }, 
-                                    ]">
-                        <!--<option value="NONE">NONE</option>
-                        <option value="SUM">SUM</option>
-                        <option value="AVG">AVG</option>
-                        <option value="COUNT">COUNT</option>
-                        <option value="MIN">MIN</option>
-                        <option value="MAX">MAX</option>
-                        <option value="VAR">VAR</option>
-                        <option value="VARP">VARP</option>
-                        <option value="STDEV">STDEV</option>
-                        <option value="STDEVP">STDEVP</option>-->
-                    </select>
+                                    {name:'NONE', value: 'NONE'  },
+                                    {name:'SUM', value: 'SUM'  },
+                                    {name:'AVG', value: 'AVG'  },
+                                    {name:'COUNT', value: 'COUNT'  },
+                                    {name:'MIN', value: 'MIN'  },
+                                    {name:'MAX', value: 'MAX'  },
+                                    {name:'VAR', value: 'VAR'  },
+                                    {name:'VARP', value: 'VARP'  },
+                                    {name:'STDEV', value: 'STDEV'  },
+                                    {name:'STDEVP', value: 'STDEVP'  },
+                                    ]"></select>
                 </div>
             </div>
-
             <div class="form-row" layout="column">
                 <label class="col-md-12">{{ 'فرمول' | translate }}</label>
                 <div flex layout="row">
                     <textarea flex class="form-control disabled text-formula" ng-model="measures[model.selectedMeasure].formula"
                               ng-model-options="{ updateOn: 'blur' }"
                               ng-change="changeFormula(measures[model.selectedMeasure]);refreshChart()"></textarea>
-                    <span class="material-icons small" ng-click="showDialog('measure', $event)">fullscreen</span>
+                    <span class="material-icons small" ng-click="showDialog('measure', $event, measures[model.selectedMeasure])">fullscreen</span>
 
                 </div>
                 <p class="desc ltr">
                     <code>overall{ sum(field) }</code> : تابع تجمیع روی کل
                 </p>
             </div>
+            <br />
+            <div class="ui mini icon button" ng-click="addFormula(measures[model.selectedMeasure])"><i class="icon add"></i> فرمول جدید در سطوح بعدی</div>
+            <div ng-repeat="f in measures[model.selectedMeasure].formulas">
+                <div class="form-row" layout="column">
+                    <label class="col-md-12">{{ 'فرمول' | translate }} سطح {{$index+2}}</label>
 
-            <top-measure dims="dimensions" ng-model="measures[model.selectedMeasure].Top" ng-change="refreshChart('refreshWithData');" ng-show="measures[model.selectedMeasure].aggregation != 'NONE'"></top-measure>
-
-
-            <!--<div class="form-row" layout="row" layout-align="start center">
-                <md-switch ng-model="measures[model.selectedMeasure].IsTop" ng-change="refreshChart('refresh');">
-                    {{ 'isTop' | translate }}
-                </md-switch>
-            </div>
-            <div ng-if="measures[model.selectedMeasure].IsTop">
-                <div class="form-row" layout="row" layout-align="start center">
-                    <label>{{ 'top' | translate }}</label>
-                    <span class="form-divider" flex></span>
-                    <div>
-                        <md-switch ng-model="measures[model.selectedMeasure].IsPercent" ng-change="refreshChart('refresh');" style="display:inline">
-                            {{ 'IsPercent' | translate }}
-                        </md-switch>
-
-                        <input type="number" class="form-control" placeholder="{{ 'top' | translate }}"
-                               ng-model-options="{ updateOn: 'blur' }"
-                               ng-change=" changeDimensionName('{{measures[model.selectedMeasure].Top}}',measures[model.selectedMeasure])"
-                               ng-model="measures[model.selectedMeasure].Top" />
-
-                        <select class="selectpicker-x form-control"
-                                ng-model="measures[model.selectedMeasure].TopOrder"
-                                ng-change="changeMeasureAggregation(model.selectedMeasure);refreshChart()">
-                            <option value="DESC">DESC</option>
-                            <option value="ASC">ASC</option>
-                        </select>
+                    <div flex layout="row">
+                        <div flex layout="column">
+                            <input type="text" class="form-control" placeholder="برچسب"
+                                   ng-model-options="{ updateOn: 'blur' }"
+                                   ng-change="refreshChart()"
+                                   ng-model="f.name" />
+                            <textarea flex class="form-control disabled text-formula" ng-model="f.formula"
+                                      ng-model-options="{ updateOn: 'blur' }"
+                                      ng-change="changeFormula(measures[model.selectedMeasure]);refreshChart()"></textarea>
+                        </div>
+                        <span class="material-icons small" ng-click="showDialog('measure' , $event, f)">fullscreen</span>
+                        <span class="material-icons small" ng-click="measures[model.selectedMeasure].formulas.splice($index, 1)">close</span>
                     </div>
                 </div>
-            </div>-->
+            </div>
+
+            <top-measure dims="dimensions" ng-model="measures[model.selectedMeasure].Top" ng-change="refreshChart('refreshWithData');" ng-show="measures[model.selectedMeasure].aggregation != 'NONE'"></top-measure>
 
         </div>
     </menu-body>

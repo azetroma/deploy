@@ -122,7 +122,7 @@
         <script src="~/src/js/management/menu.js?v=@v"></script>
         <script src="~/src/js/management/services/menus.js?v=@v"></script>
         <script src="~/src/js/management/services/roles.js?v=@v"></script>
-        <script src="~/src/js/management/services/utils.js?v=@v"></script>
+        <script src="~/src/js/management/utils.js?v=@v"></script>
         <script src="~/src/js/management/account/roleEdit.js?v=@v"></script>
         <script src="~/src/js/management/account/roleList.js?v=@v"></script>
         <script src="~/src/js/management/account/userEdit.js?v=@v"></script>
@@ -139,6 +139,9 @@
         <script src="~/src/js/management/account/activeDirectory.js?v=@v"></script>
         <script src="~/src/js/management/account/userBulkInsert.js?v=@v"></script>
         <script src="~/src/js/management/account/syncUserVariablesList.js?v=@v"></script>
+        <script src="~/src/js/management/dashboard/dashboards.js?v=@v"></script>
+        <script src="~/src/js/management/dashboard/detail.js?v=@v"></script>
+        <script src="~/src/js/management/directives/versions.js?v=@v"></script>
         <script src="~/src/js/charts/su.ChartCommons.js?v=@v"></script>
         <script src="~/src/js/charts/su.d3-utils.js?v=@v"></script>
         <script src="~/src/js/charts/filterMemberDialog.js?v=@v"></script>
@@ -173,6 +176,17 @@
     <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
     <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 
+    @if (ViewBag.cdn.enable) {
+        for (int i = 0; i < ViewBag.cdn.items.Count; i++) {
+            if (ViewBag.cdn.items[i].type == 1) {
+                <script src="@ViewBag.cdn.items[i].link"></script>
+            }
+            if (ViewBag.cdn.items[i].type == 0) {
+                <link href="@ViewBag.cdn.items[i].link" rel="stylesheet" />
+            }
+        }
+    }
+
     <script>
         var app = app || {};
         app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
@@ -193,7 +207,7 @@
     <div ng-app="management" ng-controller="menusCtrl" ng-cloak layout="row" flex layout-fill>
         <input type="hidden" value="@ViewBag.lang" id="lang" />
         @Html.AntiForgeryToken()
-        
+
         @if (!ViewBag.noframe) {
             <md-sidenav class="md-sidenav-right site-sidenav"
                         md-component-id="r"
@@ -204,7 +218,8 @@
                         style="max-width:250px">
 
                 <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">
-                    <img src="~/Images/logo_half.png" alt="Sadaf" style="max-width:100%;max-height:128px; margin:15px auto; display:block" />
+                    <img src="~/api/settings/getLogo/0" alt="Sadaf" style="max-width:100%;max-height:128px; margin:15px auto; display:block" />
+                    @*<img src="~/Images/logo_half.png" alt="Sadaf" style="max-width:100%;max-height:128px; margin:15px auto; display:block" />*@
                 </a>
 
                 <md-content flex>
@@ -294,9 +309,9 @@
 
             var message = JSON.parse(e.data);
 
-                var scope = angular.element($el).scope();
-                scope.iframeService.handleMessage(message);
-                scope.$apply();
+            var scope = angular.element($el).scope();
+            scope.iframeService.handleMessage(message);
+            scope.$apply();
         });
 
     </script>
@@ -316,5 +331,6 @@
 
 
     </script>
+    <script src="~/license.js?v=@v"></script>
 </body>
 </html>

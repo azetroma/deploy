@@ -2,10 +2,10 @@
     <menu-item>
         <menu-header>{{ 'تنظیمات کلی' | translate }}</menu-header>
         <menu-body>
-            <div>
+            <div> 
                 <input type="hidden" ng-model="ngModel.map.info.canExportXlsx" value="true" />
 
-                <general-settings ng-model="ngModel.map.info"ng-change="refreshChart('refresh')"></general-settings>
+                <general-settings ng-model="ngModel.map.info" ng-change="refreshChart('refresh')"></general-settings>
 
                 <map-selector prop="ngModel.map.info.map"></map-selector>
 
@@ -14,7 +14,24 @@
                     <span class="form-divider" flex></span>
                     <div class="col-sm-8">
                         <div md-color-picker ng-model="ngModel.map.info.borderColor" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">اندازه مرزها</label>
+                    <span class="form-divider" flex></span>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="اندازه مرزها"
+                               ng-change="refreshChart('refresh')"
+                               ng-model-options="{ updateOn: 'blur' }"
+                               ng-model="ngModel.map.info.borderWidth" />
+                    </div>
+                </div>
 
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">رنگ پیش فرض</label>
+                    <span class="form-divider" flex></span>
+                    <div class="col-sm-8">
+                        <div md-color-picker ng-model="ngModel.map.info.defaultColor" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
                     </div>
                 </div>
 
@@ -57,7 +74,7 @@
                                     {name:'bar', value:'bar' },
                                     ]">
                             <!--<option value="pie" selected="selected">{{ 'pie' | translate }}</option>
-                            <option value="bar">{{ 'bar' | translate }}</option>-->
+                <option value="bar">{{ 'bar' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -108,8 +125,8 @@
                                     {name:'3', value:'تمام شاخص‌ها' },
                                     ]">
                             <!--<option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
-                            <option value="2">{{ 'تمام شاخص‌های پیدا' | translate }}</option>
-                            <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>-->
+                <option value="2">{{ 'تمام شاخص‌های پیدا' | translate }}</option>
+                <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>-->
                         </select>
                     </div>
                 </div>

@@ -166,11 +166,13 @@
         <div class="side-menu ui segment my-fix inverted no-padd no-margin">
 
             <div class="" style="text-align:center; padding:16px 16px;">
-                <img src="~/Images/icon-inverse.png" class="" style="max-width:100%; max-height:128px;" alt="Alternate Text" />
+                @*<img src="~/Images/icon-inverse.png" class="" style="max-width:100%; max-height:128px;" alt="Alternate Text" />*@
+                <img src="~/api/settings/getLogo/1" class="" style="max-width:100%; max-height:128px;" alt="Alternate Text" />
             </div>
 
             <div class="my-fix-flex-container" ui-sortable="sortableCatOptions" xng-model="menuCategories.data">
                 <div class="side-menu-item-container menu-category" ng-repeat="mc in menuCategories.data" ng-class="{active: mc.active}" on-finish-render="ngRepeatFinished" data-id="{{mc.category.Id}}">
+
                     <div class="side-menu-item side-menu-item-parent" ng-click="closeAll(mc, true);">
                         <i class="icon angle down icon-animate large float-left" ng-class="{rotate: mc.open}"></i>  {{mc.category.Name}}
                         <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="mc.hasAddPer || mc.hasEditPer || mc.hasDeletePer" style="line-height:1.5em">
@@ -178,7 +180,7 @@
                             <div class="menu transition hidden" tabindex="-1">
                                 <div class="item" ng-show="mc.hasAddPer" ng-click="addMenuToCategory(mc);$event.stopPropagation();"><i class="add circle icon"></i>{{'اضافه کردن صفحه جدید' | translate}}</div>
                                 <div class="item" ng-show="mc.hasEditPer" ng-click="editCategory(mc);$event.stopPropagation();"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
-                                <div class="item" ng-show="mc.hasDeletePer" ng-click="deleteCategory(mc, $index);$event.stopPropagation();"><i class="trash outline icon"></i>{{'حذف' | translate}}</div>
+                                <div class="item" ng-show="mc.hasDeletePer" ng-click="deleteCategory(mc, $index);$event.stopPropagation();"><i class="trash alternate outline icon"></i>{{'حذف' | translate}}</div>
                             </div>
                         </div>
                     </div>
@@ -186,12 +188,12 @@
                     <div class="connected-sortable" uib-collapse="!mc.open" xng-model="mc.menus" ui-sortable="sortableOptions" ng-style="{ 'min-height': !mc.menus.length ? '10px' : 'auto' }">
                         <div class="side-menu-item side-menu-item-child dashboard-menu" ng-repeat="m in mc.menus" href="#dashboard/{{m.menu.Id}}" data-id="{{m.menu.Id}}" on-finish-render="ngRepeatFinished" ng-class="{active: m.active}" ng-click="$event.stopPropagation();">
 
-                            <a href="#/dashboard/{{m.menu.Id}}" ng-click="closeSidebar(); cancelRequests();">
+                            <a href="#/app/{{mc.category.MainMenuId}}/dashboard/{{m.menu.Id}}" ng-click="closeSidebar(); cancelRequests();">
                                 <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="m.hasEditPer || m.hasDeletePer" style="line-height: 1.5em;">
                                     <i class="setting icon"></i>
                                     <div class="menu transition hidden" tabindex="-1">
                                         <div class="item" ng-show="m.hasEditPer" ng-click="editMenu(m)"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
-                                        <div class="item" ng-show="m.hasDeletePer" ng-click="deleteMenu(m, mc, $index)"><i class="trash outline icon"></i>{{'حذف' | translate}}</div>
+                                        <div class="item" ng-show="m.hasDeletePer" ng-click="deleteMenu(m, mc, $index)"><i class="trash alternate outline icon"></i>{{'حذف' | translate}}</div>
                                         <div class="item" ng-show="m.hasEditPer" ng-click="duplicateMenu(m, mc);"><i class="copy icon"></i>{{'تکرار' | translate}}</div>
                                     </div>
                                 </div>
@@ -286,30 +288,31 @@
 
                 @*<div class="dashboard-edit-panel" ng-show="@(ViewBag.isLoginByLink ??false)" style="">
 
-            <div class="chart-container dashboard-page-header" style="direction:ltr;">
-                <div style="display:table-row">
+                        <div class="chart-container dashboard-page-header" style="direction:ltr;">
+                            <div style="display:table-row">
 
 
 
-                    <div id="device-selector" class="dashboard-navbar-item devices ">
-                        <i id="laptop" class="icon laptop"></i>
-                        <i id="tablet" class="icon alternate tablet"></i>
-                        <i id="smartphone" class="icon alternate mobile" style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i>
-                        <i id="smartphone-land" class="icon alternate mobile"></i>
-                    </div>
+                                <div id="device-selector" class="dashboard-navbar-item devices ">
+                                    <i id="laptop" class="icon laptop"></i>
+                                    <i id="tablet" class="icon alternate tablet"></i>
+                                    <i id="smartphone" class="icon alternate mobile" style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i>
+                                    <i id="smartphone-land" class="icon alternate mobile"></i>
+                                </div>
 
 
-                    <span class="navbar-text pull-right sadaf-circular-preogress " style="padding: 0 10px;display: table-cell;vertical-align: bottom;"></span>
+                                <span class="navbar-text pull-right sadaf-circular-preogress " style="padding: 0 10px;display: table-cell;vertical-align: bottom;"></span>
 
-                </div>
+                            </div>
 
-            </div>
+                        </div>
 
-        </div>*@
+                    </div>*@
                 <style>
-                    .top-menu.list .item {
+                    .top-menu.list .item, .top-menu.list a.item i.icon {
                         color: #424242;
                     }
+
                     .sadaf-circular-preogress svg {
                         display: block;
                     }
@@ -329,7 +332,7 @@
 
                     <div class="item dashboard-edit-panel" id="device-selector" cstyle="xmargin-top:4px; display:block;  white-space:nowrap; xmargin-top: 6px;">
                         <div class="ui horizontal list">
-                            
+
                             <div class="item"><i id="laptop" class="icon laptop "></i></div>
                             <div class="item"><i id="tablet" class="icon alternate tablet "></i></div>
                             <div class="item"><i id="smartphone" class="icon alternate mobile " style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i></div>
@@ -365,6 +368,9 @@
 
                     <notification class="item"></notification>
 
+                    @*<a class="item" ng-show="@(ViewBag.isLoginByLink ??false)" href="\sadaf\main">
+                        <i class="large icon home"></i>
+                    </a>*@
 
                     <div class="item ui dropdown" ng-show="@(ViewBag.isLoginByLink ??false)">
                         <div style="white-space:nowrap">
@@ -391,22 +397,22 @@
 
 
                 @*<div class=" " style="margin:0px 10px;" title="{{'add chart' | translate}}" ng-click="addChart()">
-            <i class="large pointer icon plus square outline add-chart-btn"></i>
-        </div>
-        <div class=" " style="margin:0px 10px;" title="{{'add form' | translate}}">
-            <i class="icons large pointer" ng-click="addFormSettings.visible = true">
-                <i class="clipboard outline icon"></i>
-                <i class="corner add icon"></i>
-            </i>
-            <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
-        </div>
-        <div class=" " style="margin:0px 10px;" title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
-            <i class="large share square outline icon pointer"></i>
-        </div>
-        <div class="pointer" style="margin:0px 10px;" ng-show="@(ViewBag.isLoginByLink ??false)">
-            <i class="large icon pointer full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
-            <i class="large icon pointer play-toggle" ng-show="isFullscreen" ng-class="{play : !slidePlay, pause: slidePlay}" ng-click="slidePlayToggle()" title="full screen"></i>
-        </div>*@
+                        <i class="large pointer icon plus square outline add-chart-btn"></i>
+                    </div>
+                    <div class=" " style="margin:0px 10px;" title="{{'add form' | translate}}">
+                        <i class="icons large pointer" ng-click="addFormSettings.visible = true">
+                            <i class="clipboard outline icon"></i>
+                            <i class="corner add icon"></i>
+                        </i>
+                        <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
+                    </div>
+                    <div class=" " style="margin:0px 10px;" title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
+                        <i class="large share square outline icon pointer"></i>
+                    </div>
+                    <div class="pointer" style="margin:0px 10px;" ng-show="@(ViewBag.isLoginByLink ??false)">
+                        <i class="large icon pointer full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="full screen"></i>
+                        <i class="large icon pointer play-toggle" ng-show="isFullscreen" ng-class="{play : !slidePlay, pause: slidePlay}" ng-click="slidePlayToggle()" title="full screen"></i>
+                    </div>*@
 
 
 
@@ -577,7 +583,6 @@
 
     <script src="~/dist/js/lib-all.js?v=@v"></script>
     @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
-
         <script src="~/src/js/charts/su.ChartCommons.js?v=@v"></script>
         <script src="~/src/js/charts/su.d3-utils.js?v=@v"></script>
         <script src="~/src/js/charts/su.filterMemberDialog.js?v=@v"></script>
@@ -592,11 +597,11 @@
         <script src="~/src/js/charts/jquery.sit.Text.js?v=@v"></script>
         <script src="~/src/js/charts/su.jquery.sit.UserControl.js?v=@v"></script>
         <script src="~/src/js/charts/tipsy.js?v=@v"></script>
-
-
         <script src="~/src/js/dashboardPage/notification.js?v=@v"></script>
         <script src="~/src/js/management/services/services-app.js?v=@v"></script>
         <script src="~/src/js/management/services/datasources.js?v=@v"></script>
+        <script src="~/src/js/management/services/roles.js?v=@v"></script>
+        <script src="~/src/js/management/services/menus.js?v=@v"></script>
         <script src="~/src/js/forms/forms-app.js?v=@v"></script>
         <script src="~/src/js/forms/editor/form-generator-editor.js?v=@v"></script>
         <script src="~/src/js/forms/render-form.js?v=@v"></script>
@@ -613,6 +618,7 @@
         <script src="~/src/js/dashboardPage/globalVariableHelper.js?v=@v"></script>
         <script src="~/src/js/dashboardPage/su.packages.js?v=@v"></script>
         <script src="~/src/js/dashboardPage/JqueryHelper.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.dashboardMainPage.js?v=@v"></script>
 
     } else {
         <script src="~/dist/js/dashboard-all.js?v=@v"></script>
@@ -625,6 +631,17 @@
 
     <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
     <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
+
+    @if (ViewBag.cdn.enable) {
+        for (int i = 0; i < ViewBag.cdn.items.Count; i++) {
+            if (ViewBag.cdn.items[i].type == 1) {
+                <script src="@ViewBag.cdn.items[i].link"></script>
+            }
+            if (ViewBag.cdn.items[i].type == 0) {
+                <link href="@ViewBag.cdn.items[i].link" rel="stylesheet" />
+            }
+        }
+    }
 
 
     <script>

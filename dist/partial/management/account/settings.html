@@ -220,6 +220,40 @@
                         </div>
 
 
+
+                        <br />
+
+                        <div class="field">
+                            <md-checkbox class="md-block" ng-model="model.cdn.enable">استفاده از CDN</md-checkbox>
+                            <div ng-show="model.cdn.enable" class="ui compact mini icon button" ng-click="addCdn()"><i class="icon add"></i></div>
+                        </div>
+
+                        <div class="ui secondary segment" ng-show="model.cdn.enable">
+                            <div class="fields" ng-repeat="item in model.cdn.items">
+                                <div class="seven wide field">
+                                    <input type="text" ng-model="item.link" placeholder="لینک">
+                                </div>
+                                <div class="three wide field">
+                                    <sm-dropdown class="selection fluid" model="item.type" items="[{id:0, name:'css'},{id:1, name:'javascript'}]" label="item.name" value="item.id"></sm-dropdown>
+                                </div>
+                                <div class="two wide field">
+                                    <div class="ui compact mini icon button" ng-click="addCdn()"><i class="icon add"></i></div>
+                                    <div class="ui compact mini icon button" ng-click="model.cdn.items.splice($index, 1)"><i class="icon delete"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>انتخاب لوگو</label>
+                            <input type="file" ng-model="model.logo"  onchange="angular.element(this).scope().previewFile(this , false)">
+                        </div>
+
+                        <div class="field">
+                            <label>انتخاب لوگوی با رنگ معکوس</label>
+                            <input type="file" ng-model="model.logo"  onchange="angular.element(this).scope().previewFile(this , true)">
+                        </div>
+
+
                         <br />
                         <br />
 

@@ -14,10 +14,10 @@
                 <div id="divProp" class="rtl prop-section">
                 </div>
             </div>
-             
+
         </div>
 
-        <md-divider></md-divider> 
+        <md-divider></md-divider>
 
         <div flex="50">
             <div layout="row" flex layout-fill id="chartEditor">
@@ -31,7 +31,7 @@
                             <div layout="row" layout-align="start center" class="datasource-item-header">
                                 <span>{{ 'data' | translate }}</span>
                                 <span flex></span>
-                                <span ng-hide="!chartType.isCustom && chartType.id==7"class="material-icons small small-size pointer" ng-click="showRelatedDatasource($event)" title="{{'add' | translate}}">
+                                <span ng-hide="!chartType.isCustom && chartType.id==7" class="material-icons small small-size pointer" ng-click="showRelatedDatasource($event)" title="{{'add' | translate}}">
                                     add
                                 </span>
                                 <span ng-show="!chartType.isCustom && chartType.id==7" class="material-icons small small-size pointer" ng-click="showAddDatasource()" title="{{'add' | translate}}">
@@ -40,10 +40,10 @@
                             </div>
 
                             <div class="ui mini form" style="margin:7px;">
-                                    <div class="field icon ui input fluid">
-                                        <input type="text" ng-model="query" placeholder="{{'search' | translate}}" />
-                                        <i class="icon" ng-class="{remove: query.length, search: !query}" ng-click="query = ''" style="cursor:pointer !important; pointer-events:all !important"></i>
-                                    </div>
+                                <div class="field icon ui input fluid">
+                                    <input type="text" ng-model="query" placeholder="{{'search' | translate}}" />
+                                    <i class="icon" ng-class="{remove: query.length, search: !query}" ng-click="query = ''" style="cursor:pointer !important; pointer-events:all !important"></i>
+                                </div>
                             </div>
 
                             <md-content flex>
@@ -201,7 +201,7 @@
                         <div ng-show="type != 'combo-kpi' && isOlap" layout="column" layout-fill>
                             <div layout="row" layout-align="start center" class="datasource-item-header">
                                 <span>{{ 'data' | translate }}</span>
-                                <span flex></span> 
+                                <span flex></span>
 
                                 <span style="font-size: 0.8em; margin:4px" ng-init="toggle = false" ng-click="toggle = !toggle; collapseAll(toggle)" layout="row" layout-align="start center">
                                     <span class="material-icons icon-animate pointer">{{ toggle ? 'add' : 'remove' }}</span>
@@ -211,7 +211,7 @@
                                     <!--<option ng-repeat="i in olapCubes" value="{{$index}}">{{i.Caption}}</option>-->
                                 </select>
                                 <div style="padding:0 5px;width:30px;">
-                                    <span class="pointer gray" title="پاک کردن حافظه پنهان - تنها برای کیوب انتخاب شده" ng-hide="refreshCube" ng-click="refreshingCube()"><i class="icon refresh" ></i></span>
+                                    <span class="pointer gray" title="پاک کردن حافظه پنهان - تنها برای کیوب انتخاب شده" ng-hide="refreshCube" ng-click="refreshingCube()"><i class="icon refresh"></i></span>
                                     <span class="ui inline loader mini" ng-class="{active : refreshCube}"></span>
                                 </div>
                             </div>
@@ -241,7 +241,7 @@
                             <md-content flex id="columnList" ng-hide="gettingData">
                                 <style>
                                     #columnList collapse .title {
-                                    padding:0;
+                                        padding: 0;
                                     }
                                 </style>
 
@@ -273,7 +273,7 @@
                                             <span>شاخص‌های کلیدی عملکرد</span>
                                         </div>
                                     </div>
-                                    <div> 
+                                    <div>
                                         <div uib-collapse="kpiExp" ng-if="kpiRender">
                                             <collapse ng-repeat="(k,v) in olapCubes[+selectedOlapCube].pkiGroup"
                                                       ng-hide="hide({name: k}, 'check-name')"
@@ -282,7 +282,7 @@
                                                     {{v[0].ParentName}}
                                                 </collapse-header>
                                                 <collapse-body>
-                                                    <div class="pointer datasource-field" 
+                                                    <div class="pointer datasource-field"
                                                          ng-repeat="i in v"
                                                          ng-hide="existIn(i, measures) || hide(i, 'measure')"
                                                          index="{{$index}}"
@@ -310,7 +310,7 @@
                                         مجموعه‌ها
                                     </collapse-header>
 
-                                    <collapse-body> 
+                                    <collapse-body>
                                         <div class="pointer datasource-field"
                                              ng-repeat="i in olapCubes[+selectedOlapCube].NamedSets" type="namedset"
                                              ng-hide="existIn(i, measures.concat(dimensions).concat(where)) || hide(i, 'check-name', i)"
@@ -328,18 +328,18 @@
 
 
 
-                                <div ng-repeat="u in olapCubes[+selectedOlapCube].Dimensions" ng-init="u.index = $index" ng-hide="hide(u, 'dimension')" >
+                                <div ng-repeat="u in olapCubes[+selectedOlapCube].Dimensions" ng-init="u.index = $index" ng-hide="hide(u, 'dimension')">
 
-                                    <div layout="row" layout-align="start center" class="datasource-item"  ng-init="u.expand = true;">
+                                    <div layout="row" layout-align="start center" class="datasource-item" ng-init="u.expand = true;">
                                         <span class="material-icons icon-animate pointer right-arrow" ng-click="u.expand = !u.expand;u.render = true;" ng-class="{'rotate-90' : !u.expand}">keyboard_arrow_right</span>
                                         <div ng-click="u.expand = !u.expand; u.render = true;" layout="row" class="pointer">
-                                            <span>{{u.Name}}</span> 
+                                            <span>{{u.Name}}</span>
                                         </div>
                                     </div>
 
-                                    <div uib-collapse="u.expand" ng-if="u.render" >
+                                    <div uib-collapse="u.expand" ng-if="u.render">
 
-                                        <collapse ng-repeat="(k,v) in u.group" ng-hide="k==''" style="margin-right:25px" >
+                                        <collapse ng-repeat="(k,v) in u.group" ng-hide="k==''" style="margin-right:25px">
                                             <collapse-header>
                                                 {{k}}
                                             </collapse-header>
@@ -400,6 +400,27 @@
                     <!--<md-tooltip>{{'dashboads' | translate}}</md-tooltip>-->
                 </md-button>
 
+                <div>
+
+                        <div class="ui basic compact icon button" ng-show="!chartProp.levelTypes.enable && app.license.chartLevelType" ng-click="addLevelType()">
+                            <i class="icon add gray"></i> تغییر نوع نمودار در سطح بعدی
+                        </div>
+
+                    <div class="ui basic buttons" ng-show="chartProp.levelTypes.enable">
+
+                        <div class="ui icon button" ng-click="addLevelType()">
+                            <i class="icon add gray"></i>
+                        </div>
+                        <div class="ui icon button" ng-click="removeLevelType()">
+                            <i class="icon minus gray"></i>
+                        </div>
+                    </div>
+                    <select ng-show="chartProp.levelTypes.enable" ng-model="chartProp.levelTypes.current" ng-change="changeLevelType(chartProp.levelTypes.current, '{{chartProp.levelTypes.current}}')"
+                            xng-options="$index as $index for i in chartProp.levelTypes.types">
+                        <option ng-repeat="i in chartProp.levelTypes.props" value="{{$index}}">سطح {{$index+1}}</option>
+                    </select>
+                </div>
+
                 <span flex></span>
 
                 <style>
@@ -417,17 +438,19 @@
                         .chart-type-item:hover {
                             background-color: #efefef;
                         }
-                        #chart-content .chart-widget{
-                            flex:1;
-                            padding:0;
-                            margin:0;
-                        }
-                   
+
+                    #chart-content .chart-widget {
+                        flex: 1;
+                        padding: 0;
+                        margin: 0;
+                    }
                 </style>
+
+
                 <md-menu>
                     <md-button ng-click="$mdMenu.open($event)" style="font-size:10px">
                         {{chartNameMap[expandedChartType].name || 'Custom Chart' }}
-                    </md-button> 
+                    </md-button>
                     <md-menu-content>
                         <div>
 
@@ -495,21 +518,24 @@
                 </md-menu>
 
 
-                <md-button class="md-icon-button" ng-click="save($event)" title="{{'save' | translate}}" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
-                    <span class="material-icons md-accent gray">done</span>
-                </md-button>
 
-                <md-button class="md-icon-button" ng-click="cancel()" title="{{'cancel' | translate}}">
-                    <span class="material-icons gray">clear</span>
-                    <!--<md-tooltip>{{'cancel' | translate}}</md-tooltip>-->
-                </md-button>
+                <div class="ui basic buttons">
 
-                <md-button class="md-icon-button" ng-click="delete($event)" ng-show="isEdit" title="{{'delete' | translate}}">
-                    <span class="material-icons gray">delete</span>
-                </md-button>
-                    
-                <md-button style="font-size:10px"class="" ng-click="save($event , true)" title="" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
-                    {{'ذخیره و خروج' | translate}}                   
+                    <div class="ui icon button" ng-click="save($event)" title="{{'save' | translate}}" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
+                        <i class="icon check gray"></i>
+                    </div>
+
+                    <div class="ui icon button" ng-click="cancel()" title="{{'cancel' | translate}}">
+                        <i class="icon close gray"></i>
+                    </div>
+
+                    <div class="ui icon button" ng-click="delete($event)" ng-show="isEdit" title="{{'delete' | translate}}">
+                        <i class="icon trash alternate outline gray"></i>
+                    </div>
+                </div>
+
+                <md-button style="font-size:10px" class="" ng-click="save($event , true)" title="" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
+                    {{'ذخیره و خروج' | translate}}
                 </md-button>
 
 
@@ -571,7 +597,7 @@
                 <div flex layout="row" layout-align="start center" ng-repeat="i in olapData.kpis track by $index" class="pointer datasource-item">
                     <span class="material-icons small small-size" ng-click="olapData.kpis.splice($index,1)">close</span>
                     <img src="Images/kpi.png">
-                     {{i.Name}}
+                    {{i.Name}}
                 </div>
             </div>
 
@@ -612,7 +638,7 @@
             </div>
         </md-toolbar>
         <md-dialog-content>
-            <div  class="md-dialog-content">
+            <div class="md-dialog-content">
 
                 <md-input-container class="md-block">
                     <label>{{ 'نام' | translate }}</label>
@@ -780,7 +806,7 @@
 
 
                                         <!--<option value="and">{{ 'و' | translate}}</option>
-                <option value="or">{{ 'یا' | translate}}</option>-->
+                                        <option value="or">{{ 'یا' | translate}}</option>-->
                                     </select>
 
                                     <select class="condition-style" ng-model="parent.members.numericFilter.conditions[1].condition"
@@ -817,8 +843,8 @@
                             <div xng-show="!parent.members.isNumeric" ng-show="parent.members.filter.type == 'value'">
 
                                 <!--<div class="md-padding" layout="column" layout-align="center center" ng-hide="parent.members">
-            <md-progress-circular md-mode='indeterminate'></md-progress-circular>
-        </div>-->
+                                    <md-progress-circular md-mode='indeterminate'></md-progress-circular>
+                                </div>-->
                                 <div class="ui inline centered tiny loader" ng-class="{active: !parent.members}"></div>
 
 
