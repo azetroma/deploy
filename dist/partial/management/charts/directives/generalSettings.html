@@ -86,7 +86,7 @@
 <div class="form-row" layout="row" layout-align="start center" ng-if="!model.dontShowTitle">
     <label class="col-sm-4">{{'title font' | translate}}</label>
     <span class="form-divider" flex></span>
-    <text-editor prop="model.titleFont" on-change="change()"></text-editor>
+    <text-editor prop="model.titleFont" on-change="change()" default="{color:'rgba(0,0,0,.54)', fontSize:'14px'}"></text-editor>
 </div>
 
 <div class="form-row" layout="row" layout-align="start center">

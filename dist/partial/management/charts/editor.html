@@ -521,22 +521,22 @@
 
                 <div class="ui basic buttons">
 
-                    <div class="ui icon button" ng-click="save($event)" title="{{'save' | translate}}" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
-                        <i class="icon check gray"></i>
+                    <div class="ui icon button" ng-class="{loading: saveProgress}" ng-click="save($event)" title="{{'save' | translate}}" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
+                        <i class="icon check "></i>
                     </div>
 
                     <div class="ui icon button" ng-click="cancel()" title="{{'cancel' | translate}}">
-                        <i class="icon close gray"></i>
+                        <i class="icon close "></i>
                     </div>
 
                     <div class="ui icon button" ng-click="delete($event)" ng-show="isEdit" title="{{'delete' | translate}}">
-                        <i class="icon trash alternate outline gray"></i>
+                        <i class="icon trash alternate outline "></i>
                     </div>
+                <div  class="ui basic button" ng-class="{loading: saveProgress}"ng-click="save($event , true)" title="" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
+                    {{'ذخیره و خروج' | translate}}
+                </div>
                 </div>
 
-                <md-button style="font-size:10px" class="" ng-click="save($event , true)" title="" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
-                    {{'ذخیره و خروج' | translate}}
-                </md-button>
 
 
 
