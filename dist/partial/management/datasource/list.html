@@ -74,6 +74,7 @@
                     </th>
                     <th></th>
                     <th></th>
+                    <th>کاربر</th>
                     <th>{{'integrity check' | translate}}</th>
 
                 </tr>
@@ -112,6 +113,7 @@
 
                         </div>
                     </td>
+                    <td >{{row.user}}</td>
                     <td ng-show="securityCertPatch && row.type == 2"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></td>
                     <td ng-hide="securityCertPatch && row.type == 2"></td>
 

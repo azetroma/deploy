@@ -1,8 +1,8 @@
 ﻿<div class="chart-editor" layout="row" flex style="background-color:#fff">
-    <div flex="50" layout="row">
+    <div flex="40" layout="row">
 
         <!--Properties Container-->
-        <div flex="50" layout="column" layout-fill>
+        <div flex="60" layout="column" layout-fill>
 
 
             <div layout="row" layout-align="start center" class="datasource-item-header">
@@ -19,7 +19,7 @@
 
         <md-divider></md-divider>
 
-        <div flex="50">
+        <div flex="40">
             <div layout="row" flex layout-fill id="chartEditor">
 
                 <div flex layout="column">
@@ -386,7 +386,7 @@
     </div>
 
     <!--left panel for chart and selected dims-->
-    <div flex="50" layout="column">
+    <div flex="60" layout="column">
 
         <!--Chart Container-->
         <md-content flex="65" layout="column" style="padding:7px;">
@@ -464,6 +464,7 @@
                                 <div flex="25" ng-class="{'active': expandedChartType == 5  }" ng-click="$mdMenu.hide();changeChartType(5)"><div class="chart-type-item">{{'area' | translate}}  </div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 6  }" ng-click="$mdMenu.hide();changeChartType(6)"><div class="chart-type-item">{{'stack area' | translate}}  </div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 23 }" ng-click="$mdMenu.hide();changeChartType(23)"><div class="chart-type-item">{{'percent-stack-area' | translate}} </div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 28 }" ng-click="$mdMenu.hide();changeChartType(28)"><div class="chart-type-item">{{'جعبه‌ای' | translate}} </div></div>
                             </div>
                             <md-divider></md-divider>
 

@@ -105,11 +105,17 @@
                                     <menu-item>
                                         <menu-header ng-click="renderUsers = true">{{'members' | translate}}</menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px" ng-if="renderUsers">
-                                                <div ng-repeat="r in users" layout="row" layout-align="start center">
+                                            <div style="xmargin:0 20px" ng-if="renderUsers">
+                                                <md-virtual-repeat-container style="height:400px;">
+                                                    <div style="height:40px;" md-virtual-repeat="r in users" layout="row" layout-align="start center">
+                                                        <label><input type="checkbox" ng-model="r.check" /> {{r.username}} - {{r.name}}</label>
+                                                        <a href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
+                                                    </div>
+                                                </md-virtual-repeat-container>
+                                                <!--<div ng-repeat="r in users" layout="row" layout-align="start center">
                                                     <label><input type="checkbox" ng-model="r.check" /> {{r.username}} - {{r.name}}</label>
                                                     <a href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
-                                                </div>
+                                                </div>-->
                                             </div>
                                         </menu-body>
                                     </menu-item>
@@ -178,7 +184,7 @@
                                     <menu-item>
                                         <menu-header ng-click="renderCharts = true">{{'charts' | translate}}</menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px" ng-if="renderCharts">
+                                            <div style="xmargin:0 20px" ng-if="renderCharts">
                                                 <div layout="row" layout-align="start center">
                                                     <span class="form-divider" flex></span>
                                                     <md-button class="" ng-click="$event.stopPropagation(); addChart($event)" layout="row" layout-align="start center">
@@ -200,57 +206,59 @@
                                                     .role-permission-table {
                                                         width: 100%;
                                                     }
+
                                                         .role-permission-table tr:first-child {
                                                             border-bottom: 1px solid silver;
                                                         }
+
                                                         .role-permission-table th {
-                                                            padding:10px 0;
+                                                            padding: 10px 0;
                                                         }
+
                                                         .role-permission-table .all td {
                                                             padding: 10px 0;
                                                             background-color: #e0e0e0;
                                                         }
                                                 </style>
-                                                <table  class="role-permission-table">
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>نام</th>
-                                                        <th>مجوزهای اضافه</th>
-                                                        <th>مجوزهای دسترسی</th>
-                                                    </tr>
-                                                    <tr class="all">
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td>
-                                                            <div class="ui mini input">
-                                                                <sm-dropdown class="multiple selection"
-                                                                             items="[
+
+                                                <div layout="row" flex layout-align="start center">
+                                                        مجوزهای اضافه کلی
+                                                    <div class="ui mini input">
+                                                        <sm-dropdown class="multiple selection"
+                                                                     items="[
                                                                             {label:'کامنت', val:8}
                                                                            ,{label:'خروجی اکسل', val:9}
                                                                            ,{label:'فیلتر', val:10}
                                                                            ,{label:'توضیحات', val:11}
-                                                                        ]" model="extraActionAllx" label="item.label" value="item.val" ></sm-dropdown>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <select style="margin:0" class="" ng-model="chartActionAll" ng-change="actionAll('chart', chartActionAll)" aria-label="{{'permission' | translate}}">
-                                                                <option value="1">{{'permission_view' | translate}}</option>
-                                                                <option value="2">{{'permission_view_edit' | translate}}</option>
-                                                                <option value="4">{{'permission_view_edit_delete' | translate}}</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr ng-repeat="r in charts">
-                                                        <td>
+                                                                        ]" model="extraActionAllx" label="item.label" value="item.val"></sm-dropdown>
+                                                    </div>
+                                                    <div flex></div>
+                                                    مجوزهای دسترسی کلی
+                                                <div>
+                                                    <select style="margin:0" class="" ng-model="chartActionAll" ng-change="actionAll('chart', chartActionAll)" aria-label="{{'permission' | translate}}">
+                                                        <option value="1">{{'permission_view' | translate}}</option>
+                                                        <option value="2">{{'permission_view_edit' | translate}}</option>
+                                                        <option value="4">{{'permission_view_edit_delete' | translate}}</option>
+                                                    </select>
+                                                </div>
+                                                </div>
 
-                                                            <md-button class="md-icon-button" ng-click="charts.splice($index, 1)" layout="row" layout-align="start center">
-                                                                <span class="material-icons">clear</span>
-                                                                <md-tooltip>{{'remove' | translate}}</md-tooltip>
-                                                            </md-button>
-                                                        </td>
+                                                <br />
+                                                <br />
+                                         
+                                                <md-virtual-repeat-container style="height:400px;">
+                                                    <div style="height:60px;" md-virtual-repeat="r in charts" layout="row" flex layout-align="start center">
+                                                        <div style="width:20px">
+                                                            <!--<md-button class="md-icon-button" ng-click="charts.splice($index, 1)" layout="row" layout-align="start center">
+                    <span class="material-icons">clear</span>
+                    <md-tooltip>{{'remove' | translate}}</md-tooltip>
+                </md-button>-->
 
-                                                        <td><a href="{{app.hashUrlPrefix + '#/charts/edit/0/' + r.id}}">{{r.name}}</a></td>
-                                                        <td>
+                                                            <i class="icon close pointer gray" ng-click="charts.splice($index, 1)"></i>
+                                                        </div>
+
+                                                        <div flex><a href="{{app.hashUrlPrefix + '#/charts/edit/0/' + r.id}}">{{r.name}}</a></div>
+                                                        <div style="width:200px">
 
 
                                                             <div class="ui mini input">
@@ -263,14 +271,15 @@
                                                                         ]" model="r.chartExtraPermissions" label="item.label" value="item.val"></sm-dropdown>
 
                                                             </div>
-                                                        </td>
-                                                        <td>
+                                                        </div>
+                                                        <div style="width:180px">
                                                             <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                             (item.v == 2 && !r.permissions.EditPermission)||
                                                             (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
-                                                        </td>
-                                                    </tr>
-                                                </table>
+                                                        </div>
+                                                    </div>
+                                                </md-virtual-repeat-container>
+
                                             </div>
                                         </menu-body>
                                     </menu-item>

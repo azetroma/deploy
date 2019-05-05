@@ -18,6 +18,7 @@
         if (!isRelease) {
             v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
         }
+        var useApp = BLL.Process.CommonUtils.useApp() ;
 
     }
     @*<script src="~/dist/lib/jquery-3.3.1.min.js"></script>*@
@@ -226,7 +227,7 @@
                     try {
                         <text>
                             <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
-                            - {{'version' | translate}} @(version.Major + "." + version.Minor + "." + version.Build )
+                            - {{'version' | translate}} @(version.Major + "." + version.Minor + "." + version.Build)
                         </text>
                     } catch (Exception) {
 
@@ -240,7 +241,7 @@
 
     <div class="pusher" id="">
 
-        <div class="main-container full-height-container" @(!(ViewBag.noframe ?? false) ? "" : "style=margin-left:0;margin-right:0;" )>
+        <div class="main-container full-height-container" @(!(ViewBag.noframe ?? false) ? "" : "style=margin-left:0;margin-right:0;")>
 
             <div class="dashboard-page-top-side" style="">
 
@@ -368,9 +369,11 @@
 
                     <notification class="item"></notification>
 
-                    @*<a class="item" ng-show="@(ViewBag.isLoginByLink ??false)" href="\sadaf\main">
-                        <i class="large icon home"></i>
-                    </a>*@
+                    @if (useApp) {
+                        <a class="item" ng-show="@(ViewBag.isLoginByLink ??false)" href="\sadaf\main">
+                            <i class="large icon home"></i>
+                        </a>
+                    }
 
                     <div class="item ui dropdown" ng-show="@(ViewBag.isLoginByLink ??false)">
                         <div style="white-space:nowrap">
