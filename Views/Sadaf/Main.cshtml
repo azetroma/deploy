@@ -37,7 +37,7 @@
     <meta name="fontiran.com:license" content="X4ZQZ">
 
 </head>
-<body ng-app="sadafMain" ng-cloak ng-controller="dashboardMainPageCtrl" class="theme2" style="overflow-y:auto;height: auto;xpadding: 40px 0;">
+<body ng-app="sadafMain" ng-cloak xng-controller="dashboardMainPageCtrl" class="theme2" style="overflow-y:auto;height: auto;xpadding: 40px 0;">
     @Html.AntiForgeryToken()
     <input type="hidden" value="@ViewBag.lang" id="lang" />
 
@@ -182,6 +182,7 @@
         }
         var app = app || {};
         app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        app.hashUrlPrefix = "@Url.Action("main", "sadaf")" + "/";
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
         app.version = "@v";
 

@@ -40,9 +40,12 @@
 
         .banner > .search {
             padding: 10px 10px 10px 10px;
-        }.banner .column {
-            min-height:initial;
         }
+
+        .banner .column {
+            min-height: initial;
+        }
+
         .banner .title {
             padding: 10px 170px 10px 10px;
             font-weight: 900;
@@ -50,6 +53,13 @@
             font-size: 1.5em;
             color: #333333;
         }
+
+    .card-item {
+        height: 180px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
 
 <div class="banner">
@@ -58,7 +68,7 @@
     </div>
     <!--<div class="title">{{brand}}</div>-->
     <div class="ui container">
-        <div class="search ui stackable grid" style="padding:10px 0;">
+        <div class="search ui stackable grid" style="        padding: 10px 0;">
             <div class="row">
                 <div class="ten wide column">
                     <div class="ui icon fluid input " ng-class="{loading:searchProgress}">
@@ -98,23 +108,25 @@
         <div ng-show="!searchResult.length && query.length">نتیجه‌ای یافت نشد</div>
     </div>
 
-    <div class="ui four stackable cards" ng-hide="searchResult.length || query.length">
+    <div class="ui five stackable cards" ng-hide="searchResult.length || query.length">
+        <div class="ui loader active " ng-show="appLoading"></div>
+
         <div class="ui card app-{{app.id}}" ng-repeat="app in apps">
 
-            <a href="/#/app/{{app.id}}/dashboard/{{+app.first}}" style="height: 250px;display: flex;justify-content: center;align-items: center;" ng-style="{'background-image': 'radial-gradient(circle, '+app.detail.startColor+', '+app.detail.endColor+')'}">
-                <img style="max-width:90%;max-height:90%;" class="ui image" ng-src="{{app.detail.pic}}" />
+            <a ng-href="{{!app.hasChild ? '/#/app/'+app.id+'/dashboard/'+ +app.first : gApp.hashUrlPrefix + '#/'+app.id}}" style="" class="card-item" ng-style="{'background-image': 'radial-gradient(circle, '+app.detail.startColor+', '+app.detail.endColor+')'}">
+                <img style="max-width: 90%;max-height: 90%;" class="ui image" ng-src="{{app.detail.pic}}" />
             </a>
             <div class="content">
-                <a class="header" ng-hide="app.edit" href="/#/app/{{app.id}}/dashboard/{{+app.first}}">{{app.name}}</a>
+                <a class="header" ng-hide="app.edit" ng-href="{{!app.hasChild ? '/#/app/'+app.id+'/dashboard/'+ +app.first : gApp.hashUrlPrefix + '#/'+app.id}}">{{app.name}}</a>
 
                 <div class="ui icon input" ng-class="{loading:app.progress}" ng-show="app.edit">
                     <input type="text" id="new-label" placeholder="نام" ng-model="app.name" ng-keyup="keyup($event, app)" xng-blur="save(app)">
                     <i class="icon"></i>
                 </div>
 
-                <div class="description" ng-hide="app.edit" style="min-height:4em">{{app.detail.desc}}</div>
+                <div class="description" ng-hide="app.edit" style="min-height: 4em">{{app.detail.desc}}</div>
                 <span class="ui icon input" ng-class="{loading:app.progress}" ng-show="app.edit">
-                    <textarea rows="5" type="text" id="new-label" placeholder="توضیحات" ng-model="app.detail.desc" ng-keyup="keyup($event, app)" xng-blur="save(app)" style="width:100%"></textarea>
+                    <textarea rows="5" type="text" id="new-label" placeholder="توضیحات" ng-model="app.detail.desc" ng-keyup="keyup($event, app)" xng-blur="save(app)" style="        width: 100%"></textarea>
                 </span>
 
             </div>
@@ -129,8 +141,7 @@
                     <i class="link mini cog icon popup-btn" ng-click="settings(app, $index)"></i>
                 </span>
             </div>
-
-            <div class="setting-popup ui wide basic popup top left transition hidden" style="min-width:200px">
+            <div class="setting-popup ui wide basic popup top left transition hidden" style="        min-width: 200px">
                 <div class="ui form">
 
                     <div class="field">
@@ -145,6 +156,10 @@
                     <div class="field">
                         <label>انتخاب آیکن</label>
                         <input type="file" ng-model="app.pic" index="{{$index}}" onchange="angular.element(this).scope().previewFile(this )">
+                    </div>
+                    <div class="field">
+                        <label></label>
+                        <div class="ui button fluid" ng-click="addChild(app)">اضافه کردن زیر پروژه</div>
                     </div>
 
                 </div>

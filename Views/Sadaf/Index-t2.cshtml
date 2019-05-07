@@ -370,7 +370,7 @@
                     <notification class="item"></notification>
 
                     @if (useApp) {
-                        <a class="item" ng-show="@(ViewBag.isLoginByLink ??false)" href="\sadaf\main">
+                        <a class="item" ng-show="@(ViewBag.isLoginByLink ??false)" href="@Url.Action("main","sadaf")/">
                             <i class="large icon home"></i>
                         </a>
                     }
