@@ -108,8 +108,23 @@
         <div ng-show="!searchResult.length && query.length">نتیجه‌ای یافت نشد</div>
     </div>
 
+    <div ng-show="path.length">
+        <span >
+            <a class="section" ng-href="{{gApp.hashUrlPrefix + '#/'+0}}">اصلی</a>
+            <span class="divider"> / </span>
+        </span>
+        <span ng-repeat="i in path">
+            <a class="section" ng-href="{{gApp.hashUrlPrefix + '#/'+i.id}}">{{i.name}}</a>
+            <span class="divider"> / </span>
+        </span>
+        <br />
+        <br />
+    </div>
+
+
     <div class="ui five stackable cards" ng-hide="searchResult.length || query.length">
         <div class="ui loader active " ng-show="appLoading"></div>
+
 
         <div class="ui card app-{{app.id}}" ng-repeat="app in apps">
 
@@ -131,17 +146,17 @@
 
             </div>
 
-            <div class="extra" ng-if="isAdmin">
+            <div class="extra" ng-if="app.permissions.EditPermission || app.permissions.DeletePermission">
                 <span class=" ">
-                    <i class="link mini pencil alternate icon" ng-click="edit(app)" ng-hide="app.edit"></i>
+                    <i class="link mini pencil alternate icon"ng-if="app.permissions.EditPermission" ng-click="edit(app)" ng-hide="app.edit"></i>
                     <i class="check link icon" ng-click="save(app)" ng-class="{disabled:app.progress}" ng-show="app.edit"></i>
                 </span>
                 <span class=" ">
-                    <i class="link mini trash alternate outline icon" ng-click="remove(app, $index)"></i>
-                    <i class="link mini cog icon popup-btn" ng-click="settings(app, $index)"></i>
+                    <i class="link mini trash alternate outline icon" ng-if="app.permissions.DeletePermission" ng-click="remove(app, $index)"></i>
+                    <i class="link mini cog icon popup-btn" ng-if="app.permissions.EditPermission"ng-click="settings(app, $index)"></i>
                 </span>
             </div>
-            <div class="setting-popup ui wide basic popup top left transition hidden" style="        min-width: 200px">
+            <div class="setting-popup ui wide basic popup top left transition hidden"  style="min-width: 200px">
                 <div class="ui form">
 
                     <div class="field">
@@ -161,12 +176,39 @@
                         <label></label>
                         <div class="ui button fluid" ng-click="addChild(app)">اضافه کردن زیر پروژه</div>
                     </div>
+                    <div class="field">
+                        <label></label>
+                        <div class="ui button fluid icon" ng-click="showSettings(app)"><i class="ui icon cog"></i> تنظیمات</div>
+                    </div>
 
                 </div>
             </div>
 
         </div>
 
+    </div>
+
+</div>
+<div class="ui modal mainmenu-permission">
+
+    <div class="header">
+        <h3 xstyle="margin-bottom:40px">مجوزها</h3>
+    </div>
+
+    <div class="content scrolling">
+        <datasource-permission type="mainmenu" conf="conf" ng-model="roles"></datasource-permission>
+
+        <div class="ui red message" role="alert" ng-show="error">
+            <strong>خطا!</strong> <span ng-bind-html="error"></span>
+        </div>
+
+
+    </div>
+
+    <div class="actions">
+        <div class="ui button green" ng-class="{loading: savePerProgress}" ng-click="savePermissions()" ng-disabled="savePerProgress">
+            {{ !savePerProgress ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+        </div>
     </div>
 
 </div>
