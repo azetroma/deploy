@@ -359,6 +359,11 @@
                     <div class="item dashboard-edit-panel" title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
                         <i class="large share alternate icon pointer"></i>
                     </div>
+                    @if (useApp) {
+                        <a class="item" ng-show="@(ViewBag.isLoginByLink ??false)" ng-click="favorite.toggle()">
+                            <i class="large icon heart " ng-class="{outline: !favorite.isFav}"></i>
+                        </a>
+                    }
 
                     <div class="item" ng-show="@(ViewBag.isLoginByLink ??false)">
                         <i class="large icon pointer full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="تمام صفحه"></i>
