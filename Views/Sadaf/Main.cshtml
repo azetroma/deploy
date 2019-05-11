@@ -42,6 +42,7 @@
     <input type="hidden" value="@ViewBag.lang" id="lang" />
 
 
+
     <div class="" id="">
 
         <div class="ui fluid container">
@@ -113,9 +114,8 @@
 
     </div>
 
-
-
     <script src="~/dist/js/lib-all.js?v=@v"></script>
+
     @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
 
         <script src="~/src/js/charts/su.ChartCommons.js?v=@v"></script>
@@ -162,6 +162,7 @@
     } else {
         <script src="~/dist/js/dashboard-all.js?v=@v"></script>
     }
+    <script src="~/react-dist/bundle.js?v=@ViewBag.customChartVersion"></script>
 
     <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
     <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />

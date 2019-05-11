@@ -101,6 +101,7 @@ margin-bottom: 10px;        }
         </div>
     </div>
 </div>-->
+
 <div class="ui fluid container" style="        padding: 0 20px;">
 
 
@@ -116,6 +117,8 @@ margin-bottom: 10px;        }
         <br />
         <br />
     </div>
+
+
     <div class="ui stackable grid">
         <div class="nine wide column">
             <div ng-show="searchResult.length || query.length">
@@ -197,20 +200,20 @@ margin-bottom: 10px;        }
         <div class="three wide column">
             <div>
 
-            <h5 class="ui top attached header">
-                آخرین داشبوردهای مشاهده‌ شده
-            </h5>
-            <div class="ui compact segment  attached" ng-repeat="i in mostRecentMenus">
-                <a class="" ng-href="{{gApp.urlPrefix + '#/app/' + i.mainmenuId + '/dashboard/'+ i.id}}">{{i.name}}</a> <small style="        color: #bdbdbd;"> {{moment.utc(i.time).format('jYYYY/jMM/jDD')}}</small>
-            </div>
+                <h5 class="ui top attached header">
+                    آخرین داشبوردهای مشاهده‌ شده
+                </h5>
+                <div class="ui compact segment  attached" ng-repeat="i in mostRecentMenus">
+                    <a class="" ng-href="{{gApp.urlPrefix + '#/app/' + i.mainmenuId + '/dashboard/'+ i.id}}">{{i.name}}</a> <small style="        color: #bdbdbd;"> {{moment.utc(i.time).format('jYYYY/jMM/jDD')}}</small>
+                </div>
             </div><div>
-            <br />
-            <h5 class="ui top attached header">
-                داشبورهای محبوب شده
-            </h5>
-            <div class="ui compact segment  attached" ng-repeat="i in favoriteMenus">
-                <a class="" ng-href="{{gApp.urlPrefix + '#/app/' + i.mainmenuId + '/dashboard/'+ i.id}}">{{i.name}}</a> <small style="        color: #bdbdbd;"> {{moment.utc(i.time).format('jYYYY/jMM/jDD')}}</small>
-            </div>
+                <br />
+                <h5 class="ui top attached header">
+                    داشبورهای محبوب شده
+                </h5>
+                <div class="ui compact segment  attached" ng-repeat="i in favoriteMenus">
+                    <a class="" ng-href="{{gApp.urlPrefix + '#/app/' + i.mainmenuId + '/dashboard/'+ i.id}}">{{i.name}}</a> <small style="        color: #bdbdbd;"> {{moment.utc(i.time).format('jYYYY/jMM/jDD')}}</small>
+                </div>
             </div>
 
         </div>

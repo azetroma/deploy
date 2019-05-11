@@ -26,6 +26,8 @@
             {{model.dailyFrequency=='recur'? 'هر ' +  model.dailyFrequencyRecur + (model.dailyFrequencyRecurType=='hour'?'ساعت ':model.dailyFrequencyRecurType=='minute'?'دقیقه ':'ثانیه ') + 'بین ساعت ' + formatClock(model.dailyFrequencyStart) + ' و '+ formatClock(model.dailyFrequencyStop):'' }}
 
         </span>
+        <br />
+        <span style="color:#888; font-size:0.8em; font-weight:200;"> نام وظیفه: {{model.jobGuid}}</span>
 
         <!--<md-button class="md-icon-button" ng-click="edit($event)">
         <span class="material-icons">edit</span>
