@@ -2,7 +2,7 @@
     <menu-item>
         <menu-header>{{ 'تنظیمات کلی' | translate }}</menu-header>
         <menu-body>
-            <div> 
+            <div>
                 <input type="hidden" ng-model="ngModel.map.info.canExportXlsx" value="true" />
 
                 <general-settings ng-model="ngModel.map.info" ng-change="refreshChart('refresh')"></general-settings>
@@ -54,6 +54,7 @@
                     <text-editor on-change="refreshChart('refresh')" prop="ngModel.map.info.valueEditor" ng-show="ngModel.map.info.showValue"></text-editor>
                 </div>
 
+
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
@@ -81,21 +82,19 @@
                                 ng-options="i.name as  i.value for i in [
                                     {name:'pie', value: 'pie'  },
                                     {name:'bar', value:'bar' },
-                                    ]">
-                        </select>
+                                    ]"></select>
                     </div>
                 </div>
 
-                <div class="form-row" layout="row" layout-align="start center" >
+                <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'شاخص اصلی' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select ng-model="ngModel.map.info.mainSeries" ng-change="refreshChart('refresh')"
-                                ng-options="i as  i for i in ngModel.series">
-                        </select>
+                                ng-options="i as  i for i in ngModel.series"></select>
                     </div>
                 </div>
 
-
+                
                 <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.map.info.showChart">
                     <div class="checkbox">
                         <label class="">
@@ -103,7 +102,7 @@
                         </label>
                     </div>
                     <span class="form-divider" ng-show="ngModel.map.info.showChartLegend" flex></span>
-                    <text-editor prop="ngModel.map.info.legendFont" ng-show="ngModel.map.info.showChartLegend"></text-editor>
+                    <text-editor on-change="refreshChart('refresh')" prop="ngModel.map.info.legendFont" ng-show="ngModel.map.info.showChartLegend"></text-editor>
                 </div>
 
 
@@ -139,8 +138,7 @@
                                     {name:'1', value: 'مجزا'  },
                                     {name:'2', value:'تمام شاخص‌های پیدا' },
                                     {name:'3', value:'تمام شاخص‌ها' },
-                                    ]">
-                        </select>
+                                    ]"></select>
                     </div>
                 </div>
 
@@ -251,7 +249,7 @@
     </menu-item>
     <alert prop="ngModel" config="{name:'map'}"></alert>
 
-    <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'map', show:[1]}"></table-indicator>
+    <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'map', show:[1] , legend: true}"></table-indicator>
 
     <global-variable dimensions="dimensions" measures="measures" prop="ngModel"></global-variable>
 

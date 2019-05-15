@@ -7,7 +7,7 @@
 
                 <input type="hidden" data-prop="canExportXlsx" value="true" />
 
-                <general-settings ng-model="ngModel.table.info"ng-change="refreshChart('refresh')"></general-settings>
+                <general-settings ng-model="ngModel.table.info" ng-change="refreshChart('refresh')"></general-settings>
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع تجمیع' | translate }}</label>
@@ -19,7 +19,7 @@
                                     {name:'1', value: 'حالت تجمیعی'  },
                                     ]">
                             <!--<option value="-1" selected="selected">{{ 'بدون تجمیع' | translate }}</option>
-                            <option value="1">{{ 'حالت تجمیعی' | translate }}</option>-->
+                <option value="1">{{ 'حالت تجمیعی' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -64,14 +64,14 @@
                 </div>
 
                 <!--<div class="form-row" layout="row" layout-align="start center">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showRowNumber" /> {{ 'نمایش شماره ردیف' | translate }}
-                            </label>
-                        </div>
-                    </div>
-                </div>-->
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showRowNumber" /> {{ 'نمایش شماره ردیف' | translate }}
+                </label>
+            </div>
+        </div>
+    </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -84,14 +84,14 @@
                 </div>
 
                 <!--<div class="form-row" layout="row" layout-align="start center">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.condensed" /> {{ 'نمایش فشرده‌تر ردیف‌ها' | translate }}
-                            </label>
-                        </div>
-                    </div>
-                </div>-->
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.condensed" /> {{ 'نمایش فشرده‌تر ردیف‌ها' | translate }}
+                </label>
+            </div>
+        </div>
+    </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -240,6 +240,15 @@
                     </div>
                 </div>
 
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.table.info.enableHorzScroll" ng-change="refreshChart('refreshWithData')" /> جلوگیری از نمایش اسکرول افقی
+                            </label>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -301,9 +310,9 @@
                     </div>
                 </div>
 
+                 
 
-
-                <div class="form-row" layout="row" layout-align="start center">
+                <!--<div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'چیدمان متن' | translate }}</label>
                     <span class="form-divider" flex></span>
                     <div class="col-sm-8">
@@ -319,7 +328,7 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label>{{ 'فونت' | translate }}</label>

@@ -83,6 +83,39 @@
 
 
                     </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="">
+                            <input type="checkbox" ng-model="ngModel.userControl.info.dateLimit.enable" />
+                            محدودیت انتخاب تاریخ
+                        </label>
+                    </div>
+                    <div ng-show="ngModel.userControl.info.dateLimit.enable" class="ui mini secondary segment">
+
+                        <div class="form-row" layout="row" layout-align="start center">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.userControl.info.dateLimit.useDataMinMax" />
+                                محدودیت خودکار براساس داده‌ها
+                            </label>
+                        </div>
+
+                        <div ng-hide="ngModel.userControl.info.dateLimit.useDataMinMax">
+                            <div class="form-row" layout="row" layout-align="start center">
+                                <label class="col-sm-4">{{ 'کمترین' | translate }}</label>
+                                <span class="form-divider" flex></span><div class="col-sm-8">
+                                    <sadaf-calendar ng-model="ngModel.userControl.info.dateLimit.minDate" ng-change="refreshChart('refresh')"></sadaf-calendar>
+                                </div>
+                            </div>
+                            <div class="form-row" layout="row" layout-align="start center">
+                                <label class="col-sm-4">{{ 'بیشترین' | translate }}</label>
+                                <span class="form-divider" flex></span><div class="col-sm-8">
+                                    <sadaf-calendar ng-model="ngModel.userControl.info.dateLimit.maxDate" ng-change="refreshChart('refresh')"></sadaf-calendar>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <div class="" ng-show="ngModel.userControl.info.type=='text'">

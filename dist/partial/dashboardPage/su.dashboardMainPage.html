@@ -64,25 +64,43 @@
     @media (max-width: 767px) {
         .banner .stackable.grid {
             margin-top: 60px;
-margin-bottom: 10px;        }
+            margin-bottom: 10px;
+        }
     }
 </style>
 
 <div class="banner">
     <div class="top">
         <img src="{{gApp.urlPrefix}}api/settings/getLogo/0" />
+
     </div>
-    <!--<div class="title">{{brand}}</div>-->
-    <div class="ui container">
-        <div class="search ui stackable grid" style="padding: 10px 0;">
-                <div class="ten wide column">
+    <div class="ui fluid container" style="padding-right:165px;">
+        <div class="search ui stackable grid" style="        padding: 10px 0;">
+                <div class="eight wide column">
                     <div class="ui icon fluid input " ng-class="{loading:searchProgress}">
                         <input type="text" placeholder="جستجو..." ng-model="query" ng-change="search(query)" ng-model-options="{ debounce: 600 }" class="ng-pristine ng-valid ng-empty ng-touched">
                         <i class="search icon"></i>
                     </div>
                 </div>
                 <div class="two wide column ">
-                    <a class="fluid teal ui button" ng-if="isAdmin" ng-click="add()"><i class="icon add"></i> <span class="mobile hidden">پروژه جدید</span> </a>
+                    <a class=" teal fluid ui button" ng-if="isAdmin" ng-click="add()"><i class="icon add"></i> <span class="mobile hidden">پروژه جدید</span> </a>
+
+                </div>
+                <div class="two wide column " style=" text-align: left; padding-left: 40px;">
+                    <div class="userinfo  ui dropdown">
+                        <div style="white-space:nowrap">
+                            <span class="user-account-hide-segment">
+                                {{userInfo}}
+                            </span>
+                            <i class="icon user outline large "></i>
+                        </div>
+                        <div class="menu transition hidden" tabindex="-1">
+                            <a ng-if="hasAminPermission" class="item user-account-hide-segment" href="{{gApp.urlPrefix}}sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
+                            <a class="item user-account-hide-segment" href="{{gApp.urlPrefix}}profile/"><i class="icon user"></i> {{'profile' | translate}} </a>
+                            <a class="item" href="{{gApp.urlPrefix}}account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
+                        </div>
+                    </div>
+
                 </div>
         </div>
     </div>
@@ -102,9 +120,7 @@ margin-bottom: 10px;        }
     </div>
 </div>-->
 
-<div class="ui fluid container" style="        padding: 0 20px;">
-
-
+<div class="ui fluid container" style="padding: 0 20px;">
     <div ng-show="path.length">
         <span>
             <a class="section" ng-href="{{gApp.hashUrlPrefix + '#/'+0}}">اصلی</a>
@@ -137,8 +153,7 @@ margin-bottom: 10px;        }
                 <div class="ui card app-{{app.id}}" ng-repeat="app in apps">
 
                     <a ng-href="{{!app.hasChild ? '/#/app/'+app.id+'/dashboard/'+ +app.first : gApp.hashUrlPrefix + '#/'+app.id}}" style="" class="card-item" ng-style="{'background-image': 'radial-gradient(circle, '+app.detail.startColor+', '+app.detail.endColor+')'}">
-                        <img style="        max-width: 90%;
-        max-height: 90%;" class="ui image" ng-src="{{app.detail.pic}}" />
+                        <img style="max-width: 90%;max-height: 90%;" class="ui image" ng-src="{{app.detail.pic}}" />
                     </a>
                     <div class="content">
                         <a class="header" ng-hide="app.edit" ng-href="{{!app.hasChild ? '/#/app/'+app.id+'/dashboard/'+ +app.first : gApp.hashUrlPrefix + '#/'+app.id}}">{{app.name}}</a>
@@ -204,7 +219,8 @@ margin-bottom: 10px;        }
                     آخرین داشبوردهای مشاهده‌ شده
                 </h5>
                 <div class="ui compact segment  attached" ng-repeat="i in mostRecentMenus">
-                    <a class="" ng-href="{{gApp.urlPrefix + '#/app/' + i.mainmenuId + '/dashboard/'+ i.id}}">{{i.name}}</a> <small style="        color: #bdbdbd;"> {{moment.utc(i.time).format('jYYYY/jMM/jDD')}}</small>
+                    <a class="" ng-href="{{gApp.urlPrefix + '#/app/' + i.mainmenuId + '/dashboard/'+ i.id}}">{{i.name}}</a>&nbsp;<small style="        display: inline-block;
+        color: #bdbdbd;">{{moment.utc(i.time).format('jYYYY/jMM/jDD')}}</small>
                 </div>
             </div><div>
                 <br />
@@ -212,7 +228,8 @@ margin-bottom: 10px;        }
                     داشبورهای محبوب شده
                 </h5>
                 <div class="ui compact segment  attached" ng-repeat="i in favoriteMenus">
-                    <a class="" ng-href="{{gApp.urlPrefix + '#/app/' + i.mainmenuId + '/dashboard/'+ i.id}}">{{i.name}}</a> <small style="        color: #bdbdbd;"> {{moment.utc(i.time).format('jYYYY/jMM/jDD')}}</small>
+                    <a class="" ng-href="{{gApp.urlPrefix + '#/app/' + i.mainmenuId + '/dashboard/'+ i.id}}">{{i.name}}</a>&nbsp;<small style="        display: inline-block;
+        color: #bdbdbd;"> {{moment.utc(i.time).format('jYYYY/jMM/jDD')}}</small>
                 </div>
             </div>
 

@@ -86,8 +86,7 @@
 
         <!--Requests-->
         <div class="ui ui dimmable dimmed">
-
-            <sm-modal class="edit-form-modal" visible="showModal" settings="formInfo.modalSettings">
+            <div class="ui modal interval-fetch-modal"  >
                 <div class="header">اضافه کردن افزار به صورت دستی</div>
                 <div class="content ui form">
                     <p>
@@ -110,7 +109,7 @@
                     <div class="ui green button" ng-click="addNew()" ng-class="{loading: addNewProgress}">اضافه کردن</div>
                     <div class="ui black button deny">لغو</div>
                 </div>
-            </sm-modal>
+            </div>
 
 
             <div class="ui inverted dimmer" ng-class="{active : loadRequests}">

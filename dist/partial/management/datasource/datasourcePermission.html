@@ -22,20 +22,19 @@
                     <div class="ui form mini item" ng-style="{'visibility' : data.check ? 'visible':'hidden'}">
                         <div class="inline fields" style="margin:0;">
                             <div class="field" ng-if="type == 'chart'">
-                                <label>مجوزهای تکمیلی</label>
+                                <label style="color:#bdbdbd;">مجوزهای تکمیلی</label>
                                 <sm-dropdown class="multiple selection"
                                              ng-click="$event.stopPropagation()"
                                              items="[
-                                                                            {label:'کامنت', val:8}
-                                                                           ,{label:'خروجی اکسل', val:9}
-                                                                           ,{label:'فیلتر', val:10}
-                                                                           ,{label:'توضیحات', val:11}
-                                                                        ]" model="data.extra" label="item.label" value="item.val"></sm-dropdown>
+                                                        {label:'کامنت', val:8}
+                                                        ,{label:'خروجی اکسل', val:9}
+                                                        ,{label:'فیلتر', val:10}
+                                                        ,{label:'توضیحات', val:11}]" model="data.extra" label="item.label" value="item.val"></sm-dropdown>
 
                             </div>
 
                             <div class="field" ng-style="{'visibility' : data.check ? 'visible':'hidden'}" style="margin:5px;">
-                                <label>مجوزهای دسترسی</label>
+                                <label style="color:#bdbdbd;">مجوزهای دسترسی</label>
 
                                 <sm-dropdown class=""
                                              ng-click="$event.stopPropagation()"

@@ -134,6 +134,9 @@
         </div>
 
         <div ng-if="c.control.active.dropdown.useRemoteData">
+            <sadaf-checkbox ng-model="c.control.active.dropdown.preventRelation">عدم ایجاد ارتباط بین منبع داده و فرم</sadaf-checkbox>
+            <br />
+            <br />
             <select-datasource-columns ng-model="c.control.active.dropdown"></select-datasource-columns>
         </div>
 

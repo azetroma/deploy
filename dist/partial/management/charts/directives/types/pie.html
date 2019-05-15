@@ -44,14 +44,14 @@
                     </div>
                 </div>
                 <!--<div class="form-row" layout="row" layout-align="start center">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <div class="checkbox">
-                            <label class="">
-                                <text-editor type="checkbox" ng-model="ngModel.pie.info.labelFont" ng-change="refreshChart('refresh')" /> {{ 'نمایش مقدار کنار برچسب' | translate }}
-                            </label>
-                        </div>
-                    </div>
-                </div>-->
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label class="">
+                    <text-editor type="checkbox" ng-model="ngModel.pie.info.labelFont" ng-change="refreshChart('refresh')" /> {{ 'نمایش مقدار کنار برچسب' | translate }}
+                </label>
+            </div>
+        </div>
+    </div>-->
 
 
                 <div class="form-row" layout="row" layout-align="start center">
@@ -162,6 +162,9 @@
                         </code>
                     </p>
                 </div>
+
+
+                <dimention-color-selector ng-model="ngModel.pie.info.dimColor" dim-color="ngModel.dimColor"ng-change="refreshChart('refresh')"></dimention-color-selector>
 
             </div>
         </menu-body>
