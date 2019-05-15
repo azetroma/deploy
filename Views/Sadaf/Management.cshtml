@@ -18,6 +18,7 @@
         if (!rMode) {
             v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
         }
+        var useApp = BLL.Process.CommonUtils.useApp() ;
     }
 
     @*<link href="~/dist/lib/bootstrap-datepicker.min.css" rel="stylesheet" />
@@ -271,7 +272,7 @@
 
                         </div>
                         <span flex></span>
-                        <md-button href="@Href("~")">
+                        <md-button href="@Href(useApp? "~/sadaf/main": "~")">
                             {{'dashboard' | translate}}
                         </md-button>
                         <md-button href="@Url.Action("Help")/#/content/1">
