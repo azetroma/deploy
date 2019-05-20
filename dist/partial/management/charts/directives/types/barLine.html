@@ -154,11 +154,23 @@
                                     {name:'3', value:'پشته کردن درصدی تمام میله‌ها'},
                                     ]">
                             <!--<option value="1" selected="selected">{{ 'بدون پشته' | translate }}</option>
-                            <option value="2">{{ 'پشته کردن تمام میله‌ها' | translate }}</option>
-                            <option value="3">{{ 'پشته کردن درصدی تمام میله‌ها' | translate }}</option>-->
+                <option value="2">{{ 'پشته کردن تمام میله‌ها' | translate }}</option>
+                <option value="3">{{ 'پشته کردن درصدی تمام میله‌ها' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.bar.info.stackedBar === '2'">
+                    <label class="">
+                        <input type="checkbox" ng-model="ngModel.bar.info.satckSumShow" ng-change="refreshChart('refresh')" />
+                        نمایش مجموع کل روی میله
+                    </label>
+                    <span flex class="form-divider"></span>
+                    <text-editor prop="ngModel.bar.info.satckSumFont" on-change="refreshChart('refresh');" ng-show="ngModel.bar.info.satckSumShow"></text-editor>
+
+                </div>
+
+
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'پشته‌کردن خط‌ها' | translate }}</label>
@@ -170,8 +182,8 @@
                                     {name:'3', value:'پشته کردن درصدی تمام خط‌ها'},
                                     ]">
                             <!--<option value="1" selected="selected">{{ 'بدون پشته' | translate }}</option>
-                            <option value="2">{{ 'پشته کردن تمام خط‌ها' | translate }}</option>
-                            <option value="3">{{ 'پشته کردن درصدی تمام خط‌ها' | translate }}</option>-->
+                <option value="2">{{ 'پشته کردن تمام خط‌ها' | translate }}</option>
+                <option value="3">{{ 'پشته کردن درصدی تمام خط‌ها' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -187,11 +199,6 @@
                                     ]"></select>
                     </div>
                 </div>
-
-
-
-
-                n"
 
 
 
@@ -436,7 +443,7 @@
                         <div class="col-sm-offset-4 col-sm-8">
                             <div class="checkbox">
                                 <label class="">
-                                    <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('showValues')" ng-model="ngModel.bar.series[ngModel.selectedSeries].boxOption.dontShowMedian" />
+                                    <input type="checkbox" ng-change="refreshChart('refresh'); " ng-model="ngModel.bar.series[ngModel.selectedSeries].boxOption.dontShowMedian" />
                                     عدم نمایش خط میانه
                                 </label>
                             </div>
@@ -446,7 +453,7 @@
                         <div class="col-sm-offset-4 col-sm-8">
                             <div class="checkbox">
                                 <label class="">
-                                    <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('showValues')" ng-model="ngModel.bar.series[ngModel.selectedSeries].boxOption.dontShowAvg" /> 
+                                    <input type="checkbox" ng-change="refreshChart('refresh'); " ng-model="ngModel.bar.series[ngModel.selectedSeries].boxOption.dontShowAvg" /> 
                                     عدم نمایش میانگین
                                 </label>
                             </div>
@@ -456,11 +463,11 @@
                     <div class="form-row" layout="row" layout-align="start center">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('showValues')" ng-model="ngModel.bar.series[ngModel.selectedSeries].boxOption.showMinMaxValue" /> نمایش اعداد کمترین بیشترین
+                                <input type="checkbox" ng-change="refreshChart('refresh'); " ng-model="ngModel.bar.series[ngModel.selectedSeries].boxOption.showMinMaxValue" /> نمایش اعداد کمترین بیشترین
                             </label>
                         </div>
                         <span class="form-divider" flex ng-show="ngModel.bar.series[ngModel.selectedSeries].boxOption.showMinMaxValue"></span>
-                        <text-editor prop="ngModel.bar.series[ngModel.selectedSeries].boxOption.minMaxValueFont" ng-if="ngModel.bar.series[ngModel.selectedSeries].boxOption.showMinMaxValue" on-change="refreshChart('refresh'); changeAllSeries('font')"></text-editor>
+                        <text-editor prop="ngModel.bar.series[ngModel.selectedSeries].boxOption.minMaxValueFont" ng-if="ngModel.bar.series[ngModel.selectedSeries].boxOption.showMinMaxValue" on-change="refreshChart('refresh'); "></text-editor>
                     </div>
                     
                     <div class="form-row" layout="row" layout-align="start center">
@@ -470,7 +477,7 @@
                             </label>
                         </div>
                         <span class="form-divider" flex ng-show="ngModel.bar.series[ngModel.selectedSeries].boxOption.showq1q3Value"></span>
-                        <text-editor prop="ngModel.bar.series[ngModel.selectedSeries].boxOption.q1q3ValueFont" ng-if="ngModel.bar.series[ngModel.selectedSeries].boxOption.showq1q3Value" on-change="refreshChart('refresh'); changeAllSeries('font')"></text-editor>
+                        <text-editor prop="ngModel.bar.series[ngModel.selectedSeries].boxOption.q1q3ValueFont" ng-if="ngModel.bar.series[ngModel.selectedSeries].boxOption.showq1q3Value" on-change="refreshChart('refresh'); "></text-editor>
                     </div>
                     
                     <div class="form-row" layout="row" layout-align="start center">
@@ -480,7 +487,7 @@
                             </label>
                         </div>
                         <span class="form-divider" flex ng-show="ngModel.bar.series[ngModel.selectedSeries].boxOption.showMidValue"></span>
-                        <text-editor prop="ngModel.bar.series[ngModel.selectedSeries].boxOption.midValueFont" ng-if="ngModel.bar.series[ngModel.selectedSeries].boxOption.showMidValue" on-change="refreshChart('refresh'); changeAllSeries('font')"></text-editor>
+                        <text-editor prop="ngModel.bar.series[ngModel.selectedSeries].boxOption.midValueFont" ng-if="ngModel.bar.series[ngModel.selectedSeries].boxOption.showMidValue" on-change="refreshChart('refresh'); "></text-editor>
                     </div>
                     
                     <!--<div class="form-row" layout="row" layout-align="start center">

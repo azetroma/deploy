@@ -153,7 +153,7 @@
                 <div class="ui card app-{{app.id}}" ng-repeat="app in apps">
 
                     <a ng-href="{{!app.hasChild ? '/#/app/'+app.id+'/dashboard/'+ +app.first : gApp.hashUrlPrefix + '#/'+app.id}}" style="" class="card-item" ng-style="{'background-image': 'radial-gradient(circle, '+app.detail.startColor+', '+app.detail.endColor+')'}">
-                        <img style="max-width: 90%;max-height: 90%;" class="ui image" ng-src="{{app.detail.pic}}" />
+                        <img style="max-width: 90%;max-height: 90%;" class="ui image" ng-src="{{gApp.urlPrefix+'api/upload/getPic/'+ app.detail.picId}}" />
                     </a>
                     <div class="content">
                         <a class="header" ng-hide="app.edit" ng-href="{{!app.hasChild ? '/#/app/'+app.id+'/dashboard/'+ +app.first : gApp.hashUrlPrefix + '#/'+app.id}}">{{app.name}}</a>
@@ -218,7 +218,7 @@
                 <h5 class="ui top attached header">
                     آخرین داشبوردهای مشاهده‌ شده
                 </h5>
-                <div class="ui compact segment  attached" ng-repeat="i in mostRecentMenus">
+                <div class="ui small compact segment  attached" style="padding:5px 15px" ng-repeat="i in mostRecentMenus">
                     <a class="" ng-href="{{gApp.urlPrefix + '#/app/' + i.mainmenuId + '/dashboard/'+ i.id}}">{{i.name}}</a>
                     &nbsp;<small style="display: inline-block;        color: #bdbdbd;">{{moment.utc(i.time).format('jYYYY/jMM/jDD')}}</small>
                 </div>
@@ -228,12 +228,12 @@
                 <h5 class="ui top attached header">
                     داشبوردهای محبوب
                 </h5>
-                <div class="ui compact segment  attached" ng-repeat="i in favoriteMenus">
+                <div class="ui small compact segment  attached" style="padding:5px 15px" ng-repeat="i in favoriteMenus">
                     <a class="" ng-href="{{gApp.urlPrefix + '#/app/' + i.mainmenuId + '/dashboard/'+ i.id}}">{{i.name}}</a>
                     &nbsp;<small style="display: inline-block;color: #bdbdbd;"> {{moment.utc(i.time).format('jYYYY/jMM/jDD')}}</small>
                 </div>
             </div>
-
+            <r-comp model="cModel"></r-comp>
         </div>
     </div>
 
@@ -256,7 +256,6 @@
 
 
     </div>
-
     <div class="actions">
         <div class="ui button green" ng-class="{loading: savePerProgress}" ng-click="savePermissions()" ng-disabled="savePerProgress">
             {{ !savePerProgress ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}

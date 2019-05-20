@@ -2,18 +2,26 @@
 <form class="ui form" ng-show="user">
     <div class="field">
         <label class="control-label ">{{'profile_language' | translate}}</label>
-        <select ng-model="user.language" class="form-control">
+        <!--<select ng-model="user.language" class="form-control" ng-change="langChange()">
             <option value="0">فارسی</option>
             <option value="1">English</option>
-        </select>
+        </select>-->
+
+        <select ng-model="user.language" class="form-control" ng-change="langChange()"
+                ng-options="item.id as item.name for item in [{name:'فارسی', id:'0'}, {name:'English', id:'1'}]"></select>
+
     </div>
     <div class="field">
         <label class="control-label">{{'profile_slide_timeout' | translate}}</label>
         <input class="form-control" type="text" ng-model="user.slideTimeout" placeholder="{{'profile_slide_timeout' | translate}}" />
     </div>
 
-    <div class="ui message" ng-class="{'red': error, 'green': success}" ng-show="result">
-        <span ng-click="result = null" class="close">&times;</span>
+    <div class="field" ng-show="user.themeModule">
+        <label class="control-label">پوسته</label>
+        <sm-dropdown class="selection" items="themes" model="user.theme" label="item.name" value="item.id"></sm-dropdown>
+    </div>
+
+    <div class="ui secondary inverted segment" ng-class="{'red': error, 'green': success}" ng-show="result">
         <p ng-bind-html="message"></p>
     </div>
 

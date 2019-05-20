@@ -22,15 +22,15 @@
                             <label>{{'name' | translate}}</label>
                             <input required ng-model="model.name">
                         </div>
-                        <div class="field">
+                        <div class="field" ng-show="metadataModule">
                             <label>هدف</label>
                             <input required ng-model="model.purpose">
                         </div>
-                        <div class="field">
+                        <div class="field" ng-show="metadataModule">
                             <label>شاخه کسب و کار</label>
                             <input required ng-model="model.businessBranch">
                         </div>
-                        <div class="field">
+                        <div class="field" ng-show="metadataModule">
                             <label>زیر شاخه کسب و کار</label>
                             <input required ng-model="model.businessSubBranch">
                         </div>
@@ -40,7 +40,7 @@
                         <div class="field">
                             <sadaf-checkbox ng-model="model.showWhenInactive">نمایش منو زمان غیرفعال بودن</sadaf-checkbox>
                         </div>
-                        <div class="field">
+                        <div class="field" ng-show="metadataModule">
                             <label>تحلیلگر</label>
                             <sm-dropdown class="search selection fluid" model="model.analyst" label="item.name" value="item.id" items="users"></sm-dropdown>
                         </div>

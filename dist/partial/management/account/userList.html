@@ -41,6 +41,7 @@
                     <th>#</th>
                     <th>{{'username' | translate}}</th>
                     <th><span>{{'name' | translate}}</span></th>
+                    <th><span>{{'type' | translate}}</span></th>
                     <th>{{'roles' | translate}}</th>
                     <th ng-show="securityCertPatch">{{'integrity check' | translate}}</th>
                 </tr>
@@ -53,6 +54,7 @@
 
                     <td><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.username}}</span></td>
                     <td><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></td>
+                    <td><small class="gray">{{row.type == 0 ? 'عادی' : 'اکتیودایرکتوری'}}</small></td>
                     <td class="md-caption">
                         <div layout-margin>
                             <span> </span>

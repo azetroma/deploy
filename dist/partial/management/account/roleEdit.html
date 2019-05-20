@@ -83,10 +83,10 @@
                                                                 <md-checkbox ng-model="r.check" ng-change="setViewPermission(k, v)">{{r.name}}</md-checkbox>
                                                                 <span flex></span>
                                                                 <!--<md-select style="margin:0" class="" ng-model="r.action" ng-show="r.check" aria-label="{{'permission' | translate}}">
-                                                                    <md-option value="1">{{'permission_view' | translate}}</md-option>
-                                                                    <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
-                                                                    <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
-                                                                </md-select>-->
+                                    <md-option value="1">{{'permission_view' | translate}}</md-option>
+                                    <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
+                                    <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
+                                </md-select>-->
                                                                 <select ng-show="r.check" ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                             (item.v == 2 && !r.permissions.EditPermission)||
                                                             (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
@@ -113,9 +113,9 @@
                                                     </div>
                                                 </md-virtual-repeat-container>
                                                 <!--<div ng-repeat="r in users" layout="row" layout-align="start center">
-                                                    <label><input type="checkbox" ng-model="r.check" /> {{r.username}} - {{r.name}}</label>
-                                                    <a href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
-                                                </div>-->
+                    <label><input type="checkbox" ng-model="r.check" /> {{r.username}} - {{r.name}}</label>
+                    <a href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
+                </div>-->
                                             </div>
                                         </menu-body>
                                     </menu-item>
@@ -167,10 +167,10 @@
                                                     <span>{{r.name}}</span>
                                                     <span flex></span>
                                                     <!--<md-select style="margin:0" class="" ng-model="r.action" aria-label="{{'permission' | translate}}">
-                                                        <md-option value="1">{{'permission_view' | translate}}</md-option>
-                                                        <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
-                                                        <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
-                                                    </md-select>-->
+                        <md-option value="1">{{'permission_view' | translate}}</md-option>
+                        <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
+                        <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
+                    </md-select>-->
 
                                                     <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                             (item.v == 2 && !r.permissions.EditPermission)||
@@ -222,7 +222,7 @@
                                                 </style>
 
                                                 <div layout="row" flex layout-align="start center">
-                                                        مجوزهای اضافه کلی
+                                                    مجوزهای اضافه کلی
                                                     <div class="ui mini input">
                                                         <sm-dropdown class="multiple selection"
                                                                      items="[
@@ -234,25 +234,25 @@
                                                     </div>
                                                     <div flex></div>
                                                     مجوزهای دسترسی کلی
-                                                <div>
-                                                    <select style="margin:0" class="" ng-model="chartActionAll" ng-change="actionAll('chart', chartActionAll)" aria-label="{{'permission' | translate}}">
-                                                        <option value="1">{{'permission_view' | translate}}</option>
-                                                        <option value="2">{{'permission_view_edit' | translate}}</option>
-                                                        <option value="4">{{'permission_view_edit_delete' | translate}}</option>
-                                                    </select>
-                                                </div>
+                                                    <div>
+                                                        <select style="margin:0" class="" ng-model="chartActionAll" ng-change="actionAll('chart', chartActionAll)" aria-label="{{'permission' | translate}}">
+                                                            <option value="1">{{'permission_view' | translate}}</option>
+                                                            <option value="2">{{'permission_view_edit' | translate}}</option>
+                                                            <option value="4">{{'permission_view_edit_delete' | translate}}</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
 
                                                 <br />
                                                 <br />
-                                         
+
                                                 <md-virtual-repeat-container style="height:400px;">
                                                     <div style="height:60px;" md-virtual-repeat="r in charts" layout="row" flex layout-align="start center">
                                                         <div style="width:20px">
                                                             <!--<md-button class="md-icon-button" ng-click="charts.splice($index, 1)" layout="row" layout-align="start center">
-                    <span class="material-icons">clear</span>
-                    <md-tooltip>{{'remove' | translate}}</md-tooltip>
-                </md-button>-->
+                                <span class="material-icons">clear</span>
+                                <md-tooltip>{{'remove' | translate}}</md-tooltip>
+                            </md-button>-->
 
                                                             <i class="icon close pointer gray" ng-click="charts.splice($index, 1)"></i>
                                                         </div>
@@ -318,6 +318,51 @@
                                         </menu-body>
                                     </menu-item>
 
+
+
+                                    <menu-item>
+                                        <menu-header ng-click="renderThemes = true">پوسته‌ها</menu-header>
+                                        <menu-body>
+                                            <div  ng-if="renderThemes">
+                                                <!--<md-virtual-repeat-container style="height:400px;">-->
+                                                    <div style="height:40px;" ng-repeat="r in themes" layout="row" layout-align="start center">
+                                                        <label><input type="checkbox" ng-model="r.check" /> {{r.name}}</label>
+                                                        <span flex></span>
+                                                        <div style="width:180px" ng-show="r.check">
+                                                            <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
+                                                            (item.v == 2 && !r.permissions.EditPermission)||
+                                                            (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
+                                                        </div>
+
+                                                    </div>
+                                                <!--</md-virtual-repeat-container>-->
+                                            </div>
+                                        </menu-body>
+                                    </menu-item>
+                                    <menu-item>
+                                        <menu-header ng-click="renderThemes = true">پروژه‌ها</menu-header>
+                                        <menu-body>
+                                            <div  ng-if="renderThemes">
+                                                <!--<md-virtual-repeat-container style="height:400px;">-->
+                                                    <div style="height:40px;" ng-repeat="r in mainmenus" layout="row" layout-align="start center">
+                                                        <label><input type="checkbox" ng-model="r.check" /> {{r.name}}</label>
+                                                        <span flex></span>
+                                                        <div style="width:180px" ng-show="r.check">
+                                                            <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
+                                                            (item.v == 2 && !r.permissions.EditPermission)||
+                                                            (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
+                                                        </div>
+
+                                                    </div>
+                                                <!--</md-virtual-repeat-container>-->
+                                            </div>
+                                        </menu-body>
+                                    </menu-item>
+
+
+
+
+
                                     <menu-item>
                                         <menu-header>
                                             {{'انتخاب مجوزهای عملیاتی' | translate}}
@@ -337,6 +382,8 @@
                                         </menu-body>
                                     </menu-item>
 
+
+
                                 </menu-container>
                             </div>
 
@@ -352,6 +399,10 @@
                             <sm-dropdown class="selection fluid" items="[{label:'ساده', val:0}
                                              ,{label:'دو عاملی - پست الکترونیک', val:1}
                                              ]" model="model.multiFactorAuthenticationType" label="item.label" value="item.val"></sm-dropdown>
+                        </div>
+                        <div class="field" ng-show="licenseThemes">
+                            <label>پوسته فعال</label>
+                            <sm-dropdown class="selection fluid" items="selectThemes" model="model.activeTheme" label="item.name" value="item.id"></sm-dropdown>
                         </div>
 
                         <div class="field">
