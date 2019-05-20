@@ -18,7 +18,7 @@
         if (!isRelease) {
             v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
         }
-        var useApp = BLL.Process.CommonUtils.useApp() ;
+        var useApp = BLL.Process.CommonUtils.useApp();
 
     }
     @*<script src="~/dist/lib/jquery-3.3.1.min.js"></script>*@
@@ -114,6 +114,66 @@
             /*background-color: #EFEBE9!important;*/
         }
     </style>
+
+    @if (ViewBag.theme != null ) {
+        var theme = (BLL.Process.ThemeModel)ViewBag.theme;
+        <style>
+            @theme.extraCss
+
+            .my-fix::-webkit-scrollbar {
+                background-color: darkgrey;
+            }
+            /*
+            .my-fix {
+                box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12) !important;
+            }
+
+            .side-menu-item-parent {
+                font-weight: bold;
+            }
+            */
+
+            .side-menu-item-container.active {
+                /*رنگ گروه منوی فعال*/
+                background-color: @theme.menuActiveGroupBackColor;
+            }
+
+            
+            .ui.inverted.segment, .ui.primary.inverted.segment {
+                /*رنگ پشت منوی سمت راست*/
+                background-color: @theme.menuBackColor;
+                /*رنگ متن منوی سمت راست
+                color: @theme.menuColor;
+            */
+            }
+
+            .side-menu-item.active {
+                /*رنگ خط سمت راست منوی فعال*/
+                border-right: 5px solid @theme.menuActiveBorderColor;
+                /*color: #ff5722;
+                font-weight: bold;
+            */
+            }
+
+            .side-menu-item {
+                color: @theme.menuColor;
+            }
+
+                .side-menu-item:hover {
+                    /*رنگ منو در حالتی موس روی آن است*/
+                    background-color: @theme.menuHoverColor;
+                }
+
+            .sadaf-footer a {
+                /*رنگ لینک پایین */
+                color: @theme.menuColor;
+            }
+
+            body.theme2 {
+    background-color: @theme.dashboardBackColor !important;
+}
+        </style>
+    }
     @*<style>
             .my-fix::-webkit-scrollbar {
                 background-color: darkgrey;
@@ -164,76 +224,81 @@
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" id="isFullscreen" value="@ViewBag.UserProfile.IsFullScreen" />
     @if (!(ViewBag.noframe ?? false)) {
-        <div class="side-menu ui segment my-fix inverted no-padd no-margin">
+        <div class="side-menu ui segment my-fix inverted no-padd no-margin ">
 
-            <div class="" style="text-align:center; padding:16px 16px;">
-                @*<img src="~/Images/icon-inverse.png" class="" style="max-width:100%; max-height:128px;" alt="Alternate Text" />*@
-                <img src="~/api/settings/getLogo/1" class="" style="max-width:100%; max-height:128px;" alt="Alternate Text" />
-            </div>
+                <div class="" style="text-align:center; padding:16px 16px;">
+                    @*<img src="~/Images/icon-inverse.png" class="" style="max-width:100%; max-height:128px;" alt="Alternate Text" />*@
 
-            <div class="my-fix-flex-container" ui-sortable="sortableCatOptions" xng-model="menuCategories.data">
-                <div class="side-menu-item-container menu-category" ng-repeat="mc in menuCategories.data" ng-class="{active: mc.active}" on-finish-render="ngRepeatFinished" data-id="{{mc.category.Id}}">
+                    @if (ViewBag.theme != null && ViewBag.theme.logoId > 0) {
+                        <img src="~/api/upload/getPic/@ViewBag.theme.logoId " class="" style="max-width:100%; max-height:128px;" alt="Alternate Text" />
+                    } else {
+                        <img src="~/api/settings/getLogo/1" class="" style="max-width:100%; max-height:128px;" alt="Alternate Text" />
+                    }
+                </div>
 
-                    <div class="side-menu-item side-menu-item-parent" ng-click="closeAll(mc, true);">
-                        <i class="icon angle down icon-animate large float-left" ng-class="{rotate: mc.open}"></i>  {{mc.category.Name}}
-                        <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="mc.hasAddPer || mc.hasEditPer || mc.hasDeletePer" style="line-height:1.5em">
-                            <i class="setting icon"></i>
-                            <div class="menu transition hidden" tabindex="-1">
-                                <div class="item" ng-show="mc.hasAddPer" ng-click="addMenuToCategory(mc);$event.stopPropagation();"><i class="add circle icon"></i>{{'اضافه کردن صفحه جدید' | translate}}</div>
-                                <div class="item" ng-show="mc.hasEditPer" ng-click="editCategory(mc);$event.stopPropagation();"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
-                                <div class="item" ng-show="mc.hasDeletePer" ng-click="deleteCategory(mc, $index);$event.stopPropagation();"><i class="trash alternate outline icon"></i>{{'حذف' | translate}}</div>
+                <div class="my-fix-flex-container" ui-sortable="sortableCatOptions" xng-model="menuCategories.data">
+                    <div class="side-menu-item-container menu-category" ng-repeat="mc in menuCategories.data" ng-class="{active: mc.active}" on-finish-render="ngRepeatFinished" data-id="{{mc.category.Id}}">
+
+                        <div class="side-menu-item side-menu-item-parent" ng-click="closeAll(mc, true);">
+                            <i class="icon angle down icon-animate large float-left" ng-class="{rotate: mc.open}"></i>  {{mc.category.Name}}
+                            <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="mc.hasAddPer || mc.hasEditPer || mc.hasDeletePer" style="line-height:1.5em">
+                                <i class="setting icon"></i>
+                                <div class="menu transition hidden" tabindex="-1">
+                                    <div class="item" ng-show="mc.hasAddPer" ng-click="addMenuToCategory(mc);$event.stopPropagation();"><i class="add circle icon"></i>{{'اضافه کردن صفحه جدید' | translate}}</div>
+                                    <div class="item" ng-show="mc.hasEditPer" ng-click="editCategory(mc);$event.stopPropagation();"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
+                                    <div class="item" ng-show="mc.hasDeletePer" ng-click="deleteCategory(mc, $index);$event.stopPropagation();"><i class="trash alternate outline icon"></i>{{'حذف' | translate}}</div>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="connected-sortable" uib-collapse="!mc.open" xng-model="mc.menus" ui-sortable="sortableOptions" ng-style="{ 'min-height': !mc.menus.length ? '10px' : 'auto' }">
+                            <div class="side-menu-item side-menu-item-child dashboard-menu" ng-repeat="m in mc.menus" href="#dashboard/{{m.menu.Id}}" data-id="{{m.menu.Id}}" on-finish-render="ngRepeatFinished" ng-class="{active: m.active}" ng-click="$event.stopPropagation();">
+
+                                <a href="#/app/{{mc.category.MainMenuId}}/dashboard/{{m.menu.Id}}" ng-click="closeSidebar(); cancelRequests();">
+                                    <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="m.hasEditPer || m.hasDeletePer" style="line-height: 1.5em;">
+                                        <i class="setting icon"></i>
+                                        <div class="menu transition hidden" tabindex="-1">
+                                            <div class="item" ng-show="m.hasEditPer" ng-click="editMenu(m)"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
+                                            <div class="item" ng-show="m.hasDeletePer" ng-click="deleteMenu(m, mc, $index)"><i class="trash alternate outline icon"></i>{{'حذف' | translate}}</div>
+                                            <div class="item" ng-show="m.hasEditPer" ng-click="duplicateMenu(m, mc);"><i class="copy icon"></i>{{'تکرار' | translate}}</div>
+                                        </div>
+                                    </div>
+                                    {{m.menu.Name}}
+                                </a>
+                            </div>
+
+                            <div ng-hide="mc.menus.length"> <div style="padding:10px 30px; color:gray; font-size:8px;">{{'no dashboard' | translate}}</div></div>
+                        </div>
                     </div>
 
-                    <div class="connected-sortable" uib-collapse="!mc.open" xng-model="mc.menus" ui-sortable="sortableOptions" ng-style="{ 'min-height': !mc.menus.length ? '10px' : 'auto' }">
-                        <div class="side-menu-item side-menu-item-child dashboard-menu" ng-repeat="m in mc.menus" href="#dashboard/{{m.menu.Id}}" data-id="{{m.menu.Id}}" on-finish-render="ngRepeatFinished" ng-class="{active: m.active}" ng-click="$event.stopPropagation();">
 
-                            <a href="#/app/{{mc.category.MainMenuId}}/dashboard/{{m.menu.Id}}" ng-click="closeSidebar(); cancelRequests();">
-                                <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="m.hasEditPer || m.hasDeletePer" style="line-height: 1.5em;">
-                                    <i class="setting icon"></i>
-                                    <div class="menu transition hidden" tabindex="-1">
-                                        <div class="item" ng-show="m.hasEditPer" ng-click="editMenu(m)"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
-                                        <div class="item" ng-show="m.hasDeletePer" ng-click="deleteMenu(m, mc, $index)"><i class="trash alternate outline icon"></i>{{'حذف' | translate}}</div>
-                                        <div class="item" ng-show="m.hasEditPer" ng-click="duplicateMenu(m, mc);"><i class="copy icon"></i>{{'تکرار' | translate}}</div>
-                                    </div>
-                                </div>
-                                {{m.menu.Name}}
-                            </a>
+                    <div class="reorder-menus-container" style="padding:20px 7px; font-size:11px; cursor:pointer" ng-show="menuCategories.hasAddPer">
+                        <i class="icon sort icon-animate reorder-menus"
+                           ng-click="toggleEdit()"
+                           ng-show="reorderPermission"
+                           style=""></i>
+                        <div class="btn btn-link" ng-click="addCat()">
+                            <i class="icon add circle"></i>
+                            {{'add new group' | translate}}
+
                         </div>
 
-                        <div ng-hide="mc.menus.length"> <div style="padding:10px 30px; color:gray; font-size:8px;">{{'no dashboard' | translate}}</div></div>
-                    </div>
-                </div>
-
-
-                <div class="reorder-menus-container" style="padding:20px 7px; font-size:11px; cursor:pointer" ng-show="menuCategories.hasAddPer">
-                    <i class="icon sort icon-animate reorder-menus"
-                       ng-click="toggleEdit()"
-                       ng-show="reorderPermission"
-                       style=""></i>
-                    <div class="btn btn-link" ng-click="addCat()">
-                        <i class="icon add circle"></i>
-                        {{'add new group' | translate}}
-
                     </div>
 
                 </div>
 
-            </div>
+                <div class="sadaf-footer">
+                    @{
+                        try {
+                            <text>
+                                <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
+                                - {{'version' | translate}} @(version.Major + "." + version.Minor + "." + version.Build)
+                            </text>
+                        } catch (Exception) {
 
-            <div class="sadaf-footer">
-                @{
-                    try {
-                        <text>
-                            <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
-                            - {{'version' | translate}} @(version.Major + "." + version.Minor + "." + version.Build)
-                        </text>
-                    } catch (Exception) {
-
+                        }
                     }
-                }
-            </div>
+                </div>
         </div>
     }
 
@@ -245,8 +310,7 @@
 
             <div class="dashboard-page-top-side" style="">
 
-                <div ng-show="isFullscreen" style="text-align: right;font-size: 25px;font-family: iransans;font-weight: 900;background-color: #424242;
-    color: white;padding: 3px 35px;margin: 0 0 0 10px;border-radius: 4px;">
+                <div ng-show="isFullscreen" class="page-title" style="">
                     {{name}}
                 </div>
 
@@ -392,7 +456,7 @@
                         </div>
                         <div class="menu transition hidden" tabindex="-1">
                             <a ng-if="menuCategories.hasAminPermission" class="item user-account-hide-segment" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
-                            <a class="item user-account-hide-segment" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
+                            <a class="item user-account-hide-segment" href="~/profile/"><i class="icon user"></i> {{'profile' | translate}} </a>
                             <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
                         </div>
                     </div>
