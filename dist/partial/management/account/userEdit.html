@@ -23,7 +23,7 @@
 
                                 <md-input-container flex>
                                     <label>{{'username' | translate}}</label>
-                                    <input required name="name" ng-model="model.Username" xng-disabled="isEdit">
+                                    <input required name="name" ng-model="model.Username" ng-disabled="isEdit">
                                     <div ng-messages="userForm.name.$error">
                                         <div ng-message="required">{{'form_username_required' | translate}}</div>
                                     </div>
