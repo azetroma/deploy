@@ -320,7 +320,7 @@
 
 
 
-                                    <menu-item>
+                                    <menu-item ng-if="licenseThemes">
                                         <menu-header ng-click="renderThemes = true">پوسته‌ها</menu-header>
                                         <menu-body>
                                             <div  ng-if="renderThemes">
@@ -339,7 +339,8 @@
                                             </div>
                                         </menu-body>
                                     </menu-item>
-                                    <menu-item>
+                                    
+                                    <menu-item ng-if="useApp">
                                         <menu-header ng-click="renderThemes = true">پروژه‌ها</menu-header>
                                         <menu-body>
                                             <div  ng-if="renderThemes">
