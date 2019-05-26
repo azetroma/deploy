@@ -61,7 +61,8 @@
         <script src="~/dist/lib/moment-duration-format.min.js"></script>*@
     <link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
 
-
+    <script src="~/dist/lib/leaflet.js"></script>
+    <link rel="stylesheet" href="~/dist/lib/leaflet.css" />
 
     <style>
         [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
@@ -115,7 +116,7 @@
         }
     </style>
 
-    @if (ViewBag.theme != null ) {
+    @if (ViewBag.theme != null) {
         var theme = (BLL.Process.ThemeModel)ViewBag.theme;
         <style>
             @theme.extraCss
@@ -138,7 +139,7 @@
                 background-color: @theme.menuActiveGroupBackColor;
             }
 
-            
+
             .ui.inverted.segment, .ui.primary.inverted.segment {
                 /*رنگ پشت منوی سمت راست*/
                 background-color: @theme.menuBackColor;
@@ -223,6 +224,9 @@
     @Html.AntiForgeryToken()
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" id="isFullscreen" value="@ViewBag.UserProfile.IsFullScreen" />
+
+
+
     @if (!(ViewBag.noframe ?? false)) {
         <div class="side-menu ui segment my-fix inverted no-padd no-margin ">
 
