@@ -10,7 +10,7 @@
                 <map-selector prop="ngModel.map.info.map"></map-selector>
 
                 <div class="form-row" layout="row" layout-align="start center" ng-show="license.realMap">
-                    <label >{{ 'نوع نقشه' | translate }}</label>
+                    <label>{{ 'نوع نقشه' | translate }}</label>
                     <span class="form-divider" flex></span>
                     <select ng-model="ngModel.map.info.mapType" ng-change="refreshChart('refresh')"
                             ng-options="i.value as  i.name for i in [
@@ -46,9 +46,9 @@
                                 {name:'نقشه آنلاین openStreet', value: 'open-street-online'  },
                                 {name:'نقشه آفلاین google', value: 'google-offline'  },
                                 ]"></select>
-                                <!--
-                                {name:'نقشه آفلاین openStreet', value: 'open-street-offline'  },
-                                    {name:'نقشه آنلاین google', value: 'google-online'  },-->
+                        <!--
+            {name:'نقشه آفلاین openStreet', value: 'open-street-offline'  },
+                {name:'نقشه آنلاین google', value: 'google-online'  },-->
                     </div>
                 </div>
 
@@ -109,6 +109,16 @@
                     </div>
                 </div>
 
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.map.info.selectableArea" ng-change="refreshChart('refresh')" /> 
+                                {{ 'امکان انتخاب مناطق' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
