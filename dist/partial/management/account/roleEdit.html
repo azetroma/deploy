@@ -341,9 +341,9 @@
                                     </menu-item>
                                     
                                     <menu-item ng-if="useApp">
-                                        <menu-header ng-click="renderThemes = true">پروژه‌ها</menu-header>
+                                        <menu-header ng-click="rendermainmenu = true">پروژه‌ها</menu-header>
                                         <menu-body>
-                                            <div  ng-if="renderThemes">
+                                            <div  ng-if="rendermainmenu">
                                                 <!--<md-virtual-repeat-container style="height:400px;">-->
                                                     <div style="height:40px;" ng-repeat="r in mainmenus" layout="row" layout-align="start center">
                                                         <label><input type="checkbox" ng-model="r.check" /> {{r.name}}</label>

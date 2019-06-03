@@ -95,7 +95,7 @@
                     if (!x.responseText) return;
 
                     var txt = x.responseText.replace(/<style[^>]*>[\s\S]*<\/style>/im, "");
-                    $("#divAjaxErr  #error-detail").html(txt);
+                    $("#divAjaxErr  #error-detail").html(filterXSS(txt));
                     $("#divAjaxErrModal").modal("show");
                 }
             });

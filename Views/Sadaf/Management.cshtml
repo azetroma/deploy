@@ -18,7 +18,7 @@
         if (!rMode) {
             v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
         }
-        var useApp = BLL.Process.CommonUtils.useApp();
+        var useApp = BLL.Process.CommonUtils.AppSettings.useApp();
     }
 
     @*<link href="~/dist/lib/bootstrap-datepicker.min.css" rel="stylesheet" />
@@ -77,8 +77,8 @@
     <script src="~/dist/js/lib-admin-extra.js?v=@v"></script>
 
 
-    <script src="~/dist/lib/leaflet.js"></script>
-    <link rel="stylesheet" href="~/dist/lib/leaflet.css" />
+    @*<script src="~/dist/lib/leaflet.js"></script>
+    <link rel="stylesheet" href="~/dist/lib/leaflet.css" />*@
 
 
     @*<script src="~/dist/lib/sortable-n.js"></script>

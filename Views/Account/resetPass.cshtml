@@ -98,7 +98,7 @@
 
                     <img class="logo" src="~/Images/logo_half.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
                     <p>
-                        @Html.Raw(ViewBag.msg["info"])
+                        @(ViewBag.msg["info"])
                     </p>
                     <div class="text-left">
                         <a href="http://www.sadafdashboard.ir/files/sadaf.apk" class="ui xblack label">@ViewBag.msg["download android"]</a>
@@ -179,7 +179,10 @@
                             <button class="ui blue fluid button big submit" ng-class="{loading: loading, disabled: loading }" ng-click="submit()" type="submit" style="margin-top:35px;">
                                 درخواست کلمه عبور جدید
                             </button>
-
+                           <br />
+                            <small>
+                            <a href="@Href("~")">صفحه اصلی</a>
+                               </small> 
                         </div>
                     </div>
                     <div class="ui modal info-modal">
@@ -309,10 +312,12 @@
                             $scope.reCaptcha();
 
                         } else {
+                            $scope.reCaptcha();
                             $scope.error.general = res.data.error;
                         }
                     })
                     .catch(function () {
+                            $scope.reCaptcha();
                         $scope.loading = false;
                     });
                 }
