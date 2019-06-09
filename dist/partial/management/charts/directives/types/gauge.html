@@ -106,11 +106,11 @@
                         <div class="ui button mini compact icon" ng-click="ngModel.gauge.info.icons.push({name: 'icon warning'});refreshChart('refresh')" ng-init="ngModel.gauge.info.icons = ngModel.gauge.info.icons || [{name:'icon warning'}]"><i class="icon add"></i></div>
                     </div>
                     <!--<style>
-                        .icons-menu i {
-                            padding: 14px;
-                            font-size: 16px;
-                        }
-                    </style>-->
+        .icons-menu i {
+            padding: 14px;
+            font-size: 16px;
+        }
+    </style>-->
                     <!--<md-menu ng-repeat="icon in ngModel.gauge.info.icons track by $index">
         <div>
             <span class="ui mini compact  icon button" ng-click="$mdMenu.open($event)"><i class="{{icon.name}}"></i></span>
@@ -134,8 +134,9 @@
     </md-menu>-->
                     <div ng-repeat="icon in ngModel.gauge.info.icons track by $index">
                         <sadaf-icons style="display:inline-block" ng-model="icon" ng-change="refreshChart('refresh')"></sadaf-icons>
-                        <i class="icon remove gray" ng-click="ngModel.gauge.info.icons.splice($index, 1);refreshChart('refresh')"></i>
+                        <i class="icon remove gray pointer" ng-click="ngModel.gauge.info.icons.splice($index, 1);refreshChart('refresh')"></i>
                     </div>
+
                 </div>
                 <!--formatString-->
 

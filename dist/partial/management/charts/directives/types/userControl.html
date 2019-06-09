@@ -36,19 +36,19 @@
                 <input type="hidden" data-prop="aggregation" value="1" />
                 <input type="hidden" data-prop="showFilterIcon" value="0" />
 
-                <div ng-show="ngModel.userControl.info.type=='combo' || ngModel.userControl.info.type=='multi'">
-                    <div class="form-row" layout="row" layout-align="start center">
-                        <label class="col-sm-4">{{ 'حالت نمایش' | translate }}</label>
-                        <span class="form-divider" flex></span><div class="col-sm-8">
-                            <select ng-change="refreshChart('refresh')" ng-model="ngModel.userControl.info.comboStyle"
-                                    ng-options="color.name as  color.value for color in [
-                                    {name:'bootstrap', value: 'حالت 1'  },
-                                    {name:'default', value: 'پیش فرض مرورگر'  },
-                                    ]"></select>
-                        </div>
-                    </div>
+                <!--<div ng-show="ngModel.userControl.info.type=='combo' || ngModel.userControl.info.type=='multi'">
+        <div class="form-row" layout="row" layout-align="start center">
+            <label class="col-sm-4">{{ 'حالت نمایش' | translate }}</label>
+            <span class="form-divider" flex></span><div class="col-sm-8">
+                <select ng-change="refreshChart('refresh')" ng-model="ngModel.userControl.info.comboStyle"
+                        ng-options="color.name as  color.value for color in [
+                        {name:'bootstrap', value: 'حالت 1'  },
+                        {name:'default', value: 'پیش فرض مرورگر'  },
+                        ]"></select>
+            </div>
+        </div>
 
-                </div>
+    </div>-->
 
                 <div class="" ng-show="ngModel.userControl.info.type=='datepicker' || ngModel.userControl.info.type=='datepicker-range'">
                     <div class="form-row" layout="row" layout-align="start center">
@@ -65,24 +65,7 @@
                         </div>
                     </div>
 
-                    <div ng-show="ngModel.userControl.info.type=='datepicker'">
-                        <div class="form-row" layout="row" layout-align="start center">
-                            <label class="col-sm-4">{{ 'شرط' | translate }}</label>
-                            <span class="form-divider" flex></span><div class="col-sm-8">
-                                <select ng-change="refreshChart('refresh')" ng-model="ngModel.userControl.info.dateOp"
-                                        ng-options="color.name as  color.value for color in [
-                                                                {name:'eq', value: 'برابر'  },
-                                                                {name:'nteq', value: 'نابرابر'  },
-                                                                {name:'gr', value: 'بزرگتر'  },
-                                                                {name:'eqgr', value: 'بزرگتر مساوی'  },
-                                                                {name:'ls', value: 'کوچکتر'  },
-                                                                {name:'eqls', value: 'کوچکتر مساوی'  },
-                                                            ]"></select>
-                            </div>
-                        </div>
 
-
-                    </div>
 
                     <div class="form-row" layout="row" layout-align="start center">
                         <label class="">
@@ -117,7 +100,25 @@
                     </div>
 
                 </div>
+                
+                <div ng-show="ngModel.userControl.info.type=='datepicker' || ngModel.userControl.info.type=='combo'">
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="col-sm-4">{{ 'شرط' | translate }}</label>
+                        <span class="form-divider" flex></span><div class="col-sm-8">
+                            <select ng-change="refreshChart('refresh')" ng-model="ngModel.userControl.info.dateOp"
+                                    ng-options="color.name as  color.value for color in [
+                                                                {name:'eq', value: 'برابر'  },
+                                                                {name:'nteq', value: 'نابرابر'  },
+                                                                {name:'gr', value: 'بزرگتر'  },
+                                                                {name:'eqgr', value: 'بزرگتر مساوی'  },
+                                                                {name:'ls', value: 'کوچکتر'  },
+                                                                {name:'eqls', value: 'کوچکتر مساوی'  },
+                                                            ]"></select>
+                        </div>
+                    </div>
 
+
+                </div>
                 <div class="" ng-show="ngModel.userControl.info.type=='text'">
                     <div class="form-row" layout="row" layout-align="start center">
                         <label class="col-sm-4">{{ 'عملوند' | translate }}</label>

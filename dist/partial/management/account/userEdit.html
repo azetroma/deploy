@@ -1,6 +1,6 @@
 ﻿
 <div layout="column" flex>
-    <md-content flex class="content " layout="row" >
+    <md-content flex class="content " layout="row">
 
         <div flex="20" hide-sm hide-xs></div>
         <div flex="60" flex-xs="100" flex-sm="100" class="content-scroll">
@@ -186,6 +186,41 @@
                                     </md-button>
 
                                 </div>
+                            </div>
+
+                            <div class="ui secondary segment" ng-show="verification">
+                                <table class="">
+                                    <tr>
+                                        <td>
+                                            نتیجه استعلام نام
+                                        </td>
+                                        <td style="padding:10px;">
+                                            <div class="ui label">
+                                                <span ng-show="model.isNameAuthenticated">موفق</span>
+                                                <span ng-hide="model.isNameAuthenticated">ناموفق</span>
+                                                <i class="ui icon" ng-class="{'check green': model.isNameAuthenticated, 'close red':!model.isNameAuthenticated}"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            نتیجه استعلام موبایل
+                                        </td>
+                                        <td style="padding:10px;">
+                                            <div class="ui label">
+
+                                                <span ng-show="model.isNameAuthenticated">موفق</span>
+                                                <span ng-hide="model.isNameAuthenticated">ناموفق</span>
+                                                <i class="ui icon" ng-class="{'check green': model.isMobileAuthenticated, 'close red':!model.isMobileAuthenticated}"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br />
+                                <br />
+                                <div class="ui basic compact button" ng-class="{loading: verifyProgress}" ng-click="verify()"> استعلام اطلاعات کاربر</div>
+                                <div class="ui basic compact button" ng-class="{loading: approveProgress}" ng-click="approve()"> تایید اطلاعات حساب کاربری</div>
+
                             </div>
 
                             <br />
