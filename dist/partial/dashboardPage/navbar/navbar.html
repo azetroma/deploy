@@ -1,8 +1,10 @@
 ﻿<div ng-controller="navbarCtrl">
     <div class="ui inverted menu fixed top">
-        <class ng-repeat="m in menu.menus" class="item" ng-class="{active: m.Type == $parent.$parent.mainMenuType}"><a href="{{m.Link}}">{{m.Name}}</a></class>
+        <div ng-repeat="m in menu.menus" class="item" ng-class="{active: m.Type == $parent.$parent.mainMenuType}"><a href="{{m.Link}}">{{m.Name}}</a></div>
 
-
+        <div class="right menu">
+            <div class="item"><a href="{{urlPrefix}}account/logoff"> &nbsp;خروج <i class="ui icon sign out"></i></a></div>
+        </div>
         <!--<div class="container-fluid">
 
             <div class="navbar-header">
