@@ -1,22 +1,29 @@
-﻿<div ng-show="user.authenticationModule && user.isAuthenticated" class="ui label teal icon" style="float:left"><i class="icon large check"></i> کاربر احراز هویت شده است</div>
-<h3 class="ui header">{{'profile_info' | translate}}</h3>
+﻿
+<div ng-show="user.verification && user.isAuthenticated" class="ui label teal icon" style="float:left"><i class="icon large check"></i> کاربر احراز هویت شده است</div>
+
+<div ng-if="user.remainTime<0 && !user.isMobileVerified " class="ui secondary inverted yellow big segment">
+    تا زمان اصلاح شماره تماس استفاده از سامانه امکان‌پذیر نمی‌باشد
+</div>
+
 <form class="ui form" ng-show="user">
-    <div class="field">
+    <h3 class="ui header">{{'profile_info' | translate}}</h3>
+    <div class="field" ng-class="{disabled: user.isAuthenticated}">
         <label class="control-label ">{{'profile_name' | translate}}</label>
         <input class="form-control" type="text" ng-model="user.name" placeholder="{{'profile_name' | translate}}" />
     </div>
-    <div class="field">
+    <div class="field" ng-class="{disabled: user.isAuthenticated}">
         <label class="control-label">{{'profile_lastname' | translate}}</label>
         <input class="form-control" type="text" ng-model="user.family" placeholder="{{'profile_lastname' | translate}}" />
     </div>
-    <div class="field">
+    <div class="field" ng-class="{disabled: user.isMobileVerified}">
         <label class="control-label">{{'profile_phone' | translate}}</label>
         <input class="form-control" type="text" ng-model="user.phone" placeholder="{{'profile_phone' | translate}}" />
     </div>
-    <div class="ui secondary red segment" ng-if="!user.isMobileVerified && user.authenticationModule">
+    <div class="ui secondary red segment" ng-if="!user.isMobileVerified && user.verification">
         <div>
             مالک شماره تلفن معرفی شده با کد ملی ثبت شده مغایرت دارد. لطفا شماره‌ای معرفی کنید که مالک آن خود شما باشید.
-            <div>زمان باقیمانده برای اصلاح شماره موبایل: <div class="ui red label">{{user.remainTime}} روز</div></div>
+            <div ng-show="user.remainTime>=0">زمان باقیمانده برای اصلاح شماره موبایل: <div class="ui red label">{{user.remainTime}} روز</div></div>
+            <br />
             <br />
             <div class="ui icon button" ng-click="show()"><i class="icon check"></i> اصلاح شماره تماس</div>
         </div>
@@ -26,12 +33,11 @@
         <input class="form-control" type="text" ng-model="user.email" placeholder="{{'profile_email' | translate}}" />
     </div>
 
-    <div class="ui message" ng-class="{'red': error, 'green': success}" ng-show="result">
-        <span ng-click="result = null" class="close">&times;</span>
+    <div class="ui secondary inverted green segment" ng-class="{'red': error, 'green': success}" ng-show="result">
         <p ng-bind-html="message"></p>
     </div>
 
-    <a class="ui blue button" ng-click="update()">{{'ذخیره' | translate}}</a>
+    <a class="ui blue button" ng-class="{loading: saveProgress, disabled: saveProgress}" ng-click="update()">{{'ذخیره' | translate}}</a>
 </form>
 
 
