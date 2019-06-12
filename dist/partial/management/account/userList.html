@@ -7,9 +7,9 @@
                 {{'لیست کاربران' | translate}}
             </div>-->
 
-            <span flex></span> 
+            <span flex></span>
 
-            <md-input-container md-no-float class="md-block" style="margin-top:30px">
+            <md-input-container md-no-float class="md-block" style="        margin-top: 30px">
                 <input ng-model="search" placeholder="جستجو">
             </md-input-container>
 
@@ -32,45 +32,97 @@
 
     <div flex layout="column">
         <md-content flex>
+            <style>
+    .virtual-table {
+    }
 
-            <table class="sadaf-table">
-                <tr>
-                    <th>
-                        <md-checkbox class="no-margin" ng-model="selectAllCheckbox" ng-change="selectAll()" aria-label="{{ 'select_all' | translate}}"></md-checkbox>
-                    </th>
-                    <th>#</th>
-                    <th>{{'username' | translate}}</th>
-                    <th><span>{{'name' | translate}}</span></th>
-                    <th><span>{{'type' | translate}}</span></th>
-                    <th>{{'roles' | translate}}</th>
-                    <th ng-show="securityCertPatch">{{'integrity check' | translate}}</th>
-                </tr>
+        .virtual-table .header .cell {
+            font-weight: 800;
+        }
 
-                <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select;" ng-dblclick="goto(row, $event)" style="min-height:48px">
-                    <td width="20" style="height:48px;">
-                        <md-checkbox class="no-margin" ng-model="row.select" ng-click="$event.stopPropagation();" aria-label="{{ 'choose' | translate}}"></md-checkbox>
-                    </td>
-                    <td width="20">{{utils.persian($index+1)}}</td>
+        .virtual-table .cell {
+            padding: 4px 8px;
+        }
 
-                    <td><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.username}}</span></td>
-                    <td><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></td>
-                    <td><small class="gray">{{row.type == 0 ? 'عادی' : 'اکتیودایرکتوری'}}</small></td>
-                    <td class="md-caption">
-                        <div layout-margin>
-                            <span> </span>
-                            <a ng-repeat="i in row.roles" href="{{app.hashUrlPrefix+'#/roles/edit/'+ i.id}}"> {{i.name}}</a>
+        .virtual-table .row {
+            border-top: 1px solid #efefef;
+        }
+
+    </style>
+            <div class="virtual-table">
+
+                <div class="header" layout="row" layout-align="start center">
+                    <div class="cell"style="width: 20px"></div>
+                    <div class="cell"style="        width: 50px"><md-checkbox class="no-margin" ng-model="selectAllCheckbox" ng-change="selectAll()" aria-label="{{ 'select_all' | translate}}"></md-checkbox></div>
+                    <div class="cell"style="        width: 20px">#</div>
+                    <div class="cell"style="        width: 15%">{{'username' | translate}}</div>
+                    <div class="cell"style="        width: 15%"><span>{{'name' | translate}}</span></div>
+                    <div class="cell"style="        width: 50px"><span>{{'type' | translate}}</span></div>
+                    <div class="cell"style="        width: 30%">{{'roles' | translate}}</div>
+                    <div class="cell"style="        width: 100px" ng-show="securityCertPatch">{{'integrity check' | translate}}</div>
+                </div>
+                <md-virtual-repeat-container style="        height: calc(100vh - 180px);">
+
+                    <div class="row" md-virtual-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select;" ng-dblclick="goto(row, $event)" style="height: 48px" layout="row" layout-align="start center">
+                        <div class="cell" style="width: 20px"></div>
+                        <div class="cell" style="        width: 50px;"><md-checkbox class="no-margin" ng-model="row.select" ng-click="$event.stopPropagation();" aria-label="{{ 'choose' | translate}}"></md-checkbox></div>
+                        <div class="cell" style="        width: 20px;">{{utils.persian($index+1)}}</div>
+
+                        <div class="cell" style="        width: 15%;"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.username}}</span></div>
+                        <div class="cell" style="        width: 15%;"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></div>
+                        <div class="cell" style="        width: 50px;"><small class="gray">{{row.type == 0 ? 'عادی' : 'اکتیودایرکتوری'}}</small></div>
+                        <div class="cell md-caption" style="        width: 30%;">
+                            <div layout-margin>
+                                <span> </span>
+                                <a ng-repeat="i in row.roles" href="{{app.hashUrlPrefix+'#/roles/edit/'+ i.id}}"> {{i.name}}</a>
+                            </div>
                         </div>
-                    </td>
-                    <td ng-show="securityCertPatch"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></td>
-                    <td ng-hide="securityCertPatch"></td>
+                        <div class="cell" style="        width: 100px;" ng-show="securityCertPatch"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></div>
+                        <div class="cell" style="        width: 100px;" ng-hide="securityCertPatch"></div>
 
-                </tr>
-            </table>
+                    </div>
+                </md-virtual-repeat-container>
+            </div>
+
+
+            <!--<table class="sadaf-table">
+        <tr>
+            <th>
+                <md-checkbox class="no-margin" ng-model="selectAllCheckbox" ng-change="selectAll()" aria-label="{{ 'select_all' | translate}}"></md-checkbox>
+            </th>
+            <th>#</th>
+            <th>{{'username' | translate}}</th>
+            <th><span>{{'name' | translate}}</span></th>
+            <th><span>{{'type' | translate}}</span></th>
+            <th>{{'roles' | translate}}</th>
+            <th ng-show="securityCertPatch">{{'integrity check' | translate}}</th>
+        </tr>
+        <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select;" ng-dblclick="goto(row, $event)" style="min-height:48px">
+            <td width="20" style="height:48px;">
+                <md-checkbox class="no-margin" ng-model="row.select" ng-click="$event.stopPropagation();" aria-label="{{ 'choose' | translate}}"></md-checkbox>
+            </td>
+            <td width="20">{{utils.persian($index+1)}}</td>
+
+            <td><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.username}}</span></td>
+            <td><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></td>
+            <td><small class="gray">{{row.type == 0 ? 'عادی' : 'اکتیودایرکتوری'}}</small></td>
+            <td class="md-caption">
+                <div layout-margin>
+                    <span> </span>
+                    <a ng-repeat="i in row.roles" href="{{app.hashUrlPrefix+'#/roles/edit/'+ i.id}}"> {{i.name}}</a>
+                </div>
+            </td>
+            <td ng-show="securityCertPatch"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></td>
+            <td ng-hide="securityCertPatch"></td>
+
+        </tr>
+    </table>-->
             <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
                 <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
             </div>
             <p ng-bind-html="error" ng-show="error" class="danger " layout-padding></p>
-            <div ng-hide="(data && data.length) || progress || error" class="md-caption" style="padding:16px; text-align:center">داده‌ای برای نمایش وجود ندارد</div>
+            <div ng-hide="(data && data.length) || progress || error" class="md-caption" style="        padding: 16px;
+        text-align: center">داده‌ای برای نمایش وجود ندارد</div>
 
         </md-content>
     </div>
