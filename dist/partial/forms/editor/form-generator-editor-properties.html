@@ -51,19 +51,25 @@
             {{'require' | translate}}
         </sadaf-checkbox>
     </div>
+    <div class="field" ng-show="c.controlProperty(c.control.active).regex">
+        <sadaf-checkbox ng-model="c.control.active.validations.regexValidation">
+            اعتبارسنجی با Regex
+        </sadaf-checkbox>
+    </div>
+    <div class="field" ng-show="c.control.active.validations.regexValidation">
+        <label>Regex</label>
+        <input ng-model="c.control.active.validations.regex" style="direction:ltr" placeholder="Regex">
+    </div>
 
     <div class="field" ng-hide="c.control.active.dontShowHide">
         <sadaf-checkbox ng-model="c.control.active.hidden">{{'مخفی کردن'|translate}}</sadaf-checkbox>
     </div>
-
-
 
     <div class="field" ng-show="c.controlProperty(c.control.active).showUniqueProp">
         <sadaf-checkbox ng-model="c.control.active.validations.enforceUnique">
             {{'unique' | translate}}
         </sadaf-checkbox>
     </div>
-
 
     <div class="fields" ng-show="c.control.active.type == 2" style="margin-bottom: 0;">
         <div class="field">
@@ -138,6 +144,18 @@
             <br />
             <br />
             <select-datasource-columns ng-model="c.control.active.dropdown"></select-datasource-columns>
+
+
+        </div>
+        <div class="field" ng-if="c.control.active.dropdown.useRemoteData">
+            <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
+                {{'filter' | translate}}
+            </sadaf-checkbox>
+            <filter-property ng-show="c.control.active.useFilter" name="c.control.active.name"
+                             ng-model="c.control.active.filters"
+                             just-value="true"
+                             source-fields="c.control.active.dropdown.datasourceColumns"
+                             controls="c.activeSibling"></filter-property>
         </div>
 
     </div>

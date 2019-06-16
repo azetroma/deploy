@@ -7,7 +7,7 @@
                 <div class="">
                     <h3 style="margin-bottom:40px">{{'مدیریت منو' | translate}}</h3>
                 </div>
-                 
+
                 <div>
                     <style>
                         .sadaf-form .fields label {
@@ -34,12 +34,20 @@
                             <label>زیر شاخه کسب و کار</label>
                             <input required ng-model="model.businessSubBranch">
                         </div>
+
                         <div class="field">
                             <sadaf-checkbox ng-model="model.active">فعال</sadaf-checkbox>
                         </div>
                         <div class="field">
                             <sadaf-checkbox ng-model="model.showWhenInactive">نمایش منو زمان غیرفعال بودن</sadaf-checkbox>
                         </div>
+                        <div class="field">
+                            <sadaf-checkbox ng-model="model.showTitleFullscreen">نمایش عنوان در حالت تمام صفحه</sadaf-checkbox>
+                        </div>
+                        <div class="field">
+                            <sadaf-checkbox ng-model="model.showTitle">نمایش عنوان در حالت معمولی</sadaf-checkbox>
+                        </div>
+
                         <div class="field" ng-show="metadataModule">
                             <label>تحلیلگر</label>
                             <sm-dropdown class="search selection fluid" model="model.analyst" label="item.name" value="item.id" items="users"></sm-dropdown>

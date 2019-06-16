@@ -41,7 +41,9 @@
         }
 
         .virtual-table .cell {
-            padding: 4px 8px;
+            margin: 4px 8px;
+            overflow:hidden;
+            max-height:40px;
         }
 
         .virtual-table .row {
@@ -52,15 +54,23 @@
             <div class="virtual-table">
 
                 <div class="header" layout="row" layout-align="start center">
-                    <div class="cell"style="width: 20px"></div>
-                    <div class="cell"style="        width: 50px"><md-checkbox class="no-margin" ng-model="selectAllCheckbox" ng-change="selectAll()" aria-label="{{ 'select_all' | translate}}"></md-checkbox></div>
-                    <div class="cell"style="        width: 20px">#</div>
-                    <div class="cell"style="        width: 15%">{{'username' | translate}}</div>
-                    <div class="cell"style="        width: 15%"><span>{{'name' | translate}}</span></div>
-                    <div class="cell"style="        width: 50px"><span>{{'type' | translate}}</span></div>
-                    <div class="cell"style="        width: 30%">{{'roles' | translate}}</div>
-                    <div class="cell"style="        width: 100px" ng-show="securityCertPatch">{{'integrity check' | translate}}</div>
+                    <div class="cell" style="width: 20px"></div>
+                    <div class="cell" style="        width: 50px"><md-checkbox class="no-margin" ng-model="selectAllCheckbox" ng-change="selectAll()" aria-label="{{ 'select_all' | translate}}"></md-checkbox></div>
+                    <div class="cell" style="        width: 20px">#</div>
+                    <div class="cell" style="        width: 15%">{{'username' | translate}}</div>
+                    <div class="cell" style="        width: 15%"><span>{{'name' | translate}}</span></div>
+                    <div class="cell" style="        width: 50px"><span>{{'type' | translate}}</span></div>
+                    <div class="cell" style="        width: 30%">{{'roles' | translate}}</div>
+                    <div class="cell" style="        width: 100px" ng-show="securityCertPatch">{{'integrity check' | translate}}</div>
                 </div>
+
+                <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
+                    <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
+                </div>
+                <p ng-bind-html="error" ng-show="error" class="danger " layout-padding></p>
+                <div ng-hide="(data && data.length) || progress || error" class="md-caption" style="padding: 16px;text-align: center">داده‌ای برای نمایش وجود ندارد</div>
+
+
                 <md-virtual-repeat-container style="        height: calc(100vh - 180px);">
 
                     <div class="row" md-virtual-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select;" ng-dblclick="goto(row, $event)" style="height: 48px" layout="row" layout-align="start center">
@@ -72,7 +82,7 @@
                         <div class="cell" style="        width: 15%;"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></div>
                         <div class="cell" style="        width: 50px;"><small class="gray">{{row.type == 0 ? 'عادی' : 'اکتیودایرکتوری'}}</small></div>
                         <div class="cell md-caption" style="        width: 30%;">
-                            <div layout-margin>
+                            <div layout-margin style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
                                 <span> </span>
                                 <a ng-repeat="i in row.roles" href="{{app.hashUrlPrefix+'#/roles/edit/'+ i.id}}"> {{i.name}}</a>
                             </div>
@@ -117,12 +127,6 @@
 
         </tr>
     </table>-->
-            <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
-                <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
-            </div>
-            <p ng-bind-html="error" ng-show="error" class="danger " layout-padding></p>
-            <div ng-hide="(data && data.length) || progress || error" class="md-caption" style="        padding: 16px;
-        text-align: center">داده‌ای برای نمایش وجود ندارد</div>
 
         </md-content>
     </div>

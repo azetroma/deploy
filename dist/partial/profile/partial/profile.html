@@ -1,12 +1,17 @@
 ﻿
-<div ng-show="user.verification && user.isAuthenticated" class="ui label teal icon" style="float:left"><i class="icon large check"></i> کاربر احراز هویت شده است</div>
 
 <div ng-if="user.remainTime<0 && !user.isMobileVerified " class="ui secondary inverted yellow big segment">
     تا زمان اصلاح شماره تماس استفاده از سامانه امکان‌پذیر نمی‌باشد
 </div>
+<div ng-if="user.forceChangePass" class="ui secondary inverted yellow big segment">
+    تا زمان تغییر کلمه عبور امکان استفاده از امکانات سامانه را نخواهید داشت
+</div>
 
 <form class="ui form" ng-show="user">
-    <h3 class="ui header">{{'profile_info' | translate}}</h3>
+    <h3 class="ui header">{{'profile_info' | translate}}
+    <span ng-show="user.verification && user.isAuthenticated" class="ui mini label teal" xstyle="float:left"><i class="icon large check"></i> کاربر احراز هویت شده است</span>
+    </h3>
+
     <div class="field" ng-class="{disabled: user.isAuthenticated}">
         <label class="control-label ">{{'profile_name' | translate}}</label>
         <input class="form-control" type="text" ng-model="user.name" placeholder="{{'profile_name' | translate}}" />

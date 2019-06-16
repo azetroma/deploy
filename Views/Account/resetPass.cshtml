@@ -175,6 +175,9 @@
                             <div class="ui small negative message" ng-if="error.general && error.general.length">
                                 {{error.general}}
                             </div>
+                            <div class="ui secondary inverted green segment" ng-if="successMessage">
+                                {{successMessage}}
+                            </div>
 
                             <button class="ui blue fluid button big submit" ng-class="{loading: loading, disabled: loading }" ng-click="submit()" type="submit" style="margin-top:35px;">
                                 درخواست کلمه عبور جدید
@@ -303,9 +306,10 @@
                         $scope.error.general = null;
 
                         if (res.data.result) {
-                            $('.info-modal')
-                                .modal({ closable : false })
-                                .modal('show');
+                            //$('.info-modal')
+                            //    .modal({ closable : false })
+                            //    .modal('show');
+                            $scope.successMessage = res.data.error;
 
                         } else if (!res.data.result && res.data.type == 'captcha') {
                             $scope.error.captcha = res.data.error;

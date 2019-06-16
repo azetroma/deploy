@@ -78,7 +78,7 @@
 
 
     @*<script src="~/dist/lib/leaflet.js"></script>
-    <link rel="stylesheet" href="~/dist/lib/leaflet.css" />*@
+        <link rel="stylesheet" href="~/dist/lib/leaflet.css" />*@
 
 
     @*<script src="~/dist/lib/sortable-n.js"></script>
@@ -181,8 +181,6 @@
     }
     <script src="~/react-dist/bundle.js?v=@v"></script>
 
-    <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
-    <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 
     @if (ViewBag.cdn.enable) {
         for (int i = 0; i < ViewBag.cdn.items.Count; i++) {
@@ -194,6 +192,8 @@
             }
         }
     }
+    <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
+    <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 
     <script>
         var app = app || {};
@@ -340,5 +340,24 @@
 
     </script>
     <script src="~/license.js?v=@v"></script>
+
+
+    @*Clickjacking Defense*@
+    <style id="antiClickjack">
+        body {
+            display: none !important;
+        }
+    </style>
+
+    <script type="text/javascript">
+        if (self === top) {
+            var antiClickjack = document.getElementById("antiClickjack");
+            antiClickjack.parentNode.removeChild(antiClickjack);
+        } else {
+            top.location = self.location;
+        }
+    </script>
+
+
 </body>
 </html>

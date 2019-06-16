@@ -1,4 +1,9 @@
-﻿<h3 class="ui header">{{'profile_change_pass' | translate}}</h3>
+﻿<div ng-if="help.forceChangePass" class="ui secondary inverted yellow big segment">
+    تا زمان تغییر کلمه عبور امکان استفاده از امکانات سامانه را نخواهید داشت
+</div>
+
+
+<h3 class="ui header">{{'profile_change_pass' | translate}}</h3>
 <form class="ui form">
     <div class="field">
         <label class="control-label">{{'profile_password_old' | translate}}</label>
@@ -31,7 +36,7 @@
 
     </div>
     <a class="ui blue button" ng-click="changePass()" ng-class="{loading:progress, disabled: progress}">{{'ذخیره' | translate}}</a>
-    <a class="ui button black" ng-show="success"href="{{app.urlPrefix}}">رفتن به صفحه داشبورد</a>
+    <a class="ui button black" ng-show="success" href="{{app.urlPrefix}}">رفتن به صفحه داشبورد</a>
 
 </form>
 

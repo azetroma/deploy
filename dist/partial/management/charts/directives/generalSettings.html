@@ -13,18 +13,7 @@
                                     {name:'3600', value:'یک ساعت' },
                                     {name:'7200', value:'دو ساعت' },
                                     {name:'86400', value:'یک روز' },
-                                    ]">
-            <!--<option value="0" selected="selected" >{{ 'غیر فعال' | translate }}</option>
-            <option value="30" >{{ 'سی ثانیه' | translate }}</option>
-            <option value="60" >{{ 'یک دقیقه' | translate }}</option>
-            <option value="120" >{{ 'دو دقیقه' | translate }}</option>
-            <option value="300" >{{ 'پنج دقیقه' | translate }}</option>
-            <option value="600" >{{ 'ده دقیقه' | translate }}</option>
-            <option value="1800" >{{ 'سی دقیقه' | translate }}</option>
-            <option value="3600" >{{ 'یک ساعت' | translate }}</option>
-            <option value="7200" >{{ 'دو ساعت' | translate }}</option>
-            <option value="86400" >{{ 'یک روز' | translate }}</option>-->
-        </select>
+                                    ]"></select>
     </div>
 </div>
 
@@ -74,6 +63,7 @@
 
 </div>
 
+
 <div class="form-row" layout="row" layout-align="start center">
     <div class="col-sm-offset-4 col-sm-8">
         <div class="checkbox">
@@ -83,6 +73,15 @@
         </div>
     </div>
 </div>
+
+<div class="form-row" layout="row" layout-align="start center">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="model.disable" ng-change="change()" /> غیرفعال کردن نمودار
+        </label>
+    </div>
+</div>
+
 <div class="form-row" layout="row" layout-align="start center" ng-if="!model.dontShowTitle">
     <label class="col-sm-4">{{'title font' | translate}}</label>
     <span class="form-divider" flex></span>
@@ -118,6 +117,3 @@
         </div>
     </div>
 </div>-->
-
-
-
