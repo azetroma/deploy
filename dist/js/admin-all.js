@@ -18835,7 +18835,7 @@ app.charts.gauge.draw = function(input, settings, refreshWithData, titlebar) {
                 "font-weight": font.bold ? "bold" : "normal",
                 "font-style": font.italic ? "italic" : "normal"
             });
-            d.append("div").classed("value", true).append("span").attr("class", "text").text(function(d) {
+            d.append("div").classed("value", true).append("span").attr("class", "text ltr inline").text(function(d) {
                 return persian(d3.format(font.formatString)(d[0]), showPersian);
             });
             d.select(".value").append("i").attr("class", function(d, i) {
@@ -18845,13 +18845,16 @@ app.charts.gauge.draw = function(input, settings, refreshWithData, titlebar) {
                 var icon = "";
                 if (settings.chartProp.info.icons && settings.chartProp.info.icons.length) {
                     icon = settings.chartProp.info.icons[divindex % settings.chartProp.info.icons.length];
-                    if (typeof icon == "string") {
+                    if (typeof icon === "string") {
                         icon = "";
                     } else {
                         icon = icon.name;
                     }
                 }
                 if (iconThen.length) icon = iconThen[iconThen.length - 1].secondFieldIcon;
+                if (!icon) {
+                    icon = "ng-hide";
+                }
                 return icon;
             }).style("color", function(d) {
                 var colorThen = _.filter(thisThens, {
@@ -23035,6 +23038,11 @@ app.charts.tree.draw = function(input, settings, refreshWithData, titlebar) {
         return;
     }
     $(selector).addClass("tree-chart");
+    $(selector).css({
+        "overflow-y": "auto",
+        "overflow-x": "hidden",
+        "margin-left": "-1rem"
+    });
     var titleHeight = $(selector + " .title").outerHeight();
     var height = $(selector).outerHeight() - titleHeight - 2;
     var root = d3.select(selector).append("ul").attr("class", "root-node temporal tree").text("");
