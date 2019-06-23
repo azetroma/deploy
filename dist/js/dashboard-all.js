@@ -9798,10 +9798,11 @@ app.charts.tree.draw = function(input, settings, refreshWithData, titlebar) {
                 return d.id;
             });
             var newV = _.filter(input.vals, function(d) {
-                return d[0] == vals;
+                return d[0] === vals[0];
             }).map(function(d) {
                 return d[1];
             });
+            if (newV.length === 0) newV = vals;
             ajaxCall({
                 Id: -1,
                 Values: newV,
