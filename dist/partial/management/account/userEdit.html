@@ -51,14 +51,14 @@
 
                                 <md-input-container flex="50">
                                     <label>{{'profile_password_new' | translate}}</label>
-                                    <input name="password" type="password" ng-model="model.Password">
+                                    <input name="password" type="password" ng-model="model.Password"autocomplete="off">
                                     <div ng-messages="userForm.name.$error">
                                         <div ng-message="required">{{'form_username_required' | translate}}</div>
                                     </div>
                                 </md-input-container>
                                 <md-input-container flex="50">
                                     <label>{{'profile_password_repeat' | translate}}</label>
-                                    <input name="password_repeat" type="password" ng-model="model.PasswordRepeat">
+                                    <input name="password_repeat" type="password" ng-model="model.PasswordRepeat"autocomplete="off">
                                     <div ng-messages="userForm.name.$error">
                                         <div ng-message="required">{{'form_name_required' | translate}}</div>
                                     </div>
@@ -74,7 +74,7 @@
 
                                 <md-input-container flex="50">
                                     <label>{{'profile_email' | translate}}</label>
-                                    <input type="email" ng-model="model.Email" name="email" ng-pattern="/^.+@.+\..+$/">
+                                    <input type="email" ng-model="model.Email" name="email" autocomplete="off" ng-pattern="/^.+@.+\..+$/">
                                     <div ng-messages="userForm.email.$error">
                                         <div ng-message="pattern">{{'email_pattern_error' | translate}}</div>
                                     </div>
