@@ -1,6 +1,6 @@
 ﻿
 
-<div ng-if="user.remainTime<0 && !user.isMobileVerified " class="ui secondary inverted yellow big segment">
+<div ng-if="user.remainTime<0 && !user.isMobileVerified && user.verification&& !user.isAuthenticated" class="ui secondary inverted yellow big segment">
     تا زمان اصلاح شماره تماس استفاده از سامانه امکان‌پذیر نمی‌باشد
 </div>
 <div ng-if="user.forceChangePass" class="ui secondary inverted yellow big segment">
@@ -24,7 +24,7 @@
         <label class="control-label">{{'profile_phone' | translate}}</label>
         <input class="form-control" type="text" ng-model="user.phone" placeholder="{{'profile_phone' | translate}}" />
     </div>
-    <div class="ui secondary red segment" ng-if="!user.isMobileVerified && user.verification">
+    <div class="ui secondary red segment" ng-if="!user.isMobileVerified && user.verification&& !user.isAuthenticated">
         <div>
             مالک شماره تلفن معرفی شده با کد ملی ثبت شده مغایرت دارد. لطفا شماره‌ای معرفی کنید که مالک آن خود شما باشید.
             <div ng-show="user.remainTime>=0">زمان باقیمانده برای اصلاح شماره موبایل: <div class="ui red label">{{user.remainTime}} روز</div></div>

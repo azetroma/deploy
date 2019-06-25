@@ -13936,15 +13936,21 @@ ngApp.directive("selectForm", function() {
             function replaceValue(val) {
                 return val.replace(/@\((field-\d+)\)/gi, function(a, b) {
                     var c = findControl(b, formModel.pages);
-                    return c != null ? c.value : "";
+                    if (c === null) return "";
+                    if (c.type === 19) {
+                        var serverPath = c.attachment.uploadList[0].serverPath;
+                        var serverDbId = c.attachment.uploadList[0].serverDbId;
+                        return serverPath;
+                    }
+                    return c.value;
                 });
             }
-            if (task.type == 0) {
+            if (task.type === 0) {
                 if (!+task.dashboardId) return;
-                var name = +task.openLinkType == 0 ? "_blank" : "_self";
+                var name = +task.openLinkType === 0 ? "_blank" : "_self";
                 window.open(app.urlPrefix + "#/dashboard/" + task.dashboardId, name);
             }
-            if (task.type == 2) {
+            if (task.type === 2) {
                 if (_.isEmpty(task.webserviceUrl)) return;
                 var url = replaceValue(task.webserviceUrl);
                 $http.get(url).then(function() {
