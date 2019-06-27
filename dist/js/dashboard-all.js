@@ -17,7 +17,8 @@ app.chartCommons.tooltip = {
                 if (!p1.match(/point\.(data|label|color|format|percentage)/)) return p1;
                 var e = eval(p1);
                 if (e === "NaN") e = "تعریف نشده";
-                return !isNaN(e) ? persian(d3.format(point.format)(e), showPersain) : e;
+                var s = !isNaN(e) ? persian(d3.format(point.format)(e), showPersain) : e;
+                return '<span class="inline ltr">' + s + "</span>";
             });
         }).join("<br/>");
         var headerFormat = fh || "";
@@ -27,7 +28,12 @@ app.chartCommons.tooltip = {
         });
         if (header && body.trim()) header += "<BR/>";
         r = '<div style="margin:0;text-align: right; padding:0;direction: rtl;">' + header + body + "</div>";
-        return filterXSS(r);
+        var d = _.cloneDeep(filterXSS.whiteList);
+        d.span = [ "class" ];
+        var fxx = filterXSS(r, {
+            whiteList: d
+        });
+        return fxx;
     }
 };
 
@@ -3924,17 +3930,17 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
     });
     function getTooltipHtml(index, type, seriesType, indexOfSeries) {
         var rr = lineData;
-        if (seriesType == "line") {
+        if (seriesType === "line") {
             index = lineData[indexOfSeries].values[index].dIndex;
         }
         var d = data[index].series;
-        if (type == 1 && seriesType && typeof indexOfSeries != "undefined") {
+        if (type === 1 && seriesType && typeof indexOfSeries !== "undefined") {
             d = d.filter(function(d) {
-                return d.prop.seriesType == seriesType && !d.prop.hidden;
+                return d.prop.seriesType === seriesType && !d.prop.hidden;
             });
             d = [ d[indexOfSeries] ];
         }
-        if (type == 2) {
+        if (type === 2) {
             d = d.filter(function(d) {
                 return !d.prop.hidden;
             });
@@ -4005,7 +4011,7 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
         return yFun(xMin);
     }).curve(lineInterpolate);
     var line = d3.line().x(function(d) {
-        return x(d.label) + x.bandwidth() / 2;
+        return Math.floor(x(d.label) + x.bandwidth() / 2);
     }).y(function(d) {
         var yFun = y;
         var xMin = min;
@@ -4015,7 +4021,7 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
             xMin = y2Min;
             xMax = y2Max;
         }
-        return yFun(d.value > xMax ? xMax : d.value < xMin ? xMin : d.value);
+        return Math.floor(yFun(d.value > xMax ? xMax : d.value < xMin ? xMin : d.value));
     }).curve(lineInterpolate);
     var temp = areaGroup.selectAll("nothings").data(lineData).enter().append("path").attr("class", function(d) {
         return "area " + " series-" + d.sIndex;
@@ -4198,7 +4204,7 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
     }
     colorStepGroup.attr("class", "colorStepGroups").selectAll(".colorStepGroup").data(lineData).enter().append("linearGradient").attr("id", function(d, i) {
         return settings.id + "-" + i;
-    }).attr("class", "colorStepGroup").selectAll("stop-color").data(function(d) {
+    }).attr("class", "colorStepGroup").attr("gradientUnits", "userSpaceOnUse").selectAll("stop-color").data(function(d) {
         var r = [];
         var unit = 1 / ((d.values.length - 1) * 2);
         var sum = -1 * unit;

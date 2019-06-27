@@ -125,7 +125,7 @@
                         <div class="ui big form">
 
                             <div ng-show="step==1" class="field" ng-class="{error: validation.username==-1}">
-                                <label>@ViewBag.msg["national code"]</label>
+                                <label>@ViewBag.msg["national code"] (نام کاربری)</label>
                                 <div class="ui icon input" ng-class="{loading: checkUsernameProgress}">
                                     <input autocomplete="off" ng-model-options="{ allowInvalid: true, debounce: 500 }" ng-change="checkUsername()" ng-model="model.username" type="text" class="ui fuild input" />
                                     <i class="user icon" ng-class="{'link green check' : validation.username==1, 'user' : validation.username!=1}"></i>
