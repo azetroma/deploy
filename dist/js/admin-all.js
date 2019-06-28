@@ -17442,21 +17442,17 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
         var values = data[i].series.map(function(d) {
             return d.data;
         });
-        pushThenRow(ret, values, headers);
-        d = ret[0];
+        var tarr = app.chartCommons.indicator.getIndicator(values, headers, settings.chartProp.indicator);
         var color = d.prop.seriesColor;
-        if (d.thenRows) {
-            $.each(d.thenRows, function(i, thenRow) {
-                $.each(thenRow, function(i, thenRowItem) {
-                    if (label != thenRowItem.firstField) return true;
-                    switch (+thenRowItem.operand) {
-                      case 1:
-                        color = thenRowItem.secondFieldColor;
-                        break;
-                    }
-                });
-            });
-        }
+        var dx = _.flatten(tarr);
+        _.each(dx, function(thenRowItem) {
+            if (label !== thenRowItem.firstField) return true;
+            switch (+thenRowItem.operand) {
+              case 1:
+                color = thenRowItem.secondFieldColor;
+                break;
+            }
+        });
         return color;
     }).attr("stroke-width", function(d, i) {
         return d.prop.lineWeight;
@@ -17489,9 +17485,14 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
         var t = tempG.selectAll(".entry");
         app.chartCommons.commentUtils.setOnHighlightListener(tempG.selectAll(".entry"), settings.ChartInPageId);
     }
-    colorStepGroup.attr("class", "colorStepGroups").selectAll(".colorStepGroup").data(lineData).enter().append("linearGradient").attr("id", function(d, i) {
+    if (settings.chartProp.indicator && settings.chartProp.indicator.length) colorStepGroup.attr("class", "colorStepGroups").selectAll(".colorStepGroup").data(lineData).enter().append("linearGradient").attr("id", function(d, i) {
         return settings.id + "-" + i;
-    }).attr("class", "colorStepGroup").attr("gradientUnits", "userSpaceOnUse").selectAll("stop-color").data(function(d) {
+    }).attr("class", "colorStepGroup").attr("gradientUnits", function(d) {
+        var t = _.filter(settings.chartProp.indicator, function(item) {
+            return _.map(item.thenRow, "firstField").indexOf(d.label) !== -1;
+        });
+        return t.length ? "objectBoundingBox" : "userSpaceOnUse";
+    }).selectAll("stop-color").data(function(d) {
         var r = [];
         var unit = 1 / ((d.values.length - 1) * 2);
         var sum = -1 * unit;
@@ -17508,8 +17509,18 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
             var values = data[i].series.map(function(d) {
                 return d.data;
             });
-            pushThenRow(ret, values, headers);
-            e = ret[0];
+            var tarr = app.chartCommons.indicator.getIndicator(values, headers, settings.chartProp.indicator);
+            var color = d.prop.seriesColor;
+            var dx = _.flatten(tarr);
+            _.each(dx, function(thenRowItem) {
+                if (e.label !== thenRowItem.firstField) return true;
+                switch (+thenRowItem.operand) {
+                  case 1:
+                    color = thenRowItem.secondFieldColor;
+                    break;
+                }
+            });
+            e.color = color;
             e.offset = sum < 0 ? 0 : sum;
             r.push(e);
             e = $.extend({}, e);
@@ -17520,18 +17531,6 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
         return r;
     }).enter().append("stop").attr("stop-color", function(d, i) {
         var color = d.color;
-        if (d.thenRows) {
-            $.each(d.thenRows, function(i, thenRow) {
-                $.each(thenRow, function(i, thenRowItem) {
-                    if (d.label != thenRowItem.firstField) return true;
-                    switch (+thenRowItem.operand) {
-                      case 1:
-                        color = thenRowItem.secondFieldColor;
-                        break;
-                    }
-                });
-            });
-        }
         return color;
     }).attr("offset", function(d) {
         return d.offset;
@@ -23122,7 +23121,6 @@ app.charts.tree.draw = function(input, settings, refreshWithData, titlebar) {
                     return;
                 }
                 $(this).data("loaded", true);
-                var dataUrl = app.urlPrefix + "Charts/BarChart/getTreeData";
                 var parameters = {
                     parent: d.id,
                     chartId: settings.chartId,
@@ -23134,13 +23132,17 @@ app.charts.tree.draw = function(input, settings, refreshWithData, titlebar) {
                 }
                 var node = d3.select(this).node().parentElement;
                 d3.select(node).append("ul").attr("class", "loading collapse fade in").html('<div class="ui active inline loader mini"></div>');
+                var dataUrl = app.urlPrefix + "Charts/BarChart/getTreeData";
                 var caller = app.mobileMode ? proxy.ajax : $.ajax;
-                var data = app.mobileMode && !app.mobileModeTest ? parameters : JSON.stringify(parameters);
+                var data = JSON.stringify(parameters);
                 var ajaxRequest = caller({
                     url: dataUrl,
                     type: "POST",
                     dataType: "json",
+                    contentType: "application/json",
                     data: data,
+                    async: settings.async,
+                    requestId: settings.requestId,
                     success: function(input, isOnline, date) {
                         settings.mobileModeData = {
                             isOnline: isOnline,
@@ -23148,7 +23150,6 @@ app.charts.tree.draw = function(input, settings, refreshWithData, titlebar) {
                         };
                         createNode(d3.select(node), input);
                     },
-                    contentType: "application/json",
                     error: function() {}
                 });
             });
@@ -23167,15 +23168,17 @@ app.charts.tree.draw = function(input, settings, refreshWithData, titlebar) {
         data.dimensionName = input.dimensionName;
         data.datasourceId = input.DataSourceId;
         data.chartId = settings.editMode ? -1 : input.chartId;
-        if (!settings.editMode && data.Id == -1) app.chartCommons.userFilter.setFilter({
-            id: data.Id,
-            values: data.Values,
-            variableType: data.VariableType,
-            dimensionName: data.dimensionName,
-            chartInPageId: settings.ChartInPageId,
-            datasourceId: data.datasourceId
-        });
-        if (+data.Id == -1) {
+        if (!settings.editMode && data.Id === -1) {
+            app.chartCommons.userFilter.setFilter({
+                id: data.Id,
+                values: data.Values,
+                variableType: data.VariableType,
+                dimensionName: data.dimensionName,
+                chartInPageId: settings.ChartInPageId,
+                datasourceId: data.datasourceId
+            });
+        }
+        if (+data.Id === -1) {
             app.moderation.dashboadpage.refreshRelatedDatasources(input.RefreshDatasource, [ +settings.ChartInPageId ]);
             app.filterBox.refresh();
             return;
