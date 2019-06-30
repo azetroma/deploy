@@ -8080,7 +8080,8 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
                 refreshPeriod: "0",
                 formatString: ",.0f",
                 tooltipHeader: "{{set.key}}",
-                tooltipFormat: "{{point.label}}: {{point.data}} :: {{point.percentage}}%"
+                tooltipFormat: "{{point.label}}: {{point.data}} :: {{point.percentage}}%",
+                justFilterDirectChild: true
             }
         },
         gauge: {
