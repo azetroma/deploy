@@ -495,6 +495,8 @@ app.chartCommons.clicked = false;
 
 app.chartCommons.changeSeriesPropertyBaseOnExpandedType = function(props, justOneSeries) {
     var expandedType = app.chartCommons.expandedType;
+    props = props || {};
+    props.info = props.info || {};
     props.info.aggregation = "1";
     if (expandedType === 1) {
         _.each(props.series, function(p, k) {
@@ -1029,7 +1031,6 @@ app.chartCommons.renderComments = function(settings, input) {
         if (!d.seriesLable) {}
         var val = getValueByLabelMeasure(d.seriesLable, d.measure);
         $labelText.data("v", d.seriesLable);
-        console.log("### set series label", d.seriesLable);
         $measureText.data("v", d.measure);
         $input.focus();
         $showSelectedValueContainer.hide();
@@ -1169,7 +1170,6 @@ app.chartCommons.renderComments = function(settings, input) {
         var $value = $popup.find(".value-value");
         var submit = function() {
             var selectedLabel = $labelText.data("v");
-            console.log("### get series label", selectedLabel);
             var selectedMeasure = $measureText.data("v");
             if (!_.isArray(selectedLabel)) selectedLabel = [ selectedLabel ];
             if (_.isArray(selectedMeasure)) selectedMeasure = selectedMeasure[0];
@@ -5023,13 +5023,11 @@ var chartTypes = {
         }
         if (type.isCustom) {
             settings.selector = "#" + settings.id;
-            var seriesLabels = typeof input.series != "undefined" ? input.series.labels : [];
-            var kpisLabels = typeof input.kpis != "undefined" ? input.kpis.labels : [];
+            var seriesLabels = typeof input.series !== "undefined" ? input.series.labels : [];
+            var kpisLabels = typeof input.kpis !== "undefined" ? input.kpis.labels : [];
             if (settings.editMode) {
                 $(settings.selector).trigger("chartproperty", [ kpisLabels.concat(seriesLabels) ]);
             }
-            console.log("### type.id = " + type.id);
-            console.log("### app.customChart.charts[type.id] = " + app.customChart.charts[type.id]);
             app.customChart.charts[type.id](input, settings, refreshWithDataFlag, titlebar);
             return;
         }
@@ -9816,21 +9814,18 @@ app.charts.tree.draw = function(input, settings, refreshWithData, titlebar) {
         });
         li.each(function(d) {
             if (+d.childs == 0) return;
-            d3.select(this).append(settings.editMode ? "span" : "i").attr("class", function() {
-                return settings.editMode ? "glyphicon-chevron-left glyphicon tree-caret pointer" : "icon angle down icon-animate large  tree-caret pointer";
+            d3.select(this).append("i").attr("class", function() {
+                return "icon angle left icon-animate large  tree-caret pointer";
             }).text(" ").on("click", function(d, i) {
                 if (+d.childs == 0) return;
+                var rotateClass = "rotate-90";
                 var glyph = $(this);
-                var isOpen = glyph.hasClass("rotate");
-                if (isOpen) glyph.removeClass("rotate"); else glyph.addClass("rotate");
+                var isOpen = glyph.hasClass(rotateClass);
+                if (isOpen) glyph.removeClass(rotateClass); else glyph.addClass(rotateClass);
                 var loaded = $(this).data("loaded");
                 if (loaded) {
                     var ul = $(this).parent().find(" > ul");
-                    if (settings.editMode) {
-                        ul.collapse(glyph.hasClass("rotate") ? "hide" : "show");
-                    } else {
-                        ul.transition(isOpen ? "out scale right" : "in  scale left");
-                    }
+                    ul.transition(isOpen ? "out scale right" : "in  scale left");
                     return;
                 }
                 $(this).data("loaded", true);
@@ -9867,13 +9862,9 @@ app.charts.tree.draw = function(input, settings, refreshWithData, titlebar) {
                 });
             });
         });
-        if (!settings.editMode) {
-            root.style("display", "none");
-        }
+        root.style("display", "none");
         $(parent._groups[0][0]).append($(root._groups[0][0]));
-        if (!settings.editMode) {
-            $(parent._groups[0][0]).find("> ul").transition("in scale ");
-        }
+        $(parent._groups[0][0]).find("> ul").transition("in scale ");
     };
     createNode(root, input);
     $(selector).trigger("heightChange");
@@ -10455,6 +10446,9 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
         select += '  <option value="">' + settings.chartProp.info.label + "</option>";
         for (var i = 0; i < names.length; i++) select += '  <option value="' + values[i] + '">' + names[i] + "</option>";
         select += "</select>";
+        if (settings.chartProp.info.showExclude) {
+            select += '<div class="temporal" style="text-align: left;padding-top: 5px;"><label> نقیض <input type="checkbox" id="exclude"/></label></div>';
+        }
         $(selector).append(select);
         function selectValue(val) {
             var returnVal;
@@ -10482,15 +10476,31 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
         });
         var changeCallback = null;
         var silentChange = false;
+        var process = function() {
+            var exclude = $(selector).find("#exclude").is(":checked");
+            if (!isMulti) {
+                var op = settings.chartProp.info.dateOp;
+                if (exclude) {
+                    var ex = {
+                        eq: "nteq",
+                        nteq: "eq",
+                        gr: "eqls",
+                        eqgr: "ls",
+                        ls: "eqgr",
+                        eqls: "gr"
+                    };
+                    op = ex[op];
+                }
+                input.DefaultValue.push(op);
+            }
+            if (exclude && isMulti) {
+                input.DefaultValue.push("exclude=1");
+            }
+        };
         if (settings.editMode) {
             changeCallback = function(v) {
                 input.DefaultValue = v;
-                if (!isMulti) {
-                    input.DefaultValue.push(settings.chartProp.info.dateOp);
-                }
-                if (settings.chartProp.info.exclude) {
-                    input.DefaultValue.push("exclude=1");
-                }
+                process();
                 $(selector).trigger("default-value", [ true, input.DefaultValue, isMulti ? 0 : 4 ]);
             };
         } else {
@@ -10500,11 +10510,10 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
                     return;
                 }
                 input.DefaultValue = v;
-                if (!isMulti) {
-                    input.DefaultValue.push(settings.chartProp.info.dateOp);
-                }
-                if (settings.chartProp.info.exclude) {
-                    input.DefaultValue.push("exclude=1");
+                process();
+                var exclude = $(selector).find("#exclude").is(":checked");
+                if (exclude && input.DefaultValue.length < 2) {
+                    return;
                 }
                 ajaxCall({
                     Id: settings.chartProp.info.variableId || -1,
@@ -10534,6 +10543,7 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
                 }));
             }, 200);
         }
+        $(selector + " #exclude").on("change", change);
         $(selector + " .ui.dropdown").dropdown({
             onChange: function(value, text, $selectedItem) {
                 if (!isMulti) change();
@@ -11203,7 +11213,6 @@ var ngApp = angular.module("services");
 ngApp.service("roles", [ "$http", function($http) {
     var promise;
     function get() {
-        console.log("role service");
         if (!promise) promise = $http.get(app.urlPrefix + "api/roles/get");
         return promise;
     }
@@ -11698,7 +11707,6 @@ ngApp.directive("sadafForm", function() {
             $scope.$watch(angular.bind(this, function() {
                 return this.allControl;
             }), function(n, d) {
-                console.log("### $scope.$watch allControl");
                 if (!n || !d) return;
                 _.each(n, function(nv) {
                     var old = _.find(d, {
@@ -13122,7 +13130,6 @@ ngApp.directive("selectForm", function() {
                     });
                 }
                 scope.$watch("model", function(n) {
-                    console.log(scope.model.remoteColumnKey);
                     if (n) {
                         getColumn();
                     }
@@ -13466,7 +13473,6 @@ ngApp.directive("selectForm", function() {
                     }
                 });
                 input.keyup(function(e) {
-                    console.log("input.keyup", e);
                     scope.sdKeyup({
                         $event: e
                     });
@@ -13610,7 +13616,6 @@ ngApp.directive("selectForm", function() {
                     });
                 });
                 scope.$watch("model", function(n, o) {
-                    console.log("watch model", n);
                     if (scope.silent) return;
                     if (!n) {
                         scope.timeFrom = {};
@@ -13623,7 +13628,6 @@ ngApp.directive("selectForm", function() {
                     });
                 });
                 if (!scope.model) {
-                    console.log("scope.model", scope.model);
                     scope.timeFrom = new Date("1969-12-31 " + scope.model.from + "");
                     scope.timeTo = new Date("1969-12-31 " + scope.model.to + "");
                 }
@@ -13698,7 +13702,6 @@ ngApp.directive("selectForm", function() {
                     f.success = true;
                     setIcon(f);
                 });
-                console.log("$scope.model.attachment.uploadList ", $scope.model.attachment.uploadList);
                 $scope.upload = function($files, $event, $rejectedFiles) {
                     if (!$files || !$files.length) {
                         return;

@@ -332,7 +332,6 @@
         app.version = '@v';
         app.datasourceMetadata = @(BLL.ApplicationLicense.ClientLicenseManager.GetInstance().DatasourceMetadata ? "true": "false")
         var hash = "@ViewBag.returnUrlHash";
-        console.log('### hash url', hash);
         if (hash) {
             location.hash = hash;
         }

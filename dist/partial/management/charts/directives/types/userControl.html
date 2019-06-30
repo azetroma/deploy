@@ -104,11 +104,11 @@
                     </div>
                 </div>
 
-                <div ng-show="ngModel.userControl.info.type=='multi'">
+                <div ng-show="ngModel.userControl.info.type=='multi' || ngModel.userControl.info.type=='combo'">
                     <div class="form-row" layout="row" layout-align="start center">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-model="ngModel.userControl.info.exclude" ng-change="change()" /> حالت عدم شمول <small class="gray">(انتخاب همه به جز موارد انتخاب شده)</small>
+                                <input type="checkbox" ng-model="ngModel.userControl.info.showExclude" ng-change="refreshChart('refresh')" /> نمایش گزینه نقیض <small class="gray">(انتخاب همه به جز موارد انتخاب شده)</small>
                             </label>
                         </div>
                     </div>
