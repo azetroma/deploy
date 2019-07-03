@@ -124,6 +124,16 @@
                                         <md-option value="1">English</md-option>
                                     </md-select>
                                 </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row" flex>
+
+                                <md-input-container class="md-block" flex>
+                                    <label>زمان اعتبار نشست</label>
+                                    <input type="number" ng-model="model.sessionTime">
+                                    <div class="hint">مدت زمان اعتبار نشست کاربر به دقیقه. در صورتی که مقداری ثبت نشود یا ۰ ثبت شود مدت زمان اعتبار 
+                                    نشست مقدار پیش فرض سامانه می‌باشد.</div>
+                                </md-input-container>
+
 
                                 <md-input-container flex>
                                     <label>{{'expire_time' | translate}}</label>

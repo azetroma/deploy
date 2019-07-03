@@ -46,11 +46,6 @@
                 </tr>
             </table>
 
-            <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
-                <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
-            </div>
-            <p ng-bind-html="error" ng-show="error" class="danger " layout-padding></p>
-            <div ng-hide="(data && data.length) || !search || progress || error" class="md-caption" style="padding:16px; text-align:center">{{'داده‌ای برای نمایش وجود ندارد' | translate}}</div>
 
             <div class="sadaf-tree" style="margin: 0 40px;" ng-hide="search.length">
                 <h3 class="header ui">
@@ -61,7 +56,12 @@
                 <roles-tree root="root"></roles-tree>
 
             </div>
-            
+            <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
+                <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
+            </div>
+            <p ng-bind-html="error" ng-show="error" class="danger " layout-padding></p>
+            <div ng-hide="(data && data.length) || !search || progress || error" class="md-caption" style="padding:16px; text-align:center">{{'داده‌ای برای نمایش وجود ندارد' | translate}}</div>
+
 
         </md-content>
     </div>

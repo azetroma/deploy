@@ -18227,14 +18227,21 @@ var chartTypes = {
         settings.chartProp = _.extend({
             info: {}
         }, settings.chartProp);
-        if (settings.chartProp.info.refreshPeriod && +settings.chartProp.info.refreshPeriod > 0) {
+        var refreshPeriod = 0;
+        if (settings.chartProp.info.refreshPeriod) {
+            refreshPeriod = +settings.chartProp.info.refreshPeriod;
+        }
+        if (settings.type.isCustom && settings.chartProp.general.info) {
+            refreshPeriod = +settings.chartProp.general.info.refreshPeriod;
+        }
+        if (refreshPeriod > 0) {
             var lastTimeout = $("#" + settings.id).data("timeout");
             if (lastTimeout) clearTimeout(lastTimeout);
             var timeout = setTimeout(function() {
                 $("#" + settings.id).charts(type, "refreshWithData", null, {
                     refreshRelatedDatasources: false
                 });
-            }, +settings.chartProp.info.refreshPeriod * 1e3);
+            }, refreshPeriod * 1e3);
             $("#" + settings.id).data("timeout", timeout);
         }
         $("#dashboard-chart-panel").trigger("chartComplete", [ settings, input ]);
@@ -23646,9 +23653,9 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
         var showLabel = function(p) {
             var format = settings.chartProp.info.sliderFont.formatString || ",.2f";
             if (Array.isArray(p)) {
-                return filterXSS('<div class="inline">' + persian(d3.format(format)(p[0]), showPersian) + '</div> <div class="inline"> تا </div> <div class="inline">' + persian(d3.format(format)(p[1]), showPersian) + "</div>");
+                return '<div class="inline">' + persian(d3.format(format)(p[0]), showPersian) + '</div> <div class="inline"> تا </div> <div class="inline">' + persian(d3.format(format)(p[1]), showPersian) + "</div>";
             } else {
-                return filterXSS(persian(d3.format(format)(p), showPersian));
+                return persian(d3.format(format)(p), showPersian);
             }
         };
         select.find(".slider").slider({
@@ -23716,14 +23723,21 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
         if (names.length != values.length) {
             $("#" + settings.id).append(app.chartCommons.getError(input));
         }
-        var select = '<select class="temporal ui fluid ' + (isMulti ? "multiple" : "") + ' search selection dropdown" ' + (isMulti ? "multiple" : "") + " >";
+        var select = '<div class="dp-container temporal inline"><select class="temporal ui fluid ' + (isMulti ? "multiple" : "") + ' search selection dropdown" ' + (isMulti ? "multiple" : "") + " >";
         select += '  <option value="">' + settings.chartProp.info.label + "</option>";
         for (var i = 0; i < names.length; i++) select += '  <option value="' + values[i] + '">' + names[i] + "</option>";
-        select += "</select>";
-        if (settings.chartProp.info.showExclude) {
-            select += '<div class="temporal" style="text-align: left;padding-top: 5px;"><label> نقیض <input type="checkbox" id="exclude"/></label></div>';
-        }
+        select += "</select></div>";
         $(selector).append(select);
+        if (settings.chartProp.info.showExclude) {
+            var tag = '<div class="temporal ui checkbox" style="display:inline-block; width:70px;text-align: left;padding: 10px;"><input type="checkbox" id="exclude"/><label> نقیض </label></div>';
+            $(selector).append(tag);
+            $(selector).find(".checkbox").checkbox();
+            $(selector).find(".dp-container").css({
+                width: "calc(100% - 70px)"
+            });
+        } else {
+            $(selector).find(".dp-container").css("width", "100%");
+        }
         function selectValue(val) {
             var returnVal;
             if (val) {
@@ -23785,10 +23799,6 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
                 }
                 input.DefaultValue = v;
                 process();
-                var exclude = $(selector).find("#exclude").is(":checked");
-                if (exclude && input.DefaultValue.length < 2) {
-                    return;
-                }
                 ajaxCall({
                     Id: settings.chartProp.info.variableId || -1,
                     Values: input.DefaultValue,
@@ -23805,19 +23815,27 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
         input.DefaultValue = dv;
         var silent = true;
         var lastT;
+        function getDropdownValue() {
+            var value = $(selector + " .ui.dropdown").dropdown("get value");
+            if (!_.isArray(value)) value = [ value ];
+            value = _.filter(value, null);
+            return value;
+        }
         function change() {
             if (silent) return;
             clearTimeout(lastT);
             lastT = setTimeout(function() {
-                var value = $(selector + " .ui.dropdown").dropdown("get value");
-                if (!_.isArray(value)) value = [ value ];
-                value = _.filter(value, null);
+                var value = getDropdownValue();
                 changeCallback(_.map(value, function(d) {
                     return d.deentitize();
                 }));
             }, 200);
         }
-        $(selector + " #exclude").on("change", change);
+        $(selector + " #exclude").on("change", function() {
+            var value = getDropdownValue();
+            if (!value.length) return;
+            change();
+        });
         $(selector + " .ui.dropdown").dropdown({
             onChange: function(value, text, $selectedItem) {
                 if (!isMulti) change();
