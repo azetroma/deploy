@@ -1,7 +1,7 @@
 <div class="form-row" layout="row" layout-align="start center">
     <label class="col-sm-4">{{ 'تازه شدن داده‌ها' | translate }}</label>
     <span class="form-divider" flex></span><div class="col-sm-8">
-        <select class="selectpicker-x form-control" ng-model="model.refreshPeriod" ng-change="refreshChart('refreshWithData')"
+        <select class="selectpicker-x form-control" ng-model="model.refreshPeriod" ng-change="change()"
                 ng-options="color.name as  color.value for color in [
                                     {name:'0', value: 'غیر فعال'  },
                                     {name:'30', value: 'سی ثانیه'  },

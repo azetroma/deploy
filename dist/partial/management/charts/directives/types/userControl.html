@@ -3,10 +3,10 @@
     <menu-item>
         <menu-header>{{ 'تنظیمات کلی' | translate }}</menu-header>
         <menu-body>
-            <div>
+            <div> 
                 <input type="hidden" data-prop="canExportXlsx" value="false" />
 
-                <general-settings ng-model="ngModel.userControl.info" ng-change="refreshChart('refresh')"></general-settings>
+                <general-settings ng-model="ngModel.userControl.info" ng-change="refreshChart('refreshWithData')"></general-settings>
 
 
                 <div class="form-row" layout="row" layout-align="start center">

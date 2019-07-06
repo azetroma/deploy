@@ -3857,6 +3857,7 @@ var dashboard = {
             widget_base_dimensions: [ dashboard.baseDimantion.x, dashboard.baseDimantion.y ],
             max_cols: dashboard.maxCols,
             min_cols: dashboard.maxCols,
+            min_rows: 1e3,
             resize: {
                 enabled: true,
                 stop: function(event, ui, el) {
@@ -10740,6 +10741,9 @@ ngApp.controller("chartsListCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog",
             },
             controller: [ "$scope", function($scope) {
                 $scope.menus = [];
+                $scope.ff = function() {
+                    $scope.change();
+                };
                 myService.getMenus().then(function(item) {
                     var d = item.data;
                     if (d.filter(function(i) {
@@ -18002,7 +18006,7 @@ var chartTypes = {
         if (typeof settings == "undefined") return;
         settings.isRefresh = true;
         settings = $.extend(settings, options);
-        if (settings.chartProp.info.disable) {
+        if (settings.chartProp.info.disable && !settings.editMode) {
             showDisableMessage(settings);
             return;
         }
@@ -18012,6 +18016,34 @@ var chartTypes = {
             settings.parameters.isUp = false;
         }, 0);
         return this;
+    }
+    function invalidateBackground(settings) {
+        if (!settings.editMode) return;
+        var info = settings.chartProp.info || {};
+        if (settings.type.isCustom) {
+            info = settings.chartProp.general.info || {};
+        }
+        var div = $("#" + settings.id).parents(".chart-widget");
+        if (info.backgroundColor) {
+            div.find(".ui.card ").css("background", info.backgroundColor);
+        }
+        if (info.dontShowTitle === true) {
+            div.find(".ui.card .title-content").hide();
+        } else {
+            div.find(".ui.card .title-content").show();
+        }
+        if (info.titleFont) {
+            div.find(".ui.card .title-content").css({
+                "font-size": info.titleFont.fontSize,
+                color: info.titleFont.color,
+                "font-family": info.titleFont.fontName,
+                "font-weight": info.titleFont.bold ? "bold" : "normal",
+                "font-style": info.titleFont.italic ? "italic" : "normal"
+            });
+            div.find(".ui.card .title").css({
+                "text-align": info.titleFont.align
+            });
+        }
     }
     function abort($e) {
         var ajaxRequest = $e.data("ajaxRequest");
@@ -18049,7 +18081,7 @@ var chartTypes = {
                 isCustom: false
             };
         }
-        if (settings.chartProp.info.disable) {
+        if (settings.chartProp.info.disable && !settings.editMode) {
             showDisableMessage(settings);
             return;
         }
@@ -18102,9 +18134,7 @@ var chartTypes = {
     function showDisableMessage(settings) {
         var selector = "#" + settings.id;
         $(selector).empty();
-        $(selector).css("flex", 1);
-        $(selector).css("display", "flex");
-        $(selector).html('<div style="display: flex;justify-content: center;flex-direction: column;text-align: center; align-items: center;flex: 1">                <img style="margin:12px;"width="32" src="' + app.urlPrefix + 'images/barricade-256.png"/>                <p>نمودار در حال تغییر است</p>            </div > ');
+        $(selector).html('<div class="temporal" style="display: flex;justify-content: center;flex-direction: column;text-align: center; align-items: center;flex: 1">                <img style="margin:12px;"width="32" src="' + app.urlPrefix + 'images/barricade-256.png"/>                <p>نمودار در حال تغییر است</p>            </div > ');
     }
     function init(type, options) {
         var settings = $.extend({}, defaultSettings, options);
@@ -18119,7 +18149,7 @@ var chartTypes = {
                 isCustom: false
             };
         }
-        if (settings.chartProp.info.disable) {
+        if (settings.chartProp.info.disable && !settings.editMode) {
             showDisableMessage(settings);
             return;
         }
@@ -18216,6 +18246,7 @@ var chartTypes = {
         if (!settings.editMode) {
             dashboard.setLastRefresh(settings.ChartInPageId, input.LastRefresh);
         }
+        invalidateBackground(settings);
         settings.input = input;
         if (arguments.length < 4) {
             $.error("تعداد پارامترها باید حداقل چهار تا باشد");
