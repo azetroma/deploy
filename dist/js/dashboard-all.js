@@ -16267,7 +16267,7 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
             var mdefaultId = data.data.defaultId;
             $scope.reorderPermission = data.data.reorderPermission;
             var activeId = $routeParams.id || defaultId || mdefaultId;
-            var appid = $routeParams.appid || 1;
+            var appid = $routeParams.appid || data.data.appId || 1;
             if (!$routeParams.id) $location.path("app/" + appid + "/dashboard/" + activeId);
             if ($scope.menuCategories) {
                 _.each($scope.menuCategories.data, function(mc) {
@@ -16291,7 +16291,7 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
             check();
         });
         var cancel = $scope.$on("$routeChangeSuccess", function() {
-            var appid = $routeParams.appid || 1;
+            var appid = $routeParams.appid || $("#appId").val() || 1;
             $http.get(app.urlPrefix + "menu/MenuCategories/" + appid).then(function(data) {
                 $scope.getMenusData = data;
                 check();
