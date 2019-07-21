@@ -7269,7 +7269,7 @@ var mapResult = {
     Ok: "اجرای موفق"
 };
 
-ngApp.controller("logCtrl", [ "$scope", "$http", "$sce", "$timeout", "$mdToast", function($scope, $http, $sce, $timeout, $mdToast) {
+ngApp.controller("logCtrl", [ "$scope", "$http", "$sce", "$timeout", "$mdToast", "roles", function($scope, $http, $sce, $timeout, $mdToast, roles) {
     $scope.saveProgress = false;
     function maper(o) {
         return Object.keys(o).map(function(key, index) {
@@ -7280,6 +7280,9 @@ ngApp.controller("logCtrl", [ "$scope", "$http", "$sce", "$timeout", "$mdToast",
         });
     }
     $(".ui.dimmer.modals .settings").remove();
+    roles.get().then(function(res) {
+        $scope.roles = res.data.list;
+    });
     $scope.mapType = _.sortBy(maper(mapType), "label");
     $scope.mapOperation = _.sortBy(maper(mapOperation), "label");
     $scope.mapResult = _.sortBy(maper(mapResult), "label");
@@ -9269,11 +9272,8 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
             }, function(error) {
                 if (error.data.desc) {
                     alert(error.data.desc);
-                }
-                if (window.history.length == 2) {
-                    $location.path("charts");
                 } else {
-                    window.history.back();
+                    alert("خطا در دریافت اطلاعات نمودار");
                 }
             });
         } else {
@@ -23842,6 +23842,10 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
             dv = input.GloablFilterDefaultValue.Value;
         } else if (input.DefaultValue != null && input.DefaultValue.length > 0) {
             dv = input.DefaultValue;
+        }
+        if (!isMulti) {
+            dv = [].concat(dv);
+            dv.splice(dv.length - 1, 1);
         }
         input.DefaultValue = dv;
         var silent = true;

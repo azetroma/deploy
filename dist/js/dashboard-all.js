@@ -10565,6 +10565,10 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
         } else if (input.DefaultValue != null && input.DefaultValue.length > 0) {
             dv = input.DefaultValue;
         }
+        if (!isMulti) {
+            dv = [].concat(dv);
+            dv.splice(dv.length - 1, 1);
+        }
         input.DefaultValue = dv;
         var silent = true;
         var lastT;
@@ -16292,6 +16296,20 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
         });
         var cancel = $scope.$on("$routeChangeSuccess", function() {
             var appid = $routeParams.appid || $("#appId").val() || 1;
+            if (+$("#isShared").val() == 1) {
+                $scope.getMenusData = {
+                    result: true,
+                    defaultId: $("#dashboardPublishMenuId").val(),
+                    appId: 5,
+                    hasAminPermission: false,
+                    data: [],
+                    hasAddPer: false,
+                    reorderPermission: false,
+                    licenceRemain: {}
+                };
+                check();
+                return;
+            }
             $http.get(app.urlPrefix + "menu/MenuCategories/" + appid).then(function(data) {
                 $scope.getMenusData = data;
                 check();

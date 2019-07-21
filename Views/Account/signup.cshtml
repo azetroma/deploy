@@ -164,7 +164,7 @@
                             <div ng-show="step==1" class="field" ng-class="{error: validation.password==-1}">
                                 <label>@ViewBag.msg["password"]</label>
                                 <div class="ui icon input">
-                                    <input autocomplete="off" ng-model="model.password" ng-blur="fieldValidate('password')" type="{{showPass ? 'text':'password'}}" class="ui fuild input" />
+                                    <input autocomplete="off" class="ltr" ng-model="model.password" ng-blur="fieldValidate('password')" type="{{showPass ? 'text':'password'}}" class="ui fuild input" />
                                     <i class="lock icon"></i>
                                 </div>
                                 <div class="field-info">حداقل ۸ کاراکتر شامل حروف بزرگ و کوچک انگلیسی و علامت</div>
@@ -178,7 +178,7 @@
                             <div ng-show="step==1" class="field" ng-class="{error: validation.passwordRepeat==-1}">
                                 <label>@ViewBag.msg["password repeat"]</label>
                                 <div class="ui icon input">
-                                    <input ng-model="model.passwordRepeat" ng-blur="fieldValidate('passwordRepeat')" type="{{showPass ? 'text':'password'}}" autocomplete="off" class="ui fuild input" />
+                                    <input ng-model="model.passwordRepeat"class="ltr" ng-blur="fieldValidate('passwordRepeat')" type="{{showPass ? 'text':'password'}}" autocomplete="off" class="ui fuild input" />
                                     <i class="lock icon"></i>
                                 </div>
                                 <small class="field-info">{{error.passwordRepeat}}</small>

@@ -23,20 +23,58 @@
                             <input required ng-model="model.Brand">
                         </div>
 
-
-
-
-
                         <div class="field">
                             <label>{{'login desc' | translate}}</label>
                             <textarea ng-model="model.loginPageText" style="line-height: 2em;"></textarea>
                         </div>
 
-                        <div class="field" ng-show="securityCertPatch">
-                            <label>{{'max fail login' | translate}}</label>
-                            <input type="number" ng-model="model.maxFailedLogin">
-                            <small><small>{{'حداکثر تعداد تلاش ناموفق برای لاگین' | translate}}</small></small>
+                        <div class="ui secondary segment" ng-show="securityCertPatch">
+
+                            <div class="fields">
+                                <div class="two wide field">
+                                    <label>حد پایین لاگین ناموفق</label>
+                                </div>
+                                <div class="four wide field">
+                                    <input type="number" ng-model="model.maxFailedLogin">
+                                </div>
+                                <div class="two wide field">
+                                    <label>عملیات - حد پایین لاگین ناموفق</label>
+                                </div>
+                                <div class="four wide field">
+                                    <sm-dropdown class="search selection " model="model.maxFailedLoginAction" items="[
+                                         {id:1, name:'ارسال هشدار به شماره موبایل کاربر'},
+                                         {id:5, name:'ارسال هشدار به ایمیل کاربر'},
+                                         {id:2, name:'فعال کردن کد کپچا'},
+                                         {id:3, name:'غیر فعال کردن کاربر به مدت ۱۰ دقیقه'},
+                                         {id:4, name:'نادیده گرفتن'},
+                                         ]" label="item.name" value="item.id"></sm-dropdown>
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <div class="two wide field">
+                                    <label>حد بالای لاگین ناموفق</label>
+                                </div>
+                                <div class="four wide field">
+                                    <input type="number" ng-model="model.maxFailedLoginUpper">
+                                </div>
+                                <div class="two wide field">
+                                    <label>عملیات - حد بالای لاگین ناموفق</label>
+                                </div>
+                                <div class="four wide field">
+                                    <sm-dropdown class="search selection " model="model.maxFailedLoginUpperAction" items="[
+                                         {id:1, name:'ارسال هشدار به شماره موبایل کاربر'},
+                                         {id:5, name:'ارسال هشدار به ایمیل کاربر'},
+                                         {id:2, name:'فعال کردن کد کپچا'},
+                                         {id:3, name:'غیر فعال کردن کاربر به مدت ۱۰ دقیقه'},
+                                         {id:4, name:'نادیده گرفتن'},
+                                         ]" label="item.name" value="item.id"></sm-dropdown>
+                                </div>
+                            </div>
                         </div>
+
+
+
+
 
                         <div class="field">
                             <label>{{'session timeout' | translate}}</label>
@@ -242,15 +280,17 @@
                                 </div>
                             </div>
                         </div>
+                        <br />
+                        <br />
 
                         <div class="field">
                             <label>انتخاب لوگو</label>
-                            <input type="file" ng-model="model.logo"  onchange="angular.element(this).scope().previewFile(this , false)">
+                            <input type="file" ng-model="model.logo" onchange="angular.element(this).scope().previewFile(this , false)">
                         </div>
 
                         <div class="field">
                             <label>انتخاب لوگوی با رنگ معکوس</label>
-                            <input type="file" ng-model="model.logo"  onchange="angular.element(this).scope().previewFile(this , true)">
+                            <input type="file" ng-model="model.logo" onchange="angular.element(this).scope().previewFile(this , true)">
                         </div>
 
 
