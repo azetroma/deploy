@@ -13499,6 +13499,7 @@ ngApp.directive("selectForm", function() {
                     changeYear: true,
                     dateFormat: "yy/mm/dd",
                     altFormat: "yy/mm/dd",
+                    yearRange: "-30:+30",
                     altField: element.find("#from-value"),
                     onClose: function(selectedDate) {
                         scope.model = selectedDate;
@@ -13533,6 +13534,7 @@ ngApp.directive("selectForm", function() {
                     changeMonth: true,
                     changeYear: true,
                     dateFormat: "yy/mm/dd",
+                    yearRange: "-30:+30",
                     altFormat: "yy/mm/dd",
                     altField: element.find("#from-value"),
                     onClose: function(selectedDate) {
@@ -13552,6 +13554,7 @@ ngApp.directive("selectForm", function() {
                     changeMonth: true,
                     dateFormat: "yy/mm/dd",
                     altFormat: "yy/mm/dd",
+                    yearRange: "-30:+30",
                     altField: element.find("#to-value"),
                     onClose: function(selectedDate) {
                         scope.model = scope.model || {};
