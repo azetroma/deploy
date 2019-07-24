@@ -11896,6 +11896,75 @@ ngApp.directive("sadafForm", function() {
             function updateCalculated(newVal, oldVal) {
                 console.log("updateCalculated");
                 runOnAllControll($scope.data, function(control, rowControls) {
+                    if (control.type == 5) {
+                        var o = calcFlatFormula(control.calculate.expression, rowControls);
+                        control.value = o.value;
+                        control.formula = o.formula;
+                        control.calcType = o.type;
+                        control.calculate.calculatedValue = o.calculatedValue;
+                    }
+                    if (control.type == 16) {
+                        var regex = /\s*(sum|avg|var)\s*\(([^\)]+)\)\s*/gi;
+                        var hasDurationFormat = false;
+                        var r = control.calculate.expression.replace(regex, function(a, b, c) {
+                            var array = [];
+                            var firstField = c.replace(/.*\[(field-\d+)\].*/gi, "$1");
+                            var rows = GetMultiRowControlBaseOnChildName(firstField);
+                            if (!rows) {
+                                return "از فیلدهای مربوط به فرم چند ردیفه باید استفاده شود";
+                            }
+                            _.each(rows.control.multiRowForm.rows, function(row) {
+                                var o = calcFlatFormula(c, row);
+                                if (o.type != "digit") {
+                                    hasDurationFormat = true;
+                                    array.push(o.calculatedValue || 0);
+                                } else {
+                                    array.push(o.value || 0);
+                                }
+                            });
+                            var val = 0;
+                            if (b === "sum") val = d3.sum(array);
+                            if (b === "avg") val = d3.mean(array);
+                            if (b === "var") val = d3.variance(array);
+                            return " " + val + " ";
+                        });
+                        if (hasDurationFormat) {
+                            var v = moment.duration(+eval(r)).format("d روز و h ساعت و m دقیقه");
+                            control.value = v;
+                            control.calculate.calculatedValue = +eval(r);
+                            control.calcType = "millisecond";
+                        } else {
+                            try {
+                                control.value = +eval(r).toFixed(5);
+                                control.calculate.calculatedValue = +eval(r);
+                            } catch (e) {
+                                control.value = r;
+                            }
+                        }
+                    }
+                    if (control.type == 17) {
+                        var forwatch = _.find(rowControls, {
+                            name: control.tableLookup.controlName
+                        });
+                        if (!forwatch) {
+                            model.value = null;
+                            return;
+                        }
+                        var v = [];
+                        if (forwatch.dropdown && forwatch.dropdown.listValue && forwatch.dropdown.listValue.length) v.concat(forwatch.dropdown.listValue); else if (forwatch.value) v.push(forwatch.value);
+                        if (control.tableLookup.lastV && v.length == control.tableLookup.lastV.length && _.difference(v, control.tableLookup.lastV).length == 0) {
+                            return;
+                        }
+                        control.tableLookup.lastV = v;
+                        control.inProgress = true;
+                        formsService.tableLookup(control.tableLookup, v).then(function(data) {
+                            control.inProgress = false;
+                            console.log("### data", data);
+                            if (data && data.length) {
+                                control.value = data[0].value;
+                            }
+                        });
+                    }
                     if (control.useFilter && control.filters && control.filters.length) {
                         _.map(control.filters, function(filter) {
                             if (filter.type === 2) {
