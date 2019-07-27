@@ -419,7 +419,7 @@
                 </div>
 
                 <div class="" id="filter-box" ng-app="filterBox" style="transition:width 0.4s ease; flex:1 1 auto;text-align:right;display:inline-block;xmargin-bottom:25px;">
-                    <div ng-controller="filterBoxController" id="filter-box-controller" data-spy="affix" data-offset-top="100" xstyle="position:fixed; z-index:2; width: calc( 100% - 550px)">
+                    <div ng-controller="filterBoxController" id="filter-box-controller" xdata-spy="affix" xdata-offset-top="100" xstyle="position:fixed; z-index:2; width: calc( 100% - 550px)">
 
                         <div ng-if="otherFilters.length + userControlFilter.length >1"
                              class="ui label"
@@ -716,7 +716,7 @@
         app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
             ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : v.ToString())';
 
-          $('#filter-box-controller').sticky({context: '.pusher'});
+          //$('#filter-box-controller').sticky({context: '.pusher'});
     </script>
 
     <script>

@@ -5814,6 +5814,9 @@ ngApp.config([ "$routeProvider", "$locationProvider", function($routeProvider, $
     }).when("/themes", {
         templateUrl: app.urlPrefix + "dist/partial/management/account/themes.html?v=" + app.version,
         controller: "themesCtrl"
+    }).when("/compare-data", {
+        templateUrl: app.urlPrefix + "dist/partial/management/account/themes.html?v=" + app.version,
+        controller: "themesCtrl"
     });
 } ]);
 
@@ -7057,6 +7060,7 @@ ngApp.controller("settingsCtrl", [ "$scope", "$http", "$sce", "$timeout", "$mdTo
     $scope.saveProgress = false;
     $(".ui.dimmer.modals .sms-cert-modal").remove();
     $scope.moment = moment;
+    $scope.app = app;
     $scope.langs = [ {
         key: 0,
         value: "فارسی"
@@ -7123,6 +7127,8 @@ ngApp.controller("settingsCtrl", [ "$scope", "$http", "$sce", "$timeout", "$mdTo
         $scope.model.preventLoginRules = $scope.model.preventLoginRules || [];
         $scope.securityCertPatch = data.data.securityCertPatch;
         $scope.cdn = data.data.cdn;
+        $scope.compareData = data.data.compareData;
+        $scope.uploadLogo = data.data.uploadLogo;
     });
     $scope.addCdn = function() {
         $scope.model.cdn = $scope.model.cdn || {};
@@ -7152,8 +7158,11 @@ ngApp.controller("settingsCtrl", [ "$scope", "$http", "$sce", "$timeout", "$mdTo
 
 var ngApp = angular.module("management");
 
-ngApp.controller("themesCtrl", [ "$scope", "$http", "$sce", "$timeout", "$location", "roles", function($scope, $http, $sce, $timeout, $location, roles) {
+ngApp.controller("themesCtrl", [ "$scope", "$http", "$sce", "$timeout", "$location", "roles", "datasources", function($scope, $http, $sce, $timeout, $location, roles, datasources) {
     $scope.path = $location.path();
+    $scope.compareDataModel = {
+        datasources: datasources
+    };
 } ]);
 
 var ngApp = angular.module("management");
@@ -21121,7 +21130,7 @@ app.charts.table.draw = function(input, settings, refreshWithData, titlebar) {
                 rows: data.map(function(d) {
                     return d.markup;
                 }),
-                rows_in_block: Math.floor($(selector).height() / 33) + 1,
+                rows_in_block: Math.floor($(selector).height() / (settings.chartProp.info.cellHeight || 50)) + 1,
                 scrollId: "scrollArea" + settings.id + "",
                 contentId: "contentArea" + settings.id + "",
                 callbacks: {
@@ -21226,6 +21235,7 @@ app.charts.table.draw = function(input, settings, refreshWithData, titlebar) {
             });
             $(selector + " .header-table th").on("click", function(e, i) {
                 var col = +$(this).index();
+                if (settings.chartProp.info.showRowNumber) col--;
                 tableInfo.option.page = tableInfo.option.page || {};
                 tableInfo.option.page.Order = tableInfo.option.page.Order || [];
                 var entry = _.find(tableInfo.option.page.Order, {
@@ -21239,9 +21249,9 @@ app.charts.table.draw = function(input, settings, refreshWithData, titlebar) {
                 }
                 _.remove(tableInfo.option.page.Order, entry);
                 tableInfo.option.page.Order.push(entry);
-                entry.DescType = entry.DescType == 1 ? 2 : 1;
+                entry.DescType = entry.DescType === 1 ? 2 : 1;
                 $(this).find(".icon").remove();
-                $(this).find("div").append('<i class="icon sort ' + (entry.DescType == 1 ? "ascending" : "descending") + '"></i>');
+                $(this).find("div").append('<i class="icon sort ' + (entry.DescType === 1 ? "ascending" : "descending") + '"></i>');
                 tableInfo.sort();
             });
             if (!tableInfo.option.remoteData && tableInfo.option.page.Order) {
@@ -21256,7 +21266,7 @@ app.charts.table.draw = function(input, settings, refreshWithData, titlebar) {
                     };
                 }));
                 var orderArray = _.reverse(tableInfo.option.page.Order.map(function(item) {
-                    return item.DescType == 1 ? "asc" : "desc";
+                    return item.DescType === 1 ? "asc" : "desc";
                 }));
                 tableInfo.clusterize.update(_.map(_.orderBy(tableInfo.dataset, funArray, orderArray), "markup"));
             }
@@ -21298,6 +21308,7 @@ app.charts.table.draw = function(input, settings, refreshWithData, titlebar) {
             return $paging;
         },
         gotoPage: function(page) {
+            TableInfo = tableInfo.option.page;
             if (isProgress()) return;
             showProgress(true);
             TableInfo.Page = page;

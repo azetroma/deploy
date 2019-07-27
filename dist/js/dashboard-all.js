@@ -7827,7 +7827,7 @@ app.charts.table.draw = function(input, settings, refreshWithData, titlebar) {
                 rows: data.map(function(d) {
                     return d.markup;
                 }),
-                rows_in_block: Math.floor($(selector).height() / 33) + 1,
+                rows_in_block: Math.floor($(selector).height() / (settings.chartProp.info.cellHeight || 50)) + 1,
                 scrollId: "scrollArea" + settings.id + "",
                 contentId: "contentArea" + settings.id + "",
                 callbacks: {
@@ -7932,6 +7932,7 @@ app.charts.table.draw = function(input, settings, refreshWithData, titlebar) {
             });
             $(selector + " .header-table th").on("click", function(e, i) {
                 var col = +$(this).index();
+                if (settings.chartProp.info.showRowNumber) col--;
                 tableInfo.option.page = tableInfo.option.page || {};
                 tableInfo.option.page.Order = tableInfo.option.page.Order || [];
                 var entry = _.find(tableInfo.option.page.Order, {
@@ -7945,9 +7946,9 @@ app.charts.table.draw = function(input, settings, refreshWithData, titlebar) {
                 }
                 _.remove(tableInfo.option.page.Order, entry);
                 tableInfo.option.page.Order.push(entry);
-                entry.DescType = entry.DescType == 1 ? 2 : 1;
+                entry.DescType = entry.DescType === 1 ? 2 : 1;
                 $(this).find(".icon").remove();
-                $(this).find("div").append('<i class="icon sort ' + (entry.DescType == 1 ? "ascending" : "descending") + '"></i>');
+                $(this).find("div").append('<i class="icon sort ' + (entry.DescType === 1 ? "ascending" : "descending") + '"></i>');
                 tableInfo.sort();
             });
             if (!tableInfo.option.remoteData && tableInfo.option.page.Order) {
@@ -7962,7 +7963,7 @@ app.charts.table.draw = function(input, settings, refreshWithData, titlebar) {
                     };
                 }));
                 var orderArray = _.reverse(tableInfo.option.page.Order.map(function(item) {
-                    return item.DescType == 1 ? "asc" : "desc";
+                    return item.DescType === 1 ? "asc" : "desc";
                 }));
                 tableInfo.clusterize.update(_.map(_.orderBy(tableInfo.dataset, funArray, orderArray), "markup"));
             }
@@ -8004,6 +8005,7 @@ app.charts.table.draw = function(input, settings, refreshWithData, titlebar) {
             return $paging;
         },
         gotoPage: function(page) {
+            TableInfo = tableInfo.option.page;
             if (isProgress()) return;
             showProgress(true);
             TableInfo.Page = page;

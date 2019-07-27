@@ -32,90 +32,96 @@
                             <textarea ng-model="model.loginPageText" style="line-height: 2em;"></textarea>
                         </div>
                         <!--  <div class="ui secondary segment">
-                        <h3>تنظیمات پیام کوتاه</h3>
-                        <div class="fields">
-                            <div class="two wide field">
-                                <label>آدرس وب سرویس</label>
-                            </div>
-                            <div class="six wide field ltr">
-                                <input type="text" ng-model="model.smsInfo.url">
-                            </div>
-                            <div class="two wide field">
-                                <label>نوع ارسال</label>
-                            </div>
-                            <div class="two wide field">
-                                <sm-dropdown style="min-width: 100%;" class="search selection" model="model.smsInfo.method" items="[
-                                     {id:0, name:'POST'},
-                                     {id:1, name:'GET'}
-                                     ]" label="item.name" value="item.id"></sm-dropdown>
-                            </div>
-                        </div>
-                        <div class="fields">
-                            <div class="two wide field">
-                                <label>کاراکتر پیش از شماره موبایل</label>
-                            </div>
-                            <div class="two wide field ltr">
-                                <input type="text" ng-model="model.smsInfo.contactJoinBefore">
-                            </div>
-                            <div class="two wide field">
-                                <label>کاراکتر پس از شماره موبایل</label>
-                            </div>
-                            <div class="two wide field ltr">
-                                <input type="text" ng-model="model.smsInfo.contactJoinAfter">
-                            </div>
-                            <div class="two wide field">
-                                <label>کاراکتر جداکننده</label>
-                            </div>
-                            <div class="two wide field ltr">
-                                <input type="text" ng-model="model.smsInfo.contactJoinSeparator">
-                            </div>
+    <h3>تنظیمات پیام کوتاه</h3>
+    <div class="fields">
+        <div class="two wide field">
+            <label>آدرس وب سرویس</label>
+        </div>
+        <div class="six wide field ltr">
+            <input type="text" ng-model="model.smsInfo.url">
+        </div>
+        <div class="two wide field">
+            <label>نوع ارسال</label>
+        </div>
+        <div class="two wide field">
+            <sm-dropdown style="min-width: 100%;" class="search selection" model="model.smsInfo.method" items="[
+                 {id:0, name:'POST'},
+                 {id:1, name:'GET'}
+                 ]" label="item.name" value="item.id"></sm-dropdown>
+        </div>
+    </div>
+    <div class="fields">
+        <div class="two wide field">
+            <label>کاراکتر پیش از شماره موبایل</label>
+        </div>
+        <div class="two wide field ltr">
+            <input type="text" ng-model="model.smsInfo.contactJoinBefore">
+        </div>
+        <div class="two wide field">
+            <label>کاراکتر پس از شماره موبایل</label>
+        </div>
+        <div class="two wide field ltr">
+            <input type="text" ng-model="model.smsInfo.contactJoinAfter">
+        </div>
+        <div class="two wide field">
+            <label>کاراکتر جداکننده</label>
+        </div>
+        <div class="two wide field ltr">
+            <input type="text" ng-model="model.smsInfo.contactJoinSeparator">
+        </div>
+    </div>
+
+    <div class="fields">
+        <div class="two wide field">
+            <label>داده‌ها</label>
+        </div>
+        <div class="six wide field ltr">
+            <textarea type="text" ng-model="model.smsInfo.data"></textarea>
+        </div>
+        <div class="two wide field">
+            <label>نوع داده</label>
+        </div>
+        <div class="two wide field ltr">
+            <input type="text" ng-model="model.smsInfo.dataType">
+        </div>
+    </div>
+
+    <div class="fields">
+        <div class="two wide field">
+            <label>
+                سرآیند ارسال
+                <span class="ui mini button icon " ng-click="model.smsInfo.headers.push({})" ng-init="model.smsInfo.headers = model.smsInfo.headers || []"><i class="ui icon add"></i></span>
+            </label>
+        </div>
+        <div class="six wide field">
+            <div ng-repeat="i in model.smsInfo.headers" class=" ltr">
+                <input  style="width:40%"type="text" ng-model="i.key">
+                <input  style="width:40%"type="text" ng-model="i.value">
+                <span class="ui mini button icon " ng-click="model.smsInfo.headers.splice($index, 1)" ><i class="ui icon close"></i></span>
+            </div>
+        </div>
+        <div class="two wide field">
+            <label>نوع محتوا</label>
+        </div>
+        <div class="two wide field ltr">
+            <input type="text" ng-model="model.smsInfo.contentType">
+        </div>
+    </div>
+
+
+              </div>-->
+
+                        <div ng-show="securityCertPatch">
+                            <div class="ui button field" ng-class="{loading : certCheckProgress, disabled: certCheckProgress}" ng-click="checkSmsCert()">بررسی و تایید گواهینامه سرور پیام کوتاه</div>
+                            <span class="" ng-class="{green :model.smsApprovedHash.length, red:!model.smsApprovedHash.length }">
+                                <span ng-show="model.smsApprovedHash.length">قبلا تایید شده است</span>
+                                <span ng-hide="model.smsApprovedHash.length">قبلا تایید نشده است</span>
+                                <i class="ui icon " ng-class="{check :model.smsApprovedHash.length, close:!model.smsApprovedHash.length }"></i>
+                            </span>
                         </div>
 
-                        <div class="fields">
-                            <div class="two wide field">
-                                <label>داده‌ها</label>
-                            </div>
-                            <div class="six wide field ltr">
-                                <textarea type="text" ng-model="model.smsInfo.data"></textarea>
-                            </div>
-                            <div class="two wide field">
-                                <label>نوع داده</label>
-                            </div>
-                            <div class="two wide field ltr">
-                                <input type="text" ng-model="model.smsInfo.dataType">
-                            </div>
-                        </div>
+                        <a class="ui button field" ng-show="compareData" ng-href="{{app.hashUrlPrefix}}#/compare-data">همگام‌سازی داده‌ها با سرور دوم</a>
 
-                        <div class="fields">
-                            <div class="two wide field">
-                                <label>
-                                    سرآیند ارسال
-                                    <span class="ui mini button icon " ng-click="model.smsInfo.headers.push({})" ng-init="model.smsInfo.headers = model.smsInfo.headers || []"><i class="ui icon add"></i></span>
-                                </label>
-                            </div>
-                            <div class="six wide field">
-                                <div ng-repeat="i in model.smsInfo.headers" class=" ltr">
-                                    <input  style="width:40%"type="text" ng-model="i.key">
-                                    <input  style="width:40%"type="text" ng-model="i.value">
-                                    <span class="ui mini button icon " ng-click="model.smsInfo.headers.splice($index, 1)" ><i class="ui icon close"></i></span>
-                                </div>
-                            </div>
-                            <div class="two wide field">
-                                <label>نوع محتوا</label>
-                            </div>
-                            <div class="two wide field ltr">
-                                <input type="text" ng-model="model.smsInfo.contentType">
-                            </div>
-                        </div>
-
-
-                                  </div>-->
-                        <div class="ui button "ng-class="{loading : certCheckProgress, disabled: certCheckProgress}"ng-click="checkSmsCert()">بررسی و تایید گواهینامه سرور پیام کوتاه</div>
-                        <span class="" ng-class="{green :model.smsApprovedHash.length, red:!model.smsApprovedHash.length }">
-                            <span ng-show="model.smsApprovedHash.length">قبلا تایید شده است</span>
-                            <span ng-hide="model.smsApprovedHash.length">قبلا تایید نشده است</span>
-                            <i class="ui icon "ng-class="{check :model.smsApprovedHash.length, close:!model.smsApprovedHash.length }"></i>
-                        </span>
                         <div class="ui secondary segment" ng-show="securityCertPatch">
                             <h3>مدیریت عملیات لاگین ناموفق</h3>
 
@@ -392,16 +398,19 @@
                         <br />
                         <br />
 
-                        <div class="field">
-                            <label>انتخاب لوگو</label>
-                            <input type="file" ng-model="model.logo" onchange="angular.element(this).scope().previewFile(this , false)">
-                        </div>
+                        <div ng-if="uploadLogo">
 
-                        <div class="field">
-                            <label>انتخاب لوگوی با رنگ معکوس</label>
-                            <input type="file" ng-model="model.logo" onchange="angular.element(this).scope().previewFile(this , true)">
-                        </div>
+                            <div class="field">
+                                <label>انتخاب لوگو</label>
+                                <input type="file" ng-model="model.logo" onchange="angular.element(this).scope().previewFile(this , false)">
+                            </div>
 
+                            <div class="field">
+                                <label>انتخاب لوگوی با رنگ معکوس</label>
+                                <input type="file" ng-model="model.logo" onchange="angular.element(this).scope().previewFile(this , true)">
+                            </div>
+
+                        </div>
 
                         <br />
                         <br />
