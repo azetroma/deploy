@@ -44,26 +44,6 @@ ngApp.controller("navbarCtrl", [ "$scope", "$http", "$rootScope", "navbar", "dra
     };
     $translate.use(+$("#lang").val() == 0 ? "fa" : "en");
     $scope.urlPrefix = app.urlPrefix;
-    $http.get(app.urlPrefix + "menu/MainMenu").then(function(data) {
-        $scope.menu = data.data;
-        $scope.menu.menus.splice(0, 0, {
-            Id: 1,
-            Link: app.urlPrefix + "sadaf/main/",
-            Name: "پروژه‌ها",
-            Type: 2
-        });
-        $scope.dashboardActions = {
-            fullScreenToggle: function() {},
-            designToggle: function() {},
-            printToggle: function() {},
-            slideShowToggle: function() {},
-            canDesign: true
-        };
-        if (navbar.getOption()) $scope.dashboardActions = navbar.getOption();
-        $rootScope.$on("navbarChange", function() {
-            if (navbar.getOption()) $scope.dashboardActions = navbar.getOption();
-        });
-    });
     app.lang.setLang({
         selector: ".navbar.navbar-inverse"
     });

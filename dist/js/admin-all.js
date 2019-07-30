@@ -5817,6 +5817,9 @@ ngApp.config([ "$routeProvider", "$locationProvider", function($routeProvider, $
     }).when("/compare-data", {
         templateUrl: app.urlPrefix + "dist/partial/management/account/themes.html?v=" + app.version,
         controller: "themesCtrl"
+    }).when("/notifications", {
+        templateUrl: app.urlPrefix + "dist/partial/management/account/themes.html?v=" + app.version,
+        controller: "themesCtrl"
     });
 } ]);
 
@@ -6577,6 +6580,9 @@ ngApp.controller("roleEditCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", "
             item.action = 1;
         });
         restoreData();
+    }).catch(function() {
+        $scope.mainmenus = [];
+        restoreData();
     });
     $scope.jsonParse = function(s) {
         return JSON.parse(s);
@@ -7101,8 +7107,9 @@ ngApp.controller("settingsCtrl", [ "$scope", "$http", "$sce", "$timeout", "$mdTo
         $scope.certCheckProgress = true;
         $http.get(app.urlPrefix + "api/sms/VerifyUrlCert").then(function(res) {
             $scope.certCheckProgress = false;
+            $scope.invelidCert = !res.data.result;
+            $(".sms-cert-modal").modal("show");
             if (!res.data.result) {
-                $(".sms-cert-modal").modal("show");
                 $scope.cert = res.data.cert;
                 $scope.hash = res.data.hash;
             }
@@ -7342,9 +7349,9 @@ ngApp.controller("logCtrl", [ "$scope", "$http", "$sce", "$timeout", "$mdToast",
             var toast = $mdToast.simple().textContent("تغییرات ثبت شد");
             $mdToast.show(toast);
             $scope.error = null;
-        }).catch(function() {
+        }).catch(function(res) {
             $scope.saveProgress = false;
-            $scope.error = $sce.trustAsHtml("خطا در اجرای درخواست");
+            $scope.error = $sce.trustAsHtml(res.data.desc);
         });
     };
     $scope.sortBy = function(key) {
@@ -20041,218 +20048,231 @@ app.charts.pie.draw = function(input, settings, refreshWithData, titlebar) {
     } else {
         rootDiv = d3.select(selector).append("div").attr("class", "temporal").style("position", "relative");
     }
-    var height = 0;
-    app.dashboardLayoutVersion = app.dashboardLayoutVersion || 2;
-    if (app.dashboardLayoutVersion === 2) {
-        var titleHeight = $(selector + " .title").outerHeight() || 0;
-        var lb = $(selector + " .legend-bar");
-        var legendHeight = typeof lb == "undefined" ? 0 : lb.outerHeight(true);
-        height = $(selector).height() - titleHeight - legendHeight;
-    } else if (app.dashboardLayoutVersion == 1) {
-        width = barHeight;
-        if (width > 300) width = 300;
-    }
-    var svgroot = rootDiv.append("svg").attr("class", "temporal").attr("width", width).attr("height", height);
-    function calcRadius() {
-        var radius = Math.min(width, height) / 2;
-        var innerR = +settings.chartProp.info.hole / 100 * radius;
-        var arc = d3.arc().innerRadius(innerR).outerRadius(radius);
-        var arcText = d3.arc().innerRadius(radius * 1.1).outerRadius(radius * 1.1);
-        return {
-            radius: radius,
-            arc: arc,
-            arcText: arcText
-        };
-    }
-    function midAngle(d) {
-        return d.startAngle + (d.endAngle - d.startAngle) / 2;
-    }
-    var cr = calcRadius();
-    var radius = cr.radius;
-    var arc = cr.arc;
-    var arcText = cr.arcText;
-    svgroot.append("svg:rect").attr("class", "background").style("fill", "white").style("opacity", "0").attr("width", width).attr("height", height).on("click", function(d, i) {
-        if (input.levels == "") return;
-        if (isProgress()) return;
-        showProgress(true);
-        settings.parameters = {
-            isUp: true,
-            chartId: settings.chartId,
-            ChartInPageId: settings.ChartInPageId,
-            notEditMode: !settings.editMode
-        };
-        app.chartCommons.drillDown.up(settings.ChartInPageId);
-        app.chartCommons.levelTypeUtils.getParam(settings);
-        $(selector).charts(settings.type, "refreshWithData", settings);
-    }).on("mouseout", mouseout);
-    var svg = svgroot.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-    var pie = d3.pie().value(getSeriesVal);
-    if (!settings.chartProp.info.sort) {
-        pie = pie.sort(null);
-    }
-    var path = svg.datum(data).selectAll("path").data(pie).enter();
-    _.each(path._groups[0], function(d) {
-        d.__data__.category = d.__data__.data.series[0].category;
-        d.__data__.seriesLable = d.__data__.data.series[0].seriesLable;
-        d.__data__.seriesKey = d.__data__.data.series[0].seriesKey;
-        d.__data__.commentCount = d.__data__.data.series[0].commentCount;
-    });
-    var text = null;
-    if (showLabelOnChart) {
-        var leftSpace = 0, rightSpace = 0, labelHeight;
-        svg.append("g").attr("class", "labels");
-        text = svg.select(".labels").selectAll("text").data(pie).enter().append("text");
-        text.attr("class", function(d, i) {
-            return d.data.onClickVal != "" || flag || hasHref ? "label pointer" : " label";
-        }).attr("id", function(d, j) {
-            return "l-" + j;
-        }).attr("dy", ".35em").text(function(d, i) {
-            var ret = [];
-            if (settings.chartProp.info.showLabels) {
-                ret.push(persian(d.data.label, showPersian));
-            }
-            if (settings.chartProp.info.showValues) {
-                ret.push(persian(d3.format(settings.chartProp.info.legendFont.formatString)(d.value), showPersian));
-            }
-            if (settings.chartProp.info.showValuesPercent) {
-                ret.push(persian(d3.format(",.2f")(d.value * 100 / sum), showPersian) + "%");
-            }
-            return ret.join(" - ");
-        }).styles({
-            direction: "rtl",
-            "font-size": settings.chartProp.info.legendFont.fontSize
-        }).on("click", click).on("mouseover", mouseover).on("mousemove", mouseover).each(function(d) {
-            var side = midAngle(d) >= Math.PI ? "left" : "right";
-            var w = this.getBBox();
-            labelHeight = w.height;
-            if (side == "left") {
-                if (leftSpace < w.width) leftSpace = w.width;
-            } else {
-                if (rightSpace < w.width) rightSpace = w.width;
-            }
-        });
-        width = width - rightSpace - leftSpace - 20;
-        if (width < 70) width = 70;
-        height = height - labelHeight * 2;
-        cr = calcRadius();
-        radius = cr.radius;
-        arc = cr.arc;
-        arcText = cr.arcText;
-    }
-    var flag = settings.chartProp.globalvariable && settings.chartProp.globalvariable.length > 0 && !settings.editMode && settings.chartProp.globalvariable.filter(function(d) {
-        return d.field == input.CurrentDimName;
-    }).length > 0;
-    var parts = path.append("g").classed("part", true);
-    parts.append("path").attr("class", function(d, i) {
-        return d.data.onClickVal != "" || flag || hasHref ? "arc pointer" : " arc";
-    }).attr("title", "").attr("fill", function(d, i) {
-        return getColor(d.data, i);
-    }).attr("d", arc).each(function(d) {
-        this._current = d.data.series[0].data;
-    }).on("click", click).on("mouseover", mouseover).on("mousemove", mouseover);
-    var isFromCommentDialog = $(selector).hasClass("fromCommentDialog");
-    app.chartCommons.commentUtils.addCommentIcon(settings.ChartInPageId, parts, function(d) {
-        return arc.centroid(d)[0];
-    }, function(d) {
-        return arc.centroid(d)[1];
-    });
-    if (isFromCommentDialog) {
-        app.chartCommons.commentUtils.setOnHighlightListener(parts, settings.ChartInPageId);
-    }
-    function click(d, i) {
-        if (isFromCommentDialog) {
-            app.chartCommons.commentUtils.clickOnCommentIcon(d, settings.ChartInPageId);
-            return;
+    function renderPie() {
+        var height = 0;
+        app.dashboardLayoutVersion = app.dashboardLayoutVersion || 2;
+        if (app.dashboardLayoutVersion === 2) {
+            var titleHeight = $(selector + " .title").outerHeight() || 0;
+            var lb = $(selector + " .legend-bar");
+            var legendHeight = typeof lb == "undefined" ? 0 : lb.outerHeight(true);
+            height = $(selector).height() - titleHeight - legendHeight;
+        } else if (app.dashboardLayoutVersion == 1) {
+            width = barHeight;
+            if (width > 300) width = 300;
         }
-        if (settings.chartProp.globalvariable && settings.chartProp.globalvariable.length > 0 && !settings.editMode) {
-            app.globalVariableHelper.updateGlobalVariables([ input.CurrentDimName ], [ d.data.value ], settings.chartProp.globalvariable);
-            $(selector + " path.selected-item").attr("class", $(this).attr("class").replace("selected-item", ""));
-            $(this).attr("class", $(this).attr("class") + " selected-item");
-        }
-        if (d.data.onClickVal == "") {
-            if (hasHref && !settings.editMode) {
-                app.chartCommons.openLink(settings.chartProp.info.openDashboard, {
-                    ChartInPageId: settings.ChartInPageId,
-                    DataSourceId: settings.input.DataSourceId,
-                    dimensionName: settings.input.dimensionName,
-                    value: d.value,
-                    refreshDatasource: settings.input.RefreshDatasource
-                });
-            }
-            return;
-        }
-        if (isProgress()) return;
-        showProgress(true);
-        app.chartCommons.drillDown.add(settings.ChartInPageId, settings.input.DataSourceId, settings.input.CurrentDimName, d.data.onClickVal, settings.input.RefreshDatasource);
-        settings.parameters = {
-            selectedItem: d.data.onClickVal,
-            chartId: settings.chartId,
-            ChartInPageId: settings.ChartInPageId,
-            notEditMode: !settings.editMode
-        }, app.chartCommons.levelTypeUtils.getParam(settings);
-        $(selector).charts(settings.type, "refreshWithData", settings);
-    }
-    function getrect(a) {
-        return {
-            left: a.pos[0] - (a.anchor === "start" ? a.box.width : 0),
-            right: a.pos[0] + (a.anchor === "start" ? 0 : a.box.width),
-            top: a.pos[1],
-            bottom: a.pos[1] + a.box.height
-        };
-    }
-    if (showLabelOnChart) {
-        var index = [];
-        text.attr("transform", function(d, i) {
-            var pos = arcText.centroid(d);
-            pos[0] = radius * 1.1 * (midAngle(d) < Math.PI ? 1 : -1);
-            index[i] = {
-                pos: pos,
-                box: this.getBBox(),
-                data: d.data.label[0]
+        var svgroot = rootDiv.append("svg").attr("class", "temporal").attr("width", width).attr("height", height);
+        function calcRadius() {
+            var radius = Math.min(width, height) / 2;
+            var innerR = +settings.chartProp.info.hole / 100 * radius;
+            var arc = d3.arc().innerRadius(innerR).outerRadius(radius);
+            var arcText = d3.arc().innerRadius(radius * 1.1).outerRadius(radius * 1.1);
+            return {
+                radius: radius,
+                arc: arc,
+                arcText: arcText
             };
-            return "translate(" + pos + ")";
-        }).style("text-anchor", function(d, i) {
-            index[i].anchor = midAngle(d) >= Math.PI ? "start" : "end";
-            return midAngle(d) >= Math.PI ? "start" : "end";
-        }).style("display", function(d) {
-            var a = d3.select(this);
-            var atrans = getTransformation(a.attr("transform"));
-            var aSign = a.style("text-anchor") == "start" ? 1 : -1;
-            var aBox = this.getBBox();
-            var ret = "auto";
-            return ret;
+        }
+        function midAngle(d) {
+            return d.startAngle + (d.endAngle - d.startAngle) / 2;
+        }
+        var cr = calcRadius();
+        var radius = cr.radius;
+        var arc = cr.arc;
+        var arcText = cr.arcText;
+        svgroot.append("svg:rect").attr("class", "background").style("fill", "white").style("opacity", "0").attr("width", width).attr("height", height).on("click", function(d, i) {
+            if (input.levels == "") return;
+            if (isProgress()) return;
+            showProgress(true);
+            settings.parameters = {
+                isUp: true,
+                chartId: settings.chartId,
+                ChartInPageId: settings.ChartInPageId,
+                notEditMode: !settings.editMode
+            };
+            app.chartCommons.drillDown.up(settings.ChartInPageId);
+            app.chartCommons.levelTypeUtils.getParam(settings);
+            $(selector).charts(settings.type, "refreshWithData", settings);
+        }).on("mouseout", mouseout);
+        var svg = svgroot.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        var pie = d3.pie().value(getSeriesVal);
+        if (!settings.chartProp.info.sort) {
+            pie = pie.sort(null);
+        }
+        var path = svg.datum(data).selectAll("path").data(pie).enter();
+        _.each(path._groups[0], function(d) {
+            d.__data__.category = d.__data__.data.series[0].category;
+            d.__data__.seriesLable = d.__data__.data.series[0].seriesLable;
+            d.__data__.seriesKey = d.__data__.data.series[0].seriesKey;
+            d.__data__.commentCount = d.__data__.data.series[0].commentCount;
         });
-        for (var i = 0; i < index.length - 1; i++) {
-            var base = index[i];
-            for (var j = i + 1; j < index.length; j++) {
-                var item = index[j];
-                if (item.hide === true) continue;
-                var r1 = getrect(base);
-                var r2 = getrect(item);
-                var left = Math.max(r1.left, r2.left);
-                var right = Math.min(r1.right, r2.right);
-                var bottom = Math.min(r1.bottom, r2.bottom);
-                var top = Math.max(r1.top, r2.top);
-                if (left < right && bottom > top) {
-                    item.hide = true;
+        var text = null;
+        if (showLabelOnChart) {
+            var leftSpace = 0, rightSpace = 0, labelHeight;
+            svg.append("g").attr("class", "labels");
+            text = svg.select(".labels").selectAll("text").data(pie).enter().append("text");
+            text.attr("class", function(d, i) {
+                return d.data.onClickVal != "" || flag || hasHref ? "label pointer" : " label";
+            }).attr("id", function(d, j) {
+                return "l-" + j;
+            }).attr("dy", ".35em").text(function(d, i) {
+                var ret = [];
+                if (settings.chartProp.info.showLabels) {
+                    ret.push(persian(d.data.label, showPersian));
+                }
+                if (settings.chartProp.info.showValues) {
+                    ret.push(persian(d3.format(settings.chartProp.info.legendFont.formatString)(d.value), showPersian));
+                }
+                if (settings.chartProp.info.showValuesPercent) {
+                    ret.push(persian(d3.format(",.2f")(d.value * 100 / sum), showPersian) + "%");
+                }
+                return ret.join(" - ");
+            }).styles({
+                direction: "rtl",
+                "font-size": settings.chartProp.info.legendFont.fontSize
+            }).on("click", click).on("mouseover", mouseover).on("mousemove", mouseover).each(function(d) {
+                var side = midAngle(d) >= Math.PI ? "left" : "right";
+                var w = this.getBBox();
+                labelHeight = w.height;
+                if (side == "left") {
+                    if (leftSpace < w.width) leftSpace = w.width;
+                } else {
+                    if (rightSpace < w.width) rightSpace = w.width;
+                }
+            });
+            width = width - rightSpace - leftSpace - 20;
+            if (width < 70) width = 70;
+            height = height - labelHeight * 2;
+            cr = calcRadius();
+            radius = cr.radius;
+            arc = cr.arc;
+            arcText = cr.arcText;
+        }
+        var flag = settings.chartProp.globalvariable && settings.chartProp.globalvariable.length > 0 && !settings.editMode && settings.chartProp.globalvariable.filter(function(d) {
+            return d.field == input.CurrentDimName;
+        }).length > 0;
+        var parts = path.append("g").classed("part", true);
+        parts.append("path").attr("class", function(d, i) {
+            return d.data.onClickVal != "" || flag || hasHref ? "arc pointer" : " arc";
+        }).attr("title", "").attr("fill", function(d, i) {
+            return getColor(d.data, i);
+        }).attr("d", arc).each(function(d) {
+            this._current = d.data.series[0].data;
+        }).on("click", click).on("mouseover", mouseover).on("mousemove", mouseover);
+        var isFromCommentDialog = $(selector).hasClass("fromCommentDialog");
+        app.chartCommons.commentUtils.addCommentIcon(settings.ChartInPageId, parts, function(d) {
+            return arc.centroid(d)[0];
+        }, function(d) {
+            return arc.centroid(d)[1];
+        });
+        if (isFromCommentDialog) {
+            app.chartCommons.commentUtils.setOnHighlightListener(parts, settings.ChartInPageId);
+        }
+        function click(d, i) {
+            if (isFromCommentDialog) {
+                app.chartCommons.commentUtils.clickOnCommentIcon(d, settings.ChartInPageId);
+                return;
+            }
+            if (settings.chartProp.globalvariable && settings.chartProp.globalvariable.length > 0 && !settings.editMode) {
+                app.globalVariableHelper.updateGlobalVariables([ input.CurrentDimName ], [ d.data.value ], settings.chartProp.globalvariable);
+                $(selector + " path.selected-item").attr("class", $(this).attr("class").replace("selected-item", ""));
+                $(this).attr("class", $(this).attr("class") + " selected-item");
+            }
+            if (d.data.onClickVal == "") {
+                if (hasHref && !settings.editMode) {
+                    app.chartCommons.openLink(settings.chartProp.info.openDashboard, {
+                        ChartInPageId: settings.ChartInPageId,
+                        DataSourceId: settings.input.DataSourceId,
+                        dimensionName: settings.input.dimensionName,
+                        value: d.value,
+                        refreshDatasource: settings.input.RefreshDatasource
+                    });
+                }
+                return;
+            }
+            if (isProgress()) return;
+            showProgress(true);
+            app.chartCommons.drillDown.add(settings.ChartInPageId, settings.input.DataSourceId, settings.input.CurrentDimName, d.data.onClickVal, settings.input.RefreshDatasource);
+            settings.parameters = {
+                selectedItem: d.data.onClickVal,
+                chartId: settings.chartId,
+                ChartInPageId: settings.ChartInPageId,
+                notEditMode: !settings.editMode
+            }, app.chartCommons.levelTypeUtils.getParam(settings);
+            $(selector).charts(settings.type, "refreshWithData", settings);
+        }
+        function getrect(a) {
+            return {
+                left: a.pos[0] - (a.anchor === "start" ? a.box.width : 0),
+                right: a.pos[0] + (a.anchor === "start" ? 0 : a.box.width),
+                top: a.pos[1],
+                bottom: a.pos[1] + a.box.height
+            };
+        }
+        if (showLabelOnChart) {
+            var index = [];
+            text.attr("transform", function(d, i) {
+                var pos = arcText.centroid(d);
+                pos[0] = radius * 1.1 * (midAngle(d) < Math.PI ? 1 : -1);
+                index[i] = {
+                    pos: pos,
+                    box: this.getBBox(),
+                    data: d.data.label[0]
+                };
+                return "translate(" + pos + ")";
+            }).style("text-anchor", function(d, i) {
+                index[i].anchor = midAngle(d) >= Math.PI ? "start" : "end";
+                return midAngle(d) >= Math.PI ? "start" : "end";
+            }).style("display", function(d) {
+                var a = d3.select(this);
+                var atrans = getTransformation(a.attr("transform"));
+                var aSign = a.style("text-anchor") == "start" ? 1 : -1;
+                var aBox = this.getBBox();
+                var ret = "auto";
+                return ret;
+            });
+            for (var i = 0; i < index.length - 1; i++) {
+                var base = index[i];
+                for (var j = i + 1; j < index.length; j++) {
+                    var item = index[j];
+                    if (item.hide === true) continue;
+                    var r1 = getrect(base);
+                    var r2 = getrect(item);
+                    var left = Math.max(r1.left, r2.left);
+                    var right = Math.min(r1.right, r2.right);
+                    var bottom = Math.min(r1.bottom, r2.bottom);
+                    var top = Math.max(r1.top, r2.top);
+                    if (left < right && bottom > top) {
+                        item.hide = true;
+                    }
                 }
             }
+            text.style("display", function(d, i) {
+                return index[i].hide === true ? "none" : "auto";
+            });
+            svg.append("g").attr("class", "lines");
+            var polyline = svg.select(".lines").selectAll("polyline").data(pie).enter().append("polyline");
+            polyline.attr("points", function(d, i) {
+                this._current = this._current || d;
+                var interpolate = d3.interpolate(this._current, d);
+                this._current = interpolate(0);
+                var pos = arcText.centroid(d);
+                pos[0] = radius * 1 * (midAngle(d) < Math.PI ? 1 : -1);
+                return [ arc.centroid(d), arcText.centroid(d), pos ];
+            }).style("display", function(d, i) {
+                return $(selector + " #l-" + i).css("display");
+            });
         }
-        text.style("display", function(d, i) {
-            return index[i].hide === true ? "none" : "auto";
-        });
-        svg.append("g").attr("class", "lines");
-        var polyline = svg.select(".lines").selectAll("polyline").data(pie).enter().append("polyline");
-        polyline.attr("points", function(d, i) {
-            this._current = this._current || d;
-            var interpolate = d3.interpolate(this._current, d);
-            this._current = interpolate(0);
-            var pos = arcText.centroid(d);
-            pos[0] = radius * 1 * (midAngle(d) < Math.PI ? 1 : -1);
-            return [ arc.centroid(d), arcText.centroid(d), pos ];
-        }).style("display", function(d, i) {
-            return $(selector + " #l-" + i).css("display");
-        });
+    }
+    var render = false;
+    if (document.fonts.status === "loading") {
+        document.fonts.onloadingdone = function(fontFaceSetEvent) {
+            if (!render) {
+                render = true;
+                renderPie();
+            }
+        };
+    } else {
+        renderPie();
     }
     var spacing = 22;
     var alpha = .5;

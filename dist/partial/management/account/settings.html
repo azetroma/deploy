@@ -114,9 +114,9 @@
                         <div ng-show="securityCertPatch">
                             <div class="ui button field" ng-class="{loading : certCheckProgress, disabled: certCheckProgress}" ng-click="checkSmsCert()">بررسی و تایید گواهینامه سرور پیام کوتاه</div>
                             <span class="" ng-class="{green :model.smsApprovedHash.length, red:!model.smsApprovedHash.length }">
-                                <span ng-show="model.smsApprovedHash.length">قبلا تایید شده است</span>
+                                <span ng-show="model.smsApprovedHash.length || !invelidCert">گواهینامه سرور پیامک مورد تایید است</span>
                                 <span ng-hide="model.smsApprovedHash.length">قبلا تایید نشده است</span>
-                                <i class="ui icon " ng-class="{check :model.smsApprovedHash.length, close:!model.smsApprovedHash.length }"></i>
+                                <i class="ui icon " ng-class="{check :model.smsApprovedHash.length || !invelidCert, close:!model.smsApprovedHash.length }"></i>
                             </span>
                         </div>
 
@@ -445,20 +445,28 @@
     <div class="ui modal sms-cert-modal">
         <div class="header">گواهینامه نامعتبر</div>
         <div class="content ltr">
-            <p>
-                گواهینامه‌ای که سرور ارائه کرده است معتبر نیست. لطفا در صورتی که از گواهینامه ارائه شده اطمینان دارید گزینه تایید را انتخاب کنید.
-            </p>
-            <div class="ui xbulleted list" style="text-align:left;">
-                <div class="item"><b>Subject:     </b>  {{cert.Subject}}</div>
-                <div class="item"><b>Issuer:      </b>  {{cert.Issuer}}</div>
-                <div class="item"><b>Begin:       </b>  {{moment(cert.NotBefore)}}</div>
-                <div class="item"><b>Expire:      </b>  {{moment(cert.NotAfter)}}</div>
-                <div class="item"><b>SerialNumber:</b>  {{cert.SerialNumber}}</div>
+
+            <div ng-hide="invelidCert">
+                گواهینامه ارائه شده توسط سرور معتبر است
+            </div>
+
+            <div ng-show="invelidCert">
+                <p>
+                    گواهینامه‌ای که سرور ارائه کرده است معتبر نیست. لطفا در صورتی که از گواهینامه ارائه شده اطمینان دارید گزینه تایید را انتخاب کنید.
+                </p>
+                <div class="ui xbulleted list" style="text-align:left;">
+                    <div class="item"><b>Subject:     </b>  {{cert.Subject}}</div>
+                    <div class="item"><b>Issuer:      </b>  {{cert.Issuer}}</div>
+                    <div class="item"><b>Begin:       </b>  {{moment(cert.NotBefore)}}</div>
+                    <div class="item"><b>Expire:      </b>  {{moment(cert.NotAfter)}}</div>
+                    <div class="item"><b>SerialNumber:</b>  {{cert.SerialNumber}}</div>
+                </div>
             </div>
         </div>
+
         <div class="ui actions">
-            <div class="ui button green" ng-class="{loading : certProgress, disabled: certProgress}" ng-click="approveCert()">{{'ok' | translate}}</div>
-            <div class="ui button deny" ng-click="">{{'cancel' | translate}}</div>
+            <div ng-show="invelidCert" class="ui button green" ng-class="{loading : certProgress, disabled: certProgress}" ng-click="approveCert()">{{'ok' | translate}}</div>
+            <div class="ui button deny" ng-click="">بستن</div>
         </div>
     </div>
 </div>

@@ -182,10 +182,10 @@
                             <button class="ui blue fluid button big submit" ng-class="{loading: loading, disabled: loading }" ng-click="submit()" type="submit" style="margin-top:35px;">
                                 درخواست کلمه عبور جدید
                             </button>
-                           <br />
+                            <br />
                             <small>
-                            <a href="@Href("~")">صفحه اصلی</a>
-                               </small> 
+                                <a href="@Href("~")">صفحه اصلی</a>
+                            </small>
                         </div>
                     </div>
                     <div class="ui modal info-modal">
@@ -305,20 +305,36 @@
                         $scope.error.captcha = null;
                         $scope.error.general = null;
 
-                        if (res.data.result) {
-                            //$('.info-modal')
-                            //    .modal({ closable : false })
-                            //    .modal('show');
-                            $scope.successMessage = res.data.error;
-
-                        } else if (!res.data.result && res.data.type == 'captcha') {
+                        if (!res.data.result && res.data.type == 'captcha') {
                             $scope.error.captcha = res.data.error;
+                            $scope.reCaptcha()
+
+                        }else if (!res.data.result ) {
+                            $scope.error.general = res.data.error;
                             $scope.reCaptcha();
 
                         } else {
+                            $scope.error.captcha = null;
+                            $scope.error.general = null;
+                            $scope.model.captcha = null;
                             $scope.reCaptcha();
-                            $scope.error.general = res.data.error;
+                            $scope.successMessage = res.data.error;
                         }
+
+                        //if (res.data.result) {
+                        //    //$('.info-modal')
+                        //    //    .modal({ closable : false })
+                        //    //    .modal('show');
+                        //    $scope.successMessage = res.data.error;
+
+                        //} else if (!res.data.result && res.data.type == 'captcha') {
+                        //    $scope.error.captcha = res.data.error;
+                        //    $scope.reCaptcha();
+
+                        //} else {
+                        //    $scope.reCaptcha();
+                        //    $scope.error.general = res.data.error;
+                        //}
                     })
                     .catch(function () {
                             $scope.reCaptcha();
