@@ -23420,8 +23420,8 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
       default:    }
     $(selector).trigger("heightChange");
     function drawText() {
-        var t = '<div class="input-group temporal" style="margin-top:10px">                   <span class="input-group-btn">                     <button type="button" class="btn btn-default">                     <span style="font-size:13px" class="glyphicon glyphicon-search"> </span>                     </button>                   </span>                   <input type="text" placeholder="جستجو..." class="form-control">                 </div>';
-        t = '<div class="ui form temporal"><div class=" field"><div class="ui icon input">  <input type="text" placeholder="جستجو...">  <i class="search icon"></i></div></div></div>';
+        var t = '<div class="ui form temporal">    <div class=" field ui search">        <div class="ui icon input">            <input type="text" placeholder="جستجو...">            <i class="search icon"></i>        </div>        <div class="results"></div>    </div></div> ';
+        t = '<div class="temporal ui search">                  <div class="ui icon fluid input">                    <input class="prompt" type="text" placeholder="جستجو...">                    <i class="search icon"></i>                  </div>                  <div class="results"></div>                </div>';
         $(selector).append(t);
         function change(value) {
             var v = [ value ];
@@ -23451,15 +23451,54 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
                 $(selector).trigger("default-value", [ true, v, 5 ]);
             }
         }
-        $(selector + " input").on("keydown", function(e) {
-            if (e.keyCode == 13) {
-                var v = $(this).val();
-                change(v);
+        $.fn.search.settings.templates.message = function(message, type) {
+            return "";
+        };
+        $(selector + " .ui.search").search({
+            fullTextSearch: true,
+            filterRemoteData: false,
+            apiSettings: {
+                url: app.urlPrefix + "api/chartdata/GetColumnMembers",
+                cache: false,
+                method: "post",
+                beforeSend: function(s) {
+                    var o = getFilters();
+                    s.data = {
+                        chartId: settings.chartId,
+                        chartInPageId: settings.ChartInPageId,
+                        userVariable: o.userVariable,
+                        userControlFilter: o.userControlFilter,
+                        otherFilters: o.otherFilters,
+                        query: s.urlData.query,
+                        chartInfo: $("#divChart").data("chartInfo"),
+                        top: 10
+                    };
+                    return s;
+                },
+                onResponse: function(res) {
+                    res.fields = res.fields.map(function(d) {
+                        return {
+                            title: d.Key.entitize(),
+                            Value: d.Value.entitize()
+                        };
+                    });
+                    console.log(res.fields);
+                    return {
+                        results: res.fields
+                    };
+                },
+                dataType: "json"
+            },
+            onSelect: function(result, response) {
+                change(result.Value);
             }
         });
-        $(selector + " button").on("click", function() {
-            var v = $(selector + " input").val();
-            change(v);
+        $(selector + " input").on("keydown", function(e) {
+            var v = $(this).val();
+            if (e.keyCode === 13) {
+                change(v);
+                return;
+            }
         });
         var dv = [];
         if (input.GloablFilterDefaultValue) {
@@ -23933,26 +23972,13 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
                 cache: false,
                 method: "post",
                 beforeSend: function(s) {
-                    var otherFilters = _.filter(app.chartCommons.drillDown.filters, function(d) {
-                        if (!settings.input || !settings.input.RefreshDatasource) return false;
-                        var refresh = settings.input.RefreshDatasource.indexOf(d.datasourceId) != -1;
-                        return refresh && d.chartInPageId != settings.ChartInPageId;
-                    });
-                    var userControlFilter = $.extend([], _.filter(app.chartCommons.userFilter.filters, function(d) {
-                        if (!settings.input || !settings.input.RefreshDatasource) return false;
-                        var refresh = settings.input.RefreshDatasource.indexOf(d.datasourceId) != -1;
-                        return refresh;
-                    }));
-                    _.remove(userControlFilter, {
-                        chartInPageId: settings.ChartInPageId
-                    });
-                    var userVariable = JSON.parse(localStorage.getItem("userVariable")) || [];
+                    var o = getFilters();
                     s.data = {
                         chartId: settings.chartId,
                         chartInPageId: settings.ChartInPageId,
-                        userVariable: userVariable,
-                        userControlFilter: userControlFilter,
-                        otherFilters: otherFilters,
+                        userVariable: o.userVariable,
+                        userControlFilter: o.userControlFilter,
+                        otherFilters: o.otherFilters,
                         query: s.urlData.query,
                         chartInfo: $("#divChart").data("chartInfo")
                     };
@@ -23994,6 +24020,27 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
         $(selector + " .ui.dropdown").dropdown("set selected", dv);
         silent = false;
     }
+    function getFilters() {
+        var otherFilters = _.filter(app.chartCommons.drillDown.filters, function(d) {
+            if (!settings.input || !settings.input.RefreshDatasource) return false;
+            var refresh = settings.input.RefreshDatasource.indexOf(d.datasourceId) != -1;
+            return refresh && d.chartInPageId != settings.ChartInPageId;
+        });
+        var userControlFilter = $.extend([], _.filter(app.chartCommons.userFilter.filters, function(d) {
+            if (!settings.input || !settings.input.RefreshDatasource) return false;
+            var refresh = settings.input.RefreshDatasource.indexOf(d.datasourceId) != -1;
+            return refresh;
+        }));
+        _.remove(userControlFilter, {
+            chartInPageId: settings.ChartInPageId
+        });
+        var userVariable = JSON.parse(localStorage.getItem("userVariable")) || [];
+        return {
+            otherFilters: otherFilters,
+            userControlFilter: userControlFilter,
+            userVariable: userVariable
+        };
+    }
     function drawTextbox() {
         var label = settings.chartProp.info.label == "" ? "" : '<label class="col-sm-4" style="text-align:right">' + settings.chartProp.info.label + "</label>";
         var textbox = '<div class="container-fluid" style="margin: 15px 0px 10px;"> <div class="row">            ' + label + '<div class="col-sm-' + (label == "" ? "12" : "8") + '">                <input type="text" class="form-control" placeholder="برچسب" />            </div>            </div>        </div>';
@@ -24034,7 +24081,7 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
                     data: JSON.stringify(x)
                 });
             };
-            if (input.datasources) {
+            if (input.datasources && settings.chartProp.info.type !== "text") {
                 _.each(input.datasources, function(item) {
                     filter(item.datasourceId, item.name);
                 });
