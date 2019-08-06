@@ -22,7 +22,7 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-model="ngModel.tree.info.justFilterDirectChild" ng-change="refreshChart('refresh')" /> اعمال فیلتر تنها روی بچه‌های مستقیم 
+                                <input type="checkbox" ng-model="ngModel.tree.info.justFilterDirectChild" ng-change="refreshChart('refresh')" /> اعمال فیلتر تنها روی بچه‌های مستقیم
                             </label>
                         </div>
                     </div>
@@ -57,9 +57,9 @@
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select ng-change="refreshChart('refresh')" ng-model="ngModel.tree.info.selectable"
                                 ng-options="i.name as  i.value for i in [
-                                    {name:'none', value: 'عدم انتخاب'  }, 
-                                    {name:'one', value: 'یک مقدار'  }, 
-                                    {name:'multi', value: 'چند مقدار'  }, 
+                                    {name:'none', value: 'عدم انتخاب'  },
+                                    {name:'one', value: 'یک مقدار'  },
+                                    {name:'multi', value: 'چند مقدار'  },
                                     ]">
                             <!--<option value="none">{{ 'عدم انتخاب' | translate }}</option>
                             <option value="one">{{ 'یک مقدار' | translate }}</option>
@@ -74,8 +74,8 @@
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select ng-model="ngModel.tree.info.tooltip" ng-change="refreshChart('refresh')"
                                 ng-options="i.name as  i.value for i in [
-                                    {name:'1', value: 'مجزا'  }, 
-                                    {name:'3', value: 'تمام شاخص‌ها'  }, 
+                                    {name:'1', value: 'مجزا'  },
+                                    {name:'3', value: 'تمام شاخص‌ها'  },
                                     ]">
                             <!--<option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
                             <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>-->
@@ -185,4 +185,6 @@
     <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
 
     <calculate-fields calculated-fields="calculatedFields"></calculate-fields>
+    <management-only-dir management-only="managementOnly"></management-only-dir>
+
 </menu-container>

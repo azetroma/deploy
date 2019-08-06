@@ -3,7 +3,7 @@
     <menu-item>
         <menu-header>{{ 'تنظیمات کلی' | translate }}</menu-header>
         <menu-body>
-            <div> 
+            <div>
                 <input type="hidden" data-prop="canExportXlsx" value="false" />
 
                 <general-settings ng-model="ngModel.userControl.info" ng-change="refreshChart('refreshWithData')"></general-settings>
@@ -86,7 +86,7 @@
                     </div>
 
                 </div>
-                
+
                 <div ng-show="ngModel.userControl.info.type=='datepicker' || ngModel.userControl.info.type=='combo'">
                     <div class="form-row" layout="row" layout-align="start center">
                         <label class="col-sm-4">{{ 'شرط' | translate }}</label>
@@ -232,4 +232,6 @@
 
     <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
     <calculate-fields calculated-fields="calculatedFields"></calculate-fields>
+    <management-only-dir management-only="managementOnly"></management-only-dir>
+
 </menu-container>

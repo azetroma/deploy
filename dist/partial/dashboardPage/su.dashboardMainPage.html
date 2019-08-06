@@ -172,12 +172,12 @@
 
                     <div class="extra" ng-if="app.permissions.EditPermission || app.permissions.DeletePermission">
                         <span class=" ">
-                            <i class="link mini pencil alternate icon" ng-if="app.permissions.EditPermission" ng-click="edit(app)" ng-hide="app.edit"></i>
+                            <i class="link pencil alternate icon" ng-if="app.permissions.EditPermission" ng-click="edit(app)" ng-hide="app.edit"></i>
                             <i class="check link icon" ng-click="save(app)" ng-class="{disabled:app.progress}" ng-show="app.edit"></i>
                         </span>
                         <span class=" ">
-                            <i class="link mini trash alternate outline icon" ng-if="app.permissions.DeletePermission" ng-click="remove(app, $index)"></i>
-                            <i class="link mini cog icon popup-btn" ng-if="app.permissions.EditPermission" ng-click="settings(app, $index)"></i>
+                            <i class="link trash alternate outline icon" ng-if="app.permissions.DeletePermission" ng-click="remove(app, $index)"></i>
+                            <i class="link cog icon popup-btn" ng-if="app.permissions.EditPermission" ng-click="settings(app, $index)"></i>
                         </span>
                     </div>
                     <div class="setting-popup ui wide basic popup top left transition hidden" style="        min-width: 200px">

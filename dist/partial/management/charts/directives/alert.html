@@ -2,7 +2,11 @@
     <menu-header style="position:relative" class="pointer">
         <div data-toggle="" href="#alerts">{{ 'هشدارها' | translate }}</div>
     </menu-header>
-    <menu-body id="alerts" class="prop-section   form-horizontal">
+
+
+    <menu-body id="alerts" class="prop-section form-horizontal">
+
+
         <div layout="row" layout-align="start center">
             <p ng-hide="model[config.name].alerts && model[config.name].alerts.length>0" style="font-size: 0.8em;">{{ 'هنوز هشداری تعریف نشده است' | translate }}</p>
             <span flex></span>
@@ -21,7 +25,7 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع هشدار' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="form-control" ng-change="alert.preview = null;" ng-model="alert.type" 
+                        <select class="form-control" ng-change="alert.preview = null;" ng-model="alert.type"
                                 ng-options="color.name as  color.value for color in [{name:'sms', value: 'پیام کوتاه'  },{name:'email', value: 'پست الکترونیک'  }]"></select>
                     </div>
                 </div>
@@ -45,7 +49,7 @@
                 <span class="form-divider" flex></span><div class="col-sm-8">
                     <select class="form-control" ng-model="alert.contactType" ng-options="color.name as  color.value for color in [
                                     {name:'datasource', value: ('datasource' | translate)  },
-                                    {name:'role', value: ('roles' | translate)  }]" ></select>
+                                    {name:'role', value: ('roles' | translate)  }]"></select>
                 </div>
             </div>
             <br />
@@ -175,7 +179,7 @@
                         <div class="ui segment">
                             {{'users'|translate}} <div ng-repeat="u in m.users" class="ui mini label"> {{u}}</div>
                             <pre ng-if="alert.type == 'sms'" style="white-space: pre-wrap;">{{m.content}}</pre>
-                            <div ng-if="alert.type == 'email'"  ng-bind-html="s.trustAsHtml(m.content)"></div>
+                            <div ng-if="alert.type == 'email'" ng-bind-html="s.trustAsHtml(m.content)"></div>
                         </div>
 
                     </div>

@@ -14,8 +14,8 @@
                         </div>
                     </div>
 
-                    <div class="form-row" layout="row" layout-align="start center"ng-if="item.type == 'editor'">
-                        <ng-quill-editor  on-content-changed="refreshChart('refresh')" style="direction:ltr;"
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'editor'">
+                        <ng-quill-editor on-content-changed="refreshChart('refresh')" style="direction:ltr;"
                                          ng-model="ngModel.customChart.general[item.key]"
                                          ng-init="ngModel.customChart.general[item.key]"></ng-quill-editor>
                     </div>
@@ -150,7 +150,7 @@
         </menu-body>
     </menu-item>
 
-    <alert prop="ngModel" config="{name:'bar'}"></alert>
+    <alert prop="ngModel"  config="{name:'bar'}"></alert>
 
     <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'bar', show:[1]}"></table-indicator>
 
@@ -161,5 +161,6 @@
     <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
 
     <calculate-fields calculated-fields="calculatedFields"></calculate-fields>
+    <management-only-dir management-only="managementOnly"></management-only-dir>
 
 </menu-container>

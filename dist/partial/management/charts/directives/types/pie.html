@@ -44,14 +44,14 @@
                     </div>
                 </div>
                 <!--<div class="form-row" layout="row" layout-align="start center">
-        <div class="col-sm-offset-4 col-sm-8">
-            <div class="checkbox">
-                <label class="">
-                    <text-editor type="checkbox" ng-model="ngModel.pie.info.labelFont" ng-change="refreshChart('refresh')" /> {{ 'نمایش مقدار کنار برچسب' | translate }}
-                </label>
-            </div>
-        </div>
-    </div>-->
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <text-editor type="checkbox" ng-model="ngModel.pie.info.labelFont" ng-change="refreshChart('refresh')" /> {{ 'نمایش مقدار کنار برچسب' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>-->
 
 
                 <div class="form-row" layout="row" layout-align="start center">
@@ -72,9 +72,9 @@
                                     {name:'65', value:'65%'},
                                     ]">
                             <!--<option value="0">0</option>
-                <option value="25">25%</option>
-                <option value="50">50%</option>
-                <option value="65" selected="selected">65%</option>-->
+                            <option value="25">25%</option>
+                            <option value="50">50%</option>
+                            <option value="65" selected="selected">65%</option>-->
                         </select>
                     </div>
                 </div>
@@ -90,9 +90,9 @@
                                     {name:'4', value:'الگوی رنگ 20 تایی سه'},
                                     ]">
                             <!--<option value="1">الگوی رنگ 10 تایی</option>
-                <option value="2">الگوی رنگ 20 تایی یک</option>
-                <option value="3">الگوی رنگ 20 تایی دو</option>
-                <option value="4">الگوی رنگ 20 تایی سه</option>-->
+                            <option value="2">الگوی رنگ 20 تایی یک</option>
+                            <option value="3">الگوی رنگ 20 تایی دو</option>
+                            <option value="4">الگوی رنگ 20 تایی سه</option>-->
                         </select>
                     </div>
                 </div>
@@ -164,7 +164,7 @@
                 </div>
 
 
-                <dimention-color-selector ng-model="ngModel.pie.info.dimColor" dim-color="ngModel.dimColor"ng-change="refreshChart('refresh')"></dimention-color-selector>
+                <dimention-color-selector ng-model="ngModel.pie.info.dimColor" dim-color="ngModel.dimColor" ng-change="refreshChart('refresh')"></dimention-color-selector>
 
             </div>
         </menu-body>
@@ -215,7 +215,8 @@
             </div>
         </menu-body>
     </menu-item>
-    <alert prop="ngModel" config="{name:'pie'}"></alert>
+
+    <alert prop="ngModel"  config="{name:'pie'}"></alert>
 
     <global-variable dimensions="dimensions" measures="measures" prop="ngModel"></global-variable>
 
@@ -223,4 +224,5 @@
     <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
     <calculate-fields calculated-fields="calculatedFields"></calculate-fields>
 
+    <management-only-dir management-only="managementOnly"></management-only-dir>
 </menu-container>

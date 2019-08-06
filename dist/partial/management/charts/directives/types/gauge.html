@@ -7,15 +7,15 @@
 
                 <input type="hidden" data-prop="canExportXlsx" value="true" />
 
-                <general-settings ng-model="ngModel.gauge.info"ng-change="refreshChart('refresh')"></general-settings>
+                <general-settings ng-model="ngModel.gauge.info" ng-change="refreshChart('refresh')"></general-settings>
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.segmentType" class="selectpicker-x form-control"
                                 ng-options="i.name as  i.value for i in [
-                                    {name:'multiSegment', value: 'چند بخشی'  }, 
-                                    {name:'singleSegment', value:'یک بخشی' }, 
+                                    {name:'multiSegment', value: 'چند بخشی'  },
+                                    {name:'singleSegment', value:'یک بخشی' },
                                     ]">
                             <!--<option value="multiSegment">{{ 'چند بخشی' | translate }}</option>
                             <option value="singleSegment" selected="selected">{{ 'یک بخشی' | translate }}</option>-->
@@ -28,9 +28,9 @@
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.style" class="selectpicker-x form-control"
                                 ng-options="i.name as  i.value for i in [
-                                    {name:'horizontal', value: 'افقی'  }, 
-                                    {name:'arc', value:'هلال' }, 
-                                    {name:'number', value:'عدد' }, 
+                                    {name:'horizontal', value: 'افقی'  },
+                                    {name:'arc', value:'هلال' },
+                                    {name:'number', value:'عدد' },
                                     ]">
                             <!--<option value="horizontal">{{ 'افقی' | translate }}</option>
                             <option value="arc" selected="selected">{{ 'هلال' | translate }}</option>
@@ -41,8 +41,6 @@
 
 
                 <style>
-                
-
                 </style>
 
                 <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.gauge.info.style == 'number'">
@@ -89,7 +87,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row" layout="row" layout-align="start center"ng-show="ngModel.gauge.info.style == 'number'">
+                    <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.gauge.info.style == 'number'">
                         <label>{{ 'متن دلخواه پایین' | translate }}</label>
                         <span class="form-divider" flex></span>
                         <div>
@@ -106,32 +104,32 @@
                         <div class="ui button mini compact icon" ng-click="ngModel.gauge.info.icons.push({name: 'icon warning'});refreshChart('refresh')" ng-init="ngModel.gauge.info.icons = ngModel.gauge.info.icons || [{name:'icon warning'}]"><i class="icon add"></i></div>
                     </div>
                     <!--<style>
-        .icons-menu i {
-            padding: 14px;
-            font-size: 16px;
-        }
-    </style>-->
+                        .icons-menu i {
+                            padding: 14px;
+                            font-size: 16px;
+                        }
+                    </style>-->
                     <!--<md-menu ng-repeat="icon in ngModel.gauge.info.icons track by $index">
-        <div>
-            <span class="ui mini compact  icon button" ng-click="$mdMenu.open($event)"><i class="{{icon.name}}"></i></span>
-            <i class="icon remove gray" ng-click="ngModel.gauge.info.icons.splice($index, 1);refreshChart('refresh')"></i>
-        </div>
-        <md-menu-content>
+                        <div>
+                            <span class="ui mini compact  icon button" ng-click="$mdMenu.open($event)"><i class="{{icon.name}}"></i></span>
+                            <i class="icon remove gray" ng-click="ngModel.gauge.info.icons.splice($index, 1);refreshChart('refresh')"></i>
+                        </div>
+                        <md-menu-content>
 
-            <div style="max-width:500px; overflow:auto;" class="icons-menu">
-            <div class="ui fluid input" style="margin:0 10px">
-                <input type="text"ng-model="filterIcons" placeholder="{{'search' | translate}}">
-            </div>
-                <div>
-                    <i ng-repeat="ic in icons    | filter : filterIcons track by $index" ng-click="$mdMenu.hide;icon.name = ic; refreshChart('refresh')" class="pointer menu-icon {{ic}}"></i>
-                    <i ng-repeat="ic in faIcons  | filter : filterIcons track by $index" ng-click="$mdMenu.hide;icon.name = 'fal fa-' + ic; refreshChart('refresh')" class="pointer menu-icon fal fa-{{ic}}"></i>
-                    <i ng-repeat="ic in faIcons  | filter : filterIcons track by $index" ng-click="$mdMenu.hide;icon.name = 'far fa-' + ic; refreshChart('refresh')" class="pointer menu-icon far fa-{{ic}}"></i>
-                    <i ng-repeat="ic in faIcons  | filter : filterIcons track by $index" ng-click="$mdMenu.hide;icon.name = 'fas fa-' + ic; refreshChart('refresh')" class="pointer menu-icon fas fa-{{ic}}"></i>
-                    <i ng-repeat="ic in faBrand  | filter : filterIcons track by $index" ng-click="$mdMenu.hide;icon.name = 'fab fa-' + ic; refreshChart('refresh')" class="pointer menu-icon fab fa-{{ic}}"></i>
-                </div>
-            </div>
-        </md-menu-content>
-    </md-menu>-->
+                            <div style="max-width:500px; overflow:auto;" class="icons-menu">
+                            <div class="ui fluid input" style="margin:0 10px">
+                                <input type="text"ng-model="filterIcons" placeholder="{{'search' | translate}}">
+                            </div>
+                                <div>
+                                    <i ng-repeat="ic in icons    | filter : filterIcons track by $index" ng-click="$mdMenu.hide;icon.name = ic; refreshChart('refresh')" class="pointer menu-icon {{ic}}"></i>
+                                    <i ng-repeat="ic in faIcons  | filter : filterIcons track by $index" ng-click="$mdMenu.hide;icon.name = 'fal fa-' + ic; refreshChart('refresh')" class="pointer menu-icon fal fa-{{ic}}"></i>
+                                    <i ng-repeat="ic in faIcons  | filter : filterIcons track by $index" ng-click="$mdMenu.hide;icon.name = 'far fa-' + ic; refreshChart('refresh')" class="pointer menu-icon far fa-{{ic}}"></i>
+                                    <i ng-repeat="ic in faIcons  | filter : filterIcons track by $index" ng-click="$mdMenu.hide;icon.name = 'fas fa-' + ic; refreshChart('refresh')" class="pointer menu-icon fas fa-{{ic}}"></i>
+                                    <i ng-repeat="ic in faBrand  | filter : filterIcons track by $index" ng-click="$mdMenu.hide;icon.name = 'fab fa-' + ic; refreshChart('refresh')" class="pointer menu-icon fab fa-{{ic}}"></i>
+                                </div>
+                            </div>
+                        </md-menu-content>
+                    </md-menu>-->
                     <div ng-repeat="icon in ngModel.gauge.info.icons track by $index">
                         <sadaf-icons style="display:inline-block" ng-model="icon" ng-change="refreshChart('refresh')"></sadaf-icons>
                         <i class="icon remove gray pointer" ng-click="ngModel.gauge.info.icons.splice($index, 1);refreshChart('refresh')"></i>
@@ -152,10 +150,10 @@
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select class="selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.height"
                                 ng-options="i.name as  i.value for i in [
-                                    {name:'small', value: 'کوچک'  }, 
-                                    {name:'medium', value:'متوسط' }, 
-                                    {name:'large', value:'بزرگ' }, 
-                                    {name:'veryLarge', value:'خیلی بزرگ' }, 
+                                    {name:'small', value: 'کوچک'  },
+                                    {name:'medium', value:'متوسط' },
+                                    {name:'large', value:'بزرگ' },
+                                    {name:'veryLarge', value:'خیلی بزرگ' },
                                     ]">
                             <!--<option value="small">{{ 'کوچک' | translate }}</option>
                             <option value="medium" selected="selected">{{ 'متوسط' | translate }}</option>
@@ -298,9 +296,11 @@
     </menu-item>
 
     <alert prop="ngModel" config="{name:'gauge'}"></alert>
+
     <dim-meas-where model="openMenuName" ng-if="!isOlap" dimensions="dimensions" measures="measures" where="where" datasource="datasource"></dim-meas-where>
     <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
     <calculate-fields calculated-fields="calculatedFields"></calculate-fields>
 
+    <management-only-dir management-only="managementOnly"></management-only-dir>
 
 </menu-container>

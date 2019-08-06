@@ -365,7 +365,7 @@
                     </div>
                     @if (useApp) {
                         <a class="item" ng-show="@(ViewBag.isLoginByLink ??false)" ng-click="dashboardOptions.toggleFav()">
-                            <i class="large icon heart " ng-class="{outline: !dashboardOptions.isFav}"></i>
+                            <i class="large icon heart " ng-class="{outline: !dashboardOptions.isFav , red: dashboardOptions.isFav}"></i>
                         </a>
                     }
 

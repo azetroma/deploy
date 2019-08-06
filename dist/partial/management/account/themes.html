@@ -1,7 +1,7 @@
 ﻿<div layout="column" flex>
     <md-content flex class="content " layout="row" no-background>
-        <div flex="15" hide-sm hide-xs></div>
-        <div flex="70" flex-xs="100" flex-sm="100">
+        <div flex="10" hide-sm hide-xs></div>
+        <div flex="80" flex-xs="100" flex-sm="100">
             <md-card style="margin:40px 0; padding:16px">
                 
                 <div ng-if=" path === '/themes'">
@@ -10,13 +10,13 @@
                 <div ng-if=" path === '/compare-data'">
                     <compare-data ng-model="compareDataModel"></compare-data>
                 </div>
-                <div ng-if=" path === '/notifications'">
-                    <notification-list></notification-list>
+                <div ng-if=" path === '/eventNotifications'">
+                    <notification-list datasources="datasources"></notification-list>
                 </div>
 
             </md-card>
         </div>
-        <div flex="15" hide-sm hide-xs></div>
+        <div flex="10" hide-sm hide-xs></div>
     </md-content>
 </div>
 

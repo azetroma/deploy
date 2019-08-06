@@ -47,8 +47,8 @@
                                 {name:'نقشه آفلاین google', value: 'google-offline'  },
                                 ]"></select>
                         <!--
-            {name:'نقشه آفلاین openStreet', value: 'open-street-offline'  },
-                {name:'نقشه آنلاین google', value: 'google-online'  },-->
+                        {name:'نقشه آفلاین openStreet', value: 'open-street-offline'  },
+                            {name:'نقشه آنلاین google', value: 'google-online'  },-->
                     </div>
                 </div>
 
@@ -113,7 +113,7 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-model="ngModel.map.info.selectableArea" ng-change="refreshChart('refresh')" /> 
+                                <input type="checkbox" ng-model="ngModel.map.info.selectableArea" ng-change="refreshChart('refresh')" />
                                 {{ 'امکان انتخاب مناطق' | translate }}
                             </label>
                         </div>
@@ -186,12 +186,12 @@
 
 
                     <!--<ng-quill-editor on-content-changed="refreshChart('refresh')" style="direction:ltr;" ng-model="ngModel.map.info.extraCode.template"
-                         ng-init="ngModel.map.info.extraCode.template= ngModel.map.info.extraCode.template || '<p><strong style=&quot;font-size: 16px;&quot;>@label = @value</strong></p>'"></ng-quill-editor>
+                                     ng-init="ngModel.map.info.extraCode.template= ngModel.map.info.extraCode.template || '<p><strong style=&quot;font-size: 16px;&quot;>@label = @value</strong></p>'"></ng-quill-editor>
 
-        <div class="ltr gray" style="font-size: 0.85em;display: flex;flex-direction: row;justify-content: space-between;">
-            <div><strong> @label</strong>:  برچسب</div>
-            <div><strong> @value</strong>:  مقدار</div>
-        </div>-->
+                    <div class="ltr gray" style="font-size: 0.85em;display: flex;flex-direction: row;justify-content: space-between;">
+                        <div><strong> @label</strong>:  برچسب</div>
+                        <div><strong> @value</strong>:  مقدار</div>
+                    </div>-->
 
 
                     <div class="ui mini compact icon basic button" ng-click="ngModel.map.info.extraCode.items.push({})">
@@ -350,7 +350,7 @@
 
         </menu-body>
     </menu-item>
-    <alert prop="ngModel" config="{name:'map'}"></alert>
+    <alert prop="ngModel"  config="{name:'map'}"></alert>
 
     <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'map', show:[1] , legend: true}"></table-indicator>
 
@@ -359,4 +359,6 @@
     <dim-meas-where model="openMenuName" ng-if="!isOlap" dimensions="dimensions" measures="measures" where="where" datasource="datasource"></dim-meas-where>
     <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
     <calculate-fields calculated-fields="calculatedFields"></calculate-fields>
+    <management-only-dir management-only="managementOnly"></management-only-dir>
+
 </menu-container>

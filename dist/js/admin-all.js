@@ -5608,6 +5608,7 @@ ngApp.controller("menusCtrl", [ "$scope", "$http", "$sce", "$routeParams", "$loc
         licence: "card_membership",
         dashboards: "dashboard",
         syncUserVariablesList: "sync",
+        eventNotifications: "notifications_none",
         "forms/list": "assignment"
     };
     $scope.iframeService = iframeService;
@@ -5817,7 +5818,7 @@ ngApp.config([ "$routeProvider", "$locationProvider", function($routeProvider, $
     }).when("/compare-data", {
         templateUrl: app.urlPrefix + "dist/partial/management/account/themes.html?v=" + app.version,
         controller: "themesCtrl"
-    }).when("/notifications", {
+    }).when("/eventNotifications", {
         templateUrl: app.urlPrefix + "dist/partial/management/account/themes.html?v=" + app.version,
         controller: "themesCtrl"
     });
@@ -7166,6 +7167,7 @@ ngApp.controller("settingsCtrl", [ "$scope", "$http", "$sce", "$timeout", "$mdTo
 var ngApp = angular.module("management");
 
 ngApp.controller("themesCtrl", [ "$scope", "$http", "$sce", "$timeout", "$location", "roles", "datasources", function($scope, $http, $sce, $timeout, $location, roles, datasources) {
+    $scope.datasources = datasources;
     $scope.path = $location.path();
     $scope.compareDataModel = {
         datasources: datasources
@@ -8319,6 +8321,9 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
         var saveLink = app.urlPrefix + "moderation/olapchartdesign/SaveChart";
         var editMode = isEdit;
         var dataType;
+        $scope.managementOnly = {
+            sasa: "ddd"
+        };
         $scope.olapData = {
             measures: [],
             kpis: []
@@ -8443,39 +8448,39 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
             $scope.cntrName = "chartsEditorCtrl";
             switch (+$scope.chartType.id) {
               case 1:
-                el = '<div  ng-chart-properties  open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="bar" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
+                el = '<div  ng-chart-properties management-only="managementOnly" open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="bar" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
                 break;
 
               case 2:
-                el = '<div  ng-chart-properties  open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="pie" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
+                el = '<div  ng-chart-properties management-only="managementOnly" open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="pie" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
                 break;
 
               case 4:
-                el = '<div  ng-chart-properties  open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="gauge" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
+                el = '<div  ng-chart-properties management-only="managementOnly" open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="gauge" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
                 break;
 
               case 5:
-                el = '<div  ng-chart-properties  open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="table" dimensions="dimensions" measures="measures" where="where" datasource="datasource"  filter-exception="filterException" calculated-fields="calculatedFields"></div>';
+                el = '<div  ng-chart-properties management-only="managementOnly" open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="table" dimensions="dimensions" measures="measures" where="where" datasource="datasource"  filter-exception="filterException" calculated-fields="calculatedFields"></div>';
                 break;
 
               case 6:
-                el = '<div  ng-chart-properties  open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="map" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
+                el = '<div  ng-chart-properties management-only="managementOnly" open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="map" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
                 break;
 
               case 7:
-                el = '<div  ng-chart-properties  open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="userControl" dimensions="dimensions" measures="measures" where="where" datasource="datasource"  filter-exception="filterException" calculated-fields="calculatedFields"></div>';
+                el = '<div  ng-chart-properties management-only="managementOnly" open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="userControl" dimensions="dimensions" measures="measures" where="where" datasource="datasource"  filter-exception="filterException" calculated-fields="calculatedFields"></div>';
                 break;
 
               case 8:
-                el = '<div  ng-chart-properties  open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="radar" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
+                el = '<div  ng-chart-properties management-only="managementOnly" open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="radar" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
                 break;
 
               case 9:
-                el = '<div  ng-chart-properties  open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="tree" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
+                el = '<div  ng-chart-properties management-only="managementOnly" open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="tree" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
                 break;
 
               case 10:
-                el = '<div ng-chart-properties  open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="text" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
+                el = '<div ng-chart-properties management-only="managementOnly" open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="text" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
                 break;
 
               default:
@@ -8483,7 +8488,7 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
                 break;
             }
             if ($scope.chartType.isCustom) {
-                el = '<div ng-chart-properties open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="customChart" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
+                el = '<div ng-chart-properties managementOnly="managementOnly" open-menu-name="menu" ng-model="chartProp" is-olap="isOlap" data-type="customChart" dimensions="dimensions" measures="measures" where="where" datasource="datasource" filter-exception="filterException" calculated-fields="calculatedFields"></div>';
             }
             $timeout(append, 0);
             function append() {
@@ -8984,6 +8989,7 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
             }, refreshChartOptions($scope));
             if ($scope.combo && !editMode) $scope.combo.title = $("#chartTitleFarsi").val();
             var prop = getRelatedChartProp($scope.chartProp, $scope.chartType, $scope.dimensions, $scope.measures, $scope.where, $scope);
+            console.log("#  save managementOnly", $scope.managementOnly);
             var opt = {
                 datasourceId: datasourceId,
                 relatedDatasource: $scope.relatedDatasource,
@@ -9019,7 +9025,8 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
                 detail: JSON.stringify(opt),
                 DataSourceId: datasourceId,
                 Desc: $scope.chartDesc,
-                PackageId: packageId
+                PackageId: packageId,
+                managementOnly: $scope.managementOnly
             };
             if ($scope.isOlap) {
                 d.measures = _.map(_.filter($scope.measures, [ "type", "measure" ]), "UniqueName");
@@ -9040,6 +9047,11 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
                 if (exit) backFromEditor();
             }).catch(function() {
                 $scope.saveProgress = false;
+                $mdToast.show({
+                    template: '<md-toast class="md-toast error"> <span class="md-toast-text" flex>خطا در ذخیره‌سازی</span></md-toast>',
+                    hideDelay: 3e3,
+                    position: "bottom left"
+                });
             });
             return true;
         };
@@ -9301,6 +9313,7 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
                 $scope.setType(dataType);
                 $scope.chartName = $scope.chart.Name;
                 $scope.chartDesc = $scope.chart.Description;
+                $scope.managementOnly = res.data.managementOnly;
             }, function(error) {
                 if (error.data.desc) {
                     alert(error.data.desc);
@@ -9521,7 +9534,8 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
                 relatedDatasourceList: "=",
                 calculatedFields: "=",
                 filterException: "=",
-                openMenuName: "="
+                openMenuName: "=",
+                managementOnly: "="
             },
             templateUrl: function(el, attrs) {
                 switch (attrs["type"]) {
@@ -9616,6 +9630,28 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
             link: function() {
                 app.lang.setLang();
             }
+        };
+    });
+    md.directive("managementOnlyDir", function() {
+        return {
+            scope: {
+                managementOnly: "="
+            },
+            controller: [ "$scope", "$timeout", function($scope, $timeout) {
+                $scope.updateModel = function(data) {
+                    $scope.managementOnly.notifications = data;
+                };
+                $scope.render = true;
+                $scope.updateModel = function(data) {
+                    $scope.managementOnly.notifications = data;
+                    $scope.render = false;
+                    $timeout(function() {
+                        $scope.render = true;
+                    }, 0);
+                    console.log("$scope.updateModel ", data);
+                };
+            } ],
+            template: '                <menu-item class="">                    <menu-header style="position:relative" class="pointer">                        <div data-toggle="" href="#events">اعلان‌های سیستمی</div>                    </menu-header>                    <menu-body id="events" class="prop-section   form-horizontal">                        <register-notification type="\'chart\'" onupdate="updateModel" ng-model="managementOnly.notifications" ng-if="render"></register-notification>                    </menu-body>                </menu-item>'
         };
     });
     function getNewName(name, array) {
@@ -13159,8 +13195,18 @@ ngApp.controller("dashboardDetailCtrl", [ "$scope", "$http", "$sce", "$timeout",
     $scope.id = $routeParams.id;
     menus.getMenu($routeParams.id).then(function(res) {
         $scope.model = res.data.model;
+        $scope.model.notifications = $scope.model.notifications || {};
         $scope.metadataModule = res.data.metadataModule;
     });
+    $scope.render = true;
+    $scope.updateModel = function(data) {
+        $scope.model.notifications = data;
+        $scope.render = false;
+        $timeout(function() {
+            $scope.render = true;
+        }, 0);
+        console.log("$scope.updateModel ", data);
+    };
     mainmenus.get(-1).then(function(res) {
         $scope.mainMenus = res.data.list;
     });

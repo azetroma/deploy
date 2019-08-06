@@ -14151,6 +14151,7 @@ notification.directive("notification", function() {
             $scope.d3 = d3;
             $scope.ngModel = $scope.ngModel || {};
             $scope.ngModel.show = false;
+            $scope.moment = moment;
             $scope.$watch("notifications", function(n) {
                 $scope.ngModel.show = n && n.length;
             }, true);
@@ -14174,9 +14175,11 @@ notification.directive("notification", function() {
             $scope.remove = function(notification, index) {
                 var f = confirm("برای حذف این هشدار اطمینان دارید؟");
                 if (!f) return;
-                $scope.notifications.splice(index, 1);
-                notificationService.remove(notification.Id);
-                invalidateUnreadCount();
+                $(".notification-box[index=" + index + "]").transition("scale", 400, function() {
+                    $scope.notifications.splice(index, 1);
+                    notificationService.remove(notification.Id);
+                    invalidateUnreadCount();
+                });
             };
             $scope.readAll = function() {
                 notificationService.readAll();
@@ -16152,6 +16155,7 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
                 }
             }).then(function(res) {
                 $scope.dashboardOptions.isFav = res.data.isFav;
+                $(".top-menu .icon.heart").transition("pulse");
             }).catch(function() {});
         },
         isFav: false

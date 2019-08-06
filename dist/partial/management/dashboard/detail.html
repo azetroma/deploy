@@ -66,12 +66,20 @@
                         <datasource-permission type="menu" id="{{id}}" ng-model="roles"></datasource-permission>
                         <br />
 
+                        <register-notification ng-if="render" 
+                                               type="'dashboard'" 
+                                               ng-model="model.notifications" 
+                                               onupdate="updateModel" 
+                                               xng-init="model.notifications= model.notifications||{}"></register-notification>
+                        
+                        <br />
+
                         <div class="ui secondary inverted red segment" ng-show="error">
                             <strong>خطا!</strong> <span ng-bind-html="error"></span>
                         </div>
                         <!--<div class="ui secondary inverted green segment" ng-show="success">
-                             <span ></span>
-                        </div>-->
+         <span ></span>
+    </div>-->
 
 
                         <div layout="row">
