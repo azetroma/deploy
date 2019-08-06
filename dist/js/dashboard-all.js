@@ -3159,6 +3159,22 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
     function getRotate() {
         return app.lang.isRtl() ? "rotate(-90)" : "rotate(-90)";
     }
+    function rotateV2() {
+        var transform = "translate(0.25em, 1em) rotate(-90deg)";
+        var textAnchor = app.lang.isRtl() ? "end" : "start";
+        if (settings.chartProp.info.xAxisRotate === "-90") transform = "translate(0.25em, 1em) rotate(-90deg)";
+        if (settings.chartProp.info.xAxisRotate === "-60") transform = "translate(0.25em, 1em) rotate(-60deg)";
+        if (settings.chartProp.info.xAxisRotate === "-45") transform = "translate(0.25em, 1em) rotate(-45deg)";
+        if (settings.chartProp.info.xAxisRotate === "-30") transform = "translate(0.25em, 1.25em) rotate(-30deg)";
+        if (settings.chartProp.info.xAxisRotate === "0") {
+            transform = "translate(0em, 1.5em) rotate(0deg)";
+            textAnchor = "middle";
+        }
+        return {
+            transform: transform,
+            "text-anchor": textAnchor
+        };
+    }
     var xAxisLableWidth = 30;
     app.dashboardLayoutVersion = app.dashboardLayoutVersion || 2;
     if (app.dashboardLayoutVersion === 2) {
@@ -3172,7 +3188,7 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
         });
         var xx = d3.select(selector).append("svg");
         xx.append("g").attr("class", "x axis").call(xAxis);
-        xx.selectAll("g text").attr("transform", getRotate()).attr("x", "-1em").attr("dy", "0.1em").attr("y", "0").attr("fill", settings.chartProp.info.font.color).attr("class", "axes-x-label").style("font-family", settings.chartProp.info.font.fontName).style("font-size", settings.chartProp.info.font.fontSize).style("font-weight", settings.chartProp.info.font.bold ? "bold" : "normal").style("font-style", settings.chartProp.info.font.italic ? "italic" : "normal").append("title").text(function(d) {
+        xx.selectAll("g text").attr("fill", settings.chartProp.info.font.color).attr("class", "axes-x-label").style("font-family", settings.chartProp.info.font.fontName).style("font-size", settings.chartProp.info.font.fontSize).style("font-weight", settings.chartProp.info.font.bold ? "bold" : "normal").style("font-style", settings.chartProp.info.font.italic ? "italic" : "normal").attr("x", "0").attr("dy", "0").attr("y", "0").styles(rotateV2()).append("title").text(function(d) {
             return persian(d.replace(new RegExp("#\\d+$"), ""), showPersian);
         });
         var c = xx.node();
@@ -3355,12 +3371,11 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
         $(selector).charts(settings.type, "refreshWithData", settings);
     });
     if (settings.chartProp.info.horizontalLines) svg.select(".y.axis").selectAll("g line").attr("x2", barWidth).attr("x1", "-6").style("opacity", "0.1");
-    svg.select(".y.axis").append("text").attr("transform", "translate(0," + margin.top + ") " + getRotate()).attr("y", 6).attr("dy", ".71em").attr("class", "axes-x-label").text("");
     var flag = settings.chartProp.globalvariable && settings.chartProp.globalvariable.length > 0 && !settings.editMode && settings.chartProp.globalvariable.filter(function(d) {
         return d.field == input.CurrentDimName;
     }).length > 0;
     svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + (barHeight + margin.top) + ")").call(xAxis);
-    var t = svg.select(".x.axis").selectAll("g text").attr("class", "axes-x-label").attr("x", "-1em").attr("dy", "0.1em").attr("y", "0").style("font-family", settings.chartProp.info.font.fontName).style("font-size", settings.chartProp.info.font.fontSize).attr("fill", settings.chartProp.info.font.color).style("font-weight", settings.chartProp.info.font.bold ? "bold" : "normal").style("font-style", settings.chartProp.info.font.italic ? "italic" : "normal");
+    var t = svg.select(".x.axis").selectAll("g text").attr("class", "axes-x-label").attr("x", "0").attr("dy", "0").attr("y", "0").styles(rotateV2()).style("font-family", settings.chartProp.info.font.fontName).style("font-size", settings.chartProp.info.font.fontSize).attr("fill", settings.chartProp.info.font.color).style("font-weight", settings.chartProp.info.font.bold ? "bold" : "normal").style("font-style", settings.chartProp.info.font.italic ? "italic" : "normal");
     svg.select(".x.axis").selectAll("g").append("title").text(function(d) {
         return persian(d.replace(new RegExp("#\\d+$"), ""), showPersian);
     });
@@ -3370,7 +3385,9 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
     var maxLen = t._groups[0].length * maxC;
     var xRotate = maxLen > barWidth;
     xRotate = true;
-    if (xRotate) t.attr("transform", getRotate());
+    if (xRotate) {
+        t.styles(rotateV2());
+    }
     var onClickCalback = function(d, i) {
         $(".tipsy").remove();
         if (isFromCommentDialog) {
@@ -3878,15 +3895,6 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
                 }
             });
         });
-    }
-    if (app.dashboardLayoutVersion == 1 || settings.editMode) {
-        var t = svg.select(".x.axis").selectAll("g text").attr("class", "axes-x-label").attr("x", "-1em").attr("transform", function() {
-            return xRotate ? getRotate() : "rotate(0)";
-        }).attr("dy", "0.1em").attr("y", "0").style("font-family", settings.chartProp.info.font.fontName).style("font-size", settings.chartProp.info.font.fontSize).attr("fill", settings.chartProp.info.font.color).style("font-weight", settings.chartProp.info.font.bold ? "bold" : "normal").style("font-style", settings.chartProp.info.font.italic ? "italic" : "normal");
-        var c = $(selector).find(".x").first().get(0);
-        var box = c.getBBox();
-        var extendedHeight = box.height - margin.bottom;
-        svg.attr("width", width).attr("height", height + box.height);
     }
     var gg = g.selectAll("nothing").data(function(d) {
         return d.series.filter(function(d) {
@@ -4653,12 +4661,8 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
             return d.offset;
         });
         transition.select(".x.axis").call(xAxis).selectAll("g").delay(delay);
-        transition.select(".x.axis").selectAll("g text").attr("transform", function() {
-            return xRotate ? getRotate() : "rotate(0)";
-        }).attr("class", "axes-x-label").attr("x", "-1em").attr("dy", "0.1em").attr("y", "0").delay(delay);
-        svg.select(".x.axis").selectAll("g text").attr("transform", function() {
-            return xRotate ? getRotate() : "rotate(0)";
-        }).style("font-family", settings.chartProp.info.font.fontName).style("font-size", settings.chartProp.info.font.fontSize).attr("fill", settings.chartProp.info.font.color).style("font-weight", settings.chartProp.info.font.bold ? "bold" : "normal").style("font-style", settings.chartProp.info.font.italic ? "italic" : "normal").style("text-anchor", "end").attr("x", "-1em").attr("dy", "0.1em").attr("y", "0").append("title").text(function(d) {
+        transition.select(".x.axis").selectAll("g text").attr("class", "axes-x-label").attr("x", "0").attr("dy", "0").attr("y", "0").style("transform", rotateV2()).delay(delay);
+        svg.select(".x.axis").selectAll("g text").style("font-family", settings.chartProp.info.font.fontName).style("font-size", settings.chartProp.info.font.fontSize).attr("fill", settings.chartProp.info.font.color).style("font-weight", settings.chartProp.info.font.bold ? "bold" : "normal").style("font-style", settings.chartProp.info.font.italic ? "italic" : "normal").style("text-anchor", "end").attr("x", "0").attr("dy", "0").attr("y", "0").styles(rotateV2()).append("title").text(function(d) {
             return persian(d.replace(new RegExp("#\\d+$"), ""), showPersian);
         });
     }
@@ -6739,6 +6743,7 @@ app.charts.pie.draw = function(input, settings, refreshWithData, titlebar) {
         rootDiv = d3.select(selector).append("div").attr("class", "temporal").style("position", "relative");
     }
     function renderPie() {
+        console.log("#### renderPie");
         var height = 0;
         app.dashboardLayoutVersion = app.dashboardLayoutVersion || 2;
         if (app.dashboardLayoutVersion === 2) {
@@ -6955,11 +6960,17 @@ app.charts.pie.draw = function(input, settings, refreshWithData, titlebar) {
     }
     var render = false;
     if (document.fonts.status === "loading") {
-        document.fonts.onloadingdone = function(fontFaceSetEvent) {
+        app.charts.pie.fontCallback = app.charts.pie.fontCallback || [];
+        app.charts.pie.fontCallback.push(function() {
             if (!render) {
                 render = true;
                 renderPie();
             }
+        });
+        document.fonts.onloadingdone = function(fontFaceSetEvent) {
+            _.each(app.charts.pie.fontCallback, function(f) {
+                if (f) f();
+            });
         };
     } else {
         renderPie();
