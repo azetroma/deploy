@@ -3162,12 +3162,17 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
     function rotateV2() {
         var transform = "translate(0.25em, 1em) rotate(-90deg)";
         var textAnchor = app.lang.isRtl() ? "end" : "start";
-        if (settings.chartProp.info.xAxisRotate === "-90") transform = "translate(0.25em, 1em) rotate(-90deg)";
-        if (settings.chartProp.info.xAxisRotate === "-60") transform = "translate(0.25em, 1em) rotate(-60deg)";
-        if (settings.chartProp.info.xAxisRotate === "-45") transform = "translate(0.25em, 1em) rotate(-45deg)";
-        if (settings.chartProp.info.xAxisRotate === "-30") transform = "translate(0.25em, 1.25em) rotate(-30deg)";
+        var size = +settings.chartProp.info.font.fontSize.replace("px", "");
+        var em_1 = size * 1 + "px";
+        var em_025 = size * .25 + "px";
+        var em_125 = size * 1.25 + "px";
+        var em_15 = size * 1.5 + "px";
+        if (settings.chartProp.info.xAxisRotate === "-90") transform = "translate(" + em_025 + ", " + em_1 + ") rotate(-90deg)";
+        if (settings.chartProp.info.xAxisRotate === "-60") transform = "translate(" + em_025 + ", " + em_1 + ") rotate(-60deg)";
+        if (settings.chartProp.info.xAxisRotate === "-45") transform = "translate(" + em_025 + ", " + em_1 + ") rotate(-45deg)";
+        if (settings.chartProp.info.xAxisRotate === "-30") transform = "translate(" + em_025 + ", " + em_125 + ") rotate(-30deg)";
         if (settings.chartProp.info.xAxisRotate === "0") {
-            transform = "translate(0em, 1.5em) rotate(0deg)";
+            transform = "translate(0px, " + em_15 + ") rotate(0deg)";
             textAnchor = "middle";
         }
         return {
@@ -4661,7 +4666,7 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
             return d.offset;
         });
         transition.select(".x.axis").call(xAxis).selectAll("g").delay(delay);
-        transition.select(".x.axis").selectAll("g text").attr("class", "axes-x-label").attr("x", "0").attr("dy", "0").attr("y", "0").style("transform", rotateV2()).delay(delay);
+        transition.select(".x.axis").selectAll("g text").attr("class", "axes-x-label").attr("x", "0").attr("dy", "0").attr("y", "0").style("transform", rotateV2()).style("font-family", settings.chartProp.info.font.fontName).style("font-size", settings.chartProp.info.font.fontSize).attr("fill", settings.chartProp.info.font.color).style("font-weight", settings.chartProp.info.font.bold ? "bold" : "normal").style("font-style", settings.chartProp.info.font.italic ? "italic" : "normal").delay(delay);
         svg.select(".x.axis").selectAll("g text").style("font-family", settings.chartProp.info.font.fontName).style("font-size", settings.chartProp.info.font.fontSize).attr("fill", settings.chartProp.info.font.color).style("font-weight", settings.chartProp.info.font.bold ? "bold" : "normal").style("font-style", settings.chartProp.info.font.italic ? "italic" : "normal").style("text-anchor", "end").attr("x", "0").attr("dy", "0").attr("y", "0").styles(rotateV2()).append("title").text(function(d) {
             return persian(d.replace(new RegExp("#\\d+$"), ""), showPersian);
         });
@@ -6742,6 +6747,7 @@ app.charts.pie.draw = function(input, settings, refreshWithData, titlebar) {
     } else {
         rootDiv = d3.select(selector).append("div").attr("class", "temporal").style("position", "relative");
     }
+    var arc;
     function renderPie() {
         console.log("#### renderPie");
         var height = 0;
@@ -6772,7 +6778,7 @@ app.charts.pie.draw = function(input, settings, refreshWithData, titlebar) {
         }
         var cr = calcRadius();
         var radius = cr.radius;
-        var arc = cr.arc;
+        arc = cr.arc;
         var arcText = cr.arcText;
         svgroot.append("svg:rect").attr("class", "background").style("fill", "white").style("opacity", "0").attr("width", width).attr("height", height).on("click", function(d, i) {
             if (input.levels == "") return;
@@ -7101,7 +7107,7 @@ app.charts.pie.draw = function(input, settings, refreshWithData, titlebar) {
         div.style("opacity", 1).style("left", x + "px").style("top", y + "px");
     }
     function mouseout(d) {
-        div.transition().duration(500).style("opacity", 1e-6).each("end", function() {
+        div.transition().duration(500).style("opacity", 1e-6).end().then(function() {
             div.style("left", 0 + "px").style("top", 0 + "px");
         });
     }
@@ -12829,7 +12835,7 @@ ngApp.directive("selectForm", function() {
                 $scope.buttonClick = function() {
                     if ($scope.edit) return;
                     _.each($scope.model.button.tasks, function(t) {
-                        taskExecutor.exec(t, $scope.$parent.$parent.$parent.data);
+                        taskExecutor.exec(t, $scope.$parent.$parent.$parent.data, $scope);
                     });
                 };
                 $scope.getFilteredDropdonItems = function(value, index, array) {
@@ -14054,7 +14060,7 @@ ngApp.directive("selectForm", function() {
         };
     } ]);
     ngApp.service("taskExecutor", [ "$http", function($http) {
-        function exec(task, formModel) {
+        function exec(task, formModel, scope) {
             function replaceValue(val) {
                 return val.replace(/@\((field-\d+)\)/gi, function(a, b) {
                     var c = findControl(b, formModel.pages);
@@ -14075,9 +14081,12 @@ ngApp.directive("selectForm", function() {
             if (task.type === 2) {
                 if (_.isEmpty(task.webserviceUrl)) return;
                 var url = replaceValue(task.webserviceUrl);
+                scope.model.progress = true;
                 $http.get(url).then(function() {
+                    scope.model.progress = false;
                     alert(app.lang.translate("successfull run"));
                 }).catch(function() {
+                    scope.model.progress = false;
                     alert(app.lang.translate("unsuccessfull run"));
                 });
             }
@@ -15728,13 +15737,16 @@ var dashboard = {
         div.find(".export-excel").on("click", function() {
             var s = div.find(".chart-data").data("settings");
             app.chartCommons.setFilterParameter(s);
+            try {
+                s.parameters.TableInfo.IsPageValid = true;
+            } catch (e) {}
             $.ajax({
                 type: "POST",
                 url: app.urlPrefix + "Charts/BarChart/ExportToExcel",
                 data: JSON.stringify({
                     ChartId: opt.chartId,
                     ChartInPageId: opt.ChartInPageId,
-                    TableInfo: decodedOptions.TableInfo,
+                    TableInfo: s.parameters.TableInfo,
                     IsPivot: +decodedOptions.chartProp.info.aggregation === 1,
                     drillDown: s.parameters.drillDown,
                     userControlFilter: s.parameters.userControlFilter,
