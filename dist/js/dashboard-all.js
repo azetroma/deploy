@@ -9896,7 +9896,8 @@ app.charts.tree.draw = function(input, settings, refreshWithData, titlebar) {
                 var loaded = $(this).data("loaded");
                 if (loaded) {
                     var ul = $(this).parent().find(" > ul");
-                    ul.transition(isOpen ? "out scale right" : "in  scale left");
+                    console.log("sdsdsd");
+                    ul.transition(isOpen ? "fade up" : "fade down");
                     return;
                 }
                 $(this).data("loaded", true);
@@ -9935,7 +9936,7 @@ app.charts.tree.draw = function(input, settings, refreshWithData, titlebar) {
         });
         root.style("display", "none");
         $(parent._groups[0][0]).append($(root._groups[0][0]));
-        $(parent._groups[0][0]).find("> ul").transition("in scale ");
+        $(parent._groups[0][0]).find("> ul").transition("fade up ");
     };
     createNode(root, input);
     $(selector).trigger("heightChange");
