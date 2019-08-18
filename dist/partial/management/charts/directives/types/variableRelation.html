@@ -13,7 +13,7 @@
                     <span class="form-divider" flex></span>
                     <div class="col-sm-8 ">
                         <select class="form-control"
-                                ng-model="prop.userControl.info.variableId"
+                                ng-model="prop[type].info.variableId"
                                 ng-options="i.Id+'' as i.Name for i in list"></select>
                     </div>
                 </div>
@@ -22,27 +22,27 @@
                     <label>پیش فرض براساس</label>
                     <span class="form-divider" flex></span>
                     <div class="ui radio">
-                        <label><input type="radio" ng-model="prop.userControl.info.variableDefaultType" value="NONE"> دلخواه</label>
+                        <label><input type="radio" ng-model="prop[type].info.variableDefaultType" value="NONE"> دلخواه</label>
                     </div>
                     <div> &nbsp;&nbsp;</div>
                     <div class="ui radio">
-                        <label><input type="radio" ng-model="prop.userControl.info.variableDefaultType" value="function"> تابع</label>
+                        <label><input type="radio" ng-model="prop[type].info.variableDefaultType" value="function"> تابع</label>
                     </div>
                 </div>
 
 
-                <div ng-show="prop.userControl.info.variableDefaultType=='NONE'">
+                <div ng-show="prop[type].info.variableDefaultType=='NONE'">
 
                     <div class="form-row" layout="row" layout-align="start center">
                         <label class="col-sm-4">{{ 'مقدار پیش‌فرض' | translate }}</label>
                         <span class="form-divider" flex></span>
-                        <div ng-show="prop.userControl.info.variableDefault.values">
-                            <code class="default-value code" ng-bind="prop.userControl.info.variableDefault.values" />
-                            <span class="glyphicon glyphicon-trash pointer icon-btn" style="top:7px;" ng-click="prop.userControl.info.variableDefault=null"></span>
+                        <div ng-show="prop[type].info.variableDefault.values">
+                            <code class="default-value code" ng-bind="prop[type].info.variableDefault.values" />
+                            <span class="glyphicon glyphicon-trash pointer icon-btn" style="top:7px;" ng-click="prop[type].info.variableDefault=null"></span>
                         </div>
                     </div>
 
-                    <div class="gray" xng-hide="prop.userControl.info.variableDefault.values">
+                    <div class="gray" xng-hide="prop[type].info.variableDefault.values">
                         <small>برای انتخاب مقدار پیش فرض، مقدار مورد نظر را از روی نمودار انتخاب کنید</small>
                     </div>
 
@@ -50,16 +50,16 @@
                 </div>
 
 
-                <div ng-show="prop.userControl.info.variableDefaultType=='function'">
-                    <sd-time-function ng-model="prop.userControl.info"></sd-time-function>
+                <div ng-show="prop[type].info.variableDefaultType=='function'">
+                    <sd-time-function ng-model="prop[type].info"></sd-time-function>
                 </div>
 
 
-                <div class="form-row" layout="row" layout-align="start center" >
+                <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-model="prop.userControl.info.disableClear" /> {{ 'جلوگیری از حذف مقدار توسط کاربر' | translate }}
+                                <input type="checkbox" ng-model="prop[type].info.disableClear" /> {{ 'جلوگیری از حذف مقدار توسط کاربر' | translate }}
                             </label>
                         </div>
                     </div>

@@ -28,7 +28,7 @@
 
                             <md-input-container class="md-block">
                                 <label>URL</label>
-                                <input required name="url" ng-model="model.url">
+                                <input required name="url" class="ltr" ng-model="model.url">
                                 <div ng-messages="webForm.url.$error">
                                     <div ng-message="required">{{'form_url_required' | translate}}</div>
                                 </div>
@@ -122,11 +122,11 @@
 
                                     <div layout="row" ng-repeat="param in parameters" xlayout-padding>
                                         <md-input-container md-no-float class="no-margin">
-                                            <input ng-model="param.name" placeholder="{{'نام'|translate}}">
+                                            <input ng-model="param.name" class="ltr" placeholder="{{'نام'|translate}}">
                                         </md-input-container>
 
                                         <md-input-container md-no-float class="no-margin">
-                                            <input ng-model="param.value" placeholder="{{'مقدار'|translate}}">
+                                            <input ng-model="param.value" class="ltr" placeholder="{{'مقدار'|translate}}">
                                         </md-input-container>
 
                                         <md-input-container class="no-margin">
@@ -167,12 +167,12 @@
 
                                 <md-input-container class="md-block">
                                     <label>{{'نام کاربری' | translate}}</label>
-                                    <input name="name" ng-model="model.user">
+                                    <input  class="ltr" ng-model="model.user">
                                 </md-input-container>
 
                                 <md-input-container class="md-block">
                                     <label>{{'کلمه عبور' | translate}}</label>
-                                    <input name="name" ng-model="model.password">
+                                    <input  class="ltr" ng-model="model.password">
                                 </md-input-container>
 
                             </div>

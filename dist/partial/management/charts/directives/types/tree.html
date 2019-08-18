@@ -176,10 +176,12 @@
 
             </div>
         </menu-body>
-    </menu-item>
+    </menu-item> 
 
     <global-variable dimensions="dimensions" measures="measures" prop="ngModel"></global-variable>
 
+    <user-control-variable-relation prop="ngModel" data-selector="#divChart" dimensions="dimensions" type="'tree'">   </user-control-variable-relation>
+    
     <dim-meas-where model="openMenuName" ng-if="!isOlap" dimensions="dimensions" measures="measures" where="where" datasource="datasource"></dim-meas-where>
 
     <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>

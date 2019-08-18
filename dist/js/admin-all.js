@@ -2123,9 +2123,7 @@ ngApp.directive("selectForm", function() {
                     scope.model.showModal = false;
                     $(".id" + scope.id).modal("hide");
                 };
-                scope.saveFinish = function(data) {
-                    debugger;
-                };
+                scope.saveFinish = function(data) {};
                 scope.option = {
                     showCancel: true,
                     allowMultiple: true,
@@ -2235,7 +2233,8 @@ ngApp.directive("selectForm", function() {
                                 res.fields = res.fields.map(function(d) {
                                     return {
                                         value: d.value,
-                                        label: d.label
+                                        label: d.label,
+                                        id: d.id
                                     };
                                 });
                                 return res;
@@ -2247,7 +2246,7 @@ ngApp.directive("selectForm", function() {
                         fields: {
                             remoteValues: "fields",
                             name: "label",
-                            value: "value"
+                            value: "id"
                         },
                         saveRemoteData: false,
                         fullTextSearch: true,
@@ -2263,7 +2262,7 @@ ngApp.directive("selectForm", function() {
                             change: function(val) {
                                 if (t.value === val) return;
                                 t.value = val;
-                                getIds();
+                                $scope.model.value = val;
                             },
                             defaultText: $scope.model.label
                         };
@@ -2348,7 +2347,7 @@ ngApp.directive("selectForm", function() {
                     });
                 }
             } ],
-            template: ' <div class="">                        <div class="xfield" ng-repeat="f in keys">                            <sm-dropdown settings="f.dropdownSettings" on-init="init"ng-class="{\'bold-text\':f.boldText}" class="selection search {{f.name}} fluid" label="item.label" on-change="f.change" value="item.value" default-text="f.defaultText" ></sm-dropdown>                        </div>                    </div>'
+            template: ' <div class="">                        <div class="xfield" ng-repeat="f in keys">                            <sm-dropdown settings="f.dropdownSettings" on-init="init"ng-class="{\'bold-text\':f.boldText}" class="selection search {{f.name}} fluid" on-change="f.change" default-text="f.defaultText" ></sm-dropdown>                        </div>                    </div>'
         };
     });
     ngApp.directive("selectMenu", function() {
@@ -3873,7 +3872,7 @@ var dashboard = {
                 };
             },
             draggable: {
-                handle: ".content > .move, content > .move b",
+                handle: ".content > .move, content > .move b, .content .title-content",
                 cancel: ".desc",
                 start: function(event, ui) {},
                 drag: function(e, u) {},
@@ -4072,6 +4071,9 @@ var dashboard = {
             var chartTemplate = dashboard.getChartTemplate(this.arrangePer, d.permissions.EditPermission, editLink, removeLink, needFilterIcon, d.title, id, d.lastRefresh, desc, CanExportXlsx, isCobmo, config, info);
             div.append(chartTemplate);
             div.find(".title-content").text(d.title);
+            if (d.title && !info.dontShowTitle) {
+                div.find(".header.move").remove();
+            }
             div.find(".desc-content").append(desc);
             if (info.backgroundColor) {
                 div.find(".ui.card ").css("background", info.backgroundColor);
@@ -4415,7 +4417,7 @@ var dashboard = {
         localStorage.setItem("lastEditedChartId", id);
     },
     getChartTemplate: function(arrangePer, EditPermission, editLink, removeLink, needFilterIcon, title, id, lastRefresh, desc, CanExportXlsx, isCobmo, config) {
-        return '<div class="ui card">  <div class="content" style="">    <div class="header ' + (arrangePer ? "move" : "") + '" style="position:absolute; width:50%;z-index:2;">&nbsp;</div><div class="title' + (config.noTitle === true ? " no-title " : arrangePer ? " move" : "") + '">            <div class="menu-bar" style="zz-index:1;">                <i class="icon titlebar-icon" style="xbackground: #fff;width: 100%;position: absolute;display: block;top: 0;height: 100%;"></i>                ' + (!app.mobileMode ? '<div class="ui dropdown" >                        <i class="setting icon chart-setting-icon titlebar-icon"></i>                        <div class=" menu transition hidden" tabindex="-1">                          ' + (EditPermission ? ' <a class="item"  href="' + editLink + '" onclick="dashboard.setReturnUrl(\'' + id + '\')"><span data-trans-key="ویرایش" > </span> <i class="edit outline icon"></i></a>' : "") + "                          " + (EditPermission ? ' <a class="item clone-chart"><span data-trans-key="تکرار" > </span> <i class="clone outline icon"></i></a>' : "") + "                          " + (arrangePer ? '<a class="item" href="' + removeLink + '"><span data-trans-key="حذف نمودار از صفحه" > </span> <i class="trash alternate outline icon"></i></a>' : "") + "                          " + (CanExportXlsx ? '<a class="item export-excel"><span data-trans-key="خروجی اکسل" > </span> <i class="file excel outline icon"></i></a>' : "") + "                          " + (CanExportXlsx ? '<a class="item export-png"><span data-trans-key="export png"> </span> <i class="camera icon"></i></a>' : "") + "                          " + (needFilterIcon ? '<a class="item refresh-chart">' + app.lang.translate("data refresh") + ' <i class="refresh icon"></i></a>' : "") + "                          " + (CanExportXlsx ? '<a class="item export-print"><span data-trans-key="print" > </span> <i class="print icon"></i></a>' : "") + '                        </div>                </div>                <div class=" ">                    ' + (!needFilterIcon ? "" : '<i class="info icon chart-setting-icon show-extra-info pointer titlebar-icon"></i>') + "                    " + (!needFilterIcon || isCobmo ? "" : '<i class="filter icon chart-setting-icon show-chart-dimensions pointer titlebar-icon"></i>') + "                    " + (!needFilterIcon || !app.commentOnChart ? "" : '<i class="comments icon chart-setting-icon show-chart-comments pointer titlebar-icon"></i>') + "                </div>" : !needFilterIcon ? "" : '<i class="info icon chart-setting-icon show-extra-info pointer titlebar-icon"></i>') + "            </div>        " + (config.noTitle === true ? "" : '<span class="title-content"></span>') + '    </div>    <div class="description chart-data bar-chart" id="' + id + '">      <div class="ui active inverted dimmer ">        <div class="ui text loader mini">' + '</div>      </div>    </div>  </div>  <div class="progress-overall"></div>  <div class="chart-dimentions"></div>  <div class="chart-dimentions-content"></div>  <div class="ui dimmer overflow-auto" style="padding:10px;border-radius: ' + (app.mobileMode ? "0" : "4") + 'px !important;"><div class="content"><div class="center"><div class="dimmer-info"><b>' + app.lang.translate("lastUpdate") + ':</b> <span class="last-refresh"> ' + '</span><div class="desc-content">' + "</div></div></div></div></div></div>";
+        return '<div class="ui card">  <div class="content" style="">    <div class="header ' + (arrangePer ? "move" : "") + '" style="position:absolute; width:50%;z-index:2;">&nbsp;</div><div class="title' + (config.noTitle === true ? " no-title " : arrangePer ? " move" : "") + '">            <div class="menu-bar" style="z-index:3;">                <i class="icon titlebar-icon" style="xbackground: #fff;width: 100%;position: absolute;display: block;top: 0;height: 100%;"></i>                ' + (!app.mobileMode ? '<div class="ui dropdown" >                        <i class="setting icon chart-setting-icon titlebar-icon"></i>                        <div class=" menu transition hidden" tabindex="-1">                          ' + (EditPermission ? ' <a class="item"  href="' + editLink + '" onclick="dashboard.setReturnUrl(\'' + id + '\')"><span data-trans-key="ویرایش" > </span> <i class="edit outline icon"></i></a>' : "") + "                          " + (EditPermission ? ' <a class="item clone-chart"><span data-trans-key="تکرار" > </span> <i class="clone outline icon"></i></a>' : "") + "                          " + (arrangePer ? '<a class="item" href="' + removeLink + '"><span data-trans-key="حذف نمودار از صفحه" > </span> <i class="trash alternate outline icon"></i></a>' : "") + "                          " + (CanExportXlsx ? '<a class="item export-excel"><span data-trans-key="خروجی اکسل" > </span> <i class="file excel outline icon"></i></a>' : "") + "                          " + (CanExportXlsx ? '<a class="item export-png"><span data-trans-key="export png"> </span> <i class="camera icon"></i></a>' : "") + "                          " + (needFilterIcon ? '<a class="item refresh-chart">' + app.lang.translate("data refresh") + ' <i class="refresh icon"></i></a>' : "") + "                          " + (CanExportXlsx ? '<a class="item export-print"><span data-trans-key="print" > </span> <i class="print icon"></i></a>' : "") + '                        </div>                </div>                <div class=" ">                    ' + (!needFilterIcon ? "" : '<i class="info icon chart-setting-icon show-extra-info pointer titlebar-icon"></i>') + "                    " + (!needFilterIcon || isCobmo ? "" : '<i class="filter icon chart-setting-icon show-chart-dimensions pointer titlebar-icon"></i>') + "                    " + (!needFilterIcon || !app.commentOnChart ? "" : '<i class="comments icon chart-setting-icon show-chart-comments pointer titlebar-icon"></i>') + "                </div>" : !needFilterIcon ? "" : '<i class="info icon chart-setting-icon show-extra-info pointer titlebar-icon"></i>') + "            </div>        " + (config.noTitle === true ? "" : '<span class="title-content"></span>') + '    </div>    <div class="description chart-data bar-chart" id="' + id + '">      <div class="ui active inverted dimmer ">        <div class="ui text loader mini">' + '</div>      </div>    </div>  </div>  <div class="progress-overall"></div>  <div class="chart-dimentions"></div>  <div class="chart-dimentions-content"></div>  <div class="ui dimmer overflow-auto" style="padding:10px;border-radius: ' + (app.mobileMode ? "0" : "4") + 'px !important;"><div class="content"><div class="center"><div class="dimmer-info"><b>' + app.lang.translate("lastUpdate") + ':</b> <span class="last-refresh"> ' + '</span><div class="desc-content">' + "</div></div></div></div></div></div>";
     },
     getFormTemplate: function(arrangePer, EditPermission, editLink, removeLink, needFilterIcon, title, id, lastRefresh, desc, CanExportXlsx) {
         return '<div class="ui card ">  <div class="content" style="">    <div class="header ' + (arrangePer ? "move" : "") + '">            <div class="menu-bar ">                ' + (!arrangePer && !EditPermission ? "" : '<div class="ui dropdown" >                        <i class="setting icon chart-setting-icon"></i>                        <div class=" menu transition hidden" tabindex="-1">                          ' + (EditPermission ? ' <a class="item"  href="' + editLink + '" onclick="dashboard.setReturnUrl(\'' + id + '\')"><span data-trans-key="ویرایش" > </span> <i class="edit icon"></i></a>' : "") + "                          " + (arrangePer ? '<a class="item" href="' + removeLink + '"><span data-trans-key="حذف" > </span> <i class="trash alternate outline icon"></i></a>' : "") + "                                                   </div>                </div>") + '                <div class="">                   <i xclass="info icon chart-setting-icon show-extra-info pointer"></i>                </div>            </div>        <span class="title-content"></span>    </div>    <div class="description form-content " id="' + id + '">      <div class="ui active inverted dimmer ">        <div class="ui text loader tiny">' + app.lang.translate("در حال بارگذاری") + '</div>      </div>    </div>  </div>  <div class="progress-overall"></div>  <div class="chart-dimentions"></div>  <div class="chart-dimentions-content"></div>  <div class="ui dimmer overflow-auto" style="padding:10px;border-radius: 4px !important;"><div class="content"><div class="center"><div class="dimmer-info desc-content"></div></div></div></div></div>';
@@ -8126,6 +8128,14 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
                 formatString: ",.0f",
                 tooltipHeader: "{{set.key}}",
                 tooltipFormat: "{{point.label}}: {{point.data}} :: {{point.percentage}}%",
+                variableId: "-1",
+                variableDefaultType: "NONE",
+                functionDateFormat: "yy/mm/dd",
+                functionUnitAgo: 1,
+                functionUnitAgoTwo: 0,
+                functionUnitAgoOffset: 1,
+                functionUnitAgoTwoOffset: 1,
+                dateFormatValue: "yy/mm/dd",
                 justFilterDirectChild: true
             }
         },
@@ -8746,13 +8756,6 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
             }, refreshChartOptions($scope));
             $scope.chartRenderError = null;
             var config = app.customChart.getConfig($scope.chartType) || {};
-            if (config.needData !== false && !isComboKpi() && option.needDim && $scope.dimensions.length == 0) {
-                $("#divChart").empty();
-                $translate("chart_editor_need_dimention").then(function(t) {
-                    $scope.chartRenderError = t;
-                });
-                return;
-            }
             if (config.needData !== false && !isComboKpi() && option.needMeasure && $scope.measures.length == 0) {
                 $("#divChart").empty();
                 $translate("chart_editor_need_measure").then(function(t) {
@@ -11132,11 +11135,12 @@ ngApp.controller("chartsListCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog",
             restrict: "E",
             scope: {
                 prop: "=",
-                dimensions: "="
+                dimensions: "=",
+                type: "="
             },
             controller: [ "$scope", "$http", function($scope, $http) {
                 $scope.$watch("dimensions", function(n, o) {
-                    $scope.prop.userControl.info.dimensions = $scope.dimensions;
+                    $scope.prop[$scope.type].info.dimensions = $scope.dimensions;
                 }, true);
                 if (!$scope.list) {
                     $http.get(app.urlPrefix + "Moderation/GlobalVariable/GetList").then(function(data) {
@@ -11154,7 +11158,7 @@ ngApp.controller("chartsListCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog",
                                 Id: data.Id,
                                 Name: data.Name
                             });
-                            $scope.prop.userControl.info.variableId = data.Id + "";
+                            $scope.prop[$scope.type].info.variableId = data.Id + "";
                         }, 0);
                     });
                 };
@@ -11164,7 +11168,7 @@ ngApp.controller("chartsListCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog",
                 var selector = attrs["selector"];
                 angular.element($(selector)).bind("default-value", function(e, isChange, values, variableType) {
                     $timeout(function() {
-                        scope.prop.userControl.info.variableDefault = {
+                        scope.prop[scope.type].info.variableDefault = {
                             values: values,
                             type: variableType
                         };
@@ -11414,6 +11418,12 @@ ngApp.controller("interRelationCtrl", [ "$scope", "$http", "$mdToast", "$mdDialo
         left: 0,
         right: 0
     };
+    $scope.$watch("modalRelationObject", function(n, o) {
+        console.log(n, o);
+    }, true);
+    $scope.datasourceChange = function() {
+        console.log("setSelected");
+    };
     var isFirst = true;
     $scope.getList = function(callback) {
         if (isFirst) {
@@ -11493,19 +11503,23 @@ ngApp.controller("interRelationCtrl", [ "$scope", "$http", "$mdToast", "$mdDialo
         });
     };
     $scope.selectedCount = function() {
+        console.log("### selectedCount");
         return _.filter($scope.data, {
             select: true
         }).length;
     };
     $scope.selectAll = function() {
+        console.log("### selectedCount1");
         _.forEach($scope.data, function(d) {
             d.select = $scope.selectAllCheckbox;
         });
     };
     $scope.restore = function(model) {
+        console.log("### selectedCount2");
         $scope.modalRelationObject = model;
     };
     $scope.getLastFocus = function(e) {
+        console.log("### selectedCount4");
         $scope.lastFocus = e.target;
         var input = e.target;
         if (!input) return;
@@ -11552,6 +11566,7 @@ ngApp.controller("interRelationCtrl", [ "$scope", "$http", "$mdToast", "$mdDialo
 
 ngApp.filter("filterColumns", function() {
     return function(items, conditions, isLeft, index) {
+        console.log("### selectedCount5");
         if (!items) return;
         var selected = conditions.map(function(d) {
             return isLeft ? d.left : d.right;
@@ -18416,6 +18431,7 @@ var chartTypes = {
             $("#" + settings.id).css({
                 display: "flex",
                 overflow: "auto",
+                "margin-top": "20px",
                 padding: "20px 14px",
                 "flex-flow": "column"
             });
@@ -23235,11 +23251,15 @@ app.charts.tree.draw = function(input, settings, refreshWithData, titlebar) {
                 return d[1];
             });
             if (newV.length === 0) newV = vals;
-            ajaxCall({
-                Id: -1,
-                Values: newV,
-                VariableType: 0
-            });
+            if (!settings.editMode) {
+                ajaxCall({
+                    Id: -1,
+                    Values: newV,
+                    VariableType: 0
+                });
+            } else {
+                $(selector).trigger("default-value", [ true, newV, 0 ]);
+            }
         });
         li.each(function(d) {
             if (+d.childs == 0) return;
@@ -23819,9 +23839,11 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
             return d.Key;
         });
         var max = settings.chartProp.info.sliderMax != "" && typeof settings.chartProp.info.sliderMax != "undefined" ? +settings.chartProp.info.sliderMax : d3.max(values, function(d) {
+            if (!d) return d;
             return +d.replace(/\[[^\]]+\]/, "");
         }) || 100;
         var min = settings.chartProp.info.sliderMin != "" && typeof settings.chartProp.info.sliderMin != "undefined" ? +settings.chartProp.info.sliderMin : d3.min(values, function(d) {
+            if (!d) return d;
             return +d.replace(/\[[^\]]+\]/, "");
         }) || 0;
         var select = '<div class="temporal" style="padding-left: 15px; padding-right: 15px; padding-top:5px">                        <div class="slider"></div>                        <div class="slider-value ltr" style="margin-top:5px"> </div>                        <input id="from-value" type="hidden"/>                      </div>';
@@ -24177,9 +24199,9 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
             traditional: true,
             data: d,
             success: function(data) {
-                debugger;
                 if (data.result) {
                     if (typeof settings.chartProp.info.variableId != "undefined" && settings.chartProp.info.variableId != -1) {
+                        app.moderation.dashboadpage.refreshRelatedDatasources(input.RefreshDatasource, [ +settings.ChartInPageId ]);
                         $(".bar-chart").each(function() {
                             var s = $(this).data("settings");
                             if (typeof s.input.GlobalVariables != "undefined" && s.input.GlobalVariables.indexOf(settings.chartProp.info.variableId) != -1) {
