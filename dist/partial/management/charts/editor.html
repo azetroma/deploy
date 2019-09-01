@@ -37,6 +37,7 @@
                                 <span ng-show="!chartType.isCustom && chartType.id==7" class="material-icons small small-size pointer" ng-click="showAddDatasource()" title="{{'add' | translate}}">
                                     add
                                 </span>
+
                             </div>
 
                             <div class="ui mini form" style="margin:7px;">
@@ -92,18 +93,24 @@
                                                 <span>{{u.Name}} <small class="gray"><small> {{u.xUniqueName}}</small></small></span>
                                             </div>
                                             <span flex></span>
+
                                             <span class="material-icons small small-size pointer" ng-click="removeRelatedDatasource($index, u)" ng-hide="$index==0" title="{{'remove' | translate}}">
                                                 remove
                                             </span>
                                             <span class="material-icons small small-size pointer" ng-click="gotoDatasource(u)">open_in_new</span>
+                                            <olap-add-column data="u" onchange="updateDatasources" ng-if="app.lecense.olap"></olap-add-column>
 
                                         </div>
 
                                         <div uib-collapse="u.expand">
 
-                                            <div class="pointer datasource-field" ng-hide="hide(i, 'check-name')" ng-repeat="i in u.Hierarchies" index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items ng-click="addToChart(i)">
-                                                <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
-                                                {{i.Name}}
+                                            <div class="pointer datasource-field" ng-hide="hide(i, 'check-name')" ng-repeat="i in u.Hierarchies"
+                                                 index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items >
+                                                <span ng-click="addToChart(i)">
+                                                    <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                                    {{i.Name}}
+                                                </span>
+                                                <olap-add-column ng-if="i.Type==1 && app.lecense.olap" data="u" model="i" onchange="updateDatasources" style="display:inline-block; position:absolute; left:8px;"></olap-add-column>
                                             </div>
 
                                         </div>
@@ -172,6 +179,7 @@
                                                     <md-button class="md-icon-button" ng-click="combo.synonyms.push([{}]); refreshChart('refreshWithData')" title="{{'add' | translate}}">
                                                         <span class="material-icons">add</span>
                                                         <!--<md-tooltip>{{ 'add' | translate }}</md-tooltip>-->
+                                                        <
                                                     </md-button>
                                                 </div>
 
@@ -210,6 +218,9 @@
                                 <select ng-model="selectedOlapCube" ng-change="changeCube(selectedOlapCube)" ng-options="id as color.Caption  for (id, color) in olapCubes">
                                     <!--<option ng-repeat="i in olapCubes" value="{{$index}}">{{i.Caption}}</option>-->
                                 </select>
+                                </
+                                >
+
                                 <div style="padding:0 5px;width:30px;">
                                     <span class="pointer gray" title="پاک کردن حافظه پنهان - تنها برای کیوب انتخاب شده" ng-hide="refreshCube" ng-click="refreshingCube()"><i class="icon refresh"></i></span>
                                     <span class="ui inline loader mini" ng-class="{active : refreshCube}"></span>
@@ -402,9 +413,9 @@
 
                 <div>
 
-                        <div class="ui basic mini compact icon button" ng-show="!chartProp.levelTypes.enable && app.license.chartLevelType" ng-click="addLevelType()">
-                             تغییر نوع نمودار در سطح بعدی
-                        </div>
+                    <div class="ui basic mini compact icon button" ng-show="!chartProp.levelTypes.enable && app.license.chartLevelType" ng-click="addLevelType()">
+                        تغییر نوع نمودار در سطح بعدی
+                    </div>
 
                     <div class="ui mini basic buttons" ng-show="chartProp.levelTypes.enable">
 
@@ -533,9 +544,9 @@
                     <div class="ui icon button" ng-click="delete($event)" ng-show="isEdit" title="{{'delete' | translate}}">
                         <i class="icon trash alternate outline "></i>
                     </div>
-                <div  class="ui basic button" ng-class="{loading: saveProgress}"ng-click="save($event , true)" title="" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
-                    {{'ذخیره و خروج' | translate}}
-                </div>
+                    <div class="ui basic button" ng-class="{loading: saveProgress}" ng-click="save($event , true)" title="" ng-disabled="(isEdit && (!menus || !menusSelected || !rolePermissionLoaded) ) || (!isEdit && !menus)">
+                        {{'ذخیره و خروج' | translate}}
+                    </div>
                 </div>
 
 
@@ -809,6 +820,8 @@
                                         <!--<option value="and">{{ 'و' | translate}}</option>
                                         <option value="or">{{ 'یا' | translate}}</option>-->
                                     </select>
+
+                                    </
 
                                     <select class="condition-style" ng-model="parent.members.numericFilter.conditions[1].condition"
                                             ng-options="color.name as  color.value for color in [

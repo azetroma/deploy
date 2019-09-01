@@ -11,8 +11,9 @@
                 </span>
             </div>-->
 
-            <span flex></span>
+            <a ng-if="app.license.olap" href="{{app.hashUrlPrefix}}#/process-all-tables"class="ui basic button ">مدل داده‌ای برای داده‌های حجیم</a>
 
+            <span flex></span>
             <md-input-container md-no-float class="md-block" style="margin-top:30px">
                 <input ng-model="search" placeholder="{{'search' | translate}}">
             </md-input-container>

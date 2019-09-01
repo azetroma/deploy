@@ -81,7 +81,7 @@
                 <div class="fields">
                     <div class="five wide column field">
                         <sm-dropdown class="selection search"
-                                     items="parent.datasourceList" label="item.Name" value="item.Id"
+                                     settings="{fullTextSearch: true}"items="parent.datasourceList" label="item.Name" value="item.Id"
                                      model="parent.modalRelationObject.left"></sm-dropdown>
                     </div>
 
@@ -89,8 +89,7 @@
 
                     <div class="five wide column field">
                         <sm-dropdown class="selection search"
-                                     items="parent.datasourceList" label="item.Name" value="item.Id"
-                                     on-change="parent.datasourceChange"
+                                     settings="{fullTextSearch: true}"items="parent.datasourceList" label="item.Name" value="item.Id"
                                      model="parent.modalRelationObject.right"></sm-dropdown>
                     </div>
 
@@ -104,9 +103,10 @@
                         </div>
                     </div>
 
+                                     <!--items="(parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Fields| filterColumns:parent.modalRelationObject.conditions:true:$index" label="item" value="item"-->
                     <div class="four wide column field" ng-hide="item.left.isText">
                         <sm-dropdown class="selection search"
-                                     items="(parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Fields| filterColumns:parent.modalRelationObject.conditions:true:$index" label="item" value="item"
+                                     items="(parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Fields" label="item" value="item"
                                      model="item.left.column"></sm-dropdown>
                     </div>
                     <div class="four wide column field" ng-show="item.left.isText">
@@ -125,9 +125,10 @@
                         </div>
                     </div>
 
+                                     <!--items="(parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Fields | filterColumns:parent.modalRelationObject.conditions:false:$index" label="item" value="item"-->
                     <div class="four wide column field" ng-hide="item.right.isText">
-                        <sm-dropdown class="selection search scrolling"
-                                     items="(parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Fields | filterColumns:parent.modalRelationObject.conditions:false:$index" label="item" value="item"
+                        <sm-dropdown class="selection search scrolling" settings="{fullTextSearch: true}"
+                                     items="(parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Fields" label="item" value="item"
                                      model="item.right.column"></sm-dropdown>
                     </div>
                     <div class="four wide column field" ng-show="item.right.isText">

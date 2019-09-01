@@ -3787,6 +3787,11 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
             var ret = d.series.filter(function(d) {
                 return d.type === "series" && d.prop.seriesType === "bar" && !d.prop.hidden;
             });
+            var sum = 0;
+            _.each(ret, function(item) {
+                item.offset = sum;
+                sum += +item.data;
+            });
             var headers = d.series.map(function(d) {
                 return d.label;
             });
@@ -3824,10 +3829,12 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
             return d.data >= 0 ? yFun(d.data > max ? max : d.data) : yFun(0);
         }).attr("height", function(d) {
             var yFun = y;
-            if (secondaryY.enable && secondaryY.measures[d.seriesKey] == true) {
+            if (secondaryY.enable && secondaryY.measures[d.seriesKey] === true) {
                 yFun = y2;
             }
-            return d.data > 0 ? yFun(Math.max(0, min)) - yFun(d.data > max ? max : d.data) : yFun(d.data < min ? min : d.data) - yFun(0);
+            d.offset = +d.offset;
+            var calcHeight = yFun(d.offset + +d.data > max ? Math.max(max - d.offset, 0) : d.data);
+            return d.data > 0 ? yFun(Math.max(0, min)) - calcHeight : yFun(d.data < min ? min : d.data) - yFun(0);
         }).on("click", function(d) {
             if (isFromCommentDialog) {
                 app.chartCommons.commentUtils.clickOnCommentIcon(d, settings.ChartInPageId);
@@ -3885,18 +3892,20 @@ app.charts.bar.draw = function(input, settings, refreshWithData, titlebar) {
             textGroup = _.reverse(textGroup);
             els.forEach(function(d, j) {
                 var t = textGroup[j] || null;
-                var val = d["__data__"]["data"];
-                var h = d3.select(d).select("rect").attr("height");
-                if (val >= 0) {
-                    d3.select(d).attr("transform", function(d, i) {
-                        return "translate(0," + maxHeightPos + ")";
-                    });
-                    maxHeightPos -= +h;
-                } else {
-                    d3.select(d).attr("transform", function(d, i) {
-                        return "translate(0," + maxHeightNeg + ")";
-                    });
-                    maxHeightNeg += +h;
+                if (isStackPercent) {
+                    var val = d["__data__"]["data"];
+                    var h = d3.select(d).select("rect").attr("height");
+                    if (val >= 0) {
+                        d3.select(d).attr("transform", function(d, i) {
+                            return "translate(0," + maxHeightPos + ")";
+                        });
+                        maxHeightPos -= +h;
+                    } else {
+                        d3.select(d).attr("transform", function(d, i) {
+                            return "translate(0," + maxHeightNeg + ")";
+                        });
+                        maxHeightNeg += +h;
+                    }
                 }
             });
         });
@@ -6557,7 +6566,7 @@ app.charts.map.draw = function(input, settings, refreshWithData, titlebar) {
             }).attr("x", function(d) {
                 return getCenter(d).x;
             }).attr("y", function(d) {
-                return getCenter(d).y + barOriginOfsset + (settings.chartProp.info.showName ? -10 : 0);
+                return getCenter(d).y + barOriginOfsset + (settings.chartProp.info.showName ? -1 * +settings.chartProp.info.nameEditor.fontSize.replace("px", "") - 1 : 0);
             }).attr("text-anchor", "middle").attr("fill", settings.chartProp.info.valueEditor.color || "#333").style("font-size", settings.chartProp.info.valueEditor.fontSize || "9px").style("font-family", settings.chartProp.info.valueEditor.fontName || "IRANSans").style("font-weight", settings.chartProp.info.valueEditor.bold ? "bold" : "200" || "200").style("font-style", settings.chartProp.info.valueEditor.italic ? "italic" : "inherit" || "inherit").on("click", clicked).on("mousemove", mouseOver).on("mouseout", mouseOut);
         }
     }
@@ -7197,6 +7206,7 @@ app.charts.radar.draw = function(input, settings, refreshWithData, titlebar) {
         formatStringCustom: ",.2f"
     }, settings.chartProp.info.font);
     var drow = function() {
+        var labelWidth = settings.chartProp.info.labelWidth || 100;
         var cfg = {
             radius: 4,
             w: 600,
@@ -7222,12 +7232,12 @@ app.charts.radar.draw = function(input, settings, refreshWithData, titlebar) {
         var textDivHeight = 0;
         var axisLableTemp = div.selectAll(".axis-label").data(allAxis).enter().append("div").text(function(d) {
             return persian(d, showPersian);
-        }).attr("class", "axis-label").style("width", "100px").style("font-size", "11px").style("padding", "5px").style("text-overflow", "ellipsis").style("white-space", "nowrap").style("text-align", function(d, i) {
+        }).attr("class", "axis-label").style("width", labelWidth + "px").style("font-size", "11px").style("padding", "5px").style("text-overflow", "ellipsis").style("white-space", "nowrap").style("text-align", function(d, i) {
             textDivHeight = $(this).outerHeight() || 0;
             return "right";
         });
         axisLableTemp.remove();
-        cfg.h = Math.min(height - textDivHeight * 2, width - 200);
+        cfg.h = Math.min(height - textDivHeight * 2, width - labelWidth * 2);
         cfg.w = cfg.h;
         cfg.maxValue = Math.max(cfg.maxValue, d3.max(data, function(i) {
             return d3.max(i.series.filter(function(d, i) {
@@ -7239,14 +7249,14 @@ app.charts.radar.draw = function(input, settings, refreshWithData, titlebar) {
         var radius = cfg.factor * Math.min(cfg.w / 2, cfg.h / 2);
         var Format = d3.format("%");
         div.style("height", cfg.h + textDivHeight * 2 + "px");
-        div.style("width", cfg.w + 200 + "px");
+        div.style("width", cfg.w + labelWidth * 2 + "px");
         var dd = div.append("div");
         var svg = dd.append("svg");
-        var axisLable = div.selectAll(".axis-label").data(allAxis).enter().append("div").text(function(d) {
+        var axisLable = div.append("div").classed("labels", true).selectAll(".axis-label").data(allAxis).enter().append("div").text(function(d) {
             return persian(d, showPersian);
         }).attr("title", function(d) {
             return d;
-        }).attr("class", "axis-label").style("width", "100px").style("position", "absolute").style("font-size", "11px").style("padding", "5px").style("text-overflow", "ellipsis").style("white-space", "nowrap").style("overflow", "hidden").style("text-align", function(d, i) {
+        }).attr("class", "axis-label").style("width", labelWidth + "px").style("position", "absolute").style("font-size", "11px").style("padding", "5px").style("text-overflow", "ellipsis").style("white-space", "nowrap").style("overflow", "hidden").style("text-align", function(d, i) {
             var left = cfg.w / 2 * (1 - cfg.factor * Math.sin(i * cfg.radians / total));
             var align = "right";
             if (left >= cfg.w / 2) align = "left";
@@ -7255,7 +7265,7 @@ app.charts.radar.draw = function(input, settings, refreshWithData, titlebar) {
         var textDivHeight = 0;
         axisLable.style("left", function(d, i) {
             var left = cfg.w / 2 * (1 - cfg.factor * Math.sin(i * cfg.radians / total));
-            if (left >= cfg.w / 2) left += 100;
+            if (left >= cfg.w / 2) left += labelWidth;
             return left + "px";
         }).style("top", function(d, i) {
             var h = $(d3.select(this).node()).outerHeight() || 0;
@@ -7266,58 +7276,77 @@ app.charts.radar.draw = function(input, settings, refreshWithData, titlebar) {
             return top + "px";
         });
         var topOffset = textDivHeight;
-        dd.style("left", "100px").style("position", "absolute").style("top", topOffset + "px");
+        dd.style("left", labelWidth + "px").style("position", "absolute").style("top", topOffset + "px");
         var g = svg.attr("width", cfg.w).attr("height", cfg.h).append("g").attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
         var tooltip;
-        for (var j = 0; j < cfg.levels - 1; j++) {
-            var levelFactor = cfg.factor * radius * ((j + 1) / cfg.levels);
-            g.selectAll(".levels").data(allAxis).enter().append("svg:line").attr("x1", function(d, i) {
-                return levelFactor * (1 - cfg.factor * Math.sin(i * cfg.radians / total));
-            }).attr("y1", function(d, i) {
-                return levelFactor * (1 - cfg.factor * Math.cos(i * cfg.radians / total));
-            }).attr("x2", function(d, i) {
-                return levelFactor * (1 - cfg.factor * Math.sin((i + 1) * cfg.radians / total));
+        var dLines = function() {
+            var axis = g.append("g").attr("class", "axies").selectAll(".axis").data(allAxis).enter().append("g").attr("class", "axis");
+            axis.append("line").attr("x1", cfg.w / 2).attr("y1", cfg.h / 2).attr("x2", function(d, i) {
+                return cfg.w / 2 * (1 - cfg.factor * Math.sin(i * cfg.radians / total));
             }).attr("y2", function(d, i) {
-                return levelFactor * (1 - cfg.factor * Math.cos((i + 1) * cfg.radians / total));
-            }).attr("class", "line").style("stroke", "grey").style("stroke-opacity", "0.75").style("stroke-width", "0.3px").attr("transform", "translate(" + (cfg.w / 2 - levelFactor) + ", " + (cfg.h / 2 - levelFactor) + ")");
-        }
-        for (var j = 0; j < cfg.levels; j++) {
-            var levelFactor = cfg.factor * radius * ((j + 1) / cfg.levels);
-            g.selectAll(".levels").data([ 1 ]).enter().append("svg:text").attr("x", function(d) {
-                return levelFactor * (1 - cfg.factor * Math.sin(0));
-            }).attr("y", function(d) {
-                return levelFactor * (1 - cfg.factor * Math.cos(0));
-            }).attr("class", "legend").style("font-size", font.fontSize).style("font-family", font.fontName).attr("dy", "1em").attr("transform", "translate(" + (cfg.w / 2 - levelFactor + cfg.ToRight) + ", " + (cfg.h / 2 - levelFactor) + ")").attr("fill", font.color).text(persian(d3.format(font.formatString)((j + 1) * cfg.maxValue / cfg.levels), showPersian));
-        }
-        var axis = g.selectAll(".axis").data(allAxis).enter().append("g").attr("class", "axis");
-        axis.append("line").attr("x1", cfg.w / 2).attr("y1", cfg.h / 2).attr("x2", function(d, i) {
-            return cfg.w / 2 * (1 - cfg.factor * Math.sin(i * cfg.radians / total));
-        }).attr("y2", function(d, i) {
-            return cfg.h / 2 * (1 - cfg.factor * Math.cos(i * cfg.radians / total));
-        }).attr("class", "line").style("stroke", "grey").style("stroke-width", "1px");
+                return cfg.h / 2 * (1 - cfg.factor * Math.cos(i * cfg.radians / total));
+            }).attr("class", "line").style("stroke", "grey").style("stroke-width", "1px");
+            var back = g.append("g").classed("values", true);
+            for (var j = 0; j < cfg.levels - 1; j++) {
+                var levelFactor = cfg.factor * radius * ((j + 1) / cfg.levels);
+                back.selectAll(".levels").data(allAxis).enter().append("svg:line").attr("x1", function(d, i) {
+                    return levelFactor * (1 - cfg.factor * Math.sin(i * cfg.radians / total));
+                }).attr("y1", function(d, i) {
+                    return levelFactor * (1 - cfg.factor * Math.cos(i * cfg.radians / total));
+                }).attr("x2", function(d, i) {
+                    return levelFactor * (1 - cfg.factor * Math.sin((i + 1) * cfg.radians / total));
+                }).attr("y2", function(d, i) {
+                    return levelFactor * (1 - cfg.factor * Math.cos((i + 1) * cfg.radians / total));
+                }).attr("class", "line").style("stroke", "grey").style("stroke-opacity", "0.75").style("stroke-width", "0.3px").attr("transform", "translate(" + (cfg.w / 2 - levelFactor) + ", " + (cfg.h / 2 - levelFactor) + ")");
+            }
+            for (var j = 0; j < cfg.levels; j++) {
+                var levelFactor = cfg.factor * radius * ((j + 1) / cfg.levels);
+                back.selectAll(".levels").data([ 1 ]).enter().append("svg:text").attr("x", function(d) {
+                    return levelFactor * (1 - cfg.factor * Math.sin(0));
+                }).attr("y", function(d) {
+                    return levelFactor * (1 - cfg.factor * Math.cos(0));
+                }).attr("class", "legend").style("font-size", font.fontSize).style("font-family", font.fontName).attr("dy", "1em").attr("transform", "translate(" + (cfg.w / 2 - levelFactor + cfg.ToRight) + ", " + (cfg.h / 2 - levelFactor) + ")").attr("fill", font.color).text(persian(d3.format(font.formatString)((j + 1) * cfg.maxValue / cfg.levels), showPersian));
+            }
+        };
         series = 0;
-        data[0].series.forEach(function(y, x) {
+        var showSeries = data[0].series.filter(function(d, i) {
+            return !d.prop.hidden;
+        });
+        showSeries.forEach(function(y, x) {
             if (y.prop.hidden) return;
             dataValues = [];
             g.selectAll(".nodes").data(data, function(j, i) {
-                dataValues.push([ cfg.w / 2 * (1 - parseFloat(Math.max(j.series[x].data, 0)) / cfg.maxValue * cfg.factor * Math.sin(i * cfg.radians / total)), cfg.h / 2 * (1 - parseFloat(Math.max(j.series[x].data, 0)) / cfg.maxValue * cfg.factor * Math.cos(i * cfg.radians / total)) ]);
+                dataValues.push([ cfg.w / 2 * (1 - parseFloat(Math.max(j.series.filter(function(d, i) {
+                    return !d.prop.hidden;
+                })[x].data, 0)) / cfg.maxValue * cfg.factor * Math.sin(i * cfg.radians / total)), cfg.h / 2 * (1 - parseFloat(Math.max(j.series.filter(function(d, i) {
+                    return !d.prop.hidden;
+                })[x].data, 0)) / cfg.maxValue * cfg.factor * Math.cos(i * cfg.radians / total)) ]);
             });
             dataValues.push(dataValues[0]);
-            g.selectAll(".area").data([ dataValues ]).enter().append("polygon").attr("class", "radar-chart-serie" + series).style("stroke-width", "2px").style("stroke", data[0].series[x].prop.seriesColor).attr("points", function(d) {
+            var type = showSeries[x].prop.lineType;
+            if (!type) type = "line-dot-area";
+            function getOpacity(d) {
+                var p = typeof showSeries[x].prop.areaOpacity === "undefined" ? cfg.opacityArea : showSeries[x].prop.areaOpacity;
+                if (!type.match(/area/gi)) {
+                    p = 0;
+                }
+                return p;
+            }
+            g.selectAll(".area").data([ dataValues ]).enter().append("polygon").attr("class", "radar-chart-serie" + series).style("stroke-width", function(d) {
+                var p = showSeries[x].prop.lineWeight || 2;
+                if (!type.match(/line/gi)) {
+                    p = 0;
+                }
+                return p + "px";
+            }).style("stroke", showSeries[x].prop.seriesColor).attr("points", function(d) {
                 var str = "";
                 for (var pti = 0; pti < d.length; pti++) {
                     str = str + cfg.w / 2 + "," + cfg.h / 2 + " ";
                 }
                 return str;
             }).style("fill", function(j, i) {
-                return data[0].series[x].prop.seriesColor;
-            }).style("fill-opacity", cfg.opacityArea).on("mouseover", function(d) {
-                z = "polygon." + d3.select(this).attr("class");
-                g.selectAll("polygon").transition(200).style("fill-opacity", .1);
-                g.selectAll(z).transition(200).style("fill-opacity", .7);
-            }).on("mouseout", function() {
-                g.selectAll("polygon").transition(200).style("fill-opacity", cfg.opacityArea);
-            }).transition(500).attr("points", function(d) {
+                return showSeries[x].prop.seriesColor;
+            }).style("fill-opacity", getOpacity).on("mouseover", function(d) {}).on("mouseout", function() {}).transition(500).attr("points", function(d) {
                 var str = "";
                 for (var pti = 0; pti < d.length; pti++) {
                     str = str + d[pti][0] + "," + d[pti][1] + " ";
@@ -7326,14 +7355,17 @@ app.charts.radar.draw = function(input, settings, refreshWithData, titlebar) {
             });
             series++;
         });
+        dLines();
         series = 0;
         var flag = settings.chartProp.globalvariable && settings.chartProp.globalvariable.length > 0 && !settings.editMode && settings.chartProp.globalvariable.filter(function(d) {
             return d.field == input.CurrentDimName;
         }).length > 0;
         _.each(data, function(d) {});
-        var nData = data[0].series.map(function(d, i) {
+        var nData = showSeries.map(function(d, i) {
             return data.map(function(m) {
-                var s = m.series[i];
+                var s = m.series.filter(function(d, i) {
+                    return !d.prop.hidden;
+                })[i];
                 s.onClickVal = m.onClickVal;
                 return s;
             });
@@ -7355,7 +7387,12 @@ app.charts.radar.draw = function(input, settings, refreshWithData, titlebar) {
             return j.axis;
         }).style("fill", "#fff").style("stroke", function(d) {
             return d.prop.seriesColor;
-        }).style("stroke-width", "2px").on("click", function(d, i) {
+        }).style("stroke-width", "2px").style("opacity", function(d) {
+            var ls = d.prop.lineType;
+            if (!ls) ls = "line-dot-area";
+            if (ls === "line-area" || ls === "line") return 0;
+            return 1;
+        }).on("click", function(d, i) {
             if (isFromCommentDialog) {
                 app.chartCommons.commentUtils.clickOnCommentIcon(d, settings.ChartInPageId);
                 return;
@@ -7371,7 +7408,7 @@ app.charts.radar.draw = function(input, settings, refreshWithData, titlebar) {
                         ChartInPageId: settings.ChartInPageId,
                         DataSourceId: settings.input.DataSourceId,
                         dimensionName: settings.input.dimensionName,
-                        value: d.value,
+                        value: d.category,
                         refreshDatasource: settings.input.RefreshDatasource
                     });
                 }
@@ -7391,18 +7428,19 @@ app.charts.radar.draw = function(input, settings, refreshWithData, titlebar) {
         }).on("mouseover", function(d) {
             newX = parseFloat(d3.select(this).attr("cx"));
             newY = parseFloat(d3.select(this).attr("cy"));
-            tooltip.style("left", newX + 105 + "px").style("top", newY - 5 + "px").html(d.label + "<br/><b>" + d.label + ": </b>" + persian(d3.format(font.formatString)(d.data), showPersian)).transition(200).style("opacity", 1);
-            var w = $(tooltip[0][0]).width();
-            var h = $(tooltip[0][0]).height();
+            console.log(d.category, newX, newY);
+            tooltip.transition();
+            tooltip.style("left", newX + labelWidth + 5 + "px").style("top", newY - 5 + "px").html(filterXSS(d.category.join(", ") + "<br/> <b>" + d.label + ": </b>" + persian(d3.format(font.formatString)(d.data), showPersian))).transition(200).style("opacity", 1);
+            var w = $(tooltip._groups[0]).width();
+            var h = $(tooltip._groups[0]).height();
             tooltip.style("top", newY + h / 2 + "px");
-            z = "polygon." + d3.select(this).attr("class");
-            g.selectAll("polygon").transition(200).style("fill-opacity", .1);
-            g.selectAll(z).transition(200).style("fill-opacity", .7);
-        }).on("mouseout", function() {
-            tooltip.transition(200).style("opacity", 0).each("end", function() {
+        }).on("mouseout", function(d) {
+            console.log(d.category, "## out");
+            tooltip.transition().duration(200).style("opacity", 1e-6).end().then(function() {
                 tooltip.style("left", 0).style("top", 0);
+            }).catch(function(e) {
+                console.log(e);
             });
-            g.selectAll("polygon").transition(200).style("fill-opacity", cfg.opacityArea);
         }).transition(500).attr("cx", function(j, i) {
             return cfg.w / 2 * (1 - Math.max(j.data, 0) / cfg.maxValue * cfg.factor * Math.sin(i * cfg.radians / total));
         }).attr("cy", function(j, i) {
@@ -10648,6 +10686,15 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
             dv = [].concat(dv);
             dv.splice(dv.length - 1, 1);
         }
+        if (!dv || !dv.length) {
+            var first = _.find(app.chartCommons.userFilter.filters, {
+                datasourceId: input.DataSourceId,
+                dimensionName: input.dimensionName
+            });
+            if (first) {
+                dv = first.values;
+            }
+        }
         input.DefaultValue = dv;
         var silent = true;
         var lastT;
@@ -10787,6 +10834,11 @@ app.charts.userControl.draw = function(input, settings, refreshWithData, titleba
                     datasourceId: ds,
                     disableClear: data.disableClear
                 };
+                _.remove(app.chartCommons.userFilter.filters, {
+                    datasourceId: input.DataSourceId,
+                    dimensionName: input.dimensionName
+                });
+                console.log("### remove");
                 app.chartCommons.userFilter.setFilter(x);
                 caller({
                     url: app.urlPrefix + "api/chartdata/logUserControl",
@@ -14179,6 +14231,7 @@ notification.directive("notification", function() {
             $scope.ngModel = $scope.ngModel || {};
             $scope.ngModel.show = false;
             $scope.moment = moment;
+            $scope.isNan = isNaN;
             $scope.$watch("notifications", function(n) {
                 $scope.ngModel.show = n && n.length;
             }, true);
@@ -15645,6 +15698,7 @@ var dashboard = {
             var chartTemplate = dashboard.getChartTemplate(this.arrangePer, d.permissions.EditPermission, editLink, removeLink, needFilterIcon, d.title, id, d.lastRefresh, desc, CanExportXlsx, isCobmo, config, info);
             div.append(chartTemplate);
             div.find(".title-content").text(d.title);
+            div.find(".title-content").attr("title", d.title);
             if (d.title && !info.dontShowTitle) {
                 div.find(".header.move").remove();
             }
@@ -16377,7 +16431,7 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
                 check();
                 return;
             }
-            $http.get(app.urlPrefix + "menu/MenuCategories/" + appid).then(function(data) {
+            $http.get(app.urlPrefix + "api/menus/MenuCategories/" + appid).then(function(data) {
                 $scope.getMenusData = data;
                 check();
                 cancel();
@@ -16400,7 +16454,7 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
                 var ids = $(ui.item).parents(".menu-category").find(".dashboard-menu").map(function() {
                     return +$(this).data("id");
                 }).toArray();
-                $http.post(app.urlPrefix + "menu/ChangeMenuOrder", {
+                $http.post(app.urlPrefix + "api/menus/ChangeMenuOrder", {
                     list: ids,
                     menuId: menuId,
                     parentCategoryId: parentCategoryId
@@ -16418,7 +16472,7 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
                 var v = $(".menu-category").map(function() {
                     return +$(this).data("id");
                 }).toArray();
-                $http.post(app.urlPrefix + "menu/ChangeMenuCategoryOrder", {
+                $http.post(app.urlPrefix + "api/menus/ChangeMenuCategoryOrder", {
                     list: v
                 });
             }, 0);
@@ -16694,7 +16748,7 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
         showModal();
     };
     $scope.duplicateMenu = function(m, mc) {
-        $http.post(app.urlPrefix + "menu/DuplicateMenu", {
+        $http.post(app.urlPrefix + "api/menus/DuplicateMenu", {
             Id: m.menu.Id
         }).then(function(res) {
             mc.menus = mc.menus || [];

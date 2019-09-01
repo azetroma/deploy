@@ -26,7 +26,7 @@
                     <label class="col-sm-4">{{ 'نوع هشدار' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
                         <select class="form-control" ng-change="alert.preview = null;" ng-model="alert.type"
-                                ng-options="color.name as  color.value for color in [{name:'sms', value: 'پیام کوتاه'  },{name:'email', value: 'پست الکترونیک'  }]"></select>
+                                ng-options="color.name as  color.value for color in alertTypes"></select>
                     </div>
                 </div>
             </div>
@@ -178,7 +178,7 @@
                     <div class="ui segments" ng-repeat="m in alert.preview.messages">
                         <div class="ui segment">
                             {{'users'|translate}} <div ng-repeat="u in m.users" class="ui mini label"> {{u}}</div>
-                            <pre ng-if="alert.type == 'sms'" style="white-space: pre-wrap;">{{m.content}}</pre>
+                            <pre ng-if="alert.type == 'sms' || alert.type == 'telegram'" style="white-space: pre-wrap;">{{m.content}}</pre>
                             <div ng-if="alert.type == 'email'" ng-bind-html="s.trustAsHtml(m.content)"></div>
                         </div>
 

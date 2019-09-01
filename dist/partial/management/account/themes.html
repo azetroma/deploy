@@ -3,15 +3,25 @@
         <div flex="10" hide-sm hide-xs></div>
         <div flex="80" flex-xs="100" flex-sm="100">
             <md-card style="margin:40px 0; padding:16px">
-                
+
                 <div ng-if=" path === '/themes'">
                     <theme-list></theme-list>
                 </div>
-                <div ng-if=" path === '/compare-data'">
+                
+                <div ng-if="path === '/compare-data'">
                     <compare-data ng-model="compareDataModel"></compare-data>
                 </div>
-                <div ng-if=" path === '/eventNotifications'">
+                
+                <div ng-if="path === '/eventNotifications'">
                     <notification-list datasources="datasources"></notification-list>
+                </div>
+
+                <div ng-if="path === '/telegram-config'" ng-show="license.telegram">
+                    <telegram-config ></telegram-config>
+                </div>
+
+                <div ng-if="path === '/process-all-tables'" ng-show="license.olap">
+                    <process-all-tables ></process-all-tables>
                 </div>
 
             </md-card>
