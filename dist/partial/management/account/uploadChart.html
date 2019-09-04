@@ -34,8 +34,8 @@
                     <td width="20">{{utils.persian($index+1)}}</td>
                     <td ng-click="goto(row, $event); $event.stopPropagation();"> <span class="pointer"><a href="{{app.hashUrlPrefix}}#/upload_chart/{{row.id}}"> {{row.name}}</a></span></td>
                     <td width="100">
-                        <i ng-click="edit(row)" class="ui icon edit pointer" ></i>
-                        <i ng-click="remove(row, $index)" class="ui icon delete pointer" ></i>
+                        <i ng-click="edit(row)" class="ui icon edit link"></i>
+                        <i ng-click="remove(row, $index)" class="ui icon alternate outline trash link"></i>
                     </td>
                 </tr>
             </table>
@@ -63,21 +63,35 @@
                         <input type="text" ng-model="model.name" />
                     </div>
 
-                        <div class=" field">
-                            <label>Javascript</label>
-                            <textarea style="direction:ltr; font-family:monospace; font-size:11px;" ng-model="model.java"></textarea>
+                    <div class=" field">
+                        <label>Javascript</label>
+                        <textarea style="direction:ltr; font-family:monospace; font-size:11px;" ng-model="model.java"></textarea>
+                    </div>
+                    <div class=" field">
+                        <label>CSS</label>
+                        <textarea style="direction:ltr; font-family:monospace; font-size:11px;" " ng-model="model.css"></textarea>
+                    </div>
+                    <div class=" field">
+                        <label>{{'settings template' | translate}}</label>
+                        <textarea style="direction:ltr; font-family:monospace; font-size:11px;" ng-model="model.settingsTemplate"></textarea>
+                    </div>
+                    <div class=" field">
+                        <sadaf-checkbox ng-model="model.minify">{{'minify' | translate}}</sadaf-checkbox>
+                    </div>
+                    <div class="inline fields">
+                        <div class=" field" ng-show="!model.newCategory ">
+                            <label>دسته‌بندی</label>
+                            <sm-dropdown class="selection" model="model.categoryId" items="categories" label="item.name" value="item.id">{{'minify' | translate}}</sm-dropdown>
                         </div>
-                        <div class=" field">
-                            <label>CSS</label>
-                            <textarea style="direction:ltr; font-family:monospace; font-size:11px;"" ng-model="model.css"></textarea>
+                        <div class=" field" ng-show="model.newCategory ">
+                            <label>دسته‌بندی</label>
+                            <input ng-model="model.newCategoryName" placeholder="نام دسته‌" type="text" />
                         </div>
-                        <div class=" field">
-                            <label>{{'settings template' | translate}}</label>
-                            <textarea style="direction:ltr; font-family:monospace; font-size:11px;" ng-model="model.settingsTemplate"></textarea>
-                        </div>
-                        <div class=" field">
-                            <sadaf-checkbox ng-model="model.minify">{{'minify' | translate}}</sadaf-checkbox>
-                        </div>
+                        <div class="ui button mini icon" title="اضافه کردن" ng-click="model.newCategory = true" ng-show="!model.newCategory"><i class="icon add"></i></div>
+                        <div class="ui button mini icon" title="بستن و انتخاب از لیست" ng-click="model.newCategory = false" ng-show="model.newCategory"><i class="icon close"></i></div>
+                        <div class="ui button mini basic icon" title="ویرایش" ng-click="editCat()" ng-show="!model.newCategory && model.categoryId"><i class="icon edit"></i></div>
+                        <div class="ui button mini basic icon" title="حذف" ng-click="deleteCat()" ng-show="!model.newCategory && model.categoryId"><i class="icon alternate outline trash"></i></div>
+                    </div>
                 </div>
 
             </div>

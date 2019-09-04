@@ -521,8 +521,16 @@
                                 <div flex="25" ng-class="{'active': expandedChartType == 20 }" ng-click="$mdMenu.hide();changeChartType(20)"><div class="chart-type-item">{{'search' | translate}}</div></div>
                             </div>
                             <md-divider></md-divider>
-                            <div layout="row" layout-wrap>
+                            <!--<div layout="row" layout-wrap>
                                 <div ng-repeat="c in customCharts" flex="25" ng-class="{'active': expandedChartType == c.id+1000 }" ng-click="$mdMenu.hide();changeChartType(c.id+1000, true)"><div class="chart-type-item">{{c.name}}</div></div>
+                            </div>-->
+
+                            <div ng-repeat="(k, v) in customCharts2">
+                                <div style="padding:4px 8px; color: #9e9e9e;font-size: 0.8em;"> {{k == 'null'? 'بدون دسته‌بندی' : k}}</div>
+                                <div layout="row" layout-wrap>
+                                    <div ng-repeat="c in v" flex="25" ng-class="{'active': expandedChartType == c.id+1000 }" ng-click="$mdMenu.hide();changeChartType(c.id+1000, true)"><div class="chart-type-item">{{c.name}}</div></div>
+                                </div>
+                                <md-divider></md-divider>
                             </div>
 
                         </div>

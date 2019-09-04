@@ -40,10 +40,22 @@
                     <input type="text" ng-model="model.name" />
                 </div>
 
+                <div class=" inline field" ng-show="!model.newCategory ">
+                    <label>دسته‌بندی</label>
+                    <sm-dropdown class="selection" model="model.categoryId" items="categories" label="item.name" value="item.id">{{'minify' | translate}}</sm-dropdown>
+                </div>
+                <div class=" inline field" ng-show="model.newCategory ">
+                    <label>دسته‌بندی</label>
+                    <input ng-model="model.newCategoryName" placeholder="نام دسته‌" type="text" />
+                </div>
+                <div class="ui button mini icon" title="اضافه کردن" ng-click="model.newCategory = true" ng-show="!model.newCategory "><i class="icon add"></i></div>
+                <div class="ui button mini icon" title="بستن و انتخاب از لیست" ng-click="model.newCategory  = false" ng-show="model.newCategory "><i class="icon close"></i></div>
+                <div class="ui button mini basic icon" title="ویرایش" ng-click="editCat()" ng-show="!model.newCategory && model.categoryId"><i class="icon edit"></i></div>
+                <div class="ui button mini basic icon" title="حذف" ng-click="deleteCat()" ng-show="!model.newCategory && model.categoryId"><i class="icon alternate outline trash"></i></div>
+
                 <div class=" field">
                     <sadaf-checkbox ng-model="model.minify">{{'minify' | translate}}</sadaf-checkbox>
                 </div>
-
                 <div ng-click="save()" ng-class="{loading:saveProgress}" class="ui button green">{{'save' | translate}}</div>
             </div>
 

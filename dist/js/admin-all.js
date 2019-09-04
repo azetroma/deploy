@@ -5836,6 +5836,9 @@ ngApp.config([ "$routeProvider", "$locationProvider", function($routeProvider, $
     }).when("/process-all-tables", {
         templateUrl: app.urlPrefix + "dist/partial/management/account/themes.html?v=" + app.version,
         controller: "themesCtrl"
+    }).when("/login-page-logo", {
+        templateUrl: app.urlPrefix + "dist/partial/management/account/themes.html?v=" + app.version,
+        controller: "themesCtrl"
     });
 } ]);
 
@@ -7492,14 +7495,40 @@ ngApp.controller("uploadChart", [ "$scope", "$http", "$sce", "$timeout", "$mdToa
         $scope.editProgress = true;
         customChart.get(item.id).then(function(data) {
             $scope.editProgress = false;
-            $scope.model = data;
+            $scope.model = data.model;
         }).catch(function() {
             $scope.editProgress = false;
             utils.showErrorToast("خطا در انجام عملیات");
         });
     };
+    $scope.editCat = function() {
+        var item = _.find($scope.categories, {
+            id: $scope.model.categoryId
+        });
+        var f = prompt("نام جدید را وارد کنید", item.name);
+        if (f) {
+            $http.post(app.urlPrefix + "api/customCharts/editCategory/" + item.id, '"' + f + '"').then(function() {
+                item.name = f;
+            });
+        }
+    };
+    $scope.deleteCat = function() {
+        var item = _.find($scope.categories, {
+            id: $scope.model.categoryId
+        });
+        var index = _.findIndex($scope.categories, {
+            id: $scope.model.categoryId
+        });
+        var f = confirm("ایا برای حذف دسته‌بندی " + item.name + " اطمینان دارید؟");
+        if (f) {
+            $http.get(app.urlPrefix + "api/customCharts/removeCategory/" + item.id).then(function() {
+                $scope.categories.splice(index, 1);
+            });
+        }
+    };
     customChart.get().then(function(data) {
-        $scope.data = data;
+        $scope.data = data.list;
+        $scope.categories = data.categories;
     });
     $scope.save = function(ev) {
         $scope.model.settingsTemplate = $scope.model.settingsTemplate || "{}";
@@ -7537,8 +7566,8 @@ ngApp.controller("uploadChart", [ "$scope", "$http", "$sce", "$timeout", "$mdToa
                     name: data.name
                 });
             }
-        }).catch(function() {
-            $(".new-custom-chart-modal").modal("hide");
+        }).catch(function(e) {
+            alert("خطا در انجام عملیات " + e.data.desc);
             $scope.saveProgress = false;
         });
     };
@@ -7597,13 +7626,39 @@ ngApp.controller("uploadChartDetail", [ "$scope", "$http", "$sce", "$timeout", "
         $scope.editProgress = true;
         customChart.get($routeParams.id).then(function(data) {
             $scope.editProgress = false;
-            $scope.model = data;
+            $scope.model = data.model;
+            $scope.categories = data.categories;
         }).catch(function() {
             $scope.editProgress = false;
             utils.showErrorToast("خطا در انجام عملیات");
         });
     };
     $scope.edit();
+    $scope.editCat = function() {
+        var item = _.find($scope.categories, {
+            id: $scope.model.categoryId
+        });
+        var f = prompt("نام جدید را وارد کنید", item.name);
+        if (f) {
+            $http.post(app.urlPrefix + "api/customCharts/editCategory/" + item.id, '"' + f + '"').then(function() {
+                item.name = f;
+            });
+        }
+    };
+    $scope.deleteCat = function() {
+        var item = _.find($scope.categories, {
+            id: $scope.model.categoryId
+        });
+        var index = _.findIndex($scope.categories, {
+            id: $scope.model.categoryId
+        });
+        var f = confirm("ایا برای حذف دسته‌بندی " + item.name + " اطمینان دارید؟");
+        if (f) {
+            $http.get(app.urlPrefix + "api/customCharts/removeCategory/" + item.id).then(function() {
+                $scope.categories.splice(index, 1);
+            });
+        }
+    };
     $scope.save = function(ev) {
         $scope.model.settingsTemplate = $scope.model.settingsTemplate || "{}";
         if (!$scope.model.name || !$scope.model.name.trim()) {
@@ -7640,8 +7695,8 @@ ngApp.controller("uploadChartDetail", [ "$scope", "$http", "$sce", "$timeout", "
                     name: data.name
                 });
             }
-        }).catch(function() {
-            $(".new-custom-chart-modal").modal("hide");
+        }).catch(function(e) {
+            alert(e.data.desc);
             $scope.saveProgress = false;
         });
     };
@@ -7723,7 +7778,7 @@ ngApp.controller("userEditCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", "
     $scope.isEdit = isEdit;
     $scope.app = app;
     roles.get().then(function(res) {
-        $scope.roles = angular.merge({}, res.data.list);
+        $scope.roles = angular.merge([], res.data.list);
         _.forEach($scope.roles, function(item) {
             item.action = 1;
             item.check = false;
@@ -7755,6 +7810,8 @@ ngApp.controller("userEditCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", "
             $scope.verifyProgress = false;
             $scope.model.isNameAuthenticated = res.data.isNameAuthenticated;
             $scope.model.isMobileAuthenticated = res.data.isMobileAuthenticated;
+            $scope.model.FirstName = res.data.FirstName;
+            $scope.model.LastName = res.data.LastName;
         }).catch(function() {
             $scope.verifyProgress = false;
         });
@@ -7782,6 +7839,9 @@ ngApp.controller("userEditCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", "
     }, error);
     function checkRoleActions() {
         if ($scope.model && $scope.model.Roles && $scope.roles) {
+            if (!$scope.model.mainRole && $scope.roles.length) {
+                $scope.model.mainRole = $scope.roles[0].id;
+            }
             _.forEach($scope.roles, function(role) {
                 if ($scope.model.Roles.indexOf(role.id) !== -1) role.check = true;
             });
@@ -9303,7 +9363,8 @@ ngApp.controller("variablesCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", 
             });
         };
         customChart.get().then(function(data) {
-            $scope.customCharts = data;
+            $scope.customCharts = data.list;
+            $scope.customCharts2 = _.groupBy(data.list, "category");
             _.each(data, function(c) {
                 $scope.chartNameMap[c.id + 1e3] = {
                     name: c.name,
