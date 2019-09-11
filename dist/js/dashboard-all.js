@@ -6232,7 +6232,7 @@ app.charts.map.draw = function(input, settings, refreshWithData, titlebar) {
                 url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
             }
             $("#" + settings.id).append('<div class="temporal" id = "map" style = "width: 100%; height:100%;" ></div > ');
-            var map = L.map($(selector + " #map").get(0)).setView([ 32.8, 53.6894 ], 5);
+            var map = L.map($(selector + " #map").get(0)).setView([ 32.8, 53.6894 ], settings.chartProp.info.realMap.initialZoom || 5);
             L.tileLayer(url, {
                 attributionControl: false,
                 attribution: "داشبورد مدیریتی صدف"
@@ -17418,7 +17418,7 @@ app.escapeBraket = function(input) {
 
 var ngApp = angular.module("sadafMain", [ "sadafForms", "ngRoute", "filterBox", "navbarCat", "ui.sortable", "pascalprecht.translate", "ngSanitize", "uibCollapseCat", "notificationCat", "services" ]);
 
-ngApp.controller("dashboardMainPageCtrl", [ "$scope", "$http", "$sce", "$routeParams", "$location", "$timeout", "$translate", "mainmenus", "mostRecentMenus", "favoriteMenus", function($scope, $http, $sce, $routeParams, $location, $timeout, $translate, mainmenus, mostRecentMenus, favoriteMenus) {
+ngApp.controller("dashboardMainPageCtrl", [ "$scope", "$http", "$sce", "$routeParams", "$location", "$timeout", "$translate", "mainmenus", "mostRecentMenus", "favoriteMenus", "appsPermissions", function($scope, $http, $sce, $routeParams, $location, $timeout, $translate, mainmenus, mostRecentMenus, favoriteMenus, appsPermissions) {
     $scope.mainMenuType = 2;
     $scope.gApp = app;
     $scope.moment = moment;
@@ -17433,6 +17433,8 @@ ngApp.controller("dashboardMainPageCtrl", [ "$scope", "$http", "$sce", "$routePa
             $scope.$apply();
         }
     };
+    $scope.appsPermissions = appsPermissions;
+    $scope.parent = $routeParams.id || 0;
     function get() {
         var parent = $routeParams.id || 0;
         $scope.appLoading = true;
@@ -17508,8 +17510,8 @@ ngApp.controller("dashboardMainPageCtrl", [ "$scope", "$http", "$sce", "$routePa
         });
     };
     $scope.keyup = function($event, app) {
-        if ($event.keyCode == 13) $scope.save(app);
-        if ($event.keyCode == 27) app.edit = false;
+        if ($event.keyCode === 13) $scope.save(app);
+        if ($event.keyCode === 27) app.edit = false;
     };
     $scope.edit = function(app) {
         app.edit = true;
@@ -17618,6 +17620,54 @@ ngApp.controller("dashboardMainPageCtrl", [ "$scope", "$http", "$sce", "$routePa
         });
     };
     $scope.mm = {};
+} ]);
+
+ngApp.service("appsPermissions", [ "$q", "$rootScope", "$compile", "$timeout", "mainmenus", "$location", function($q, $rootScope, $compile, $timeout, mainmenus, $location) {
+    function select(id) {
+        var deferred = $q.defer();
+        $(".mainmenu-permission").remove();
+        var picker = $(".mainmenu-permission");
+        if (!picker.length) {
+            $pickerScope = $rootScope.$new();
+            $pickerScope.roles = [];
+            $pickerScope.conf = {
+                id: id
+            };
+            $pickerScope.savePermissions = function() {
+                $pickerScope.savePerProgress = true;
+                var roles = _.filter($pickerScope.roles, {
+                    check: true
+                }).map(function(item) {
+                    return {
+                        id: item.id,
+                        action: item.action
+                    };
+                });
+                mainmenus.savePermissions($pickerScope.conf.id, roles).then(function() {
+                    $pickerScope.savePerProgress = false;
+                    $(".mainmenu-permission").modal("hide");
+                }).catch(function() {
+                    $pickerScope.savePerProgress = false;
+                });
+            };
+            var el = $compile('                <div class="ui modal mainmenu-permission">                    <div class="header">                        <h3 xstyle="margin-bottom:40px">مجوزها</h3>                    </div>                    <div class="content scrolling">                        <datasource-permission type="mainmenu" conf="conf" ng-model="roles"></datasource-permission>                        <div class="ui red message" role="alert" ng-show="error">                            <strong>خطا!</strong> <span ng-bind-html="error"></span>                        </div>                    </div>                    <div class="actions">                        <div class="ui button green" ng-class="{loading: savePerProgress}" ng-click="savePermissions()" ng-disabled="savePerProgress">                            {{ !savePerProgress ? (\'ذخیره\' | translate) : (\'در حال ذخیره‌سازی\' | translate)}}                        </div>                    </div>                </div>                ')($pickerScope);
+            angular.element("[ng-app]").append(el);
+        }
+        $timeout(function() {
+            picker = $(".mainmenu-permission");
+            picker.modal("show");
+        }, 1);
+        return deferred.promise;
+    }
+    function setPath(id) {
+        $timeout(function() {
+            $location.path("/" + id);
+        }, 0);
+    }
+    return {
+        select: select,
+        setPath: setPath
+    };
 } ]);
 
 ngApp.config([ "$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {

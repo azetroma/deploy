@@ -55,16 +55,42 @@
         }
 
     .card-item {
-        height: 180px;
+        /*height: 180px;*/
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+        padding:20px;
     }
-
+        .card-item img {
+            max-height:100%;
+            max-width:100%;
+            object-fit  :cover;
+        }
+        .card-item.fit img {
+            height:100%;
+            width:100%;
+        }
+        .card-item.fit {
+            padding:0;
+        }
+        .banner .search-bar {
+            padding-right:165px;
+        }
+        .apps-container-root {
+            padding: 0 20px;
+        }
     @media (max-width: 767px) {
         .banner .stackable.grid {
             margin-top: 60px;
             margin-bottom: 10px;
+        }
+        .banner .search-bar {
+            padding-right:0px;
+        }
+        .apps-container-root {
+            padding: 0 ;
+                margin: 0 !important;
         }
     }
 </style>
@@ -74,18 +100,19 @@
         <img src="{{gApp.urlPrefix}}api/settings/getLogo/0" />
 
     </div>
-    <div class="ui fluid container" style="padding-right:165px;">
-        <div class="search ui stackable grid" style="        padding: 10px 0;">
-            <div class="eight wide column">
-                <div class="ui icon fluid input " ng-class="{loading:searchProgress}">
+    <div class="ui fluid container search-bar">
+        <div class="search ui stackable grid" style="padding: 10px 0;">
+            <div class="ten wide column">
+                <div class="ui icon fluid input " ng-class="{loading:searchProgress}" style="margin-bottom: 10px;">
                     <input type="text" placeholder="جستجو..." ng-model="query" ng-change="search(query)" ng-model-options="{ debounce: 600 }" class="ng-pristine ng-valid ng-empty ng-touched">
                     <i class="search icon"></i>
                 </div>
             </div>
-            <div class="two wide column ">
-                <a class=" teal fluid ui button" ng-if="isAdmin" ng-click="add()"><i class="icon add"></i> <span class="mobile hidden">پروژه جدید</span> </a>
 
-            </div>
+            <!--<div class="two wide column ">
+                <a class=" teal fluid ui button" ng-if="isAdmin" ng-click="add()"><i class="icon add"></i> <span class="mobile hidden">پروژه جدید</span> </a>
+            </div>-->
+
             <div class="two wide column " style=" text-align: left; padding-left: 40px;">
                 <div class="userinfo  ui dropdown">
                     <div style="white-space:nowrap">
@@ -106,7 +133,7 @@
     </div>
 </div>
 
-<div class="ui fluid container" style="padding: 0 20px;">
+<div class="ui fluid container apps-container-root" style="">
     <div ng-show="path.length">
         <span>
             <a class="section" ng-href="{{gApp.hashUrlPrefix + '#/'+0}}">اصلی</a>
@@ -129,7 +156,7 @@
                         <a href="/#/app/{{r.order}}/dashboard/{{+r.id}}">{{r.name}}</a>
                     </div>
                 </div>
-                
+
 
                 <div ng-show="!searchResult.length && query.length">نتیجه‌ای یافت نشد</div>
             </div>
@@ -137,67 +164,67 @@
             <div class="ui five stackable cards" ng-hide="searchResult.length || query.length">
                 <div class="ui loader active " ng-show="appLoading"></div>
 
-                <apps-layout parent="parent"style="display:block; width:100%;"></apps-layout>
+                <apps-layout parent="parent" permissions="appsPermissions" style="display:block; width:100%;margin-bottom: 40px;"></apps-layout>
 
                 <!--<div class="ui card app-{{app.id}}" ng-repeat="app in apps">
 
-        <a ng-href="{{!app.hasChild ? '/#/app/'+app.id+'/dashboard/'+ +app.first : gApp.hashUrlPrefix + '#/'+app.id}}" style="" class="card-item" ng-style="{'background-image': 'radial-gradient(circle, '+app.detail.startColor+', '+app.detail.endColor+')'}">
-            <img style="max-width: 90%;max-height: 90%;" class="ui image" ng-src="{{gApp.urlPrefix+'api/upload/getPic/'+ app.detail.picId}}" />
-        </a>
-        <div class="content">
-            <a class="header" ng-hide="app.edit" ng-href="{{!app.hasChild ? '/#/app/'+app.id+'/dashboard/'+ +app.first : gApp.hashUrlPrefix + '#/'+app.id}}">{{app.name}}</a>
+                    <a ng-href="{{!app.hasChild ? '/#/app/'+app.id+'/dashboard/'+ +app.first : gApp.hashUrlPrefix + '#/'+app.id}}" style="" class="card-item" ng-style="{'background-image': 'radial-gradient(circle, '+app.detail.startColor+', '+app.detail.endColor+')'}">
+                        <img style="max-width: 90%;max-height: 90%;" class="ui image" ng-src="{{gApp.urlPrefix+'api/upload/getPic/'+ app.detail.picId}}" />
+                    </a>
+                    <div class="content">
+                        <a class="header" ng-hide="app.edit" ng-href="{{!app.hasChild ? '/#/app/'+app.id+'/dashboard/'+ +app.first : gApp.hashUrlPrefix + '#/'+app.id}}">{{app.name}}</a>
 
-            <div class="ui icon input" ng-class="{loading:app.progress}" ng-show="app.edit">
-                <input type="text" id="new-label" placeholder="نام" ng-model="app.name" ng-keyup="keyup($event, app)" xng-blur="save(app)">
-                <i class="icon"></i>
-            </div>
+                        <div class="ui icon input" ng-class="{loading:app.progress}" ng-show="app.edit">
+                            <input type="text" id="new-label" placeholder="نام" ng-model="app.name" ng-keyup="keyup($event, app)" xng-blur="save(app)">
+                            <i class="icon"></i>
+                        </div>
 
-            <div class="description" ng-hide="app.edit" style="        min-height: 4em">{{app.detail.desc}}</div>
-            <span class="ui icon input" ng-class="{loading:app.progress}" ng-show="app.edit">
-                <textarea rows="5" type="text" id="new-label" placeholder="توضیحات" ng-model="app.detail.desc" ng-keyup="keyup($event, app)" xng-blur="save(app)" style="        width: 100%"></textarea>
-            </span>
+                        <div class="description" ng-hide="app.edit" style="        min-height: 4em">{{app.detail.desc}}</div>
+                        <span class="ui icon input" ng-class="{loading:app.progress}" ng-show="app.edit">
+                            <textarea rows="5" type="text" id="new-label" placeholder="توضیحات" ng-model="app.detail.desc" ng-keyup="keyup($event, app)" xng-blur="save(app)" style="        width: 100%"></textarea>
+                        </span>
 
-        </div>
+                    </div>
 
-        <div class="extra" ng-if="app.permissions.EditPermission || app.permissions.DeletePermission">
-            <span class=" ">
-                <i class="link pencil alternate icon" ng-if="app.permissions.EditPermission" ng-click="edit(app)" ng-hide="app.edit"></i>
-                <i class="check link icon" ng-click="save(app)" ng-class="{disabled:app.progress}" ng-show="app.edit"></i>
-            </span>
-            <span class=" ">
-                <i class="link trash alternate outline icon" ng-if="app.permissions.DeletePermission" ng-click="remove(app, $index)"></i>
-                <i class="link cog icon popup-btn" ng-if="app.permissions.EditPermission" ng-click="settings(app, $index)"></i>
-            </span>
-        </div>
-        <div class="setting-popup ui wide basic popup top left transition hidden" style="        min-width: 200px">
-            <div class="ui form">
+                    <div class="extra" ng-if="app.permissions.EditPermission || app.permissions.DeletePermission">
+                        <span class=" ">
+                            <i class="link pencil alternate icon" ng-if="app.permissions.EditPermission" ng-click="edit(app)" ng-hide="app.edit"></i>
+                            <i class="check link icon" ng-click="save(app)" ng-class="{disabled:app.progress}" ng-show="app.edit"></i>
+                        </span>
+                        <span class=" ">
+                            <i class="link trash alternate outline icon" ng-if="app.permissions.DeletePermission" ng-click="remove(app, $index)"></i>
+                            <i class="link cog icon popup-btn" ng-if="app.permissions.EditPermission" ng-click="settings(app, $index)"></i>
+                        </span>
+                    </div>
+                    <div class="setting-popup ui wide basic popup top left transition hidden" style="        min-width: 200px">
+                        <div class="ui form">
 
-                <div class="field">
-                    <label>رنگ شروع</label>
-                    <input ng-model="app.detail.startColor" />
-                </div>
+                            <div class="field">
+                                <label>رنگ شروع</label>
+                                <input ng-model="app.detail.startColor" />
+                            </div>
 
-                <div class="field">
-                    <label>رنگ پایان</label>
-                    <input ng-model="app.detail.endColor" />
-                </div>
-                <div class="field">
-                    <label>انتخاب آیکن</label>
-                    <input type="file" ng-model="app.pic" index="{{$index}}" onchange="angular.element(this).scope().previewFile(this )">
-                </div>
-                <div class="field">
-                    <label></label>
-                    <div class="ui button fluid" ng-click="addChild(app)">اضافه کردن زیر پروژه</div>
-                </div>
-                <div class="field">
-                    <label></label>
-                    <div class="ui button fluid icon" ng-click="showSettings(app)"><i class="ui icon cog"></i> تنظیمات</div>
-                </div>
+                            <div class="field">
+                                <label>رنگ پایان</label>
+                                <input ng-model="app.detail.endColor" />
+                            </div>
+                            <div class="field">
+                                <label>انتخاب آیکن</label>
+                                <input type="file" ng-model="app.pic" index="{{$index}}" onchange="angular.element(this).scope().previewFile(this )">
+                            </div>
+                            <div class="field">
+                                <label></label>
+                                <div class="ui button fluid" ng-click="addChild(app)">اضافه کردن زیر پروژه</div>
+                            </div>
+                            <div class="field">
+                                <label></label>
+                                <div class="ui button fluid icon" ng-click="showSettings(app)"><i class="ui icon cog"></i> تنظیمات</div>
+                            </div>
 
-            </div>
-        </div>
+                        </div>
+                    </div>
 
-    </div>-->
+                </div>-->
 
             </div>
         </div>
@@ -230,25 +257,19 @@
 
 </div>
 
-<div class="ui modal mainmenu-permission">
-
+<!--<div class="ui modal mainmenu-permission">
     <div class="header">
         <h3 xstyle="margin-bottom:40px">مجوزها</h3>
     </div>
-
     <div class="content scrolling">
         <datasource-permission type="mainmenu" conf="conf" ng-model="roles"></datasource-permission>
-
         <div class="ui red message" role="alert" ng-show="error">
             <strong>خطا!</strong> <span ng-bind-html="error"></span>
         </div>
-
-
     </div>
     <div class="actions">
         <div class="ui button green" ng-class="{loading: savePerProgress}" ng-click="savePermissions()" ng-disabled="savePerProgress">
             {{ !savePerProgress ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
         </div>
     </div>
-
-</div>
+</div>-->

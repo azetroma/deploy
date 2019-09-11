@@ -19721,7 +19721,7 @@ app.charts.map.draw = function(input, settings, refreshWithData, titlebar) {
                 url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
             }
             $("#" + settings.id).append('<div class="temporal" id = "map" style = "width: 100%; height:100%;" ></div > ');
-            var map = L.map($(selector + " #map").get(0)).setView([ 32.8, 53.6894 ], 5);
+            var map = L.map($(selector + " #map").get(0)).setView([ 32.8, 53.6894 ], settings.chartProp.info.realMap.initialZoom || 5);
             L.tileLayer(url, {
                 attributionControl: false,
                 attribution: "داشبورد مدیریتی صدف"

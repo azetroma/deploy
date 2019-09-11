@@ -37,13 +37,13 @@
     <meta name="fontiran.com:license" content="X4ZQZ">
 
 </head>
-<body ng-app="sadafMain" ng-cloak xng-controller="dashboardMainPageCtrl" class="theme2" style="overflow-y:scroll;height: auto;xpadding: 40px 0;">
+<body ng-app="sadafMain" xng-cloak xng-controller="dashboardMainPageCtrl" class="theme2" style="overflow-y:scroll;height: auto;">
     @Html.AntiForgeryToken()
     <input type="hidden" value="@ViewBag.lang" id="lang" />
 
 
 
-    <div class="" id="">
+    <div>
 
         <div class="ui fluid container">
 
@@ -106,7 +106,7 @@
                 </style>*@
 
 
-            <ng-view></ng-view>
+            <ng-view style="display:block;"></ng-view>
 
         </div>
 
