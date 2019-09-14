@@ -54,12 +54,12 @@
                         </div>
                         <div class="field">
                             <label>گروه منو</label>
-                            <sm-dropdown class="search selection fluid" model="model.parentId" label="item.name" value="item.id" items="menuCategories"></sm-dropdown>
+                            <sm-dropdown class="search selection fluid multiple" model="model.parentIds" label="item.name" value="item.id" items="menuCategories"></sm-dropdown>
                         </div>
-                        <div class="field">
+                        <!--<div class="field">
                             <label>پروژه</label>
                             <sm-dropdown class="search selection fluid" model="model.mainMenuId" label="item.name" value="item.id" items="mainMenus"></sm-dropdown>
-                        </div>
+                        </div>-->
 
                         <versions id="{{id}}" type="2" on-restore="restore(model)"></versions>
                         <br />

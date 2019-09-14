@@ -504,10 +504,10 @@
                 <md-card-actions layout="row">
                     <span flex></span>
 
-                    <md-button ng-click="save(false)" ng-disabled="saveProgress">
+                    <md-button ng-click="save(false)" ng-disabled="saveProgress || !restoreFinish">
                         {{saveProgress == false || saveProgressState != 'stay' ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی...' | translate)}}
                     </md-button>
-                    <md-button ng-click="save(true)" ng-disabled="saveProgress">
+                    <md-button ng-click="save(true)" ng-disabled="saveProgress|| !restoreFinish">
                         {{saveProgress == false || saveProgressState != 'exit'? ('ذخیره و بازگشت' | translate) : ('در حال ذخیره‌سازی...' | translate)}}
                     </md-button>
 

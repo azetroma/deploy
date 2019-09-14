@@ -2237,6 +2237,11 @@ ngApp.directive("selectForm", function() {
                                         id: d.id
                                     };
                                 });
+                                if ($scope.model.format) {
+                                    _.each(res.fields, function(item) {
+                                        item.label = d3.format($scope.model.format)(+item.label);
+                                    });
+                                }
                                 return res;
                             }
                         },
@@ -2274,6 +2279,9 @@ ngApp.directive("selectForm", function() {
                         for (var i = 0; i < $scope.model.formLookup.keyControlsBindedValue.length; i++) {
                             var v = $scope.model.formLookup.keyControlsBindedValue[i];
                             if ($scope.model.value != null) {
+                                if ($scope.model.format) {
+                                    v = d3.format($scope.model.format)(+v);
+                                }
                                 $scope.keys[i].defaultText = v;
                                 $scope.keys[i].boldText = true;
                             }
@@ -4088,7 +4096,8 @@ var dashboard = {
                     "font-style": info.titleFont.italic ? "italic" : "normal"
                 });
                 div.find(".ui.card .title").css({
-                    "text-align": info.titleFont.align
+                    "text-align": info.titleFont.align,
+                    "line-height": "1"
                 });
             }
             if (config.noPadding) {
@@ -6718,12 +6727,10 @@ ngApp.controller("roleEditCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", "
             getMenus();
             $scope.isAdmin = res.data.isAdmin;
             restoreData();
-            $timeout(function() {
-                console.log("time", new Date() - time);
-            });
         }, error);
     } else {
         getMenus();
+        $scope.restoreFinish = true;
     }
     $scope.delete = function(type, id) {
         var array = $scope.charts;
@@ -6843,6 +6850,8 @@ ngApp.controller("roleEditCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", "
                 }
             });
             $scope.model.activeTheme = $scope.model.activeTheme || -1;
+            console.log("#### end restore");
+            $scope.restoreFinish = true;
         }
     }
     function showErrorToast(msg) {
@@ -6952,10 +6961,13 @@ ngApp.controller("roleEditCtrl", [ "$scope", "$http", "$mdToast", "$mdDialog", "
         });
     }
     $scope.save = function(exit) {
+        if (!$scope.restoreFinish) return;
+        console.log("#### save");
         $scope.saveProgressState = exit ? "exit" : "stay";
         $scope.error = null;
         $scope.testResult = null;
         setModelData(true);
+        console.log("#### save setModelData ", $scope.model);
         $scope.saveProgress = true;
         $http.post(app.urlPrefix + "api/roles/edit", $scope.model).then(function(res) {
             $scope.saveProgress = false;
@@ -7175,6 +7187,7 @@ ngApp.controller("settingsCtrl", [ "$scope", "$http", "$sce", "$timeout", "$mdTo
         $scope.securityCertPatch = data.data.securityCertPatch;
         $scope.cdn = data.data.cdn;
         $scope.compareData = data.data.compareData;
+        $scope.verification = data.data.verification;
         $scope.uploadLogo = data.data.uploadLogo;
     });
     $scope.addCdn = function() {

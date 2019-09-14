@@ -1,4 +1,4 @@
-﻿<div class="field form-control {{model.name}}  form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ !model.canEdit? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
+﻿<div class="field form-control {{model.name}} type-{{model.type}} form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ !model.canEdit? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
     <span ng-show="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
 
     <div class="control-actions" ng-show="edit">
@@ -222,8 +222,8 @@
     </div>
 
 
-    <div class="field " ng-class="{error: model.error}" ng-if="model.type == 18">
-        <h3 class="" style="margin-top:40px;color:rgba(0,0,0,.87);">{{model.label}}</h3>
+    <div class="" ng-class="{error: model.error}" ng-if="model.type == 18" >
+        <h3 class="" style="xmargin-top:40px;color:rgba(0,0,0,.87);">{{model.label}}</h3>
         <hr />
         <small>{{model.description}}</small>
     </div>

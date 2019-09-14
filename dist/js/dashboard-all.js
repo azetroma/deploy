@@ -13140,6 +13140,11 @@ ngApp.directive("selectForm", function() {
                                         id: d.id
                                     };
                                 });
+                                if ($scope.model.format) {
+                                    _.each(res.fields, function(item) {
+                                        item.label = d3.format($scope.model.format)(+item.label);
+                                    });
+                                }
                                 return res;
                             }
                         },
@@ -13177,6 +13182,9 @@ ngApp.directive("selectForm", function() {
                         for (var i = 0; i < $scope.model.formLookup.keyControlsBindedValue.length; i++) {
                             var v = $scope.model.formLookup.keyControlsBindedValue[i];
                             if ($scope.model.value != null) {
+                                if ($scope.model.format) {
+                                    v = d3.format($scope.model.format)(+v);
+                                }
                                 $scope.keys[i].defaultText = v;
                                 $scope.keys[i].boldText = true;
                             }
@@ -15715,7 +15723,8 @@ var dashboard = {
                     "font-style": info.titleFont.italic ? "italic" : "normal"
                 });
                 div.find(".ui.card .title").css({
-                    "text-align": info.titleFont.align
+                    "text-align": info.titleFont.align,
+                    "line-height": "1"
                 });
             }
             if (config.noPadding) {
@@ -16444,8 +16453,14 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
             });
         });
     }
+    var FromCategoryId = 0;
     $scope.sortableOptions = {
         disabled: !$scope.editMode,
+        start: function(e, ui) {
+            $timeout(function() {
+                FromCategoryId = $(ui.item).parents(".menu-category").data("id");
+            }, 0);
+        },
         stop: function(e, ui) {
             $timeout(function() {
                 $scope.isDrag = false;
@@ -16455,6 +16470,7 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
                     return +$(this).data("id");
                 }).toArray();
                 $http.post(app.urlPrefix + "api/menus/ChangeMenuOrder", {
+                    FromCategoryId: FromCategoryId,
                     list: ids,
                     menuId: menuId,
                     parentCategoryId: parentCategoryId
@@ -16472,9 +16488,7 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
                 var v = $(".menu-category").map(function() {
                     return +$(this).data("id");
                 }).toArray();
-                $http.post(app.urlPrefix + "api/menus/ChangeMenuCategoryOrder", {
-                    list: v
-                });
+                $http.post(app.urlPrefix + "api/menus/ChangeMenuCategoryOrder", v);
             }, 0);
         }
     };
@@ -16721,6 +16735,7 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
     };
     $scope.deleteMenu = function(m, mc, index) {
         $scope.modal = {
+            showPermanent: true,
             btnClass: "btn-danger red",
             btnText: app.lang.translate("حذف"),
             inProgress: false,
@@ -16729,7 +16744,9 @@ ngApp.controller("dashboardPageCtrl", [ "$scope", "$http", "$sce", "$routeParams
                 $scope.modal.btnText = app.lang.translate("در حال حذف...");
                 var link = app.urlPrefix + "Charts/DashboardPage/deleteMenu";
                 $http.post(link, {
-                    menuId: m.menu.Id
+                    menuId: m.menu.Id,
+                    menuCategory: mc.category.Id,
+                    deletePermanent: $scope.modal.deletePermanent
                 }).then(function(res) {
                     $scope.modal.btnText = app.lang.translate("حذف");
                     $("#dashboard-page-modal").modal("hide");
@@ -17439,6 +17456,7 @@ ngApp.controller("dashboardMainPageCtrl", [ "$scope", "$http", "$sce", "$routePa
         var parent = $routeParams.id || 0;
         $scope.appLoading = true;
         mainmenus.get(parent).then(function(res) {
+            $scope.data = _.merge({}, res.data);
             $scope.apps = res.data.list;
             $scope.isAdmin = res.data.isAdmin;
             $scope.hasAminPermission = res.data.hasAminPermission;
