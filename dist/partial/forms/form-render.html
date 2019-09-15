@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="content scrolling">
+    <div class="content">
         <div class="" ng-show="formLoading">
             <div class="" style="text-align: center">
                 <i class="notched circle loading icon"></i>
@@ -31,7 +31,7 @@
                 <div style="margin-top:1rem;"></div>
             </div>
 
-            <div ng-show="submittedStatus == 0 || submittedStatus==1" style="min-height:300px;">
+            <div ng-show="submittedStatus == 0 || submittedStatus==1" style="xmin-height:300px;">
                 <div ng-repeat="page in data.pages" ng-show="$index == activePage" class="form-page ui form" ng-class="page.size">
                     <div class="ui grid stackable content-form">
                         <form-control ng-repeat="component in page.controls" ng-model="component" id="{{id}}" sd-submit="submit()"></form-control>

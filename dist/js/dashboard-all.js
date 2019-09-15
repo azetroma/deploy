@@ -11844,12 +11844,11 @@ ngApp.directive("sadafForm", function() {
                 });
             }
             function getFormEmptyData() {
-                console.log("### [getFormEmptyData]");
                 $scope.clearForm();
                 $scope.formLoading = true;
                 formsService.get($scope.id).then(function(data) {
                     $scope.formLoading = false;
-                    $scope.data = data.model;
+                    $scope.data = _.merge({}, data.model);
                     $scope.editPermission = data.editPermission;
                     $scope.deletePermission = data.deletePermission;
                     $scope.addPermission = data.addPermission;
@@ -12033,7 +12032,6 @@ ngApp.directive("sadafForm", function() {
                 };
             }
             function updateCalculated(newVal, oldVal) {
-                console.log("updateCalculated");
                 runOnAllControll($scope.data, function(control, rowControls) {
                     if (control.type == 5) {
                         var o = calcFlatFormula(control.calculate.expression, rowControls);
@@ -12098,7 +12096,6 @@ ngApp.directive("sadafForm", function() {
                         control.inProgress = true;
                         formsService.tableLookup(control.tableLookup, v).then(function(data) {
                             control.inProgress = false;
-                            console.log("### data", data);
                             if (data && data.length) {
                                 control.value = data[0].value;
                             }
