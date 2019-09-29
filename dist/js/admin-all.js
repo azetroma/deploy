@@ -5908,6 +5908,7 @@ ngApp.controller("activeDirectoryCtrl", [ "$scope", "$http", "$sce", "$timeout",
             ad.approveHash = null;
             utils.showErrorToast(error.data.desc);
             ad.progress = false;
+            $(".cert-modal").modal("hide");
         });
     };
     ad.approveCert = function() {
@@ -12506,6 +12507,7 @@ ngApp.controller("datasourceMssqlCtrl", [ "$scope", "$http", "$mdToast", "$mdDia
         WebResource: 5,
         JoinDatasource: 6
     };
+    $scope.license = app.license;
     function error(res) {
         $scope.error = $sce.trustAsHtml("<b>" + filterXSS(res.data.title) + "</b> <br/>");
     }

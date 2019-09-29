@@ -98,7 +98,7 @@
                                                 remove
                                             </span>
                                             <span class="material-icons small small-size pointer" ng-click="gotoDatasource(u)">open_in_new</span>
-                                            <olap-add-column data="u" onchange="updateDatasources" ng-if="app.lecense.olap"></olap-add-column>
+                                            <olap-add-column data="u" onchange="updateDatasources" ng-if="app.license.olap && u.ModelType == 1"></olap-add-column>
 
                                         </div>
 

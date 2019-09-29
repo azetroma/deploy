@@ -112,9 +112,12 @@
                             <div class="field" flex-gt-sm ng-show="type == 2">
                                 <label>کدینگ داده‌های رشته‌ای - Collation</label>
                                 <select ng-model="model.CollationDefault" ng-options="a.val as a.label for a in [{val:0, label:'پیش فرض پایگاه داده'},{val:1, label:'Arabic_CI_AS'},{val:2, label:'SQL_Latin1_General_CP1256_CI_AS'}]">
-                                    <!--<option value="1">پیش فرض پایگاه داده</option>
-            <option value="2">Arabic_CI_AS</option>
-            <option value="3">SQL_Latin1_General_CP1256_CI_AS</option>-->
+                                </select>
+                            </div>
+
+                            <div class="field" flex-gt-sm ng-show="type == 2 && license.olap">
+                                <label>مدل ذخیره داده</label>
+                                <select ng-model="model.ModelType" ng-options="a.val as a.label for a in [{val:0, label:'SQL'},{val:1, label:'DAX'}]">
                                 </select>
                             </div>
 
