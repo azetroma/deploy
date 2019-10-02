@@ -111,7 +111,11 @@
 
                             <div class="field" flex-gt-sm ng-show="type == 2">
                                 <label>کدینگ داده‌های رشته‌ای - Collation</label>
-                                <select ng-model="model.CollationDefault" ng-options="a.val as a.label for a in [{val:0, label:'پیش فرض پایگاه داده'},{val:1, label:'Arabic_CI_AS'},{val:2, label:'SQL_Latin1_General_CP1256_CI_AS'}]">
+                                <select ng-model="model.CollationDefault" ng-options="a.val as a.label for a in 
+                                            [{val:1, label:'پیش فرض پایگاه داده'}
+                                            ,{val:4, label:'Persian_100_CI_AS'}
+                                            ,{val:2, label:'Arabic_CI_AS'}
+                                            ,{val:3, label:'SQL_Latin1_General_CP1256_CI_AS'}]">
                                 </select>
                             </div>
 
