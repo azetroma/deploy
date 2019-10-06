@@ -63,6 +63,12 @@
                                 ng-options="i.value as i.name for i in item.entries"></select>
                     </div>
 
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'dim-color'">
+                        <label class="col-sm-4">{{ item.title }}</label>
+                        <span class="form-divider" flex></span>
+                        <dimention-color-selector ng-model="ngModel.customChart.general.dimColor" dim-color="ngModel.dimColor" ng-change="refreshChart('refresh')"></dimention-color-selector>
+                    </div>
+
                 </div>
 
 

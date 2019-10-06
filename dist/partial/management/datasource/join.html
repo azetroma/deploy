@@ -150,7 +150,7 @@
 
                                                         <th style="padding-right:15px;">
                                                             <input type="checkbox" ng-click="toggleSelectedFieldsCheckAll(i,$event)">
-                                                             {{i.Name}}
+                                                            {{i.Name}}
                                                         </th>
                                                         <th style="width:50%">{{ 'نام جایگزین' | translate}}</th>
                                                     </tr>
@@ -213,10 +213,10 @@
 
 
                             <!--<div ng-show="error" style="text-align: right;" class="alert alert-danger ">
-                                <button type="button" class="close" aria-label="Close" ng-click="error=null">  <span aria-hidden="true">&times;</span></button>
-                                <p ng-bind-html="error"></p>
-                            </div>-->
-                             
+                    <button type="button" class="close" aria-label="Close" ng-click="error=null">  <span aria-hidden="true">&times;</span></button>
+                    <p ng-bind-html="error"></p>
+                </div>-->
+
 
 
                             <div ng-show="testResult" style="overflow-y: scroll; max-height: 200px; border: 1px solid silver; margin-top:20px;">
@@ -236,6 +236,7 @@
 
                     </div>
 
+                        
                     <div layout_margin layout="column">
                         <md-checkbox ng-model="isSchedule">{{ 'به‌روز رسانی راس ساعت' | translate}}</md-checkbox>
 
@@ -244,6 +245,17 @@
                         <md-checkbox ng-show="selectedDatasource.length>0 " ng-model="needPartition" style="margin-top:28px">{{ 'form_need_partition' | translate}}</md-checkbox>
 
                         <partition-expression ng-show="selectedDatasource.length>0 && needPartition" type="2" ng-model="partitions" datasources="selectedDatasource" style="margin-top:-18px"> </partition-expression>
+
+                        <div class="field" flex-gt-sm ng-show="license.olap">
+                            <label>مدل ذخیره داده</label>
+                            <select ng-model="modelType" ng-options="a.val as a.label for a in [{val:0, label:'SQL'},{val:1, label:'DAX'}]">
+                            </select>
+                        </div>
+
+                        <!--<md-switch ng-model="model.ColumnStoreIndex" ng-show="type == 2" aria-label="ColumnStoreIndex">
+                            ایندکس ستونی
+                        </md-switch>-->
+
 
                         <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
                     </div>
@@ -267,7 +279,7 @@
                         {{ !testProgress ? ('تست' | translate) : ('form_testing' | translate)}}
                     </md-button>
 
-                    <md-button ng-click="cancel($event)" >
+                    <md-button ng-click="cancel($event)">
                         {{ 'لغو' | translate}}
                     </md-button>
 

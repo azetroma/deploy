@@ -167,18 +167,24 @@
 
                                 <md-input-container class="md-block">
                                     <label>{{'نام کاربری' | translate}}</label>
-                                    <input  class="ltr" ng-model="model.user">
+                                    <input class="ltr" ng-model="model.user">
                                 </md-input-container>
 
                                 <md-input-container class="md-block">
                                     <label>{{'کلمه عبور' | translate}}</label>
-                                    <input  class="ltr" ng-model="model.password">
+                                    <input class="ltr" ng-model="model.password">
                                 </md-input-container>
 
                             </div>
                             <md-switch ng-model="model.ColumnStoreIndex" aria-label="ColumnStoreIndex">
                                 ایندکس ستونی
                             </md-switch>
+                            sdsdsd
+                            <div class="field" flex-gt-sm ng-show="license.olap">
+                                <label>مدل ذخیره داده</label>
+                                <select ng-model="model.ModelType" ng-options="a.val as a.label for a in [{val:0, label:'SQL'},{val:1, label:'DAX'}]">
+                                </select>
+                            </div>
 
                             <md-input-container class="md-block" flex-gt-sm style="margin-top:36px;margin-bottom:0;">
                                 <label>به‌روز رسانی</label>

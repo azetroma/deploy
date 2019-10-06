@@ -23,8 +23,16 @@
                 <div ng-if="path === '/process-all-tables'" ng-show="license.olap">
                     <process-all-tables ></process-all-tables>
                 </div>
+                
                 <div ng-if="path === '/login-page-logo'" >
                     <login-page-logo></login-page-logo>
+                </div>
+                <div ng-if="path === '/menu-category'">
+                    <menu-category></menu-category>
+                </div>
+
+                <div ng-if="isOlapTables" >
+                    <olap-query id="id" onchange="onSaveTable"></olap-query>
                 </div>
 
             </md-card>

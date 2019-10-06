@@ -64,6 +64,12 @@
                                 </md-select>
                             </md-input-container>
 
+                            <div class="field" flex-gt-sm ng-show=" license.olap">
+                                <label>مدل ذخیره داده</label>
+                                <select ng-model="modelType" ng-options="a.val as a.label for a in [{val:0, label:'SQL'},{val:1, label:'DAX'}]">
+                                </select>
+                            </div>
+
                             <md-input-container class="md-block" flex-gt-sm>
                                 <md-checkbox xng-disabled="id > 0" ng-model="keepHistory">
                                     ذخیره تاریخچه تغییرات
