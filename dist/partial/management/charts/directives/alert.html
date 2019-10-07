@@ -138,7 +138,7 @@
                     </div>
                 </div>
 
-
+                 
 
                 <div class="field" ng-show="alert.type=='sms' || alert.type=='email' ">
                     <label>{{ 'پیام ارسالی' | translate }}</label>
@@ -152,6 +152,14 @@
                     <div> <b class="inline ltr">@{filters}</b> فیلترهای نمودار </div>
                     <div> <b class="inline ltr">@{content}</b> مقادیر شاخص‌ها</div>
                 </div>
+            </div>
+
+            <div ng-show="alert.type=='email'">
+                <label>
+                    <input type="checkbox" ng-model="alert.sendDataAsFile" />
+                    ارسال اطلاعات به صورت فایل پیوست
+                </label>
+
             </div>
 
             <div>
