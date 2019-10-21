@@ -30,6 +30,9 @@
                     <span class="ui compact mini icon basic pointer" ng-click="prop[config.name].indicator.splice($index, 1)" title="{{'remove' | translate}}">
                         <i class="icon remove"></i>
                     </span>
+                    <span class="ui compact mini icon basic pointer" ng-click="copy( prop[config.name].indicator, $index)" title="{{'remove' | translate}}">
+                        <i class="icon copy"></i>
+                    </span>
 
                 </span>
             </legend>

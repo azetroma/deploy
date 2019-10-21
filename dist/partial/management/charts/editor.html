@@ -135,7 +135,6 @@
 
                             <md-content flex>
                                 <div layout-margin>
-
                                     <div ng-repeat="u in combo.selectedChart">
                                         <sadaf-removable on-delete="combo.selectedChart.splice($index, 1); refreshChart()">
                                             <a class="pointer" href="{{app.hashUrlPrefix}}#/charts/edit/0/{{u.Id}}" xng-click="gotoChart(u)">{{u.Name}}</a>
@@ -151,7 +150,7 @@
                                     </div>
 
                                     <form>
-                                        <div layout="row">
+                                        <div layout="column">
                                             <md-input-container flex>
                                                 <label> {{ 'comboKpi_CombineDimension' | translate }}</label>
                                                 <md-select ng-model="combo.combineType" ng-change="refreshChart('refreshWithData')">
@@ -165,6 +164,14 @@
                                                 <md-select ng-model="combo.aggregation" ng-change="refreshChart('refreshWithData')">
                                                     <md-option value="0">Avg</md-option>
                                                     <md-option value="1">Sum</md-option>
+                                                </md-select>
+                                            </md-input-container>  
+                                            
+                                            <md-input-container flex>
+                                                <label> تعداد داده‌های نهایی</label>
+                                                <md-select ng-model="combo.unionType" ng-change="refreshChart('refreshWithData')">
+                                                    <md-option value="0">اجتماع</md-option>
+                                                    <md-option value="1">اشتراک</md-option>
                                                 </md-select>
                                             </md-input-container>
                                         </div>
@@ -504,10 +511,10 @@
                             </div>
 
                             <md-divider></md-divider>
-
                             <div layout="row" layout-wrap>
                                 <div flex="25" ng-class="{'active': expandedChartType == 13 }" ng-click="$mdMenu.hide();changeChartType(13)"><div class="chart-type-item">{{'aggregated table' | translate}}</div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 14 }" ng-click="$mdMenu.hide();changeChartType(14)"><div class="chart-type-item">{{'table' | translate}}</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 29 }" ng-click="$mdMenu.hide();changeChartType(29)"><div class="chart-type-item">جدول فرم - ورود اطلاعات</div></div>
                             </div>
 
                             <md-divider></md-divider>
@@ -522,8 +529,8 @@
                             </div>
                             <md-divider></md-divider>
                             <!--<div layout="row" layout-wrap>
-                                <div ng-repeat="c in customCharts" flex="25" ng-class="{'active': expandedChartType == c.id+1000 }" ng-click="$mdMenu.hide();changeChartType(c.id+1000, true)"><div class="chart-type-item">{{c.name}}</div></div>
-                            </div>-->
+        <div ng-repeat="c in customCharts" flex="25" ng-class="{'active': expandedChartType == c.id+1000 }" ng-click="$mdMenu.hide();changeChartType(c.id+1000, true)"><div class="chart-type-item">{{c.name}}</div></div>
+    </div>-->
 
                             <div ng-repeat="(k, v) in customCharts2">
                                 <div style="padding:4px 8px; color: #9e9e9e;font-size: 0.8em;"> {{k == 'null'? 'بدون دسته‌بندی' : k}}</div>

@@ -78,6 +78,10 @@
                         <label class="col-sm-4">{{ 'captions column' | translate }}</label>
                         <sm-dropdown class="selection multiple search" model="alert.datasourceCaptionsColumn" items="alert.datasourceColumns" label="item.Name" value="item.Name"></sm-dropdown>
                     </div>
+                    <div class="field">
+                        <label class="col-sm-4">انتخاب ستون‌ نمودار برای مپ کردن</label>
+                        <sm-dropdown class="selection multiple search" model="alert.chartCaptionsColumn" items="model.series" label="item" value="item"></sm-dropdown>
+                    </div> 
                 </div>
 
             </div>

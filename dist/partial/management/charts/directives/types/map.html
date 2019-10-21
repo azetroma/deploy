@@ -47,8 +47,8 @@
                                 {name:'نقشه آفلاین google', value: 'google-offline'  },
                                 ]"></select>
                         <!--
-                        {name:'نقشه آفلاین openStreet', value: 'open-street-offline'  },
-                            {name:'نقشه آنلاین google', value: 'google-online'  },-->
+            {name:'نقشه آفلاین openStreet', value: 'open-street-offline'  },
+                {name:'نقشه آنلاین google', value: 'google-online'  },-->
                     </div>
                 </div>
 
@@ -187,12 +187,12 @@
 
 
                     <!--<ng-quill-editor on-content-changed="refreshChart('refresh')" style="direction:ltr;" ng-model="ngModel.map.info.extraCode.template"
-                                     ng-init="ngModel.map.info.extraCode.template= ngModel.map.info.extraCode.template || '<p><strong style=&quot;font-size: 16px;&quot;>@label = @value</strong></p>'"></ng-quill-editor>
+                         ng-init="ngModel.map.info.extraCode.template= ngModel.map.info.extraCode.template || '<p><strong style=&quot;font-size: 16px;&quot;>@label = @value</strong></p>'"></ng-quill-editor>
 
-                    <div class="ltr gray" style="font-size: 0.85em;display: flex;flex-direction: row;justify-content: space-between;">
-                        <div><strong> @label</strong>:  برچسب</div>
-                        <div><strong> @value</strong>:  مقدار</div>
-                    </div>-->
+        <div class="ltr gray" style="font-size: 0.85em;display: flex;flex-direction: row;justify-content: space-between;">
+            <div><strong> @label</strong>:  برچسب</div>
+            <div><strong> @value</strong>:  مقدار</div>
+        </div>-->
 
 
                     <div class="ui mini compact icon basic button" ng-click="ngModel.map.info.extraCode.items.push({})">
@@ -292,6 +292,50 @@
                     </p>
                 </div>
 
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.map.info.showLatLng.enable" ng-change="refreshChart('refresh')" /> نمایش علامت براساس Lat و Lng
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="ngModel.map.info.showLatLng.enable">
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label>latitude</label>
+                        <span class="form-divider" flex></span>
+                        <select class="" ng-model="ngModel.map.info.showLatLng.lat" data-size="4"
+                                ng-change="refreshChart()"
+                                ng-options="d.UniqueName as d.Name for d in datasource.CubeInfo.Dimensions[0].Hierarchies">
+                        </select>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label>longitude</label>
+                        <span class="form-divider" flex></span>
+                        <select ng-model="ngModel.map.info.showLatLng.lng" data-size="4"
+                                ng-change="refreshChart()"
+                                ng-options="d.UniqueName as d.Name for d in datasource.CubeInfo.Dimensions[0].Hierarchies">
+                        </select>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-init="ngModel.map.info.showLatLng.maxSymbol = ngModel.map.info.showLatLng.maxSymbol || 25">
+                        <label>حداکثر تعداد علامت روی نقشه</label>
+                        <span class="form-divider" flex></span>
+                        <input type="number"
+                               ng-change="refreshChart('refresh')"
+                               ng-model-options="{ updateOn: 'blur' }"
+                               ng-model="ngModel.map.info.showLatLng.maxSymbol" />
+                    </div>
+
+
+                </div>
+
+                <!--{{ngModel.map.info.showLatLng | json}}-->
+
             </div>
         </menu-body>
     </menu-item>
@@ -303,9 +347,9 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'شاخص' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select id="series-selector" class="selectpicker-x form-control" ng-model="ngModel.selectedSeries"
+                        <select id="series-selector" 
+                                ng-model="ngModel.selectedSeries"
                                 ng-options="i as i for i in ngModel.series">
-                            <!--<option ng-repeat="i in ngModel.series" value="{{i}}">{{i}} </option>-->
                         </select>
                     </div>
                 </div>
