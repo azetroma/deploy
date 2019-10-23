@@ -4,6 +4,9 @@
         <menu-header data-toggle="">{{ 'تنظیمات کلی' | translate }}</menu-header>
         <menu-body class="prop-section  form-horizontal">
             <div>
+
+                <general-settings ng-if="ngModel.customChartSettingTemplat.hasGeneralSettings" ng-model="ngModel.customChart.info" ng-change="refreshChart('refresh')"></general-settings>
+
                 <div ng-repeat="item in ngModel.customChartSettingTemplat.general">
 
                     <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'color'">
@@ -20,7 +23,6 @@
                                          ng-init="ngModel.customChart.general[item.key]"></ng-quill-editor>
                     </div>
 
-                    <general-settings ng-if="item.type == 'general'" ng-model="ngModel.customChart.general[item.key]" ng-change="refreshChart('refresh')"></general-settings>
 
                     <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'icon'">
                         <label class="col-sm-4">{{item.title}}</label>
