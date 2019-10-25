@@ -8,8 +8,8 @@
                 background: none;
             }
         </style>
-        <div flex="20" hide-sm hide-xs></div>
-        <div flex="60" flex-xs="100" flex-sm="100">
+        <div flex="10" hide-sm hide-xs></div>
+        <div flex="80" flex-xs="100" flex-sm="100">
 
             <md-card>
                 <md-card-title>
@@ -17,7 +17,7 @@
                         <span class="md-headline" ng-hide="isEdit">{{'new_role' | translate}}</span>
                         <span class="md-headline" ng-show="isEdit">{{'edit_role' | translate}}</span>
                     </md-card-title-text>
-                    <div ng-show="securityCertPatch" class="ui  label">
+                    <div ng-show="securityCertPatch" class="ui label">
                         {{'integrity check' | translate}} &nbsp;
                         <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
                     </div>
@@ -144,7 +144,7 @@
                                     <menu-item>
                                         <menu-header ng-click="renderDatasource = true">{{'datasources' | translate}}</menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px" class="ui form" ng-if="renderDatasource">
+                                            <div style="" class="ui form" ng-if="renderDatasource">
                                                 <div class="fields">
                                                     <div class="field">
                                                         <label>&nbsp;</label>
@@ -155,7 +155,7 @@
                                                     </div>
                                                     <div class="field">
                                                         <label>مجوزهای دسترسی کلی</label>
-                                                        <select style="margin:0" class="" ng-model="datasourceActionAll" ng-change="actionAll('datasource', datasourceActionAll)" aria-label="{{'permission' | translate}}">
+                                                        <select style="margin:0; padding:6px" class="" ng-model="datasourceActionAll" ng-change="actionAll('datasource', datasourceActionAll)" aria-label="{{'permission' | translate}}">
                                                             <option value="1">{{'permission_view' | translate}}</option>
                                                             <option value="2">{{'permission_view_edit' | translate}}</option>
                                                             <option value="4">{{'permission_view_edit_delete' | translate}}</option>
@@ -164,16 +164,14 @@
 
                                                     <div class="field">
                                                         <label>&nbsp;</label>
-                                                        <div class="ui teal button" ng-click="$event.stopPropagation(); addDatasource($event)">
-                                                            {{'add' | translate}}
+                                                        <div class="ui icon teal button" title="{{'add' | translate}}" ng-click="$event.stopPropagation(); addDatasource($event)">
                                                             <i class="icon add"></i>
                                                         </div>
                                                     </div>
 
                                                     <div class="field">
                                                         <label>&nbsp;</label>
-                                                        <div class="ui red button" ng-click="$event.stopPropagation(); clearDatasources()">
-                                                            {{'remove_all' | translate}}
+                                                        <div class="ui icon red button" title=" {{'remove_all' | translate}}"ng-click="$event.stopPropagation(); clearDatasources()">
                                                             <i class="icon alternate outline trash"></i>
                                                         </div>
                                                     </div>
@@ -187,7 +185,7 @@
                                                     <div flex>
                                                         <span>{{r.name}}</span>
                                                     </div>
-                                                    <div style="width:200px">
+                                                    <div style="margin:4px 8px; font-size:0.7em;">
                                                         <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                                 (item.v == 2 && !r.permissions.EditPermission)||
                                                                 (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
@@ -228,7 +226,7 @@
                                                     </div>
                                                     <div class="field">
                                                         <label>مجوزهای دسترسی کلی</label>
-                                                        <select style="margin:0" class="" ng-model="chartActionAll" ng-change="actionAll('chart', chartActionAll)" aria-label="{{'permission' | translate}}">
+                                                        <select style="margin:0; padding:6px" class="" ng-model="chartActionAll" ng-change="actionAll('chart', chartActionAll)" aria-label="{{'permission' | translate}}">
                                                             <option value="1">{{'permission_view' | translate}}</option>
                                                             <option value="2">{{'permission_view_edit' | translate}}</option>
                                                             <option value="4">{{'permission_view_edit_delete' | translate}}</option>
@@ -236,8 +234,7 @@
                                                     </div>
                                                     <div class="field">
                                                         <label>&nbsp;</label>
-                                                        <div class="ui teal button icon" ng-click="$event.stopPropagation(); addChart($event)">
-                                                            {{'add' | translate}}
+                                                        <div class="ui teal button icon" title="{{'add' | translate}}" ng-click="$event.stopPropagation(); addChart($event)">
                                                             <i class="icon add"></i>
                                                         </div>
                                                     </div>
@@ -245,8 +242,7 @@
 
                                                     <div class="field">
                                                         <label>&nbsp;</label>
-                                                        <div class="ui red button icon" ng-click="$event.stopPropagation(); clearCharts()">
-                                                            {{'remove_all' | translate}}
+                                                        <div title="{{'remove_all' | translate}}" class="ui red button icon" ng-click="$event.stopPropagation(); clearCharts()">
                                                             <i class="icon alternate outline trash"></i>
                                                         </div>
                                                     </div>
@@ -275,13 +271,13 @@
 
 
                                                 <md-virtual-repeat-container style="height:400px;">
-                                                    <div style="height:60px;" md-virtual-repeat="r in charts|filter:chartSearch" layout="row" flex layout-align="start center">
+                                                    <div style="height:40px;" md-virtual-repeat="r in charts|filter:chartSearch" layout="row" flex layout-align="start center">
                                                         <div style="width:20px">
                                                             <i class="icon small close link gray" ng-click="delete('chart', r.id )"></i>
                                                         </div>
 
-                                                        <div flex><a href="{{app.hashUrlPrefix + '#/charts/edit/0/' + r.id}}">{{r.name}}</a></div>
-                                                        <div style="width:200px;margin: 8px;">
+                                                        <div flex><a target="_blank" href="{{app.hashUrlPrefix + '#/charts/edit/0/' + r.id}}">{{r.name}}</a></div>
+                                                        <div style="margin-left: 8px;">
 
 
                                                             <div class="ui mini input">
@@ -295,7 +291,7 @@
 
                                                             </div>
                                                         </div>
-                                                        <div style="width:180px;margin: 8px;">
+                                                        <div style="margin-left: 8px;font-size:0.7em;">
                                                             <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                             (item.v == 2 && !r.permissions.EditPermission)||
                                                             (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
@@ -529,7 +525,7 @@
             </md-card>
 
         </div>
-        <div flex="20" hide-sm hide-xs></div>
+        <div flex="10" hide-sm hide-xs></div>
 
     </md-content>
 </div>
