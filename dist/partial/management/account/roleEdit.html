@@ -108,7 +108,7 @@
                                                     </div>
                                                 </div>
                                                 <md-virtual-repeat-container style="height:400px;">
-                                                    <div style="height:30px;" md-virtual-repeat="r in users | filter:uSearch " layout="row" layout-align="start center">
+                                                    <div style="height:30px;" md-virtual-repeat="r in users | filterUsers:uSearch " layout="row" layout-align="start center">
                                                         <label><input type="checkbox" ng-model="r.check" /> {{r.username}} - {{r.name}}</label>
                                                         <a href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
                                                     </div>
@@ -130,7 +130,7 @@
                                                     </div>
                                                 </div>
                                                 <md-virtual-repeat-container style="height:400px;">
-                                                    <div style="height:30px;" md-virtual-repeat="r in manageableUsers | filter:umSearch" layout="row" layout-align="start center">
+                                                    <div style="height:30px;" md-virtual-repeat="r in manageableUsers | filterUsers:uSearch" layout="row" layout-align="start center">
                                                         <label><input type="checkbox" ng-model="r.check" /> {{r.username}} - {{r.name}}</label>
                                                         <a href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
                                                     </div>
