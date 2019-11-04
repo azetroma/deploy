@@ -80,6 +80,9 @@
                 </div>
             </div>
 
+            <div class="form-row" layout="row" layout-align="start center">
+                <sadaf-checkbox  ng-change="refreshChart()"class="mini"ng-model="dimensions[model.selectedDimension].detail.keepFilterUniversal">نگه داشتن فیلتر بین صفحه‌های پروژه</sadaf-checkbox>
+            </div>
             <div class="form-row" layout="row" layout-align="start center" ng-if="dimensions.length">
                 <sadaf-checkbox  ng-change="refreshChart()"class="mini"ng-model="dimensions[model.selectedDimension].detail.histogramCategory.enable">دسته‌بندی مقادیر پیوسته</sadaf-checkbox>
             </div>
