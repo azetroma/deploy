@@ -79,15 +79,15 @@
                             ]"></select>
                 </div>
             </div>
-
-            <div class="form-row" layout="row" layout-align="start center">
-                <sadaf-checkbox  ng-change="refreshChart()"class="mini"ng-model="dimensions[model.selectedDimension].detail.keepFilterUniversal">نگه داشتن فیلتر بین صفحه‌های پروژه</sadaf-checkbox>
+            <!-- در صورتی که ng-if گذاشته نشود یک ستون خالی به ابعاد اضافه می‌شود  و برای رفع باگ این گزینه استفاده شده است -->
+            <div class="form-row" layout="row" layout-align="start center" ng-if="dimensions.length">
+                <sadaf-checkbox ng-change="refreshChart()" class="mini" ng-model="dimensions[model.selectedDimension].detail.keepFilterUniversal">نگه داشتن فیلتر بین صفحه‌های پروژه</sadaf-checkbox>
             </div>
             <div class="form-row" layout="row" layout-align="start center" ng-if="dimensions.length">
-                <sadaf-checkbox  ng-change="refreshChart()"class="mini"ng-model="dimensions[model.selectedDimension].detail.histogramCategory.enable">دسته‌بندی مقادیر پیوسته</sadaf-checkbox>
+                <sadaf-checkbox ng-change="refreshChart()" class="mini" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.enable">دسته‌بندی مقادیر پیوسته</sadaf-checkbox>
             </div>
 
-            <div class="ui secondary tiny segment" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.enable"ng-if="dimensions.length">
+            <div class="ui secondary tiny segment" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.enable" ng-if="dimensions.length">
                 <div class="form-row" layout="row" layout-align="start center">
                     <label>{{ 'type' | translate }}</label>
                     <span class="form-divider" flex></span>
@@ -249,7 +249,7 @@
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'ستون' | translate }}</label>
                 <span class="form-divider" flex></span><div class="col-sm-8">
-                    <select  data-size="4" ng-model="model.selectedwhere" ng-init="model.selectedwhere = '0'"
+                    <select data-size="4" ng-model="model.selectedwhere" ng-init="model.selectedwhere = '0'"
                             ng-options="id as i.Name for (id,i) in where">
                         <!--<option ng-repeat="i in where track by $index" value="{{$index + '' }}">{{i.Name}}</option>-->
                     </select>

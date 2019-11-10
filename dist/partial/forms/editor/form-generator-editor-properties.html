@@ -125,7 +125,7 @@
             </sadaf-checkbox>
         </div>
 
-        <div class="field">
+        <div class="field" ng-if="!c.control.active.dropdown.isUser">
             <sadaf-checkbox ng-model="c.control.active.dropdown.useRemoteData" ng-change="c.control.resetListValue()">
                 {{'use remote data'|translate}}
             </sadaf-checkbox>
@@ -139,7 +139,7 @@
                       placeholder="{{'each line one value' | translate}}" rows="5"></textarea>
         </div>
 
-        <div ng-if="c.control.active.dropdown.useRemoteData">
+        <div ng-if="c.control.active.dropdown.useRemoteData && !c.control.active.dropdown.isUser">
             <sadaf-checkbox ng-model="c.control.active.dropdown.preventRelation">عدم ایجاد ارتباط بین منبع داده و فرم</sadaf-checkbox>
             <br />
             <br />
@@ -147,7 +147,7 @@
 
 
         </div>
-        <div class="field" ng-if="c.control.active.dropdown.useRemoteData">
+        <div class="field" ng-if="c.control.active.dropdown.useRemoteData && !c.control.active.dropdown.isUser">
             <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
                 {{'filter' | translate}}
             </sadaf-checkbox>
@@ -161,7 +161,7 @@
     </div>
 
     <!-- تنظیمات مربوط به کنترل عددی -->
-    <div ng-show="c.control.active.type == 2 || c.control.active.type == 5 || c.control.active.type == 16||c.control.active.type == 4||c.control.active.type == 12|| c.control.active.type == 17" class="field">
+    <div ng-show="c.control.active.type == 2 || c.control.active.type == 5 || c.control.active.type == 16|| c.control.active.type == 17|| c.control.active.type == 12|| c.control.active.type == 4" class="field">
         <div class="inline fields">
             <label>{{'فرمت نمایش' | translate}}</label>
             <sm-dropdown items="[{key:'سفارشی', value:('سفارشی' | translate)}
@@ -176,17 +176,19 @@
                          model="c.control.active.format" label="item.value" value="item.key"></sm-dropdown>
         </div>
 
-        <div class="inline fields" ng-hide="c.control.active.type == 2">
-            <label class="wide four field">{{'prefix' | translate}}</label>
-            <input ng-model="c.control.active.prefix" placeholder="{{'prefix' | translate}}">
-        </div>
-
-        <div class="inline fields" ng-hide="c.control.active.type == 2">
-            <label class="wide four field">{{'postfix' | translate}}</label>
-            <input ng-model="c.control.active.postfix" placeholder="{{'postfix' | translate}}">
-        </div>
-
     </div>
+
+        <div ng-show="c.control.active.type == 5 || c.control.active.type == 16|| c.control.active.type == 17">
+            <div class="inline fields" >
+                <label class="wide four field">{{'prefix' | translate}}</label>
+                <input ng-model="c.control.active.prefix" placeholder="{{'prefix' | translate}}">
+            </div>
+
+            <div class="inline fields" >
+                <label class="wide four field">{{'postfix' | translate}}</label>
+                <input ng-model="c.control.active.postfix" placeholder="{{'postfix' | translate}}">
+            </div>
+        </div>
 
     <!-- تنظیمات مربوط به ارجاع به فرم -->
     <div ng-show="c.control.active.type == 12" class="field">

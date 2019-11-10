@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="form-row" layout="row" layout-align="start center"  ng-if="config.legend">
+        <div class="form-row" layout="row" layout-align="start center" ng-if="config.legend">
             <div class="checkbox">
                 <label class="">
                     <input type="checkbox" ng-model="prop[config.name].indicatorLegendShow" ng-change="change()" /> نمایش راهنما
@@ -37,6 +37,7 @@
                 </span>
             </legend>
             <div>
+
                 <sadaf-indicator ng-model="item" series="prop.series" ng-change="change()"></sadaf-indicator>
             </div>
         </fieldset>

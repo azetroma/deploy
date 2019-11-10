@@ -25,7 +25,6 @@
                 <div flex layout="column">
 
                     <div style="min-height:300px" flex>
-
                         <!--SQL SERVER-->
                         <div ng-show="type != 'combo-kpi' && !isOlap" layout="column" style="min-height:200px" layout-fill>
                             <div layout="row" layout-align="start center" class="datasource-item-header">
@@ -63,8 +62,8 @@
                                             <md-dialog-content>
 
                                                 <!--<div class="md-padding" layout="column" layout-align="center center">
-                                                    <md-progress-circular ng-hide="$scope.relatedDatasourceList" md-mode='indeterminate'></md-progress-circular>
-                                                </div>-->
+                                <md-progress-circular ng-hide="$scope.relatedDatasourceList" md-mode='indeterminate'></md-progress-circular>
+                            </div>-->
 
                                                 <div class="ui inline centered tiny loader" ng-hide="$scope.relatedDatasourceList" ng-class="{active: !relatedDatasourceList}"></div>
 
@@ -105,7 +104,7 @@
                                         <div uib-collapse="u.expand">
 
                                             <div class="pointer datasource-field" ng-hide="hide(i, 'check-name')" ng-repeat="i in u.Hierarchies"
-                                                 index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items >
+                                                 index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
                                                 <span ng-click="addToChart(i)">
                                                     <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
                                                     {{i.Name}}
@@ -165,8 +164,8 @@
                                                     <md-option value="0">Avg</md-option>
                                                     <md-option value="1">Sum</md-option>
                                                 </md-select>
-                                            </md-input-container>  
-                                            
+                                            </md-input-container>
+
                                             <md-input-container flex>
                                                 <label> تعداد داده‌های نهایی</label>
                                                 <md-select ng-model="combo.unionType" ng-change="refreshChart('refreshWithData')">
@@ -252,8 +251,8 @@
 
 
                             <!--<div class="md-padding" ng-show="gettingData" layout-align="center center" layout="column">
-                                <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
-                            </div>-->
+            <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
+        </div>-->
 
 
                             <md-content flex id="columnList" ng-hide="gettingData">
@@ -312,12 +311,12 @@
                                             </collapse>
 
                                             <!--<div class="pointer datasource-field" ng-repeat="i in olapCubes[+selectedOlapCube].Kpis"
-                                                 ng-hide="existIn(i, measures) || hide(i, 'measure')"
-                                                 index="{{$index}}"
-                                                 data-name="{{i.UniqueName}}" type="kpi" draggable-items>
-                                                <img src="Images/measure.png" class="chart-editor-data-hicon" />
-                                                {{i.Name}}
-                                            </div>-->
+                             ng-hide="existIn(i, measures) || hide(i, 'measure')"
+                             index="{{$index}}"
+                             data-name="{{i.UniqueName}}" type="kpi" draggable-items>
+                            <img src="Images/measure.png" class="chart-editor-data-hicon" />
+                            {{i.Name}}
+                        </div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -341,8 +340,8 @@
 
 
                                 <!--<div class="md-padding" ng-hide="olapCubes[+selectedOlapCube].Dimensions" layout-align="center center" layout="column">
-                                    <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
-                                </div>-->
+                <md-progress-circular md-mode='indeterminate' md-diameter="20"></md-progress-circular>
+            </div>-->
 
 
 
