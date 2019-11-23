@@ -55,13 +55,13 @@
 
                 <div class="header" layout="row" layout-align="start center">
                     <div class="cell" style="width: 20px"></div>
-                    <div class="cell" style="        width: 50px"><md-checkbox class="no-margin" ng-model="selectAllCheckbox" ng-change="selectAll()" aria-label="{{ 'select_all' | translate}}"></md-checkbox></div>
-                    <div class="cell" style="        width: 20px">#</div>
-                    <div class="cell" style="        width: 15%">{{'username' | translate}}</div>
-                    <div class="cell" style="        width: 15%"><span>{{'name' | translate}}</span></div>
-                    <div class="cell" style="        width: 50px"><span>{{'type' | translate}}</span></div>
-                    <div class="cell" style="        width: 30%">{{'roles' | translate}}</div>
-                    <div class="cell" style="        width: 100px" ng-show="securityCertPatch">{{'integrity check' | translate}}</div>
+                    <div class="cell" style="width: 50px"><md-checkbox class="no-margin" ng-model="selectAllCheckbox" ng-change="selectAll()" aria-label="{{ 'select_all' | translate}}"></md-checkbox></div>
+                    <div class="cell" style="width: 20px">#</div>
+                    <div class="cell" style="width: 15%">{{'username' | translate}}</div>
+                    <div class="cell" style="width: 15%"><span>{{'name' | translate}}</span></div>
+                    <div class="cell" style="width: 50px"><span>{{'type' | translate}}</span></div>
+                    <div class="cell" style="width: 30%">{{'roles' | translate}}</div>
+                    <div class="cell" style="width: 100px" ng-show="securityCertPatch">{{'integrity check' | translate}}</div>
                 </div>
 
                 <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
@@ -75,20 +75,20 @@
 
                     <div class="row" md-virtual-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select;" ng-dblclick="goto(row, $event)" style="height: 48px" layout="row" layout-align="start center">
                         <div class="cell" style="width: 20px"></div>
-                        <div class="cell" style="        width: 50px;"><md-checkbox class="no-margin" ng-model="row.select" ng-click="$event.stopPropagation();" aria-label="{{ 'choose' | translate}}"></md-checkbox></div>
-                        <div class="cell" style="        width: 20px;">{{utils.persian($index+1)}}</div>
+                        <div class="cell" style="width: 50px;"><md-checkbox class="no-margin" ng-model="row.select" ng-click="$event.stopPropagation();" aria-label="{{ 'choose' | translate}}"></md-checkbox></div>
+                        <div class="cell" style="width: 20px;">{{utils.persian($index+1)}}</div>
 
-                        <div class="cell" style="        width: 15%;"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.username}}</span></div>
-                        <div class="cell" style="        width: 15%;"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></div>
-                        <div class="cell" style="        width: 50px;"><small class="gray">{{row.type == 0 ? 'عادی' : 'اکتیودایرکتوری'}}</small></div>
+                        <div class="cell" style="width: 15%;"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.username}}</span></div>
+                        <div class="cell" style="width: 15%;"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></div>
+                        <div class="cell" style="width: 50px;"><small class="gray">{{row.type == 0 ? 'عادی' : 'اکتیودایرکتوری'}}</small></div>
                         <div class="cell md-caption" style="        width: 30%;">
                             <div layout-margin style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
                                 <span> </span>
                                 <a ng-repeat="i in row.roles" href="{{app.hashUrlPrefix+'#/roles/edit/'+ i.id}}"> {{i.name}}</a>
                             </div>
                         </div>
-                        <div class="cell" style="        width: 100px;" ng-show="securityCertPatch"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></div>
-                        <div class="cell" style="        width: 100px;" ng-hide="securityCertPatch"></div>
+                        <div class="cell" style="width: 100px;" ng-show="securityCertPatch"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></div>
+                        <div class="cell" style="width: 100px;" ng-hide="securityCertPatch"></div>
 
                     </div>
                 </md-virtual-repeat-container>

@@ -1,4 +1,5 @@
 {
+    "chart_background":"تغییر رنگ نمودار",
 	"range number":"محدوده عدد",
 	"multi select":"انتخاب چند مقداری",
 	"single select":"انتخاب تک مقداری",

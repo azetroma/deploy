@@ -1,4 +1,5 @@
 {
+    "chart_background":"Change Chart Background",
 	"range number":"Number Range",
 	"multi select":"Multi Select",
 	"single select":"Single Select",

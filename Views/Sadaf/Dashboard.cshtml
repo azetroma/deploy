@@ -70,6 +70,66 @@
 
     <meta name="fontiran.com:license" content="X4ZQZ">
 
+    @if (ViewBag.theme != null) {
+        var theme = (BLL.Process.ThemeModel)ViewBag.theme;
+        <style>
+            @theme.extraCss
+
+            .my-fix::-webkit-scrollbar {
+                background-color: darkgrey;
+            }
+            /*
+            .my-fix {
+                box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12) !important;
+            }
+
+            .side-menu-item-parent {
+                font-weight: bold;
+            }
+            */
+
+            .side-menu-item-container.active {
+                /*رنگ گروه منوی فعال*/
+                background-color: @theme.menuActiveGroupBackColor;
+            }
+
+
+            .ui.inverted.segment, .ui.primary.inverted.segment {
+                /*رنگ پشت منوی سمت راست*/
+                background-color: @theme.menuBackColor;
+                /*رنگ متن منوی سمت راست
+                color: @theme.menuColor;
+            */
+            }
+
+            .side-menu-item.active {
+                /*رنگ خط سمت راست منوی فعال*/
+                border-right: 5px solid @theme.menuActiveBorderColor;
+                /*color: #ff5722;
+                font-weight: bold;
+            */
+            }
+
+            .side-menu-item {
+                color: @theme.menuColor;
+            }
+
+                .side-menu-item:hover {
+                    /*رنگ منو در حالتی موس روی آن است*/
+                    background-color: @theme.menuHoverColor;
+                }
+
+            .sadaf-footer a {
+                /*رنگ لینک پایین */
+                color: @theme.menuColor;
+            }
+
+            body.theme2 {
+    background-color: @theme.dashboardBackColor !important;
+}
+        </style>
+    }
+
     @*<style>
             .my-fix::-webkit-scrollbar {
                 background-color: darkgrey;
@@ -281,6 +341,20 @@
             <script src="~/dist/js/forms-app.js?v=@v"></script>
             <script src="~/dist/js/dashboard-app-theme2.js?v=@v"></script>*@
     }
+
+
+    @if (ViewBag.cdn.enable) {
+        for (int i = 0; i < ViewBag.cdn.items.Count; i++) {
+            if (ViewBag.cdn.items[i].type == 1) {
+                <script src="@ViewBag.cdn.items[i].link"></script>
+            }
+            if (ViewBag.cdn.items[i].type == 0) {
+                <link href="@ViewBag.cdn.items[i].link" rel="stylesheet" />
+            }
+        }
+    }
+
+
     <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
     <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 

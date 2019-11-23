@@ -133,7 +133,14 @@
                         <span ng-show="row.type==1" class="material-icons" style="color:#757575">folder</span>
                         <img ng-show="row.type==2" ng-src="{{getChartTypeImage(row.chartType)}}" title="{{getTypeName(row.chartType)}}" />
                     </td>
-                    <td><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></td>
+                    <td>
+                        <span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">
+                            {{row.name}}
+                        </span>
+                        <div ng-if="search">
+                            <small ng-repeat="p in row.path" class="grey"><a href="{{app.hashUrlPrefix}}#/charts/{{p.key}}">{{p.value}}</a> <span ng-hide="$index==row.path.length-1">/</span> </small>
+                        </div>
+                    </td>
                     <td class="md-caption">{{utils.persian(row.time)}}</td>
                     <td>
                         <div ng-show="row.type == 2 && row.pages.length">
@@ -155,7 +162,7 @@
 
                         </div>
                     </td>
-                    <td >{{row.user}}</td>
+                    <td>{{row.user}}</td>
 
                     <td ng-show="securityCertPatch && row.type == 2"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></td>
                     <td ng-hide="securityCertPatch && row.type == 2"></td>
