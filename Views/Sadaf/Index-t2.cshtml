@@ -119,7 +119,7 @@
     @if (ViewBag.theme != null) {
         var theme = (BLL.Process.ThemeModel)ViewBag.theme;
         <style>
-            @theme.extraCss
+            @Html.Raw(theme.extraCss)
 
             .my-fix::-webkit-scrollbar {
                 background-color: darkgrey;

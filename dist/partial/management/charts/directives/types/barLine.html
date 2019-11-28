@@ -298,7 +298,34 @@
                             {{i}}&nbsp;&nbsp;&nbsp;&nbsp;
                         </label>
                     </div>
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label >{{ 'حد بالای محور دوم' | translate }}</label>
+                        <span class="form-divider" flex></span><div >
+                            <input type="text" class="form-control" placeholder="{{ 'حد بالای محور دوم' | translate }}" ng-model="ngModel.bar.info.secondaryY.yAxisMax"
+                                   ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" />
+                        </div>
+                    </div>
 
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label>{{ 'حد پایین محور دوم' | translate }}</label>
+                        <span class="form-divider" flex></span><div >
+                            <input type="text" class="form-control" placeholder="{{ 'حد پایین محور دوم' | translate }}" ng-model="ngModel.bar.info.secondaryY.yAxisMin"
+                                   ng-model-options="{ updateOn: 'blur' }" ng-change="refreshChart('refresh')" />
+                        </div>
+                    </div>
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label>برچسب</label>
+                        <span class="form-divider" flex></span>
+                        <div >
+                            <input type="text" class="form-control" placeholder="{{ 'برچسب' | translate }}" ng-model="ngModel.bar.info.secondaryY.label"
+                                   ng-model-options="{ updateOn: 'blur' }" ng-change="refreshChart('refresh')" />
+                        </div>
+                    </div>
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label>{{ 'فونت برچسب' | translate }}</label>
+                        <span class="form-divider" flex></span>
+                        <text-editor prop="ngModel.bar.info.secondaryY.fontLabel" on-change="refreshChart('refresh')"></text-editor>
+                    </div>
                     <div class="form-row" layout="row" layout-align="start center">
                         <label>{{ 'فونت' | translate }}</label>
                         <span class="form-divider" flex></span>
