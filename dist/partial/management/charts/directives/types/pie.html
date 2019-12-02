@@ -25,6 +25,11 @@
                         </div>
                     </div>
                 </div>
+
+                <div ng-show="ngModel.pie.info.showLabels">
+                    <matrix-select ng-model="ngModel.pie.info.showLabelMatrix" dim-color="ngModel.dimColor" ng-change="refreshChart('refresh')"></matrix-select>
+                </div>
+
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
