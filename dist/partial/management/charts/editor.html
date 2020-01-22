@@ -185,7 +185,7 @@
                                                     <md-button class="md-icon-button" ng-click="combo.synonyms.push([{}]); refreshChart('refreshWithData')" title="{{'add' | translate}}">
                                                         <span class="material-icons">add</span>
                                                         <!--<md-tooltip>{{ 'add' | translate }}</md-tooltip>-->
-                                                        <
+
                                                     </md-button>
                                                 </div>
 
@@ -201,7 +201,8 @@
                                                 </fieldset>
                                             </div>
                                         </div>
-
+                                        <br/>
+                                        <md-checkbox  ng-model="combo.removeZeroValues" ng-change="refreshChart('refreshWithData')">پاک کردن ردیف‌های شامل داده‌ی صفر</md-checkbox>
 
 
                                     </form>
@@ -224,8 +225,7 @@
                                 <select ng-model="selectedOlapCube" ng-change="changeCube(selectedOlapCube)" ng-options="id as color.Caption  for (id, color) in olapCubes">
                                     <!--<option ng-repeat="i in olapCubes" value="{{$index}}">{{i.Caption}}</option>-->
                                 </select>
-                                </
-                                >
+                             
 
                                 <div style="padding:0 5px;width:30px;">
                                     <span class="pointer gray" title="پاک کردن حافظه پنهان - تنها برای کیوب انتخاب شده" ng-hide="refreshCube" ng-click="refreshingCube()"><i class="icon refresh"></i></span>
