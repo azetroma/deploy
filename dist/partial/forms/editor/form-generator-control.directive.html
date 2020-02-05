@@ -212,7 +212,7 @@
             <div ng-hide="edit">
                 <div xng-show="model.inProgress" ng-class="{active: model.inProgress}" class="ui dimmer inverted"><div class="ui mini inline loader"></div></div>
                 <span>{{model.prefix}} </span>
-                <span ng-show="model.value!=null">{{model.tableLookup.label | formatNumber:model.format | persian}}</span>
+                <span ng-show="model.value!=null">{{model.value | formatNumber:model.format | persian}}</span>
                 <span> {{model.postfix}}</span>&nbsp;
             </div>
         </div>
@@ -231,14 +231,6 @@
     <div class="field " ng-class="{error: model.error}" ng-if="model.type == 19">
         <sadaf-file ng-model="model"></sadaf-file>
 
-        <small class="helper">{{model.error}}</small>
-        <div></div>
-        <small>{{model.description}}</small>
-    </div>
-
-    <div class="field " ng-class="{error: model.error}" ng-if="model.type == 20">
-        <label ng-hide="settings.showLabel===false">{{model.label}}</label>
-        <ng-quill-editor class="sadaf-form-editor"  ng-model="model.value"></ng-quill-editor>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
