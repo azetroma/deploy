@@ -9,7 +9,12 @@
                     <md-card-title-text>
                         <span class="md-headline" ng-hide="isEdit">منبع داده جدید</span>
                         <span class="md-headline" ng-show="isEdit">ویراش منبع داده</span>
+
                     </md-card-title-text>
+                    <div ng-show="app.license.securityCertPatch && id > 0" class="ui label">
+                        {{'integrity check' | translate}} &nbsp;
+                        <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
+                    </div>
                 </md-card-title>
 
                 <md-card-content layout-padding id="main-form">
@@ -24,6 +29,7 @@
                                     <div ng-message="required">نام را وارد کنید</div>
                                 </div>
                             </md-input-container>
+                            <div class="ui small form" ng-show="id > 0"> <b>نام جدول: </b>{{tableName}}</div>
 
                             <div layout="row" style="margin:18px 0">
                                 <input id="input-file-id" class="ng-hide" type="file" accept=".xlsx,.csv,.xls" />

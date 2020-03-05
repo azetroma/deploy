@@ -2,7 +2,7 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html style="background-color:#eceff1!important;">
+<html >
 <head>
     <meta charset="utf-8" />
     <base href="@Href("~")">
@@ -29,43 +29,55 @@
             display: none !important;
         }
 
-        /* max-height - the only parameter in this file that needs to be edited.
-        * Change it to suit your needs. The rest is recommended to leave as is.
-        */
-        /*.clusterize-scroll {
-                   max-height: 200px;
-                   overflow: auto;
-               }*/
-
-        /**
-        * Avoid vertical margins for extra tags
-        * Necessary for correct calculations when rows have nonzero vertical margins
-        */
         .clusterize-extra-row {
             margin-top: 0 !important;
             margin-bottom: 0 !important;
         }
 
-            /* By default extra tag .clusterize-keep-parity added to keep parity of rows.
-        * Useful when used :nth-child(even/odd)
-        */
             .clusterize-extra-row.clusterize-keep-parity {
                 display: none;
             }
 
-        /* During initialization clusterize adds tabindex to force the browser to keep focus
-        * on the scrolling list, see issue #11
-        * Outline removes default browser's borders for focused elements.
-        */
         .clusterize-content {
             outline: 0;
         }
 
-        /* Centering message that appears when no data provided
-        */
         .clusterize-no-data td {
             text-align: center;
         }
+
+        .main-container {
+            background-color: #fff;
+            overflow-y: hidden !important;
+            /*border:1px dashed #efefef;*/
+        }
+
+        .horiz {
+            width: 277mm;
+            height: 180mm;
+        }
+
+        .vert {
+            height: 277mm;
+            width: 180mm;
+        }
+        .vert:nth-child(even), .horiz:nth-child(even) {background: #efefef}
+
+        .border {
+            border: 1px dashed #808080;
+        }
+
+        body.theme2, html {
+            background-color: #fff !important;
+        }
+
+        @@media print {
+            .no-print, .no-print * {
+                display: none !important;
+            }
+        }
+
+
     </style>
 
     <meta name="fontiran.com:license" content="X4ZQZ">
@@ -130,63 +142,46 @@
         </style>
     }
 
-    @*<style>
-            .my-fix::-webkit-scrollbar {
-                background-color: darkgrey;
-            }
 
-            .my-fix {
-                box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12) !important;
-            }
-
-            .side-menu-item-parent {
-                font-weight: bold;
-            }
-
-            .side-menu-item-container.active {
-                /*رنگ گروه منوی فعال*/
-                background-color: #fafafa;
-            }
-
-            .ui.inverted.segment, .ui.primary.inverted.segment {
-                /*رنگ پشت منوی سمت راست*/
-                background-color: #fafafa;
-                /*رنگ متن منوی سمت راست*/
-                color: #000;
-            }
-
-            .side-menu-item.active {
-                /*رنگ خط سمت راست منوی فعال*/
-                border-right: 5px solid #ff5722;
-                font-weight:bold;
-                color:#ff5722;
-            }
-            .side-menu-item {
-                color:#333;
-            }
-            .side-menu-item:hover {
-                /*رنگ منو در حالتی موس روی آن است*/
-                background-color: #e8e8e8;
-            }
-
-            .sadaf-footer a {
-                /*رنگ لینک پایین */
-                color: #333;
-            }
-        </style>*@
+    <style >  .chart-widget {page-break-before: always;}</style>
+    <style name="size">@@page {margin: 1cm; size: A4 landscape}</style>
 </head>
 <body ng-app="sadaf" ng-cloak ng-controller="dashboardPageCtrl" class="theme2" style="overflow-y: scroll;height: initial;">
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" id="isFullscreen" value="true" />
-
     <input type="hidden" id="dashboardPublishMenuId" value="@ViewBag.MenuId" />
     <input type="hidden" id="appId" value="@ViewBag.appId" />
     <input type="hidden" id="isShared" value="1" />
 
+    <div class="ui mini form no-print" style="padding: 10px 20px;border-bottom: 1px solid #efefef;background: #64B5F6;">
+        <div class="fields">
+            <div class="field">
+                <lebel>صفحه</lebel>
+                <select ng-model="pageOrientation" ng-change="pageOrientationChange()">
+                    <option value="0">افقی</option>
+                    <option value="1">عمودی</option>
+                </select>
+            </div>
+            <div class="field">
+                <lebel style="display:block">&nbsp;</lebel>
+                <div class="ui button icon black" onclick="print()"> چاپ <i class="ui icon print"></i> </div>
+            </div>
+            <div class="field">
+                <lebel style="display:block">&nbsp;</lebel>
+                <div class="ui button icon basic" ng-click="backToDash()"> نمایش صفحه داشبورد  </div>
+            </div>
+        </div>
+
+    </div>
 
 
-    <div class="main-container full-height-container" style="height:initial;max-height:initial;overflow-y:initial;">
 
+    <div class="main-container full-height-container" ng-class="{horiz: pageOrientation === '1', vert : pageOrientation === '0'}" style="height:initial;max-height:initial;overflow-y:initial; margin: 0 auto;">
+        <div style="position:absolute; margin-right:-10px;" class="no-print">
+            <div class="border" ng-class="{horiz: pageOrientation === '1', vert : pageOrientation === '0'}"></div>
+            <div class="border" ng-class="{horiz: pageOrientation === '1', vert : pageOrientation === '0'}"></div>
+            <div class="border" ng-class="{horiz: pageOrientation === '1', vert : pageOrientation === '0'}"></div>
+        </div>
         <div class="" style="display:flex;flex-direction:row;padding:10px 0 0 10px;flex-wrap: wrap-reverse;justify-content: flex-end;">
 
             <div ng-show="menuCategories.licenceRemain.remain <= 3" class="ui label red">
@@ -359,7 +354,8 @@
     <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 
     <script>
-        dashboard.mode = 'auto';
+        dashboard.mode = 'print';
+
         var userVariable = @Html.Raw(Json.Encode(ViewBag.userVariable));
         if(_.isArray(userVariable)){
             localStorage.setItem('userVariable',JSON.stringify( userVariable));

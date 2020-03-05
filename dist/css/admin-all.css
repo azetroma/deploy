@@ -1230,6 +1230,26 @@
   border: 1px solid #ccc;
 }
 
+
+
+
+
+.sadaf-form-editor .ql-snow.ql-toolbar{
+	direction:ltr;
+	text-align:left;
+	
+}
+
+.sadaf-form-editor .ql-editor{
+	text-align:right;
+	min-height:300px;
+}
+
+.sadaf-form-editor .ql-container{
+	font-size:24px;
+	font-family: 'B Mitra', irmitra, iransans;
+	
+}
 /* required styles */
 
 .leaflet-pane,

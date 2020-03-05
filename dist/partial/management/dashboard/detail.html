@@ -5,7 +5,14 @@
             <md-card style="margin:40px 0; padding:16px">
 
                 <div class="">
-                    <h3 style="margin-bottom:40px">{{'مدیریت منو' | translate}}</h3>
+                    <h3 style="margin-bottom:40px">
+                    {{'مدیریت منو' | translate}}
+                    <div ng-show="app.license.securityCertPatch && id > 0" class="ui label" style="float:left">
+                        {{'integrity check' | translate}} &nbsp;
+                        <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
+                    </div>
+                    </h3>
+
                 </div>
 
                 <div>

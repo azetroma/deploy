@@ -91,6 +91,10 @@
                 <i class="icon cloud"></i>
                 {{'publish' | translate}}
             </div>
+            <div ng-show="c.app.license.securityCertPatch && c.id > 0" class="ui label">
+                {{'integrity check' | translate}} &nbsp;
+                <i  class="ui icon  {{c.sign ? 'green check' : 'red times'}}"></i>
+            </div>
 
             <sm-modal visible="c.publishVisible">
                 <div class="header">
@@ -98,18 +102,18 @@
                 </div>
 
                 <div class="content">
-                        {{'form publish desc' | translate}}
-                     <br />
+                    {{'form publish desc' | translate}}
+                    <br />
                     <br />
                     <div ng-show="c.publish">
                         <b style="font-weight: 800;">{{'link' | translate}}:</b> <a class="ui label ltr" href="{{app.urlPrefix + 'sadaf/form/' + c.url}}" target="_blank">{{app.urlPrefix + 'sadaf/form/' + c.url}}</a>
                     </div>
                 </div>
                 <div class="actions">
-                    <div  class="ui labeled icon button " ng-click="c.publishFrom(!c.publish)" ng-class="{loading: c.publishProgress, green: !c.publish, red: c.publish }">
-                        <i class="icon cloud" ></i>{{ !c.publish ? ('publish' | translate) : ('unpublish' | translate)}}
+                    <div class="ui labeled icon button " ng-click="c.publishFrom(!c.publish)" ng-class="{loading: c.publishProgress, green: !c.publish, red: c.publish }">
+                        <i class="icon cloud"></i>{{ !c.publish ? ('publish' | translate) : ('unpublish' | translate)}}
                     </div>
-                    
+
                     <div class="ui black deny button">
                         {{'cancel' | translate}}
                     </div>

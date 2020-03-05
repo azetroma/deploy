@@ -77,14 +77,14 @@
                 </div>
 
                 <!--<div class="form-row" layout="row" layout-align="start center">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.condensed" /> {{ 'نمایش فشرده‌تر ردیف‌ها' | translate }}
-                            </label>
-                        </div>
-                    </div>
-                </div>-->
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.condensed" /> {{ 'نمایش فشرده‌تر ردیف‌ها' | translate }}
+                </label>
+            </div>
+        </div>
+    </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -158,7 +158,8 @@
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'انتخاب داده‌ها' | translate }}</label>
-                    <span class="form-divider" flex></span><div class="col-sm-8">
+                    <span class="form-divider" flex></span>
+                    <div class="col-sm-8">
                         <select class="selectpicker-x form-control" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.selectable"
                                 ng-options="i.name as  i.value for i in [
                                     {name:'none', value: 'عدم انتخاب'  },
@@ -166,6 +167,13 @@
                                     {name:'multi', value: 'چند مقدار'  },
                                     {name:'edit', value: 'ویرایش سطر (مخصوص فرم‌ها)'  },
                                     ]"></select>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.table.info.selectable == 'edit' && datasource.CubeInfo.Dimensions[0].SystemType == 0 ">
+                    <label class="col-sm-4">انتخاب فرم مرتبط</label>
+                    <span class="form-divider" flex></span>
+                    <div class="col-sm-8">
+                        <select class="selectpicker-x form-control" ng-model="ngModel.table.info.form" ng-options="i.id as  i.name for i in formList"></select>
                     </div>
                 </div>
 
@@ -238,11 +246,14 @@
                         <div class="checkbox">
                             <label class="">
                                 <input type="checkbox" ng-model="ngModel.table.info.enableHorzScroll" ng-change="refreshChart('refreshWithData')" />
-                                 نمایش اسکرول افقی
+                                نمایش اسکرول افقی
                             </label>
                         </div>
                     </div>
                 </div>
+
+
+
 
             </div>
 

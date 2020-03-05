@@ -11,6 +11,11 @@
                         <span class="md-headline" ng-hide="isEdit">منبع داده جدید</span>
                         <span class="md-headline" ng-show="isEdit">ویراش منبع داده</span>
                     </md-card-title-text>
+                    <div ng-show="app.license.securityCertPatch && id > 0" class="ui label">
+                        {{'integrity check' | translate}} &nbsp;
+                        <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
+                    </div>
+
                 </md-card-title>
 
                 <md-card-content layout-padding id="main-form">
@@ -24,6 +29,7 @@
                                 <div ng-messages="webForm.name.$error">
                                     <div ng-message="required">{{'form_name_required' | translate}}</div>
                                 </div>
+                            <div class="ui small form" ng-show="id > 0"> <b>نام جدول: </b>{{tableName}}</div>
                             </md-input-container>
 
                             <md-input-container class="md-block">
@@ -179,7 +185,7 @@
                             <md-switch ng-model="model.ColumnStoreIndex" aria-label="ColumnStoreIndex">
                                 ایندکس ستونی
                             </md-switch>
-                            
+
                             <div class="field" flex-gt-sm ng-show="license.olap">
                                 <label>مدل ذخیره داده</label>
                                 <select ng-model="model.ModelType" ng-options="a.val as a.label for a in [{val:0, label:'SQL'},{val:1, label:'DAX'}]">

@@ -123,6 +123,7 @@
                         <a class="ui primary button field" ng-show="compareData" ng-href="{{app.hashUrlPrefix}}#/compare-data">همگام‌سازی داده‌ها با سرور دوم</a>
                         <a class="ui primary button field" ng-show="license.telegram" ng-href="{{app.hashUrlPrefix}}#/telegram-config">تنظیمات اکانت تلگرام</a>
                         <a class="ui primary button field" ng-show="verification" ng-href="{{app.hashUrlPrefix}}#/login-page-logo">تنظیمات لوگو براساس دامنه</a>
+                        <a class="ui primary button field" ng-class="{loading: appUpdateProgress, disabled: appUpdateProgress}" ng-show="license.kpiApp" ng-click="appUpdate()">نصب و به روز رسانی ماژول تحلیل شاخص‌ها</a>
 
                         <div class="ui secondary segment" ng-show="securityCertPatch">
                             <h3>مدیریت عملیات لاگین ناموفق</h3>
@@ -314,6 +315,21 @@
 
 
                         <br />
+
+                        <div ng-show="app.license.olap">
+                            <div class="ui dividing header">تنظیمات مدل داده‌ای</div>
+                            <div class="ui button" ng-class="{loading : rebuildProcess, disabled: rebuildProcess}" ng-click="rebuildOlap($event)" >
+                                ساخت دوباره مدل
+                            </div>
+                            <small class="gray">در صورت استفاده از این گزینه کل مدل داده‌ای پاک شده و دوباره ساخته می‌شود. این فرآیند ممکن چند دقیقه زمان ببرد.</small>
+                        </div>
+
+
+                        <br />
+                        <br />
+
+
+
                         <div class="field">
                             <md-checkbox class="md-block" ng-model="model.publicSignup">
                                 {{'can signup' | translate}}

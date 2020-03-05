@@ -61,7 +61,7 @@
                     <div class="cell" style="width: 15%"><span>{{'name' | translate}}</span></div>
                     <div class="cell" style="width: 50px"><span>{{'type' | translate}}</span></div>
                     <div class="cell" style="width: 30%">{{'roles' | translate}}</div>
-                    <div class="cell" style="width: 100px" ng-show="securityCertPatch">{{'integrity check' | translate}}</div>
+                    <!--<div class="cell" style="width: 100px" ng-show="securityCertPatch">{{'integrity check' | translate}}</div>-->
                 </div>
 
                 <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
@@ -87,8 +87,8 @@
                                 <a ng-repeat="i in row.roles" href="{{app.hashUrlPrefix+'#/roles/edit/'+ i.id}}"> {{i.name}}</a>
                             </div>
                         </div>
-                        <div class="cell" style="width: 100px;" ng-show="securityCertPatch"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></div>
-                        <div class="cell" style="width: 100px;" ng-hide="securityCertPatch"></div>
+                        <!--<div class="cell" style="width: 100px;" ng-show="securityCertPatch"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></div>
+                        <div class="cell" style="width: 100px;" ng-hide="securityCertPatch"></div>-->
 
                     </div>
                 </md-virtual-repeat-container>

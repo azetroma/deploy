@@ -27,8 +27,16 @@
                 <div ng-if="path === '/login-page-logo'" >
                     <login-page-logo></login-page-logo>
                 </div>
+
                 <div ng-if="path === '/menu-category'">
                     <menu-category></menu-category>
+                </div>
+                
+                <div ng-if="path === '/userVariables'">
+                    <user-variables-list></user-variables-list>
+                </div>
+                <div ng-if="isUserVariableDetail">
+                    <user-variables-detail name="variableName"></user-variables-detail>
                 </div>
 
                 <div ng-if="isOlapTables" >

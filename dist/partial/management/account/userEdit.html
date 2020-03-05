@@ -12,15 +12,18 @@
                         <span class="md-headline" ng-show="isEdit">{{'edit_user' | translate}}</span>
 
                     </md-card-title-text>
+                    <div ng-show="app.license.securityCertPatch && id > 0" class="ui label">
+                        {{'integrity check' | translate}} &nbsp;
+                        <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
+                    </div>
+
                 </md-card-title>
 
                 <md-content layout-padding>
                     <div>
-
                         <form name="userForm">
 
                             <div layout-gt-sm="row" flex>
-
                                 <md-input-container flex>
                                     <label>{{'username' | translate}}</label>
                                     <input required ng-model="model.Username" ng-disabled="isEdit">
@@ -130,8 +133,10 @@
                                 <md-input-container class="md-block" flex>
                                     <label>زمان اعتبار نشست</label>
                                     <input type="number" ng-model="model.sessionTime">
-                                    <div class="hint">مدت زمان اعتبار نشست کاربر به دقیقه. در صورتی که مقداری ثبت نشود یا ۰ ثبت شود مدت زمان اعتبار 
-                                    نشست مقدار پیش فرض سامانه می‌باشد.</div>
+                                    <div class="hint">
+                                        مدت زمان اعتبار نشست کاربر به دقیقه. در صورتی که مقداری ثبت نشود یا ۰ ثبت شود مدت زمان اعتبار
+                                        نشست مقدار پیش فرض سامانه می‌باشد.
+                                    </div>
                                 </md-input-container>
 
 
@@ -249,11 +254,43 @@
                                 <label>نقش اصلی</label>
                                 <sm-dropdown class="selection fluid" items="selectedRoles" model="model.mainRole" label="item.name" value="item.id"></sm-dropdown>
                             </div>
+
+                            <br />
+
+                            <div ng-show="verification" class="ui form">
+
+                                <sadaf-checkbox ng-model="model.urlbaseActiveRole.enable">نقش فعال براساس آدرس ورود</sadaf-checkbox>
+                                <div class="ui secondary segment" ng-show="model.urlbaseActiveRole.enable">
+
+                                    <div class="ui button icon mini inline" ng-click="urlbaseAdd()">
+                                        اضافه کردن
+                                        <i class="ui icon add" />
+                                    </div>
+
+                                    <div ng-repeat="i in model.urlbaseActiveRole.items">
+                                        <div class="three wide column fields">
+                                            <div class="field">
+                                                <label>آدرس هاست</label>
+                                                <input type="text" ng-model="i.host" />
+                                            </div>
+                                            <div class="field">
+                                                <label>نقش اصلی</label>
+                                                <sm-dropdown class="selection fluid" items="selectedRoles" model="i.role" label="item.name" value="item.id"></sm-dropdown>
+                                            </div><div class="field">
+                                                <label>&nbsp;</label>
+                                                <div class="ui button icon mini" ng-click="model.urlbaseActiveRole.items.splice($index, 1)"><i class="ui icon delete" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
                             <br />
                             <br />
 
                             <div ng-show="roleAdmins.length">
-                                نقش‌هایی که این کاربر مدیر آن‌هاست 
+                                نقش‌هایی که این کاربر مدیر آن‌هاست
                                 <div class="ui label" ng-repeat="i in roleAdmins"><a ng-href="{{app.hashUrlPrefix}}#/roles/edit/{{i.id}}">{{i.name}}</a></div>
                                 <br />
                                 <br />
@@ -267,6 +304,41 @@
                                         <div class="sadaf-tree" style="margin: 0 40px;">
                                             <div class="tree-element ul" style="list-style:none">
                                                 <div ng-repeat="data in root.nodes track by $index" class="tree-element li" ng-include="'xtree.html'"></div>
+                                            </div>
+
+                                        </div>
+                                        <script type="text/ng-template" id="xtree.html">
+                                            <collapse class="block" ng-model="data" hide-icon="{{(!data.nodes || !data.nodes.length ) &&  ( !data.contents || !data.contents.length) }}">
+                                                <collapse-header class="block hide-item-parent">
+                                                    <span style="margin:0">
+                                                        <md-checkbox style="margin:5px 0;" ng-model="data.check" ng-click="$event.stopPropagation()">{{data.name}}</md-checkbox>
+                                                    </span>
+                                                </collapse-header>
+                                                <collapse-body class="block">
+                                                    <div class="tree-element ul" style="list-style:none">
+                                                        <div ng-repeat="data in data.nodes track by $index" class="tree-element li" ng-include="'xtree.html'"></div>
+                                                    </div>
+                                                </collapse-body>
+                                            </collapse>
+                                        </script>
+
+
+                                    </div>
+                                </collapse-body>
+                            </collapse>
+
+                            <collapse>
+                                <collapse-header>لیست نقش‌های مدیر کاربر فعلی</collapse-header>
+                                <small class="grey">
+                                    در صورتی که کاربر از لیست کاربران قابل مدیریت نقشی حذف شود به صورت خودکار
+                                    از عضویت در تمام نقش‌های زیرمجموعه نقش نیز حذف خواهد شد
+                                </small>
+                                <collapse-body>
+                                    <div xstyle="margin:0 20px">
+
+                                        <div class="sadaf-tree" style="margin: 0 40px;">
+                                            <div class="tree-element ul" style="list-style:none">
+                                                <div ng-repeat="data in root2.nodes track by $index" class="tree-element li" ng-include="'xtree.html'"></div>
                                             </div>
 
                                         </div>

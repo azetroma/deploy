@@ -97,6 +97,29 @@
     </div>
 </div>
 
+<div class="form-row" layout="row" layout-align="start center">
+    <label><input type="checkbox" ng-model="model.backgroundColorIsGradient" ng-change="change()" /> رنگ پشت زمینه به صورت طیفی  </label></div>
+    
+<div class="form-row" layout="row" layout-align="start center" ng-show="model.backgroundColorIsGradient">
+    <label class="col-sm-4">انتخاب طیف رنگ</label>
+    <span class="form-divider" flex></span>
+    <div class="col-sm-8">
+        <div md-color-picker class="inline" ng-model="model.backgroundColor1" md-color-default-tab="'genericPalette'" on-change="change()"></div>
+        <div md-color-picker class="inline" ng-model="model.backgroundColor2" md-color-default-tab="'genericPalette'" on-change="change()"></div>
+    </div>
+</div>
+
+<div class="form-row" layout="row" layout-align="start center" title="نمودارهایی که گروه یکسانی داشته باشند در صفحه داشبورد یکدیگر را فیلتر می‌کنند">
+    <label>گروه نمودار</label>
+    <span class="form-divider" flex></span>
+    <input type="text" class="form-control" placeholder="گروه نمودار"
+           ng-change="change()"
+           ng-model-options="{ updateOn: 'blur' }"
+           ng-model="model.groups" />
+</div>
+    <small class="grey"></small>
+
+
 <!--<div class="form-row" layout="row" layout-align="start center">
     <div class="col-sm-offset-4 col-sm-8">
         <div class="checkbox">

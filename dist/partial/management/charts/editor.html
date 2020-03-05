@@ -8,6 +8,10 @@
             <div layout="row" layout-align="start center" class="datasource-item-header">
                 <span>{{ 'تنظیمات' | translate }}</span>
                 <span flex></span>
+                <div ng-show="app.license.securityCertPatch && id > 0" class="ui mini label">
+                    {{'integrity check' | translate}} &nbsp;
+                    <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
+                </div>
             </div>
 
             <div flex class="div-prop-container" style="overflow:auto">
@@ -96,9 +100,10 @@
                                             <span class="material-icons small small-size pointer" ng-click="removeRelatedDatasource($index, u)" ng-hide="$index==0" title="{{'remove' | translate}}">
                                                 remove
                                             </span>
-                                            <span class="material-icons small small-size pointer" ng-click="gotoDatasource(u)">open_in_new</span>
+                                            <span class="material-icons small small-size pointer" title="باز کردن" ng-click="gotoDatasource(u)">open_in_new</span>
+                                            <span class="material-icons small small-size pointer" title="تغییر منبع داده" ng-click="changeDatasource(u, $index)">swap_horiz</span>
                                             <olap-add-column data="u" onchange="updateDatasources" ng-if="app.license.olap && u.ModelType == 1"></olap-add-column>
-
+                                            
                                         </div>
 
                                         <div uib-collapse="u.expand">
@@ -438,6 +443,7 @@
                     </select>
                 </div>
 
+
                 <span flex></span>
 
                 <style>
@@ -483,15 +489,15 @@
                                 <div flex="25" ng-class="{'active': expandedChartType == 23 }" ng-click="$mdMenu.hide();changeChartType(23)"><div class="chart-type-item">{{'percent-stack-area' | translate}} </div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 28 }" ng-click="$mdMenu.hide();changeChartType(28)"><div class="chart-type-item">{{'جعبه‌ای' | translate}} </div></div>
                             </div>
-                            <md-divider></md-divider>
 
+                            <md-divider></md-divider>
 
                             <div layout="row" layout-wrap>
                                 <div flex="25" ng-class="{'active': expandedChartType == 7 }" ng-click="$mdMenu.hide();changeChartType(7)"><div class="chart-type-item">{{'pie' | translate}}</div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 8 }" ng-click="$mdMenu.hide();changeChartType(8)"><div class="chart-type-item">{{'donut' | translate}}</div></div>
                             </div>
-                            <md-divider></md-divider>
 
+                            <md-divider></md-divider>
 
                             <div layout="row" layout-wrap>
                                 <div flex="25" ng-class="{'active': expandedChartType == 9 }" ng-click="$mdMenu.hide();changeChartType(9)"><div class="chart-type-item">{{'arc gauge' | translate}}</div></div>
@@ -510,6 +516,7 @@
                             </div>
 
                             <md-divider></md-divider>
+
                             <div layout="row" layout-wrap>
                                 <div flex="25" ng-class="{'active': expandedChartType == 13 }" ng-click="$mdMenu.hide();changeChartType(13)"><div class="chart-type-item">{{'aggregated table' | translate}}</div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 14 }" ng-click="$mdMenu.hide();changeChartType(14)"><div class="chart-type-item">{{'table' | translate}}</div></div>
@@ -525,11 +532,14 @@
                                 <div flex="25" ng-class="{'active': expandedChartType == 18 }" ng-click="$mdMenu.hide();changeChartType(18)"><div class="chart-type-item">{{'محدوده تاریخ' | translate}} </div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 19 }" ng-click="$mdMenu.hide();changeChartType(19)"><div class="chart-type-item">{{'range number' | translate}}</div></div>
                                 <div flex="25" ng-class="{'active': expandedChartType == 20 }" ng-click="$mdMenu.hide();changeChartType(20)"><div class="chart-type-item">{{'search' | translate}}</div></div>
+                                <div flex="25" ng-class="{'active': expandedChartType == 30 }" ng-click="$mdMenu.hide();changeChartType(30)"><div class="chart-type-item">{{'تغییر شاخص' | translate}}</div></div>
                             </div>
+
                             <md-divider></md-divider>
+
                             <!--<div layout="row" layout-wrap>
-        <div ng-repeat="c in customCharts" flex="25" ng-class="{'active': expandedChartType == c.id+1000 }" ng-click="$mdMenu.hide();changeChartType(c.id+1000, true)"><div class="chart-type-item">{{c.name}}</div></div>
-    </div>-->
+                    <div ng-repeat="c in customCharts" flex="25" ng-class="{'active': expandedChartType == c.id+1000 }" ng-click="$mdMenu.hide();changeChartType(c.id+1000, true)"><div class="chart-type-item">{{c.name}}</div></div>
+                </div>-->
 
                             <div ng-repeat="(k, v) in customCharts2">
                                 <div style="padding:4px 8px; color: #9e9e9e;font-size: 0.8em;"> {{k == 'null'? 'بدون دسته‌بندی' : k}}</div>

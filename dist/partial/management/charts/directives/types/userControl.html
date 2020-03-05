@@ -8,7 +8,6 @@
 
                 <general-settings ng-model="ngModel.userControl.info" ng-change="refreshChart('refreshWithData')"></general-settings>
 
-
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع کنترل' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
@@ -21,6 +20,7 @@
                                     {name:'datepicker-range', value:'محدوده تاریخ' },
                                     {name:'slider', value:'لغزنده' },
                                     {name:'text', value:'جستجو' },
+                                    {name:'kpi-change', value:'تغییر شاخص' },
                                     ]"></select>
                     </div>
                 </div>
@@ -226,7 +226,7 @@
         </menu-body>
     </menu-item>
 
-    <user-control-variable-relation prop="ngModel" data-selector="#divChart" dimensions="dimensions"type="'userControl'">   </user-control-variable-relation>
+    <user-control-variable-relation prop="ngModel" data-selector="#divChart"  measures="measures" dimensions="dimensions"type="'userControl'">   </user-control-variable-relation>
 
     <dim-meas-where model="openMenuName" ng-if="!isOlap" dimensions="dimensions" measures="measures" where="where" datasource="datasource"></dim-meas-where>
 
