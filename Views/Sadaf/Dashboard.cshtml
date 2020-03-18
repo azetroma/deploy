@@ -175,7 +175,7 @@
             }
         </style>*@
 </head>
-<body ng-app="sadaf" ng-cloak ng-controller="dashboardPageCtrl" class="theme2" style="overflow-y: scroll;height: initial;">
+<body ng-app="sadaf" ng-cloak ng-controller="dashboardPageCtrl" class="theme2" style="overflow-y: hidden;height: initial;">
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" id="isFullscreen" value="true" />
 
@@ -185,7 +185,7 @@
 
 
 
-    <div class="main-container full-height-container" style="height:initial;max-height:initial;overflow-y:initial;">
+    <div class="main-container full-height-container" xstyle="height:initial;max-height:initial;overflow-y:initial;">
 
         <div class="" style="display:flex;flex-direction:row;padding:10px 0 0 10px;flex-wrap: wrap-reverse;justify-content: flex-end;">
 
@@ -370,6 +370,7 @@
         //$('.ui.modal').modal();
 
         var app = app || {};
+        app.shareMode = true;
         app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
         app.version = "@v";
@@ -391,21 +392,21 @@
 
     <script>
         //iframe communication
-        var $el = $('[ng-controller=dashboardPageCtrl]');
-        window.addEventListener('message', function (e) {
-            if (!_.isString(e.data)) return;
-
-            var message = JSON.parse(e.data);
-
-            var scope = angular.element($el).scope();
-            scope.iframeService.handleMessage(message);
-            scope.$apply();
-        });
+       // var $el = $('[ng-controller=dashboardPageCtrl]');
+       // window.addEventListener('message', function (e) {
+       //     if (!_.isString(e.data)) return;
+       // 
+       //     var message = JSON.parse(e.data);
+       // 
+       //     var scope = angular.element($el).scope();
+       //     scope.iframeService.handleMessage(message);
+       //     scope.$apply();
+       // });
 
     </script>
 
     @*Clickjacking Defense*@
-    <style id="antiClickjack">
+    @*<style id="antiClickjack">
         body {
             display: none !important;
         }
@@ -418,7 +419,7 @@
         } else {
             top.location = self.location;
         }
-    </script>
+    </script>*@
 </body>
 
 </html>
