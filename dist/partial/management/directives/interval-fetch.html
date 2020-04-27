@@ -132,6 +132,7 @@
                     </collapse-header>
                     <collapse-body>
                         <table class="ui very basic small table">
+                            
                             <tr>
                                 <th style="border:none;">ردیف</th>
                                 <th style="border:none;">تاریخ</th>
@@ -144,10 +145,10 @@
 
                             <tr ng-repeat="row in requests">
                                 <td>{{persian($index + 1, true)}}</td>
-                                <td>{{ row.time }} <br /><small class="gray">{{ row.timex }}</small></td>
-                                <td>{{row.from}}</td>
-                                <td>{{row.to}}</td>
-                                <td>{{persian(row.effectedRows, true)}}</td>
+                                <td class="ltr">{{ row.time }}</td>
+                                <td class="ltr">{{row.from}}</td>
+                                <td class="ltr">{{row.to}}</td>
+                                <td>{{persian(d3.format(',.0f')(row.effectedRows), true)}}</td>
                                 <td>{{persian(row.duration, true)}}</td>
 
                                 <td>
@@ -155,6 +156,7 @@
                                     <span ng-hide="row.refreshProgress" class="" title="دریافت دوباره اطلاعات" ng-click="refresh(row)"><i class="icon refresh pointer gray"></i></span>
                                     <div ng-show="row.refreshProgress" class="ui inline active mini loader"></div>
                                 </td>
+
                             </tr>
                         </table>
 

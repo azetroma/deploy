@@ -394,195 +394,203 @@
 
 
 <!-- تنظیمات صفحه -->
-<div ng-show="!c.control.active.name" class="ui tiny form">
+    <div ng-show="!c.control.active.name" class="ui tiny form">
 
-    <div class="ui tiny header">{{'profile_general_setting' | translate}}</div>
+        <div class="ui tiny header">{{'profile_general_setting' | translate}}</div>
 
-    <div class="field">
-        <sadaf-checkbox ng-model="c.showSubmitedInfo" label="">{{'show submitted info' | translate}}</sadaf-checkbox>
-    </div>
-
-    <div class="field">
-        <div class="ui mini icon button" ng-click="c.triggers.push({type:0})" ng-init="c.triggers= c.triggers ||[];">
-            {{'add task on event' | translate}} <i class="ui icon add"></i>
+        <div class="field">
+            <sadaf-checkbox ng-model="c.showSubmitedInfo" label="">{{'show submitted info' | translate}}</sadaf-checkbox>
         </div>
-        <div ng-repeat="t in c.triggers" class="ui segment">
-            <button ng-click="c.triggers.splice($index, 1)" class="ui mini  basic icon button" style="box-shadow: none; position: absolute; top :0; left:0; z-index: 2;"><i class="ui icon close"></i></button>
-            <div class="inline fields">
-                <label>{{'run on event' | translate}}</label>
-                <sm-dropdown items="[  {label:('new record' | translate), value:0}
+
+        <div class="inline fields">
+            <label>اندازه دیالوگ بازشونده فرم</label>
+            <sm-dropdown items="[ {label:('کوچک' | translate), value:'small'}, {label:('normal' | translate), value:'large'},{label:'خیلی بزرگ', value:'fullscreen'}]"
+                         class="selection fluid "
+                         model="c.modalSize" label="item.label" value="item.value" ng-init="c.control.active.multiRowForm.controlSize = ''"></sm-dropdown>
+        </div>
+
+
+        <div class="field">
+            <div class="ui mini icon button" ng-click="c.triggers.push({type:0})" ng-init="c.triggers= c.triggers ||[];">
+                {{'add task on event' | translate}} <i class="ui icon add"></i>
+            </div>
+            <div ng-repeat="t in c.triggers" class="ui segment">
+                <button ng-click="c.triggers.splice($index, 1)" class="ui mini  basic icon button" style="box-shadow: none; position: absolute; top :0; left:0; z-index: 2;"><i class="ui icon close"></i></button>
+                <div class="inline fields">
+                    <label>{{'run on event' | translate}}</label>
+                    <sm-dropdown items="[  {label:('new record' | translate), value:0}
                                      , {label:('edit record' | translate), value:1}
                                      , {label:('delete record' | translate), value:2}
                                     ]"
-                             class=""
-                             model="t.type" label="item.label" value="item.value"></sm-dropdown>
+                                 class=""
+                                 model="t.type" label="item.label" value="item.value"></sm-dropdown>
+                </div>
+                <div class="field">
+                    <sadaf-tasks ng-model="t.tasks" ng-init="t.tasks = t.tasks || []"></sadaf-tasks>
+                </div>
+
+            </div>
+        </div>
+        <div class="field" sm-popup-inline="">
+            <sadaf-checkbox ng-model="c.dynamicAcl" ng-change="c.getAllRelatedDatasource()" label="">کنترل دسترسی به صورت پویا</sadaf-checkbox>
+        </div>
+        <sm-popup-detached class="ui mini basic fluid">
+            <div class="header">راهنما</div>
+            <div class="gray">
+                در صورتی که در یکی از فرم‌های ارجاع شده به این فرم کنترلی از نوع نقش وجود داشته باشد می‌توانید از این امکان استفاده کنید و
+                ورود اطلاعات دراین فرم را تنها برای کاربران نقش انتخاب شده مجاز کنید
+            </div>
+        </sm-popup-detached>
+
+        <div class="field" ng-if="c.dynamicAcl">
+            <div class="ui inline active small loader" ng-if="c.relatedDsProgress"></div>
+            <div class="field" ng-if="!c.relatedDsProgress">
+                <label>انتخاب منبع داده</label>
+                <sm-dropdown items="c.relatedDatasources"
+                             class="selection fluid search"
+                             model="c.dynamicAclDatasource" label="item.name" value="item.id"></sm-dropdown>
+
+            </div>
+            <div class="field" ng-if="!c.relatedDsProgress">
+                <label>انتخاب ستون حاوی شناسه نقش</label>
+                <sm-dropdown items="(c.relatedDatasources | filter:{id:c.dynamicAclDatasource})[0].columns.Hierarchies"
+                             class="selection fluid search"
+                             model="c.dynamicAclColumn" label="item.Name" value="item.UniqueName"></sm-dropdown>
+            </div>
+
+        </div>
+
+        <div ng-if="app.license.formPrint">
+
+            <div class="field">
+                <label>قالب چاپ</label>
+                <textarea ng-model="c.printLayout" rows="5" class="ltr"></textarea>
+                <small class="gray">از نام فیلدها با پیشوند @  برای استفاده از جایگزینی مقدار فیلدها استفاده کنید</small>
+                <small class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</small>
+                <small class="gray">برای تبدیل اعداد به حروف از تابع Num2persian() استفاده کنید</small>
             </div>
             <div class="field">
-                <sadaf-tasks ng-model="t.tasks" ng-init="t.tasks = t.tasks || []"></sadaf-tasks>
+                <label>جهت چاپ</label>
+                <sm-dropdown items="[{name:'عمودی', value:0}, {name:'افقی', value:1}]"
+                             class="selection fluid "
+                             model="c.printOrientation" label="item.name" value="item.value"></sm-dropdown>
             </div>
-
-        </div>
-    </div>
-    <div class="field" sm-popup-inline="">
-        <sadaf-checkbox ng-model="c.dynamicAcl" ng-change="c.getAllRelatedDatasource()" label="">کنترل دسترسی به صورت پویا</sadaf-checkbox>
-    </div>
-    <sm-popup-detached class="ui mini basic fluid">
-        <div class="header">راهنما</div>
-        <div class="gray">
-            در صورتی که در یکی از فرم‌های ارجاع شده به این فرم کنترلی از نوع نقش وجود داشته باشد می‌توانید از این امکان استفاده کنید و
-            ورود اطلاعات دراین فرم را تنها برای کاربران نقش انتخاب شده مجاز کنید
-        </div>
-    </sm-popup-detached>
-
-    <div class="field" ng-if="c.dynamicAcl">
-        <div class="ui inline active small loader" ng-if="c.relatedDsProgress"></div>
-        <div class="field" ng-if="!c.relatedDsProgress">
-            <label>انتخاب منبع داده</label>
-            <sm-dropdown items="c.relatedDatasources"
-                         class="selection fluid search"
-                         model="c.dynamicAclDatasource" label="item.name" value="item.id"></sm-dropdown>
-
-        </div>
-        <div class="field" ng-if="!c.relatedDsProgress">
-            <label>انتخاب ستون حاوی شناسه نقش</label>
-            <sm-dropdown items="(c.relatedDatasources | filter:{id:c.dynamicAclDatasource})[0].columns.Hierarchies"
-                         class="selection fluid search"
-                         model="c.dynamicAclColumn" label="item.Name" value="item.UniqueName"></sm-dropdown>
         </div>
 
-    </div>
 
-    <div ng-if="app.license.formPrint">
-
-        <div class="field">
-            <label>قالب چاپ</label>
-            <textarea ng-model="c.printLayout" rows="5" class="ltr"></textarea>
-            <small class="gray">از نام فیلدها با پیشوند @  برای استفاده از جایگزینی مقدار فیلدها استفاده کنید</small>
-            <small class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</small>
-            <small class="gray">برای تبدیل اعداد به حروف از تابع Num2persian() استفاده کنید</small>
-        </div>
-        <div class="field">
-            <label>جهت چاپ</label>
-            <sm-dropdown items="[{name:'عمودی', value:0}, {name:'افقی', value:1}]"
-                         class="selection fluid "
-                         model="c.printOrientation" label="item.name" value="item.value"></sm-dropdown>
-        </div>
-    </div>
-
-
-    <div class="ui mini secondary clearing segment">
-        <div class="ui mini header left floated">متغیرهای کاربری</div>
-        <div class="ui icon basic mini button right floated" ng-click="c.userVariables.push({})"> اضافه کردن <i class="ui icon add" /></div>
-        <div ng-repeat="item in c.userVariables" class="clear">
-            <div class="fields">
-                <div class="five wide field">
-                    <label>نام ستون</label>
-                    <input type="text" ng-model="item.column" />
-                </div>
-                <sadaf-user-variables class="five wide" ng-model="item.variable"></sadaf-user-variables>
-                <div class="field">
-                    <label>&nbsp;</label>
-                    <div class="ui icon basic mini button" ng-click="c.userVariables.splice($index, 1)"><i class="ui icon close" /></div>
+        <div class="ui mini secondary clearing segment">
+            <div class="ui mini header left floated">متغیرهای کاربری</div>
+            <div class="ui icon basic mini button right floated" ng-click="c.userVariables.push({})"> اضافه کردن <i class="ui icon add" /></div>
+            <div ng-repeat="item in c.userVariables" class="clear">
+                <div class="fields">
+                    <div class="five wide field">
+                        <label>نام ستون</label>
+                        <input type="text" ng-model="item.column" />
+                    </div>
+                    <sadaf-user-variables class="five wide" ng-model="item.variable"></sadaf-user-variables>
+                    <div class="field">
+                        <label>&nbsp;</label>
+                        <div class="ui icon basic mini button" ng-click="c.userVariables.splice($index, 1)"><i class="ui icon close" /></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="field">
-        <sadaf-checkbox ng-model="c.mapTable.enable">استفاده از جدول خارجی</sadaf-checkbox>
-    </div>
+        <div class="field">
+            <sadaf-checkbox ng-model="c.mapTable.enable">استفاده از جدول خارجی</sadaf-checkbox>
+        </div>
 
-    <style>
-        .inline-form.field input {
-            width: 70% !important;
-        }
+        <style>
+            .inline-form.field input {
+                width: 70% !important;
+            }
 
-        .inline-form.field > label {
-            width: 29% !important;
-            display: inline-block !important;
-            text-align: left;
-            padding-left: 10px;
-        }
-    </style>
+            .inline-form.field > label {
+                width: 29% !important;
+                display: inline-block !important;
+                text-align: left;
+                padding-left: 10px;
+            }
+        </style>
 
-    <div class="ui mini secondary clearing segment inline-form" ng-show="c.mapTable.enable">
-        <!--<div class="field">
+        <div class="ui mini secondary clearing segment inline-form" ng-show="c.mapTable.enable">
+            <!--<div class="field">
             <select-datasource ng-model="c.mapTable.datasource"></select-datasource>
         </div>-->
 
-        <div class="field inline-form">
-            <label>سرور</label>
-            <input type="text" ng-model="c.mapTable.server" />
-        </div>
-
-        <div class="field inline-form">
-            <label>پایگاه داده</label>
-            <input type="text" ng-model="c.mapTable.database" />
-        </div>
-
-        <div class="field inline-form">
-            <label>نام کاربری</label>
-            <input type="text" ng-model="c.mapTable.user" />
-        </div>
-
-        <div class="field inline-form">
-            <label>کلمه عبور</label>
-            <input type="password" ng-model="c.mapTable.pass" />
-        </div>
-
-        <div class="field inline-form">
-            <label>نام جدول</label>
-            <input type="text" ng-model="c.mapTable.tableName" />
-        </div>
-
-        <div class="field inline-form">
-            <label>نام ستون شناسه</label>
-            <input type="text" ng-model="c.mapTable.columnId" />
-        </div>
-        <div class="field inline-form">
-            <label></label>
-            <sadaf-checkbox ng-model="c.mapTable.hasSystemColumns">دارای ستون‌های سیستمی</sadaf-checkbox>
-        </div>
-
-    </div>
-
-
-    <div class="ui tiny header">{{'page settings' | translate}}</div>
-
-    <div class="ui divider"></div>
-
-    <div class="field">
-        <label>{{'name' | translate}}</label>
-        <input ng-model="c.pages.activePage.name" placeholder="{{'name' | translate}}">
-    </div>
-
-    <div class="field">
-        <sadaf-checkbox ng-model="c.pages.activePage.rowValidation.uniqueMultiField" label="">{{'unique value for multi control' | translate}}</sadaf-checkbox>
-    </div>
-
-    <div ng-show="c.pages.activePage.rowValidation.uniqueMultiField" class="field">
-        <div class="ui icon mini button field" ng-click="c.pages.activePage.rowValidation.uniques.push([])">
-            {{'add' | translate}}
-            <i class="icon add"></i>
-        </div>
-        <div class="fields" ng-repeat="f in c.pages.activePage.rowValidation.uniques track by $index">
-            <div class="twelve wide field">
-                <sm-dropdown class="selection multiple search xfluid" model="f" items="c.controlList" label="item.label" value="item.name"></sm-dropdown>
+            <div class="field inline-form">
+                <label>سرور</label>
+                <input type="text" ng-model="c.mapTable.server" />
             </div>
 
-            <div class="one wide field" ng-show="c.pages.activePage.rowValidation.uniques.length != 1">
-                <i class="icon remove" ng-click="c.pages.activePage.rowValidation.uniques.splice($index,1)"></i>
+            <div class="field inline-form">
+                <label>پایگاه داده</label>
+                <input type="text" ng-model="c.mapTable.database" />
+            </div>
+
+            <div class="field inline-form">
+                <label>نام کاربری</label>
+                <input type="text" ng-model="c.mapTable.user" />
+            </div>
+
+            <div class="field inline-form">
+                <label>کلمه عبور</label>
+                <input type="password" ng-model="c.mapTable.pass" />
+            </div>
+
+            <div class="field inline-form">
+                <label>نام جدول</label>
+                <input type="text" ng-model="c.mapTable.tableName" />
+            </div>
+
+            <div class="field inline-form">
+                <label>نام ستون شناسه</label>
+                <input type="text" ng-model="c.mapTable.columnId" />
+            </div>
+            <div class="field inline-form">
+                <label></label>
+                <sadaf-checkbox ng-model="c.mapTable.hasSystemColumns">دارای ستون‌های سیستمی</sadaf-checkbox>
+            </div>
+
+        </div>
+
+
+        <div class="ui tiny header">{{'page settings' | translate}}</div>
+
+        <div class="ui divider"></div>
+
+        <div class="field">
+            <label>{{'name' | translate}}</label>
+            <input ng-model="c.pages.activePage.name" placeholder="{{'name' | translate}}">
+        </div>
+
+        <div class="field">
+            <sadaf-checkbox ng-model="c.pages.activePage.rowValidation.uniqueMultiField" label="">{{'unique value for multi control' | translate}}</sadaf-checkbox>
+        </div>
+
+        <div ng-show="c.pages.activePage.rowValidation.uniqueMultiField" class="field">
+            <div class="ui icon mini button field" ng-click="c.pages.activePage.rowValidation.uniques.push([])">
+                {{'add' | translate}}
+                <i class="icon add"></i>
+            </div>
+            <div class="fields" ng-repeat="f in c.pages.activePage.rowValidation.uniques track by $index">
+                <div class="twelve wide field">
+                    <sm-dropdown class="selection multiple search xfluid" model="f" items="c.controlList" label="item.label" value="item.name"></sm-dropdown>
+                </div>
+
+                <div class="one wide field" ng-show="c.pages.activePage.rowValidation.uniques.length != 1">
+                    <i class="icon remove" ng-click="c.pages.activePage.rowValidation.uniques.splice($index,1)"></i>
+                </div>
             </div>
         </div>
+
+        <div class="inline fields">
+            <label>{{'size' | translate}}</label>
+            <sm-dropdown items="[{label:('خیلی کوچک' | translate), value:'mini'}, {label:('کوچک' | translate), value:'tiny'}, {label:('normal' | translate), value:''}]"
+                         class="selection fluid "
+                         model="c.pages.activePage.size" label="item.label" value="item.value" ng-init="c.control.active.multiRowForm.controlSize = ''"></sm-dropdown>
+        </div>
+
+
+
     </div>
-
-    <div class="inline fields">
-        <label>{{'size' | translate}}</label>
-        <sm-dropdown items="[{label:('خیلی کوچک' | translate), value:'mini'}, {label:('کوچک' | translate), value:'tiny'}, {label:('normal' | translate), value:''}]"
-                     class="selection fluid "
-                     model="c.pages.activePage.size" label="item.label" value="item.value" ng-init="c.control.active.multiRowForm.controlSize = ''"></sm-dropdown>
-    </div>
-
-
-
-</div>
