@@ -226,6 +226,11 @@
             </div>
             <br />
             <div class="ui mini icon button" ng-click="addFormula(measures[model.selectedMeasure])"><i class="icon add"></i> فرمول جدید در سطوح بعدی</div>
+
+            <br />
+            <br />
+            <sadaf-checkbox ng-model="measures[model.selectedMeasure].preventChangeByUser">جلوگیری از جایگزین شدن توسط کنترل تغییر شاخص</sadaf-checkbox>
+
             <div ng-repeat="f in measures[model.selectedMeasure].formulas">
                 <div class="form-row" layout="column">
                     <label class="col-md-12">{{ 'فرمول' | translate }} سطح {{$index+2}}</label>
