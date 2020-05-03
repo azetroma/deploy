@@ -229,7 +229,7 @@
 
             <br />
             <br />
-            <sadaf-checkbox ng-model="measures[model.selectedMeasure].preventChangeByUser">جلوگیری از جایگزین شدن توسط کنترل تغییر شاخص</sadaf-checkbox>
+            <sadaf-checkbox ng-if="measures.length" ng-model="measures[model.selectedMeasure].preventChangeByUser">جلوگیری از جایگزین شدن توسط کنترل تغییر شاخص</sadaf-checkbox>
 
             <div ng-repeat="f in measures[model.selectedMeasure].formulas">
                 <div class="form-row" layout="column">
