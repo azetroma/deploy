@@ -64,21 +64,73 @@
                             <sm-dropdown class="search selection fluid multiple" model="model.parentIds" label="item.name" value="item.id" items="menuCategories"></sm-dropdown>
                         </div>
                         <!--<div class="field">
-                            <label>پروژه</label>
-                            <sm-dropdown class="search selection fluid" model="model.mainMenuId" label="item.name" value="item.id" items="mainMenus"></sm-dropdown>
-                        </div>-->
+        <label>پروژه</label>
+        <sm-dropdown class="search selection fluid" model="model.mainMenuId" label="item.name" value="item.id" items="mainMenus"></sm-dropdown>
+    </div>-->
 
-                        <versions id="{{id}}" type="2" on-restore="restore(model)"></versions>
+                        <versions id="{{id}}" type="2" on-restore="restore(model)" on-detail="detail(model)"></versions>
+
+                        <div class="ui segment" ng-show="showDetailModel" style="max-height:400px; overflow-y:auto;">
+
+                            <div class="ui  mini form">
+                                <div class="field">
+                                    <div>نام : <b>{{detailModel.name}}</b></div>
+                                </div>
+                                <div class="field" ng-show="metadataModule">
+                                    <div>هدف : <b>{{detailModel.purpose}}</b></div>
+                                </div>
+                                <div class="field " ng-show="metadataModule">
+                                    <div>شاخه کسب و کار : <b>{{detailModel.businessBranch}}</b></div>
+                                </div>
+                                <div class="field" ng-show="metadataModule">
+                                    <div>زیر شاخه کسب و کار : <b>{{detailModel.businessSubBranch}}</b></div>
+                                </div>
+                                <div class="field disabled">
+                                    <sadaf-checkbox ng-model="detailModel.active">فعال</sadaf-checkbox>
+                                </div>
+                                <div class="field disabled">
+                                    <sadaf-checkbox ng-model="detailModel.showWhenInactive">نمایش منو زمان غیرفعال بودن</sadaf-checkbox>
+                                </div>
+                                <div class="field disabled">
+                                    <sadaf-checkbox ng-model="detailModel.showTitleFullscreen">نمایش عنوان در حالت تمام صفحه</sadaf-checkbox>
+                                </div>
+                                <div class="field disabled">
+                                    <sadaf-checkbox ng-model="detailModel.showTitle">نمایش عنوان در حالت معمولی</sadaf-checkbox>
+                                </div>
+
+                                <div class="field disabled" ng-show="metadataModule">
+                                    <label>تحلیلگر</label>
+                                    <sm-dropdown class="search selection fluid" model="detailModel.analyst" label="item.name" value="item.id" items="users"></sm-dropdown>
+                                </div>
+                                <div class="field disabled">
+                                    <label>گروه منو</label>
+                                    <sm-dropdown class="search selection fluid multiple" model="detailModel.parentIds" label="item.name" value="item.id" items="menuCategories"></sm-dropdown>
+                                </div>
+
+                            <br />
+                            
+                            <div style="" class="">مجوزها: <div ng-repeat="i in detailModel.rolesAction"><b>{{getRoleName(i.id)}}:</b> {{i.action == 1 ? 'مشاهده' : i.action == 3 ? 'مشاهده و ویرایش' : 'مشاهده، ویرایش و حذف'}} </div></div>
+                            </div>
+
+
+                            <br />
+
+                            <div class="ui button" ng-click="restore(detailModel)">بازگردانی</div>
+                            <div class="ui basic button" ng-click="showDetailModel = false">لغو</div>
+                        </div>
+
+
+
                         <br />
                         <datasource-permission type="menu" id="{{id}}" ng-model="roles"></datasource-permission>
                         <br />
 
-                        <register-notification ng-if="render" 
-                                               type="'dashboard'" 
-                                               ng-model="model.notifications" 
-                                               onupdate="updateModel" 
+                        <register-notification ng-if="render"
+                                               type="'dashboard'"
+                                               ng-model="model.notifications"
+                                               onupdate="updateModel"
                                                xng-init="model.notifications= model.notifications||{}"></register-notification>
-                        
+
                         <br />
 
                         <div class="ui secondary inverted red segment" ng-show="error">
