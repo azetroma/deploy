@@ -37,12 +37,12 @@
             <div ng-show="submittedStatus == 0 || submittedStatus==1">
                 <div ng-repeat="page in data.pages" ng-show="$index == activePage" class="form-page ui form" ng-class="page.size">
                     <div class="ui grid stackable content-form">
-                        <form-control ng-repeat="component in page.controls" ng-model="component" id="{{id}}" sd-submit="submit()"></form-control>
+                        <form-control ng-repeat="component in page.controls" ng-model="component" id="{{id}}" sd-submit="submit()" ng-class="{'highlight-control': component.highlight}"></form-control>
                     </div>
                     <div class="ui message red" ng-show="page.error">{{page.error}}</div>
                 </div>
             </div>
-
+             
             <div class="ui success message" ng-show="submittedStatus==1">
                 {{'Information was saved successfully' | translate}}
             </div>
@@ -62,6 +62,7 @@
                 <div ng-repeat="p in pagesContainError">{{p.name}}</div>
             </div>
             <div ng-if="showVersion && app.license.formVersioning" style="margin-top:10px">
+                <div ng-if="versionRestore" ng-click="backToBaseVersion()" class="ui mini button black" style="position:absolute; left:18px;">نمایش آخرین وضعیت</div>
                 <versions id="{{id}}" sub-id="{{rowId}}" type="8" on-restore="restore(model)" on-detail="setValue(model)"></versions>
             </div>
 

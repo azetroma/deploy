@@ -130,8 +130,62 @@
             </div>
         </div>
     </div>
-    <div class="ui segment ltr" ng-show="model.exportApi" title="لینک API">
-        {{prefix}}api/chartdata/export/{{apiKey.id}}?key={{apiKey.key}}
+    <div class="ui small segment " ng-show="model.exportApi" title="لینک API" style="word-break: break-all;">
+
+        <div class="ltr" style="margin-bottom:5px;" ng-if="!model.useParams">
+            <ul style="padding-left:20px">
+                <li><b>Link: </b> {{prefix}}api/chartdata/export/{{apiKey.id}}?key={{apiKey.key}}</li>
+                <li><b>Method: </b> GET</li>
+            </ul>
+        </div>
+        <div class="ltr" style="margin-bottom:5px;" ng-if="model.useParams">
+            <ul style="padding-left:20px">
+                <li><b>Link: </b> {{prefix}}api/chartdata/export</li>
+                <li><b>Method: </b> POST</li>
+                <li><b>id: </b> {{apiKey.id}}</li>
+                <li><b>key: </b> {{apiKey.key}}</li>
+            </ul>
+
+
+        </div>
+
+        <div class="form-row" layout="row" layout-align="start center">
+            <div class="col-sm-offset-4 col-sm-8">
+                <div class="checkbox">
+                    <label class="">
+                        <input type="checkbox" ng-model="model.useParams" /> ارسال پارامتر به وب سرویس
+                    </label>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div ng-if="model.useParams">
+            <div class="ui mini button" ng-click="model.exportApiParams.push({columns:[{}]})">اضافه کردن پارامتر</div>
+            <div ng-repeat="i in model.exportApiParams" class="ui mini secondary segment">
+                <div class="ui fluid action  input">
+                    <input flex type="text" class="form-control" placeholder="نام پارامتر" ng-model="i.name" />
+                    <div class="ui mini icon button " ng-click="model.exportApiParams.splice($index, 1)"><i class="ui icon trash alternate outline" /></div>
+                </div>
+                <br />
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">smنوع پارامترهای ارسالی</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class="form-control" ng-model="i.type"
+                                ng-options="i.id as i.name for i in [ {id:0, name:'لیست'}, {id:2, name:'محدودیت رنج'}]"></select>
+                    </div>
+                </div>
+
+                <br />
+                <div class="ui fluid action  input" style="margin-bottom:4px" flex ng-repeat="c in i.columns">
+                    <input flex type="text" style="display: inline-block;direction: ltr;text-align: left;" placeholder="فرمول ستون" ng-model="c.formula" />
+                    <div class="ui mini icon button" ng-click="i.columns.splice($index+1, 0,{})"><i class="ui icon add" /></div>
+                    <div class="ui mini icon button" ng-if="i.columns.length > 1" ng-click="i.columns.splice($index, 1)"><i class="ui icon close" /></div>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 </div>
 

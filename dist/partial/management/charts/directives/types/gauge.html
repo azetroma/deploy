@@ -143,6 +143,11 @@
                     <span class="form-divider" flex></span>
                     <text-editor prop="ngModel.gauge.info.font" on-change="refreshChart('refresh')"></text-editor>
                 </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label>فونت اعداد راهنما</label>
+                    <span class="form-divider" flex></span>
+                    <text-editor prop="ngModel.gauge.info.metaValueFont" default="{fontSize:'8px'}" on-change="refreshChart('refresh')"></text-editor>
+                </div>
 
 
                 <div class="form-row" layout="row" layout-align="start center" ng-hide="ngModel.gauge.info.style == 'number'">
@@ -207,13 +212,13 @@
                             <input type="text" class="form-control" placeholder="{{ 'پیش فرض مرز دوم' | translate }}" ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" ng-model="ngModel.gauge.info.green" />
                         </div>
                     </div>
+                </div>
                     <div class="form-row" layout="row" layout-align="start center">
                         <label class="col-sm-4">{{ 'پیش فرض بیشترین' | translate }}</label>
                         <span class="form-divider" flex></span><div class="col-sm-8">
                             <input type="text" class="form-control" placeholder="{{ 'پیش فرض بیشترین' | translate }}" ng-model-options="{ updateOn: 'blur' }" ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.max" />
                         </div>
                     </div>
-                </div>
 
 
                 <div class="form-row" layout="row" layout-align="start center">
@@ -263,7 +268,7 @@
                                ng-repeat="i in [{t:'value', n:'مقدار'},
                                                     {t:'target', n:'هدف'},
                                                     {t:'status', n:'وضعیت'},
-                                                    {t:'trend', n:'روند'}]"
+                                                    {t:'trend', n:'روند'},{t:'max', n:'بیشترین'}]"
                                ng-click="ngModel.gauge.series[ngModel.selectedSeries].type=i.t;refreshChart('refresh')">
                             <span>{{i.n}}</span>
                         </label>
