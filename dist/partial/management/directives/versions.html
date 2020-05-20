@@ -14,14 +14,14 @@
                         <th style="border:none;">عملیات</th>
                         <th style="border:none;">زمان</th>
                         <th style="border:none;"></th>
-                        <th style="border:none;"></th>
+                        <!--<th style="border:none;"></th>-->
                     </tr>
                     <tr ng-repeat="i in list">
                         <td>{{i.username}}</td>
                         <td>{{i.action == 0 ? 'ویرایش' : 'حذف'}}</td>
                         <td>{{i.time}}</td>
                         <td ng-click="showDetail(i)"><a class="pointer">مشاهده جزییات</a></td>
-                        <td ng-click="remove(i, $index)"><i class="icon trash alternate outline pointer"></i></td>
+                        <!--<td ng-click="remove(i, $index)"><i class="icon trash alternate outline pointer"></i></td>-->
                     </tr>
                 </table>
             </div>
