@@ -435,11 +435,10 @@
                                     {name:'var', value: 'VAR'},
                                     ]">
                             <!--<option value="sum">SUM</option>
-                            <option value="avg">AVG</option>
-                            <option value="var">VAR</option>-->
+                <option value="avg">AVG</option>
+                <option value="var">VAR</option>-->
                         </select>
                     </div>
-
                 </div>
 
 
@@ -449,6 +448,18 @@
                         <div class="checkbox">
                             <label class="">
                                 <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('showValues')" ng-model="ngModel.bar.series[ngModel.selectedSeries].showValues" /> {{ 'نمایش مقادیر روی نمودار' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.bar.series[ngModel.selectedSeries].showValues && ngModel.bar.info.stackedBar == '1' && ngModel.bar.info.stackedLine == '1'">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.bar.series[ngModel.selectedSeries].showValuesVertical" ng-change="refreshChart('refresh');changeAllSeries('dontShowZeroValue')" />
+                                نمایش عمودی مقادیر
                             </label>
                         </div>
                     </div>
@@ -534,14 +545,14 @@
                     </div>
 
                     <!--<div class="form-row" layout="row" layout-align="start center">
-                        <label class="col-sm-4">درصد اختلاف چارک اول و سوم با میانه</label>
-                        <span class="form-divider" flex></span><div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="درصد اختلاف چارک اول و سوم با میانه"
-                                   ng-change="refreshChart('refresh'); changeAllSeries('name')"
-                                   ng-model-options="{ updateOn: 'blur' }"
-                                   ng-model="ngModel.bar.series[ngModel.selectedSeries].boxOption.q1q3Percent" />
-                        </div>
-                    </div>-->
+            <label class="col-sm-4">درصد اختلاف چارک اول و سوم با میانه</label>
+            <span class="form-divider" flex></span><div class="col-sm-8">
+                <input type="text" class="form-control" placeholder="درصد اختلاف چارک اول و سوم با میانه"
+                       ng-change="refreshChart('refresh'); changeAllSeries('name')"
+                       ng-model-options="{ updateOn: 'blur' }"
+                       ng-model="ngModel.bar.series[ngModel.selectedSeries].boxOption.q1q3Percent" />
+            </div>
+        </div>-->
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">

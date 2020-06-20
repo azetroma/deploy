@@ -102,7 +102,7 @@
                                             </span>
                                             <span class="material-icons small small-size pointer" title="باز کردن" ng-click="gotoDatasource(u)">open_in_new</span>
                                             <span class="material-icons small small-size pointer" title="تغییر منبع داده" ng-click="changeDatasource(u, $index)">swap_horiz</span>
-                                            <olap-add-column data="u" onchange="updateDatasources" ng-if="app.license.olap && u.ModelType == 1"></olap-add-column>
+                                            <olap-add-column data="u" onchange="updateDatasources" xng-if="app.license.olap && u.ModelType == 1"></olap-add-column>
                                             
                                         </div>
 
@@ -114,7 +114,7 @@
                                                     <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
                                                     {{i.Name}}
                                                 </span>
-                                                <olap-add-column ng-if="i.Type==1 && app.license.olap" data="u" model="i" onchange="updateDatasources" style="display:inline-block; position:absolute; left:8px;"></olap-add-column>
+                                                <olap-add-column ng-if="i.Type==1" data="u" model="i" onchange="updateDatasources" style="display:inline-block; position:absolute; left:8px;"></olap-add-column>
                                             </div>
 
                                         </div>
@@ -833,19 +833,11 @@
 
                                     <input class="condition-style" style="width:50px;" type="text" ng-model="parent.members.numericFilter.conditions[0].parameter" />
 
-
                                     <select class="condition-style" ng-model="parent.members.numericFilter.conditionType"
                                             ng-options="color.name as  color.value for color in [
                                                                 {name:'and', value: 'و'  },
                                                                 {name:'or', value: 'یا'  },
-                                                            ]">
-
-
-                                        <!--<option value="and">{{ 'و' | translate}}</option>
-                                        <option value="or">{{ 'یا' | translate}}</option>-->
-                                    </select>
-
-                                    </
+                                                            ]"></select>
 
                                     <select class="condition-style" ng-model="parent.members.numericFilter.conditions[1].condition"
                                             ng-options="color.name as  color.value for color in [
