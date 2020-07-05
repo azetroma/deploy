@@ -497,7 +497,7 @@
         </div>
 
         <div class="field">
-            <sadaf-checkbox ng-model="c.mapTable.enable">استفاده از جدول خارجی</sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.mapTable.enable">عدم ایجاد جدول و استفاده از جدول موجود</sadaf-checkbox>
         </div>
 
         <style>
@@ -514,39 +514,52 @@
         </style>
 
         <div class="ui mini secondary clearing segment inline-form" ng-show="c.mapTable.enable">
-            <!--<div class="field">
-            <select-datasource ng-model="c.mapTable.datasource"></select-datasource>
-        </div>-->
 
-            <div class="field inline-form">
-                <label>سرور</label>
-                <input type="text" ng-model="c.mapTable.server" />
+            <div class="field">
+                <sadaf-checkbox ng-model="c.mapTable.externalTable">استفاده از جداول خارجی به جز منابع داده </sadaf-checkbox>
             </div>
 
-            <div class="field inline-form">
-                <label>پایگاه داده</label>
-                <input type="text" ng-model="c.mapTable.database" />
+            <div ng-show="!c.mapTable.externalTable">
+                <div class="field" >
+                    <select-datasource ng-model="c.mapTable.datasource"></select-datasource>
+                </div>
+                <div class="field inline-form">
+                    <select-column ng-model="c.mapTable.columnId" id="c.mapTable.datasource.value"></select-column>
+                </div> 
             </div>
 
-            <div class="field inline-form">
-                <label>نام کاربری</label>
-                <input type="text" ng-model="c.mapTable.user" />
+            <div ng-show="c.mapTable.externalTable">
+                <div class="field inline-form">
+                    <label>سرور</label>
+                    <input type="text" ng-model="c.mapTable.server" />
+                </div>
+
+                <div class="field inline-form">
+                    <label>پایگاه داده</label>
+                    <input type="text" ng-model="c.mapTable.database" />
+                </div>
+
+                <div class="field inline-form">
+                    <label>نام کاربری</label>
+                    <input type="text" ng-model="c.mapTable.user" />
+                </div>
+
+                <div class="field inline-form">
+                    <label>کلمه عبور</label>
+                    <input type="password" ng-model="c.mapTable.pass" />
+                </div>
+
+                <div class="field inline-form">
+                    <label>نام جدول</label>
+                    <input type="text" ng-model="c.mapTable.tableName" />
+                </div>
+
+                <div class="field inline-form">
+                    <label>نام ستون شناسه</label>
+                    <input type="text" ng-model="c.mapTable.columnId" />
+                </div>
             </div>
 
-            <div class="field inline-form">
-                <label>کلمه عبور</label>
-                <input type="password" ng-model="c.mapTable.pass" />
-            </div>
-
-            <div class="field inline-form">
-                <label>نام جدول</label>
-                <input type="text" ng-model="c.mapTable.tableName" />
-            </div>
-
-            <div class="field inline-form">
-                <label>نام ستون شناسه</label>
-                <input type="text" ng-model="c.mapTable.columnId" />
-            </div>
             <div class="field inline-form">
                 <label></label>
                 <sadaf-checkbox ng-model="c.mapTable.hasSystemColumns">دارای ستون‌های سیستمی</sadaf-checkbox>

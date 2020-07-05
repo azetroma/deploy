@@ -193,13 +193,14 @@
                     </div>
                 </div>
 
-                <div class="multi-segment" ng-show="ngModel.gauge.info.segmentType == 'multiSegment'">
                     <div class="form-row" layout="row" layout-align="start center">
                         <label class="col-sm-4">{{ 'پیش فرض کمترین' | translate }}</label>
                         <span class="form-divider" flex></span><div class="col-sm-8">
                             <input type="text" class="form-control" placeholder="{{ 'پیش فرض کمترین' | translate }}" ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" ng-model="ngModel.gauge.info.min" />
                         </div>
                     </div>
+
+                <div class="multi-segment" ng-show="ngModel.gauge.info.segmentType == 'multiSegment'">
                     <div class="form-row" layout="row" layout-align="start center">
                         <label class="col-sm-4">{{ 'پیش فرض مرز اول' | translate }}</label>
                         <span class="form-divider" flex></span><div class="col-sm-8">
@@ -211,7 +212,7 @@
                         <span class="form-divider" flex></span><div class="col-sm-8">
                             <input type="text" class="form-control" placeholder="{{ 'پیش فرض مرز دوم' | translate }}" ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" ng-model="ngModel.gauge.info.green" />
                         </div>
-                    </div>
+                    </div> 
                 </div>
                     <div class="form-row" layout="row" layout-align="start center">
                         <label class="col-sm-4">{{ 'پیش فرض بیشترین' | translate }}</label>
