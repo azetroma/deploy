@@ -117,14 +117,14 @@
            ng-change="change()"
            ng-model-options="{ updateOn: 'blur' }"
            ng-model="model.groups" />
-</div>
+</div> 
 <small class="grey">در صورت نیاز به چند گروه اسم گروه‌ها را با , از هم جدا کنید</small>
 
 <div ng-show="license.chartExportApi">
     <div class="form-row" layout="row" layout-align="start center">
         <div class="col-sm-offset-4 col-sm-8">
             <div class="checkbox">
-                <label class="">
+                <label class=""> 
                     <input type="checkbox" ng-model="model.exportApi"  /> خروجی داده‌های نمودار به صورت API 
                 </label>
             </div>
@@ -181,7 +181,24 @@
                     <div class="ui mini icon button" ng-click="i.columns.splice($index+1, 0,{})"><i class="ui icon add" /></div>
                     <div class="ui mini icon button" ng-if="i.columns.length > 1" ng-click="i.columns.splice($index, 1)"><i class="ui icon close" /></div>
                 </div>
-
+                <br />
+                نمونه پارامترهای ارسالی
+                <pre class="ltr"> 
+{
+  "key": "76582150-eb1e-4b21-ac7c-f94aa34b2088",
+  "id": 2448,
+  "filters": [
+    {
+      "name": "date",
+      "values": [
+        "13990101",
+        "13990124"
+      ]
+    }
+  ]
+}
+</pre>
+                هدر Content-Type درخواست باید application/json تنظیم شود.
             </div>
 
         </div>

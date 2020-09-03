@@ -331,6 +331,32 @@
                                ng-model="ngModel.map.info.showLatLng.maxSymbol" />
                     </div>
 
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="col-sm-4">{{ 'رنگ' | translate }}</label>
+                        <span class="form-divider" flex></span><div class="col-sm-8">
+                            <div md-color-picker ng-model="ngModel.map.info.showLatLng.color" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center" >
+                        <label>زوم شروع نمایش </label>
+                        <span class="form-divider" flex></span>
+                        <input type="number"
+                               ng-change="refreshChart('refresh')"
+                               ng-model-options="{ updateOn: 'blur' }"
+                               ng-model="ngModel.map.info.showLatLng.startZoom" />
+                    </div>
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox">
+                                <label class="">
+                                    <input type="checkbox" ng-model="ngModel.map.info.showLatLng.disableMap" ng-change="refreshChart('refresh')" />
+                                    عدم نمایش نقشه
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
 
@@ -397,7 +423,7 @@
     </menu-item>
     <alert prop="ngModel"  config="{name:'map'}"></alert>
 
-    <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'map', show:[1] , legend: true}"></table-indicator>
+    <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'map', show:[1,7] , legend: true, stripeEnable:true}"></table-indicator>
 
     <global-variable dimensions="dimensions" measures="measures" prop="ngModel"></global-variable>
 

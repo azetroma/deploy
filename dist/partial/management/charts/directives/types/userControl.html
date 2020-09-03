@@ -9,20 +9,21 @@
                 <general-settings ng-model="ngModel.userControl.info" ng-change="refreshChart('refreshWithData')"></general-settings>
 
                 <div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'نوع کنترل' | translate }}</label>
-                    <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select ng-change="ngModel.userControl.info.variableDefault=null; refreshChart('refresh');"
-                                ng-model="ngModel.userControl.info.type"
-                                ng-options="color.name as  color.value for color in [
-                                    {name:'combo', value: 'کشویی تک مقداری'  },
-                                    {name:'multi', value:'کشویی چند مقداری' },
-                                    {name:'datepicker', value:'تاریخ' },
-                                    {name:'datepicker-range', value:'محدوده تاریخ' },
-                                    {name:'slider', value:'لغزنده' },
-                                    {name:'text', value:'جستجو' },
-                                    {name:'kpi-change', value:'تغییر شاخص' },
-                                    ]"></select>
-                    </div>
+                    <label class="">{{ 'نوع کنترل' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <select ng-change="ngModel.userControl.info.variableDefault=null; refreshChart('refresh');"
+                            ng-model="ngModel.userControl.info.type"
+                            ng-options="color.name as  color.value for color in [
+                                {name:'combo', value: 'کشویی تک مقداری'  },
+                                {name:'multi', value:'کشویی چند مقداری' },
+                                {name:'datepicker', value:'تاریخ' },
+                                {name:'datepicker-range', value:'محدوده تاریخ' },
+                                {name:'slider', value:'لغزنده' },
+                                {name:'text', value:'جستجو' },
+                                {name:'kpi-change', value:'تغییر شاخص' },
+                                {name:'apply-button', value:'کلید فیلتر' },
+                                ]">
+                    </select>
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
@@ -31,6 +32,29 @@
                         <input type="text" class="form-control" placeholder="{{ 'برچسب' | translate }}" ng-change="refreshChart('refresh')" ng-model="ngModel.userControl.info.label" ng-model-options="{ updateOn: 'blur' }" />
                     </div>
                 </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-if="ngModel.userControl.info.type=='apply-button'">
+                    <label class="">{{ 'نوع کنترل' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <select ng-change="refreshChart('refresh');"
+                            ng-model="ngModel.userControl.info.buttonClass"
+                            ng-options="color.value as  color.label for color in [{label:('red'     |translate), value:'red'},
+                                 {label:('orange'   |translate), value:'orange'},
+                                 {label:('yellow'      |translate), value:'yellow'},
+                                 {label:('olive'    |translate), value:'olive'},
+                                 {label:('green'      |translate), value:'green'},
+                                 {label:('teal' |translate), value:'teal'},
+                                 {label:('blue'      |translate), value:'blue'},
+                                 {label:('violet'|translate), value:'violet'},
+                                 {label:('purple'     |translate), value:'purple'},
+                                 {label:('pink'    |translate), value:'pink'},
+                                 {label:('brown'   |translate)   , value:'brown'},
+                                 {label:('grey'  |translate)    , value:'grey'},
+                                 {label:('خاکستری روشن'  |translate)    , value:''},
+                                 {label:('black'     |translate), value:'black'}]">
+                    </select>
+                </div>
+
 
 
                 <input type="hidden" data-prop="aggregation" value="1" />
@@ -55,7 +79,26 @@
 
                     <div class="form-row" layout="row" layout-align="start center">
                         <label class="">
-                            <input type="checkbox" ng-model="ngModel.userControl.info.dateLimit.enable" />
+                            <input type="checkbox" ng-model="ngModel.userControl.info.disableDaySelect" ng-change="refreshChart('refresh')" />
+                            غیرفعال کردن انتخاب روز (فقط سال و ماه)
+                        </label>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="">نوع تقویم</label>
+                        <span class="form-divider" flex></span>
+                        <select ng-change="refreshChart('refresh');"
+                                ng-model="ngModel.userControl.info.calendarType"
+                                ng-options="color.name as  color.value for color in [
+                                {name:'shamsi', value: 'شمسی'  },
+                                {name:'miladi', value:'میلادی' },
+                                ]">
+                        </select>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="">
+                            <input type="checkbox" ng-model="ngModel.userControl.info.dateLimit.enable" ng-change="refreshChart('refresh')" />
                             محدودیت انتخاب تاریخ
                         </label>
                     </div>
@@ -148,7 +191,7 @@
                                        xng-change="ngModel.userControl.info.variableDefault.values[1].useNormal = ngModel.userControl.info.useNormal" />
                                 نرمال کردن متن
                             </label>
-                        </div> 
+                        </div>
                     </div>
 
                 </div>

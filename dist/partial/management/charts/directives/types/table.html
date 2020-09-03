@@ -187,6 +187,19 @@
                     </div>
                 </div>
 
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.table.info.selectable == 'edit'">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.sheetEdit" />
+                                ویرایش در محل (به صورت شیت اکسل)
+                            </label>
+                        </div>
+                        <small class="gray"> در حال حاضر تنها برای کنترل‌های معمولی و تک مقداری قابل استفاده است. برای کنترل‌های چند مقداری، تکرار شونده و ارجاع 
+                        به فرم از این ویژگی استفاده نکنید.</small>
+                    </div>
+                </div>
+
 
                 <div ng-show="ngModel.table.info.aggregation==-1">
                     <div class="form-row" layout="row" layout-align="start center">
@@ -318,76 +331,75 @@
 
 
                 <!--<div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'چیدمان متن' | translate }}</label>
-                    <span class="form-divider" flex></span>
-                    <div class="col-sm-8">
-                        <div class="sadaf-group">
-                            <label class="sadaf-group-item"
-                                   ng-class="ngModel.table.series[ngModel.selectedSeries].textAlign==i.t?'active':''"
-                                   ng-repeat="i in [{t:'right', n:'format_align_right'},
-                                                    {t:'center', n:'format_align_center'},
-                                                    {t:'left', n:'format_align_left'},
-                                                    {t:'justify', n:'format_align_justify'}]"
-                                   ng-click="ngModel.table.series[ngModel.selectedSeries].textAlign=i.t;refreshChart('refresh'); changeAllSeries('textAlign')">
-                                <span class="material-icons">{{i.n}}</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>-->
-
+        <label class="col-sm-4">{{ 'چیدمان متن' | translate }}</label>
+        <span class="form-divider" flex></span>
+        <div class="col-sm-8">
+            <div class="sadaf-group">
+                <label class="sadaf-group-item"
+                       ng-class="ngModel.table.series[ngModel.selectedSeries].textAlign==i.t?'active':''"
+                       ng-repeat="i in [{t:'right', n:'format_align_right'},
+                                        {t:'center', n:'format_align_center'},
+                                        {t:'left', n:'format_align_left'},
+                                        {t:'justify', n:'format_align_justify'}]"
+                       ng-click="ngModel.table.series[ngModel.selectedSeries].textAlign=i.t;refreshChart('refresh'); changeAllSeries('textAlign')">
+                    <span class="material-icons">{{i.n}}</span>
+                </label>
+            </div>
+        </div>
+    </div>-->
                 <div class="form-row" layout="row" layout-align="start center">
                     <label>{{ 'فونت' | translate }}</label>
                     <span class="form-divider" flex></span>
-                    <text-editor prop="ngModel.table.series[ngModel.selectedSeries].font" on-change="refreshChart('refresh'); changeAllSeries('font')"></text-editor>
+                    <text-editor prop="ngModel.table.series[ngModel.selectedSeries].font" on-change="refreshChart('refresh'); changeAllSeries('font')" default="{fontSize:'14px'}"></text-editor>
                 </div>
 
 
 
                 <!--<div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'قالب نوشته‌' | translate }}</label>
-                    <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select class="selectpicker-x form-control" ng-change="refreshChart('refresh'); changeAllSeries('formatString')" ng-model="ngModel.table.series[ngModel.selectedSeries].formatString">
-                            <option value="A">{{ 'عادی' | translate }}</option>
-                            <option value="%">{{ 'درصد' | translate }}</option>
-                            <option value=",.0f">#,#</option>
-                            <option value=",.1f">#,#.0</option>
-                            <option value=",.2f" selected="selected">#,#.00</option>
-                        </select>
-                    </div>
-                </div>
+        <label class="col-sm-4">{{ 'قالب نوشته‌' | translate }}</label>
+        <span class="form-divider" flex></span><div class="col-sm-8">
+            <select class="selectpicker-x form-control" ng-change="refreshChart('refresh'); changeAllSeries('formatString')" ng-model="ngModel.table.series[ngModel.selectedSeries].formatString">
+                <option value="A">{{ 'عادی' | translate }}</option>
+                <option value="%">{{ 'درصد' | translate }}</option>
+                <option value=",.0f">#,#</option>
+                <option value=",.1f">#,#.0</option>
+                <option value=",.2f" selected="selected">#,#.00</option>
+            </select>
+        </div>
+    </div>
 
-                <div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'اندازه نوشته' | translate }}</label>
-                    <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select ng-change="refreshChart('refresh'); changeAllSeries('fontSize')" ng-model="ngModel.table.series[ngModel.selectedSeries].fontSize" class="selectpicker-x form-control">
-                            <option value="0.8em">{{ 'خیلی کوچک' | translate }}</option>
-                            <option value="0.9em">{{ 'کوچک' | translate }}</option>
-                            <option value="1em" selected="selected">{{ 'متوسط' | translate }}</option>
-                            <option value="1.2em">{{ 'بزرگ' | translate }}</option>
-                            <option value="1.5em">{{ 'خیلی بزرگ' | translate }}</option>
-                        </select>
-                    </div>
-                </div>
+    <div class="form-row" layout="row" layout-align="start center">
+        <label class="col-sm-4">{{ 'اندازه نوشته' | translate }}</label>
+        <span class="form-divider" flex></span><div class="col-sm-8">
+            <select ng-change="refreshChart('refresh'); changeAllSeries('fontSize')" ng-model="ngModel.table.series[ngModel.selectedSeries].fontSize" class="selectpicker-x form-control">
+                <option value="0.8em">{{ 'خیلی کوچک' | translate }}</option>
+                <option value="0.9em">{{ 'کوچک' | translate }}</option>
+                <option value="1em" selected="selected">{{ 'متوسط' | translate }}</option>
+                <option value="1.2em">{{ 'بزرگ' | translate }}</option>
+                <option value="1.5em">{{ 'خیلی بزرگ' | translate }}</option>
+            </select>
+        </div>
+    </div>
 
-                <div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'حالت نوشته' | translate }}</label>
-                    <span class="form-divider" flex></span>
-                    <switch-button ng-model="ngModel.table.series[ngModel.selectedSeries].textBold" ng-click="refreshChart('refresh'); changeAllSeries('textBold') ">
-                        <span><strong>B</strong></span>
-                    </switch-button>
-                    <switch-button ng-model="ngModel.table.series[ngModel.selectedSeries].textItalic" ng-click="refreshChart('refresh'); changeAllSeries('textItalic')">
-                        <span style="font-style:italic">I</span>
-                    </switch-button>
+    <div class="form-row" layout="row" layout-align="start center">
+        <label class="col-sm-4">{{ 'حالت نوشته' | translate }}</label>
+        <span class="form-divider" flex></span>
+        <switch-button ng-model="ngModel.table.series[ngModel.selectedSeries].textBold" ng-click="refreshChart('refresh'); changeAllSeries('textBold') ">
+            <span><strong>B</strong></span>
+        </switch-button>
+        <switch-button ng-model="ngModel.table.series[ngModel.selectedSeries].textItalic" ng-click="refreshChart('refresh'); changeAllSeries('textItalic')">
+            <span style="font-style:italic">I</span>
+        </switch-button>
 
 
-                </div>
+    </div>
 
-                <div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'رنگ نوشته' | translate }}</label>
-                    <span class="form-divider" flex></span>
+    <div class="form-row" layout="row" layout-align="start center">
+        <label class="col-sm-4">{{ 'رنگ نوشته' | translate }}</label>
+        <span class="form-divider" flex></span>
 
-                    <div md-color-picker ng-model="ngModel.table.series[ngModel.selectedSeries].color" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
-                </div>-->
+        <div md-color-picker ng-model="ngModel.table.series[ngModel.selectedSeries].color" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
+    </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'ردیف نتیجه' | translate }}</label>
@@ -403,11 +415,11 @@
                                     {name:'5', value: 'بیشترین'  },
                                     ]">
                             <!--<option value="0" selected="selected">{{ 'خالی' | translate }}</option>
-                            <option value="1">{{ 'جمع' | translate }}</option>
-                            <option value="2">{{ 'میانگین' | translate }}</option>
-                            <option value="3">{{ 'تعداد' | translate }}</option>
-                            <option value="4">{{ 'کمترین' | translate }}</option>
-                            <option value="5">{{ 'بیشترین' | translate }}</option>-->
+                <option value="1">{{ 'جمع' | translate }}</option>
+                <option value="2">{{ 'میانگین' | translate }}</option>
+                <option value="3">{{ 'تعداد' | translate }}</option>
+                <option value="4">{{ 'کمترین' | translate }}</option>
+                <option value="5">{{ 'بیشترین' | translate }}</option>-->
 
 
                         </select>

@@ -111,41 +111,45 @@
                             <h3 class="sadaf-header">
                                 {{'profile_settings' | translate}}
                             </h3>
+                            <div class="ui form">
 
-                            <div layout-gt-sm="row" flex>
+                            <div class="two column wide fields" >
 
-                                <md-input-container class="md-block" flex>
+                                <div class="field" >
                                     <label>{{'profile_slide_timeout' | translate}}</label>
                                     <input type="number" ng-model="model.PageSwiching">
-                                    <div class="hint">{{'user_slide_desc' | translate}}</div>
-                                </md-input-container>
+                                    <small class="gray">{{'user_slide_desc' | translate}}</small>
+                                </div>
 
-                                <md-input-container class="md-block" flex>
+                                <div class="field" >
                                     <label>{{'profile_language' | translate}}</label>
-                                    <md-select ng-model="model.Lang">
-                                        <md-option value="0">فارسی</md-option>
-                                        <md-option value="1">English</md-option>
-                                    </md-select>
-                                </md-input-container>
+                                    <select ng-model="model.Lang" style="padding:.47857143em 1em"
+                                            ng-options="i.name as  i.value for i in [
+                                                            {name:0, value: 'فارسی'  },
+                                                            {name:1, value:'English' }
+                                                        ]">
+                                    </select>
+                                </div>
                             </div>
-                            <div layout-gt-sm="row" flex>
+                            <div class="two column wide fields" >
 
-                                <md-input-container class="md-block" flex>
+                                <div class="field" >
                                     <label>زمان اعتبار نشست</label>
                                     <input type="number" ng-model="model.sessionTime">
-                                    <div class="hint">
+                                    <small class="gray">
                                         مدت زمان اعتبار نشست کاربر به دقیقه. در صورتی که مقداری ثبت نشود یا ۰ ثبت شود مدت زمان اعتبار
                                         نشست مقدار پیش فرض سامانه می‌باشد.
-                                    </div>
-                                </md-input-container>
+                                    </small>
+                                </div>
 
 
-                                <md-input-container flex>
+                                <div class="field" >
                                     <label>{{'expire_time' | translate}}</label>
-                                    <input type="text" id="user-expire-time" ng-model="model.Expire">
+                                    <input type="text" id="user-expire-time" >
 
-                                </md-input-container>
+                                </div>
 
+                            </div>
                             </div>
                             <div layout-gt-sm="row" flex>
 
@@ -296,7 +300,7 @@
                                 <br />
                             </div>
 
-                            <collapse>
+                            <collapse >
                                 <collapse-header>{{'roles'| translate}}</collapse-header>
                                 <collapse-body>
                                     <div xstyle="margin:0 20px">
@@ -327,7 +331,7 @@
                                 </collapse-body>
                             </collapse>
 
-                            <collapse>
+                            <collapse >
                                 <collapse-header>لیست نقش‌های مدیر کاربر فعلی</collapse-header>
                                 <small class="grey">
                                     در صورتی که کاربر از لیست کاربران قابل مدیریت نقشی حذف شود به صورت خودکار
@@ -350,7 +354,7 @@
                                                     </span>
                                                 </collapse-header>
                                                 <collapse-body class="block">
-                                                    <div class="tree-element ul" style="list-style:none">
+                                                    <div class="tree-element ul" style="list-style:none" >
                                                         <div ng-repeat="data in data.nodes track by $index" class="tree-element li" ng-include="'xtree.html'"></div>
                                                     </div>
                                                 </collapse-body>

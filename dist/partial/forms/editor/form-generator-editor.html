@@ -85,7 +85,7 @@
             <div class="ui labeled icon button teal" ng-click="c.save()" ng-class="{loading: c.saveProgress}">
                 <i class="icon save"></i>
                 {{'save' | translate}}
-            </div>
+            </div> 
 
             <div class="ui labeled icon button" ng-show="c.id" ng-click="c.publishVisible = true" ng-class="{loading: c.publishProgress}">
                 <i class="icon cloud"></i>
@@ -144,8 +144,8 @@
         </div>
 
         <div flex="50" class="form-generator-side-column" layout="column">
-            <div class="ui left tiny secondary pointing menu">
-                <div class="item pointer" ng-repeat="p in c.pages.data track by $index" ng-click="c.pages.setActive(p)" ng-class="{active: p.active}">
+            <div class="ui left tiny secondary pointing menu"ng-sortable="{group: {name: 'pages', pull:false, put:false}, animation:150}">
+                <div class="item pointer"  ng-repeat="p in c.pages.data track by $index" ng-click="c.pages.setActive(p)" ng-class="{active: p.active}">
                     {{p.name | persian}}
                     &nbsp; {{c.pages.length}}
                     <i class="icon remove gray pointer" ng-hide="c.pages.data.length == 1" ng-click="c.pages.remove($index)" style="margin:0"></i>

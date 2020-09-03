@@ -84,7 +84,7 @@
                                      settings="{fullTextSearch: true}" items="parent.datasourceList" label="item.Name" value="item.Id"
                                      model="parent.modalRelationObject.left"></sm-dropdown>
                     </div>
-
+                     
                     <div class="two wide column field" style="text-align:center; white-space:nowrap">{{ 'مرتبط شود با' | translate }}</div>
 
                     <div class="five wide column field">
@@ -153,7 +153,8 @@
                     <sm-dropdown class="selection"
                                  items="[
                                          {label:'یک به چند 1-*', value:0},
-                                         {label:'چند به یک *-1', value:1}
+                                         {label:'چند به یک *-1', value:1},
+                                         {label:'یک به یک 1-1', value:2},
                                          ]" label="item.label" value="item.value"
                                  model="parent.modalRelationObject.cardinality"></sm-dropdown>
 

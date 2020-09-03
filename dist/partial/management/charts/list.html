@@ -72,9 +72,14 @@
                 <input ng-model="search" placeholder="{{'جستجو' | translate}}">
             </md-input-container>
 
+            <md-button class="md-icon-button cssFade"  href="{{app.hashUrlPrefix}}#/chart-import" title="{{'وارد کردن دسته‌ای نمودارها' | translate}}">
+                <i class="ui large icon arrow alternate circle down outline"></i>
+            </md-button>
+
             <md-button class="md-icon-button cssFade" ng-show="canDirEdit" ng-click="dirEdit($event)" title="{{'rename_folder' | translate}}">
                 <span class="material-icons">edit</span>
             </md-button>
+
             <md-button class="md-icon-button cssFade" ng-show="canForward" ng-click="forward($event)" title="{{'move_to_folder' | translate}}">
                 <span class="material-icons">forward</span>
             </md-button>

@@ -1,4 +1,4 @@
-﻿<div class="field form-control {{model.name}} type-{{model.type}} form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ !model.canEdit? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
+﻿<div class="field form-control {{model.name}} type-{{model.type}} form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ !model.canEdit? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{ model.readonly? 'read-only':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
     <span ng-show="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
 
     <div class="control-actions" ng-show="edit">
@@ -242,11 +242,11 @@
         <label ng-hide="settings.showLabel===false">{{model.label}}</label>
         <inline-style>
             .form-{{randomId}} .sadaf-form-editor .ql-container{
-                font-size: {{model.uiConfig.font.fontSize}};
-                font-family: {{model.uiConfig.font.fontName}};
+            font-size: {{model.uiConfig.font.fontSize}};
+            font-family: {{model.uiConfig.font.fontName}};
             }
             .form-{{randomId}} .sadaf-form-editor .ql-editor{
-                min-height: {{model.uiConfig.minHeight ? (model.uiConfig.minHeight + 'px') : 'auto'}};
+            min-height: {{model.uiConfig.minHeight ? (model.uiConfig.minHeight + 'px') : 'auto'}};
             }
         </inline-style>
         <ng-quill-editor class="sadaf-form-editor" theme="bubble" ng-model="model.value" ng-style="{'font-size': model.font.fontSize}">
@@ -283,5 +283,21 @@
         <div></div>
         <small>{{model.description}}</small>
     </div>
+
+    <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 21">
+        <div ng-hide="settings.showLabel===false || model.readonly">&nbsp;</div>
+        <sadaf-checkbox ng-hide="model.readonly" ng-model="model.value" label="{{model.label}}">
+            {{model.label}}
+        </sadaf-checkbox>
+        <div ng-show="model.readonly">
+            <i class="icon" ng-class="{'square outline':!model.value, 'checkmark box':model.value}"></i>
+            <b ng-hide="settings.showLabel===false">{{model.label}}</b>
+        </div>
+        <small class="helper">{{model.error}}</small>
+        <div></div>
+        <small>{{model.description}}</small>
+    </div>
+
+
 
 </div> 

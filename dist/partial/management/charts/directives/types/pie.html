@@ -26,6 +26,16 @@
                     </div>
                 </div>
 
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.pie.info.transpose" ng-change="refreshChart('refreshWithData')" /> {{ 'transpose' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
                 <div ng-show="ngModel.pie.info.showLabels">
                     <matrix-select ng-model="ngModel.pie.info.showLabelMatrix" dim-color="ngModel.dimColor" ng-change="refreshChart('refresh')"></matrix-select>
                 </div>
@@ -49,14 +59,14 @@
                     </div>
                 </div>
                 <!--<div class="form-row" layout="row" layout-align="start center">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <div class="checkbox">
-                            <label class="">
-                                <text-editor type="checkbox" ng-model="ngModel.pie.info.labelFont" ng-change="refreshChart('refresh')" /> {{ 'نمایش مقدار کنار برچسب' | translate }}
-                            </label>
-                        </div>
-                    </div>
-                </div>-->
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label class="">
+                    <text-editor type="checkbox" ng-model="ngModel.pie.info.labelFont" ng-change="refreshChart('refresh')" /> {{ 'نمایش مقدار کنار برچسب' | translate }}
+                </label>
+            </div>
+        </div>
+    </div>-->
 
 
                 <div class="form-row" layout="row" layout-align="start center">
@@ -77,9 +87,9 @@
                                     {name:'65', value:'65%'},
                                     ]">
                             <!--<option value="0">0</option>
-                            <option value="25">25%</option>
-                            <option value="50">50%</option>
-                            <option value="65" selected="selected">65%</option>-->
+                <option value="25">25%</option>
+                <option value="50">50%</option>
+                <option value="65" selected="selected">65%</option>-->
                         </select>
                     </div>
                 </div>
@@ -95,9 +105,9 @@
                                     {name:'4', value:'الگوی رنگ 20 تایی سه'},
                                     ]">
                             <!--<option value="1">الگوی رنگ 10 تایی</option>
-                            <option value="2">الگوی رنگ 20 تایی یک</option>
-                            <option value="3">الگوی رنگ 20 تایی دو</option>
-                            <option value="4">الگوی رنگ 20 تایی سه</option>-->
+                <option value="2">الگوی رنگ 20 تایی یک</option>
+                <option value="3">الگوی رنگ 20 تایی دو</option>
+                <option value="4">الگوی رنگ 20 تایی سه</option>-->
                         </select>
                     </div>
                 </div>
