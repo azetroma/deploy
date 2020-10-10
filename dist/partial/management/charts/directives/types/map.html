@@ -338,7 +338,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row" layout="row" layout-align="start center" >
+                    <div class="form-row" layout="row" layout-align="start center">
                         <label>زوم شروع نمایش </label>
                         <span class="form-divider" flex></span>
                         <input type="number"
@@ -356,6 +356,44 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="col-sm-4">شاخص نمایش روی دایره</label>
+                        <span class="form-divider" flex></span><div class="col-sm-8">
+                            <select id="series-selector" ng-change="refreshChart('refresh')"
+                                    ng-model="ngModel.map.info.showLatLng.inCircleKpi"
+                                    ng-options="i as i for i in ngModel.series">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label>{{ 'فونت شاخص نمایش روی دایره' | translate }}</label>
+                        <span class="form-divider" flex></span>
+                        <text-editor prop="ngModel.map.info.showLatLng.inCircleFont" default="{fontSize:'14px', formatString:',.0f', align:'center'}" on-change="refreshChart('refresh')"></text-editor>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="col-sm-4">شاخص نمایش پاپ آپ</label>
+                        <span class="form-divider" flex></span><div class="col-sm-8">
+                            <select id="series-selector" ng-change="refreshChart('refresh')"
+                                    ng-model="ngModel.map.info.showLatLng.popupKpi"
+                                    ng-options="i as i for i in ngModel.series">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label>{{ 'فونت پاپ آپ' | translate }}</label>
+                        <span class="form-divider" flex></span>
+                        <text-editor prop="ngModel.map.info.showLatLng.popupFont" default="{fontSize:'14px', align:'center'}" on-change="refreshChart('refresh')"></text-editor>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="col-sm-4">متن دلخواه روی پاپ آپ</label>
+                        <span class="form-divider" flex></span><div class="col-sm-8">
+                            <input type="text" ng-model="ngModel.map.info.showLatLng.popupPrefix" ng-change="refreshChart('refresh')" />
+                        </div>
+                    </div>
 
 
                 </div>
@@ -370,13 +408,18 @@
         <menu-header>{{ 'مشخصات شاخص‌ها' | translate }}</menu-header>
         <menu-body>
             <div>
+
+
+
+
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'شاخص' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select id="series-selector" 
+                        <select id="series-selector"
                                 ng-model="ngModel.selectedSeries"
                                 ng-options="i as i for i in ngModel.series">
                         </select>
+                        <select-kpi ng-model="ngModel"></select-kpi>
                     </div>
                 </div>
 
