@@ -335,7 +335,7 @@
 
                     <div class="item sadaf-circular-preogress " style="position: relative;width: 20px;height: 18px;"></div>
 
-                    <div class="item dashboard-edit-panel" id="device-selector" cstyle="xmargin-top:4px; display:block;  white-space:nowrap; xmargin-top: 6px;">
+                    <div class="item dashboard-edit-panel" id="device-selector" style="display:none">
                         <div class="ui horizontal list">
 
                             <div class="item"><i id="laptop" class="icon laptop "></i></div>
@@ -345,26 +345,27 @@
                         </div>
                     </div>
 
-                    <div class="item dashboard-edit-panel" title="{{'print' | translate}}" ng-click="print()">
+                    <div class="item  xdashboard-edit-panel" style="display:xnone" title="{{'print' | translate}}" ng-click="print()">
                         <i class="icons large pointer">
                             <i class="print  icon"></i>
                         </i>
                     </div>
-                    <div class="item dashboard-edit-panel" title="{{'export' | translate}}" ng-click="export()">
+
+                    <div class="item dashboard-edit-panel"  style="display:none"title="{{'export' | translate}}" ng-click="export()">
                         <i class="icons large pointer">
                             <i class="icon arrow alternate circle up outline"></i>
                         </i>
                     </div>
 
 
-                    <div class="item dashboard-edit-panel" title="{{'add chart' | translate}}" ng-click="addChart()">
+                    <div class="item dashboard-edit-panel"  style="display:none"title="{{'add chart' | translate}}" ng-click="addChart()">
                         <i class="icons large pointer xadd-chart-btn">
                             <i class="chart area icon"></i>
                             <i class="corner add icon"></i>
                         </i>
                     </div>
 
-                    <div class="item dashboard-edit-panel" title="{{'add form' | translate}}" ng-click="addFormSettings.visible = true">
+                    <div class="item dashboard-edit-panel"  style="display:none" title="{{'add form' | translate}}" ng-click="addFormSettings.visible = true">
                         <i class="icons large pointer" ng-click="addFormSettings.visible = true">
                             <i class="clipboard outline icon"></i>
                             <i class="corner add icon"></i>
@@ -372,7 +373,7 @@
                         <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
                     </div>
 
-                    <div class="item dashboard-edit-panel" title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
+                    <div class="item dashboard-edit-panel"  style="display:none" title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
                         <i class="large share alternate icon pointer"></i>
                     </div>
                     @if (useApp) {
@@ -395,7 +396,7 @@
                         </a>
                     }
 
-                    <div class="item ui dropdown" ng-show="@(ViewBag.isLoginByLink ??false)">
+                    <div class="item ui dropdown" ng-show="@(ViewBag.xisLoginByLink ?? false)">
                         <div style="white-space:nowrap">
                             <span class="user-account-hide-segment">
                                 @{
@@ -708,7 +709,7 @@
             localStorage.setItem('userVariable',JSON.stringify( userVariable));
         }
 
-        localStorage.setItem('defaultDashboard','@ViewBag.defaultDashboard');
+        localStorage.setItem('defaultDashboard', '@ViewBag.defaultDashboard');
 
         $('.ui.dropdown').dropdown();
         $('.ui.checkbox').checkbox();
