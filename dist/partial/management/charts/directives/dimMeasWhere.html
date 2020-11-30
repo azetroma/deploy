@@ -134,7 +134,7 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label>{{ 'فونت' | translate }}</label>
                     <span class="form-divider" flex></span>
-                    <text-editor config="{format:true}" prop="dimensions[model.selectedDimension].detail.histogramCategory.font" on-change="change()"></text-editor>
+                    <text-editor config="tConfig" prop="dimensions[model.selectedDimension].detail.histogramCategory.font" on-change="change()"></text-editor>
                 </div>
                 <div class="form-row" layout="row" layout-align="start center">
                     <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.customLabelEnable">استفاده از برچسب دلخواه</sadaf-checkbox>

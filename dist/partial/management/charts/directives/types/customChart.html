@@ -5,70 +5,26 @@
         <menu-body class="prop-section  form-horizontal">
             <div>
 
-                <general-settings ng-if="ngModel.customChartSettingTemplat.hasGeneralSettings" ng-model="ngModel[type].info" ng-change="refreshChart('refresh')"></general-settings>
-              sss  {{type}}
+                <general-settings ng-if="ngModel.customChartSettingTemplat.hasGeneralSettings" ng-model="ngModel[type].info" ng-change="refreshChart('refreshWithData')"></general-settings>
+                
                 <div ng-repeat="item in ngModel.customChartSettingTemplat.general">
 
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'color'">
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'position' && (!item.if ||  ngModel[type].general[item.if.key] == item.if.value)">
                         <label class="col-sm-4">{{item.title}}</label>
                         <span class="form-divider" flex></span>
                         <div class="col-sm-8">
-                            <div md-color-picker ng-model="ngModel[type].general[item.key]" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
+                            <legend-position ng-model="ngModel[type].general[item.key]" ng-change="refreshChart('refresh')"></legend-position>
                         </div>
-                    </div>
+                    </div> 
 
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'editor'">
-                        <ng-quill-editor on-content-changed="refreshChart('refresh')" style="direction:ltr;"
-                                         ng-model="ngModel[type].general[item.key]"
-                                         ng-init="ngModel[type].general[item.key]"></ng-quill-editor>
-                    </div>
+                    <general-custom-control parent="ngModel[type].general" item="item" change="refreshChart('refresh')"></general-custom-control>
 
+                    <div ng-if="item.type=='section' && (!item.if ||  ngModel[type].general[item.if.key] == item.if.value)" style=" padding: 10px; margin: 10px 0px; background-color: rgb(239, 239, 239); border-radius: 4px;">
+                        <general-custom-control ng-repeat="i in item.items" parent="ngModel[type].general" item="i" change="refreshChart('refresh')"></general-custom-control>
+                    </div> 
 
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'icon'">
-                        <label class="col-sm-4">{{item.title}}</label>
-                        <span class="form-divider" flex></span>
-                        <div class="col-sm-8">
-                            <sadaf-icons ng-model="ngModel[type].general[item.key]" ng-change="refreshChart('refresh')"></sadaf-icons>
-                        </div>
-                    </div>
-
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'checkbox'">
-                        <div class="col-sm-offset-4 col-sm-8">
-                            <div class="checkbox">
-                                <label class="">
-                                    <input type="checkbox" ng-model="ngModel[type].general[item.key]" ng-change="refreshChart('refresh')" /> {{item.title}}
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'text' || item.type == 'number'">
-                        <label class="col-sm-4">{{item.title}}</label>
-                        <span class="form-divider" flex></span>
-                        <div class="col-sm-8">
-                            <input type="{{item.type}}" class="form-control" placeholder="{{item.title }}" ng-model="ngModel[type].general[item.key]"
-                                   ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" />
-                        </div>
-                    </div>
-
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'font'">
-                        <label>{{item.title}}</label>
-                        <span class="form-divider" flex></span>
-                        <text-editor prop="ngModel[type].general[item.key]" on-change="refreshChart('refresh')"></text-editor>
-                    </div>
-
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'select'">
-                        <label class="col-sm-4">{{ item.title }}</label>
-                        <span class="form-divider" flex></span>
-                        <select ng-model="ngModel[type].general[item.key]" ng-change="refreshChart('refreshWithData')"
-                                ng-options="i.value as i.name for i in item.entries"></select>
-                    </div>
-
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'dim-color'">
-                        <!--<label class="col-sm-4">{{ item.title }}</label>
-            <span class="form-divider" flex></span>-->
-                        <dimention-color-selector ng-model="ngModel[type].general.dimColor" dim-color="ngModel.dimColor" ng-change="refreshChart('refresh')"></dimention-color-selector>
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'dim-color' && (!item.if || ngModel[type].general[item.if.key]== item.if.value)">
+                        <dimention-color-selector style="width:100%" ng-model="ngModel[type].general[item.key]" dim-color="ngModel.dimColor" ng-change="refreshChart('refresh')"></dimention-color-selector>
                     </div>
 
                 </div>
@@ -79,7 +35,7 @@
         </menu-body>
     </menu-item>
 
-    <menu-item ng-show="ngModel.series && ngModel.series.length>0" name="series">
+    <menu-item ng-show="ngModel.series && ngModel.series.length>0" name="series" ng-init="ngModel[type].series['{All}'] = {}">
         <menu-header data-toggle="">{{ 'مشخصات شاخص‌ها' | translate }}</menu-header>
         <menu-body class="prop-section form-horizontal   ">
             <div>
@@ -94,64 +50,16 @@
                     </div>
                 </div>
 
-                <top-measure dims="dimensions" ng-model="ngModel[type].series[ngModel.selectedSeries].top" ng-change="refreshChart('refreshWithData');"></top-measure>
+                <top-measure dims="dimensions" ng-model="ngModel[type].series[ngModel.selectedSeries].top" ng-change="refreshChart('refreshWithData');" ></top-measure>
 
                 <div ng-repeat="item in ngModel.customChartSettingTemplat.series">
 
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'checkbox'">
-                        <div class="col-sm-offset-4 col-sm-8">
-                            <div class="checkbox">
-                                <label class="">
-                                    <input type="checkbox" ng-model="ngModel[type].series[ngModel.selectedSeries][item.key]" ng-change="refreshChart('refresh')" /> {{item.title}}
-                                </label>
-                            </div>
-                        </div>
+                    <general-custom-control parent="ngModel[type].series[ngModel.selectedSeries]" item="item" change="refreshChart('refresh');changeAllSeries(item.key)"></general-custom-control>
+
+                    <div ng-if="item.type=='section' && (!item.if ||  ngModel[type].series[ngModel.selectedSeries][item.if.key] == item.if.value)" style=" padding: 10px; margin: 10px 0px; background-color: rgb(239, 239, 239); border-radius: 4px;">
+                        <general-custom-control ng-repeat="i in item.items" parent="ngModel[type].series[ngModel.selectedSeries]" item="i" change="refreshChart('refresh');changeAllSeries(item.key)"></general-custom-control>
                     </div>
 
-
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'text' || item.type == 'number'">
-                        <label class="col-sm-4">{{item.title}}</label>
-                        <span class="form-divider" flex></span>
-                        <div class="col-sm-8">
-                            <input type="{{item.type}}" class="form-control" placeholder="{{item.title }}" ng-model="ngModel[type].series[ngModel.selectedSeries][item.key]"
-                                   ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" />
-                        </div>
-                    </div>
-
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'select'">
-                        <label class="col-sm-4">{{ item.title }}</label>
-                        <span class="form-divider" flex></span>
-                        <select ng-model="ngModel[type].series[ngModel.selectedSeries][item.key]" ng-change="refreshChart('refreshWithData')"
-                                ng-options="i.value as i.name for i in item.entries"></select>
-                    </div>
-
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'font'">
-                        <label>{{item.title}}</label>
-                        <span class="form-divider" flex></span>
-                        <text-editor prop="ngModel[type].series[ngModel.selectedSeries][item.key]" on-change="refreshChart('refresh')"></text-editor>
-                    </div>
-
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'color'">
-                        <label class="col-sm-4">{{item.title}}</label>
-                        <span class="form-divider" flex></span>
-                        <div class="col-sm-8">
-                            <div md-color-picker ng-model="ngModel[type].series[ngModel.selectedSeries][item.key]" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'editor'">
-                        <ng-quill-editor on-content-changed="refreshChart('refresh')" style="direction:ltr;"
-                                         ng-model="ngModel[type].series[ngModel.selectedSeries][item.key]"
-                                         ng-init="ngModel[type].series[ngModel.selectedSeries][item.key]"></ng-quill-editor>
-                    </div>
-
-                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'icon'">
-                        <label class="col-sm-4">{{item.title}}</label>
-                        <span class="form-divider" flex></span>
-                        <div class="col-sm-8">
-                            <sadaf-icons ng-model="ngModel[type].series[ngModel.selectedSeries][item.key]" ng-change="refreshChart('refresh')"></sadaf-icons>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -160,7 +68,7 @@
 
     <alert prop="ngModel"  config="{name:'bar'}"></alert>
 
-    <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'bar', show:[1]}"></table-indicator>
+    <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:key, show:[1], legend: true}"></table-indicator>
 
     <global-variable dimensions="dimensions" measures="measures" prop="ngModel"></global-variable>
 

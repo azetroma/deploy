@@ -120,6 +120,17 @@
 </div>
 <small class="grey">در صورت نیاز به چند گروه اسم گروه‌ها را با , از هم جدا کنید</small>
 
+<div class="form-row" layout="row" layout-align="start center">
+    <div class="col-sm-offset-4 col-sm-8">
+        <div class="checkbox">
+            <label class="">
+                <input type="checkbox" ng-model="model.transpose" ng-change="change()" /> {{ 'transpose' | translate }}
+            </label>
+        </div>
+    </div>
+</div>
+<small class="grey">در صورت فعال کردن این گزینه امکان رفتن به عمق غیر فعال می‌شود</small>
+
 <div ng-show="license.chartExportApi">
     <div class="form-row" layout="row" layout-align="start center">
         <div class="col-sm-offset-4 col-sm-8">

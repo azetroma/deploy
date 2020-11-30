@@ -555,7 +555,7 @@
                     <div class="form-row" layout="row" layout-align="start center">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('showValues')" ng-model="ngModel.bar.series[ngModel.selectedSeries].boxOption.showq1q3Value" /> نمایش اعداد چارک اول و سوم
+                                <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('showq1q3Value')" ng-model="ngModel.bar.series[ngModel.selectedSeries].boxOption.showq1q3Value" /> نمایش اعداد چارک اول و سوم
                             </label>
                         </div>
                         <span class="form-divider" flex ng-show="ngModel.bar.series[ngModel.selectedSeries].boxOption.showq1q3Value"></span>
@@ -565,7 +565,7 @@
                     <div class="form-row" layout="row" layout-align="start center">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('showValues')" ng-model="ngModel.bar.series[ngModel.selectedSeries].boxOption.showMidValue" /> نمایش عدد میانه
+                                <input type="checkbox" ng-change="refreshChart('refresh'); changeAllSeries('showMidValue')" ng-model="ngModel.bar.series[ngModel.selectedSeries].boxOption.showMidValue" /> نمایش عدد میانه
                             </label>
                         </div>
                         <span class="form-divider" flex ng-show="ngModel.bar.series[ngModel.selectedSeries].boxOption.showMidValue"></span>

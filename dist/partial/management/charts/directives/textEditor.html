@@ -25,6 +25,26 @@
             </div>
         </div>
 
+        <div class="form-row" layout="row" layout-align="start center" ng-show="config.anchor">
+            <label>{{ 'مکان در طول' | translate }}</label>
+            <span class="form-divider" flex></span>
+            <div class="ui mini icon buttons">
+                <button ng-class="{active: model.anchor==='start'}" ng-click="model.anchor = 'start'; onChange();" class="ui button"><i class="align right icon"></i></button>
+                <button ng-class="{active: model.anchor==='center'}" ng-click="model.anchor = 'center'; onChange();" class="ui button"><i class="align center icon"></i></button>
+                <button ng-class="{active: model.anchor==='end'}" ng-click="model.anchor = 'end'; onChange();" class="ui button"><i class="align left icon"></i></button>
+            </div>
+        </div>
+
+        <div class="form-row" layout="row" layout-align="start center" ng-show="config.position">
+            <label>{{ 'مکان نسبت به خط زمینه' | translate }}</label>
+            <span class="form-divider" flex></span>
+            <div class="ui mini icon buttons">
+                <button ng-class="{active: model.position==='start'}" ng-click="model.position = 'start'; onChange();" class="ui button"><i class="align right icon"></i></button>
+                <button ng-class="{active: model.position==='center'}" ng-click="model.position = 'center'; onChange();" class="ui button"><i class="align center icon"></i></button>
+                <button ng-class="{active: model.position==='end'}" ng-click="model.position = 'end'; onChange();" class="ui button"><i class="align left icon"></i></button>
+            </div>
+        </div>
+
 
         <div class="form-row" layout="row" layout-align="start center" ng-show="config.size">
             <label>{{ 'اندازه نوشته' | translate }}</label>
@@ -53,28 +73,6 @@
                                     {name:'72px', value: '72'  },
                                     {name:'95px', value: '95'  },
                                     ]">
-                <!--<option value="8px">8</option>
-            <option value="9px">9</option>
-            <option value="10px">10</option>
-            <option value="11px">11</option>
-            <option value="12px">12</option>
-            <option value="13px">13</option>
-            <option value="14px">14</option>
-            <option value="15px">15</option>
-            <option value="16px">16</option>
-            <option value="18px">18</option>
-            <option value="22px">22</option>
-            <option value="24px">24</option>
-            <option value="28px">28</option>
-            <option value="30px">30</option> 
-            <option value="32px">32</option>
-            <option value="34px">34</option>
-            <option value="36px">36</option>
-            <option value="40px">40</option>
-            <option value="46px">46</option>
-            <option value="52px">52</option>
-            <option value="72px">72</option>
-            <option value="95px">95</option>-->
             </select>
 
         </div>
@@ -91,16 +89,13 @@
                                     {name:'adobe', value:'Adobe'},
                                     {name:'sadaf_yekan', value:'Yekan'},
                                     ]">
-                <!--<option value="IRANSans">IRANSans</option>
-            <option value="Droid">Droid</option>
-            <option value="Tahoma">Tahoma</option>
-            <option value="Arial">Arial</option>
-            <option value="adobe">Adobe</option>
-            <option value="sadaf_yekan">Yekan</option>-->
-
             </select>
+        </div>
 
-
+        <div class="form-row" layout="row" layout-align="start center" ng-show="config.rotate">
+            <label>{{ 'چرخش' | translate }}</label>
+            <span class="form-divider" flex></span>
+            <input ng-model="model.rotate" ng-change="onChange()" type="number" />
         </div>
 
         <div class="form-row" layout="row" layout-align="start center" ng-show="config.color">
@@ -113,7 +108,7 @@
         <div class="form-row" layout="row" layout-align="start center" ng-show="config.format">
             <label>{{ 'فرمت نمایش' | translate }}</label>
             <span class="form-divider" flex></span>
-            <sd-format ng-change="onChange()" ng-model="model.formatString"></sd-format>
+            <sd-format ng-change="change()" ng-model="model.formatString"></sd-format>
             <div>
 
                 <input type="text" class="ltr"

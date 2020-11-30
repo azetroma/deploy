@@ -78,6 +78,7 @@
         <script src="~/src/js/management/charts/directives/GlobalVariable.js?v=@v"></script>
         <script src="~/src/js/management/charts/directives/NumberFormat.js?v=@v"></script>
         <script src="~/src/js/management/charts/directives/TextEditor.js?v=@v"></script>
+        <script src="~/src/js/management/charts/directives/generalControl.js?v=@v"></script>
         <script src="~/src/js/management/charts/directives/dimentionColorSelector.js?v=@v"></script>
         <script src="~/src/js/management/charts/editor.js?v=@v"></script>
         <script src="~/src/js/management/menu.js?v=@v"></script>
@@ -108,7 +109,17 @@
         <script src="~/src/js/charts/su.d3-utils.js?v=@v"></script>
         <script src="~/src/js/charts/su.filterMemberDialog.js?v=@v"></script>
         <script src="~/src/js/charts/su.jquery.sit.BarChart.js?v=@v"></script>
-        <script src="~/src/js/charts/newCharts/bubble.js?v=@v"></script>
+
+        foreach(var f in Directory.GetFiles(Server.MapPath("~/src/js/charts/newCharts"))) {
+            if (Path.GetExtension(f) == ".js") { 
+            <text>
+                <script src="~/src/js/charts/newCharts/@Path.GetFileName(f)?v=@v"></script>
+            </text>
+            }
+        }
+
+        @*<script src="~/src/js/charts/newCharts/bubble.js?v=@v"></script>*@
+        @*<script src="~/src/js/charts/newCharts/horizontal-bar-chart.js?v=@v"></script>*@
         <script src="~/src/js/charts/jquery.sit.Chart.js?v=@v"></script>
         <script src="~/src/js/charts/su.jquery.sit.Gauge.js?v=@v"></script>
         <script src="~/src/js/charts/jquery.sit.Map.js?v=@v"></script>
@@ -119,7 +130,7 @@
         <script src="~/src/js/charts/jquery.sit.Text.js?v=@v"></script>
         <script src="~/src/js/charts/su.jquery.sit.UserControl.js?v=@v"></script>
         <script src="~/src/js/charts/tipsy.js"></script>
-        <script src="~/src/js/dashboardPage/app.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.app.js?v=@v"></script>
         <script src="~/src/js/dashboardPage/su.dashboardLayout.js?v=@v"></script>
 
         @*<link href="~/src/css/management/OlapChartDesign.css?v=@v" rel="stylesheet" />

@@ -19,70 +19,69 @@
                 </md-card-title>
 
                 <md-card-content layout-padding id="main-form">
-                    <div>
+                    <div class="ui form">
 
                         <form name="webForm">
+                            <div class="fields">
 
-                            <md-input-container class="md-block">
+                            <div class="six wide column field">
                                 <label>{{'نام' | translate}}</label>
                                 <input required name="name" ng-model="model.name">
                                 <div ng-messages="webForm.name.$error">
                                     <div ng-message="required">{{'form_name_required' | translate}}</div>
                                 </div>
-                            <div class="ui small form" ng-show="id > 0"> <b>نام جدول: </b>{{tableName}}</div>
-                            </md-input-container>
+                                <div class="ui small form gray" ng-show="id > 0"> <b>نام جدول: </b>{{tableName}}</div>
+                            </div>
+                            <div class="three wide column field" >
+                                <label>{{'نوع داده' | translate}}</label>
+                                <sm-dropdown items="[{key:'XML', value:'XML'},{key:'CSV', value:'CSV'},{key:'JSON', value:'JSON'},{key:'SOAP', value:'SOAP'}]"
+                                             class="selection fluid"
+                                             model="model.type" label="item.value" value="item.key"></sm-dropdown>
 
-                            <md-input-container class="md-block">
+                            </div>
+
+                            <div class="three wide column field" ng-hide="model.type == 'SOAP'">
+                                <label>{{'متد' | translate}}</label>
+                                <sm-dropdown items="[{key:'GET', value:'GET'},{key:'POST', value:'POST'}]" class="selection fluid"
+                                             model="model.method" label="item.value" value="item.key"></sm-dropdown>
+
+                            </div>
+                            </div>
+
+                            <div class="field">
                                 <label>URL</label>
                                 <input required name="url" class="ltr" ng-model="model.url">
                                 <div ng-messages="webForm.url.$error">
                                     <div ng-message="required">{{'form_url_required' | translate}}</div>
                                 </div>
-                            </md-input-container>
+                            </div>
 
 
-                            <md-input-container class="md-block" flex-gt-sm>
-                                <label>{{'نوع داده' | translate}}</label>
-                                <md-select ng-model="model.type">
-                                    <md-option value="XML">XML</md-option>
-                                    <md-option value="CSV">CSV</md-option>
-                                    <md-option value="JSON">JSON</md-option>
-                                    <md-option value="SOAP">SOAP</md-option>
-                                </md-select>
-                            </md-input-container>
-
-                            <md-input-container class="md-block" flex-gt-sm ng-hide="model.type == 'SOAP'">
-                                <label>{{'متد' | translate}}</label>
-                                <md-select ng-model="model.method">
-                                    <md-option value="GET">GET</md-option>
-                                    <md-option value="POST">POST</md-option>
-                                </md-select>
-                            </md-input-container>
 
 
                             <div ng-show="model.type == 'SOAP'">
-                                <md-input-container class="md-block" flex-gt-sm>
+                                <div class="field" flex-gt-sm>
                                     <label>{{'Content Type' | translate}}</label>
-                                    <md-select ng-model="model.contentType" class="ltr">
-                                        <md-option value="1">text/xml</md-option>
-                                        <md-option value="2">application/xml</md-option>
-                                        <md-option value="3">application/soap+xml</md-option>
-                                    </md-select>
-                                </md-input-container>
+                                    <select ng-model="model.contentType" class="ltr">
+                                        <option value="1">text/xml</option>
+                                        <option value="2">application/xml</option>
+                                        <option value="3">application/soap+xml</option>
+                                    </select>
+                                </div>
 
-                                <md-input-container class="md-block">
+                                <div class="field">
                                     <label>{{'Body' | translate}}</label>
-                                    <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px;"></textarea>
-                                </md-input-container>
+                                    <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
+                                </div>
 
-                                <md-input-container class="md-block">
+                                <div class="field">
                                     <label>{{'Result Tag' | translate}}</label>
                                     <input ng-model="model.resultTag">
-                                </md-input-container>
-                                <md-input-container class="md-block">
+                                </div>
+                                <div class="field">
                                     <label>{{'Result Tag Namespace' | translate}}</label>
                                     <input ng-model="model.resultTagNameSpace">
-                                </md-input-container>
+                                </div>
 
                                 <div style="font-size:0.8em; color:gray;margin-top: -20px;">
                                     <a ng-click="c = !c" class="pointer">راهنما</a>
@@ -119,6 +118,11 @@
 
                             </div>
 
+                            <!--<div class="field" ng-show="model.type != 'SOAP'">
+                                <label>{{'Body' | translate}}</label>
+                                <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
+                            </div>-->
+
                             <p ng-click="showParams = !showParams" layout="row" class="pointer" ng-hide="model.type == 'SOAP'">
                                 <span class="material-icons icon-animate" ng-class="{'rotate-90' : showParams}">keyboard_arrow_left</span>
                                 <span>{{'پارامترها' | translate}}</span>
@@ -126,21 +130,25 @@
                             <div layout="column" uib-collapse="!showParams" ng-hide="model.type == 'SOAP'">
                                 <div>
 
-                                    <div layout="row" ng-repeat="param in parameters" xlayout-padding>
-                                        <md-input-container md-no-float class="no-margin">
+                                    <div layout="row" ng-repeat="param in parameters" layout-align="start center">
+                                        <div md-no-float class="no-margin">
                                             <input ng-model="param.name" class="ltr" placeholder="{{'نام'|translate}}">
-                                        </md-input-container>
+                                        </div>
 
-                                        <md-input-container md-no-float class="no-margin">
+                                        <div md-no-float class="no-margin">
                                             <input ng-model="param.value" class="ltr" placeholder="{{'مقدار'|translate}}">
-                                        </md-input-container>
+                                        </div>
 
-                                        <md-input-container class="no-margin">
-                                            <md-select ng-model="param.type" aria-label="{{'form_select_param_type' | translate}}">
-                                                <md-option value="Query">Query</md-option>
-                                                <md-option value="Header">Header</md-option>
-                                            </md-select>
-                                        </md-input-container>
+                                        <div class="x">
+                                            <!--<select ng-model="param.type" aria-label="{{'form_select_param_type' | translate}}">
+                        <option value="Query">Query</option>
+                        <option value="Header">Header</option>
+                    </select>-->
+
+                                            <sm-dropdown items="[{key:'Query', value:'Query'},{key:'Header', value:'Header'}]" class="fluid"
+                                                         model="param.type" label="item.value" value="item.key"></sm-dropdown>
+
+                                        </div>
 
                                         <div layout="row" layout-margin>
 
@@ -163,51 +171,70 @@
                                 <span class="material-icons icon-animate" ng-class="{'rotate-90' : showAuth}">keyboard_arrow_left</span>
                                 <span>{{'احراز هویت' | translate}}</span>
                             </p>
-                            <div layout="column" uib-collapse="!showAuth" layout-padding>
-                                <md-input-container class="md-block" flex-gt-sm>
+                            <div class="three fields" uib-collapse="!showAuth" layout-padding>
+                                
+                                <div class="field" flex-gt-sm>
                                     <label>{{'احراز هویت' | translate}}</label>
-                                    <md-select ng-model="model.authenticationType">
-                                        <md-option value="Basic Authentication">Basic Authentication</md-option>
-                                    </md-select>
-                                </md-input-container>
+                                    <sm-dropdown items="[{key:'Basic Authentication', value:'Basic Authentication'}]" class="selection fluid"
+                                                 model="model.ModelType" label="item.value" value="item.key"></sm-dropdown>
+                                </div>
 
-                                <md-input-container class="md-block">
+                                <div class="field">
                                     <label>{{'نام کاربری' | translate}}</label>
                                     <input class="ltr" ng-model="model.user">
-                                </md-input-container>
+                                </div>
 
-                                <md-input-container class="md-block">
+                                <div class="field">
                                     <label>{{'کلمه عبور' | translate}}</label>
                                     <input class="ltr" ng-model="model.password">
-                                </md-input-container>
+                                </div>
 
                             </div>
                             <md-switch ng-model="model.ColumnStoreIndex" aria-label="ColumnStoreIndex">
                                 ایندکس ستونی
                             </md-switch>
+                            
+                            <div class="two fields">
 
                             <div class="field" flex-gt-sm ng-show="license.olap">
                                 <label>مدل ذخیره داده</label>
-                                <select ng-model="model.ModelType" ng-options="a.val as a.label for a in [{val:0, label:'SQL'},{val:1, label:'DAX'}]">
-                                </select>
+                                <sm-dropdown items="[{key:0, value:'SQL'},{key:1, value:'DAX'}]" class="selection fluid"
+                                             model="model.ModelType" label="item.value" value="item.key"></sm-dropdown>
                             </div>
 
-                            <md-input-container class="md-block" flex-gt-sm style="margin-top:36px;margin-bottom:0;">
+                            <div class="field">
                                 <label>به‌روز رسانی</label>
-                                <md-select ng-model="model.autoRefresh">
-                                    <md-option value="0">در لحظه</md-option>
-                                    <md-option value="1">هر یک دقیقه</md-option>
-                                    <md-option value="5">هر پنج دقیقه</md-option>
-                                    <md-option value="15">هر پانزده دقیقه</md-option>
-                                    <md-option value="30">هر سی دقیقه</md-option>
-                                    <md-option value="60">هر یک ساعت</md-option>
-                                    <md-option value="1440">هر روز</md-option>
-                                    <md-option value="10080">هر هفته</md-option>
-                                    <md-option value="40320">هر ماه</md-option>
-                                    <md-option value="2147483647">عدم به‌روز رسانی</md-option>
-                                    <md-option value="-1">زمانبندی...</md-option>
-                                </md-select>
-                            </md-input-container>
+                                <!--<select ng-model="model.autoRefresh">
+        <option value="0">در لحظه</option>
+        <option value="1">هر یک دقیقه</option>
+        <option value="5">هر پنج دقیقه</option>
+        <option value="15">هر پانزده دقیقه</option>
+        <option value="30">هر سی دقیقه</option>
+        <option value="60">هر یک ساعت</option>
+        <option value="1440">هر روز</option>
+        <option value="10080">هر هفته</option>
+        <option value="40320">هر ماه</option>
+        <option value="2147483647">عدم به‌روز رسانی</option>
+        <option value="-1">زمانبندی...</option>
+    </select>-->
+
+                                <sm-dropdown items="[{key:'0', value:'در لحظه'},
+                                                     {key:'1', value:'هر یک دقیقه'},
+                                                     {key:'5', value:'هر پنج دقیقه'},
+                                                     {key:'15', value:'هر پانزده دقیقه'},
+                                                     {key:'30', value:'هر سی دقیقه'},
+                                                     {key:'60', value:'هر یک ساعت'},
+                                                     {key:'1440', value:'هر روز'},
+                                                     {key:'10080', value:'هر هفته'},
+                                                     {key:'40320', value:'هر ماه'},
+                                                     {key:'2147483647', value:'عدم به‌روز رسانی'},
+                                                     {key:'-1', value:'زمانبندی...'}
+                                             ]" class="selection fluid"
+                                             model="model.autoRefresh" label="item.value" value="item.key"></sm-dropdown>
+
+
+                            </div>
+                            </div>
 
                             <datasource-schedule ng-show="model.autoRefresh==-1" ng-model="schedule"> </datasource-schedule>
 

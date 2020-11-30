@@ -351,21 +351,21 @@
                         </i>
                     </div>
 
-                    <div class="item dashboard-edit-panel"  style="display:none"title="{{'export' | translate}}" ng-click="export()">
+                    <div class="item dashboard-edit-panel" style="display:none" title="{{'export' | translate}}" ng-click="export()">
                         <i class="icons large pointer">
                             <i class="icon arrow alternate circle up outline"></i>
                         </i>
                     </div>
 
 
-                    <div class="item dashboard-edit-panel"  style="display:none"title="{{'add chart' | translate}}" ng-click="addChart()">
+                    <div class="item dashboard-edit-panel" style="display:none" title="{{'add chart' | translate}}" ng-click="addChart()">
                         <i class="icons large pointer xadd-chart-btn">
                             <i class="chart area icon"></i>
                             <i class="corner add icon"></i>
                         </i>
                     </div>
 
-                    <div class="item dashboard-edit-panel"  style="display:none" title="{{'add form' | translate}}" ng-click="addFormSettings.visible = true">
+                    <div class="item dashboard-edit-panel" style="display:none" title="{{'add form' | translate}}" ng-click="addFormSettings.visible = true">
                         <i class="icons large pointer" ng-click="addFormSettings.visible = true">
                             <i class="clipboard outline icon"></i>
                             <i class="corner add icon"></i>
@@ -373,7 +373,7 @@
                         <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
                     </div>
 
-                    <div class="item dashboard-edit-panel"  style="display:none" title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
+                    <div class="item dashboard-edit-panel" style="display:none" title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
                         <i class="large share alternate icon pointer"></i>
                     </div>
                     @if (useApp) {
@@ -642,7 +642,13 @@
         <script src="~/src/js/charts/su.d3-utils.js?v=@v"></script>
         <script src="~/src/js/charts/su.filterMemberDialog.js?v=@v"></script>
         <script src="~/src/js/charts/su.jquery.sit.BarChart.js?v=@v"></script>
-        <script src="~/src/js/charts/newCharts/bubble.js?v=@v"></script>
+        foreach (var f in Directory.GetFiles(Server.MapPath("~/src/js/charts/newCharts"))) {
+            if (Path.GetExtension(f) == ".js") {
+                <text>
+                    <script src="~/src/js/charts/newCharts/@Path.GetFileName(f)?v=@v"></script>
+                </text>
+            }
+        }
         <script src="~/src/js/charts/jquery.sit.Chart.js?v=@v"></script>
         <script src="~/src/js/charts/su.jquery.sit.Gauge.js?v=@v"></script>
         <script src="~/src/js/charts/jquery.sit.Map.js?v=@v"></script>
