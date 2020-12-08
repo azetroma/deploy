@@ -370,6 +370,7 @@
         //$('.ui.modal').modal();
 
         var app = app || {};
+        app.useEnglishDigit = JSON.parse("@((ViewBag.englishDigit ?? false ).ToString().ToLower())");
         app.shareMode = true;
         app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";

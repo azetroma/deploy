@@ -1,0 +1,25 @@
+﻿
+<div class="ui mini icon compact button font-popup">
+    <i class="icon setting "></i>
+</div>
+<div class="ui custom popup top left transition hidden">
+    <div class="ui mini form" ng-init="model.extraKpi=model.extraKpi||[]">
+        <div class="ui mini icon button" ng-click="addExtraKpi()">
+            <i class="ui icon add"></i>
+            اضافه کردن شاخص دستی
+        </div>
+<small class="gray">در صورت استفاده از امکان تغییر شاخص لازم است برخی تنظیمات را به صورت دستی وارد نمایید</small>
+        <br/>
+        <br/>
+        <div>
+
+            <div ng-repeat="i in model.extraKpi"class="ui fluid action input ng-scope flex" style="margin-bottom:4px" flex="">
+                <input ng-model-options="{ updateOn: 'blur' }" flex="" type="text" style="display: inline-block; direction: ltr; text-align: left;" placeholder="نام شاخص" ng-model="i.name" class="flex">
+                <div class="ui mini icon button" ng-click="removeExtraKpi($index)" role="button" tabindex="0" style=""><i class="ui icon close"></i></div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

@@ -729,6 +729,7 @@
         app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
         app.version = "@v";
+        app.useEnglishDigit = JSON.parse("@((ViewBag.englishDigit ?? false ).ToString().ToLower())");
 
         var AbsoluteUri = '@(System.Configuration.ConfigurationManager.AppSettings["AbsoluteUri"] ?? "")' ||"@Request.Url.AbsoluteUri";
 

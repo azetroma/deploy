@@ -88,8 +88,8 @@
         app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
         app.version = "@v";
-        app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
-        app.setAboluteUrl("@Request.Url.AbsoluteUri");
+        @*app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
+        app.setAboluteUrl("@Request.Url.AbsoluteUri");*@
 
         var hash = "@ViewBag.returnUrlHash";
         if (hash) {
