@@ -21,7 +21,14 @@
         var useApp = BLL.Process.CommonUtils.AppSettings.useApp();
     }
 
-    
+<script>
+            var app = app || {};
+        app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        app.hashUrlPrefix = "@Url.Action("management", "sadaf")" + "/";
+        app.version = "@v";
+
+</script>
 
     <link href="~/dist/css/admin-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
     <link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
@@ -163,11 +170,6 @@
     <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 
     <script>
-        var app = app || {};
-        app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
-        app.aboluteUrl = "@Request.Url.AbsoluteUri";
-        app.hashUrlPrefix = "@Url.Action("management", "sadaf")" + "/";
-        app.version = "@v";
     </script>
 
     <style>
@@ -305,8 +307,6 @@
         if (hash) {
             location.hash = hash;
         }
-
-
     </script>
     <script src="~/license.js?v=@v"></script>
     <script>

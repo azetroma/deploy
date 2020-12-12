@@ -24,28 +24,28 @@
                         <form name="webForm">
                             <div class="fields">
 
-                            <div class="six wide column field">
-                                <label>{{'نام' | translate}}</label>
-                                <input required name="name" ng-model="model.name">
-                                <div ng-messages="webForm.name.$error">
-                                    <div ng-message="required">{{'form_name_required' | translate}}</div>
+                                <div class="six wide column field">
+                                    <label>{{'نام' | translate}}</label>
+                                    <input required name="name" ng-model="model.name">
+                                    <div ng-messages="webForm.name.$error">
+                                        <div ng-message="required">{{'form_name_required' | translate}}</div>
+                                    </div>
+                                    <div class="ui small form gray" ng-show="id > 0"> <b>نام جدول: </b>{{tableName}}</div>
                                 </div>
-                                <div class="ui small form gray" ng-show="id > 0"> <b>نام جدول: </b>{{tableName}}</div>
-                            </div>
-                            <div class="three wide column field" >
-                                <label>{{'نوع داده' | translate}}</label>
-                                <sm-dropdown items="[{key:'XML', value:'XML'},{key:'CSV', value:'CSV'},{key:'JSON', value:'JSON'},{key:'SOAP', value:'SOAP'}]"
-                                             class="selection fluid"
-                                             model="model.type" label="item.value" value="item.key"></sm-dropdown>
+                                <div class="three wide column field">
+                                    <label>{{'نوع داده' | translate}}</label>
+                                    <sm-dropdown items="[{key:'XML', value:'XML'},{key:'CSV', value:'CSV'},{key:'JSON', value:'JSON'},{key:'SOAP', value:'SOAP'}]"
+                                                 class="selection fluid"
+                                                 model="model.type" label="item.value" value="item.key"></sm-dropdown>
 
-                            </div>
+                                </div>
 
-                            <div class="three wide column field" ng-hide="model.type == 'SOAP'">
-                                <label>{{'متد' | translate}}</label>
-                                <sm-dropdown items="[{key:'GET', value:'GET'},{key:'POST', value:'POST'}]" class="selection fluid"
-                                             model="model.method" label="item.value" value="item.key"></sm-dropdown>
+                                <div class="three wide column field" ng-hide="model.type == 'SOAP'">
+                                    <label>{{'متد' | translate}}</label>
+                                    <sm-dropdown items="[{key:'GET', value:'GET'},{key:'POST', value:'POST'}]" class="selection fluid"
+                                                 model="model.method" label="item.value" value="item.key"></sm-dropdown>
 
-                            </div>
+                                </div>
                             </div>
 
                             <div class="field">
@@ -119,9 +119,9 @@
                             </div>
 
                             <!--<div class="field" ng-show="model.type != 'SOAP'">
-                                <label>{{'Body' | translate}}</label>
-                                <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
-                            </div>-->
+        <label>{{'Body' | translate}}</label>
+        <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
+    </div>-->
 
                             <p ng-click="showParams = !showParams" layout="row" class="pointer" ng-hide="model.type == 'SOAP'">
                                 <span class="material-icons icon-animate" ng-class="{'rotate-90' : showParams}">keyboard_arrow_left</span>
@@ -172,7 +172,7 @@
                                 <span>{{'احراز هویت' | translate}}</span>
                             </p>
                             <div class="three fields" uib-collapse="!showAuth" layout-padding>
-                                
+
                                 <div class="field" flex-gt-sm>
                                     <label>{{'احراز هویت' | translate}}</label>
                                     <sm-dropdown items="[{key:'Basic Authentication', value:'Basic Authentication'}]" class="selection fluid"
@@ -193,32 +193,34 @@
                             <md-switch ng-model="model.ColumnStoreIndex" aria-label="ColumnStoreIndex">
                                 ایندکس ستونی
                             </md-switch>
-                            
+
+                            <md-switch ng-if="model.type == 'CSV'" ng-model="model.streamMode">دریافت داده به صورت استریم </md-switch>
+
                             <div class="two fields">
 
-                            <div class="field" flex-gt-sm ng-show="license.olap">
-                                <label>مدل ذخیره داده</label>
-                                <sm-dropdown items="[{key:0, value:'SQL'},{key:1, value:'DAX'}]" class="selection fluid"
-                                             model="model.ModelType" label="item.value" value="item.key"></sm-dropdown>
-                            </div>
+                                <div class="field" flex-gt-sm ng-show="license.olap">
+                                    <label>مدل ذخیره داده</label>
+                                    <sm-dropdown items="[{key:0, value:'SQL'},{key:1, value:'DAX'}]" class="selection fluid"
+                                                 model="model.ModelType" label="item.value" value="item.key"></sm-dropdown>
+                                </div>
 
-                            <div class="field">
-                                <label>به‌روز رسانی</label>
-                                <!--<select ng-model="model.autoRefresh">
-        <option value="0">در لحظه</option>
-        <option value="1">هر یک دقیقه</option>
-        <option value="5">هر پنج دقیقه</option>
-        <option value="15">هر پانزده دقیقه</option>
-        <option value="30">هر سی دقیقه</option>
-        <option value="60">هر یک ساعت</option>
-        <option value="1440">هر روز</option>
-        <option value="10080">هر هفته</option>
-        <option value="40320">هر ماه</option>
-        <option value="2147483647">عدم به‌روز رسانی</option>
-        <option value="-1">زمانبندی...</option>
-    </select>-->
+                                <div class="field">
+                                    <label>به‌روز رسانی</label>
+                                    <!--<select ng-model="model.autoRefresh">
+                <option value="0">در لحظه</option>
+                <option value="1">هر یک دقیقه</option>
+                <option value="5">هر پنج دقیقه</option>
+                <option value="15">هر پانزده دقیقه</option>
+                <option value="30">هر سی دقیقه</option>
+                <option value="60">هر یک ساعت</option>
+                <option value="1440">هر روز</option>
+                <option value="10080">هر هفته</option>
+                <option value="40320">هر ماه</option>
+                <option value="2147483647">عدم به‌روز رسانی</option>
+                <option value="-1">زمانبندی...</option>
+            </select>-->
 
-                                <sm-dropdown items="[{key:'0', value:'در لحظه'},
+                                    <sm-dropdown items="[{key:'0', value:'در لحظه'},
                                                      {key:'1', value:'هر یک دقیقه'},
                                                      {key:'5', value:'هر پنج دقیقه'},
                                                      {key:'15', value:'هر پانزده دقیقه'},
@@ -230,10 +232,10 @@
                                                      {key:'2147483647', value:'عدم به‌روز رسانی'},
                                                      {key:'-1', value:'زمانبندی...'}
                                              ]" class="selection fluid"
-                                             model="model.autoRefresh" label="item.value" value="item.key"></sm-dropdown>
+                                                 model="model.autoRefresh" label="item.value" value="item.key"></sm-dropdown>
 
 
-                            </div>
+                                </div>
                             </div>
 
                             <datasource-schedule ng-show="model.autoRefresh==-1" ng-model="schedule"> </datasource-schedule>

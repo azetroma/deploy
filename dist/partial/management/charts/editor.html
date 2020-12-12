@@ -452,11 +452,24 @@
                     }
 
                     .chart-type-item {
-                        padding: 10px 14px;
+                        padding: 4px 4px;
                         cursor: pointer;
                         font-size: 13px;
+                        position:relative;
                         /*border-radius: 4px;*/
                     }
+
+                        .chart-type-item .icon {
+                            width: 70px;
+                        }
+                        .chart-type-item .title {
+                            position: absolute;
+                            left: 50%;
+                            font-size: 11px;
+                            top: 50%;
+                            transform: translate(-50%,-50%);
+                            /*font-weight: 800;*/
+                        }
 
                         .chart-type-item:hover {
                             background-color: #efefef;
@@ -470,7 +483,7 @@
                 </style>
 
 
-                <md-menu>
+                <md-menu ng-if="!newChartEnable">
                     <md-button ng-click="$mdMenu.open($event)" style="font-size:10px">
                         {{getChartName() }}
                     </md-button>
@@ -539,17 +552,17 @@
                             <md-divider></md-divider>
 
                             <div layout="row" layout-wrap>
-                                <div flex="25" ng-repeat="i in newChartList">
-                                    <div ng-repeat="x in i.expandedChartType " ng-class="{'active': expandedChartType == x.type }" ng-click="$mdMenu.hide();changeChartType(x.type)"><div class="chart-type-item">{{ x.name | translate}}</div></div>
+                                <div flex="25" ng-repeat="x in newChartList">
+                                    <div ccc ng-class="{'active': expandedChartType == x.type }" ng-click="$mdMenu.hide();changeChartType(x.type)">
+                                        <div class="chart-type-item">
+                                            {{ x.name | translate}}
+                                            <div ng-if="x.iconLink"><img src="{{x.iconLink}}" /></div>{{x.iconLink}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <md-divider></md-divider>
-
-                            <!--<div layout="row" layout-wrap>
-        <div ng-repeat="c in customCharts" flex="25" ng-class="{'active': expandedChartType == c.id+1000 }" ng-click="$mdMenu.hide();changeChartType(c.id+1000, true)"><div class="chart-type-item">{{c.name}}</div></div>
-    </div>-->
-
 
                             <div ng-repeat="(k, v) in customCharts2">
                                 <div style="padding:4px 8px; color: #9e9e9e;font-size: 0.8em;"> {{k == 'null'? 'بدون دسته‌بندی' : k}}</div>
@@ -562,8 +575,44 @@
                         </div>
                     </md-menu-content>
                 </md-menu>
+            <div class="chart-selector ui small button" ng-if="newChartEnable"> {{getChartName() }}</div>
+                <div class="ui flowing basic admission popup" ng-if="newChartEnable" style="padding:0;">
+                    <div style="max-height:250px;overflow-y:auto">
 
+                        <div layout="row" layout-wrap>
+                            <div ng-repeat="x in newChartList">
+                                <div ccc ng-class="{'active': expandedChartType == x.type }" ng-click="hidemenu(x.type);">
+                                    <div class="chart-type-item" layout="row">
+                                        <img class="icon" src="{{x.iconLink || defaultIcon}}" title=" {{ x.name | translate}}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <md-divider></md-divider>
+
+                        <div ng-repeat="i in oldcharts">
+                            <div layout="row" layout-wrap>
+                                <div ng-repeat="c in i.items" ng-class="{'active': expandedChartType == c.type  }" ng-click="hidemenu(c.type)">
+                                    <div class="chart-type-item">
+                                        <img class="icon" src="{{c.iconLink || defaultIcon}}" title=" {{ c.title | translate}}" />
+                                        <span class="title" ng-if="!c.iconLink"> {{c.title | translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <md-divider></md-divider>
+                        </div>
+
+                        <div ng-repeat="(k, v) in customCharts2">
+                            <div style="padding:4px 8px; color: #9e9e9e;font-size: 0.8em;"> {{k == 'null'? 'بدون دسته‌بندی' : k}}</div>
+                            <div layout="row" layout-wrap>
+                                <div ng-repeat="c in v" flex="25" ng-class="{'active': expandedChartType == c.id+1000 }" ng-click="$mdMenu.hide();changeChartType(c.id+1000, true)"><div class="chart-type-item">{{c.name}}</div></div>
+                            </div>
+                            <md-divider></md-divider>
+                        </div>
+
+                    </div>
+                </div>
 
                 <div class="ui basic buttons">
 
@@ -608,6 +657,7 @@
         <div class="data-tab" flex="35" ng-show="type!='combo-kpi'" layout="row">
             <div flex="33" layout="column" layout-fill>
                 <!--<div class="datasource-item-header">{{ 'ابعاد (ستون‌های رشته‌ای)' | translate }}</div>-->
+                
                 <div class="datasource-item-header">{{ 'dimestions' | translate }} <span style="font-size:0.7em; color:gray">{{ 'categorical_fields' | translate }}</span></div>
                 <md-content flex id="divX" class="item-container" ui-sortable="sortableOptions" ng-model="dimensions">
                     <div flex layout="row" layout-align="start center" ng-click="gotoDimentionSettings(i, $index)" ng-repeat="i in dimensions track by $index" class="pointer datasource-item">
@@ -624,6 +674,7 @@
 
             <div flex="33" layout="column" layout-fill>
                 <!--<div class="datasource-item-header">{{ 'شاخص‌ها (ستون‌های عددی)' | translate }}</div>-->
+                
                 <div class="datasource-item-header">{{ 'measures' | translate }} <span style="font-size:0.7em; color:gray">{{ 'numerical_fields' | translate }}</span></div>
                 <md-content flex id="divY" class="item-container" ui-sortable="sortableOptions" ng-model="measures" layout-fill>
                     <div flex layout="row" layout-align="start center" ng-click="gotoMeasureSettings(i, $index)" ng-repeat="i in measures track by $index" class="pointer datasource-item">
@@ -823,6 +874,7 @@
                                                                 {name:'condition', value: 'شرط'  },
                                                             ]">
                                             <!--<option value="condition">{{ 'شرط' | translate}}</option>-->
+                                            ec
                                         </select>
                                     </div>
                                 </div>
