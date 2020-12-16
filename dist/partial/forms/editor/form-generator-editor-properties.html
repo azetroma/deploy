@@ -523,7 +523,12 @@
                     <label>نام ستون</label>
                     <input type="text" ng-model="item.column" />
                 </div>
-                <sadaf-user-variables class="five wide" ng-model="item.variable"></sadaf-user-variables>
+
+                <div class="five wide field">
+                    <label>نام متغیر</label>
+                    <sadaf-user-variables class="five wide" ng-model="item.variable"></sadaf-user-variables>
+                </div>
+
                 <div class="field">
                     <label>&nbsp;</label>
                     <div class="ui icon basic mini button" ng-click="c.userVariables.splice($index, 1)"><i class="ui icon close" /></div>
