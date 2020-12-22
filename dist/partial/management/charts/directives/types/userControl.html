@@ -6,7 +6,7 @@
             <div>
                 <input type="hidden" data-prop="canExportXlsx" value="false" />
 
-                <general-settings ng-model="ngModel.userControl.info" ng-change="refreshChart('refreshWithData')"></general-settings>
+                <general-settings props="ngModel" ng-model="ngModel.userControl.info" ng-change="refreshChart('refreshWithData')"></general-settings>
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="">{{ 'نوع کنترل' | translate }}</label>

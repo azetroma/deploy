@@ -131,6 +131,31 @@
 </div>
 <small class="grey">در صورت فعال کردن این گزینه امکان رفتن به عمق غیر فعال می‌شود</small>
 
+<div class="form-row" layout="row" layout-align="start center">
+    <div class="checkbox">
+            <label class="">
+                <input type="checkbox" ng-model="model.sort.enable" ng-change="change()" /> مرتب کردن داده‌ها
+            </label>
+    </div>
+</div>
+
+<div class="prop-segment" ng-if="model.sort.enable">
+    <div class="form-row" layout="row" layout-align="start center">
+        <label class="col-sm-4">مرتب‌سازی براساس</label>
+        <span class="form-divider" flex></span><div class="col-sm-8">
+            <select class="form-control" ng-model="model.sort.serie" ng-options="i as i for i in props.series" ng-change="change()"></select>
+        </div>
+    </div> 
+
+    <div class="form-row" layout="row" layout-align="start center">
+        <label class="col-sm-4">نوع مرتب کردن</label>
+        <span class="form-divider" flex></span><div class="col-sm-8">
+            <select class="form-control" ng-model="model.sort.type"
+                    ng-options="i.id as i.name for i in [ {id:'asc', name:'صعودی'}, {id:'desc', name:'نزولی'}]"ng-change="change()"></select>
+        </div>
+    </div>
+</div>
+
 <div ng-show="license.chartExportApi">
     <div class="form-row" layout="row" layout-align="start center">
         <div class="col-sm-offset-4 col-sm-8">
