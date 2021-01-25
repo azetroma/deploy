@@ -86,7 +86,7 @@
                             @(ViewBag.msg["info"])
                         </p>
                         <div class="text-left">
-                            <a href="http://www.sadafdashboard.ir/files/sadaf.apk" class="ui xblack label">@ViewBag.msg["download android"]</a>
+                            <a href="http://www.sadafdashboard.ir/files/sadaf@(BLL.Process.CommonUtils.AppSettings.userVerification() ?"-pdn":"").apk" class="ui xblack label">@ViewBag.msg["download android"]</a>
                         </div>
 
                         <div style="margin-top:30px;">

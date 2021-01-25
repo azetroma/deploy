@@ -778,7 +778,9 @@
     </style>
 
     <script type="text/javascript">
-        if (self === top) {
+        var isLoginByLink = "@ViewBag.isLoginByLink";
+        
+        if (self === top || isLoginByLink ==="True") {
             var antiClickjack = document.getElementById("antiClickjack");
             antiClickjack.parentNode.removeChild(antiClickjack);
         } else {

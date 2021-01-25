@@ -396,6 +396,14 @@
         app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
             ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : v.ToString())';
 
+        //TODO add to core
+        $.ajaxSetup({
+            beforeSend: function (xhr) {
+                var key = _.last(window.location.pathname.split('/'));
+                xhr.setRequestHeader("key", key);
+            }
+        });
+
     </script>
 
     <script>

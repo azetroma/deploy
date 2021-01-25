@@ -132,7 +132,7 @@
             <form-lookup-get-id ng-keyup="keyup($event)" ng-hide="model.readonly" ng-model="model" id="{{id}}" ng-style="model.formLookup.showAddButton && {width: 'calc(100%)'} || {width: '100%'}"></form-lookup-get-id>
             <i ng-hide="model.readonly" ng-if="model.formLookup.showAddButton" class="auto-hide-icon icon add square big inverted black pointer" ng-click="showFormInModal()"
                title="اضافه کردن"
-               xstyle="margin:5px 5px 0 0;" style="position: absolute;left: 22px;top: calc(50% - 12px);"></i>
+               xstyle="margin:5px 5px 0 0;" style="position: absolute;left: 22px;top: 5px;"></i>
         </div>
         <div ng-show="model.readonly">{{model.formLookup.selected ? model.formLookup.selected.join(', ') : model.formLookup.keyControlsBindedValue.join(', ')}}</div>
         <small class="helper">{{model.error}}</small>
