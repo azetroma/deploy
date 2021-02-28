@@ -5,7 +5,7 @@
         <menu-body class="prop-section  form-horizontal">
             <div>
 
-                <general-settings ng-if="ngModel.customChartSettingTemplat.hasGeneralSettings" props="ngModel" ng-model="ngModel[type].info" ng-change="refreshChart('refreshWithData')"></general-settings>
+                <general-settings api-key="apiKey" ng-if="ngModel.customChartSettingTemplat.hasGeneralSettings" props="ngModel" ng-model="ngModel[type].info" ng-change="refreshChart('refreshWithData')"></general-settings>
                 
                 <div ng-repeat="item in ngModel.customChartSettingTemplat.general">
 
