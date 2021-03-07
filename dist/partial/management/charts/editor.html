@@ -111,7 +111,7 @@
                                             <div class="pointer datasource-field" ng-hide="hide(i, 'check-name')" ng-repeat="i in u.Hierarchies"
                                                  index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
                                                 <span ng-click="addToChart(i)">
-                                                    <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                                    <img src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
                                                     {{i.Name}}
                                                 </span>
                                                 <olap-add-column ng-if="i.Type==1" data="u" model="i" onchange="updateDatasources" style="display:inline-block; position:absolute; left:8px;"></olap-add-column>
@@ -281,8 +281,8 @@
                                              ng-hide="existIn(i, measures) || hide(i, 'measure', showMeasureName)"
                                              index="{{$index}}"
                                              data-name="{{i.UniqueName}}" type="measure" draggable-items>
-                                            <img src="Images/measure.png" class="chart-editor-data-hicon" />
-                                            {{i.Name}}
+                                            <img src="{{app.urlPrefix}}Images/measure.png" class="chart-editor-data-hicon" />
+                                            {{i.Name}} 
                                         </div>
                                     </div>
                                 </div>
@@ -309,7 +309,7 @@
                                                          ng-hide="existIn(i, measures) || hide(i, 'measure')"
                                                          index="{{$index}}"
                                                          data-name="{{i.UniqueName}}" type="kpi" draggable-items>
-                                                        <img src="Images/kpi.png" class="chart-editor-data-hicon" />
+                                                        <img src="{{app.urlPrefix}}Images/kpi.png" class="chart-editor-data-hicon" />
                                                         {{i.Name}}
                                                     </div>
                                                 </collapse-body>
@@ -337,7 +337,7 @@
                                              ng-repeat="i in olapCubes[+selectedOlapCube].NamedSets" type="namedset"
                                              ng-hide="existIn(i, measures.concat(dimensions).concat(where)) || hide(i, 'check-name', i)"
                                              index="{{$index}}" dimindex="{{$index}}" hi="i" draggable-items>
-                                            <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                            <img src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
                                             {{i.Name}}
                                         </div>
                                     </collapse-body>
@@ -372,7 +372,7 @@
                                                      ng-hide="existIn(i, measures.concat(dimensions).concat(where)) || hide(i, 'check-name', v)"
                                                      group-name="{{k}}"
                                                      index="{{$index}}" dimindex="{{u.index}}" hi="i" draggable-items>
-                                                    <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                                    <img src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
                                                     {{i.Name}}
                                                 </div>
                                             </collapse-body>
@@ -384,7 +384,7 @@
                                              group-name=""
                                              ng-hide="existIn(i, measures.concat(dimensions).concat(where))|| hide(i, 'check-name')"
                                              index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
-                                            <img src="Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                            <img src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
                                             {{i.Name}}
                                         </div>
 
@@ -665,12 +665,12 @@
                 <md-content flex id="divX" class="item-container" ui-sortable="sortableOptions" ng-model="dimensions">
                     <div flex layout="row" layout-align="start center" ng-click="gotoDimentionSettings(i, $index)" ng-repeat="i in dimensions track by $index" class="pointer datasource-item">
                         <span class="material-icons small small-size" ng-click="dimensions.splice($index,1);refreshChart();">close</span>
-                        <img src="Images/hierarchy1.png">
+                        <img src="{{app.urlPrefix}}Images/hierarchy1.png">
                         {{i.Name}}
                         <span flex></span>
                         <span class="material-icons small small-size " ng-click="filterMember(i)">filter_list</span>
                     </div>
-                </md-content>
+                </md-content> 
             </div>
 
             <md-divider></md-divider>
@@ -682,7 +682,7 @@
                 <md-content flex id="divY" class="item-container" ui-sortable="sortableOptions" ng-model="measures" layout-fill>
                     <div flex layout="row" layout-align="start center" ng-click="gotoMeasureSettings(i, $index)" ng-repeat="i in measures track by $index" class="pointer datasource-item">
                         <span class="material-icons small small-size" ng-click="measures.splice($index,1);refreshChart();">close</span>
-                        <img ng-src="Images/{{i.type && i.type=='measure' ? 'measure' :i.type && i.type=='kpi' ? 'kpi' :'hierarchy1'}}.png">
+                        <img ng-src="{{app.urlPrefix}}Images/{{i.type && i.type=='measure' ? 'measure' :i.type && i.type=='kpi' ? 'kpi' :'hierarchy1'}}.png">
                         {{i.Name}}
                         <span flex></span>
                         <span class="material-icons small small-size" ng-click="filterMember(i)" ng-show="((!i.aggregation || i.aggregation=='NONE') && !i.type) || (i.type!='measure' && i.type!='kpi')">filter_list</span>
@@ -691,12 +691,12 @@
 
                 <div flex layout="row" layout-align="start center" ng-repeat="i in olapData.measures track by $index" class="pointer datasource-item">
                     <span class="material-icons small small-size" ng-click="olapData.measures.splice($index,1)">close</span>
-                    <img src="Images/measure.png">
+                    <img src="{{app.urlPrefix}}Images/measure.png">
                     {{i.Name}}
                 </div>
                 <div flex layout="row" layout-align="start center" ng-repeat="i in olapData.kpis track by $index" class="pointer datasource-item">
                     <span class="material-icons small small-size" ng-click="olapData.kpis.splice($index,1)">close</span>
-                    <img src="Images/kpi.png">
+                    <img src="{{app.urlPrefix}}Images/kpi.png">
                     {{i.Name}}
                 </div>
             </div>
@@ -708,7 +708,7 @@
                 <md-content flex id="divProv" class="item-container" ui-sortable="sortableOptions" ng-model="where">
                     <div flex layout="row" layout-align="start center" ng-click="gotoWhereSettings(i, $index)" ng-repeat="i in where track by $index" class="pointer datasource-item">
                         <span class="material-icons small small-size" ng-click="where.splice($index,1);refreshChart();">close</span>
-                        <img src="Images/hierarchy1.png">
+                        <img src="{{app.urlPrefix}}Images/hierarchy1.png">
                         {{i.Name}}
                         <span flex></span>
                         <span class="material-icons small small-size" ng-click="filterMember(i)">filter_list</span>
