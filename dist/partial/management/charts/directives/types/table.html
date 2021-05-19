@@ -76,6 +76,39 @@
                     </div>
                 </div>
 
+                <!-- todo// add to core -->
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.print.enable" /> فعال کردن پرینت برای هر ردیف
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- todo// add to core -->
+                <div ng-show="ngModel.table.info.print.enable" class="secondary segment small ui">
+                    <div class="form-row" layout="column" layout-align="start right">
+                        <label class="col-sm-4">الگوی پرینت</label>
+                        <textarea ng-model="ngModel.table.info.print.layout" class="ltr" style="width:100%; resize:vertical;" />
+                        <div class="form-row" layout="row" layout-align="start center">
+                            <div class="label ui small" ng-repeat="i in ngModel.series" ng-click="ngModel.table.info.print.layout =  ngModel.table.info.print.layout  + '@{' + i  + '}'">{{i}}</div>
+                        </div>
+                        <div>
+                            <small class="gray">نام ستون باید به صورت @{name} نوشته شود</small>
+                            <small class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</small>
+                            <small class="gray">برای تبدیل اعداد به حروف از تابع Num2persian() استفاده کنید</small>
+                        </div>
+                    </div>
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label>جهت برگه پرینت</label>
+                        <span class="form-divider" flex></span>
+                        <select ng-options="i.value as i.name for i in [{name:'عمودی', value:0}, {name:'افقی', value:1}]" ng-model="ngModel.table.info.print.oriantation" ></select>
+                    </div>
+                </div>
+
+
                 <!--<div class="form-row" layout="row" layout-align="start center">
         <div class="col-sm-offset-4 col-sm-8">
             <div class="checkbox">
@@ -195,8 +228,10 @@
                                 ویرایش در محل (به صورت شیت اکسل)
                             </label>
                         </div>
-                        <small class="gray"> در حال حاضر تنها برای کنترل‌های معمولی و تک مقداری قابل استفاده است. برای کنترل‌های چند مقداری، تکرار شونده و ارجاع 
-                        به فرم از این ویژگی استفاده نکنید.</small>
+                        <small class="gray">
+                            در حال حاضر تنها برای کنترل‌های معمولی و تک مقداری قابل استفاده است. برای کنترل‌های چند مقداری، تکرار شونده و ارجاع
+                            به فرم از این ویژگی استفاده نکنید.
+                        </small>
                     </div>
                 </div>
 
