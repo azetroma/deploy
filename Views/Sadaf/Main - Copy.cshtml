@@ -1,0 +1,238 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <base href="@Href("~")">
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    @{
+        var isRelease = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+        var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+        var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+        if (!isRelease) {
+            v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+        }
+
+    }
+
+    <link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
+
+
+
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+            display: none !important;
+        }
+        html {
+            background:#eceff1;
+        }
+    </style>
+
+    <meta name="fontiran.com:license" content="X4ZQZ">
+
+</head>
+<body ng-app="sadafMain" ng-cloak ng-controller="dashboardMainPageCtrl" class="theme2" style="overflow-y:auto;height: auto;padding: 40px 0;">
+    @Html.AntiForgeryToken()
+    <input type="hidden" value="@ViewBag.lang" id="lang" />
+
+
+    <div class="" id="">
+
+        <div class="ui container">
+
+            @*<div class="dashboard-page-top-side" style="">
+
+                    <div ng-show="menuCategories.licenceRemain.remain <= 3" class="ui label red" style="height:2rem;">
+                        {{'licence remaining' | translate}}:
+                        <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
+                    </div>
+
+                    <style>
+                        .top-menu.list .item {
+                            color: #424242;
+                        }
+
+                        .sadaf-circular-preogress svg {
+                            display: block;
+                        }
+
+                        #laptop, #tablet, #smartphone, #smartphone-land {
+                            color: gray;
+                            cursor: pointer;
+                        }
+
+                            #laptop.active, #tablet.active, #smartphone.active, #smartphone-land.active {
+                                color: black;
+                            }
+                    </style>
+                    <div class="ui horizontal list top-menu" style="white-space: nowrap;">
+
+                        <notification class="item"></notification>
+
+                        <div class="item ui dropdown" ng-show="@(ViewBag.isLoginByLink ??false)">
+                            <div style="white-space:nowrap">
+                                <span class="user-account-hide-segment">
+                                    @{
+                                        var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
+                                        <text> @user.FirstName @user.LastName</text>
+                                    }
+                                </span>
+                                <i class="icon user outline large "></i>
+                            </div>
+                            <div class="menu transition hidden" tabindex="-1">
+                                <a ng-if="menuCategories.hasAminPermission" class="item user-account-hide-segment" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
+                                <a class="item user-account-hide-segment" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
+                                <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <style>
+                    .dashboard-page-top-side .buttons .ui.button, .dashboard-page-top-side .ui.button, .dashboard-page-top-side .ui.buttons {
+                        box-shadow: none !important;
+                        border: none;
+                        border-radius: 0;
+                    }
+                </style>*@
+
+
+            <ng-view></ng-view>
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <script src="~/dist/js/lib-all.js?v=@v"></script>
+    @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
+
+        <script src="~/src/js/charts/su.ChartCommons.js?v=@v"></script>
+        <script src="~/src/js/charts/su.d3-utils.js?v=@v"></script>
+        <script src="~/src/js/charts/su.filterMemberDialog.js?v=@v"></script>
+        <script src="~/src/js/charts/su.jquery.sit.BarChart.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Chart.js?v=@v"></script>
+        <script src="~/src/js/charts/su.jquery.sit.Gauge.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Map.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.PieChart.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Radar.js?v=@v"></script>
+        <script src="~/src/js/charts/su.jquery.sit.Table.js?v=@v"></script>
+        <script src="~/src/js/charts/su.jquery.sit.Tree.js?v=@v"></script>
+        <script src="~/src/js/charts/jquery.sit.Text.js?v=@v"></script>
+        <script src="~/src/js/charts/su.jquery.sit.UserControl.js?v=@v"></script>
+        <script src="~/src/js/charts/tipsy.js?v=@v"></script>
+
+
+        <script src="~/src/js/dashboardPage/notification.js?v=@v"></script>
+        <script src="~/src/js/management/services/services-app.js?v=@v"></script>
+        <script src="~/src/js/management/services/datasources.js?v=@v"></script>
+        <script src="~/src/js/management/services/menus.js?v=@v"></script>
+        <script src="~/src/js/forms/forms-app.js?v=@v"></script>
+        <script src="~/src/js/forms/editor/form-generator-editor.js?v=@v"></script>
+        <script src="~/src/js/forms/render-form.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/navbar/navbar.js?v=@v"></script>
+        <script src="~/src/js/collapse.js?v=@v"></script>
+        <script src="~/src/js/dashboard-app.js?v=@v"></script>
+        <script src="~/src/js/heartBeat.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/filterBox.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.DashboardPageUtils.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.dashboardLayout.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.dashboardPage.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.dashboardMainPage.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.app.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/bootstrap.sit.helper.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/globalVariableHelper.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/su.packages.js?v=@v"></script>
+        <script src="~/src/js/dashboardPage/JqueryHelper.js?v=@v"></script>
+
+    } else {
+        <script src="~/dist/js/dashboard-all.js?v=@v"></script>
+    }
+
+    <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
+    <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
+
+
+    <script>
+        var userVariable = @Html.Raw(Json.Encode(ViewBag.userVariable));
+        if(_.isArray(userVariable)){
+            localStorage.setItem('userVariable',JSON.stringify( userVariable));
+        }
+
+        localStorage.setItem('defaultDashboard','@ViewBag.defaultDashboard');
+
+        $('.ui.dropdown').dropdown();
+        $('.ui.checkbox').checkbox();
+        //$('.ui.modal').modal();
+
+        var dontShowUserAccount = JSON.parse("@((ViewBag.isLoginByLink ??false ).ToString().ToLower())");
+        if(dontShowUserAccount){
+            $('.user-account-hide-segment').hide();
+        }
+        var app = app || {};
+        app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        app.version = "@v";
+
+        var AbsoluteUri = '@(System.Configuration.ConfigurationManager.AppSettings["AbsoluteUri"] ?? "")' ||"@Request.Url.AbsoluteUri";
+
+        app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
+            app.setAboluteUrl(AbsoluteUri);
+        app.commentOnChart = JSON.parse("@ViewBag.CommentOnChart.ToString().ToLower()");
+
+        var hash = "@ViewBag.returnUrlHash";
+        if (hash) {
+            location.hash = hash;
+        }
+        app.lang.setLangTyle(@ViewBag.lang);
+
+        app.lang.setLang();
+        app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
+            ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : v.ToString())';
+
+         @{
+             var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
+
+                                    <text>
+        app.userInfo = {
+            name: '@user.FirstName @user.LastName',
+            id:@user.Id,
+        }
+
+             </text>
+          }
+
+    </script>
+
+    <script>
+
+        window.addEventListener('message', function (e) {
+            if (!_.isString(e.data)) return;
+
+            try {
+                var message = JSON.parse(e.data);
+                var $el = $('[ng-controller=dashboardPageCtrl]');
+                var scope = angular.element($el).scope();
+                scope.iframeService.handleMessage(message);
+                scope.$apply();
+            } catch (e) {
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

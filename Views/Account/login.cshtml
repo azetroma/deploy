@@ -162,6 +162,11 @@
                             <a class="ui basic fluid button big" href="@Url.Action("signup", "account")">@ViewBag.msg["signup"]</a>
                         }
 
+                        @if (ViewBag.sso.enable ?? false) {
+                            <br />
+                            <a class="ui basic fluid button big" href="@Url.Action("logincas", "account")">@ViewBag.sso.loginKeyLabel</a>
+                        }
+
                             <a style="margin-top:40px; display:block;" class="pointer" href="@Url.Action("resetPass", "account")">@ViewBag.msg["forgot password"]</a>
                             <div class="xpull-right" style="font-size: 10px; padding: 30px 0;">
                                 <br />

@@ -1,0 +1,393 @@
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "ورود به سامانه داشبورد";
+}
+
+<div class="ui container">
+    <style>
+        .form-signin {
+            max-width: 970px;
+            margin-top: 80px;
+        }
+
+        .same-height {
+            margin-bottom: -99999px;
+            padding-bottom: 99999px;
+        }
+
+        .hide-overflow {
+            overflow: hidden;
+        }
+
+        .card {
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 6px;
+        }
+
+        .logo {
+            max-width: 55%;
+            height: auto;
+            margin: 0 auto;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .sadaf-desc {
+            font-size: 13px;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        body {
+            margin: 0;
+            padding-top: 0px;
+            padding-bottom: 40px;
+            background-color: #eee;
+            overflow: auto;
+        }
+
+        .inline-h1 {
+            display: inline;
+            font-size: inherit;
+            font-family: Droid !important;
+        }
+
+        #activationModal .content li {
+            margin: 7px 0;
+        }
+    </style>
+
+
+    @if (ViewBag.IsActive) {
+
+    <div id="contentx">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-signin" })) {
+            @Html.AntiForgeryToken();
+
+            <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+            <input type="hidden" name="ReturnUrlHash" value="" />
+
+
+            <div class="ui stackable grid">
+                <div class="col-md-6 six wide column">
+                    <div class="sadaf-desc">
+
+                        <img class="logo" src="~/Images/logo_half.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+
+                        <p>
+                            @ViewBag.msg["info"]
+                        </p>
+                        <div class="text-left">
+                            <a href="http://www.sadafdashboard.ir/files/sadaf.apk" class="ui xblack label" style="xbackground-color:#424242;">@ViewBag.msg["download android"]</a>
+                        </div>
+
+                        <div style="margin-top:30px;">
+
+                            <a style="display:flex; align-items:center;" href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">
+                                @if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["showCopyRightLogo"] ?? "true")) {
+                                 <img class="logo" style="width:50px; margin-left:10px; margin-right:0;" src="~/Images/copy_right_logo.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                                }
+
+                                <span>@ViewBag.msg["copy right"]</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6 six wide column">
+                    <div class="card">
+                        <div style="direction: ltr">
+                            <div class="ui fluid left icon input big">
+                                <input name="UserName" type="text" class="" placeholder="@ViewBag.msg["username"]" autofocus>
+                                <i class="user icon"></i>
+
+                            </div>
+                            <div class="ui fluid left icon input big">
+                                <input name="Password" type="password" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
+                                <i class="lock icon"></i>
+
+                            </div>
+                        </div>
+
+
+                        <label class="" style="margin: 10px 0; display: block;">
+                            <input type="checkbox" value="remember-me" name="rememberme">
+                            @ViewBag.msg["remember"]
+                        </label>
+
+                        @if (ViewBag.error != null) {
+                            <div class="ui negative message">
+                                @Html.Raw(ViewBag.error)
+                            </div>
+                            }
+                        <button class="ui blue fluid button big" type="submit">@ViewBag.msg["login"]</button>
+
+                        <div class="xpull-right" style="font-size: 10px; padding: 30px 0;">
+                            @{ var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;}
+                            <div>@ViewBag.msg["version"] : نسخه @(version.Major + "." + version.Minor + "." + version.Build )  </div>
+                            <div>@ViewBag.msg["db version"]: @ViewBag.DbVersion</div>
+                            <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+                                    }
+    </div>
+
+    <div id="message" style="display:none">
+        لطفا از مرورگر
+        <b>کروم (Chrome)</b>
+        استفاده کنید.
+        <br />
+        <small>
+            سرعت مرورگر کروم در پردازش المان‌های گرافیکی نسبت به دیگر مرورگرها بالاتر است!
+        </small>
+        <br />
+        <br />
+
+        <p class="small">
+            در صورتی که مایل به استفاده از مرورگر فعلی خود هستید و با آگاهی از اینکه
+            ممکن است با مشکلات ناخواسته‌ای روبرو شوید روی کلید زیر کلیک کنید.
+
+        </p>
+        <button class="btn btn-danger" id="show-login"> استفاده از مرورگر فعلی</button>
+    </div>
+    @section scripts{
+
+        <script>
+                $('.ui.modal').modal();
+                $('#last-changes').modal('attach events', '.show-last-change', 'show');
+
+
+                $('input[name=ReturnUrlHash]').val(location.hash);
+
+                var isChrome = !!window.chrome && !!window.chrome.webstore;
+                var show = JSON.parse("@(System.Configuration.ConfigurationManager.AppSettings["justChrome"] ?? "true")");
+
+                if (!isChrome && show) {
+                    $('#content').hide();
+                    $('#message').show();
+                }
+
+                $('#show-login').on('click', function () {
+                    $('#content').show();
+                    $('#message').hide();
+                })
+        </script>
+
+    }
+
+
+
+
+                                    } else {
+    <div class="ui error message">
+        @ViewBag.Message
+    </div>
+
+    <h1>فعال کردن برنامه</h1>
+    <p>
+        برای دریافت جواز استفاده از برنامه، یک کد یکتا برای سیستم شما تولید می‌شود.
+        شما می‌توانید از سامانه <a href="http://www.licence.sadafdashboard.ir" target="_blank">http://www.licence.sadafdashboard.ir</a> برای دریافت جواز استفاده نمایید.
+    </p>
+
+    <div class="ui blue button activate">@ViewBag.msg["activate"]</div>
+
+    <div class="ui green button auto-active" data-loading-text="در حال ارتباط با سرور ...">دریافت خودکار جواز</div>
+
+    <div class="" style="font-size: 10px; padding: 30px 0;">
+        <div>@ViewBag.msg["version"] : @typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version  </div>
+        <div>@ViewBag.msg["db version"]: @ViewBag.DbVersion</div>
+
+        <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
+    </div>
+        <!-- Modal -->
+    <div class="ui modal" id="activationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="header">
+            دریافت جواز استفاده
+        </div>
+        <div class="content ui form">
+            <p>
+                برای دریافت جواز استفاده از برنامه، کد زیر را در<a href="http://www.licence.sadafdashboard.ir" target="_blank">licence.sadafdashboard.ir</a>
+                وارد کنید تا کد جواز را دریافت کنید.
+            </p>
+            <div class="ui label" style="width: 100%; height: 200px; overflow-y: auto; word-wrap: break-word; font-family: monospace; font-size: 0.8em; direction: ltr;line-height:1.4em">
+                @ViewBag.SystemInfo
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui blue button " data-dismiss="modal">انصراف</div>
+            <div class="ui blue button  first-step">مرحله بعد</div>
+            <div class="ui blue button  prior-step" style="display: none">مرحله قبل</div>
+            <div class="ui green button  final-step" style="display: none">فعال کردن</div>
+            <div class="ui green button  success-step" style="display: none">اتمام</div>
+        </div>
+    </div>
+    <style>
+        .module {
+            display: inline-block;
+            margin: 8px 4px;
+            padding: 8px;
+        }
+
+        div#activationModal {
+            line-height: 1.9em;
+        }
+    </style>
+    @section scripts{
+        <script>
+                                                (function ($) {
+                                                    $('.ui.modal').modal();
+                                                    $('#activationModal').modal('attach events', '.activate', 'show');
+                                                    $('#last-changes').modal('attach events', '.show-last-change', 'show');
+
+                                                    function persian(s, showPersian) {
+                                                        if (!showPersian) return s;
+                                                        var reps = {
+
+                                                            0: '۰',
+                                                            1: '۱',
+                                                            2: '۲',
+                                                            3: '۳',
+                                                            4: '۴',
+                                                            5: '۵',
+                                                            6: '۶',
+                                                            7: '۷',
+                                                            8: '۸',
+                                                            9: '۹',
+                                                        };
+                                                        s = s + "";
+                                                        return s.replace(/(\d)/g, function (s, key) {
+                                                            return reps[key] || s;
+                                                        });
+                                                    }
+
+                                                    function activate(license, finish) {
+                                                        $.post("@Url.Action("Activation")", { license: license }, function (data) {
+                                                            if (data.result) {
+                                                                $('#activationModal .content').html('<p>جواز استفاده از برنامه به درستی نصب شد</p>\
+                                                                                    <ul>\
+                                                                                        <li><b>نام سازمان: </b>' + data.Organization + '</li>\
+                                                                                        <li><b>نام واحد: </b>' + data.OrganizationUnit + '</li>\
+                                                                                        <li><b>شناسه مشتری: </b>' + data.CustomerId + '</li>\
+                                                                                        <li><b>تعداد مجاز کاربران: </b>' + persian(data.UserCount) + '</li>\
+                                                                                        <li><b>قابلیت استفاده از متغیر کاربری: </b>' + data.CanUseUserVariable + '</li>\
+                                                                                        <li><b>انواع منابع داده مجاز: </b>' + data.DataSources + '</li>\
+                                                                                        <li><b>زمان انقضای جواز: </b>' + persian(data.EndTime) + '</li>\
+                                                                                        <li><b>لیست ماژول‌های مورد استفاده: </b>' + (!data.modules.length ? 'لیست ماژول‌ها خالی است' : '<ul><li class="ui  label" style="margin:7px;">' + data.modules.join('</li><li class="ui  label" style="margin:7px;">') + '</li></ul>') + '</li>\
+                                                                                    </ul>');
+                                                                $('.prior-step').hide();
+                                                                $('.first-step').hide();
+                                                                $('.final-step').hide();
+                                                                $('.btn-default').hide();
+                                                                $('.success-step').show()
+                                                            }
+                                                            else {
+                                                                $('#activationModal .content').prepend('<div class="ui negative message">\
+                                                                    ' + data.msg + '</div>');
+                                                            }
+                                                            if (finish) finish();
+
+                                                        });
+                                                    }
+
+                                                    $('.auto-active').on('click', function () {
+                                                        var btn = $(this);
+                                                        btn.addClass('loading');
+                                                        $.post('http://licence.sadafdashboard.ir/api/LicenceManager/get', ({ '': '@ViewBag.SystemInfo' }), function (data) {
+                                                            activate(data.licence, function () {
+                                                                btn.removeClass('loading');
+                                                                $('#activationModal').modal('show');
+                                                            });
+                                                        });
+                                                    });
+
+                                                    $('.success-step').on("click", function () {
+                                                        window.location.reload();
+                                                    });
+
+                                                    $('.final-step').on("click", function () {
+                                                        activate($('textarea').val());
+                                                    });
+
+                                                    $('.prior-step').on('click', function () {
+                                                        $('#activationModal .content').html('<p>برای دریافت جواز استفاده از برنامه، کد زیر را در <a href="http://www.licence.sadafdashboard.ir" target="_blank">licence.sadafdashboard.ir</a> \
+                                               وارد کنید تا کد جواز را دریافت کنید. \
+                                                </p>\
+                                                <div class="ui label"\
+                                                    style="width: 100%; height: 200px; overflow-y: auto;\
+                                                    word-wrap: break-word; font-family: monospace;\
+                                                    font-size: 0.8em;">@ViewBag.SystemInfo</div>');
+                                                        $('.prior-step').hide();
+                                                        $('.first-step').show();
+                                                        $('.final-step').hide();
+                                                    });
+
+                                                    $('.first-step').on('click', function () {
+                                                        $('#activationModal .content').html('<p> کد جواز استفاده را در ورودی زیر کپی کنید \
+                                                 و روی کلید مرحله بعد کلیک کنید. برای دریافت کد جواز استفاده به \
+                                                 سایت <a href="http://www.licence.sadafdashboard.ir" target="_blank">licence.sadafdashboard.ir/license</a> مراجعه کنید\
+                                                 </p>\
+                                                 <div class="field"><textarea class="ltr" placeholder="کد جواز استفاده"></textarea></div>');
+                                                        $('.prior-step').show();
+                                                        $('.first-step').hide();
+                                                        $('.final-step').show();
+                                                    });
+                                                })(jQuery)
+
+        </script>
+    }
+                                    }
+
+
+    <div id="last-changes" class="ui modal">
+        <i class="close icon"></i>
+
+        <div class="header">
+            <div class="">لیست تغییرات</div>
+        </div>
+
+        <div class="content scrolling">
+            <ul>
+                @{
+    var text = File.ReadAllLines(Server.MapPath("~/ChangeLog.txt"));
+    for (int i = 0; i < text.Length; i++) {
+        text[i] = BLL.Process.CommonUtils.PersianDigit(text[i]);
+        text[i] = System.Text.RegularExpressions.Regex.Replace(text[i], "^([^\t]*)$",
+            (i == 0 ? "" : "</ul>") + "<ul style='margin-top:40px'><h3> نسخه $1</h3>");
+        text[i] = System.Text.RegularExpressions.Regex.Replace(text[i],
+            "^\t+-\\s*([۰۱۲۳۴۵۶۷۸۹0123456789/]*)\\s*(.*)$", "</li><li > <div>$2<div>");
+        //"^\t+-\\s*([0123456789/]*)\\s*(.*)$", "</li><li ><b>$1</b> <div>$2<div>");
+                <text>@Html.Raw(text[i])</text>
+                    }
+                }
+            </ul>
+
+        </div>
+
+        <div class="actions">
+            <div class="ui button deny black">تأیید</div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    localStorage.removeItem('userVariable');
+
+    window.addEventListener('message', function (e) {
+        if (!_.isString(e.data)) return;
+
+        var message = JSON.parse(e.data);
+        window.location.href = message.param
+    });
+
+</script>

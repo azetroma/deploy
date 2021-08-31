@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ahead of time compilation</title>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    @{
+        var isRelease = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+        var ver = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+        var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+        if (!isRelease) {
+            ver = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+        }
+        isRelease = false;
+
+    }
+    <link href="~/dist/lib/semantic@(ViewBag.isRtl ? "-rtl" : "").min.css?v=2.2" rel="stylesheet" />
+
+    <script src="~/ng2/node_modules/core-js/client/shim.min.js"></script>
+    <script src="~/ng2/node_modules/zone.js/dist/zone.js"></script>
+
+    <script src="~/dist/lib/jquery-1.11.1.min.js"></script>
+    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="~/dist/lib/semantic.min.js"></script>
+
+    @if (!isRelease) {
+        <script src="~/ng2/node_modules/systemjs/dist/system.src.js"></script>
+        <script src="~/ng2/src/systemjs.config.js"></script>
+        <script>
+            System.import('@Href("~/ng2/src/main-jit.js")').catch(function (err) { console.error(err); });
+        </script>
+    }
+
+</head>
+
+
+<body>
+    <my-app>Loading AppComponent content here ...</my-app>
+
+    @if (isRelease) {
+        <script src="~/ng2/deploy/build.js"></script>
+    }
+
+</body>
+</html>

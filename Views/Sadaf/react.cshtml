@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sadaf</title>
+</head>
+
+
+
+<body>
+    <script>
+        var app = app || {};
+        app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        app.hashUrlPrefix = "@Url.Action("main", "sadaf")" + "/";
+        app.aboluteUrl = "@Request.Url.AbsoluteUri";
+
+    </script>
+    <div>
+        React Test
+    </div>
+    <div id="root"></div>
+
+    @*<script src="~/node_modules/react/umd/react.development.js"></script>
+        <script src="~/node_modules/react-dom/umd/react-dom.development.js"></script>
+        <script src="~/node_modules/babel-standalone/babel.js"></script>*@
+    <script src="~/react-dist/bundle.js?v=@((DateTime.Now-DateTime.MinValue).TotalMilliseconds)"></script>
+</body>
+</html>
