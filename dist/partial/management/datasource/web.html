@@ -57,7 +57,15 @@
                             </div>
 
 
-
+                            <div ng-show="model.type == 'JSON'">
+                                <div class="field">
+                                    <label>اجرای کد روی خروجی</label>
+                                    <textarea  spellcheck="false" ng-model="model.jsonPostProcess" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
+                                    <small class="gray">داده‌های خروجی در قالب شی data در دسترس هستند. کد نوشته شده باید یک 
+                                    شی به عنوان خروجی با کلید واژه return  داشته باشد
+                                    </small>
+                                </div>
+                            </div>
 
                             <div ng-show="model.type == 'SOAP'">
                                 <div class="field" flex-gt-sm>
@@ -118,6 +126,34 @@
 
                             </div>
 
+                            <div class="field">
+                                <sadaf-checkbox ng-model="model.loginByToken.enable">دریافت توکن لاگین</sadaf-checkbox>
+                            </div>
+                            <div class="ui secondary segment" ng-show="model.loginByToken.enable">
+                                
+                                <div class="three fields">
+
+                                    <div class="field">
+                                        <label>نام هدر مربوط به توکن</label>
+                                        <input class="ltr" ng-model="model.loginByToken.headerName">
+                                    </div>
+
+                                    <div class="field">
+                                        <label>نام فیلد توکن در خروجی وب سرویس</label>
+                                        <input class="ltr" ng-model="model.loginByToken.tokenPropertyName">
+                                    </div>
+
+                                    <div class="field">
+                                        <label>منبع داده</label>
+                                        <sm-dropdown items="datasourceList" class="fluid selection search"
+                                                     model="model.loginByToken.datasource" label="item.Name" value="item.Id"></sm-dropdown>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
                             <!--<div class="field" ng-show="model.type != 'SOAP'">
         <label>{{'Body' | translate}}</label>
         <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
@@ -134,21 +170,19 @@
                                         <div md-no-float class="no-margin">
                                             <input ng-model="param.name" class="ltr" placeholder="{{'نام'|translate}}">
                                         </div>
-
+                                        &nbsp;
                                         <div md-no-float class="no-margin">
                                             <input ng-model="param.value" class="ltr" placeholder="{{'مقدار'|translate}}">
                                         </div>
-
+                                        &nbsp;
                                         <div class="x">
                                             <!--<select ng-model="param.type" aria-label="{{'form_select_param_type' | translate}}">
-                        <option value="Query">Query</option>
-                        <option value="Header">Header</option>
-                    </select>-->
-
-                                            <sm-dropdown items="[{key:'Query', value:'Query'},{key:'Header', value:'Header'}]" class="fluid"
+            <option value="Query">Query</option><option value="Header">Header</option></select>-->
+                                            <sm-dropdown items="[{key:'Query', value:'Query'},{key:'Header', value:'Header'},{key:'Body', value:'Body (form-data)'},{key:'BodyRaw', value:'Body (raw)'}]" class="fluid"
                                                          model="param.type" label="item.value" value="item.key"></sm-dropdown>
 
                                         </div>
+                                        &nbsp;
 
                                         <div layout="row" layout-margin>
 
@@ -175,8 +209,8 @@
 
                                 <div class="field" flex-gt-sm>
                                     <label>{{'احراز هویت' | translate}}</label>
-                                    <sm-dropdown items="[{key:'Basic Authentication', value:'Basic Authentication'}]" class="selection fluid"
-                                                 model="model.ModelType" label="item.value" value="item.key"></sm-dropdown>
+                                    <sm-dropdown items="[{key:'Basic Authentication', value:'Basic Authentication'}, {key:'Digest Authentication', value:'Digest Authentication'}]" class="selection fluid"
+                                                 model="model.authenticationType" label="item.value" value="item.key"></sm-dropdown>
                                 </div>
 
                                 <div class="field">

@@ -1,0 +1,2 @@
+Time = 2021-09-16 16:58:54.572,  = ,  = debug, login = create license,  = , 
+Time = 2021-09-16 16:58:54.869, #### validate system check = CpuId BFEBFBFF000806C1 BFEBFBFF000806C1, HddId SCSI-NVMe SAMSUNG MZVLQ512HBLU-00B00 SCSI-NVMe SAMSUNG MZVLQ512HBLU-00B00 = OS Microsoft Windows 10 Home19043 Microsoft Windows 10 Home19043, 

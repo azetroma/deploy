@@ -3,7 +3,7 @@
     <div class="fields">
         <div class="field"><label>{{'identity'|translate}}</label></div>
         <span class="field" ng-show="c.control.active.name"> {{c.control.active.name}}</span>
-
+         
     </div>
 
     <div class="field">
@@ -189,6 +189,9 @@
                                  , {key:'.0%', value:'%'}
                                  , {key:',.1%', value:'#,#.0%'}
                                  , {key:',.2%', value:'#,#.00%'}
+                                 , {key:'.0f', value:'#'}
+                                 , {key:'.1f', value:'#.0'} 
+                                 , {key:'.2f', value:'#.00'}
                                  , {key:',.0f', value:'#,#'}
                                  , {key:',.1f', value:'#,#:0'}
                                  , {key:',.2f', value:'#,#:00'}
@@ -241,6 +244,16 @@
                 {{'show new record botton' | translate}}
             </sadaf-checkbox>
         </div>
+         
+        <div class="field" sm-popup-inline="">
+            <sadaf-checkbox ng-model="c.control.active.formLookup.duplicateDatasource" >
+                ایجاد کپی از منبع داده مبدا
+            </sadaf-checkbox>
+        </div>
+            <sm-popup-detached class="ui mini basic fluid">
+                <div class="header">راهنما</div>
+                <div class="gray">برای جلوگیری از ایجاد دور در ارتباط بین منابع داده در صورت استفاده از چند ارجاع به یک فرم از این گزینه استفاده کنید.</div>
+            </sm-popup-detached>
 
 
         <div class="field">
@@ -521,17 +534,45 @@
         <div class="field">
             <label>قالب چاپ</label>
             <textarea ng-model="c.printLayout" rows="5" class="ltr"></textarea>
-            <small class="gray">از نام فیلدها با پیشوند @  برای استفاده از جایگزینی مقدار فیلدها استفاده کنید</small>
+            <div style="text-align:left">
+                <span class="material-icons small" ng-click="showDialog($event)" title="{{'edit_query' | translate}}">fullscreen</span>
+            </div>
+
+            <small class="gray">
+                از شناسه فیلدها با پیشوند @  برای استفاده از جایگزینی مقدار فیلدها استفاده کنید مثل
+                @field-1
+                همچنین می‌توانید از
+                نام ستون با الگوی زیر استفاده کنید {{'[columnNamee]'}}
+            </small><br />
             <small class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</small>
-            <small class="gray">در صورت استفاده فیلد تکرار شونده به این صورت استفاده کنید. each(@[field name]){{'{{[template]}\}'}} که در آن نام فیلد تکرار شونده ابتدا آورده می‌شود و نام فیلدهای ردیف در template قرار میگیرند.</small>
-            <small class="gray">برای تبدیل اعداد به حروف از تابع Num2persian() استفاده کنید</small>
+            <br /><small class="gray">در صورت استفاده فیلد تکرار شونده به این صورت استفاده کنید. each(@[field name]){{'{{[template]}\}'}} که در آن نام فیلد تکرار شونده ابتدا آورده می‌شود و نام فیلدهای ردیف در template قرار میگیرند.</small>
+            <br /><small class="gray">برای تبدیل اعداد به حروف از تابع Num2persian() استفاده کنید</small>
         </div>
+        <div class="two column fields">
+
         <div class="field">
             <label>جهت چاپ</label>
             <sm-dropdown items="[{name:'عمودی', value:0}, {name:'افقی', value:1}]"
                          class="selection fluid "
                          model="c.printOrientation" label="item.name" value="item.value"></sm-dropdown>
         </div>
+        <div class="field">
+            <label>اندازه صفحه</label>
+            <sm-dropdown items="[{name:'A4', value:'A4'}, {name:'A5', value:'A5'}]"
+                         class="selection fluid "
+                         model="c.printPage" label="item.name" value="item.value"></sm-dropdown>
+        </div>
+        </div>
+
+        <form autocomplete="off">
+
+            <div class="field">
+                <label>نام فایل چاپ</label>
+                <input type="text" ng-model="c.printFileName" autocomplete="chrome-off" name="print-file-name" fill />
+                <small class="gray">از نام ستون‌ها به صورت [columnname] می‌توانید در نام استفاده کنید</small>
+            </div>
+        </form>
+
     </div>
 
 

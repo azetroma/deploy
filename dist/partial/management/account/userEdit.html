@@ -21,7 +21,7 @@
 
                 <md-content layout-padding>
                     <div>
-                        <form name="userForm">
+                        <form name="userForm" autocomplete="off">
 
                             <div layout-gt-sm="row" flex>
                                 <md-input-container flex>
@@ -50,24 +50,25 @@
 
                             </div>
 
+                           
                             <div layout-gt-sm="row" flex>
 
                                 <md-input-container flex="50">
                                     <label>{{'profile_password_new' | translate}}</label>
-                                    <input type="password" ng-model="model.Password" autocomplete="off">
+                                    <input type="password" ng-model="model.Password" autocomplete="new-password">
                                     <div ng-messages="userForm.name.$error">
                                         <div ng-message="required">{{'form_username_required' | translate}}</div>
                                     </div>
                                 </md-input-container>
                                 <md-input-container flex="50">
                                     <label>{{'profile_password_repeat' | translate}}</label>
-                                    <input type="password" ng-model="model.PasswordRepeat" autocomplete="off">
+                                    <input type="password" ng-model="model.PasswordRepeat" autocomplete="new-password">
                                     <div ng-messages="userForm.name.$error">
                                         <div ng-message="required">{{'form_name_required' | translate}}</div>
                                     </div>
                                 </md-input-container>
                             </div>
-
+                           
                             <div layout-gt-sm="row">
 
                                 <md-input-container flex="50">
