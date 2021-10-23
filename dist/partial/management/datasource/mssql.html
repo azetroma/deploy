@@ -86,7 +86,7 @@
                                     <label>احراز هویت</label>
                                     <select ng-model="model.Authentication" ng-options="a.val as a.label for a in [{val:0, label:'SQL SERVER'},{val:1, label:'Windows'}]">
                                         <!--<option value="0">SQL SERVER</option>
-                <option value="1">Windows</option>-->
+                                        <option value="1">Windows</option>-->
                                     </select>
                                 </div>
 
@@ -118,7 +118,7 @@
 
                             <div class="field" flex-gt-sm ng-show="type == 2">
                                 <label>کدینگ داده‌های رشته‌ای - Collation</label>
-                                <select ng-model="model.CollationDefault" ng-options="a.val as a.label for a in 
+                                <select ng-model="model.CollationDefault" ng-options="a.val as a.label for a in
                                             [{val:1, label:'پیش فرض پایگاه داده'}
                                             ,{val:4, label:'Persian_100_CI_AS'}
                                             ,{val:2, label:'Arabic_CI_AS'}
@@ -152,29 +152,21 @@
                                         {val:'-1', label:'زمانبندی...'},
                                         {val:'-2', label:'تقسیم‌بندی...'},
                                         ]">
-                                    <!--<option value="0">در لحظه</option>
-            <option value="1">هر یک دقیقه</option>
-            <option value="5">هر پنج دقیقه</option>
-            <option value="15">هر پانزده دقیقه</option>
-            <option value="30">هر سی دقیقه</option>
-            <option value="60">هر یک ساعت</option>
-            <option value="1440">هر روز</option>
-            <option value="10080">هر هفته</option>
-            <option value="40320">هر ماه</option>
-            <option value="2147483647">عدم به‌روز رسانی</option>
-            <option value="-1">زمانبندی...</option>
-            <option value="-2">تقسیم‌بندی...</option>-->
                                 </select>
                             </div>
 
-                            <!--<pre style="word-break:break-all; white-space:normal;">{{model | json}}</pre>-->
-                            <!--<pre style="word-break:break-all; white-space:normal;">{{schedule | json}}</pre>-->
 
                             <datasource-schedule ng-show="model.AutoRefresh==-1" ng-model="schedule">-m> </datasource-schedule>
 
                             <partition-expression ng-show="model.AutoRefresh==-2" ng-model="schedulePartition"> </partition-expression>
 
                             <interval-fetch ng-hide="model.AutoRefresh == -2" ng-model="model.intervalFetch" fields="fields" , datasource-id="{{id}}"></interval-fetch>
+
+                            <div class="field">
+                                <div class="ui button" ng-class="{loading: clearCacheProgress, disabled: clearCacheProgress}" ng-click="clearCache()">پاک کردن کش (Cache) منبع داده</div>
+                                <small class="gray">با پاک کردن کش منبع داده، نتیجه‌ی تمامی گزارش‌های مرتبط با این منبع داده پاک خواهند شد
+                                و ممکن است برای اولین بار اجرای گزارش سرعت کمتری داشته باشد.</small>
+                            </div> 
 
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
 

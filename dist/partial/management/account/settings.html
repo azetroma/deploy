@@ -318,10 +318,22 @@
 
                         <div ng-show="app.license.olap">
                             <div class="ui dividing header">تنظیمات مدل داده‌ای</div>
-                            <div class="ui button" ng-class="{loading : rebuildProcess, disabled: rebuildProcess}" ng-click="rebuildOlap($event)" >
+                            <div class="ui button" ng-class="{loading : rebuildProcess, disabled: rebuildProcess}" ng-click="rebuildOlap($event)">
                                 ساخت دوباره مدل
                             </div>
                             <small class="gray">در صورت استفاده از این گزینه کل مدل داده‌ای پاک شده و دوباره ساخته می‌شود. این فرآیند ممکن چند دقیقه زمان ببرد.</small>
+                        </div>
+
+                        <br />
+                        <br />
+
+
+                        <div>
+                            <div class="ui dividing header">تنظیمات کلی منابع داده</div>
+                            <div class="ui button" ng-class="{loading : rescheduleProcess, disabled: rescheduleProcess}" ng-click="reschedule()">
+                                زمانبندی دوباره تمامی منابع داده
+                            </div>
+                            <small class="gray">اجرای زمانبندی دوباره متناسب با تعداد منابع داده ممکن است زمان‌بر باشد.</small>
                         </div>
 
 

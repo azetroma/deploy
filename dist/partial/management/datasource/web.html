@@ -60,9 +60,10 @@
                             <div ng-show="model.type == 'JSON'">
                                 <div class="field">
                                     <label>اجرای کد روی خروجی</label>
-                                    <textarea  spellcheck="false" ng-model="model.jsonPostProcess" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
-                                    <small class="gray">داده‌های خروجی در قالب شی data در دسترس هستند. کد نوشته شده باید یک 
-                                    شی به عنوان خروجی با کلید واژه return  داشته باشد
+                                    <textarea spellcheck="false" ng-model="model.jsonPostProcess" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
+                                    <small class="gray">
+                                        داده‌های خروجی در قالب شی data در دسترس هستند. کد نوشته شده باید یک
+                                        شی به عنوان خروجی با کلید واژه return  داشته باشد
                                     </small>
                                 </div>
                             </div>
@@ -130,7 +131,7 @@
                                 <sadaf-checkbox ng-model="model.loginByToken.enable">دریافت توکن لاگین</sadaf-checkbox>
                             </div>
                             <div class="ui secondary segment" ng-show="model.loginByToken.enable">
-                                
+
                                 <div class="three fields">
 
                                     <div class="field">
@@ -177,7 +178,7 @@
                                         &nbsp;
                                         <div class="x">
                                             <!--<select ng-model="param.type" aria-label="{{'form_select_param_type' | translate}}">
-            <option value="Query">Query</option><option value="Header">Header</option></select>-->
+                    <option value="Query">Query</option><option value="Header">Header</option></select>-->
                                             <sm-dropdown items="[{key:'Query', value:'Query'},{key:'Header', value:'Header'},{key:'Body', value:'Body (form-data)'},{key:'BodyRaw', value:'Body (raw)'}]" class="fluid"
                                                          model="param.type" label="item.value" value="item.key"></sm-dropdown>
 
@@ -275,6 +276,15 @@
                             <datasource-schedule ng-show="model.autoRefresh==-1" ng-model="schedule"> </datasource-schedule>
 
                             <interval-fetch ng-model="model.intervalFetch" fields="fields" , datasource-id="{{id}}"></interval-fetch>
+
+                            <div class="field">
+                                <div class="ui button" ng-class="{loading: clearCacheProgress, disabled: clearCacheProgress}" ng-click="clearCache()">پاک کردن کش (Cache) منبع داده</div>
+                                <small class="gray">
+                                    با پاک کردن کش منبع داده، نتیجه‌ی تمامی گزارش‌های مرتبط با این منبع داده پاک خواهند شد
+                                    و ممکن است برای اولین بار اجرای گزارش سرعت کمتری داشته باشد.
+                                </small>
+                            </div>
+
 
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
                             <datasource-metainfo ng-model="model.metainfo"></datasource-metainfo>
