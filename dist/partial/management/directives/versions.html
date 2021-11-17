@@ -1,12 +1,10 @@
-﻿
-
-<collapse>
+﻿<collapse>
     <collapse-header>
         <div class="">تاریخچه تغییرات</div>
     </collapse-header>
     <collapse-body>
         <div>
-            <div class="ui secondary segment" style="margin-top:10px">
+            <div class="ui secondary segment  {{class}}" style="margin-top:10px">
                 <div ng-hide="list.length">تاریخچه‌ای برای نمایش وجود ندارد</div>
                 <table class="ui very basic very compact table " ng-show="list.length">
                     <tr>
@@ -20,10 +18,13 @@
                         <td>{{i.username}}</td>
                         <td>{{i.action == 0 ? 'ویرایش' : 'حذف'}}</td>
                         <td>{{i.time}}</td>
-                        <td ng-click="showDetail(i)"><a class="pointer">مشاهده جزییات</a></td>
+                        <td>
+                            <a class="pointer" ng-show="!inlineRestore" ng-click="showDetail(i)">مشاهده جزییات</a>
+                            <a class="pointer" ng-show="inlineRestore" ng-click="restore2(i)">بازگردانی</a>
+                        </td>
                         <!--<td ng-click="remove(i, $index)"><i class="icon trash alternate outline pointer"></i></td>-->
                     </tr>
-                </table>
+                </table> 
             </div>
 
             <div class="ui segment" ng-show="showDetailFlag" style="max-height:400px; overflow-y:auto;">

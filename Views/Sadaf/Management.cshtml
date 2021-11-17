@@ -21,14 +21,14 @@
         var useApp = BLL.Process.CommonUtils.AppSettings.useApp();
     }
 
-<script>
+    <script>
             var app = app || {};
         app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
         app.hashUrlPrefix = "@Url.Action("management", "sadaf")" + "/";
         app.version = "@v";
 
-</script>
+    </script>
 
     <link href="~/dist/css/admin-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
     <link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
@@ -48,6 +48,7 @@
 
     @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
 
+        <script src="~/src/js/dashboardPage/su.app.js?v=@v"></script>
         <script src="~/src/js/collapse.js?v=@v"></script>
         <script src="~/src/js/forms/forms-app.js?v=@v"></script>
         <script src="~/src/js/forms/editor/form-generator-editor.js?v=@v"></script>
@@ -117,11 +118,11 @@
         <script src="~/src/js/charts/su.filterMemberDialog.js?v=@v"></script>
         <script src="~/src/js/charts/su.jquery.sit.BarChart.js?v=@v"></script>
 
-        foreach(var f in Directory.GetFiles(Server.MapPath("~/src/js/charts/newCharts"))) {
-            if (Path.GetExtension(f) == ".js") { 
-            <text>
-                <script src="~/src/js/charts/newCharts/@Path.GetFileName(f)?v=@v"></script>
-            </text>
+        foreach (var f in Directory.GetFiles(Server.MapPath("~/src/js/charts/newCharts"))) {
+            if (Path.GetExtension(f) == ".js") {
+                <text>
+                    <script src="~/src/js/charts/newCharts/@Path.GetFileName(f)?v=@v"></script>
+                </text>
             }
         }
 
@@ -137,7 +138,6 @@
         <script src="~/src/js/charts/jquery.sit.Text.js?v=@v"></script>
         <script src="~/src/js/charts/su.jquery.sit.UserControl.js?v=@v"></script>
         <script src="~/src/js/charts/tipsy.js"></script>
-        <script src="~/src/js/dashboardPage/su.app.js?v=@v"></script>
         <script src="~/src/js/dashboardPage/su.dashboardLayout.js?v=@v"></script>
 
         @*<link href="~/src/css/management/OlapChartDesign.css?v=@v" rel="stylesheet" />

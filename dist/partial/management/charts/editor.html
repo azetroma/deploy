@@ -488,7 +488,7 @@
 
                 <md-menu ng-if="!newChartEnable">
                     <md-button ng-click="$mdMenu.open($event)" style="font-size:10px">
-                        {{getChartName() }}
+                        {{getChartName(expandedChartType) }}
                     </md-button>
                     <md-menu-content>
                         <div>
@@ -578,7 +578,7 @@
                         </div>
                     </md-menu-content>
                 </md-menu>
-            <div class="chart-selector ui small button" ng-if="newChartEnable"> {{getChartName() }}</div>
+                <div class="chart-selector ui small button" ng-if="newChartEnable"> {{getChartName(expandedChartType) }}</div>
                 <div class="ui flowing basic admission popup" ng-if="newChartEnable" style="padding:0;">
                     <div style="max-height:250px;overflow-y:auto">
 
@@ -938,13 +938,23 @@
                             <div xng-show="!parent.members.isNumeric" ng-show="parent.members.filter.type == 'value'">
 
                                 <!--<div class="md-padding" layout="column" layout-align="center center" ng-hide="parent.members">
-                                    <md-progress-circular md-mode='indeterminate'></md-progress-circular>
-                                </div>-->
+        <md-progress-circular md-mode='indeterminate'></md-progress-circular>
+    </div>-->
                                 <div class="ui inline centered tiny loader" ng-class="{active: !parent.members}"></div>
 
+                                <div class="field fluid input mini ui" style="margin-bottom:10px">
+                                    <input type="text" placeholder="جستجو" ng-model="parent.memberQuery" ng-change="parent.memberQueryChange()" />
+                                </div>
 
-                                <div><label><input type="checkbox" ng-model="allmember" ng-change="parent.checkAll(parent.members.list, allmember)"> {{ 'انتخاب همه' | translate }}</label></div>
-                                <div ng-repeat="i in parent.members.list"><label><input type="checkbox" ng-model="i.Checked"> {{i.Name}}</label></div>
+                                <div>
+                                    <label><input  type="checkbox" ng-model="allmember" ng-change="parent.checkAll(parent.members.list, allmember)"> {{ 'انتخاب همه' | translate }}</label>
+                                </div>
+                                <div ng-show="parent.memberProgress">
+                                    <div class="ui inline centered tiny loader" ng-class="{active: parent.memberProgress}"></div>
+                                </div>
+                                <div ng-hide="parent.memberProgress">
+                                    <div ng-repeat="i in parent.members.list"><label><input type="checkbox" ng-model="i.Checked"> {{i.Name}}</label></div>
+                                </div>
 
                             </div>
 
@@ -955,9 +965,7 @@
                                     <div class="col-sm-8">
                                         <select class="form-control"
                                                 ng-model="parent.members.filter.funcType"
-                                                ng-options="i.name as i.value for i in [
-                                                                        {name:'time', value: 'تاریخ'  },
-                                                                    ]"></select>
+                                                ng-options="i.name as i.value for i in [{name:'time', value: 'تاریخ'  }]"></select>
                                     </div>
                                 </div>
                                 <sd-time-function ng-model="parent.members.filter.funcTime"></sd-time-function>

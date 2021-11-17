@@ -170,7 +170,7 @@
 
         <div class="ltr" style="margin-bottom:5px;" ng-if="!model.useParams">
             <ul style="padding-left:20px">
-                <li><b>Link: </b> {{prefix}}api/chartdata/export/{{apiKey.id}}?key={{apiKey.key}}</li>
+                <li><b>Link: </b> {{prefix}}api/chartdata/export/{{apiKey.id}}?key={{apiKey.key}}&type=csv</li>
                 <li><b>Method: </b> GET</li>
             </ul>
         </div>
@@ -178,6 +178,7 @@
             <ul style="padding-left:20px">
                 <li><b>Link: </b> {{prefix}}api/chartdata/export</li>
                 <li><b>Method: </b> POST</li>
+                <li><b>type: </b> نوع خروجی که باید یکی از دو مقدار json یا csv را داشته باشد</li>
                 <li><b>id: </b> {{apiKey.id}}</li>
                 <li><b>key: </b> {{apiKey.key}}</li>
             </ul>
@@ -202,6 +203,7 @@
                     <input flex type="text" class="form-control" placeholder="نام پارامتر" ng-model="i.name" />
                     <div class="ui mini icon button " ng-click="model.exportApiParams.splice($index, 1)"><i class="ui icon trash alternate outline" /></div>
                 </div>
+
                 <br />
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">smنوع پارامترهای ارسالی</label>
@@ -223,6 +225,7 @@
 {
   "key": "76582150-eb1e-4b21-ac7c-f94aa34b2088",
   "id": 2448,
+  "type": "csv",
   "filters": [
     {
       "name": "date",
@@ -234,7 +237,8 @@
   ]
 }
 </pre>
-                هدر Content-Type درخواست باید application/json تنظیم شود.
+                هدر Content-Type درخواست باید application/json تنظیم شود. type میتواند یکی از 
+                دو مقدار json یا csv را داشته باشد
             </div>
 
         </div>
