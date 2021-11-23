@@ -86,7 +86,7 @@
                                     <label>احراز هویت</label>
                                     <select ng-model="model.Authentication" ng-options="a.val as a.label for a in [{val:0, label:'SQL SERVER'},{val:1, label:'Windows'}]">
                                         <!--<option value="0">SQL SERVER</option>
-                                        <option value="1">Windows</option>-->
+                <option value="1">Windows</option>-->
                                     </select>
                                 </div>
 
@@ -156,7 +156,7 @@
                             </div>
 
 
-                            <datasource-schedule ng-show="model.AutoRefresh==-1" ng-model="schedule">-m> </datasource-schedule>
+                            <datasource-schedule ng-show="model.AutoRefresh==-1" ng-model="schedule"> </datasource-schedule>
 
                             <partition-expression ng-show="model.AutoRefresh==-2" ng-model="schedulePartition"> </partition-expression>
 
@@ -164,13 +164,31 @@
 
                             <div class="field">
                                 <div class="ui button" ng-class="{loading: clearCacheProgress, disabled: clearCacheProgress}" ng-click="clearCache()">پاک کردن کش (Cache) منبع داده</div>
-                                <small class="gray">با پاک کردن کش منبع داده، نتیجه‌ی تمامی گزارش‌های مرتبط با این منبع داده پاک خواهند شد
-                                و ممکن است برای اولین بار اجرای گزارش سرعت کمتری داشته باشد.</small>
-                            </div> 
+                                <small class="gray">
+                                    با پاک کردن کش منبع داده، نتیجه‌ی تمامی گزارش‌های مرتبط با این منبع داده پاک خواهند شد
+                                    و ممکن است برای اولین بار اجرای گزارش سرعت کمتری داشته باشد.
+                                </small>
+                            </div>
+
 
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
 
                             <datasource-metainfo ng-model="model.metainfo"></datasource-metainfo>
+                            <versions id="{{id}}" type="6" on-restore="restore(model)" on-detail="detail(model)"></versions>
+                            <div class="ui segment" ng-show="showDetailModel" style="max-height:400px; overflow-y:auto;">
+                                <ul>
+                                    <li><b>نام: </b>{{detailModel.Name}}</li>
+                                    <b>بروز رسانی: </b> {{detailModel.AutoRefreshLabel}}
+                                    <datasource-schedule-caption ng-if="detailModel.AutoReresh==-1" ng-model="detailModel.ScheduleParse" />
+                                    <li><b>پرس‌وجو: </b>{{detailModel.Detail.Query}}</li>
+                                    <li><b>پایگاه داده: </b>{{detailModel.Detail.Database}}</li>
+                                    <li><b>کاربر: </b>{{detailModel.Detail.Username}}</li>
+                                    <li><b>مدل ذخیره‌سازی: </b>{{detailModel.Detail.ModelType ==0 ? 'SQL' : 'DAX'}}</li>
+
+                                </ul>
+
+                                <div class="ui button mini blue float-left" ng-click="restoreVersion()">بروز رسانی</div>
+                            </div>
 
                         </form>
 

@@ -286,12 +286,29 @@
                             </div>
 
 
+
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
                             <datasource-metainfo ng-model="model.metainfo"></datasource-metainfo>
 
                             <!--<sadaf-checkbox ng-show="isEdit" ng-model="model.saveData">{{'save with get data' | translate}}</sadaf-checkbox>-->
 
                             <schema-types ng-model="model.schema" id="id"></schema-types>
+                            <br/>
+                            <versions id="{{id}}" type="6" on-restore="restore(model)" on-detail="detail(model)"></versions>
+                            <div class="ui segment" ng-show="showDetailModel" style="max-height:400px; overflow-y:auto;">
+                                <ul>
+                                    <li><b>نام: </b>{{detailModel.Name}}</li>
+                                    <b>بروز رسانی: </b> {{detailModel.AutoRefreshLabel}}
+                                    <datasource-schedule-caption ng-if="detailModel.AutoReresh==-1" ng-model="detailModel.ScheduleParse" />
+                                    <li><b>url: </b>{{detailModel.Detail.url}}</li>
+                                    <li><b>type: </b>{{detailModel.Detail.type}}</li>
+                                    <li><b>jsonPostProcess: </b>{{detailModel.Detail.jsonPostProcess}}</li>
+                                    <li><b>مدل ذخیره‌سازی: </b>{{detailModel.Detail.ModelType ==0 ? 'SQL' : 'DAX'}}</li>
+
+                                </ul>
+
+                                <div class="ui button mini blue float-left" ng-click="restoreVersion()">بروز رسانی</div>
+                            </div>
 
                         </form>
 
