@@ -152,6 +152,16 @@
             </sadaf-checkbox>
         </div>
 
+        <div class="inline fields" ng-show="!c.control.active.dropdown.useRemoteData">
+            <label>{{'حالت نمایش' | translate}}</label>
+            <sm-dropdown items="[{key:'combo', value:'combo'}
+                                 , {key:'radio', value:'radio'}
+                                ]"
+                         class=""
+                         model="c.control.active.dropdown.theme" label="item.value" value="item.key"></sm-dropdown>
+        </div>
+
+
         <div class="field" ng-show="!c.control.active.dropdown.useRemoteData">
             <label>{{'selectable values' | translate}}</label>
             <textarea layout-fill

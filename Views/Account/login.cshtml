@@ -162,7 +162,7 @@
                             <a class="ui basic fluid button big" href="@Url.Action("signup", "account")">@ViewBag.msg["signup"]</a>
                         }
 
-                        @if (ViewBag.sso.enable ?? false) {
+                        @if (ViewBag.sso!=null && (ViewBag.sso.enable ?? false)) {
                             <br />
                             <a class="ui basic fluid button big" href="@Url.Action("logincas", "account")">@ViewBag.sso.loginKeyLabel</a>
                         }
