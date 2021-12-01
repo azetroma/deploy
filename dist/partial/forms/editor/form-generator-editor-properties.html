@@ -23,7 +23,7 @@
     <div class="field" ng-show="c.control.active.value || c.control.active.dropdown.listValue.length">
         <small class="gray">
             {{c.control.active.value}} {{c.control.active.dropdown.listValue.join(', ')}}
-            <i class="icon remove" ng-click="c.control.active.value = null; c.control.active.dropdown.listValue = null;"></i>
+            <i class="icon remove" ng-click="c.clearValue()"></i>
         </small>
     </div>
 

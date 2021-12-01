@@ -20,96 +20,42 @@
                         }
                     </style>
 
-                    <div class="ui form sadaf-form settings">
-
+                    <div class="ui form ">
                         <div class="field">
                             <label>{{'نام سازمان' | translate}}</label>
                             <input required ng-model="model.Brand">
                         </div>
 
+                        <div class="ui secondary segment">
+
+                        <div class="ui header">تنظیمات صفحه لاگین</div>
+
                         <div class="field">
                             <label>{{'login desc' | translate}}</label>
                             <textarea ng-model="model.loginPageText" style="line-height: 2em;"></textarea>
                         </div>
-                        <!--  <div class="ui secondary segment">
-    <h3>تنظیمات پیام کوتاه</h3>
-    <div class="fields">
-        <div class="two wide field">
-            <label>آدرس وب سرویس</label>
-        </div>
-        <div class="six wide field ltr">
-            <input type="text" ng-model="model.smsInfo.url">
-        </div>
-        <div class="two wide field">
-            <label>نوع ارسال</label>
-        </div>
-        <div class="two wide field">
-            <sm-dropdown style="min-width: 100%;" class="search selection" model="model.smsInfo.method" items="[
-                 {id:0, name:'POST'},
-                 {id:1, name:'GET'}
-                 ]" label="item.name" value="item.id"></sm-dropdown>
-        </div>
-    </div>
-    <div class="fields">
-        <div class="two wide field">
-            <label>کاراکتر پیش از شماره موبایل</label>
-        </div>
-        <div class="two wide field ltr">
-            <input type="text" ng-model="model.smsInfo.contactJoinBefore">
-        </div>
-        <div class="two wide field">
-            <label>کاراکتر پس از شماره موبایل</label>
-        </div>
-        <div class="two wide field ltr">
-            <input type="text" ng-model="model.smsInfo.contactJoinAfter">
-        </div>
-        <div class="two wide field">
-            <label>کاراکتر جداکننده</label>
-        </div>
-        <div class="two wide field ltr">
-            <input type="text" ng-model="model.smsInfo.contactJoinSeparator">
-        </div>
-    </div>
 
-    <div class="fields">
-        <div class="two wide field">
-            <label>داده‌ها</label>
-        </div>
-        <div class="six wide field ltr">
-            <textarea type="text" ng-model="model.smsInfo.data"></textarea>
-        </div>
-        <div class="two wide field">
-            <label>نوع داده</label>
-        </div>
-        <div class="two wide field ltr">
-            <input type="text" ng-model="model.smsInfo.dataType">
-        </div>
-    </div>
+                        <div class="two column fields fluid">
 
-    <div class="fields">
-        <div class="two wide field">
-            <label>
-                سرآیند ارسال
-                <span class="ui mini button icon " ng-click="model.smsInfo.headers.push({})" ng-init="model.smsInfo.headers = model.smsInfo.headers || []"><i class="ui icon add"></i></span>
-            </label>
-        </div>
-        <div class="six wide field">
-            <div ng-repeat="i in model.smsInfo.headers" class=" ltr">
-                <input  style="width:40%"type="text" ng-model="i.key">
-                <input  style="width:40%"type="text" ng-model="i.value">
-                <span class="ui mini button icon " ng-click="model.smsInfo.headers.splice($index, 1)" ><i class="ui icon close"></i></span>
-            </div>
-        </div>
-        <div class="two wide field">
-            <label>نوع محتوا</label>
-        </div>
-        <div class="two wide field ltr">
-            <input type="text" ng-model="model.smsInfo.contentType">
-        </div>
-    </div>
-
-
-              </div>-->
+                            <div class="field">
+                                <label>{{'لینک صفحه پشتیبانی' | translate}}</label>
+                                <input class="ltr" placeholder="https://www." ng-model="model.supportLink" />
+                                <small class="small gray"> در صورتی که برای پشتیبانی کاربران پرتال یا صفحه‌ی خاصی دارید لینک و نام صفحه را اینجا وارد کنید</small>
+                            </div>
+                            <div class="field">
+                                <label>{{'نام لینک' | translate}}</label>
+                                <input ng-model="model.supportTitle" />
+                            </div>
+                            <div class="field">
+                                <label>{{'توضیحات مربوط به کلید' | translate}}</label>
+                                <input ng-model="model.supportDesc" />
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                    <br/>
+                    <div class="ui form sadaf-form settings">
+                         
 
                         <div ng-show="securityCertPatch">
                             <div class="ui button field" ng-class="{loading : certCheckProgress, disabled: certCheckProgress}" ng-click="checkSmsCert()">بررسی و تایید گواهینامه سرور پیام کوتاه</div>

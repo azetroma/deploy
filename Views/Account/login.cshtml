@@ -162,21 +162,25 @@
                             <a class="ui basic fluid button big" href="@Url.Action("signup", "account")">@ViewBag.msg["signup"]</a>
                         }
 
-                        @if (ViewBag.sso!=null && (ViewBag.sso.enable ?? false)) {
+                        @if (ViewBag.sso != null && (ViewBag.sso.enable ?? false)) {
                             <br />
                             <a class="ui basic fluid button big" href="@Url.Action("logincas", "account")">@ViewBag.sso.loginKeyLabel</a>
                         }
+                        @if (!String.IsNullOrEmpty(ViewBag.supportLink)) {
+                            <br />
+                            <a title="@ViewBag.supportDesc" class="ui basic fluid button big" target="_blank" href="@ViewBag.supportLink">@(ViewBag.supportTitle ?? "پشتیبانی")</a>
+                        }
 
-                            <a style="margin-top:40px; display:block;" class="pointer" href="@Url.Action("resetPass", "account")">@ViewBag.msg["forgot password"]</a>
-                            <div class="xpull-right" style="font-size: 10px; padding: 30px 0;">
-                                <br />
-                                @{ var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;}
-                                <div>@ViewBag.msg["version"] : @(version.Major + "." + version.Minor + "." + version.Build )  </div>
-                                <div>@ViewBag.msg["db version"]: @ViewBag.DbVersion</div>
-                                <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
-                                <br />
-                                <a class="show-help pointer">@ViewBag.msg["help"]</a>
-                            </div>
+                        <a style="margin-top:40px; display:block;" class="pointer" href="@Url.Action("resetPass", "account")">@ViewBag.msg["forgot password"]</a>
+                        <div class="xpull-right" style="font-size: 10px; padding: 30px 0;">
+                            <br />
+                            @{ var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;}
+                            <div>@ViewBag.msg["version"] : @(version.Major + "." + version.Minor + "." + version.Build )  </div>
+                            <div>@ViewBag.msg["db version"]: @ViewBag.DbVersion</div>
+                            <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
+                            <br />
+                            <a class="show-help pointer">@ViewBag.msg["help"]</a>
+                        </div>
 
                     </div>
 

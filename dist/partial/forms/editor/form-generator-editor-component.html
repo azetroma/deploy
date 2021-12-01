@@ -1,33 +1,4 @@
-﻿<!--<div class="form-components"layout="row" layout-fill layout-wrap  layout-align="start start" style="overflow:auto">
-    <div class="draggable-element" ng-repeat="i in c.drags track by $index" ui-sortable="c.draggableOptions" ng-model="i" flex="50">
-        <div class="fg-component cursor" ng-repeat="o in  i track by $index" layout="row" layout-align="start center">
-            <div class="ui  list">
-                <div class="item " style="padding:5px;">
-                    <div class="ui avatar image">
-                        <i class="{{o.icon}} icon"></i>
-                    </div>
-                    <div class="content">
-                        <div class="xheader">
-                            {{o.key}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
-
-
-<!--<div class="form-components" layout="row" layout-fill layout-wrap layout-align="start start" style="overflow:auto">
-    <div class="draggable-element" ng-repeat="i in c.drags track by $index" xui-sortable="c.draggableOptions" ng-model="i" flex="50" xsadaf-draggable>
-        <div class="fg-component cursor" ng-repeat="o in  i track by $index" style="margin:5px;">
-            <div class="ui tiny label fluid" style="text-align:right;">
-                <i class="{{o.icon}} icon"></i>
-                {{o.key}}
-            </div>
-        </div>
-    </div> 
-</div>-->
+﻿
 <style>
     .form-components .wide.column{
         min-height:initial;
@@ -36,7 +7,7 @@
 <div class="form-components" ng-sortable="c.compConf"layout="row" layout-fill layout-wrap layout-align="start start" style="overflow:auto; font-size:12px;">
     <div class="draggable-element"  ng-repeat="o in c.items track by $index" style="width:50%; display:inline-block;">
         <div class="fg-component cursor" style="">
-            <div class="ui xlabel teal fluid item-box" >
+            <div class="ui secondary small segment fluid item-box" style="margin:0px 4px; padding:8px" >
                 <i class="{{o.icon}} icon large"></i>
                 {{o.key}} 
             </div>
