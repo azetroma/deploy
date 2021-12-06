@@ -420,12 +420,12 @@
                                                 <div class="ui form horizontal segments" ng-repeat="item in model.dashboardVariables">
 
 
-                                                        <div class="ui segment" style="display:flex">
+                                                        <div class="ui segment" style="display:flex; min-width:50%">
 
                                                             <div style="flex-grow:1">
                                                                 <div class="field fluid">
                                                                     <label>{{'داشبورد' | translate}}</label>
-                                                                    <sm-dropdown class="selection search" items="menusFlat" model="item.dashboard" label="item.name" value="item.id"></sm-dropdown>
+                                                                    <sm-dropdown class="selection search multiple" items="menusFlat" model="item.dashboards" label="item.name" value="item.id"></sm-dropdown>
                                                                 </div>
                                                             </div>
 
@@ -435,7 +435,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="ui segment">
+                                                        <div class="ui segment" style="min-width: 50%">
 
                                                             <div ng-repeat="p in item.userVariables" class="ui form">
                                                                 <div class="two column fields">
@@ -546,7 +546,7 @@
 
                         </div>
 
-                        <div ng-if="isEdit">
+                        <div ng-if="isEdit"> 
 
                             <h3 class="">
                                 {{'child roles' | translate}}
