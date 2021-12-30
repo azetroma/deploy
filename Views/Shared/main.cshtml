@@ -109,14 +109,21 @@
 
 
     <script>
-        debugger
+        
         var app = app || {};
-        app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
-        app.aboluteUrl = "@Request.Url.AbsoluteUri";
-        app.version = "@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version";
-        app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
-        app.setAboluteUrl("@Request.Url.AbsoluteUri");
 
+        @*app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");*@
+
+        app.urlPrefix = "@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, "");
+        app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        @*app.setUrlPrefix("@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, ""));
+        app.setAboluteUrl("@Request.Url.AbsoluteUri");*@
+
+
+
+        app.version = "@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version";
 
         var hash = "@ViewBag.returnUrlHash";
         if (hash) {
@@ -128,7 +135,7 @@
         app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
             ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString()
             : typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString())';
-        
+
 
     </script>
 </body>

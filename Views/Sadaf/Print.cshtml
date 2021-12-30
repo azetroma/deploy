@@ -366,11 +366,16 @@
         //$('.ui.modal').modal();
 
         var app = app || {};
-        app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
-        app.aboluteUrl = "@Request.Url.AbsoluteUri";
         app.version = "@v";
-        app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
         app.setAboluteUrl("@Request.Url.AbsoluteUri");
+
+        app.hashUrlPrefix = "@Url.Action("main", "sadaf")" + "/";
+        app.urlPrefix = "@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, "");
+        app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        app.setUrlPrefix("@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, ""));
+
+
+
         //app.userId = user.Id;
 
         var hash = "@ViewBag.returnUrlHash";

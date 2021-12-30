@@ -415,7 +415,7 @@
 
 
 
-                                                <div class="ui mini icon button" style="margin:10px 10px" ng-click="model.dashboardVariables.push({userVariables:[{}]})"><i class="icon add" /> اضافه کردن</div>
+                                                <div class="ui mini icon button" style="margin:10px 10px" ng-click="model.dashboardVariables.push({userVariables:[{}]})"><i class="icon add" ></i> اضافه کردن</div>
 
                                                 <div class="ui form horizontal segments" ng-repeat="item in model.dashboardVariables">
 
@@ -431,7 +431,7 @@
 
                                                             <div class="field" style="max-width: 55px; margin-right:14px">
                                                                 <label>&nbsp;</label>
-                                                                <div class="ui icon  button" ng-click="model.dashboardVariables.splice($index, 1)"> <i class="icon trash outline alternate" /></div>
+                                                                <div class="ui icon  button" ng-click="model.dashboardVariables.splice($index, 1)"> <i class="icon trash outline alternate" ></i></div>
                                                             </div>
                                                         </div>
 
@@ -451,12 +451,12 @@
 
                                                                     <div class="field" style="max-width: 55px;">
                                                                         <label ng-if="$index == 0">&nbsp;</label>
-                                                                        <div class="ui icon button" ng-click="item.userVariables.push({})"> <i class="icon add" /></div>
+                                                                        <div class="ui icon button" ng-click="item.userVariables.push({})"> <i class="icon add" ></i></div>
                                                                     </div>
 
                                                                     <div class="field" style="max-width: 55px;" ng-if="item.userVariables.length>1">
                                                                         <label ng-if="$index == 0">&nbsp;</label>
-                                                                        <div class="ui icon  button" ng-click="item.userVariables.splice($index, 1)"> <i class="icon trash outline alternate" /></div>
+                                                                        <div class="ui icon  button" ng-click="item.userVariables.splice($index, 1)"> <i class="icon trash outline alternate" ></i></div>
                                                                     </div>
 
                                                                 </div>

@@ -379,12 +379,19 @@
         var app = app || {};
         app.useEnglishDigit = JSON.parse("@((ViewBag.englishDigit ?? false ).ToString().ToLower())");
         app.shareMode = true;
-        app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        // app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        // app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        // app.version = "@v";
+        // app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
+        // app.setAboluteUrl("@Request.Url.AbsoluteUri");
+        // app.userId = user.Id;
+
+
+        app.urlPrefix = "@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        app.setUrlPrefix("@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, ""));
         app.version = "@v";
-        app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
-        app.setAboluteUrl("@Request.Url.AbsoluteUri");
-        //app.userId = user.Id;
+
 
         var hash = "@ViewBag.returnUrlHash";
         if (hash) {

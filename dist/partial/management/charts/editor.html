@@ -589,7 +589,7 @@
                                         <img class="icon" src="{{x.iconLink || defaultIcon}}" title=" {{ x.name | translate}}" />
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
 
                         <md-divider></md-divider>
@@ -649,7 +649,7 @@
                     استفاده شود تریگرها درست کار نمیکنند.
                      -->
                 <div ng-show="chartRenderError && (chartType!=10 || (chartProp.text.info.romoteDate && chartType==10))">{{chartRenderError}}</div>
-                <div ng-show="chartType!=10 || (chartProp.text.info.romoteDate && chartType==10)" id="divChart" style="flex:1;display:flex;"></div>
+                <div ng-show="chartType!=10 || (chartProp.text.info.romoteDate && chartType==10)" id="divChart" style="flex:1;display:flex;overflow:hidden;"></div>
             </md-card-content>
 
 
@@ -747,7 +747,7 @@
 
                 <md-input-container class="md-block">
                     <label>{{ 'desc' | translate }}</label>
-                    <textarea ng-model="parent.chartDesc" type="text" />
+                    <textarea ng-model="parent.chartDesc" type="text" ></textarea>
                 </md-input-container>
 
                 <div>

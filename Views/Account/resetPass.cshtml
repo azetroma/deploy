@@ -91,6 +91,7 @@
 
 
 
+    @Html.AntiForgeryToken()
     <div class="form-signin" ng-app="signup" ng-controller="cntl">
         <div class="ui stackable grid">
             <div class="col-md-6 six wide column">
@@ -212,6 +213,11 @@
 
         <script>
             app = angular.module('signup', []);
+            app.config(['$httpProvider', function ($httpProvider) {
+                var xsrf = $('input[name=__RequestVerificationToken]').val();
+                $httpProvider.defaults.headers.post['__RequestVerificationToken'] = xsrf;
+            }]);
+
             app.controller('cntl', ['$scope', '$http', '$interval', function ($scope, $http, $interval) {
 
                 $scope.step =1;

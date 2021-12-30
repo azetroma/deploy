@@ -152,8 +152,9 @@
 
     <script>
         var app = app || {};
-        app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        app.urlPrefix = "@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        app.setUrlPrefix("@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, ""));
         app.hashUrlPrefix = "@Url.Action("help", "sadaf")" + "/";
         app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
             ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : ver.ToString())';

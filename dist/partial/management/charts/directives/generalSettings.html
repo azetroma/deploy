@@ -201,7 +201,7 @@
             <div ng-repeat="i in model.exportApiParams" class="ui mini secondary segment">
                 <div class="ui fluid action  input">
                     <input flex type="text" class="form-control" placeholder="نام پارامتر" ng-model="i.name" />
-                    <div class="ui mini icon button " ng-click="model.exportApiParams.splice($index, 1)"><i class="ui icon trash alternate outline" /></div>
+                    <div class="ui mini icon button " ng-click="model.exportApiParams.splice($index, 1)"><i class="ui icon trash alternate outline" ></i></div>
                 </div>
 
                 <br />
@@ -216,8 +216,8 @@
                 <br />
                 <div class="ui fluid action  input" style="margin-bottom:4px" flex ng-repeat="c in i.columns">
                     <input flex type="text" style="display: inline-block;direction: ltr;text-align: left;" placeholder="فرمول ستون" ng-model="c.formula" />
-                    <div class="ui mini icon button" ng-click="i.columns.splice($index+1, 0,{})"><i class="ui icon add" /></div>
-                    <div class="ui mini icon button" ng-if="i.columns.length > 1" ng-click="i.columns.splice($index, 1)"><i class="ui icon close" /></div>
+                    <div class="ui mini icon button" ng-click="i.columns.splice($index+1, 0,{})"><i class="ui icon add" ></i></div>
+                    <div class="ui mini icon button" ng-if="i.columns.length > 1" ng-click="i.columns.splice($index, 1)"><i class="ui icon close" ></i></div>
                 </div>
                 <br />
                 نمونه پارامترهای ارسالی

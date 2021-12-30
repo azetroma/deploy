@@ -47,9 +47,19 @@
                                 {name:'نقشه آفلاین google', value: 'google-offline'  },
                                 ]"></select>
                         <!--
-            {name:'نقشه آفلاین openStreet', value: 'open-street-offline'  },
-                {name:'نقشه آنلاین google', value: 'google-online'  },-->
+        {name:'نقشه آفلاین openStreet', value: 'open-street-offline'  },
+            {name:'نقشه آنلاین google', value: 'google-online'  },-->
                     </div>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.map.info.realMap.scrollWheelZoom" ng-change="refreshChart('refresh')" /> اسکرول با موس
+                            </label>
+                        </div>
+                    </div>
+
+
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">

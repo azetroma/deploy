@@ -77,7 +77,7 @@
         <script src="~/dist/js/dashboard-all.js?v=@v"></script>
     }
 
-    <script>
+<script>
 
         var ngApp = angular.module('singleForm', ['sadafForms', 'ngRoute', 'navbarCat', 'ui.sortable', 'pascalprecht.translate', 'ngSanitize', 'uibCollapseCat']);
         ngApp.controller('singleFormCtl', ['$scope', 'iframeService', '$location', function ($scope, iframeService, $location) {
@@ -85,8 +85,13 @@
         }]);
 
         var app = app || {};
-        app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+
+        app.hashUrlPrefix = "@Url.Action("main", "sadaf")" + "/";
+        app.urlPrefix = "@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        app.setUrlPrefix("@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, ""));
+
+
         app.version = "@v";
         @*app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
         app.setAboluteUrl("@Request.Url.AbsoluteUri");*@
@@ -122,7 +127,7 @@
               });
       }]);
 
-    </script>
+</script>
     @*Clickjacking Defense*@
     <style id="antiClickjack">
         body {

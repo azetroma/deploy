@@ -161,6 +161,8 @@
                             <partition-expression ng-show="model.AutoRefresh==-2" ng-model="schedulePartition"> </partition-expression>
 
                             <interval-fetch ng-hide="model.AutoRefresh == -2" ng-model="model.intervalFetch" fields="fields" , datasource-id="{{id}}"></interval-fetch>
+                            
+                            <fetch-loop  ng-model="model.fetchLoop"></fetch-loop>
 
                             <div class="field">
                                 <div class="ui button" ng-class="{loading: clearCacheProgress, disabled: clearCacheProgress}" ng-click="clearCache()">پاک کردن کش (Cache) منبع داده</div>
@@ -179,7 +181,7 @@
                                 <ul>
                                     <li><b>نام: </b>{{detailModel.Name}}</li>
                                     <b>بروز رسانی: </b> {{detailModel.AutoRefreshLabel}}
-                                    <datasource-schedule-caption ng-if="detailModel.AutoReresh==-1" ng-model="detailModel.ScheduleParse" />
+                                    <datasource-schedule-caption ng-if="detailModel.AutoReresh==-1" ng-model="detailModel.ScheduleParse" ></datasource-schedule-caption>
                                     <li><b>پرس‌وجو: </b>{{detailModel.Detail.Query}}</li>
                                     <li><b>پایگاه داده: </b>{{detailModel.Detail.Database}}</li>
                                     <li><b>کاربر: </b>{{detailModel.Detail.Username}}</li>

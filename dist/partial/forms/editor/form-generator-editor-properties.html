@@ -51,6 +51,11 @@
             {{'require' | translate}}
         </sadaf-checkbox>
     </div>
+    <div class="field" ng-show="c.controlProperty(c.control.active).disable">
+        <sadaf-checkbox ng-model="c.control.active.validations.isDisable">
+            {{'غیر فعال کردن' | translate}}
+        </sadaf-checkbox>
+    </div>
     <div class="field" ng-show="c.controlProperty(c.control.active).regex">
         <sadaf-checkbox ng-model="c.control.active.validations.regexValidation">
             اعتبارسنجی با Regex

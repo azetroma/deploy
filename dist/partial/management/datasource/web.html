@@ -154,11 +154,58 @@
 
                             </div>
 
+                            <div ng-show="model.type == 'JSON'">
 
-                            <!--<div class="field" ng-show="model.type != 'SOAP'">
-        <label>{{'Body' | translate}}</label>
-        <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
-    </div>-->
+                            <div class="field">
+                                <sadaf-checkbox ng-model="model.paging.enable">دریافت داده‌های صفحه‌بندی شده</sadaf-checkbox>
+                            </div>
+
+                            <div class="ui secondary segment" ng-show="model.paging.enable">
+                                <div class="field">
+                                    <label>روش اجرای حلقه</label>
+                                    <sm-dropdown items="[{key:'numbers', value:'محدوده عدد'},{key:'array', value:'آرایه دلخواه'}]" class="selection fluid"
+                                                 model="model.paging.type" label="item.value" value="item.key"></sm-dropdown>
+                                </div>
+
+                                <div ng-if="model.paging.type == 'numbers'">
+                                <div class="two fields" >
+                                    <div class="field">
+                                        <label>اجرا از عدد</label>
+                                        <input class="ltr" ng-model="model.paging.from">
+                                    </div>
+                                    <div class="field">
+                                        <label>تا عدد</label>
+                                        <input class="ltr" ng-model="model.paging.to">
+                                    </div>
+                                </div>
+                                    <small class="gray">کد در حلقه‌ای شامل اعداد وارد شده اجرا می‌شود. در هر بار اجرای حلقه متغیر 
+                                        <span class="ltr inline ui label">@loop</span>مقداردهی می‌شود. بنابراین لازم است از 
+                                        این متغیر در پارامترها و آدرس وب سرویس استفاده کنید.
+                                    </small>
+                                </div>
+                                <div class="" ng-if="model.paging.type == 'array'">
+                                    <div class="field">
+                                        <label>اجرا از عدد</label>
+                                        <textarea class="ltr" ng-model="model.paging.array"></textarea>
+                                    </div>
+                                    <small class="gray">در هر خط مقادیر هر اجرا را وارد کرده و در صورتی که هر بار اجرا بیش از یک متغیر دارد آن‌ها را با - یا , 
+                                    از هم جدا کنید.
+                                    هر اجرا مقادیر در متغیر 
+                                    <span class="ltr ui label">@loop[0]</span>
+                                    قرار میگیرد. ایندکس متغیر می‌تواند در صورتی که بیش از یک مقدار در ردیف دارین متفاوت باشد.
+                                    
+                                    داده‌های وارد شده می‌تواند مثل زیر باشد
+                                        <pre class="ltr">1399-1400
+1400-1401
+</pre>
+                                    </small>
+                                    
+                                </div>
+
+
+
+                            </div>
+                            </div>
 
                             <p ng-click="showParams = !showParams" layout="row" class="pointer" ng-hide="model.type == 'SOAP'">
                                 <span class="material-icons icon-animate" ng-class="{'rotate-90' : showParams}">keyboard_arrow_left</span>
@@ -177,17 +224,14 @@
                                         </div>
                                         &nbsp;
                                         <div class="x">
-                                            <!--<select ng-model="param.type" aria-label="{{'form_select_param_type' | translate}}">
-                    <option value="Query">Query</option><option value="Header">Header</option></select>-->
                                             <sm-dropdown items="[{key:'Query', value:'Query'},{key:'Header', value:'Header'},{key:'Body', value:'Body (form-data)'},{key:'BodyRaw', value:'Body (raw)'}]" class="fluid"
                                                          model="param.type" label="item.value" value="item.key"></sm-dropdown>
-
                                         </div>
                                         &nbsp;
 
                                         <div layout="row" layout-margin>
 
-                                            <div class="md-icon-button" ng-click="parameters.push({select: 'Query'})">
+                                            <div class="md-icon-button" ng-click="parameters.push({type: param.type})">
                                                 <span class="material-icons small small-size pointer">add</span>
                                             </div>
 
@@ -197,6 +241,12 @@
                                         </div>
 
                                     </div>
+                                    <small class="gray">
+                                        در صورتی که از نوع Body(raw) استفاده میکنید
+                                        و نوع داده‌ها به صورت josn باشد نام پارامتر را برابر
+                                        application/json
+                                        قرار دهید
+                                    </small>
                                 </div>
                             </div>
 
@@ -293,13 +343,13 @@
                             <!--<sadaf-checkbox ng-show="isEdit" ng-model="model.saveData">{{'save with get data' | translate}}</sadaf-checkbox>-->
 
                             <schema-types ng-model="model.schema" id="id"></schema-types>
-                            <br/>
+                            <br />
                             <versions id="{{id}}" type="6" on-restore="restore(model)" on-detail="detail(model)"></versions>
                             <div class="ui segment" ng-show="showDetailModel" style="max-height:400px; overflow-y:auto;">
                                 <ul>
                                     <li><b>نام: </b>{{detailModel.Name}}</li>
                                     <b>بروز رسانی: </b> {{detailModel.AutoRefreshLabel}}
-                                    <datasource-schedule-caption ng-if="detailModel.AutoReresh==-1" ng-model="detailModel.ScheduleParse" />
+                                    <datasource-schedule-caption ng-if="detailModel.AutoReresh==-1" ng-model="detailModel.ScheduleParse" ></datasource-schedule-caption>
                                     <li><b>url: </b>{{detailModel.Detail.url}}</li>
                                     <li><b>type: </b>{{detailModel.Detail.type}}</li>
                                     <li><b>jsonPostProcess: </b>{{detailModel.Detail.jsonPostProcess}}</li>

@@ -153,7 +153,6 @@
             <script src="~/dist/js/admin-app.js?v=@v"></script>
             <script src="~/dist/js/charts-theme2.js?v=@v"></script>*@
     }
-    <script src="~/react-dist/bundle.js?v=@v"></script>
 
 
     @if (ViewBag.cdn.enable) {
@@ -227,7 +226,7 @@
             @if (!ViewBag.noframe) {
 
                 <md-toolbar style="max-height:50px">
-                    <div class="md-toolbar-tools">
+                    <div class="md-toolbar-tools" style="color: white;">
                         <md-button class="md-icon-button" aria-label="Settings" xhide-gt-md>
                             <span class="material-icons" ng-click="toggle()">menu</span>
                         </md-button>
@@ -238,14 +237,14 @@
                                 <md-button style="min-width:0" ng-click="i.click()" aria-label="click">{{i.name}}</md-button>
                             </span>
                         </div>
+
                         <div>
                             <div ng-show="menuCategories.licenceRemain.remain <= 15" class="ui label red">
                                 تعداد روز باقیمانده از جواز استفاده:
                                 <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
                             </div>
-
-
                         </div>
+
                         <span flex></span>
                         <md-button href="@Href(useApp? "~/sadaf/main/": "~")">
                             {{'dashboard' | translate}}
@@ -330,6 +329,7 @@
             top.location = self.location;
         }
     </script>
+    <script src="~/react-dist/bundle.js?v=@v"></script>
 
 
 </body>

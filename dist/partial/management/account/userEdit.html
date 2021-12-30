@@ -269,7 +269,7 @@
 
                                     <div class="ui button icon mini inline" ng-click="urlbaseAdd()">
                                         اضافه کردن
-                                        <i class="ui icon add" />
+                                        <i class="ui icon add"></i>
                                     </div>
 
                                     <div ng-repeat="i in model.urlbaseActiveRole.items">
@@ -283,7 +283,7 @@
                                                 <sm-dropdown class="selection fluid" items="selectedRoles" model="i.role" label="item.name" value="item.id"></sm-dropdown>
                                             </div><div class="field">
                                                 <label>&nbsp;</label>
-                                                <div class="ui button icon mini" ng-click="model.urlbaseActiveRole.items.splice($index, 1)"><i class="ui icon delete" /></div>
+                                                <div class="ui button icon mini" ng-click="model.urlbaseActiveRole.items.splice($index, 1)"><i class="ui icon delete" ></i></div>
                                             </div>
                                         </div>
                                     </div>
