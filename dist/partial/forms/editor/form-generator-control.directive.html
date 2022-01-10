@@ -7,16 +7,30 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 0">
         <label ng-hide="settings.showLabel===false">{{model.label}} </label>
-        <input ng-hide="model.readonly" type="text" name="model.name" ng-model="model.value" placeholder="{{model.label}}" ng-keyup="keyup($event)">
+        <input ng-hide="model.readonly" type="text" name="model.name" model-options="{debounce:200}" ng-model="model.value" placeholder="{{model.label}}" ng-keyup="keyup($event)">
         <div ng-show="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
+    </div> 
+
+
+    <div ng-if="model.type==22">
+        <!--<div class="ui secondary segment" ng-sortable="{group: {name: 'form', pull:true, put:true}, animation:150}" style="min-height:200px;" ng-init="model.groups = model.groups || []">
+            <div class="header">{{model.label}}</div>
+            <div class="column" 
+                 ng-repeat="component in model.groups track by $index"
+                 ng-click="setProp(component);$event.stopPropagation();">
+                <form-control ng-class="{active: component.isActive}" class="column" remove="remove(component, $index)" edit="true" ng-model="component" id="{{id}}" settings="{fromMultiRow:true}"></form-control>
+            </div>
+        </div>-->
+        <sadafgroup ng-model="model" id="{{id}}" edit="{{edit}}"></sadafgroup>
     </div>
+
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 1">
         <label ng-hide="settings.showLabel===false">{{model.label}} </label>
-        <textarea class="sadaf-form-textarea"  ng-hide="model.readonly" ng-model="model.value" ng-keyup="keyup($event)"></textarea>
+        <textarea class="sadaf-form-textarea"  ng-hide="model.readonly" model-options="{debounce:200}" ng-model="model.value" ng-keyup="keyup($event)"></textarea>
         <div ng-show="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
@@ -26,7 +40,7 @@
     <div class="field {{model.validations.isRequire ? 'required' : ''}} " ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 2">
         <label ng-hide="settings.showLabel===false">{{model.label}}</label>
         <div class="formatted-input-container">
-            <input type="number" placeholder="{{model.label}}" id="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly" ng-model="model.value" ng-keyup="keyup($event)">
+            <input type="number" placeholder="{{model.label}}" id="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly" model-options="{debounce:200}" ng-model="model.value" ng-keyup="keyup($event)">
             <label class="formatted-input-label" for="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly">{{model.value | formatNumber:model}}</label>
         </div>
         <div ng-show="model.readonly">{{model.value | formatNumber:model}}</div>
@@ -67,7 +81,7 @@
             {{model.dropdown.listValue.join(', ')}}
         </div>
         <div ng-show="model.readonly" ng-if="model.dropdown.useRemoteData">
-            {{model.dropdown.selected.join(', ') || model.value}}
+            {{model.dropdown.listValue.join(', ') || model.value}}
         </div>
 
         <div ng-show="model.readonly" ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData">
@@ -157,12 +171,15 @@
             <form-lookup-get-id ng-keyup="keyup($event)" ng-hide="model.readonly" ng-model="model" id="{{id}}" ng-style="model.formLookup.showAddButton && {width: 'calc(100%)'} || {width: '100%'}"></form-lookup-get-id>
             <i ng-hide="model.readonly" ng-if="model.formLookup.showAddButton" class="auto-hide-icon icon add square big inverted black pointer" ng-click="showFormInModal()"
                title="اضافه کردن"
-               xstyle="margin:5px 5px 0 0;" style="position: absolute;left: 22px;top: 5px;"></i>
+               xstyle="margin:5px 5px 0 0;" style="z-index:20; position: absolute;left: 22px;top: 5px;"></i>
+            <i ng-hide="model.readonly || +model.value==0" ng-if="model.formLookup.showAddButton" class="auto-hide-icon icon pen square big inverted black pointer" ng-click="editFormInModal(model)"
+               title="ویرایش"
+               xstyle="margin:5px 5px 0 0;" style="z-index: 20; position: absolute; left: 55px; top: 5px;"></i>
         </div>
         <div ng-show="model.readonly">{{model.formLookup.selected ? model.formLookup.selected.join(', ') : model.formLookup.keyControlsBindedValue.join(', ')}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
-        <small>{{model.description}}</small>
+        <small>{{model.description}}</small> 
     </div>
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}} {{model.name}} form-{{id}}-type-13" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 13">

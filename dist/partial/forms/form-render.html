@@ -1,9 +1,9 @@
-﻿<div class="ui {{settings.selector}} sadaf-form-generator" id="{{selector}}" ng-class="{ 'fullscreen'  : data.modalSize == 'fullscreen','small'  : data.modalSize == 'small', 'large'  : data.modalSize == 'large', 'form-editor': settings.modal, 'jqmodal modal': settings.modal}" >
+﻿<div  class="ui {{settings.selector}} sadaf-form-generator" id="{{selector}}" ng-class="{ 'fullscreen'  : data.modalSize == 'fullscreen','small'  : data.modalSize == 'small', 'large'  : data.modalSize == 'large', 'form-editor': settings.modal, 'jqmodal modal': settings.modal}" >
 
     <div ng-if="settings.modal" class="header" style="background-color:#f9fafb;">
         {{data.name}}
         <div class="ui pagination mini menu  right floated" ng-if="data.pages.length>1">
-            <div class="item pointer" ng-repeat="page in data.pages" ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
+            <div class="item pointer" ng-repeat="page in data.pages" ng-show="page.canView" ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
                 <div class="content">
                     <div class="title"> {{page.name}}</div>
                 </div>
@@ -19,7 +19,8 @@
 
     </div>
      
-    <div class="content " style="background-color:#f4f6f9;">
+    <div class="content " style="background-color:#f4f6f9;min-height:300px;position:relative;">
+       <!-- <div class="cover" ng-style="{'visibility': (formLoading  ? 'visible' : 'hidden')}" style="background-color:white; position:absolute; width:100%; height:100%;margin:-21px;z-index:2; transition:all 2s ease-in-out"></div>-->
         <div class="" ng-show="formLoading">
             <div class="" style="text-align: center">
                 <i class="notched circle loading icon"></i>
@@ -27,11 +28,11 @@
             </div>
         </div>
 
-        <div ng-show="!formLoading">
+        <div ng-show="!formLoading" style=" -webkit-transition: height 1s ease; -moz-transition: height 1s ease; -o-transition: height 1s ease; transition: height 1s ease; " xng-style="{'height': formLoading ? '100px': 'auto'}">
             <div ng-if="!settings.modal">
                 <div style="margin-top:1rem;"></div>
                 <div class="ui small menu" ng-show="data.pages.length>1">
-                    <div class="item pointer" ng-repeat="page in data.pages" ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
+                    <div class="item pointer" ng-repeat="page in data.pages" ng-show="page.canView"  ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
                         <div class="content">
                             <div class="title"> {{page.name}}</div>
                         </div>
@@ -64,8 +65,11 @@
             </div>
 
             <div class="ui error message" ng-show="data.pages.length > 1 && pagesContainError.length">
-                {{'error in pages'|translate}}
-                <div ng-repeat="p in pagesContainError">{{p.name}}</div>
+                <!--{{'error in pages'|translate}}-->
+                <b>  لیست خطا‌ها</b>
+                <ul>
+                <li ng-repeat="p in pagesContainError">{{p}}</li>
+                </ul>
             </div>
             <div ng-if="showVersion && app.license.formVersioning" style="margin-top:10px">
                 <div ng-if="versionRestore" ng-click="backToBaseVersion()" class="ui mini button black" style="position:absolute; left:18px;">نمایش آخرین وضعیت</div>
@@ -76,14 +80,13 @@
         </div> 
 
     </div>
-    <div class="actions" ng-show="!formLoading" ng-style="{'margin-top':settings.modal ? '0':'40px'}">
-
+    <div class="actions" xng-show="!formLoading" ng-style="{'margin-top':settings.modal ? '0':'40px', 'min-height':'64px'}">
         <div class="ui grid content-form rtl" ng-show="submittedStatus == 0 || submittedStatus==1">
             <div xclass="left floated eight wide column left aligned">
                 <div ng-hide="submittedStatus!=0">
-                    <button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == 0" ng-click="activePage = activePage-1">قبلی</button>
-                    <button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == data.pages.length-1" ng-click="activePage = activePage+1">ادامه</button>
-                    <button class="ui button green relative" ng-disabled="(activePage != data.pages.length-1 && !rowId ) || (!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading" ng-click="submit()" ng-class="{loading: loading}">
+                    <!--<button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == 0" ng-click="activePage = activePage-1">قبلی</button>
+                    <button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == data.pages.length-1" ng-click="activePage = activePage+1">ادامه</button>-->
+                    <button class="ui button green relative" ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading" ng-click="submit()" ng-class="{loading: loading}">
                         {{rowId ? ('edit' | translate) : ('save' | translate )}}
                         <span class="below-btn-helper" ng-hide="settings.modal"> Ctrl + Enter </span>
                     </button>
@@ -105,7 +108,7 @@
 
             </div>
         </div>
-        <button class="ui button black" ng-if="submittedStatus==2" ng-click="cancel()">{{'cancel' | translate}}</button>
+        <button class="ui button black" ng-if="submittedStatus==2"  ng-click="cancel()">{{'cancel' | translate}}</button>
 
     </div>
 

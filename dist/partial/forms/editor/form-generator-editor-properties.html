@@ -252,7 +252,7 @@
     </div>
 
     <!-- تنظیمات مربوط به ارجاع به فرم -->
-    <div ng-show="c.control.active.type == 12" class="field">
+    <div ng-if="c.control.active.type == 12" class="field">
 
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.formLookup.showAddButton" ng-change="c.control.resetListValue()">
@@ -271,9 +271,10 @@
             </sm-popup-detached>
 
 
-        <div class="field">
-            <form-lookup-property ng-model="c.control.active.formLookup"></form-lookup-property>
-        </div>
+            <div class="field">
+                c.id {{c.id}}
+                <form-lookup-property root-form="{{c.id}}" ng-model="c.control.active.formLookup" control="c.control.active"></form-lookup-property>
+            </div>
 
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
@@ -286,6 +287,23 @@
         </div>
 
     </div>
+
+
+    <div>
+
+        <div class="field">
+            <!--<sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
+                نمایش
+            </sadaf-checkbox>-->
+            <access-property name="c.control.active.name"
+                             ng-model="c.control.active.access"
+                             source-fields="c.control.active.formLookup.formLookupSourceFields"
+                             controls="c.activeSibling"></access-property>
+        </div> 
+
+
+    </div>
+
 
     <!-- تنظیمات مربوط به فرم چند ردیفه -->
     <div ng-show="c.control.active.type == 13" class="field">
@@ -313,10 +331,16 @@
 
 
     </div>
+    
+    <div ng-if="c.control.active.type == 22">
+        <div class="inline fields">
+            <label>{{'color'|translate}}</label> 
+            <div md-color-picker ng-model="c.control.active.controlGroup.color" md-color-default-tab="'genericPalette'"></div>
+        </div>
+    </div>
 
     <!-- تنظیمات مربوط به کلید -->
-    <div ng-show="c.control.active.type == 15" class="field">
-
+    <div ng-if="c.control.active.type == 15" class="field">
         <div class="inline fields">
             <label>{{'color'|translate}}</label>
             <sm-dropdown items="[{label:('red'     |translate), value:'red'},
@@ -341,40 +365,7 @@
             <control-size ng-model="c.control.active.button.size"></control-size>
         </div>
 
-        <!--<div class="inline fields">
-            <label>{{'type' | translate}}</label>
-            <sm-dropdown items="[{label:('goto dashboard' | translate), value:0}
-                         , {label: ('open form'| translate), value:1}
-                         , {label:('web service' | translate), value:2}
-                         , {label:('javascript' | translate), value:3}]"
-                         class=""
-                         model="c.control.active.button.type" label="item.label" value="item.value"></sm-dropdown>
-        </div>
-
-        <div class="field" ng-show="c.control.active.button.type == 0">
-            <label>{{'dashboard'|translate}}</label>
-            <select-menu ng-model="c.control.active.button.dashboardId"></select-menu>
-        </div>
-
-        <div class="field" ng-show="c.control.active.button.type == 0">
-            <sm-dropdown items="[{label:('new page' | translate), value:0}, {label:('current page' | translate), value:1}]"
-                         class=""
-                         model="c.control.active.button.openLinkType" label="item.label" value="item.value"></sm-dropdown>
-        </div>
-
-
-        <div class="field" ng-show="c.control.active.button.type == 1">
-            <form-lookup-property ng-model="c.control.active.button.formInfo" settings="{selectableColumns:false}"></form-lookup-property>
-        </div>
-
-        <div class="field" ng-show="c.control.active.button.type == 2">
-            <label>{{'آدرس' | translate}}</label>
-            <input ng-model="c.control.active.button.webserviceUrl" placeholder="{{'آدرس' | translate}}">
-        </div>
-        <div class="field" ng-show="c.control.active.button.type == 3">
-            <label>{{'javascript' | translate}}</label>
-            <textarea ng-model="c.control.active.button.script" style="direction:ltr; font-family:monospace;"placeholder="{{'javascript' | translate}}"></textarea>
-        </div>-->
+   
         <sadaf-tasks ng-model="c.control.active.button.tasks" ng-init="c.control.active.button.tasks = c.control.active.button.tasks || []"></sadaf-tasks>
     </div>
 
@@ -469,7 +460,7 @@
     <div ng-show="c.control.active.type == 17" class="field">
 
         <div class="field">
-            <table-lookup ng-model="c.control.active.tableLookup" controls="c.activeSibling"></table-lookup>
+            <table-lookup ng-model="c.control.active" controls="c.activeSibling"></table-lookup>
         </div>
 
     </div>
@@ -565,18 +556,18 @@
         </div>
         <div class="two column fields">
 
-        <div class="field">
-            <label>جهت چاپ</label>
-            <sm-dropdown items="[{name:'عمودی', value:0}, {name:'افقی', value:1}]"
-                         class="selection fluid "
-                         model="c.printOrientation" label="item.name" value="item.value"></sm-dropdown>
-        </div>
-        <div class="field">
-            <label>اندازه صفحه</label>
-            <sm-dropdown items="[{name:'A4', value:'A4'}, {name:'A5', value:'A5'}]"
-                         class="selection fluid "
-                         model="c.printPage" label="item.name" value="item.value"></sm-dropdown>
-        </div>
+            <div class="field">
+                <label>جهت چاپ</label>
+                <sm-dropdown items="[{name:'عمودی', value:0}, {name:'افقی', value:1}]"
+                             class="selection fluid "
+                             model="c.printOrientation" label="item.name" value="item.value"></sm-dropdown>
+            </div>
+            <div class="field">
+                <label>اندازه صفحه</label>
+                <sm-dropdown items="[{name:'A4', value:'A4'}, {name:'A5', value:'A5'}]"
+                             class="selection fluid "
+                             model="c.printPage" label="item.name" value="item.value"></sm-dropdown>
+            </div>
         </div>
 
         <form autocomplete="off">
@@ -593,7 +584,7 @@
 
     <div class="ui mini secondary clearing segment">
         <div class="ui mini header left floated">متغیرهای کاربری</div>
-        <div class="ui icon basic mini button right floated" ng-click="c.userVariables.push({})"> اضافه کردن <i class="ui icon add" /></div>
+        <div class="ui icon basic mini button right floated" ng-click="c.userVariables.push({})"> اضافه کردن <i class="ui icon add"></i></div>
         <div ng-repeat="item in c.userVariables" class="clear">
             <div class="fields">
                 <div class="five wide field">
@@ -608,7 +599,7 @@
 
                 <div class="field">
                     <label>&nbsp;</label>
-                    <div class="ui icon basic mini button" ng-click="c.userVariables.splice($index, 1)"><i class="ui icon close" /></div>
+                    <div class="ui icon basic mini button" ng-click="c.userVariables.splice($index, 1)"><i class="ui icon close"></i></div>
                 </div>
             </div>
         </div>
@@ -698,6 +689,11 @@
         <label>{{'name' | translate}}</label>
         <input ng-model="c.pages.activePage.name" placeholder="{{'name' | translate}}">
     </div>
+
+    <div class="field">
+        <access-property ng-model="c.pages.activePage.access" controls="c.activeSibling"></access-property>
+    </div>
+
 
     <div class="field">
         <sadaf-checkbox ng-model="c.pages.activePage.rowValidation.uniqueMultiField" label="">{{'unique value for multi control' | translate}}</sadaf-checkbox>
