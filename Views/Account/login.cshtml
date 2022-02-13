@@ -56,6 +56,22 @@
         #activationModal .content li {
             margin: 7px 0;
         }
+
+        input[name=Password]::-webkit-input-placeholder {
+            font-family: IRANSans;
+        }
+
+        input[name=Password]:-ms-input-placeholder {
+            font-family: IRANSans;
+        }
+
+        input[name=Password]:-moz-placeholder {
+            font-family: IRANSans;
+        }
+
+        input[name=Password]::-moz-placeholder {
+            font-family: IRANSans;
+        }
     </style>
 
 
@@ -110,7 +126,10 @@
                                 <i class="user icon"></i>
                             </div>
                             <div class="ui fluid left icon input big">
-                                <input name="Password" type="password" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
+                                @*<div style="display:none" >
+                                    <input tabindex="-1" name="Password2" value="" type="password" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
+                                </div>*@
+                                <input name="Password" type="text" style=" font-family: text-security-disc !important; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-top-left-radius: 0; border-top-right-radius: 0; " autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
                                 <i class="lock icon"></i>
                             </div>
                         </div>

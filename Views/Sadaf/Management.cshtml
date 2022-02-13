@@ -118,6 +118,14 @@
         <script src="~/src/js/charts/su.filterMemberDialog.js?v=@v"></script>
         <script src="~/src/js/charts/su.jquery.sit.BarChart.js?v=@v"></script>
 
+        foreach (var f in Directory.GetFiles(Server.MapPath("~/src/js/forms/editor/components"))) {
+            if (Path.GetExtension(f) == ".js") {
+                <text>
+                    <script src="~/src/js/forms/editor/components/@Path.GetFileName(f)?v=@v"></script>
+                </text>
+            }
+        }
+
         foreach (var f in Directory.GetFiles(Server.MapPath("~/src/js/charts/newCharts"))) {
             if (Path.GetExtension(f) == ".js") {
                 <text>
@@ -125,6 +133,7 @@
                 </text>
             }
         }
+
 
         @*<script src="~/src/js/charts/newCharts/bubble.js?v=@v"></script>*@
         @*<script src="~/src/js/charts/newCharts/horizontal-bar-chart.js?v=@v"></script>*@

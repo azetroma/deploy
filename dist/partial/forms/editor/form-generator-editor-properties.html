@@ -3,7 +3,7 @@
     <div class="fields">
         <div class="field"><label>{{'identity'|translate}}</label></div>
         <span class="field" ng-show="c.control.active.name"> {{c.control.active.name}}</span>
-         
+
     </div>
 
     <div class="field">
@@ -148,7 +148,7 @@
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.dropdown.multiSelectDropdown">
                 {{'drop down multi select' | translate}}
-            </sadaf-checkbox>
+            </sadaf-checkbox> 
         </div>
 
         <div class="field" ng-if="!c.control.active.dropdown.isUser">
@@ -166,8 +166,27 @@
                          model="c.control.active.dropdown.theme" label="item.value" value="item.key"></sm-dropdown>
         </div>
 
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.dropdown.useFormula">
+                مقادیر قابل انتخاب به صورت فرمول
+            </sadaf-checkbox>
+        </div>
 
-        <div class="field" ng-show="!c.control.active.dropdown.useRemoteData">
+        <div class="field" ng-if="c.control.active.dropdown.useFormula">
+            <label>{{'فرمول' | translate}}</label>
+            <!--<textarea layout-fill class="ltr"
+              ng-model="c.control.active.dropdown.formula"
+              ng-change="c.control.createItems(c.control.active)"
+              placeholder="فرمول" rows="5"></textarea>-->
+            <sm-dropdown items="c.activeSibling.rootControls"
+                         class="selection search"
+                         model="c.control.active.dropdown.formula" label="item.label + ' ' + item.name" value="item.name"></sm-dropdown>
+
+
+
+        </div>
+
+        <div class="field" ng-show="!c.control.active.dropdown.useRemoteData && !c.control.active.dropdown.useFormula">
             <label>{{'selectable values' | translate}}</label>
             <textarea layout-fill
                       ng-model="c.control.active.dropdown.itemsTemp"
@@ -180,9 +199,8 @@
             <br />
             <br />
             <select-datasource-columns ng-model="c.control.active.dropdown"></select-datasource-columns>
-
-
         </div>
+
         <div class="field" ng-if="c.control.active.dropdown.useRemoteData && !c.control.active.dropdown.isUser">
             <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
                 {{'filter' | translate}}
@@ -193,7 +211,6 @@
                              source-fields="c.control.active.dropdown.datasourceColumns"
                              controls="c.activeSibling"></filter-property>
         </div>
-
     </div>
 
     <!-- تنظیمات مربوط به کنترل عددی -->
@@ -205,7 +222,7 @@
                                  , {key:',.1%', value:'#,#.0%'}
                                  , {key:',.2%', value:'#,#.00%'}
                                  , {key:'.0f', value:'#'}
-                                 , {key:'.1f', value:'#.0'} 
+                                 , {key:'.1f', value:'#.0'}
                                  , {key:'.2f', value:'#.00'}
                                  , {key:',.0f', value:'#,#'}
                                  , {key:',.1f', value:'#,#:0'}
@@ -221,7 +238,7 @@
 
     </div>
     <!-- تنظیمات مربوط به کنترل عددی -->
-    <div ng-show=" c.control.active.type == 2" class="field">
+    <div ng-if=" c.control.active.type == 2" class="field">
         <div class="inline fields">
             <label>نوع داده</label>
             <sm-dropdown items="[{key:'decimal', value:('عدد اعشاری (Decimal)' | translate)}
@@ -238,16 +255,36 @@
         </div>
 
     </div>
+     
+    <div ng-if=" c.control.active.type == 5" class="field">
+        <div class="inline fields">
+            <label>نوع داده</label>
+            <sm-dropdown items="[{key:'decimal', value:'عدد اعشاری (Decimal)'}, {key:'string', value:'رشته‌ای'}]"
+                         class="selection fluid search"
+                         model="c.control.active.dataType" label="item.value" value="item.key"></sm-dropdown>
+
+        </div>
+    </div>
+
+    <div ng-if="c.control.active.type == 9 || c.control.active.type == 14" class="field">
+        <div class="inline fields">
+            <label>نوع تاریخ</label>
+            <sm-dropdown items="[{key:'shamsi', value:'شمسی'}, {key:'miladi', value:'میلادی'}]"
+                         class="selection fluid search"
+                         model="c.control.active.dataType" label="item.value" value="item.key"></sm-dropdown>
+        </div>
+    </div>
+
 
     <div ng-show="c.control.active.type == 5 || c.control.active.type == 16|| c.control.active.type == 17">
         <div class="inline fields">
             <label class="wide four field">{{'prefix' | translate}}</label>
-            <input ng-model="c.control.active.prefix" placeholder="{{'prefix' | translate}}">
+            <input ng-model="c.control.active.prefix" autocomplete="off" placeholder="{{'prefix' | translate}}">
         </div>
 
         <div class="inline fields">
             <label class="wide four field">{{'postfix' | translate}}</label>
-            <input ng-model="c.control.active.postfix" placeholder="{{'postfix' | translate}}">
+            <input ng-model="c.control.active.postfix" autocomplete="off" placeholder="{{'postfix' | translate}}">
         </div>
     </div>
 
@@ -259,22 +296,21 @@
                 {{'show new record botton' | translate}}
             </sadaf-checkbox>
         </div>
-         
+
         <div class="field" sm-popup-inline="">
-            <sadaf-checkbox ng-model="c.control.active.formLookup.duplicateDatasource" >
+            <sadaf-checkbox ng-model="c.control.active.formLookup.duplicateDatasource">
                 ایجاد کپی از منبع داده مبدا
             </sadaf-checkbox>
         </div>
-            <sm-popup-detached class="ui mini basic fluid">
-                <div class="header">راهنما</div>
-                <div class="gray">برای جلوگیری از ایجاد دور در ارتباط بین منابع داده در صورت استفاده از چند ارجاع به یک فرم از این گزینه استفاده کنید.</div>
-            </sm-popup-detached>
+        <sm-popup-detached class="ui mini basic fluid">
+            <div class="header">راهنما</div>
+            <div class="gray">برای جلوگیری از ایجاد دور در ارتباط بین منابع داده در صورت استفاده از چند ارجاع به یک فرم از این گزینه استفاده کنید.</div>
+        </sm-popup-detached>
 
 
-            <div class="field">
-                c.id {{c.id}}
-                <form-lookup-property root-form="{{c.id}}" ng-model="c.control.active.formLookup" control="c.control.active"></form-lookup-property>
-            </div>
+        <div class="field">
+            <form-lookup-property root-form="{{c.id}}" ng-model="c.control.active.formLookup" control="c.control.active"></form-lookup-property>
+        </div>
 
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
@@ -283,6 +319,7 @@
             <filter-property ng-show="c.control.active.useFilter" name="c.control.active.name"
                              ng-model="c.control.active.filters"
                              source-fields="c.control.active.formLookup.formLookupSourceFields"
+                             active="c.control.active"
                              controls="c.activeSibling"></filter-property>
         </div>
 
@@ -299,7 +336,7 @@
                              ng-model="c.control.active.access"
                              source-fields="c.control.active.formLookup.formLookupSourceFields"
                              controls="c.activeSibling"></access-property>
-        </div> 
+        </div>
 
 
     </div>
@@ -325,16 +362,16 @@
 
         <div class="field">
             <label>{{'new record botton text' | translate}}</label>
-            <input ng-model="c.control.active.multiRowForm.addKeyText" placeholder="{{'new record' | translate}}">
+            <input ng-model="c.control.active.multiRowForm.addKeyText" autocomplete="off" placeholder="{{'new record' | translate}}">
         </div>
 
 
 
     </div>
-    
+
     <div ng-if="c.control.active.type == 22">
         <div class="inline fields">
-            <label>{{'color'|translate}}</label> 
+            <label>{{'color'|translate}}</label>
             <div md-color-picker ng-model="c.control.active.controlGroup.color" md-color-default-tab="'genericPalette'"></div>
         </div>
     </div>
@@ -365,7 +402,7 @@
             <control-size ng-model="c.control.active.button.size"></control-size>
         </div>
 
-   
+
         <sadaf-tasks ng-model="c.control.active.button.tasks" ng-init="c.control.active.button.tasks = c.control.active.button.tasks || []"></sadaf-tasks>
     </div>
 
@@ -375,20 +412,27 @@
     <div ng-show="c.control.active.type == 5" class="field">
 
         <div class="field">
-            bl
             <label>{{'selectable controls' | translate}}</label>
             <div class="ui mini labels">
                 <div class="ui label pointer" ng-repeat="f in c.activeSibling.row track by $index"
-                     ng-show="f.type === 2 || f.type == 8 || f.type == 9|| f.type == 14 || ((f.type === 5 || f.type == 16) && f.name !== c.control.active.name && $index < c.activeSibling.index )"
+                     ng-show="(f.type != 5 && f.type != 16)  ||  ((f.type === 5 || f.type == 16) && f.name !== c.control.active.name && $index < c.activeSibling.index )"
                      ng-click="c.control.active.calculate.expression = c.control.active.calculate.expression + '['+ f.name + ']'">
                     {{f.name}} {{f.label}}
                 </div>
-            </div>
+            </div> 
         </div>
 
         <div class="field">
             <label>{{'فرمول' | translate}}</label>
             <textarea class="code ltr" ng-model="c.control.active.calculate.expression"></textarea>
+            <div class="desc ui small">
+                برای نمایش فیلدهای داخل تکرار شونده از الگوی زیر استفاده کنید
+                <span class="ltr inline">[multirow-field-number][index][field-num]</span>
+                همچنین index می‌تواند عدد صحیح یا عبارت index 
+                باشد که در حالت دوم به صورت پویا مقداردهی می‌شود و index ردیف فیلد محاسباتی فعلی را نشان خواهد داد
+
+
+            </div>
         </div>
 
     </div>
@@ -451,7 +495,7 @@
 
         <div class="inline fields">
             <label>تم نمایش</label>
-            <sm-dropdown items="[{k:'normal', label:'معمولی'}, {k:'simple', label:'جدولی ساده'}]" model="c.control.active.uiConfig.theme" value="item.k" label="item.label"></sm-dropdown>
+            <sm-dropdown items="[{k:'simple', label:'جدولی ساده'}, {k:'group', label:'گروهی'}]" model="c.control.active.uiConfig.theme" value="item.k" label="item.label"></sm-dropdown>
         </div>
 
     </div>
@@ -476,11 +520,21 @@
     <div class="field">
         <sadaf-checkbox ng-model="c.showSubmitedInfo" label="">{{'show submitted info' | translate}}</sadaf-checkbox>
     </div>
+    <div class="field">
+        <sadaf-checkbox ng-model="c.formInfo.saveAndCopy">نمایش کلید «ذخیره و کپی در فرم جدید»</sadaf-checkbox>
+    </div>
+    <div class="inline fields">
+        <label>روش مدیریت ویرایش همزمان دو کاربر</label>
+        <sm-dropdown items="[{name:'جلوگیری از ذخیره در صورت تغییر فرم', value:'prevent-save'}, {name:'ذخیره کنترل‌هایی که کاربر دسترسی دارد', value:'save-access'}]"
+                     class=""
+                     model="c.formInfo.concurrentSave" label="item.name" value="item.value"></sm-dropdown>
+    </div>
+
 
     <div class="inline fields">
         <label>اندازه دیالوگ بازشونده فرم</label>
         <sm-dropdown items="[ {label:('کوچک' | translate), value:'small'}, {label:('normal' | translate), value:'large'},{label:'خیلی بزرگ', value:'fullscreen'}]"
-                     class="selection fluid "
+                     class=""
                      model="c.modalSize" label="item.label" value="item.value" ng-init="c.control.active.multiRowForm.controlSize = ''"></sm-dropdown>
     </div>
 
@@ -506,18 +560,18 @@
 
         </div>
     </div>
+
     <div class="field" sm-popup-inline="">
         <sadaf-checkbox ng-model="c.dynamicAcl" ng-change="c.getAllRelatedDatasource()" label="">کنترل دسترسی به صورت پویا</sadaf-checkbox>
     </div>
-    <sm-popup-detached class="ui mini basic fluid">
-        <div class="header">راهنما</div>
-        <div class="gray">
+    
+
+    <div class="ui secondary segment" ng-if="c.dynamicAcl">
+        <small class="gray">
             در صورتی که در یکی از فرم‌های ارجاع شده به این فرم کنترلی از نوع نقش وجود داشته باشد می‌توانید از این امکان استفاده کنید و
             ورود اطلاعات دراین فرم را تنها برای کاربران نقش انتخاب شده مجاز کنید
-        </div>
-    </sm-popup-detached>
+        </small>
 
-    <div class="field" ng-if="c.dynamicAcl">
         <div class="ui inline active small loader" ng-if="c.relatedDsProgress"></div>
         <div class="field" ng-if="!c.relatedDsProgress">
             <label>انتخاب منبع داده</label>
@@ -535,7 +589,7 @@
 
     </div>
 
-    <div ng-if="app.license.formPrint">
+    <div ng-if="app.license.formPrint" class="ui secondary segment">
 
         <div class="field">
             <label>قالب چاپ</label>
@@ -589,7 +643,7 @@
             <div class="fields">
                 <div class="five wide field">
                     <label>نام ستون</label>
-                    <input type="text" ng-model="item.column" />
+                    <input type="text" autocomplete="off" ng-model="item.column" />
                 </div>
 
                 <div class="five wide field">
@@ -644,32 +698,32 @@
         <div ng-show="c.mapTable.externalTable">
             <div class="field inline-form">
                 <label>سرور</label>
-                <input type="text" ng-model="c.mapTable.server" />
+                <input autocomplete="off" type="text" ng-model="c.mapTable.server" />
             </div>
 
             <div class="field inline-form">
                 <label>پایگاه داده</label>
-                <input type="text" ng-model="c.mapTable.database" />
+                <input autocomplete="off" type="text" ng-model="c.mapTable.database" />
             </div>
 
             <div class="field inline-form">
                 <label>نام کاربری</label>
-                <input type="text" ng-model="c.mapTable.user" />
+                <input autocomplete="off" type="text" ng-model="c.mapTable.user" />
             </div>
 
             <div class="field inline-form">
                 <label>کلمه عبور</label>
-                <input type="password" ng-model="c.mapTable.pass" />
+                <input autocomplete="off" type="password" ng-model="c.mapTable.pass" />
             </div>
 
             <div class="field inline-form">
                 <label>نام جدول</label>
-                <input type="text" ng-model="c.mapTable.tableName" />
+                <input autocomplete="off" type="text" ng-model="c.mapTable.tableName" />
             </div>
 
             <div class="field inline-form">
                 <label>نام ستون شناسه</label>
-                <input type="text" ng-model="c.mapTable.columnId" />
+                <input autocomplete="off" type="text" ng-model="c.mapTable.columnId" />
             </div>
         </div>
 
@@ -687,7 +741,7 @@
 
     <div class="field">
         <label>{{'name' | translate}}</label>
-        <input ng-model="c.pages.activePage.name" placeholder="{{'name' | translate}}">
+        <input autocomplete="off" ng-model="c.pages.activePage.name" placeholder="{{'name' | translate}}">
     </div>
 
     <div class="field">

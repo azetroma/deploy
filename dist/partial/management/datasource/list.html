@@ -97,7 +97,7 @@
                         <td>
                             <div ng-show="row.type == 2 && row.charts.length">
                                 <md-menu md-offset="0 -7">
-                                    <md-button title="{{'charts_list' | translate}}" aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event); $event.stopPropagation();">
+                                    <md-button title="{{'charts_list' | translate}}" aria-label="Open demo menu" class="md-icon-button" ng-click="$mdMenu.open($event); $event.stopPropagation();">
                                         <span class="material-icons" style="color:#757575">toc</span>
                                         <!--<md-tooltip>{{'charts_list' | translate}}</md-tooltip>-->
 

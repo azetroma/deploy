@@ -151,7 +151,7 @@
                         <div ng-show="row.type == 2 && row.pages.length">
 
                             <md-menu md-offset="0 -7">
-                                <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event); $event.stopPropagation(); row.render = true;" title="{{'chart_pages' | translate}}">
+                                <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdMenu.open($event); $event.stopPropagation(); row.render = true;" title="{{'chart_pages' | translate}}">
                                     <span class="material-icons" style="color:#757575" title="{{'chart_pages' | translate}}">toc</span>
 
                                     <!--<md-tooltip>{{'chart_pages' | translate}}</md-tooltip>-->

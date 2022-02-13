@@ -144,10 +144,9 @@
         </div>
 
         <div flex="50" class="form-generator-side-column" layout="column">
-            <div class="ui left tiny secondary pointing menu"ng-sortable="{group: {name: 'pages', pull:false, put:false}, animation:150}">
+            <div class="ui left tiny secondary pointing menu"ng-sortable="{group: {name: 'pages', pull:false, put:false}, animation:150}" style="overflow-x:auto; overflow-y:hidden;">
                 <div class="item pointer"  ng-repeat="p in c.pages.data track by $index" ng-click="c.pages.setActive(p)" ng-class="{active: p.active}">
-                    {{p.name | persian}}
-                    &nbsp; {{c.pages.length}}
+                    {{p.name | persian}} &nbsp; {{c.pages.length}}
                     <i class="icon remove gray pointer" ng-hide="c.pages.data.length == 1" ng-click="c.pages.remove($index)" style="margin:0"></i>
                 </div>
 
@@ -155,7 +154,6 @@
                     {{'new page' | translate}}
                     <i class="add icon gray pointer"></i>
                 </div>
-
 
             </div>
             <md-content flex class="ui form editor " ng-class="c.pages.activePage.size" style="padding:16px 16px;">
@@ -166,6 +164,7 @@
                                   ng-model="component"
                                   id="{{c.id}}"
                                   edit="true"
+                                  edit-context="c"
                                   ng-class="{active: component.isActive}"
                                   remove="c.pages.removeControl($index, component)"
                                   copy="c.pages.copy($index, component)"

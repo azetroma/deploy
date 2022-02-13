@@ -386,6 +386,12 @@
                     <div class="item" ng-if="@(ViewBag.isLoginByLink ??false ? "false " : "true ")">
                         <i class="large icon pointer full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="تمام صفحه"></i>
                     </div>
+                    <div class="item" ng-if="@(ViewBag.hasSupport ?? false ? "true" : "false")">
+                        <a target="_blank" href="@ViewBag.supportLink" style="color: #424242">
+                            <i class="large icon pointer headphones" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="@ViewBag.supportTitle"></i>
+                        </a>
+                    </div>
+
                     <div class="item" ng-if="@(ViewBag.isLoginByLink ??false ? "false " : "true ") && isFullscreen">
                         <i class="large icon pointer play-toggle" ng-show="isFullscreen" ng-class="{play : !slidePlay, pause: slidePlay}" ng-click="slidePlayToggle()" title="اسلاید شو"></i>
                     </div>
@@ -683,6 +689,13 @@
         <script src="~/src/js/dashboardPage/su.packages.js?v=@v"></script>
         <script src="~/src/js/dashboardPage/JqueryHelper.js?v=@v"></script>
         <script src="~/src/js/dashboardPage/su.dashboardMainPage.js?v=@v"></script>
+        foreach (var f in Directory.GetFiles(Server.MapPath("~/src/js/forms/editor/components"))) {
+            if (Path.GetExtension(f) == ".js") {
+                <text>
+                    <script src="~/src/js/forms/editor/components/@Path.GetFileName(f)?v=@v"></script>
+                </text>
+            }
+        }
 
     } else {
         <script src="~/dist/js/dashboard-all.js?v=@v"></script>
@@ -781,7 +794,7 @@
 
     <script type="text/javascript">
         var isLoginByLink = "@ViewBag.isLoginByLink";
-        
+
         if (self === top || isLoginByLink ==="True") {
             var antiClickjack = document.getElementById("antiClickjack");
             antiClickjack.parentNode.removeChild(antiClickjack);
