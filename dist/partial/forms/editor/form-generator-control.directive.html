@@ -27,7 +27,7 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 1">
         <label ng-hide="settings.showLabel===false">{{model.label}} </label>
-        <textarea class="sadaf-form-textarea"  ng-hide="model.readonly" ng-change="changeValue()" ng-model-options="{debounce:200}" ng-model="model.value" ng-keyup="keyup($event)"></textarea>
+        <textarea rows="2" class="sadaf-form-textarea"  ng-hide="model.readonly" ng-change="changeValue()" lines ng-model-options="{debounce:200}" ng-model="model.value" ng-keyup="keyup($event)"></textarea>
         <div ng-show="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
@@ -38,7 +38,7 @@
         <label ng-hide="settings.showLabel===false">{{model.label}}</label>
         <div class="formatted-input-container">
             <input type="number" ng-change="changeValue()" placeholder="{{model.label}}" id="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly" autocomplete="off" model-options="{debounce:200}" ng-model="model.value" ng-keyup="keyup($event)">
-            <label class="formatted-input-label" for="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly">{{model.value | formatNumber:model}}</label>
+            <label class="formatted-input-label" for="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly || model.value == null">{{model.value | formatNumber:model}}</label>
         </div>
         <div ng-show="model.readonly">{{model.value | formatNumber:model}}</div>
         <small class="helper">{{model.error}}</small>
@@ -49,7 +49,7 @@
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 6">
         <div ng-hide="settings.showLabel===false || model.readonly">&nbsp;</div>
         <sadaf-checkbox ng-hide="model.readonly" ng-model="model.value" label="{{model.label}}" ng-change="changeValue()">
-            {{model.label}}
+            &nbsp;{{model.label}}
         </sadaf-checkbox>
         <div ng-show="model.readonly">
             <i class="icon" ng-class="{'square outline':!model.value, 'checkmark box':model.value}"></i>
@@ -187,11 +187,11 @@
         <div ng-show="model.readonly">{{model.formLookup.selected ? model.formLookup.selected.join(', ') : model.formLookup.keyControlsBindedValue.join(', ')}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
-        <small>{{model.description}}</small> 
+        <small>{{model.description}}</small>  
     </div>
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}} {{model.name}} form-{{id}}-type-13" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 13">
-        <multi-row-form ng-model="model" id="{{id}}" edit="{{edit}}" edit-context="editContext" ng-change="changeValue(model)"></multi-row-form>
+        <multi-row-form ng-model="model" root="root" id="{{id}}" edit="{{edit}}" edit-context="editContext" ng-change="changeValue(model)"></multi-row-form>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>

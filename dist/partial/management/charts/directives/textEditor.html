@@ -108,7 +108,7 @@
         <div class="form-row" layout="row" layout-align="start center" ng-show="config.format">
             <label>{{ 'فرمت نمایش' | translate }}</label>
             <span class="form-divider" flex></span>
-            <sd-format ng-change="change()" ng-model="model.formatString"></sd-format>
+            <sd-format ng-change="onChange()" ng-model="model.formatString"></sd-format>
             <div>
 
                 <input type="text" class="ltr"

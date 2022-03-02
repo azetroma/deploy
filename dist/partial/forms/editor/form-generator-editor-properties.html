@@ -148,7 +148,7 @@
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.dropdown.multiSelectDropdown">
                 {{'drop down multi select' | translate}}
-            </sadaf-checkbox> 
+            </sadaf-checkbox>
         </div>
 
         <div class="field" ng-if="!c.control.active.dropdown.isUser">
@@ -255,7 +255,7 @@
         </div>
 
     </div>
-     
+
     <div ng-if=" c.control.active.type == 5" class="field">
         <div class="inline fields">
             <label>نوع داده</label>
@@ -419,7 +419,7 @@
                      ng-click="c.control.active.calculate.expression = c.control.active.calculate.expression + '['+ f.name + ']'">
                     {{f.name}} {{f.label}}
                 </div>
-            </div> 
+            </div>
         </div>
 
         <div class="field">
@@ -428,7 +428,7 @@
             <div class="desc ui small">
                 برای نمایش فیلدهای داخل تکرار شونده از الگوی زیر استفاده کنید
                 <span class="ltr inline">[multirow-field-number][index][field-num]</span>
-                همچنین index می‌تواند عدد صحیح یا عبارت index 
+                همچنین index می‌تواند عدد صحیح یا عبارت index
                 باشد که در حالت دوم به صورت پویا مقداردهی می‌شود و index ردیف فیلد محاسباتی فعلی را نشان خواهد داد
 
 
@@ -497,6 +497,10 @@
             <label>تم نمایش</label>
             <sm-dropdown items="[{k:'simple', label:'جدولی ساده'}, {k:'group', label:'گروهی'}]" model="c.control.active.uiConfig.theme" value="item.k" label="item.label"></sm-dropdown>
         </div>
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.matrixMode">نمایش ماتریسی</sadaf-checkbox>
+        </div>
+        <small class="gray">برای نمایش ماتریسی لازم است سه کنترل در تکرار شونده قرار بگیرند که به ترتیب اولی و دومی چند گزینه‌ای و کنترل سوم مقدار شاخص باشد.</small>
 
     </div>
 
@@ -564,7 +568,7 @@
     <div class="field" sm-popup-inline="">
         <sadaf-checkbox ng-model="c.dynamicAcl" ng-change="c.getAllRelatedDatasource()" label="">کنترل دسترسی به صورت پویا</sadaf-checkbox>
     </div>
-    
+
 
     <div class="ui secondary segment" ng-if="c.dynamicAcl">
         <small class="gray">

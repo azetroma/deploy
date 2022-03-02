@@ -1,0 +1,5 @@
+Time = 2022-01-11 12:36:56.671,  = ,  = debug, login = create license,  = , 
+Time = 2022-01-11 12:36:58.149, #### validate system check = CpuId BFEBFBFF000806C1 BFEBFBFF000806C1, HddId SCSI-NVMe SAMSUNG MZVLQ512HBLU-00B00 SCSI-NVMe SAMSUNG MZVLQ512HBLU-00B00 = OS Microsoft Windows 11 Home22000 Microsoft Windows 11 Home22000, 
+Time = 2022-01-11 12:37:03.198, #### CalculateAllPairShortestPath  timer 0, 2, 3 = , 
+Time = 2022-01-11 12:37:24.473, #### CalculateAllPairShortestPath 10128, 10129 timer 0, 1, 1 = , 
+Time = 2022-01-11 12:37:24.477, #### CalculateAllPairShortestPath 91, 92, 10122 timer 0, 1, 1 = , 
