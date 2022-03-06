@@ -5,6 +5,37 @@
 
 <div class="ui container">
     <style>
+        .pass-container.active input.ui.input {
+            font-family: IRANSans !important;
+        }
+
+        .pass-container {
+            position: relative;
+        }
+
+            .pass-container input.ui.input {
+                font-family: text-security-disc !important;
+                border-bottom-left-radius: 4px !important;
+                border-bottom-right-radius: 4px !important;
+                border-top-left-radius: 0 !important;
+                border-top-right-radius: 0 !important;
+            }
+
+        i.eye.icon {
+            position: absolute !important;
+            left: 10px !important;
+            color: lightgray;
+            cursor: pointer !important;
+            z-index: 200000;
+            font-size: 20px;
+            top: 13px;
+        }
+
+        .pass-container.active i.eye.icon {
+            color: #666;
+        }
+
+
         .form-signin {
             max-width: 970px;
             margin-top: 80px;
@@ -125,15 +156,15 @@
                                 <input name="UserName" type="text" class="" placeholder="@((ViewBag.pdn ?? false)  ? "نام کاربری یا کد ملی": ViewBag.msg["username"])" autofocus autocomplete="off">
                                 <i class="user icon"></i>
                             </div>
-                            <div class="ui fluid left icon input big">
-                                @*<div style="display:none" >
-                                    <input tabindex="-1" name="Password2" value="" type="password" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
-                                </div>*@
-                                <input name="Password" type="text" style=" font-family: text-security-disc !important; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-top-left-radius: 0; border-top-right-radius: 0; " autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
-                                <i class="lock icon"></i>
+                            <div class="pass-container">
+                                <i class="eye icon"></i>
+                                <div class="ui fluid left icon input big">
+                                    @*<div style="display:none" ><input tabindex="-1" name="Password2" value="" type="password" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]"></div>*@
+                                    <input name="Password" type="text" style="" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
+                                    <i class="lock icon"></i>
+                                </div>
                             </div>
                         </div>
-
 
                         <label class="" style="margin: 10px 0; display: block;">
                             <input type="checkbox" value="remember-me" name="rememberme">
@@ -232,6 +263,16 @@
         <button class="btn btn-danger" id="show-login"> استفاده از مرورگر فعلی</button>
     </div>
     @section scripts{
+        <script>
+            $('i.eye.icon').on('click', function () {
+                var icon = $('.pass-container');
+                if (icon.hasClass('active')) {
+                    icon.removeClass('active');
+                } else {
+                    icon.addClass('active');
+                }
+            });
+        </script>
 
         <script>
             (function () {

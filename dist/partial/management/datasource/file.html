@@ -29,7 +29,8 @@
                                     <div ng-message="required">نام را وارد کنید</div>
                                 </div>
                             </md-input-container>
-                            <div class="ui small form" ng-show="id > 0"> <b>نام جدول: </b>{{tableName}}</div>
+                            <change-table-name id="id" table-name="tableName"></change-table-name>
+                            
 
                             <div layout="row" style="margin:18px 0">
                                 <input id="input-file-id" class="ng-hide" type="file" accept=".xlsx,.csv,.xls" />
