@@ -30,7 +30,8 @@
                                     <div ng-messages="webForm.name.$error">
                                         <div ng-message="required">{{'form_name_required' | translate}}</div>
                                     </div>
-                                    <div class="ui small form gray" ng-show="id > 0"> <b>نام جدول: </b>{{tableName}}</div>
+                                    <change-table-name id="id" table-name="tableName"></change-table-name>
+
                                 </div>
                                 <div class="three wide column field">
                                     <label>{{'نوع داده' | translate}}</label>
