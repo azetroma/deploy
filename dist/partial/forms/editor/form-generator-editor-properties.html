@@ -406,10 +406,59 @@
         <sadaf-tasks ng-model="c.control.active.button.tasks" ng-init="c.control.active.button.tasks = c.control.active.button.tasks || []"></sadaf-tasks>
     </div>
 
+    <div ng-if="c.control.active.type==24">
+        <div class="field">
+            <label>متن هشدار</label>
+            <input type="text" ng-model="c.control.active.alert.message" />
+        </div>
+        <div class="inline fields">
+            <label>رنگ هشدار</label>
+            <sm-dropdown items="[{label:('red'     |translate), value:'red'},
+                                 {label:('orange'   |translate), value:'orange'},
+                                 {label:('yellow'      |translate), value:'yellow'},
+                                 {label:('olive'    |translate), value:'olive'},
+                                 {label:('green'      |translate), value:'green'},
+                                 {label:('teal' |translate), value:'teal'},
+                                 {label:('blue'      |translate), value:'blue'},
+                                 {label:('violet'|translate), value:'violet'},
+                                 {label:('purple'     |translate), value:'purple'},
+                                 {label:('pink'    |translate), value:'pink'},
+                                 {label:('brown'   |translate)   , value:'brown'},
+                                 {label:('grey'  |translate)    , value:'grey'},
+                                 {label:('black'     |translate), value:'black'}]"
+                         class=""
+                         model="c.control.active.alert.color" label="item.label" value="item.value"></sm-dropdown>
+        </div>
 
+        <div class="field">
+            <label>{{'selectable controls' | translate}}</label>
+            <div class="ui mini labels">
+                <div class="ui label pointer" ng-repeat="f in c.activeSibling.row track by $index"
+                     ng-show="(f.type != 5 && f.type != 16)  ||  ((f.type === 5 || f.type == 16) && f.name !== c.control.active.name)"
+                     ng-click="c.control.active.alert.expression = c.control.active.alert.expression + '['+ f.name + ']'">
+                    {{f.name}} {{f.label}}
+                </div>
+            </div>
+        </div>
+        <div >
+            در صورتی که فرمول زیر مقدار true داشته باشد هشدار نمایش داده می‌شود.
+            در صورتی که فرمول یک رشته را برگرداند رشته به عنوان متن پیام در نظر گرفته می‌شود
+        </div>
+        <div class="field">
+            <label>{{'فرمول' | translate}}</label>
+            <textarea class="code ltr" ng-model="c.control.active.alert.expression"></textarea>
+            <div class="desc ui small">
+                در صورتی که خروجی یک شی به صورت زیر باشد پیام و رنگ به صورت خودکار تغییر میکنید
+                <span class="ltr inline">{message:'your text', color:'your color'}</span>
+
+            </div>
+
+        </div>
+
+    </div>
 
     <!-- فیلد محاسباتی -->
-    <div ng-show="c.control.active.type == 5" class="field">
+    <div ng-show="c.control.active.type == 5 " class="field">
 
         <div class="field">
             <label>{{'selectable controls' | translate}}</label>
@@ -421,7 +470,6 @@
                 </div>
             </div>
         </div>
-
         <div class="field">
             <label>{{'فرمول' | translate}}</label>
             <textarea class="code ltr" ng-model="c.control.active.calculate.expression"></textarea>
@@ -430,12 +478,17 @@
                 <span class="ltr inline">[multirow-field-number][index][field-num]</span>
                 همچنین index می‌تواند عدد صحیح یا عبارت index
                 باشد که در حالت دوم به صورت پویا مقداردهی می‌شود و index ردیف فیلد محاسباتی فعلی را نشان خواهد داد
+                <br />
+                مثال اضافه کردن تاریخ: moment([field-14], 'jYYYY/jMM/jDD').add(20, 'days').format('jYYYY/jMM/jDD')
+                <br />
+                مثال اختلاف تاریخ: moment([field-14], 'jYYYY/jMM/jDD').diff(moment([field-15], 'jYYYY/jMM/jDD'), 'days')
 
 
             </div>
         </div>
 
     </div>
+
 
     <!-- فیلد محاسباتی - مجموع -->
     <div ng-show="c.control.active.type == 16" class="field">
@@ -501,7 +554,7 @@
             <sadaf-checkbox ng-model="c.control.active.uiConfig.matrixMode">نمایش ماتریسی</sadaf-checkbox>
         </div>
         <small class="gray">برای نمایش ماتریسی لازم است سه کنترل در تکرار شونده قرار بگیرند که به ترتیب اولی و دومی چند گزینه‌ای و کنترل سوم مقدار شاخص باشد.</small>
-        <br/>
+        <br />
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.preventRelation">عدم ایجاد ارتباط خودکار بین منبع داده تکرار شونده و فرم اصلی</sadaf-checkbox>
         </div>

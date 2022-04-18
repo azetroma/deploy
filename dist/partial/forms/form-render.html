@@ -13,9 +13,6 @@
         <button class="ui button basic small" ng-if="app.license.formPrint && data.printLayout" ng-click="print()"> {{'print' | translate}} <i class="ui icon print"></i> </button>
 
         <!--TODO add to core-->
-        <div class="ui success message" style=" display: inline-block; padding: 6px; margin: 0; font-size: 0.5em;" ng-show="saveAndCopy">
-            اطلاعات فرم با موفقیت ذخیره شد
-        </div>
          
     </div>
      
@@ -85,16 +82,24 @@
             <div xclass="left floated eight wide column left aligned">
                 <div ng-hide="submittedStatus!=0">
                     <!--<button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == 0" ng-click="activePage = activePage-1">قبلی</button>
-                    <button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == data.pages.length-1" ng-click="activePage = activePage+1">ادامه</button>-->
+    <button class="ui button blue" ng-show="data.pages.length>1" ng-disabled="activePage == data.pages.length-1" ng-click="activePage = activePage+1">ادامه</button>-->
                     <button class="ui button green relative" ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading" ng-click="submit()" ng-class="{loading: loading}">
-                        {{rowId ? ('edit' | translate) : ('save' | translate )}}
+                        ذخیره و خروج<!--{{rowId ? 'ذخیره و خروج' : ('save' | translate )}}-->
                         <span class="below-btn-helper" ng-hide="settings.modal"> Ctrl + Enter </span>
                     </button>
+                    <button class="ui button green relative" ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading" ng-click="submit(false, true)" ng-class="{loading: loading}">
+                        {{rowId ? 'ذخیره' : ('save' | translate )}}
+                        <span class="below-btn-helper" ng-hide="settings.modal"> Ctrl + s </span>
+                    </button>
+
                     <!--TODO add to core-->
                     <button ng-if="data.formInfo.saveAndCopy" class="ui button relative" ng-disabled="(activePage != data.pages.length-1 && !rowId ) || (!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading" ng-click="submitAndCopy()" ng-class="{loading: loading}">
                         ذخیره و کپی در فرم جدید
                     </button>
                     <button class="ui button black" ng-show="(settings.modal || option.showCancel) && submittedStatus == 0" ng-click="cancel()">{{'cancel' | translate}}</button>
+
+
+
                 </div>
                 <button class="ui basic button close-btn" ng-show="submittedStatus!=0" ng-click="submitNewInfo()" ng-keyup="colseBtn($event)">
                     <i class="icon " ng-class="{refresh: !settings.modal , 'window close outline' : settings.modal }"></i>
@@ -106,7 +111,10 @@
             <div xclass="right floated four wide column right aligned">
                 <button class="ui button red" ng-show="rowId && deletePermission && submittedStatus == 0" ng-click="remove()">{{'delete' | translate}}</button>
 
-            </div>
+                <div class="ui success message" style=" display: inline-block; padding: 6px; margin: 0; font-size: 0.9em;" ng-show="saveAndCopy">
+                    اطلاعات فرم با موفقیت ذخیره شد
+                </div>
+            </div> 
         </div>
         <button class="ui button black" ng-if="submittedStatus==2"  ng-click="cancel()">{{'cancel' | translate}}</button>
 
