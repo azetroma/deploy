@@ -16,10 +16,16 @@
                     <br />
                     <br />
 
-                    <div><md-checkbox ng-model="model.login" style="margin:5px 0">ورود و خروج از سیستم</md-checkbox>                                             </div>
-                    <div><md-checkbox ng-model="model.showDashboard" style="margin:5px 0">مشاهده صفحه داشبورد</md-checkbox>                                              </div>
-                    <div><md-checkbox ng-model="model.showChart" style="margin:5px 0">مشاهده نمودار</md-checkbox>                                                    </div>
-                    <div><md-checkbox ng-disabled="true" ng-model="model.management" style="margin:5px 0">فعالیت‌های مدیریتی</md-checkbox>   </div>
+                    <div><md-checkbox ng-model="model.login" style="margin:-5px 0">ورود و خروج از سیستم</md-checkbox>                                             </div>
+                    <div><md-checkbox ng-model="model.showDashboard" style="margin:-5px 0">مشاهده صفحه داشبورد</md-checkbox>                                              </div>
+                    <div><md-checkbox ng-model="model.showChart" style="margin:-5px 0">مشاهده نمودار</md-checkbox>                                                    </div>
+                    <div><md-checkbox ng-disabled="true" ng-model="model.management" style="margin:-5px 0">فعالیت‌های مدیریتی</md-checkbox>   </div>
+                    
+                    <div><md-checkbox  ng-model="model.encryptionTrueLog" style="margin:-5px 0">لاگ رمزنگاری موفق <small class="gray">رمزنگاری ناموفق همیشه لاگ گرفته می‌شود</small></md-checkbox>   </div>
+                    <div><md-checkbox  ng-model="model.permissionTrueLog" style="margin:-5px 0">لاگ مجوزدهی موفق <small class="gray">مجوزدهی ناموفق همیشه لاگ گرفته می‌شود</small></md-checkbox>   </div>
+                    <div><md-checkbox  ng-model="model.integrityTrueLog" style="margin:-5px 0">لاگ بررسی یکپارچگی موفق <small class="gray">بررسی یکپارچگی ناموفق همیشه لاگ گرفته می‌شود</small></md-checkbox>   </div>
+                    <div><md-checkbox  ng-model="model.beginEndAllActionsLog" style="margin:-5px 0">لاگ شروع و پایان تمام درخواست‌ها به سرور </md-checkbox>   </div>
+                    
                     <!--<div><md-checkbox ng-model="model.heartbeat" style="margin:5px 0">سیگنال آنلاین بودن کاربر</md-checkbox>   </div>-->
                     <br />
                     <br />
