@@ -47,6 +47,12 @@
                                                  model="model.method" label="item.value" value="item.key"></sm-dropdown>
 
                                 </div>
+                                <div class="three wide column field" ng-show="model.type == 'SOAP'">
+                                    <label>{{'Content Type' | translate}}</label>
+                                    <sm-dropdown items="[{key:'text/xml', v:1},{key:'application/xml', v:2},{key:'application/soap+xml', v:3}]" class="selection fluid"
+                                                 model="model.contentType" label="item.key" value="item.v"></sm-dropdown>
+                                </div>
+
                             </div>
 
                             <div class="field">
@@ -58,7 +64,7 @@
                             </div>
 
 
-                            <div ng-show="model.type == 'JSON'">
+                            <div ng-show="model.type == 'JSON' || model.type == 'SOAP'">
                                 <div class="field">
                                     <label>اجرای کد روی خروجی</label>
                                     <textarea spellcheck="false" ng-model="model.jsonPostProcess" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
@@ -67,31 +73,33 @@
                                         شی به عنوان خروجی با کلید واژه return  داشته باشد
                                     </small>
                                 </div>
-                            </div>
+                            </div> 
 
                             <div ng-show="model.type == 'SOAP'">
-                                <div class="field" flex-gt-sm>
-                                    <label>{{'Content Type' | translate}}</label>
-                                    <select ng-model="model.contentType" class="ltr">
-                                        <option value="1">text/xml</option>
-                                        <option value="2">application/xml</option>
-                                        <option value="3">application/soap+xml</option>
-                                    </select>
-                                </div>
+                                 
 
-                                <div class="field">
-                                    <label>{{'Body' | translate}}</label>
-                                    <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
-                                </div>
 
-                                <div class="field">
+                                <div class="three fields">
+
+                                <!--<div class="field">
                                     <label>{{'Result Tag' | translate}}</label>
                                     <input ng-model="model.resultTag">
                                 </div>
                                 <div class="field">
                                     <label>{{'Result Tag Namespace' | translate}}</label>
                                     <input ng-model="model.resultTagNameSpace">
+                                </div>-->
+
                                 </div>
+
+
+
+
+                                <div class="field">
+                                    <label>{{'Body' | translate}}</label>
+                                    <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
+                                </div>
+
 
                                 <div style="font-size:0.8em; color:gray;margin-top: -20px;">
                                     <a ng-click="c = !c" class="pointer">راهنما</a>
@@ -208,23 +216,23 @@
                             </div>
                             </div>
 
-                            <p ng-click="showParams = !showParams" layout="row" class="pointer" ng-hide="model.type == 'SOAP'">
+                            <p ng-click="showParams = !showParams" layout="row" class="pointer" xng-hide="model.type == 'SOAP'">
                                 <span class="material-icons icon-animate" ng-class="{'rotate-90' : showParams}">keyboard_arrow_left</span>
                                 <span>{{'پارامترها' | translate}}</span>
                             </p>
-                            <div layout="column" uib-collapse="!showParams" ng-hide="model.type == 'SOAP'">
-                                <div>
+                            <div layout="column" uib-collapse="!showParams" xng-hide="model.type == 'SOAP'">
+                                <div class="ui secondary segment">
 
                                     <div layout="row" ng-repeat="param in parameters" layout-align="start center">
-                                        <div md-no-float class="no-margin">
+                                        <div >
                                             <input ng-model="param.name" class="ltr" placeholder="{{'نام'|translate}}">
                                         </div>
                                         &nbsp;
-                                        <div md-no-float class="no-margin">
+                                        <div >
                                             <input ng-model="param.value" class="ltr" placeholder="{{'مقدار'|translate}}">
                                         </div>
                                         &nbsp;
-                                        <div class="x">
+                                        <div >
                                             <sm-dropdown items="[{key:'Query', value:'Query'},{key:'Header', value:'Header'},{key:'Body', value:'Body (form-data)'},{key:'BodyRaw', value:'Body (raw)'}]" class="fluid"
                                                          model="param.type" label="item.value" value="item.key"></sm-dropdown>
                                         </div>
