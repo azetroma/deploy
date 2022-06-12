@@ -48,12 +48,20 @@
                 <label class="col-sm-4">{{ 'contact type' | translate }}</label>
                 <span class="form-divider" flex></span><div class="col-sm-8">
                     <select class="form-control" ng-model="alert.contactType" ng-options="color.name as  color.value for color in [
+                                    {name:'mobilelist', value: 'شماره موبایل از روی نمودار'  },
                                     {name:'datasource', value: ('datasource' | translate)  },
                                     {name:'role', value: ('roles' | translate)  }]"></select>
                 </div>
             </div>
             <br />
 
+            <div class="ui small form" ng-show="alert.contactType === 'mobilelist'">
+                    <div class="field">
+                        <label class="col-sm-4">ستون شامل شماره موبایل روی نمودار</label>
+                        <sm-dropdown class="selection multiple search" model="alert.chartMobileColumn" items="model.series" label="item" value="item"></sm-dropdown>
+                    </div>
+            </div>
+                 
             <div class="ui small form" ng-show="alert.contactType === 'datasource'">
 
                 <div class="form-row" layout="row" layout-align="start center">
