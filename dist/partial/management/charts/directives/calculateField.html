@@ -16,21 +16,16 @@
                         <span class="material-icons">add</span>
                         <md-tooltip>{{'add' | translate}}</md-tooltip>
                     </md-button>
-                    <!--<span class="glyphicon glyphicon-plus icon-btn pointer" ng-click="add()"></span>-->
                 </div>
                 <div ng-repeat="i in calculatedFields.fields track by $index" class="item" layout="row" layout-align="start center">
                     {{i.name}}
-                    <!--<span class="icon-btn pointer" ng-click="calculatedFields.fields.splice($index, 1);refreshChart()">&times;</span>
-                    <span class="glyphicon glyphicon-pencil icon-btn pointer" ng-click="edit($index)"> </span>-->
                     <span class="form-divider flex" flex=""></span>
                     <div class="md-icon-button " style="padding:4px;" ng-click="edit($index, $event)" title="{{'edit' | translate}}">
                         <span class="material-icons small small-size pointer">edit</span>
-                        <!--<md-tooltip>{{'edit' | translate}}</md-tooltip>-->
                     </div>
 
                     <div class="md-icon-button " style="padding:4px;" ng-click="calculatedFields.fields.splice($index, 1);refreshChart()" title="{{'remove' | translate}}">
                         <span class="material-icons small small-size pointer">delete</span>
-                        <!--<md-tooltip>{{'remove' | translate}}</md-tooltip>-->
                     </div>
                 </div>
 
