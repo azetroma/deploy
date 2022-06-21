@@ -36,13 +36,21 @@
 
         </div>
         <div class="fields" >
-            <div class="twelve wide field">
+            <div class="six wide field">
                 <label>تنظیم اختلاف روز جاری</label>
                 <input type="text" ng-model="model.minuteOffset" placeholder="اختلاف به دقیقه" />
                 <small class="grey">زمانی که سیستم زمان حال را محاسبه می‌کند و در متغیر @{to} 
                 قرار میدهد شما میتوانید این مقدار را برحسب دقیقه کم یا زیاد کنید. برای کم کردن از علامت منفی استفاده کنید.</small>
             </div>
-
+            <div class="six wide field">
+                <label>تنظیم اختلاف آخرین اجرا</label>
+                <input type="text" ng-model="model.minuteOffsetFrom" placeholder="اختلاف به دقیقه" />
+                <small class="grey">سیستم تاریخ آخرین اجرا را به صورت خودکار در متغیر 
+                @{from}
+                قرار می‌دهد. ممکن است در برخی از حالات برای جلوگیری از همپوشانی داده‌ها لازم باشد این مقدار کمتر یا بیشتر شود. این مقدار برحسب دقیقه است و برای کم کردن از علامت منفی استفاده کنید.
+                </small>
+            </div>
+             
 
         </div>
 

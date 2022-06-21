@@ -143,7 +143,7 @@
         <sadaf-user-variables ng-model="c.control.active.userVariable"></sadaf-user-variables>
     </div>-->
     <!-- تنظیمات مربوط به دراپ دان -->
-    <div ng-show="c.control.active.type == 4 && !c.control.active.dropdown.isUser&& !c.control.active.dropdown.isRole" class="field">
+    <div ng-show="c.control.active.type == 4 && !c.control.active.dropdown.isUser && !c.control.active.dropdown.isRole" class="field">
 
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.dropdown.multiSelectDropdown">
@@ -198,7 +198,7 @@
             <sadaf-checkbox ng-model="c.control.active.dropdown.preventRelation">عدم ایجاد ارتباط بین منبع داده و فرم</sadaf-checkbox>
             <br />
             <br />
-            <select-datasource-columns ng-model="c.control.active.dropdown"></select-datasource-columns>
+            <select-datasource-columns ng-model="c.control.active.dropdown" controls="c.activeSibling" control="c.control.active"></select-datasource-columns>
         </div>
 
         <div class="field" ng-if="c.control.active.dropdown.useRemoteData && !c.control.active.dropdown.isUser">

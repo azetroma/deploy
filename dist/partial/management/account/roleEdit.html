@@ -52,8 +52,21 @@
                                 }
 
                                 .role-edit md-checkbox {
-                                    margin: 5px 0;
+                                    margin: 0px 0;
                                 }
+
+                                .role-edit md-checkbox {
+                                    min-height: 20px;
+                                }
+
+                                    .role-edit md-checkbox .md-label {
+                                        margin-top: 0px;
+                                        margin-bottom: 10px;
+                                    }
+
+                                    .role-edit md-checkbox .md-container {
+                                        margin: 11px 3px 3px;
+                                    }
                             </style>
 
                             <div class="prop-section role-edit">
@@ -80,7 +93,12 @@
                                                     <collapse-body>
                                                         <div style="margin:0 20px">
                                                             <div ng-repeat="r in v" layout="row" layout-align="start center">
-                                                                <md-checkbox ng-model="r.check" ng-change="setViewPermission(k, v)">{{r.name}}</md-checkbox>
+                                                                <md-checkbox ng-model="r.check" ng-change="setViewPermission(k, v)" ng-disabled="r.disable">{{r.name}}  </md-checkbox>
+                                                                <small ng-if="r.disable">
+                                                                    &nbsp;&nbsp; این داشبورد تکراری است. برای تغییر به گروه منوی
+                                                                    <b>{{r.enableParent}}</b>
+                                                                    مراجعه کنید
+                                                                </small>
                                                                 <span flex></span>
                                                                 <select ng-show="r.check" ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                                 (item.v == 2 && !r.permissions.EditPermission)||
@@ -171,7 +189,7 @@
 
                                                     <div class="field">
                                                         <label>&nbsp;</label>
-                                                        <div class="ui icon red button" title=" {{'remove_all' | translate}}"ng-click="$event.stopPropagation(); clearDatasources()">
+                                                        <div class="ui icon red button" title=" {{'remove_all' | translate}}" ng-click="$event.stopPropagation(); clearDatasources()">
                                                             <i class="icon alternate outline trash"></i>
                                                         </div>
                                                     </div>
@@ -342,39 +360,36 @@
                                     <menu-item ng-if="licenseThemes">
                                         <menu-header ng-click="renderThemes = true">پوسته‌ها</menu-header>
                                         <menu-body>
-                                            <div  ng-if="renderThemes">
-                                                <!--<md-virtual-repeat-container style="height:400px;">-->
-                                                    <div style="height:40px;" ng-repeat="r in themes" layout="row" layout-align="start center">
-                                                        <label><input type="checkbox" ng-model="r.check" /> {{r.name}}</label>
-                                                        <span flex></span>
-                                                        <div style="width:180px" ng-show="r.check">
-                                                            <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
+                                            <div ng-if="renderThemes">
+                                                <div style="height:40px;" ng-repeat="r in themes" layout="row" layout-align="start center">
+                                                    <md-checkbox ng-model="r.check">{{r.name}}  </md-checkbox>
+                                                    <span flex></span>
+                                                    <div style="width:180px" ng-show="r.check">
+                                                        <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                             (item.v == 2 && !r.permissions.EditPermission)||
                                                             (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
-                                                        </div>
-
                                                     </div>
-                                                <!--</md-virtual-repeat-container>-->
+
+                                                </div>
                                             </div>
                                         </menu-body>
                                     </menu-item>
-                                    
+
+
+
                                     <menu-item ng-if="useApp">
                                         <menu-header ng-click="rendermainmenu = true">پروژه‌ها</menu-header>
                                         <menu-body>
-                                            <div  ng-if="rendermainmenu">
-                                                <!--<md-virtual-repeat-container style="height:400px;">-->
-                                                    <div style="height:40px;" ng-repeat="r in mainmenus" layout="row" layout-align="start center">
-                                                        <label><input type="checkbox" ng-model="r.check" /> {{r.name}}</label>
-                                                        <span flex></span>
-                                                        <div style="width:180px" ng-show="r.check">
-                                                            <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
+                                            <div ng-if="rendermainmenu">
+                                                <div style="height:40px;" ng-repeat="r in mainmenus" layout="row" layout-align="start center">
+                                                    <md-checkbox ng-model="r.check"  >{{r.name}}  </md-checkbox>
+                                                    <span flex></span>
+                                                    <div style="width:180px" ng-show="r.check">
+                                                        <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                             (item.v == 2 && !r.permissions.EditPermission)||
                                                             (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
-                                                        </div>
-
                                                     </div>
-                                                <!--</md-virtual-repeat-container>-->
+                                                </div>
                                             </div>
                                         </menu-body>
                                     </menu-item>
@@ -410,59 +425,59 @@
                                             <div style="margin:0 20px">
 
                                                 در این قسمت می‌توانید به صورت خودکار روی صفحه‌های داشبورد یک یا چند متغیر کاربری اعمال کنید. برای صفحه
-                                                مورد نظر متغیر کاربری و فرمول مورد نظر را تعریف کنید تا به صورت 
+                                                مورد نظر متغیر کاربری و فرمول مورد نظر را تعریف کنید تا به صورت
                                                 خودکار برای تمام نمودارهای صفحه فرمول مورد نظر برابر مقدار متغیر کاربری قرار گرفته و نمایش داده شود.
 
 
 
-                                                <div class="ui mini icon button" style="margin:10px 10px" ng-click="model.dashboardVariables.push({userVariables:[{}]})"><i class="icon add" ></i> اضافه کردن</div>
+                                                <div class="ui mini icon button" style="margin:10px 10px" ng-click="model.dashboardVariables.push({userVariables:[{}]})"><i class="icon add"></i> اضافه کردن</div>
 
                                                 <div class="ui form horizontal segments" ng-repeat="item in model.dashboardVariables">
 
 
-                                                        <div class="ui segment" style="display:flex; min-width:50%">
+                                                    <div class="ui segment" style="display:flex; min-width:50%">
 
-                                                            <div style="flex-grow:1">
-                                                                <div class="field fluid">
-                                                                    <label>{{'داشبورد' | translate}}</label>
-                                                                    <sm-dropdown class="selection search multiple" items="menusFlat" model="item.dashboards" label="item.name" value="item.id"></sm-dropdown>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="field" style="max-width: 55px; margin-right:14px">
-                                                                <label>&nbsp;</label>
-                                                                <div class="ui icon  button" ng-click="model.dashboardVariables.splice($index, 1)"> <i class="icon trash outline alternate" ></i></div>
+                                                        <div style="flex-grow:1">
+                                                            <div class="field fluid">
+                                                                <label>{{'داشبورد' | translate}}</label>
+                                                                <sm-dropdown class="selection search multiple" items="menusFlat" model="item.dashboards" label="item.name" value="item.id"></sm-dropdown>
                                                             </div>
                                                         </div>
 
-                                                        <div class="ui segment" style="min-width: 50%">
+                                                        <div class="field" style="max-width: 55px; margin-right:14px">
+                                                            <label>&nbsp;</label>
+                                                            <div class="ui icon  button" ng-click="model.dashboardVariables.splice($index, 1)"> <i class="icon trash outline alternate"></i></div>
+                                                        </div>
+                                                    </div>
 
-                                                            <div ng-repeat="p in item.userVariables" class="ui form">
-                                                                <div class="two column fields">
-                                                                    <div class="field">
-                                                                        <label ng-if="$index == 0">متغیر کاربری</label>
-                                                                        <sm-dropdown class="selection search" model="p.name" items="auto.keys" label="item.title" value="item.title"></sm-dropdown>
-                                                                    </div>
+                                                    <div class="ui segment" style="min-width: 50%">
 
-                                                                    <div class="field">
-                                                                        <label ng-if="$index == 0">فرمول ستون</label>
-                                                                        <input required name="name" ng-model="p.formula">
-                                                                    </div>
+                                                        <div ng-repeat="p in item.userVariables" class="ui form">
+                                                            <div class="two column fields">
+                                                                <div class="field">
+                                                                    <label ng-if="$index == 0">متغیر کاربری</label>
+                                                                    <sm-dropdown class="selection search" model="p.name" items="auto.keys" label="item.title" value="item.title"></sm-dropdown>
+                                                                </div>
 
-                                                                    <div class="field" style="max-width: 55px;">
-                                                                        <label ng-if="$index == 0">&nbsp;</label>
-                                                                        <div class="ui icon button" ng-click="item.userVariables.push({})"> <i class="icon add" ></i></div>
-                                                                    </div>
+                                                                <div class="field">
+                                                                    <label ng-if="$index == 0">فرمول ستون</label>
+                                                                    <input required name="name" ng-model="p.formula">
+                                                                </div>
 
-                                                                    <div class="field" style="max-width: 55px;" ng-if="item.userVariables.length>1">
-                                                                        <label ng-if="$index == 0">&nbsp;</label>
-                                                                        <div class="ui icon  button" ng-click="item.userVariables.splice($index, 1)"> <i class="icon trash outline alternate" ></i></div>
-                                                                    </div>
+                                                                <div class="field" style="max-width: 55px;">
+                                                                    <label ng-if="$index == 0">&nbsp;</label>
+                                                                    <div class="ui icon button" ng-click="item.userVariables.push({})"> <i class="icon add"></i></div>
+                                                                </div>
 
+                                                                <div class="field" style="max-width: 55px;" ng-if="item.userVariables.length>1">
+                                                                    <label ng-if="$index == 0">&nbsp;</label>
+                                                                    <div class="ui icon  button" ng-click="item.userVariables.splice($index, 1)"> <i class="icon trash outline alternate"></i></div>
                                                                 </div>
 
                                                             </div>
+
                                                         </div>
+                                                    </div>
 
                                                 </div>
 
@@ -546,7 +561,7 @@
 
                         </div>
 
-                        <div ng-if="isEdit"> 
+                        <div ng-if="isEdit">
 
                             <h3 class="">
                                 {{'child roles' | translate}}
