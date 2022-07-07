@@ -1,0 +1,131 @@
+﻿<div layout="column" flex>
+    <md-content flex class="content" layout="row" no-background>
+
+        <div flex="20" hide-sm hide-xs></div>
+        <div flex="60" flex-xs="100" flex-sm="100">
+
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline" ng-hide="isEdit">منبع داده جدید</span>
+                        <span class="md-headline" ng-show="isEdit">ویراش منبع داده</span>
+
+                    </md-card-title-text>
+                    <div ng-show="app.license.securityCertPatch && id > 0" class="ui label">
+                        {{'integrity check' | translate}} &nbsp;
+                        <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
+                    </div>
+                </md-card-title>
+
+                <md-card-content layout-padding id="main-form">
+                    <div>
+
+                        <form name="fileForm">
+
+                            <md-input-container class="md-block">
+                                <label>نام</label>
+                                <input required name="name" ng-model="name">
+                                <div ng-messages="fileForm.name.$error">
+                                    <div ng-message="required">نام را وارد کنید</div>
+                                </div>
+                            </md-input-container>
+                            <change-table-name id="id" table-name="tableName"></change-table-name>
+                            
+
+                            <div layout="row" style="margin:18px 0">
+                                <input id="input-file-id" class="ng-hide" type="file" accept=".xlsx,.csv,.xls" />
+                                <label for="input-file-id" class="md-button md-primary ">انتخاب فایل</label>
+                                <span flex></span>
+                                <span ng-bind-html="fileName" class=""></span>
+                            </div>
+
+
+
+                            <div layout="row" style="margin:18px 0">
+                                <md-progress-linear md-mode="determinate" value="{{progress}}" ng-hide="progress == -1"></md-progress-linear>
+                            </div>
+
+                            <div layout="row" style="margin:18px 0" ng-show="uploadData">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>نوع فایل</label>
+                                    <md-select ng-model="extention">
+                                        <md-option value="XLS">XLS</md-option>
+                                        <md-option value="CSV">CSV</md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>نسخه Microsoft.ACE.OLEDB </label>
+                                    <md-select ng-model="aceProvider">
+                                        <md-option value="12">12</md-option>
+                                        <md-option value="16">16</md-option>
+                                    </md-select>
+                                </md-input-container>
+
+                                <md-button class="md-primary" ng-click="upload()" ng-show="uploadData">آپلود فایل</md-button>
+                            </div>
+
+                            <md-input-container class="md-block" ng-show="sheets" flex-gt-sm>
+                                <label>صفحه</label>
+                                <md-select ng-model="sheetName" ng-change="changeSheet()">
+                                    <md-option ng-repeat="sheet in sheets" value="{{sheet}}">{{sheet}}</md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <div class="field" flex-gt-sm ng-show=" license.olap">
+                                <label>مدل ذخیره داده</label>
+                                <select ng-model="modelType" ng-options="a.val as a.label for a in [{val:0, label:'SQL'},{val:1, label:'DAX'}]">
+                                </select>
+                            </div>
+
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <md-checkbox xng-disabled="id > 0" ng-model="keepHistory">
+                                    ذخیره تاریخچه تغییرات
+                                </md-checkbox>
+
+                                <small><a href="{{app.urlPrefix}}sadaf/help/#/content/1"> {{'help' | translate}}</a></small>
+                            </md-input-container>
+
+                            <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
+                            <datasource-metainfo ng-model="metainfo"></datasource-metainfo>
+
+                        </form>
+
+
+                    </div>
+
+
+
+                </md-card-content>
+
+
+
+
+                <md-card-actions layout="row">
+                    <span flex></span>
+
+                    <md-button ng-click="save()" ng-disabled="!testResult && !isEdit">
+                        ذخیره
+                    </md-button>
+
+                </md-card-actions>
+
+
+            </md-card>
+
+            <md-card ng-show="testResult" flex>
+                <md-content style="height:200px;" id="testResult" layout="column" flex>
+                    <div ng-bind-html="testResult" flex></div>
+                </md-content>
+            </md-card>
+
+            <md-card ng-show="error" layout="row" flex>
+                <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
+                    <div ng-bind-html="error" flex></div>
+                </md-content>
+            </md-card>
+
+        </div>
+        <div flex="20" hide-sm hide-xs></div>
+
+    </md-content>
+</div>

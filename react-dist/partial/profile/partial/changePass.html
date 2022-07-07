@@ -1,0 +1,42 @@
+﻿<div ng-if="help.forceChangePass" class="ui secondary inverted yellow big segment">
+    تا زمان تغییر کلمه عبور امکان استفاده از امکانات سامانه را نخواهید داشت
+</div>
+
+
+<h3 class="ui header">{{'profile_change_pass' | translate}}</h3>
+<form class="ui form">
+    <div class="field">
+        <label class="control-label">{{'profile_password_old' | translate}}</label>
+        <input class="form-control" type="password" ng-model="oldPass" placeholder="{{'profile_password_old' | translate}}" />
+    </div>
+    <div class="field ">
+        <label class="control-label">{{'profile_password_new' | translate}}</label>
+        <input class="form-control" type="password" ng-model="newPass" placeholder="{{'profile_password_new' | translate}}" />
+    </div>
+    <div class="field ">
+        <label class="control-label">{{'profile_password_repeat' | translate}}</label>
+        <input class="form-control" type="password" ng-model="repeatPass" placeholder="{{'profile_password_repeat' | translate}}" />
+    </div>
+
+    <div class="ui inverted secondary segment" ng-class="{'red': error, 'green': success}" ng-show="result">
+        <p ng-bind-html="message"></p>
+    </div>
+
+
+    <div class="ui secondary gray segment" ng-show="help.policy">
+        <div class="ui header small">کلمه عبور باید شامل شرایط زیر باشد</div>
+        <div class="ui bulleted list">
+            <div class="item" ng-show="help.passwordPolicyDigit">{{'at least one number' | translate}}</div>
+            <div class="item" ng-show="help.passwordPolicyUpper">{{'at least one upper case char' | translate}}</div>
+            <div class="item" ng-show="help.passwordPolicyLower">{{'at least one lower case char' | translate}}</div>
+            <div class="item" ng-show="help.passwordPolicyChar">{{'at least one special char' | translate}}</div>
+            <div class="item" ng-show="help.passwordPolicyLength">{{'minimum length' | translate}} {{help.passwordPolicyLength}}</div>
+        </div>
+
+
+    </div>
+    <a class="ui blue button" ng-click="changePass()" ng-class="{loading:progress, disabled: progress}">{{'ذخیره' | translate}}</a>
+    <a class="ui button black" ng-show="success" href="{{app.urlPrefix}}">رفتن به صفحه داشبورد</a>
+
+</form>
+

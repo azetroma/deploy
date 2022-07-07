@@ -1,0 +1,58 @@
+﻿
+<div class="freeze-menu hide-aff ">
+
+    
+
+</div>
+
+
+
+<div class="dashboard-block">
+
+    <div class="chart-container " style="margin:0px 15px 0px 5px;">
+        <div class="">
+            <div class="">
+                <div class="ui warn  message hidden" id='chart-empty-message' style='display: none; margin:30px; line-height:2em;'>
+                    <div class="header">
+                        {{'no dashboard to show' | translate}}
+                    </div>
+                    <p>
+                        {{'no_chart_msg_part_1' | translate}}
+                        <b><span data-trans-key='اضافه کردن نمودار'> </span></b>
+                        {{'no_chart_msg_part_2' | translate}}
+                        <b><span data-trans-key='مدیریت'> </span></b>
+                        {{'no_chart_msg_part_3' | translate}}
+                    </p>
+                </div>
+                <div class="ui warn  message" id='no-page-message' style='display: none; margin:30px; line-height:2em;'>
+                    <div class="header">
+                        {{'no access to page' | translate}}
+                    </div>
+                    <p>
+
+                        {{'no access to page desc' | translate}}
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+
+
+</div>
+<div class="chart-container container-flowed" id="dashboard-chart-panel" style="min-height:70vh; padding-bottom: 10px; ">
+
+    <div class="" ng-show="progress">
+        <div class="ui active text loader">در حال بارگذاری</div>
+    </div>
+
+
+    <div class="gridster" >
+        <div>
+        </div>
+    </div>
+</div>
+
+<div id="delete-modal"></div>

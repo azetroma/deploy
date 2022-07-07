@@ -1,0 +1,411 @@
+﻿
+<div layout="column" flex>
+    <md-content flex class="content " layout="row">
+
+        <div flex="20" hide-sm hide-xs></div>
+        <div flex="60" flex-xs="100" flex-sm="100" class="content-scroll">
+
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline" ng-hide="isEdit">{{'new_user' | translate}}</span>
+                        <span class="md-headline" ng-show="isEdit">{{'edit_user' | translate}}</span>
+
+                    </md-card-title-text>
+                    <div ng-show="app.license.securityCertPatch && id > 0" class="ui label">
+                        {{'integrity check' | translate}} &nbsp;
+                        <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
+                    </div>
+
+                </md-card-title>
+
+                <md-content layout-padding>
+                    <div>
+                        <form name="userForm" autocomplete="off">
+
+                            <div layout-gt-sm="row" flex>
+                                <md-input-container flex>
+                                    <label>{{'username' | translate}}</label>
+                                    <input required ng-model="model.Username" ng-disabled="isEdit">
+                                    <div ng-messages="userForm.name.$error">
+                                        <div ng-message="required">{{'form_username_required' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+
+                                <md-input-container flex>
+                                    <label>{{'name' | translate}}</label>
+                                    <input " ng-model="model.FirstName">
+                                    <div ng-messages="userForm.name.$error">
+                                        <div ng-message="required">{{'form_name_required' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+
+                                <md-input-container flex>
+                                    <label>{{'last_name' | translate}}</label>
+                                    <input ng-model="model.LastName">
+                                    <div ng-messages="userForm.name.$error">
+                                        <div ng-message="required">{{'form_last_name_required' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+
+                            </div>
+
+                           
+                            <div layout-gt-sm="row" flex>
+
+                                <md-input-container flex="50">
+                                    <label>{{'profile_password_new' | translate}}</label>
+                                    <input type="password" ng-model="model.Password" autocomplete="new-password">
+                                    <div ng-messages="userForm.name.$error">
+                                        <div ng-message="required">{{'form_username_required' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container flex="50">
+                                    <label>{{'profile_password_repeat' | translate}}</label>
+                                    <input type="password" ng-model="model.PasswordRepeat" autocomplete="new-password">
+                                    <div ng-messages="userForm.name.$error">
+                                        <div ng-message="required">{{'form_name_required' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                           
+                            <div layout-gt-sm="row">
+
+                                <md-input-container flex="50">
+                                    <label>{{'profile_phone' | translate}}</label>
+                                    <input type="tel" ng-model="model.Mobile">
+                                </md-input-container>
+
+                                <md-input-container flex="50">
+                                    <label>{{'profile_email' | translate}}</label>
+                                    <input type="email" ng-model="model.Email" autocomplete="off" ng-pattern="/^.+@.+\..+$/">
+                                    <div ng-messages="userForm.email.$error">
+                                        <div ng-message="pattern">{{'email_pattern_error' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+
+                            </div>
+
+                            <md-switch ng-model="model.PasswordPolicy">
+                                <md-tooltip>
+                                    <small>
+                                        کلمه عبور پیچیده باید شامل موارد زیر باشد
+                                        <span>حداقل یک عدد</span>
+                                        <span>حداقل یک حرف بزرگ</span>
+                                        <span>حداقل یک حرف کوچک</span>
+                                        <span>حداقل یک کاراکتر از ( ) * &amp; ^ % $ # @ !</span>
+                                        <span>حداقل طول هشت کاراکتر</span>
+                                    </small>
+                                </md-tooltip>
+                                {{'complicate password' | translate}}
+                            </md-switch>
+                            <md-switch ng-model="model.ForceChangePass">
+                                {{'force change password' | translate}}
+                            </md-switch>
+
+                            <md-switch ng-model="model.active">
+                                {{'active' | translate}}
+                            </md-switch>
+
+
+
+                            <h3 class="sadaf-header">
+                                {{'profile_settings' | translate}}
+                            </h3>
+                            <div class="ui form">
+
+                            <div class="two column wide fields" >
+
+                                <div class="field" >
+                                    <label>{{'profile_slide_timeout' | translate}}</label>
+                                    <input type="number" ng-model="model.PageSwiching">
+                                    <small class="gray">{{'user_slide_desc' | translate}}</small>
+                                </div>
+
+                                <div class="field" >
+                                    <label>{{'profile_language' | translate}}</label>
+                                    <select ng-model="model.Lang" style="padding:.47857143em 1em"
+                                            ng-options="i.name as  i.value for i in [
+                                                            {name:0, value: 'فارسی'  },
+                                                            {name:1, value:'English' }
+                                                        ]">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="two column wide fields" >
+
+                                <div class="field" >
+                                    <label>زمان اعتبار نشست</label>
+                                    <input type="number" ng-model="model.sessionTime">
+                                    <small class="gray">
+                                        مدت زمان اعتبار نشست کاربر به دقیقه. در صورتی که مقداری ثبت نشود یا ۰ ثبت شود مدت زمان اعتبار
+                                        نشست مقدار پیش فرض سامانه می‌باشد.
+                                    </small>
+                                </div>
+
+
+                                <div class="field" >
+                                    <label>{{'expire_time' | translate}}</label>
+                                    <input type="text" id="user-expire-time" >
+
+                                </div>
+
+                            </div>
+                            </div>
+                            <div layout-gt-sm="row" flex>
+
+                                <md-input-container class="md-block" flex>
+                                    <label>سازمان</label>
+                                    <input type="text" ng-model="model.organization">
+                                </md-input-container>
+
+
+                            </div>
+                            <br />
+                            <br />
+                            <div class="ui secondary segment">
+                                <div layout="row" layout-align="start center" class="ui header">
+                                    <span>
+                                        {{'متغیرها' | translate}}
+                                    </span>
+                                    <md-button class="md-icon-button" ng-click="props.push({Value:[]})">
+                                        <span class="material-icons">add</span>
+                                        <md-tooltip>{{'add' | translate}}</md-tooltip>
+                                    </md-button>
+                                </div>
+
+                                <div ng-repeat="p in props" layout="row">
+                                    <md-autocomplete flex="30" required md-no-cache="true"
+                                                     md-input-name="autocompleteField"
+                                                     md-floating-label="{{'نام متغیر' | translate}}"
+                                                     md-search-text="p.Key"
+                                                     md-items="item in auto. keys | filter:p.Key"
+                                                     md-item-text="item"
+                                                     md-min-length="0"
+                                                     placeholder="{{'نام متغیر' | translate}}">
+                                        <md-item-template>
+                                            <span md-highlight-text="p.Key" md-highlight-flags="^i">{{item}}</span>
+                                        </md-item-template>
+                                        <div ng-messages="syncForm.autocompleteField.$error" ng-if="syncForm.autocompleteField.$touched">
+                                            <div ng-message="required">{{'form_name_required' | translate}}</div>
+                                        </div>
+
+                                    </md-autocomplete>
+
+
+                                    <md-chips flex="70" ng-model="p.Value" md-autocomplete-snap
+                                              placeholder="{{'insert_user_prop_value' | translate}}"
+                                              delete-button-label="{{'delete_user_prop_value' | translate}}"
+                                              delete-hint="{{'press_delete_user_prop_value' | translate}}"
+                                              secondary-placeholder="{{'add_user_prop_value' | translate}}">
+
+                                        <md-autocomplete md-no-cache="true"
+                                                         md-search-text="val"
+                                                         md-items="item in auto.flatValues | filter:val"
+                                                         md-item-text="item"
+                                                         md-min-length="0"
+                                                         placeholder="{{'add_user_prop_value' | translate}}">
+                                            <span md-highlight-text="val">{{item}}</span>
+                                        </md-autocomplete>
+
+                                    </md-chips>
+                                    <md-button class="md-icon-button" ng-click="props.splice($index, 1)">
+                                        <span class="material-icons">delete</span>
+                                        <md-tooltip>{{'remove' | translate}}</md-tooltip>
+                                    </md-button>
+
+                                </div>
+                            </div>
+
+                            <div class="ui secondary segment" ng-show="verification">
+                                <h3>استعلام اطلاعات کاربری</h3>
+                                <table class="">
+                                    <tr>
+                                        <td>
+                                            نتیجه استعلام نام
+                                        </td>
+                                        <td style="padding:10px;">
+                                            <div class="ui label">
+                                                <span ng-show="model.isNameAuthenticated">موفق</span>
+                                                <span ng-hide="model.isNameAuthenticated">ناموفق</span>
+                                                <i class="ui icon" ng-class="{'check green': model.isNameAuthenticated, 'close red':!model.isNameAuthenticated}"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            نتیجه استعلام موبایل
+                                        </td>
+                                        <td style="padding:10px;">
+                                            <div class="ui label">
+
+                                                <span ng-show="model.isMobileAuthenticated">موفق</span>
+                                                <span ng-hide="model.isMobileAuthenticated">ناموفق</span>
+                                                <i class="ui icon" ng-class="{'check green': model.isMobileAuthenticated, 'close red':!model.isMobileAuthenticated}"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br />
+                                <div class="ui basic compact button" ng-class="{loading: verifyProgress}" ng-click="verify()"> استعلام اطلاعات کاربر</div>
+                                <div class="ui basic compact button" ng-class="{loading: approveProgress}" ng-click="approve()"> تایید اطلاعات حساب کاربری</div>
+
+                            </div>
+
+                            <br />
+                            <br />
+
+                            <div class="field">
+                                <label>نقش اصلی</label>
+                                <sm-dropdown class="selection fluid" items="selectedRoles" model="model.mainRole" label="item.name" value="item.id"></sm-dropdown>
+                            </div>
+
+                            <br />
+
+                            <div ng-show="verification" class="ui form">
+
+                                <sadaf-checkbox ng-model="model.urlbaseActiveRole.enable">نقش فعال براساس آدرس ورود</sadaf-checkbox>
+                                <div class="ui secondary segment" ng-show="model.urlbaseActiveRole.enable">
+
+                                    <div class="ui button icon mini inline" ng-click="urlbaseAdd()">
+                                        اضافه کردن
+                                        <i class="ui icon add"></i>
+                                    </div>
+
+                                    <div ng-repeat="i in model.urlbaseActiveRole.items">
+                                        <div class="three wide column fields">
+                                            <div class="field">
+                                                <label>آدرس هاست</label>
+                                                <input type="text" ng-model="i.host" />
+                                            </div>
+                                            <div class="field">
+                                                <label>نقش اصلی</label>
+                                                <sm-dropdown class="selection fluid" items="selectedRoles" model="i.role" label="item.name" value="item.id"></sm-dropdown>
+                                            </div><div class="field">
+                                                <label>&nbsp;</label>
+                                                <div class="ui button icon mini" ng-click="model.urlbaseActiveRole.items.splice($index, 1)"><i class="ui icon delete" ></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <br />
+                            <br />
+
+                            <div ng-show="roleAdmins.length">
+                                نقش‌هایی که این کاربر مدیر آن‌هاست
+                                <div class="ui label" ng-repeat="i in roleAdmins"><a ng-href="{{app.hashUrlPrefix}}#/roles/edit/{{i.id}}">{{i.name}}</a></div>
+                                <br />
+                                <br />
+                            </div>
+
+                            <collapse >
+                                <collapse-header>{{'roles'| translate}}</collapse-header>
+                                <collapse-body>
+                                    <div xstyle="margin:0 20px">
+
+                                        <div class="sadaf-tree" style="margin: 0 40px;">
+                                            <div class="tree-element ul" style="list-style:none">
+                                                <div ng-repeat="data in root.nodes track by $index" class="tree-element li" ng-include="'xtree.html'"></div>
+                                            </div>
+
+                                        </div>
+                                        <script type="text/ng-template" id="xtree.html">
+                                            <collapse class="block" ng-model="data" hide-icon="{{(!data.nodes || !data.nodes.length ) &&  ( !data.contents || !data.contents.length) }}">
+                                                <collapse-header class="block hide-item-parent">
+                                                    <span style="margin:0">
+                                                        <md-checkbox style="margin:5px 0;" ng-model="data.check" ng-click="$event.stopPropagation()">{{data.name}}</md-checkbox>
+                                                    </span>
+                                                </collapse-header>
+                                                <collapse-body class="block">
+                                                    <div class="tree-element ul" style="list-style:none">
+                                                        <div ng-repeat="data in data.nodes track by $index" class="tree-element li" ng-include="'xtree.html'"></div>
+                                                    </div>
+                                                </collapse-body>
+                                            </collapse>
+                                        </script>
+
+
+                                    </div>
+                                </collapse-body>
+                            </collapse>
+
+                            <collapse >
+                                <collapse-header>لیست نقش‌های مدیر کاربر فعلی</collapse-header>
+                                <small class="grey">
+                                    در صورتی که کاربر از لیست کاربران قابل مدیریت نقشی حذف شود به صورت خودکار
+                                    از عضویت در تمام نقش‌های زیرمجموعه نقش نیز حذف خواهد شد
+                                </small>
+                                <collapse-body>
+                                    <div xstyle="margin:0 20px">
+
+                                        <div class="sadaf-tree" style="margin: 0 40px;">
+                                            <div class="tree-element ul" style="list-style:none">
+                                                <div ng-repeat="data in root2.nodes track by $index" class="tree-element li" ng-include="'xtree.html'"></div>
+                                            </div>
+
+                                        </div>
+                                        <script type="text/ng-template" id="xtree.html">
+                                            <collapse class="block" ng-model="data" hide-icon="{{(!data.nodes || !data.nodes.length ) &&  ( !data.contents || !data.contents.length) }}">
+                                                <collapse-header class="block hide-item-parent">
+                                                    <span style="margin:0">
+                                                        <md-checkbox style="margin:5px 0;" ng-model="data.check" ng-click="$event.stopPropagation()">{{data.name}}</md-checkbox>
+                                                    </span>
+                                                </collapse-header>
+                                                <collapse-body class="block">
+                                                    <div class="tree-element ul" style="list-style:none" >
+                                                        <div ng-repeat="data in data.nodes track by $index" class="tree-element li" ng-include="'xtree.html'"></div>
+                                                    </div>
+                                                </collapse-body>
+                                            </collapse>
+                                        </script>
+
+
+                                    </div>
+                                </collapse-body>
+                            </collapse>
+
+                        </form>
+
+
+                    </div>
+
+
+
+                </md-content>
+
+
+
+
+                <md-card-actions layout="row">
+                    <span flex></span>
+
+                    <md-button ng-click="save()" ng-disabled="saveProgress">
+                        {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+
+                    </md-button>
+
+                </md-card-actions>
+
+
+            </md-card>
+
+            <md-card ng-show="testResult" flex>
+                <md-content style="max-height:200px;" id="card-resize" layout="column" flex>
+                    <div ng-bind-html="testResult" flex></div>
+                </md-content>
+            </md-card>
+
+            <md-card ng-show="error" layout="row" flex>
+                <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
+                    <div ng-bind-html="error" flex></div>
+                </md-content>
+            </md-card>
+
+        </div>
+        <div flex="20" hide-sm hide-xs></div>
+
+    </md-content>
+</div>

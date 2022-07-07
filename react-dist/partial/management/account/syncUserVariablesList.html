@@ -1,0 +1,56 @@
+﻿
+
+<div layout="row" flex>
+    <md-content flex no-background>
+        <div layout="column" flex>
+
+            <md-card style="margin:40px; padding:16px" flex>
+                <div class="" flex layout="row" layout-align="start center">
+                    <h3>{{'User Variable Sync' | translate}}</h3>
+                    <span flex></span>
+                    <md-button href="{{cnl.app.hashUrlPrefix}}#/syncUserVariablesDetail" class="md-icon-button" title="{{'add' | translate}}">
+                        <span class="material-icons">add_circle_outline</span>
+                    </md-button>
+
+                </div>
+
+                <table class="sadaf-table">
+                    <tr>
+                        <th>#</th>
+                        <th>{{'منبع داده' | translate}}</th>
+                        <th>{{'نام متغیر' | translate}}</th>
+                        <th>{{'last update' | translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="i in cnl.data">
+                        <td >{{$index + 1}}</td>
+                        <td><a href="{{cnl.app.hashUrlPrefix}}#/syncUserVariablesDetail/{{i.Id}}">{{i.DatasourceName}}</a></td>
+                        <td><a href="{{cnl.app.hashUrlPrefix}}#/syncUserVariablesDetail/{{i.Id}}">{{i.VariableName}}</a></td>
+                        <td>{{i.LastRefresh}}</td>
+                        <td  >
+                            <div layout="row" layout-sm="row" layout-align="start center" style="width:100px">
+
+                            <md-button class="md-icon-button gray" ng-click="cnl.delete($event, i)" title="{{'remove' | translate}}">
+                                <span class="material-icons">delete</span>
+                            </md-button>
+                            <md-button class="md-icon-button gray"ng-show="!i.progress" ng-click="cnl.sync($event, i)" title="{{'Sync' | translate}}">
+                                <span class="material-icons">sync</span>
+                            </md-button>
+                            <md-progress-circular ng-show="i.progress" md-mode="indeterminate" md-diameter="15"></md-progress-circular>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+                <div layout="row" layout-sm="column" layout-align="space-around" ng-show="cnl.progress" layout-margin>
+                    <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
+                </div>
+                <div ng-hide="(cnl.data && cnl.data.length) || cnl.progress" class="md-caption" style="padding:10px 16px; text-align:right">
+                    {{'داده‌ای برای نمایش وجود ندارد' | translate}}
+
+                </div>
+
+            </md-card>
+        </div>
+    </md-content>
+</div>

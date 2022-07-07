@@ -1,0 +1,59 @@
+﻿<div layout="row" flex>
+    <md-content flex no-background>
+        <div layout="column" flex> 
+
+            <md-card style="margin:40px; padding:16px" flex>
+                <div class="" flex layout="row" layout-align="start center">
+                    <h3>{{'Forms' | translate}}</h3>
+                    <span flex></span>
+                    <div class="ui label yellow" ng-show="c.formsModule==0">نسخه نمایشی</div>
+                    <md-button ng-hide="c.data.length >= 3 && c.formsModule==0" href="{{c.app.hashUrlPrefix}}#/forms" class="md-icon-button" title="{{'add' | translate}}">
+                        <span class="material-icons">add_circle_outline</span>
+                    </md-button>
+
+                </div>
+
+                <table class="sadaf-table">
+                    <tr>
+                        <th>#</th>
+                        <th>{{'name' | translate}}</th>
+                        <th>{{'last update' | translate}}</th>
+                        <th></th> 
+                        <!--<th></th>-->
+                    </tr>
+                    <tr ng-repeat="i in c.data">
+                        <td>{{c.utils.persian($index + 1)}}</td>
+                        <td>
+                            <a ng-show="i.permissions.EditPermission" ng-if="i.systemType == 0" href="{{c.app.hashUrlPrefix + '#/forms/' + i.id}}">{{i.name}}</a>
+                            <a ng-show="i.permissions.EditPermission" ng-if="i.systemType != 0">{{i.name}}</a>
+                            <a ng-hide="i.permissions.EditPermission">{{i.name}} <span class="ui label mini">بدون مجوز ویرایش</span></a>
+                        </td>
+                        <td>{{c.utils.persian(i.lastRefresh)}}</td>
+                        <td>
+                            <div layout="row" layout-sm="row" layout-align="start center" style="width:150px">
+                                <md-button ng-show="i.permissions.DeletePermission" class="md-icon-button gray" ng-click="c.delete($event, i, $index)" title="{{'remove' | translate}}">
+                                    <span class="material-icons small pointer gray">delete</span>
+                                </md-button>
+                                <md-button class="md-icon-button gray" title="{{'ساخت گزارش' | translate}}" href="{{app.urlPrefix}}sadaf/management/#/charts/new/normal/0/{{i.datasourceId}}/1">
+                                    <span class="material-icons small pointer gray">insert_chart</span>
+                                </md-button>
+                                <md-button class="md-icon-button gray" title="{{'کپی' | translate}}" ng-click="c.copy($event, i, $index)">
+                                    <span class="material-icons small pointer gray">content_copy</span>
+                                </md-button>
+                            </div>
+
+                        </td>
+                        <!--<td ng-show="c.securityCertPatch "><i ng-show="i.sign" class="ui icon green check"></i><i ng-hide="i.sign" class="ui icon red times"></i></td>
+                        <td ng-hide="c.securityCertPatch "></td>-->
+
+                    </tr>
+                </table>
+                <div layout="row" layout-sm="column" layout-align="space-around" ng-show="c.progress" layout-margin>
+                    <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
+                </div>
+                <div ng-hide="(c.data && c.data.length) || c.progress" class="md-caption" style="padding:10px 16px; text-align:right">داده‌ای برای نمایش وجود ندارد</div>
+
+            </md-card>
+        </div>
+    </md-content>
+</div>

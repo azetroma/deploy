@@ -1,0 +1,364 @@
+
+<menu-item class="panel " ng-show="dimensions && dimensions.length>0" name="dimension">
+    <menu-header class=" pointer" data-toggle="" href="#demensions-info">
+        {{ 'ابعاد (ستون‌های رشته‌ای)' | translate }}
+    </menu-header>
+    <menu-body id="demensions-info" class="prop-section form-horizontal  ">
+        <div class="prop-section-contain" id="dimension-section" data-object="dimensions.default">
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'بُعد' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select class="selectpicker-x form-control" data-size="4" ng-model="model.selectedDimension" ng-init="model.selectedDimension = '0'"
+                            ng-options="id as i.Name  for (id, i) in dimensions"></select>
+                </div>
+            </div>
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'نام' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}"
+                           ng-change="changeDimensionName('{{dimensions[model.selectedDimension].Name}}',dimensions[model.selectedDimension])"
+                           ng-model="dimensions[model.selectedDimension].Name" ng-model-options="{ updateOn: 'blur' }" />
+                </div>
+            </div>
+
+            <div class="form-row" layout="column">
+                <label>{{ 'فرمول' | translate }}</label>
+                <div flex layout="row">
+                    <textarea flex class="form-control disabled text-formula" ng-model="dimensions[model.selectedDimension].formula"
+                              ng-change="changeFormula(dimensions[model.selectedDimension]);change()" ng-model-options="{ updateOn: 'blur' }"></textarea>
+                    <span class="material-icons small" ng-click="showDialog('dimention', $event)">fullscreen</span>
+                </div>
+            </div>
+
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'نوع مرتب کردن' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select class="selectpicker-x form-control" ng-change="change()" ng-model="dimensions[model.selectedDimension].sortOrder"
+                            ng-options="color.name as  color.value for color in [
+                                    {name:'ASC', value: 'صعودی'  },
+                                    {name:'DESC', value:'نزولی' },
+                                    ]">
+                    </select>
+                </div>
+            </div>
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'مرتب کردن بر اساس' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select class="selectpicker-x form-control" ng-model="dimensions[model.selectedDimension].sortKey" data-size="4"
+                            ng-change="change()"
+                            ng-options="color.UniqueName as  color.Name for color in dimentionWithNone">
+                    </select>
+                </div>
+            </div>
+            <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].sortKey == 'CUSTOM_FORMULA'">
+                <label class="col-md-12">{{ 'فرمول مرتب کردن' | translate }}</label>
+                <div class="col-sm-12">
+                    <textarea class="form-control disabled text-formula" ng-model="dimensions[model.selectedDimension].sortFormula"
+                              ng-change="changeFormula(dimensions[model.selectedDimension]);change()"
+                              ng-model-options="{ updateOn: 'blur' }"></textarea>
+
+                </div>
+            </div>
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label>{{ 'سطح' | translate }}</label>
+                <span class="form-divider" flex></span>
+                <div>
+                    <select class="selectpicker-x form-control" ng-model="dimensions[model.selectedDimension].applyLevel" data-size="4"
+                            ng-change="change()"
+                            ng-options="a.value as  a.name for a in [
+                                {name: 'خودکار', value: 0},
+                                {name: 'سطح اول', value: 1},
+                                {name: 'سطح دوم', value: 2},
+                                {name: 'سطح سوم', value: 3},
+                                {name: 'سطح چهارم', value: 4},
+                                {name: 'سطح پنجم', value: 5},
+                                {name: 'سطح ششم', value: 6}
+                            ]"></select>
+                </div>
+            </div>
+            <!-- در صورتی که ng-if گذاشته نشود یک ستون خالی به ابعاد اضافه می‌شود  و برای رفع باگ این گزینه استفاده شده است -->
+            <div class="form-row" layout="row" layout-align="start center" ng-if="dimensions.length">
+                <sadaf-checkbox ng-change="change()" class="mini" ng-model="dimensions[model.selectedDimension].detail.keepFilterUniversal">نگه داشتن فیلتر بین صفحه‌های پروژه</sadaf-checkbox>
+            </div>
+            <div class="form-row" layout="row" layout-align="start center" ng-if="dimensions.length">
+                <sadaf-checkbox ng-change="change()" class="mini" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.enable">دسته‌بندی مقادیر پیوسته</sadaf-checkbox>
+            </div>
+
+            <div class="ui secondary tiny xsegment" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.enable" ng-if="dimensions.length" style="padding: 10px;margin: 10px 0;background-color: rgb(239, 239, 239);border-radius: 4px;">
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label>{{ 'type' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <select class="" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.type"
+                            ng-options="color.name as  color.value for color in [
+                                    {name:'auto', value: 'خودکار'  },
+                                    {name:'byCount', value:'تعداد ستون‌ها' },
+                                    {name:'byWidth', value:'عرض ستون' },
+                                    ]"></select>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.type == 'byCount'">
+                    <label>تعداد ستون‌ها</label>
+                    <span class="form-divider" flex></span>
+                    <input type="number" class="form-control" placeholder="تعداد ستون‌ها" ng-change="change()"
+                           ng-model="dimensions[model.selectedDimension].detail.histogramCategory.count" />
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.type == 'byWidth'">
+                    <label>عرض ستون</label>
+                    <span class="form-divider" flex></span>
+                    <input type="text" class="form-control" placeholder="عرض ستون" ng-change="change()"
+                           ng-model="dimensions[model.selectedDimension].detail.histogramCategory.width" ng-model-options="{ updateOn: 'blur' }" />
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.overflowEnable">کران بالا</sadaf-checkbox>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.overflowEnable">
+                    <input style="flex:1" type="text" class="form-control" placeholder="کران بالا" ng-change="change()"
+                           ng-model="dimensions[model.selectedDimension].detail.histogramCategory.overflow" ng-model-options="{ updateOn: 'blur' }" />
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.underflowEnable">کران پایین</sadaf-checkbox>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.underflowEnable">
+                    <input style="flex:1" type="text" class="form-control" placeholder="کران پایین" ng-change="change()"
+                           ng-model="dimensions[model.selectedDimension].detail.histogramCategory.underflow" ng-model-options="{ updateOn: 'blur' }" />
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label>{{ 'فونت' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <text-editor config="tConfig" prop="dimensions[model.selectedDimension].detail.histogramCategory.font" on-change="change()"></text-editor>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.customLabelEnable">استفاده از برچسب دلخواه</sadaf-checkbox>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.showEmpty">نمایش ستون‌های خالی</sadaf-checkbox>
+                </div>
+
+                <div class="mini segment ui" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.customLabelEnable">
+                    <div class="ui mini compact icon button" ng-click="addLabel();">
+                        اضافه کردن
+                        <i class="ui icon pointer add" ></i>
+                    </div>
+
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-repeat="label in dimensions[model.selectedDimension].detail.histogramCategory.customLabels">
+                        <input style="flex:1" type="text" class="form-control" placeholder="برچسب" ng-change="change()"
+                               ng-model="label.name" ng-model-options="{ updateOn: 'blur' }" />
+                        <i class="ui icon pointer add" ng-click="dimensions[model.selectedDimension].detail.histogramCategory.customLabels.splice($index, 0, {name:''});change();"></i>
+                        <i class="ui icon pointer close" ng-click="dimensions[model.selectedDimension].detail.histogramCategory.customLabels.splice($index, 1);change()"></i>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </menu-body>
+</menu-item>
+
+<menu-item class="panel " ng-show="measures && measures.length>0" name="measure">
+    <menu-header class="pointer" data-toggle="" href="#measures-info">{{ 'شاخص‌ها (ستون‌های عددی)' | translate }}</menu-header>
+    <menu-body id="measures-info" class="prop-section form-horizontal ">
+        <div class="prop-section-contain" id="measures-section" data-object="measures.default">
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'ستون' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select id="measures-selector" class="selectpicker-x form-control" data-size="4" ng-model="model.selectedMeasure" ng-init="model.selectedMeasure = '0'"
+                            ng-options="id as  color.Name for (id, color) in measures">
+                        <!--<option ng-repeat="i in measures track by $index" value="{{$index + ''}}">{{i.Name}}</option>-->
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'نام' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}"
+                           ng-model-options="{ updateOn: 'blur' }"
+                           ng-change="changeDimensionName('{{measures[model.selectedMeasure].Name}}',measures[model.selectedMeasure])"
+                           ng-model="measures[model.selectedMeasure].Name" />
+                </div>
+            </div>
+
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'تابع تجمیع' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select class="selectpicker-x form-control" data-size="4"
+                            ng-model="measures[model.selectedMeasure].aggregation"
+                            ng-change="changeMeasureAggregation(model.selectedMeasure);change()"
+                            ng-options="color.name as  color.value for color in [
+                                    {name:'NONE', value: 'NONE'  },
+                                    {name:'SUM', value: 'SUM'  },
+                                    {name:'AVG', value: 'AVG'  },
+                                    {name:'COUNT', value: 'COUNT'  },
+                                    {name:'MIN', value: 'MIN'  },
+                                    {name:'MAX', value: 'MAX'  },
+                                    {name:'VAR', value: 'VAR'  },
+                                    {name:'VARP', value: 'VARP'  },
+                                    {name:'STDEV', value: 'STDEV'  },
+                                    {name:'STDEVP', value: 'STDEVP'  },
+                                    ]"></select>
+                </div>
+            </div>
+            <div class="form-row" layout="column">
+                <label class="col-md-12">{{ 'فرمول' | translate }}</label>
+                <div flex layout="row">
+                    <textarea flex class="form-control disabled text-formula" ng-model="measures[model.selectedMeasure].formula"
+                              ng-model-options="{ updateOn: 'blur' }"
+                              ng-change="changeFormula(measures[model.selectedMeasure]);change()"></textarea>
+                    <span class="material-icons small" ng-click="showDialog('measure', $event, measures[model.selectedMeasure])">fullscreen</span>
+
+                </div>
+                <p class="desc ltr">
+                    <code>overall{ sum(field) }</code> : تابع تجمیع روی کل
+                </p>
+            </div>
+            <br />
+            <div class="ui mini icon button" ng-click="addFormula(measures[model.selectedMeasure])"><i class="icon add"></i> فرمول جدید در سطوح بعدی</div>
+
+            <br />
+            <br />
+            <sadaf-checkbox ng-if="measures.length" ng-model="measures[model.selectedMeasure].preventChangeByUser">جلوگیری از جایگزین شدن توسط کنترل تغییر شاخص</sadaf-checkbox>
+
+            <div ng-repeat="f in measures[model.selectedMeasure].formulas">
+                <div class="form-row" layout="column">
+                    <label class="col-md-12">{{ 'فرمول' | translate }} سطح {{$index+2}}</label>
+
+                    <div flex layout="row">
+                        <div flex layout="column">
+                            <input type="text" class="form-control" placeholder="برچسب"
+                                   ng-model-options="{ updateOn: 'blur' }"
+                                   ng-change="change()"
+                                   ng-model="f.name" />
+                            <textarea flex class="form-control disabled text-formula" ng-model="f.formula"
+                                      ng-model-options="{ updateOn: 'blur' }"
+                                      ng-change="changeFormula(measures[model.selectedMeasure]);change()"></textarea>
+                        </div>
+                        <span class="material-icons small" ng-click="showDialog('measure' , $event, f)">fullscreen</span>
+                        <span class="material-icons small" ng-click="measures[model.selectedMeasure].formulas.splice($index, 1)">close</span>
+                    </div>
+                </div>
+            </div>
+
+            <top-measure dims="dimensions" ng-model="measures[model.selectedMeasure].Top" ng-change="refreshChart('refreshWithData');" ng-show="measures[model.selectedMeasure].aggregation != 'NONE'"></top-measure>
+
+        </div>
+    </menu-body>
+</menu-item>
+
+<menu-item class="panel" ng-show="where && where.length>0" name="where">
+    <menu-header class="pointer" data-toggle="" href="#where-info">{{ 'ستون‌های شرط' | translate }}</menu-header>
+    <menu-body id="where-info" class="prop-section form-horizontal  ">
+        <div class="prop-section-contain" id="dimension-section">
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'ستون' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <select data-size="4" ng-model="model.selectedwhere" ng-init="model.selectedwhere = '0'"
+                            ng-options="id as i.Name for (id,i) in where">
+                        <!--<option ng-repeat="i in where track by $index" value="{{$index + '' }}">{{i.Name}}</option>-->
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">{{ 'نام' | translate }}</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}"
+                           ng-model-options="{ updateOn: 'blur' }"
+                           ng-change="changeDimensionName('{{where[model.selectedwhere].Name}}',where[model.selectedwhere])"
+                           ng-model="where[model.selectedwhere].Name" />
+                </div>
+            </div>
+
+            <div class="form-row" layout="column">
+                <label class="col-md-12">{{ 'فرمول' | translate }}</label>
+                <div flex layout="row">
+                    <textarea flex class="form-control disabled text-formula" ng-model="where[model.selectedwhere].formula"
+                              ng-model-options="{ updateOn: 'blur' }"
+                              ng-change="changeFormula(where[model.selectedwhere]);change()"></textarea>
+                    <span class="material-icons small" ng-click="showDialog('where', $event)">fullscreen</span>
+
+                    <!--<span class="glyphicon glyphicon-edit icon-btn pointer"
+                    data-toggle="modal" data-target="#formula-modal"
+                    ng-click="setEditor('measure')"
+                    style="top: 4px;position: absolute;right: -4px;"></span>-->
+                </div>
+            </div>
+        </div>
+    </menu-body>
+</menu-item>
+
+<script type="text/ng-template" id="editor/formula/edit.html">
+
+    <md-dialog aria-label="{{'editor' | translate}}" ng-cloak class="fullscreen-dialog">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'editor' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <span class="material-icons">close</span>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content layout-margin flex layout="row" class="md-dialog-contentx">
+            <style>
+                .ace_editor {
+                    border: 1px solid #efefef;
+                }
+
+                    .ace_editor, .ace_editor div {
+                        font: 16px/normal 'Courier New', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+                    }
+
+                md-dialog.fullscreen-dialog {
+                    max-width: 100%;
+                    max-height: 100%;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 0;
+                }
+            </style>
+
+            <div flex="30" layout="column">
+                <md-content flex>
+
+                    <p class="help-block small md-caption">با کلیک روی نام ستون آن‌ را به فرمول اضافه کنید.</p>
+                    <div style="direction: ltr;" ng-show="parent.datasource">
+                        <div class="datasource-block" ng-repeat="u in parent.datasource.CubeInfo.Dimensions">
+                            <div class="title">
+                                {{u.Name}}
+                            </div>
+                            <div class="pointer" ng-repeat="i in u.Hierarchies" ng-click="insertFormula(i.UniqueName)">
+                                <img src="../../../../../Images/hierarchy1.png" />{{i.Name}}
+                            </div>
+                        </div>
+                    </div>
+                </md-content>
+            </div>
+
+            <div class="ltr" flex="70" ui-ace="aceOption" ng-model="formula">
+                select * from tbl_meuns
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="save()">
+                {{ 'ذخیره' | translate }}
+            </md-button>
+            <md-button ng-click="cancel()">
+                {{ 'cancel' | translate }}
+            </md-button>
+        </md-dialog-actions>
+    </md-dialog>
+</script>

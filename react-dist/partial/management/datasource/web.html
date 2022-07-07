@@ -1,0 +1,424 @@
+﻿
+<div layout="column" flex>
+    <md-content flex class="content" layout="row" no-background>
+
+        <div flex="20" hide-sm hide-xs></div>
+        <div flex="60" flex-xs="100" flex-sm="100">
+
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline" ng-hide="isEdit">منبع داده جدید</span>
+                        <span class="md-headline" ng-show="isEdit">ویراش منبع داده</span>
+                    </md-card-title-text>
+                    <div ng-show="app.license.securityCertPatch && id > 0" class="ui label">
+                        {{'integrity check' | translate}} &nbsp;
+                        <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
+                    </div>
+
+                </md-card-title>
+
+                <md-card-content layout-padding id="main-form">
+                    <div class="ui form">
+
+                        <form name="webForm">
+                            <div class="fields">
+
+                                <div class="six wide column field">
+                                    <label>{{'نام' | translate}}</label>
+                                    <input required name="name" ng-model="model.name">
+                                    <div ng-messages="webForm.name.$error">
+                                        <div ng-message="required">{{'form_name_required' | translate}}</div>
+                                    </div>
+                                    <change-table-name id="id" table-name="tableName"></change-table-name>
+
+                                </div>
+                                <div class="three wide column field">
+                                    <label>{{'نوع داده' | translate}}</label>
+                                    <sm-dropdown items="[{key:'XML', value:'XML'},{key:'CSV', value:'CSV'},{key:'JSON', value:'JSON'},{key:'SOAP', value:'SOAP'}]"
+                                                 class="selection fluid"
+                                                 model="model.type" label="item.value" value="item.key"></sm-dropdown>
+
+                                </div>
+
+                                <div class="three wide column field" ng-hide="model.type == 'SOAP'">
+                                    <label>{{'متد' | translate}}</label>
+                                    <sm-dropdown items="[{key:'GET', value:'GET'},{key:'POST', value:'POST'}]" class="selection fluid"
+                                                 model="model.method" label="item.value" value="item.key"></sm-dropdown>
+
+                                </div>
+                                <div class="three wide column field" ng-show="model.type == 'SOAP'">
+                                    <label>{{'Content Type' | translate}}</label>
+                                    <sm-dropdown items="[{key:'text/xml', v:1},{key:'application/xml', v:2},{key:'application/soap+xml', v:3}]" class="selection fluid"
+                                                 model="model.contentType" label="item.key" value="item.v"></sm-dropdown>
+                                </div>
+
+                            </div>
+
+                            <div class="field">
+                                <label>URL</label>
+                                <input required name="url" class="ltr" ng-model="model.url">
+                                <div ng-messages="webForm.url.$error">
+                                    <div ng-message="required">{{'form_url_required' | translate}}</div>
+                                </div>
+                            </div>
+
+
+                            <div ng-show="model.type == 'JSON' || model.type == 'SOAP'">
+                                <div class="field">
+                                    <label>اجرای کد روی خروجی</label>
+                                    <textarea spellcheck="false" ng-model="model.jsonPostProcess" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
+                                    <small class="gray">
+                                        داده‌های خروجی در قالب شی data در دسترس هستند. کد نوشته شده باید یک
+                                        شی به عنوان خروجی با کلید واژه return  داشته باشد
+                                    </small>
+                                </div>
+                            </div> 
+
+                            <div ng-show="model.type == 'SOAP'">
+                                 
+
+
+                                <div class="three fields">
+
+                                <!--<div class="field">
+                                    <label>{{'Result Tag' | translate}}</label>
+                                    <input ng-model="model.resultTag">
+                                </div>
+                                <div class="field">
+                                    <label>{{'Result Tag Namespace' | translate}}</label>
+                                    <input ng-model="model.resultTagNameSpace">
+                                </div>-->
+
+                                </div>
+
+
+
+
+                                <div class="field">
+                                    <label>{{'Body' | translate}}</label>
+                                    <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
+                                </div>
+
+
+                                <div style="font-size:0.8em; color:gray;margin-top: -20px;">
+                                    <a ng-click="c = !c" class="pointer">راهنما</a>
+                                    <div uib-collapse="!c">
+                                        در صورتی که خروجی پیام شما به شکل زیر باشد
+
+                                        <textarea disabled="disabled" rows="13" style="border: none;margin: 0px;direction: ltr;font-family: monospace;width: 100%;resize: none;">
+<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+                                        <soapenv:Body>
+                                        <ns1:getBankResponse xmlns:ns1="http://thomas-bayer.com/blz/">
+                                        <ns1:details>
+                                        <ns1:bezeichnung>SEB</ns1:bezeichnung>
+                                        <ns1:bic>ESSEDE5F130</ns1:bic>
+                                        <ns1:ort>Rostock</ns1:ort>
+                                        <ns1:plz>18055</ns1:plz>
+            </ns1:details>
+        </ns1:getBankResponse>
+    </soapenv:Body>
+</soapenv:Envelope>
+                                    </textarea>
+                                        تنظیمات مربوطه به صورت زیر است
+                                        <ul class="ltr">
+                                            <li> <b>Result Tag: </b> getBankResponse</li>
+                                            <li> <b>Result Tag NameSpace: </b> http://thomas-bayer.com/blz/</li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+
+                                <md-switch ng-model="model.resultTagUseValue">
+                                    <label>{{'Use inner value' | translate}}</label>
+                                </md-switch>
+
+
+                            </div>
+
+                            <div class="field">
+                                <sadaf-checkbox ng-model="model.loginByToken.enable">دریافت توکن لاگین</sadaf-checkbox>
+                            </div>
+                            <div class="ui secondary segment" ng-show="model.loginByToken.enable">
+
+                                <div class="three fields">
+
+                                    <div class="field">
+                                        <label>نام هدر مربوط به توکن</label>
+                                        <input class="ltr" ng-model="model.loginByToken.headerName">
+                                    </div>
+
+                                    <div class="field">
+                                        <label>نام فیلد توکن در خروجی وب سرویس</label>
+                                        <input class="ltr" ng-model="model.loginByToken.tokenPropertyName">
+                                    </div>
+
+                                    <div class="field">
+                                        <label>منبع داده</label>
+                                        <sm-dropdown items="datasourceList" class="fluid selection search"
+                                                     model="model.loginByToken.datasource" label="item.Name" value="item.Id"></sm-dropdown>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div ng-show="model.type == 'JSON'">
+
+                            <div class="field">
+                                <sadaf-checkbox ng-model="model.paging.enable">دریافت داده‌های صفحه‌بندی شده</sadaf-checkbox>
+                            </div>
+
+                            <div class="ui secondary segment" ng-show="model.paging.enable">
+                                <div class="field">
+                                    <label>روش اجرای حلقه</label>
+                                    <sm-dropdown items="[{key:'numbers', value:'محدوده عدد'},{key:'array', value:'آرایه دلخواه'}]" class="selection fluid"
+                                                 model="model.paging.type" label="item.value" value="item.key"></sm-dropdown>
+                                </div>
+
+                                <div ng-if="model.paging.type == 'numbers'">
+                                <div class="two fields" >
+                                    <div class="field">
+                                        <label>اجرا از عدد</label>
+                                        <input class="ltr" ng-model="model.paging.from">
+                                    </div>
+                                    <div class="field">
+                                        <label>تا عدد</label>
+                                        <input class="ltr" ng-model="model.paging.to">
+                                    </div>
+                                </div>
+                                    <small class="gray">کد در حلقه‌ای شامل اعداد وارد شده اجرا می‌شود. در هر بار اجرای حلقه متغیر 
+                                        <span class="ltr inline ui label">@loop</span>مقداردهی می‌شود. بنابراین لازم است از 
+                                        این متغیر در پارامترها و آدرس وب سرویس استفاده کنید.
+                                    </small>
+                                </div>
+                                <div class="" ng-if="model.paging.type == 'array'">
+                                    <div class="field">
+                                        <label>اجرا از عدد</label>
+                                        <textarea class="ltr" ng-model="model.paging.array"></textarea>
+                                    </div>
+                                    <small class="gray">در هر خط مقادیر هر اجرا را وارد کرده و در صورتی که هر بار اجرا بیش از یک متغیر دارد آن‌ها را با - یا , 
+                                    از هم جدا کنید.
+                                    هر اجرا مقادیر در متغیر 
+                                    <span class="ltr ui label">@loop[0]</span>
+                                    قرار میگیرد. ایندکس متغیر می‌تواند در صورتی که بیش از یک مقدار در ردیف دارین متفاوت باشد.
+                                    
+                                    داده‌های وارد شده می‌تواند مثل زیر باشد
+                                        <pre class="ltr">1399-1400
+1400-1401
+</pre>
+                                    </small>
+                                    
+                                </div>
+
+
+
+                            </div>
+                            </div>
+
+                            <p ng-click="showParams = !showParams" layout="row" class="pointer" xng-hide="model.type == 'SOAP'">
+                                <span class="material-icons icon-animate" ng-class="{'rotate-90' : showParams}">keyboard_arrow_left</span>
+                                <span>{{'پارامترها' | translate}}</span>
+                            </p>
+                            <div layout="column" uib-collapse="!showParams" xng-hide="model.type == 'SOAP'">
+                                <div class="ui secondary segment">
+
+                                    <div layout="row" ng-repeat="param in parameters" layout-align="start center">
+                                        <div >
+                                            <input ng-model="param.name" class="ltr" placeholder="{{'نام'|translate}}">
+                                        </div>
+                                        &nbsp;
+                                        <div >
+                                            <input ng-model="param.value" class="ltr" placeholder="{{'مقدار'|translate}}">
+                                        </div>
+                                        &nbsp;
+                                        <div >
+                                            <sm-dropdown items="[{key:'Query', value:'Query'},{key:'Header', value:'Header'},{key:'Body', value:'Body (form-data)'},{key:'BodyRaw', value:'Body (raw)'}]" class="fluid"
+                                                         model="param.type" label="item.value" value="item.key"></sm-dropdown>
+                                        </div>
+                                        &nbsp;
+
+                                        <div layout="row" layout-margin>
+
+                                            <div class="md-icon-button" ng-click="parameters.push({type: param.type})">
+                                                <span class="material-icons small small-size pointer">add</span>
+                                            </div>
+
+                                            <div class="md-icon-button" ng-click="parameters.splice($index, 1)" ng-show="parameters.length > 1">
+                                                <span class="material-icons small small-size pointer">delete</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <small class="gray">
+                                        در صورتی که از نوع Body(raw) استفاده میکنید
+                                        و نوع داده‌ها به صورت josn باشد نام پارامتر را برابر
+                                        application/json
+                                        قرار دهید
+                                    </small>
+                                </div>
+                            </div>
+
+
+
+                            <p ng-click="showAuth = !showAuth" layout="row" class="pointer no-margin" style="" ng-hide="model.type == 'SOAP'">
+                                <span class="material-icons icon-animate" ng-class="{'rotate-90' : showAuth}">keyboard_arrow_left</span>
+                                <span>{{'احراز هویت' | translate}}</span>
+                            </p>
+                            <div class="three fields" uib-collapse="!showAuth" layout-padding>
+
+                                <div class="field" flex-gt-sm>
+                                    <label>{{'احراز هویت' | translate}}</label>
+                                    <sm-dropdown items="[{key:'Basic Authentication', value:'Basic Authentication'}, {key:'Digest Authentication', value:'Digest Authentication'}]" class="selection fluid"
+                                                 model="model.authenticationType" label="item.value" value="item.key"></sm-dropdown>
+                                </div>
+
+                                <div class="field">
+                                    <label>{{'نام کاربری' | translate}}</label>
+                                    <input class="ltr" ng-model="model.user">
+                                </div>
+
+                                <div class="field">
+                                    <label>{{'کلمه عبور' | translate}}</label>
+                                    <input class="ltr" ng-model="model.password">
+                                </div>
+
+                            </div>
+                            <md-switch ng-model="model.ColumnStoreIndex" aria-label="ColumnStoreIndex">
+                                ایندکس ستونی
+                            </md-switch>
+
+                            <md-switch ng-if="model.type == 'CSV'" ng-model="model.streamMode">دریافت داده به صورت استریم </md-switch>
+
+                            <div class="two fields">
+
+                                <div class="field" flex-gt-sm ng-show="license.olap">
+                                    <label>مدل ذخیره داده</label>
+                                    <sm-dropdown items="[{key:0, value:'SQL'},{key:1, value:'DAX'}]" class="selection fluid"
+                                                 model="model.ModelType" label="item.value" value="item.key"></sm-dropdown>
+                                </div>
+
+                                <div class="field">
+                                    <label>به‌روز رسانی</label>
+                                    <!--<select ng-model="model.autoRefresh">
+                <option value="0">در لحظه</option>
+                <option value="1">هر یک دقیقه</option>
+                <option value="5">هر پنج دقیقه</option>
+                <option value="15">هر پانزده دقیقه</option>
+                <option value="30">هر سی دقیقه</option>
+                <option value="60">هر یک ساعت</option>
+                <option value="1440">هر روز</option>
+                <option value="10080">هر هفته</option>
+                <option value="40320">هر ماه</option>
+                <option value="2147483647">عدم به‌روز رسانی</option>
+                <option value="-1">زمانبندی...</option>
+            </select>-->
+
+                                    <sm-dropdown items="[{key:'0', value:'در لحظه'},
+                                                     {key:'1', value:'هر یک دقیقه'},
+                                                     {key:'5', value:'هر پنج دقیقه'},
+                                                     {key:'15', value:'هر پانزده دقیقه'},
+                                                     {key:'30', value:'هر سی دقیقه'},
+                                                     {key:'60', value:'هر یک ساعت'},
+                                                     {key:'1440', value:'هر روز'},
+                                                     {key:'10080', value:'هر هفته'},
+                                                     {key:'40320', value:'هر ماه'},
+                                                     {key:'2147483647', value:'عدم به‌روز رسانی'},
+                                                     {key:'-1', value:'زمانبندی...'}
+                                             ]" class="selection fluid"
+                                                 model="model.autoRefresh" label="item.value" value="item.key"></sm-dropdown>
+
+
+                                </div>
+                            </div>
+
+                            <datasource-schedule ng-show="model.autoRefresh==-1" ng-model="schedule"> </datasource-schedule>
+
+                            <interval-fetch ng-model="model.intervalFetch" fields="fields" , datasource-id="{{id}}"></interval-fetch>
+
+                            <div class="field">
+                                <div class="ui button" ng-class="{loading: clearCacheProgress, disabled: clearCacheProgress}" ng-click="clearCache()">پاک کردن کش (Cache) منبع داده</div>
+                                <small class="gray">
+                                    با پاک کردن کش منبع داده، نتیجه‌ی تمامی گزارش‌های مرتبط با این منبع داده پاک خواهند شد
+                                    و ممکن است برای اولین بار اجرای گزارش سرعت کمتری داشته باشد.
+                                </small>
+                            </div>
+
+
+
+                            <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
+                            <datasource-metainfo ng-model="model.metainfo"></datasource-metainfo>
+
+                            <!--<sadaf-checkbox ng-show="isEdit" ng-model="model.saveData">{{'save with get data' | translate}}</sadaf-checkbox>-->
+
+                            <schema-types ng-model="model.schema" id="id"></schema-types>
+                            <br />
+                            <versions id="{{id}}" type="6" on-restore="restore(model)" on-detail="detail(model)"></versions>
+                            <div class="ui segment" ng-show="showDetailModel" style="max-height:400px; overflow-y:auto;">
+                                <ul>
+                                    <li><b>نام: </b>{{detailModel.Name}}</li>
+                                    <b>بروز رسانی: </b> {{detailModel.AutoRefreshLabel}}
+                                    <datasource-schedule-caption ng-if="detailModel.AutoReresh==-1" ng-model="detailModel.ScheduleParse" ></datasource-schedule-caption>
+                                    <li><b>url: </b>{{detailModel.Detail.url}}</li>
+                                    <li><b>type: </b>{{detailModel.Detail.type}}</li>
+                                    <li><b>jsonPostProcess: </b>{{detailModel.Detail.jsonPostProcess}}</li>
+                                    <li><b>مدل ذخیره‌سازی: </b>{{detailModel.Detail.ModelType ==0 ? 'SQL' : 'DAX'}}</li>
+
+                                </ul>
+
+                                <div class="ui button mini blue float-left" ng-click="restoreVersion()">بروز رسانی</div>
+                            </div>
+
+                        </form>
+
+
+                    </div>
+
+
+                    <div ng-show="error" layout="row" flex>
+                        <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
+                            <div flex>{{error}}</div>
+                        </md-content>
+                    </div>
+
+                </md-card-content>
+
+
+
+
+                <md-card-actions layout="row">
+                    <span flex></span>
+
+                    <md-button ng-click="save()" ng-disabled="saveProgress">
+                        {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+                    </md-button>
+
+                    <md-button ng-show="isEdit" ng-click="save(true)" ng-disabled="saveProgress">
+                        {{saveProgress == false ? ('save with get data' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+
+                    </md-button>
+
+
+                    <md-button ng-click="test()" ng-disabled="testProgress">
+                        {{testProgress == false ? ('تست' | translate) : ('form_testing' | translate)}}
+                    </md-button>
+
+
+
+                </md-card-actions>
+
+
+            </md-card>
+
+            <md-card ng-show="testResult" flex>
+                <md-content style="max-height:200px;" id="testResult" layout="column" flex>
+                    <div ng-bind-html="testResult" flex></div>
+                </md-content>
+            </md-card>
+
+
+        </div>
+        <div flex="20" hide-sm hide-xs></div>
+
+    </md-content>
+</div>

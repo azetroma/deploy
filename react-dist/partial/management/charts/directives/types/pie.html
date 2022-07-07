@@ -1,0 +1,243 @@
+<menu-container open-menu-name="openMenuName">
+    <menu-item>
+        <menu-header>{{ 'تنظیمات کلی' | translate }}</menu-header>
+        <menu-body>
+            <div>
+                <input type="hidden" ng-model="ngModel.pie.info.canExportXlsx" value="true" />
+
+                <general-settings api-key="apiKey" ng-model="ngModel.pie.info" props="ngModel" ng-change="refreshChart('refresh')"></general-settings>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.pie.info.sort" ng-change="refreshChart('refresh')" /> نمایش مرتب داده‌ها
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.pie.info.showLabels" ng-change="refreshChart('refresh')" /> {{ 'نمایش برچسب‌ها' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.pie.info.transpose" ng-change="refreshChart('refreshWithData')" /> {{ 'transpose' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="ngModel.pie.info.showLabels">
+                    <matrix-select ng-model="ngModel.pie.info.showLabelMatrix" dim-color="ngModel.dimColor" ng-change="refreshChart('refresh')"></matrix-select>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.pie.info.showValues" ng-change="refreshChart('refresh')" /> {{ 'نمایش مقدار کنار برچسب' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.pie.info.showValuesPercent" ng-change="refreshChart('refresh')" /> {{ 'نمایش درصد کنار برچسب' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="form-row" layout="row" layout-align="start center">
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label class="">
+                    <text-editor type="checkbox" ng-model="ngModel.pie.info.labelFont" ng-change="refreshChart('refresh')" /> {{ 'نمایش مقدار کنار برچسب' | translate }}
+                </label>
+            </div>
+        </div>
+    </div>-->
+
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'قالب اعداد' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <sd-format ng-model="ngModel.pie.info.formatString" ng-change="refreshChart('refresh')"></sd-format>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'شعاع وسط' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class="selectpicker-x form-control" ng-model="ngModel.pie.info.hole" ng-change="refreshChart('refresh')"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'0', value: '0'  },
+                                    {name:'25', value:'25%' },
+                                    {name:'50', value:'50%'},
+                                    {name:'65', value:'65%'},
+                                    ]">
+                            <!--<option value="0">0</option>
+                <option value="25">25%</option>
+                <option value="50">50%</option>
+                <option value="65" selected="selected">65%</option>-->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'الگوی رنگ' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class="selectpicker-x form-control" ng-model="ngModel.pie.info.colorType" ng-change="refreshChart('refresh')"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'1', value: 'الگوی رنگ 10 تایی'  },
+                                    {name:'2', value:'الگوی رنگ 20 تایی یک' },
+                                    {name:'3', value:'الگوی رنگ 20 تایی دو'},
+                                    {name:'4', value:'الگوی رنگ 20 تایی سه'},
+                                    ]">
+                            <!--<option value="1">الگوی رنگ 10 تایی</option>
+                <option value="2">الگوی رنگ 20 تایی یک</option>
+                <option value="3">الگوی رنگ 20 تایی دو</option>
+                <option value="4">الگوی رنگ 20 تایی سه</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'مکان نمایش راهنما' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <legend-position ng-model="ngModel.pie.info.legendPosition" change="refreshChart('refresh')"></legend-position>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label>{{ 'فونت برچسب راهنما' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <text-editor prop="ngModel.pie.info.legendFont" on-change="refreshChart('refresh')"></text-editor>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'حالت نمایش راهنما' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select ng-model="ngModel.pie.info.tooltip" ng-change="refreshChart('refresh')"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'1', value: 'مجزا'  },
+                                    {name:'3', value:'تمام شاخص‌ها' },
+                                    ]">
+                            <option value="1" selected="selected">{{ 'مجزا' | translate }}</option>
+                            <option value="3">{{ 'تمام شاخص‌ها' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="column" layout-align="start top">
+                    <label class="control-label">{{ 'قالب تیتر راهنما' | translate }}</label>
+                    <textarea flex class="form-control"
+                              ng-change="refreshChart('refresh')"
+                              ng-model-options="{ updateOn: 'blur' }"
+                              ng-model="ngModel.pie.info.tooltipHeader"
+                              style="direction:ltr; text-align:left; font-family:monospace; resize:vertical"></textarea>
+                    <p class="help-block">
+                        متغیرهای قابل استفاده:
+                        <code class="inline">
+                            set.key
+                        </code> ,<code class="inline">
+                            set.sum
+                        </code> ,<code class="inline">
+                            set.avg
+                        </code>,<code class="inline">
+                            set.points
+                        </code>
+                    </p>
+                </div>
+                <div class="form-row" layout="column">
+                    <label class="control-label">{{ 'قالب نمایش راهنما' | translate }}</label>
+                    <textarea class="form-control"
+                              flex
+                              ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }"
+                              ng-model="ngModel.pie.info.tooltipFormat" style="direction:ltr; text-align:left; font-family:monospace;resize:vertical"></textarea>
+                    <p class="help-block">
+                        متغیرهای قابل استفاده:
+                        <code class="inline">
+                            point.data
+                        </code> ,<code class="inline">
+                            point.label
+                        </code> ,<code class="inline">
+                            point.color
+                        </code>,<code class="inline">
+                            point.percentage
+                        </code>
+                    </p>
+                </div>
+
+
+                <dimention-color-selector ng-model="ngModel.pie.info.dimColor" dim-color="ngModel.dimColor" ng-change="refreshChart('refresh')"></dimention-color-selector>
+
+            </div>
+        </menu-body>
+    </menu-item>
+
+    <menu-item ng-show="ngModel.series && ngModel.series.length>0" name="series">
+        <menu-header>{{ 'مشخصات شاخص‌ها' | translate }}</menu-header>
+        <menu-body>
+            <div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'شاخص' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class="selectpicker-x form-control" ng-model="ngModel.selectedSeries">
+                            <option ng-repeat="i in ngModel.series" value="{{i}}">{{i}} </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.pie.series[ngModel.selectedSeries].main" ng-change="refreshChart('refresh')" /> {{ 'شاخص اصلی' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'مضرب شاخص' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class="selectpicker-x form-control" ng-model="ngModel.pie.series[ngModel.selectedSeries].numberFactor" ng-change="refreshChart('refresh')">
+                            <option value="1000000000">1,000,000,000</option>
+                            <option value="1000000">1,000,000</option>
+                            <option value="1000">1,000</option>
+                            <option value="100">100</option>
+                            <option value="10">10</option>
+                            <option value="1" selected="selected">{{ 'عادی' | translate }}</option>
+                            <option value="0.1">0.1</option>
+                            <option value="0.01">0.01</option>
+                            <option value="0.001">0.001</option>
+                            <option value="0.000001">0.000,001</option>
+                            <option value="0.000000001">0.000,000,001</option>
+                        </select>
+                    </div>
+                </div>-->
+                <top-measure ng-model="ngModel.pie.series[ngModel.selectedSeries].top" ng-change="refreshChart('refreshWithData');"></top-measure>
+            </div>
+        </menu-body>
+    </menu-item>
+
+    <alert prop="ngModel"  config="{name:'pie'}"></alert>
+
+    <global-variable dimensions="dimensions" measures="measures" prop="ngModel"></global-variable>
+
+    <dim-meas-where model="openMenuName" ng-if="!isOlap" dimensions="dimensions" measures="measures" where="where" datasource="datasource"></dim-meas-where>
+    <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
+    <calculate-fields calculated-fields="calculatedFields"></calculate-fields>
+
+    <management-only-dir management-only="managementOnly"></management-only-dir>
+</menu-container>

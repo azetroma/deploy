@@ -1,0 +1,66 @@
+<div class="ui form secondary segment" style="margin:40px 0;" ng-if="show">
+    <h3 class="header">شناسنامه منبع داده</h3>
+    <div class="field">
+        <label>مبدا</label>
+        <sm-dropdown class="selection"
+                     items="[{label:'ستاره', val:1},{label:'سازمان', val:2},{label:'سایر', val:3}]"
+                     model="model.source" label="item.label" value="item.val"></sm-dropdown>
+    </div>
+
+    <div ng-show="model.source == 1">
+        <div class="three fields">
+
+            <div class="field">
+                <label>شناسه سناریو</label>
+                <input type="text" ng-model="model.senarioId" />
+            </div>
+
+            <div class="field">
+                <label>عنوان سناریو</label>
+                <input type="text" ng-model="model.senarioTitle" />
+            </div>
+
+            <div class="field">
+                <label>دوره بروز رسانی سناریو</label>
+                <input type="text" ng-model="model.senarioPeriod" />
+            </div>
+        </div>
+        <div class="three fields">
+            <div class="field">
+                <label>سازمان تولیدکننده داده</label>
+                <input type="text" ng-model="model.senarioDataGenerator" />
+            </div>
+
+            <div class="field">
+                <label>نام طراح سناریو</label>
+                <input type="text" ng-model="model.senarioDesigner" />
+            </div>
+
+            <div class="field">
+                <label>نام پایگاه داده</label>
+                <input type="text" ng-model="model.senarioDatabase" />
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="model.source == 2">
+        <div class="two fields">
+            <div class="field">
+                <label>نام سازمان</label>
+                <input type="text" ng-model="model.organisation" />
+            </div>
+            <div class="field">
+                <label>نام رابط سازمانی</label>
+                <input type="text" ng-model="model.organisationInterface" />
+            </div>
+        </div>
+    </div>
+
+    <div class="field">
+        <label></label>
+        <sadaf-checkbox ng-model="model.useDefaultDb">استفاده از پایگاه داده پیشفرض</sadaf-checkbox>
+    </div>
+
+
+
+</div>

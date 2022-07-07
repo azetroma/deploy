@@ -1,0 +1,38 @@
+
+<div style="padding: 5px 5px;margin: 0px -5px;position:relative">
+    <div class="alert-section">
+        <div class="ui icon basic button"  ng-click="edit($event)">
+            <i class="ui icon clock"></i>
+        </div>
+        <!--<b> زمانبندی: </b>-->
+        <span ng-show="model" style="color:#888; font-size:0.8em">
+            {{'اجرا هر' | translate}}
+            {{model.occure!='daily'? '' : (model.dailyRecurs>1?model.dailyRecurs:'') + ' روز'}}
+
+            {{model.occure!='weekly'? '' : (model.weeklyRecurs>1?model.weeklyRecurs:'') + ' هفته' + ' در '}}
+            {{model.occure!='weekly'? '' : (model.weeklySat?'شنبه، ':'') }}
+            {{model.occure!='weekly'? '' : (model.weeklySun?'یک شنبه، ':'') }}
+            {{model.occure!='weekly'? '' : (model.weeklyMon?'دو شنبه، ':'') }}
+            {{model.occure!='weekly'? '' : (model.weeklyTus?'سه شنبه، ':'') }}
+            {{model.occure!='weekly'? '' : (model.weeklyWen?'چهار شنبه، ':'') }}
+            {{model.occure!='weekly'? '' : (model.weeklyThu?'پنج شنبه، ':'') }}
+            {{model.occure!='weekly'? '' : (model.weeklyFri?'جمعه':'') }}
+
+            {{model.occure!='monthly'? '' : (model.monthlyRecurs>1?model.monthlyRecurs:'') + ' ماه '}}
+            {{model.occure!='monthly'? '' : 'روز ' +  model.monthlyDayOf }}
+
+
+            {{model.dailyFrequency=='once'? 'راس ساعت ' +  formatClock(model.dailyFrequencyAtHour):'' }}
+            {{model.dailyFrequency=='recur'? 'هر ' +  model.dailyFrequencyRecur + (model.dailyFrequencyRecurType=='hour'?'ساعت ':model.dailyFrequencyRecurType=='minute'?'دقیقه ':'ثانیه ') + 'بین ساعت ' + formatClock(model.dailyFrequencyStart) + ' و '+ formatClock(model.dailyFrequencyStop):'' }}
+
+        </span>
+        <br />
+        <span style="color:#888; font-size:0.8em; font-weight:200;"> نام وظیفه: {{model.jobGuid}}</span>
+
+        <!--<md-button class="md-icon-button" ng-click="edit($event)">
+        <span class="material-icons">edit</span>
+    </md-button>-->
+        <!--<pre>{{model | json}}</pre>-->
+    </div>
+
+</div>

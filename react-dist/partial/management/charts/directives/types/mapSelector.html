@@ -1,0 +1,115 @@
+
+<div class="form-row" layout="row" layout-align="start center">
+    <label>{{ 'نقشه' | translate }}
+    </label>
+    <span class="form-divider" flex></span>
+    <select class="form-control" ng-options="i.id+'' as i.name for i in list" ng-model="model.selectedMap"
+            ng-change="$parent.refreshChart('refresh')"></select>
+</div>
+
+<div class="form-row" layout="row" layout-align="start center">
+    <div class="ui compact button mini" ng-click="showUploadDialog($event)">{{ 'آپلود کردن فایل نقشه' | translate }}</div>
+    <div class="ui compact button mini" ng-click="showEditDialog($event)">{{ 'مدیریت نقشه‌ها' | translate }}</div>
+</div>
+
+<script type="text/ng-template" id="editor/map/upload-map.html">
+    <md-dialog aria-label="{{'آپلود نقشه جدید' | translate}}" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'آپلود نقشه جدید' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <span class="material-icons">close</span>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout-margin class="md-dialog-content">
+                <form name="uplaod" enctype="multipart/form-data" role="form" method="post">
+
+                    <md-input-container class="md-block">
+                        <label>{{ 'نام' | translate }}</label>
+                        <input type="text" required ng-model="name" name="name" />
+                        <div ng-messages="upload.name.$error">
+                            <div ng-message="required">{{'form_name_required' | translate}}</div>
+                        </div>
+                    </md-input-container>
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <input type="file" id="file-upload" class="ng-hide" fileread="file" />
+                        <md-button ng-click="selectFile()">
+                            <span>{{ 'انتخاب فایل' | translate }}</span>
+                        </md-button>
+                        <span ng-show="file"> {{file.name + ' ' + d3.format('.2f')(file.size / 1024) + 'Kb'}}</span>
+                    </div>
+
+
+                    <p class="md-caption">
+                        بعد از آپلود کردن فایل نقشه، در صورت موفق بودن روند عملیات، نقشه‌ی آپلود شده به لیست نقشه‌های قابل انتخاب اضافه خواهد شد.
+
+                    </p>
+
+                </form>
+
+            </div>
+
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="upload()">
+                {{ 'upload' | translate }}
+            </md-button>
+        </md-dialog-actions>
+    </md-dialog>
+
+</script>
+
+<script type="text/ng-template" id="editor/map/edit-map.html">
+    <md-dialog aria-label="{{'مدیریت نقشه‌ها' | translate}}" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'مدیریت نقشه‌ها' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <span class="material-icons">close</span>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <style>
+    .map-list-table input {
+            border: 1px solid #00000000;
+        width: 100%;
+        padding:5px;
+    }
+
+        .map-list-table input:hover {
+            border: 1px solid #efefef;
+        }
+        .map-list-table td.actions {
+            text-align:left;
+        }
+
+    </style>
+        <md-dialog-content>
+            <div  class="md-dialog-content">
+                <table class="ui compact table map-list-table">
+                <tr ng-repeat="map in parent.list">
+                    <td><input ng-model="map.name"  ng-change="map.change = true" /></td>
+                    <td width="100" class="actions">
+                        <div ng-show="map.change"ng-class="{loading: map.progressEdit}"class="ui mini compact basic icon button" ng-click="edit(map, $index)"><i class="icon check"></i></div>
+                        <div class="ui mini compact basic icon button" ng-class="{loading: map.progressRemove}" ng-click="remove(map, $index)"><i class="icon alternate outline trash"></i></div>
+                    </td>
+
+                </tr>
+                    <tr>
+                    </tr>
+                </table>
+            </div>
+        </md-dialog-content>
+        
+        <md-dialog-actions layout="row">
+            <!--<md-button ng-click="upload()">{{ 'upload' | translate }}</md-button>-->
+        </md-dialog-actions>
+    </md-dialog>
+
+</script>

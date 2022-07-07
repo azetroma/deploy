@@ -1,0 +1,56 @@
+<div class="general-control">
+
+    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'checkbox'&& (!item.if ||  parent[item.if.key] == item.if.value)">
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label class="">
+                    <input type="checkbox" ng-model="parent[item.key]" ng-change="onchange()" /> {{item.title}}
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row" layout="row" layout-align="start center" ng-if="(item.type == 'text' || item.type == 'number')&& (!item.if ||  parent[item.if.key] == item.if.value)">
+        <label class="col-sm-4">{{item.title}}</label>
+        <span class="form-divider" flex></span>
+        <div class="col-sm-8">
+            <input type="{{item.type}}" class="form-control" placeholder="{{item.title }}" ng-model="parent[item.key]"
+                   ng-change="onchange()" ng-model-options="{ updateOn: 'blur' }" />
+        </div>
+    </div>
+
+    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'select'&& (!item.if ||  parent[item.if.key] == item.if.value)">
+        <label class="col-sm-4">{{ item.title }}</label>
+        <span class="form-divider" flex></span>
+        <select ng-model="parent[item.key]" ng-change="onchange()"
+                ng-options="i.value as i.name for i in item.entries"></select>
+    </div>
+    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'font' && (!item.if ||  parent[item.if.key] == item.if.value)">
+        <label>{{item.title}}</label>
+        <span class="form-divider" flex></span>
+        <text-editor prop="parent[item.key]" on-change="onchange()" config="item.config"></text-editor>
+    </div>
+
+    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'color'&& (!item.if ||  parent[item.if.key] == item.if.value)">
+        <label class="col-sm-4">{{item.title}}</label>
+        <span class="form-divider" flex></span>
+        <div class="col-sm-8"> 
+        <div md-color-picker ng-model="parent[item.key]" md-color-default-tab="'genericPalette'" on-change="onchange(value)"></div>
+        </div>
+    </div>
+
+    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'editor'&& (!item.if ||  parent[item.if.key] == item.if.value)">
+        <ng-quill-editor on-content-changed="onchange()" style="direction:ltr;"
+                         ng-model="parent[item.key]"
+                         ng-init="parent[item.key]"></ng-quill-editor>
+    </div>
+
+    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'icon'&& (!item.if ||  parent[item.if.key] == item.if.value)">
+        <label class="col-sm-4">{{item.title}}</label>
+        <span class="form-divider" flex></span>
+        <div class="col-sm-8">
+            <sadaf-icons ng-model="parent[item.key]" ng-change="onchange()"></sadaf-icons>
+        </div>
+    </div>
+
+</div>

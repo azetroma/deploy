@@ -1,0 +1,72 @@
+<div ng-show="model.length">
+    <style>
+        table.ui.table.schema select, table.ui.table.schema input {
+            border: none;
+            width: 100%;
+            line-height: 1em;
+            border: 1px solid transparent;
+        }
+        table.ui.table.schema i {
+            display:none;
+        }
+
+        table.ui.table.schema i {
+            display: none;
+        }
+        table.ui.table.schema .icon-container:hover i {
+            display: inline-block;
+        }
+            table.ui.table.schema select:hover, table.ui.table.schema input:hover,
+            table.ui.table.schema select:focus, table.ui.table.schema input:focus {
+                border: 1px solid silver;
+            }
+    </style>
+     
+    <datalist id="types">
+        <option value="bigint">
+        <option value="binary">
+        <option value="bit">
+        <option value="char">
+        <option value="date">
+        <option value="datetime">
+        <option value="datetime2">
+        <option value="decimal(18,0)">
+        <option value="float">
+        <option value="int">
+        <option value="nchar">
+        <option value="numeric(18,0)">
+        <option value="nvarchar(100)">
+        <option value="real">
+        <option value="smallint">
+        <option value="small">
+        <option value="time">
+        <option value="timestamp">
+        <option value="tinyint">
+        <option value="uniqueidentifier">
+    </datalist>
+
+    <table class="ui small table compact celled schema">
+        <tr>
+            <th>{{'name' | translate}}</th>
+            <th class="center aligned">{{'type' | translate}}</th>
+            <th class="center aligned">{{'null' | translate}}</th>
+        </tr>
+        <tr ng-repeat="e in model" class="center aligned">
+            <td>
+                <input ng-model="e.newName" />
+            </td>
+            <td>
+                <div class="ltr center icon-container" style="position:relative;">
+                    <i class="ui icon close pointer gray" style="position:absolute; left:0;" ng-click="e.type = ''"></i>
+                    <input class="center aligned" ng-model="e.type" list="types" />
+                </div>
+            </td>
+            <td class="center aligned">
+                <sadaf-checkbox ng-model="e.allowNulls"></sadaf-checkbox>
+            </td>
+        </tr>
+    </table>
+    <div ng-show="error" class="ui segment inverted red secondary ltr"> {{error}}</div>
+    <div class="ui button" ng-show="model.length && change" ng-click="save()" ng-class="{loading: saveProgress}">{{'apply' | translate}}</div>
+    <div class="ui button red"  ng-show="model.length" ng-click="remove()" ng-class="{loading: removeProgress}">{{'remove schema' | translate}}</div> 
+</div>

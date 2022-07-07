@@ -1,0 +1,32 @@
+﻿<div class="ui form" style="margin:20px 0;">
+
+    <div class="field">
+        <sadaf-checkbox ng-model="model.enable">{{'دریافت در چند مرحله' | translate}}</sadaf-checkbox>
+    </div>
+    <div class="ui secondary segment" ng-if="model.enable">
+
+        <div class="fields" >
+            <div class="six wide field">
+                <label>مقدار شروع</label>
+                <input type="text" ng-model="model.offset" placeholder="offset" />
+            </div>
+            <div class="six wide field">
+                <label>تعداد رکورد در هر مرحله</label>
+                <input type="text" ng-model="model.limit" placeholder="limit" />
+            </div>
+
+        </div>
+
+
+        <small class="" >
+            در صورت استفاده از این امکان لازم است در پرس‌وجو از متغیر‌های زیر استفاده کنید.
+            <span class="ui mini label">
+                متغیر آفست شروع <span class="ltr inline">@{offset}</span>
+            </span>
+            <span class="ui mini label">
+                متغیر تعداد رکورد در هر چرخه <span class="ltr inline">@{limit}</span>
+            </span>
+        </small>
+
+    </div>
+</div>

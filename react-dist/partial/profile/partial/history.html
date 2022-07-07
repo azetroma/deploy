@@ -1,0 +1,29 @@
+﻿<h3 class="ui header">{{'login history' | translate}}</h3>
+<div style="height:calc(100vh - 150px);overflow-y: auto;">
+
+    <table class="ui small table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>{{'date' | translate}}</th>
+                <th>{{'IP' | translate}}</th>
+                <th>{{'type' | translate}}</th>
+                <th>{{'result' | translate}}</th>
+                <th>{{'detail' | translate}}</th>
+                <th>{{'user agent' | translate}}</th>
+            </tr>
+        </thead>
+        <tr ng-repeat="item in list">
+            <td>{{$index + 1}}</td>
+            <td>{{moment.utc(item.Date).format('jYYYY-jMM-jDD HH:mm:ss')}} <br /><small>{{moment(item.Date, 'YYYY/MM/DD HH:mm:dd').fromNow()}}</small></td>
+            <td>{{item.IP}}</td>
+            <td>{{item.Type == 0 ? ('web' | translate) : ('mobile' | translate)}}</td>
+            <td>{{item.result ? ('successfull' | translate) : ('unsuccessfull' | translate)}}</td>
+            <td>{{item.detail}}</td>
+            <td style="max-width:200px;"><small>{{item.UserAgent}}</small></td>
+        </tr>
+    </table>
+</div>
+<div ng-hide="list">
+    {{'در حال بارگذاری...' | translate}}
+</div>

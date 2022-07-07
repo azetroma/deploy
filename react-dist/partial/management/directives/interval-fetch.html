@@ -1,0 +1,181 @@
+﻿<div class="ui form" style="margin:20px 0;">
+
+    <div class="field">
+        <!--<label style="font-weight:initial">
+        <input type="checkbox" ng-model="model.enable" /> دریافت افزایشی اطلاعات
+    </label>-->
+        <sadaf-checkbox ng-model="model.enable">{{'get incremental data' | translate}}</sadaf-checkbox>
+
+        <small><a href="{{app.urlPrefix}}sadaf/help/#/content/8"> {{'help' | translate}}</a></small>
+    </div>
+    <div class="ui secondary segment" ng-if="model.enable">
+
+        <div class="fields" >
+            <div class="four wide field">
+                <label>نوع تاریخ</label>
+                <select ng-model="model.dateType">
+                    <option value="jalali-date">شمسی</option>
+                    <option value="miladi-date">میلادی</option>
+                    <!--<option value="jalali-date">شمسی - فقط تاریخ</option>
+                <option value="jalali-date-time">شمسی - تاریخ و ساعت</option>
+                <option value="jalali-date-time-mili">شمسی - تاریخ و ساعت - میلی ثانیه</option>
+                <option value="miladi-date">میلادی - فقط تاریخ</option>
+                <option value="miladi-date-time">میلادی - تاریخ و ساعت</option>
+                <option value="miladi-date-time-mili">میلادی - تاریخ و ساعت - میلی ثانیه</option>-->
+                </select>
+            </div>
+            <div class="four wide field">
+                <label>فرمت تاریخ</label>
+                <input type="text" ng-model="model.format" placeholder="فرمت تاریخ" />
+            </div>
+
+            <div class="four wide field">
+                <label>مقدار شروع</label>
+                <input type="text" ng-model="model.start" placeholder="مقدار شروع" />
+            </div>
+
+        </div>
+        <div class="fields" >
+            <div class="six wide field">
+                <label>تنظیم اختلاف روز جاری</label>
+                <input type="text" ng-model="model.minuteOffset" placeholder="اختلاف به دقیقه" />
+                <small class="grey">زمانی که سیستم زمان حال را محاسبه می‌کند و در متغیر @{to} 
+                قرار میدهد شما میتوانید این مقدار را برحسب دقیقه کم یا زیاد کنید. برای کم کردن از علامت منفی استفاده کنید.</small>
+            </div>
+            <div class="six wide field">
+                <label>تنظیم اختلاف آخرین اجرا</label>
+                <input type="text" ng-model="model.minuteOffsetFrom" placeholder="اختلاف به دقیقه" />
+                <small class="grey">سیستم تاریخ آخرین اجرا را به صورت خودکار در متغیر 
+                @{from}
+                قرار می‌دهد. ممکن است در برخی از حالات برای جلوگیری از همپوشانی داده‌ها لازم باشد این مقدار کمتر یا بیشتر شود. این مقدار برحسب دقیقه است و برای کم کردن از علامت منفی استفاده کنید.
+                </small>
+            </div>
+             
+
+        </div>
+
+        <div class="fields">
+            <div class="four wide field">
+                <!--<label style="font-weight:initial">
+                <input type="checkbox" ng-model="model.hasId" /> دارای فیلد شناسه
+            </label>-->
+                <sadaf-checkbox ng-model="model.hasId">دارای فیلد شناسه</sadaf-checkbox>
+            </div>
+
+
+
+            <div class="eight wide field" ng-show="model.hasId">
+                <!--<label>فیلد شناسه</label>-->
+                <small ng-hide="fields">برای انتخاب ابتدا داده‌های تستی را دریافت کنید</small>
+                <sm-dropdown ng-show="fields" class="selection search multiple" model="model.fieldId" items="fields"></sm-dropdown>
+            </div>
+
+        </div>
+
+        <div class="fields" >
+            <div class="four wide field">
+                <!--<label style="font-weight:initial">
+                <input type="checkbox" ng-model="model.hasTrash" /> دارای فیلد حذف
+            </label>-->
+                <sadaf-checkbox ng-model="model.hasTrash">دارای فیلد حذف</sadaf-checkbox>
+
+            </div>
+
+
+            <div class="eight wide field" ng-show="model.hasTrash">
+                <!--<label>فیلد حذف</label>-->
+                <small ng-hide="fields">برای انتخاب ابتدا داده‌های تستی را دریافت کنید</small>
+                <select ng-show="fields" ng-model="model.fieldTrash" ng-options="i for i in fields"></select>
+            </div>
+        </div>
+
+        <small class="" >
+            دو متغیر برای استفاده در منبع داده تولید می‌شود که به صورت خودکار براساس تنظیمات شما و زمان اجرای دریافت، مقداردهی خواهند شد.
+            <span class="ui mini label">
+                متغیر شروع <span class="ltr inline">@{from}</span>
+            </span>
+            <span class="ui mini label">
+                متغیر پایان <span class="ltr inline">@{to}</span>
+            </span>
+        </small>
+
+
+        <!--Requests-->
+        <div class="ui ui dimmable dimmed">
+            <div class="ui modal interval-fetch-modal"  >
+                <div class="header">اضافه کردن افزار به صورت دستی</div>
+                <div class="content ui form">
+                    <p>
+                        برای وارد کردن یک افراز از داده‌ها به صورت دستی از این فرم استفاده کنید. دقت کنید که مقادیر وارد شده به عنوان شروع و پایان اشتراکی با
+                        دیگر افرازها نداشته باشد زیرا باعث می‌شود برخی از داده‌ها تکرار شوند.
+                    </p>
+                    <div class="fields">
+                        <div class="six wide field">
+                            <label><span class="ltr inline">@{from}</span></label>
+                            <input type="text" ng-model="addModel.addFrom" placeholder="شروع" />
+                        </div>
+                        <div class="six wide field">
+                            <label><span class="ltr inline">@{to}</span></label>
+                            <input type="text" ng-model="addModel.addTo" placeholder="پایان" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="actions">
+                    <div class="ui green button" ng-click="addNew()" ng-class="{loading: addNewProgress}">اضافه کردن</div>
+                    <div class="ui black button deny">لغو</div>
+                </div>
+            </div>
+
+
+            <div class="ui inverted dimmer" ng-class="{active : loadRequests}">
+                <div class="ui text loader">در حال بارگذاری</div>
+            </div>
+
+            <div style="margin-top:20px;" ng-show="datasourceId > 0">
+
+                <collapse>
+                    <collapse-header>
+                        <div class="">تاریخچه دریافت‌ها</div>
+                    </collapse-header>
+                    <collapse-body>
+                        <table class="ui very basic small table">
+                            
+                            <tr>
+                                <th style="border:none;">ردیف</th>
+                                <th style="border:none;">تاریخ</th>
+                                <th style="border:none;"><span class="ltr inline">@{from}</span></th>
+                                <th style="border:none;"><span class="ltr inline">@{to}</span></th>
+                                <th style="border:none;">تعداد رکورد </th>
+                                <th style="border:none;">زمان اجرا</th>
+                                <th style="width:80px; border:none;"></th>
+                            </tr>
+
+                            <tr ng-repeat="row in requests">
+                                <td>{{persian($index + 1, true)}}</td>
+                                <td class="ltr">{{ row.time }}</td>
+                                <td class="ltr">{{row.from}}</td>
+                                <td class="ltr">{{row.to}}</td>
+                                <td>{{persian(d3.format(',.0f')(row.effectedRows), true)}}</td>
+                                <td>{{persian(row.duration, true)}}</td>
+
+                                <td>
+                                    <span ng-hide="row.refreshProgress" class="" title="حذف" ng-click="delete(row)"><i class="icon trash pointer gray"></i></span>
+                                    <span ng-hide="row.refreshProgress" class="" title="دریافت دوباره اطلاعات" ng-click="refresh(row)"><i class="icon refresh pointer gray"></i></span>
+                                    <div ng-show="row.refreshProgress" class="ui inline active mini loader"></div>
+                                </td>
+
+                            </tr>
+                        </table>
+
+                        <div class="ui mini gray button right floated" ng-hide="noMore" ng-click="more()">دریافت اطلاعات بیشتر...</div>
+                        <div class="ui mini green button right floated" ng-click="addModal()">اضافه کردن</div>
+                        <div class="ui mini red button right floated" ng-class="{loading: deleteAllProgress}" ng-click="deleteAll()">حذف همه</div>
+                    </collapse-body>
+                </collapse>
+            </div>
+
+        </div>
+
+    </div>
+</div>

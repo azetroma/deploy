@@ -1,0 +1,74 @@
+
+<menu-item class="panel ">
+    <menu-header>{{ 'ارتباط با متغیر' | translate }}</menu-header>
+    <menu-body>
+        <div>
+            <div>
+                <div class="gb-progress" ng-hide="list">
+                    <img width="18" height="18" src="Images/progress.gif" />{{ 'در حال بارگذاری' | translate }}
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="list">
+                    <label class="col-sm-4">{{ 'ارتباط با متغیر' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <div class="col-sm-8 ">
+                        <select class="form-control"
+                                ng-model="prop[type].info.variableId"
+                                ng-options="i.Id+'' as i.Name for i in list"></select>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label>پیش فرض براساس</label>
+                    <span class="form-divider" flex></span>
+                    <div class="ui radio">
+                        <label><input type="radio" ng-model="prop[type].info.variableDefaultType" value="NONE"> دلخواه</label>
+                    </div>
+                    <div> &nbsp;&nbsp;</div>
+                    <div class="ui radio">
+                        <label><input type="radio" ng-model="prop[type].info.variableDefaultType" value="function"> تابع</label>
+                    </div>
+                </div>
+
+
+                <div ng-show="prop[type].info.variableDefaultType=='NONE'">
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="col-sm-4">{{ 'مقدار پیش‌فرض' | translate }}</label>
+                        <span class="form-divider" flex></span>
+                        <div ng-show="prop[type].info.variableDefault.values">
+                            <code class="default-value code" ng-bind="prop[type].info.variableDefault.values" ></code>
+                            <span class="glyphicon glyphicon-trash pointer icon-btn" style="top:7px;" ng-click="prop[type].info.variableDefault=null"></span>
+                        </div>
+                    </div>
+
+                    <div class="gray" xng-hide="prop[type].info.variableDefault.values">
+                        <small>برای انتخاب مقدار پیش فرض، مقدار مورد نظر را از روی نمودار انتخاب کنید</small>
+                    </div>
+
+
+                </div>
+
+
+                <div ng-show="prop[type].info.variableDefaultType=='function'">
+                    <sd-time-function ng-model="prop[type].info"></sd-time-function>
+                </div>
+
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="prop[type].info.disableClear" /> {{ 'جلوگیری از حذف مقدار توسط کاربر' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </menu-body>
+</menu-item>
