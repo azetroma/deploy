@@ -55,7 +55,7 @@
                         </div>
                     <br/>
                     <div class="ui form sadaf-form settings">
-                         
+
 
                         <div ng-show="securityCertPatch">
                             <div class="ui button field" ng-class="{loading : certCheckProgress, disabled: certCheckProgress}" ng-click="checkSmsCert()">بررسی و تایید گواهینامه سرور پیام کوتاه</div>
@@ -136,8 +136,8 @@
                             </div>
 
                             <div class="fields">
-                                    <div class="two wide field">
-                                    </div>
+                                <div class="two wide field">
+                                </div>
                                 <div class="four wide field">
                                     <md-checkbox class="md-block" ng-model="model.calcFaildLoginByIp">
                                         محاسبه تعداد لاگین‌های ناموفق براساس IP کاربر
@@ -170,15 +170,24 @@
                             <label>{{'export data max row count' | translate}}</label>
                             <input type="number" ng-model="model.exportDataMaxRow">
                         </div>
+                        
+                        <div>
+                            <div class="ui dividing header">تنظیمات کلی منابع داده</div>
+                            <div class="ui button" ng-class="{loading : rescheduleProcess, disabled: rescheduleProcess}" ng-click="reschedule()">
+                                زمانبندی دوباره تمامی منابع داده
+                            </div>
+                            <small class="gray">اجرای زمانبندی دوباره متناسب با تعداد منابع داده ممکن است زمان‌بر باشد.</small>
+                        </div>
+
 
                         <br />
-                        <div ng-show="securityCertPatch">
-                            <div class="field">
+                        <div ng-show="securityCertPatch" class="">
+                            <div class="field !tw-m-0">
                                 <md-checkbox class="md-block" ng-model="model.preventLogin">
                                     جلوگیری از ورود به برنامه
                                 </md-checkbox>
                             </div>
-                            <div ng-show="model.preventLogin">
+                            <div ng-show="model.preventLogin" class="tw-mb-4">
                                 <div class="ui pointing secondary menu">
                                     <div class="active item">قوانین ورود مجاز</div>
                                     <div class="right menu">
@@ -272,7 +281,6 @@
                         </div>
 
 
-                        <br />
 
                         <div ng-show="app.license.olap">
                             <div class="ui dividing header">تنظیمات مدل داده‌ای</div>
@@ -282,25 +290,10 @@
                             <small class="gray">در صورت استفاده از این گزینه کل مدل داده‌ای پاک شده و دوباره ساخته می‌شود. این فرآیند ممکن چند دقیقه زمان ببرد.</small>
                         </div>
 
-                        <br />
-                        <br />
+                        
 
 
-                        <div>
-                            <div class="ui dividing header">تنظیمات کلی منابع داده</div>
-                            <div class="ui button" ng-class="{loading : rescheduleProcess, disabled: rescheduleProcess}" ng-click="reschedule()">
-                                زمانبندی دوباره تمامی منابع داده
-                            </div>
-                            <small class="gray">اجرای زمانبندی دوباره متناسب با تعداد منابع داده ممکن است زمان‌بر باشد.</small>
-                        </div>
-
-
-                        <br />
-                        <br />
-
-
-
-                        <div class="field">
+                        <div class="field !tw-m-0">
                             <md-checkbox class="md-block" ng-model="model.publicSignup">
                                 {{'can signup' | translate}}
                             </md-checkbox>
@@ -311,10 +304,13 @@
                             <sm-dropdown class="search selection" model="model.defaultRole" items="roles" label="item.name" value="item.id"></sm-dropdown>
                             <small><small>{{'default role desc' | translate}}</small></small>
                         </div>
+                        <div class="field !tw-m-0">
+                            <md-checkbox class="md-block" ng-model="model.savePasswordAbility">
+                                امکان ذخیره کلمه عبور در صفحه لاگین
+                            </md-checkbox>
+                        </div>
 
-                        <br />
-
-                        <div class="field">
+                        <div class="field !tw-m-0">
                             <md-checkbox class="md-block" ng-model="model.sendMessageByLogin.enable">
                                 {{'send message after login' | translate}}
                             </md-checkbox>
@@ -358,15 +354,12 @@
                         </div>
 
 
-
-                        <br />
-
-                        <div class="field" ng-if="cdn">
+                        <div class="field !tw-m-0" ng-if="cdn">
                             <md-checkbox class="md-block" ng-model="model.cdn.enable">استفاده از CDN</md-checkbox>
                             <div ng-show="model.cdn.enable" class="ui compact mini icon button" ng-click="addCdn()"><i class="icon add"></i></div>
                         </div>
 
-                        <div class="ui secondary segment" ng-show="model.cdn.enable" ng-if="cdn">
+                        <div class="ui secondary segment" ng-show="model.cdn.enable && model.cdn.items.length" ng-if="cdn">
                             <div class="fields" ng-repeat="item in model.cdn.items">
                                 <div class="seven wide field">
                                     <input type="text" ng-model="item.link" placeholder="لینک">

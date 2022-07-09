@@ -22,26 +22,16 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width" />
-
     <meta name="description" content="نرم افزار داشبورد مدیریت صدف با اتصال به سيستم‌هاي اطلاعاتي مختلف، با سرعتي مناسب، اطلاعات پيچيده‌ي تجاري شما را خلاصه کرده و در قالب داشبورد مدیریتی در دسترس شما قرار مي‌دهد. ">
     <meta name="keywords" content="مديريت استراتژيک,داشبورد مدیریتی,هوش تجاري,گزارش‌ ساز,داشبورد مدیریت,نرم افزار داشبورد,داشبورد,management Dashboard,Dashbord">
     <title>داشبورد مدیریتی صدف | Dashboard Software | نرم افزار داشبورد مدیریت </title>
     <meta property="og:type" content="business.business">
     <meta property="og:title" content="نرم افزار داشبورد مدیریت">
-    <meta property="og:url" content="http://www.sadafdashboard.ir/">
+    <meta property="og:url" content="https://www.sadafdashboard.ir/">
 
     <link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />
-
-    <style>
-        body {
-            margin: 0;
-            padding-top: 0px;
-            padding-bottom: 40px;
-            background-color: #eee;
-        }
-    </style>
-
 </head>
+
 <body class="tw-p-0">
 
     <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
@@ -52,11 +42,18 @@
     <input type="hidden" value="{}" name="license" />
     <script src="~/react-dist/app-bundle.js?v=@v"></script>
 
-    <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-h-full ">
-        <div>
+    <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-12 tw-h-full tw-items-center">
+        <div class="tw-col-span-5">
 
             <div class="ui container">
                 <style>
+                    body {
+                        margin: 0;
+                        padding-top: 0px;
+                        padding-bottom: 40px;
+                        background-color: #eee;
+                    }
+
                     .pass-container.active input.ui.input {
                         font-family: IRANSans !important;
                     }
@@ -169,9 +166,9 @@
                         <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
                         <input type="hidden" name="ReturnUrlHash" value="" />
 
-                        <div class="">
-                            <div class="tw-max-w-md tw-m-auto">
-                                <div class="card">
+                        <div class="tw-px-10">
+                            <div class="tw-max-w-md  tw-m-auto">
+                                <div class="card ">
 
                                     @if (ViewBag.logoId > 0) {
                                         <img class="logo" src="~/api/settings/getLogoFile/@ViewBag.logoId" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
@@ -188,10 +185,14 @@
                                             <i class="user icon"></i>
                                         </div>
                                         <div class="pass-container">
+
                                             <i class="eye icon"></i>
                                             <div class="ui fluid left icon input big">
-                                                @*<div style="display:none" ><input tabindex="-1" name="Password2" value="" type="password" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]"></div>*@
-                                                <input name="Password" type="text" style="" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
+                                                @if (ViewBag.savePasswordAbility) {
+                                                    <input name="Password" type="password" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
+                                                } else {
+                                                    <input name="Password" type="text" style="" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
+                                                }
                                                 <i class="lock icon"></i>
                                             </div>
                                         </div>
@@ -282,14 +283,14 @@
 
                 <script>
             (function () {
-                        $('i.eye.icon').on('click', function () {
-                            var icon = $('.pass-container');
-                            if (icon.hasClass('active')) {
-                                icon.removeClass('active');
-                            } else {
-                                icon.addClass('active');
-                            }
-                        });
+                $('i.eye.icon').on('click', function () {
+                    var icon = $('.pass-container');
+                    if (icon.hasClass('active')) {
+                        icon.removeClass('active');
+                    } else {
+                        icon.addClass('active');
+                    }
+                });
                 var needCaptch = JSON.parse("@(ViewBag.needCaptcha == null ? "False" : ViewBag.needCaptcha )".toLowerCase());
                 var securityCertPatch = JSON.parse("@(ViewBag.securityCertPatch == null ? "False" : ViewBag.securityCertPatch )".toLowerCase());
                 var captcha = JSON.parse("@( System.Configuration.ConfigurationManager.AppSettings["captcha"] ?? "false")".toLowerCase());
@@ -393,18 +394,18 @@
             </div>
 
         </div>
-        <div style="background-color: #2c5abc;" class="tw-center tw-p-10 tw-flex tw-flex-col tw-text-white">
 
+        <div class="tw-col-span-7 tw-bg-[#2c5abc] tw-bg-gradient-to-r xtw-from-indigo-500 xtw-to-sky-500 tw-bg-cover tw-bg-[url('../src_V2/images/dashboard4.jpg')]  tw-center tw-p-10 tw-flex tw-flex-col tw-text-white tw-h-full">
 
-            <div class="tw-grow">
-                <p>@(ViewBag.msg["info"])</p>
+            <div class="tw-grow tw-flex tw-items-center tw-p-36">
+                @*<p>@(ViewBag.msg["info"])</p>*@
+                @*<img src="~/src_V2/images/pattern.jpg"/>*@
             </div>
 
             <div>
 
                 <div style="margin-top:30px;">
-
-                    <a  class="tw-justify-end tw-flex tw-items-center tw-text-white hover:tw-text-white" href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">
+                    <a class="tw-justify-end tw-flex tw-items-center tw-text-white hover:tw-text-white" href="https://www.sadafdashboard.ir" target="_blank">
                         @if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["showCopyRightLogo"] ?? "true")) {
                             <img class="logo" style="width:50px; margin-left:10px; margin-right:0;" src="~/Images/icon-inverse-copyright.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
                         }

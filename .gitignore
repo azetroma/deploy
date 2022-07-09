@@ -4,3 +4,4 @@ packages.config
 webpack.config-app-release.js
 webpack.config-app.js
 webpack.config-release.js
+Web.config

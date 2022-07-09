@@ -1,0 +1,6 @@
+Time = 2022-07-09 09:11:19.760,  = ,  = debug, login = create license,  = , 
+Time = 2022-07-09 09:11:21.177, #### validate system check = CpuId BFEBFBFF000806C1 BFEBFBFF000806C1, HddId SCSI-NVMe SAMSUNG MZVLQ512HBLU-00B00 SCSI-NVMe SAMSUNG MZVLQ512HBLU-00B00 = OS Microsoft Windows 11 Home22000 Microsoft Windows 11 Home22000, 
+Time = 2022-07-09 09:13:07.928,  = ,  = debug, login = create license,  = , 
+Time = 2022-07-09 09:13:09.258, #### validate system check = CpuId BFEBFBFF000806C1 BFEBFBFF000806C1, HddId SCSI-NVMe SAMSUNG MZVLQ512HBLU-00B00 SCSI-NVMe SAMSUNG MZVLQ512HBLU-00B00 = OS Microsoft Windows 11 Home22000 Microsoft Windows 11 Home22000, 
+Time = 2022-07-09 09:28:45.722,  = ,  = debug, login = create license,  = , 
+Time = 2022-07-09 09:28:47.127, #### validate system check = CpuId BFEBFBFF000806C1 BFEBFBFF000806C1, HddId SCSI-NVMe SAMSUNG MZVLQ512HBLU-00B00 SCSI-NVMe SAMSUNG MZVLQ512HBLU-00B00 = OS Microsoft Windows 11 Home22000 Microsoft Windows 11 Home22000, 

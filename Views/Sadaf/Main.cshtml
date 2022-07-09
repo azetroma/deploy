@@ -41,77 +41,10 @@
     @Html.AntiForgeryToken()
     <input type="hidden" value="@ViewBag.lang" id="lang" />
 
-
-
     <div>
-
         <div class="ui fluid container">
-
-            @*<div class="dashboard-page-top-side" style="">
-
-                    <div ng-show="menuCategories.licenceRemain.remain <= 3" class="ui label red" style="height:2rem;">
-                        {{'licence remaining' | translate}}:
-                        <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
-                    </div>
-
-                    <style>
-                        .top-menu.list .item {
-                            color: #424242;
-                        }
-
-                        .sadaf-circular-preogress svg {
-                            display: block;
-                        }
-
-                        #laptop, #tablet, #smartphone, #smartphone-land {
-                            color: gray;
-                            cursor: pointer;
-                        }
-
-                            #laptop.active, #tablet.active, #smartphone.active, #smartphone-land.active {
-                                color: black;
-                            }
-                    </style>
-                    <div class="ui horizontal list top-menu" style="white-space: nowrap;">
-
-                        <notification class="item"></notification>
-
-                        <div class="item ui dropdown" ng-show="@(ViewBag.isLoginByLink ??false)">
-                            <div style="white-space:nowrap">
-                                <span class="user-account-hide-segment">
-                                    @{
-                                        var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
-                                        <text> @user.FirstName @user.LastName</text>
-                                    }
-                                </span>
-                                <i class="icon user outline large "></i>
-                            </div>
-                            <div class="menu transition hidden" tabindex="-1">
-                                <a ng-if="menuCategories.hasAminPermission" class="item user-account-hide-segment" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
-                                <a class="item user-account-hide-segment" href="~/profile"><i class="icon user"></i> {{'profile' | translate}} </a>
-                                <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                </div>
-                <style>
-                    .dashboard-page-top-side .buttons .ui.button, .dashboard-page-top-side .ui.button, .dashboard-page-top-side .ui.buttons {
-                        box-shadow: none !important;
-                        border: none;
-                        border-radius: 0;
-                    }
-                </style>*@
-
-
             <ng-view style="display:block;"></ng-view>
-
         </div>
-
-
-
     </div>
 
     <script src="~/dist/js/lib-all.js?v=@v"></script>
@@ -132,9 +65,6 @@
         <script src="~/src/js/charts/jquery.sit.Text.js?v=@v"></script>
         <script src="~/src/js/charts/su.jquery.sit.UserControl.js?v=@v"></script>
         <script src="~/src/js/charts/tipsy.js?v=@v"></script>
-
-
-
         <script src="~/src/js/dashboardPage/notification.js?v=@v"></script>
         <script src="~/src/js/management/services/services-app.js?v=@v"></script>
         <script src="~/src/js/management/services/datasources.js?v=@v"></script>
@@ -162,8 +92,8 @@
     } else {
         <script src="~/dist/js/dashboard-all.js?v=@v"></script>
     }
+
     <script src="~/react-dist/bundle.js?v=@ViewBag.customChartVersion"></script>
-    <script src="~/react-dist/app-bundle.js?v=@ViewBag.customChartVersion"></script>
 
     <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
     <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
@@ -190,8 +120,6 @@
         app.urlPrefix = "@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
         app.setUrlPrefix("@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, ""));
-
-
 
         app.version = "@v";
 
@@ -241,6 +169,7 @@
         });
 
     </script>
+
     @*Clickjacking Defense*@
     <style id="antiClickjack">
         body {
