@@ -1,0 +1,143 @@
+@{
+    Layout = "~/Views/Shared/_LayoutLogin-v2.cshtml";
+    ViewBag.Title = ViewBag.msg["title"];
+}
+
+<div class="ui container">
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+            display: none !important;
+        }
+
+        .form-signin {
+            max-width: 970px;
+            margin-top: 80px;
+        }
+
+        .same-height {
+            margin-bottom: -99999px;
+            padding-bottom: 99999px;
+        }
+
+        .hide-overflow {
+            overflow: hidden;
+        }
+
+        .card {
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 6px;
+        }
+
+        .logo {
+            max-width: 55%;
+            height: auto;
+            margin: 0 auto;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .sadaf-desc {
+            font-size: 13px;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        body {
+            margin: 0;
+            padding-top: 0px;
+            padding-bottom: 40px;
+            background-color: #eee;
+            overflow: auto;
+        }
+
+        .inline-h1 {
+            display: inline;
+            font-size: inherit;
+            font-family: Droid !important;
+        }
+
+        #activationModal .content li {
+            margin: 7px 0;
+        }
+    </style>
+
+
+
+
+    <div id="contentx">
+        <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+        <form class="form-signin" method="post" action="@Url.Action("VerifyCode")">
+            <div class="card">
+                <div style="direction: ltr">
+                    <div class="ui fluid left icon input big" style="margin-bottom:15px;">
+                        <input name="code" type="text" class="" placeholder="@ViewBag.msg["activation code"]" autofocus style="border-radius:4px; margin-bottom:0;">
+                        <i class="barcode icon"></i>
+                    </div>
+                </div>
+
+                @if (ViewBag.error != null) {
+                    <div class="ui negative message">
+                        @Html.Raw(ViewBag.error)
+                    </div>
+                }
+
+                <button class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</button>
+                <a href="@Url.Action("login")">شروع مجدد</a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    
+    @section scripts{
+
+        <script>
+            (function () {
+                var needCaptch = JSON.parse("@(ViewBag.needCaptcha == null ? "False" : ViewBag.needCaptcha )".toLowerCase())
+
+                function showCapcha(f) {
+                    if (f) { $('#capcha').fadeIn(); }
+                    if (!f) { $('#capcha').fadeOut();}
+                }
+
+                $('#login-type').on('change', function () {
+                    invalidate();
+                });
+
+                invalidate();
+
+                function invalidate() {
+                    var type = $('#login-type').val();
+                    showCapcha(+type != 0 || needCaptch)
+                }
+
+                $('#reCaptcha').on('click', function () {
+                    $.post('@Url.Action("getCaptcha")', function (d) {
+                        $('#captcha-image').attr('src', 'data:image/jpeg;base64,'+d)
+                    })
+                });
+
+                $('input[name=ReturnUrlHash]').val(location.hash);
+
+            }) ();
+        </script>
+
+    }
+
+
+</div>
+
+<script>
+    localStorage.removeItem('userVariable');
+
+    window.addEventListener('message', function (e) {
+        if (!_.isString(e.data)) return;
+
+        var message = JSON.parse(e.data);
+        window.location.href = message.param
+    });
+
+</script>

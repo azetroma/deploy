@@ -237,7 +237,7 @@
                 </h5>
                 <div class="ui small compact segment  attached" style="padding:5px 15px" ng-repeat="i in mostRecentMenus">
                     <a class="" ng-href="{{gApp.urlPrefix + '#/app/' + i.mainmenuId + '/dashboard/'+ i.id}}">{{i.name}}</a>
-                    &nbsp;<small style="display: inline-block;        color: #bdbdbd;">{{moment.utc(i.time).format('jYYYY/jMM/jDD')}}</small>
+                    &nbsp;<small style="display: inline-block;        color: #bdbdbd;">{{persian(moment.utc(i.time).format('jYYYY/jMM/jDD'))}}</small>
                 </div>
             </div>
             <div>
@@ -247,7 +247,7 @@
                 </h5>
                 <div class="ui small compact segment  attached" style="padding:5px 15px" ng-repeat="i in favoriteMenus">
                     <a class="" ng-href="{{gApp.urlPrefix + '#/app/' + i.mainmenuId + '/dashboard/'+ i.id}}">{{i.name}}</a>
-                    &nbsp;<small style="display: inline-block;color: #bdbdbd;"> {{moment.utc(i.time).format('jYYYY/jMM/jDD')}}</small>
+                    &nbsp;<small style="display: inline-block;color: #bdbdbd;"> {{persian(moment.utc(i.time).format('jYYYY/jMM/jDD'))}}</small>
                 </div>
             </div>
             <r-comp model="cModel"></r-comp>

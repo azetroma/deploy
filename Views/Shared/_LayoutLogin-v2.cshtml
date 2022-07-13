@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html style="overflow:auto">
+
+<head>
+    @{
+        var isRelease = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+        var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+        var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+        if (!isRelease) {
+            v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+        }
+        var useApp = BLL.Process.CommonUtils.AppSettings.useApp();
+
+    }
+
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="نرم افزار داشبورد مدیریت صدف با اتصال به سيستم‌هاي اطلاعاتي مختلف، با سرعتي مناسب، اطلاعات پيچيده‌ي تجاري شما را خلاصه کرده و در قالب داشبورد مدیریتی در دسترس شما قرار مي‌دهد. ">
+    <meta name="keywords" content="مديريت استراتژيک,داشبورد مدیریتی,هوش تجاري,گزارش‌ ساز,داشبورد مدیریت,نرم افزار داشبورد,داشبورد,management Dashboard,Dashbord">
+    <title>داشبورد مدیریتی صدف | Dashboard Software | نرم افزار داشبورد مدیریت </title>
+    <meta property="og:type" content="business.business">
+    <meta property="og:title" content="نرم افزار داشبورد مدیریت">
+    <meta property="og:url" content="https://www.sadafdashboard.ir/">
+
+    <link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />
+</head>
+
+<body class="tw-p-0 root-login-panel !tw-bg-white" style="display:none">
+    @Html.AntiForgeryToken()
+    <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
+    <input type="hidden" value="@Request.Url.AbsoluteUri" name="aboluteUrl" />
+    <input type="hidden" value="@v" name="version" />
+    <input type="hidden" value="@ViewBag.isRtl" name="isRtl" />
+    <input type="hidden" value="@(Url.Action("management", "sadaf") + "/")" name="hashUrlPrefix" />
+    <input type="hidden" value="{}" name="license" />
+
+    <input type="hidden" value="@ViewBag.securityCertPatch.ToString()" name="securityCertPatch" />
+    <input type="hidden" value="@(ViewBag.needCaptcha == null ? "false" : ViewBag.needCaptcha.ToString())" name="needCaptcha" />
+    <input type="hidden" value="@System.Configuration.ConfigurationManager.AppSettings["captcha"]" name="captcha" />
+    <input type="hidden" value="@(ViewBag.captcha == null ? "" :ViewBag.captcha)" name="captcha-val" />
+
+    <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-12 tw-h-full tw-items-center tw-bg-white">
+        <div class="tw-col-span-5">
+            <div class="ui container">
+
+                @RenderBody()
+
+            </div>
+        </div>
+
+        <div class="site-panel tw-relative tw-col-span-7 tw-bg-[#2c5abc] tw-bg-cover tw-center xtw-p-10 tw-flex tw-flex-col tw-text-white tw-h-full">
+            <div class="tw-absolute tw-w-full tw-h-full tw-bg-[#000] tw-opacity-30" ></div>
+            <div class="tw-grow tw-flex tw-items-center tw-p-36">
+                @*<p>@(ViewBag.msg["info"])</p>*@
+            </div>
+
+            <div class="tw-z-50 tw-mx-10 tw-my-5">
+
+                <div >
+                    <a class="tw-justify-end tw-flex tw-items-center tw-text-white hover:tw-text-white" href="https://www.sadafdashboard.ir" target="_blank">
+                        @if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["showCopyRightLogo"] ?? "true")) {
+                            <div class="copyright-logo logo tw-bg-cover" style="width:50px; height:50px; margin-left:10px; margin-right:0;" xsrc="~/Images/icon-inverse-copyright.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" ></div>
+                        }
+
+                        <span>@Html.Raw(ViewBag.msg["copy right"])</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/react-dist/app-bundle.js?v=@v"></script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+
+

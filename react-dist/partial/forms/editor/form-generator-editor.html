@@ -1,7 +1,8 @@
 ﻿<style>
     .sortable-ghost {
-    width:auto !important;
+        width: auto !important;
     }
+
     .fg-header .item {
         padding: 10px;
     }
@@ -16,7 +17,7 @@
         z-index: 114;
         font-size: 13px;*/
         /*margin:5px;*/
-            margin: 4px 0;
+        margin: 4px 0;
         /*min-height: 50px;*/
         /*font-size:13px;*/
     }
@@ -90,13 +91,13 @@
             <div class="ui labeled icon button" ng-show="c.id" ng-click="c.publishVisible = true" ng-class="{loading: c.publishProgress}">
                 <i class="icon cloud"></i>
                 {{'publish' | translate}}
-            </div> 
+            </div>
             <div ng-show="c.app.license.securityCertPatch && c.id > 0" class="ui label">
                 {{'integrity check' | translate}} &nbsp;
                 <i class="ui icon  {{c.sign ? 'green check' : 'red times'}}"></i>
             </div>
             <sm-modal visible="c.publishVisible">
-                <div class="header">  
+                <div class="header">
                     {{'publish' | translate}}
                 </div>
 
@@ -123,7 +124,7 @@
     </div>
 
     <div layout="row" flex>
-        <div flex="25" layout="column" >
+        <div flex="25" layout="column">
 
             <div class="ui left tiny secondary pointing menu">
                 <div class="item header">
@@ -136,15 +137,15 @@
                 </div>
 
             </div>
-        <md-content  layout="column" flex class="form-generator-side-column form-property-section">
+            <md-content layout="column" flex class="form-generator-side-column form-property-section">
 
-            <ng-include src="c.app.urlPrefix + 'dist/partial/forms/editor/form-generator-editor-properties.html'"></ng-include>
-        </md-content>
+                <ng-include src="c.app.urlPrefix + 'dist/partial/forms/editor/form-generator-editor-properties.html'"></ng-include>
+            </md-content>
         </div>
 
         <div flex="50" class="form-generator-side-column" layout="column">
-            <div class="ui left tiny secondary pointing menu"ng-sortable="{group: {name: 'pages', pull:false, put:false}, animation:150}" style="overflow-x:auto; overflow-y:hidden;">
-                <div class="item pointer"  ng-repeat="p in c.pages.data track by $index" ng-click="c.pages.setActive(p)" ng-class="{active: p.active}">
+            <div class="ui left tiny secondary pointing menu" ng-sortable="{group: {name: 'pages', pull:false, put:false}, animation:150}" style="overflow-x:auto; overflow-y:hidden;">
+                <div class="item pointer" ng-repeat="p in c.pages.data | filter: { type: 0 } track by $index " ng-click="c.pages.setActive(p)" ng-class="{active: p.active}">
                     {{p.name | persian}} &nbsp; {{c.pages.length}}
                     <i class="icon remove gray pointer" ng-hide="c.pages.data.length == 1" ng-click="c.pages.remove($index)" style="margin:0"></i>
                 </div>
@@ -155,22 +156,43 @@
                 </div>
 
             </div>
-            <md-content flex class="ui form editor " ng-class="c.pages.activePage.size" style="padding:16px 16px;">
-                <div xsadaf-sortable xui-sortable="c.sortableOptions" ng-sortable="{group: {name: 'form', pull:true},sort:true, animation:150}" 
-                     class="xdrop-target ui grid content-form sortable-refresh" xng-model="c.pages.activePage.controls" 
-                     style="margin:0;padding:0; min-height:50px;">
-                    <form-control ng-repeat="component in c.pages.activePage.controls track by $index"
-                                  ng-model="component"
-                                  id="{{c.id}}"
-                                  edit="true"
-                                  edit-context="c"
-                                  ng-class="{active: component.isActive}"
-                                  remove="c.pages.removeControl($index, component)"
-                                  copy="c.pages.copy($index, component)"
-                                  settings-click="c.control.setActive(component); "
-                                  ng-click="c.control.setActive(component); "></form-control>
-                </div>
+            <md-content flex class="ui form editor tw-flex tw-flex-col " ng-class="c.pages.activePage.size" style="padding:16px 16px; min-height:350px">
+                <div class="tw-grow">
 
+                    <div ng-sortable="{group: {name: 'form', pull:true},sort:true, animation:150}" class=" xdrop-target ui grid content-form sortable-refresh" style="margin:0;padding:0; min-height:50px;">
+                        <form-control ng-repeat="component in c.pages.activePage.controls track by $index"
+                                      ng-model="component"
+                                      id="{{c.id}}"
+                                      edit="true"
+                                      edit-context="c"
+                                      ng-class="{active: component.isActive}"
+                                      remove="c.pages.removeControl($index, component, c.pages.activePage)"
+                                      copy="c.pages.copy($index, component, c.pages.activePage)"
+                                      settings-click="c.control.setActive(component); "
+                                      ng-click="c.control.setActive(component); "></form-control>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div ng-show="!c.pages.footer" class="ui mini icon button" ng-click="c.pages.addFooter()"> اضافه کردن فوتر <i class="ui icon add"></i></div>
+                    <div ng-show="c.pages.footer" class="ui mini icon button" ng-click="c.pages.removeFooter()"> حذف فوتر <i class="ui icon outline delete"></i></div>
+                    <div ng-show="c.pages.footer"  class="tw-border-gray-200 !tw-my-4 tw-p-7 tw-border tw-rounded  ui grid content-form sortable-refresh"
+                         style="min-height:70px;"
+                         ng-sortable="{group: {name: 'form', pull:true},sort:true, animation:150}">
+                        <form-control ng-repeat="component in c.pages.footer.controls track by $index"
+                                      ng-model="component"
+                                      id="{{c.id}}"
+                                      edit="true"
+                                      edit-context="c"
+                                      ng-class="{active: component.isActive}"
+                                      remove="c.pages.removeControl($index, component, c.pages.footer)"
+                                      copy="c.pages.copy($index, component, c.pages.footer)"
+                                      settings-click="c.control.setActive(component); "
+                                      ng-click="c.control.setActive(component); "></form-control>
+
+                    </div>
+                </div>
             </md-content>
 
         </div>

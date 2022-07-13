@@ -1,0 +1,102 @@
+﻿
+@{
+    Layout = null;
+    var isRelease = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+    var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+    var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+    if (!isRelease) {
+        v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+    }
+    var title = new EDMs.DashboardAppDataEntities().tbl_Forms.Find(ViewBag.id).Name;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />
+    <title>@title</title>
+    <style>
+        html {
+            background-color: #ffffff !important;
+        }
+    </style>
+</head>
+<body style="overflow:auto !important; height:initial;">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
+    <input type="hidden" value="@Request.Url.AbsoluteUri" name="aboluteUrl" />
+    <input type="hidden" value="@v" name="version" />
+    <input type="hidden" value="@ViewBag.isRtl" name="isRtl" />
+    <input type="hidden" value="@(Url.Action("management", "sadaf") + "/")" name="hashUrlPrefix" />
+    <input type="hidden" value="@(Html.Raw(ViewBag.license ?? "{}").ToString().Replace("\"","\\\""))" name="license" />
+    <input type="hidden" value="@((ViewBag.englishDigit ?? false ).ToString().ToLower())" name="useEnglishDigit" />
+    <input type="hidden" value="true" name="shareMode" />
+    <script src="~/react-dist/app-bundle.js?v=@v"></script>
+
+
+    <div class="ui container" ng-app="singleForm" ng-controller="singleFormCtl" style="margin-top:40px;">
+        <div class="">
+            <h3 class="ui header">@title</h3>
+            <hr />
+        </div>
+        <div sadaf-form id="@ViewBag.id"></div>
+    </div>
+
+
+
+    <script>
+
+
+
+        @*app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
+        app.setAboluteUrl("@Request.Url.AbsoluteUri");*@
+
+        var hash = "@ViewBag.returnUrlHash";
+        if (hash) {
+            location.hash = hash;
+        }
+        app.lang.setLangTyle(@ViewBag.lang);
+        app.lang.setLang();
+        app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
+            ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : v.ToString())';
+
+
+        //var $el = $('[ng-controller=singleFormCtl]');
+        //window.addEventListener('message', function (e) {
+        //    if (!_.isString(e.data)) return;
+        //    var message = JSON.parse(e.data);
+
+        //    if (message.type === 'route') {
+
+        //        var scope = angular.element($el).scope();
+        //        scope.iframeService.setPath(message.param);
+        //        scope.$apply();
+        //    }
+        //});
+    </script>
+    @*Clickjacking Defense*@
+    <style id="antiClickjack">
+        body {
+            display: none !important;
+        }
+    </style>
+
+    <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        @*var license = JSON.parse('@Html.Raw(ViewBag.license)');
+        app.license = _.extend(app.license || {}, license);
+        if (app.license.securityCertPatch) {
+        }*@
+    </script>
+
+</body>
+</html>

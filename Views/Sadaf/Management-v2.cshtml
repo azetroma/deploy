@@ -63,19 +63,19 @@
     <input type="hidden" value="@v" name="version" />
     <input type="hidden" value="@(Url.Action("management", "sadaf") + "/")" name="hashUrlPrefix" />
     <input type="hidden" value="@(Html.Raw(ViewBag.license).ToString().Replace("\"","\\\""))" name="license" />
+    <input type="hidden" value="@ViewBag.lang" id="lang" />
 
     <script src="~/react-dist/app-bundle.js?v=@v"></script>
     <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
     <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
     <link href="~/react-dist/styles.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
     @*<link href="~/dist/lib/angular-material.min.css" rel="stylesheet" />
-    <link href="~/src_v2/css/management/OlapChartDesign.css" rel="stylesheet" />
-    <link href="~/src_v2/css/management/bootstarp-chart.css" rel="stylesheet" />
-    <link href="~/src_v2/css/management/sadaf.css" rel="stylesheet" />
-    <link href="~/src_v2/css/management/sadaf-rtl.css" rel="stylesheet" />*@
+        <link href="~/src_v2/css/management/OlapChartDesign.css" rel="stylesheet" />
+        <link href="~/src_v2/css/management/bootstarp-chart.css" rel="stylesheet" />
+        <link href="~/src_v2/css/management/sadaf.css" rel="stylesheet" />
+        <link href="~/src_v2/css/management/sadaf-rtl.css" rel="stylesheet" />*@
 
     <div ng-app="management" ng-controller="menusCtrl" ng-cloak layout="row" flex layout-fill>
-        <input type="hidden" value="@ViewBag.lang" id="lang" />
         @Html.AntiForgeryToken()
 
         @if (!ViewBag.noframe) {

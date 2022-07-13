@@ -22,30 +22,17 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width" />
-
     <meta name="description" content="نرم افزار داشبورد مدیریت صدف با اتصال به سيستم‌هاي اطلاعاتي مختلف، با سرعتي مناسب، اطلاعات پيچيده‌ي تجاري شما را خلاصه کرده و در قالب داشبورد مدیریتی در دسترس شما قرار مي‌دهد. ">
     <meta name="keywords" content="مديريت استراتژيک,داشبورد مدیریتی,هوش تجاري,گزارش‌ ساز,داشبورد مدیریت,نرم افزار داشبورد,داشبورد,management Dashboard,Dashbord">
     <title>داشبورد مدیریتی صدف | Dashboard Software | نرم افزار داشبورد مدیریت </title>
     <meta property="og:type" content="business.business">
     <meta property="og:title" content="نرم افزار داشبورد مدیریت">
-    <meta property="og:url" content="http://www.sadafdashboard.ir/">
+    <meta property="og:url" content="https://www.sadafdashboard.ir/">
 
     <link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />
-
-    <style>
-        body {
-            margin: 0;
-            padding-top: 0px;
-            padding-bottom: 40px;
-            background-color: #eee;
-        }
-    </style>
-
 </head>
-<body>
 
-
-
+<body class="tw-p-0 root-login-panel" style="display:none">
 
     <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
     <input type="hidden" value="@Request.Url.AbsoluteUri" name="aboluteUrl" />
@@ -53,397 +40,348 @@
     <input type="hidden" value="@ViewBag.isRtl" name="isRtl" />
     <input type="hidden" value="@(Url.Action("management", "sadaf") + "/")" name="hashUrlPrefix" />
     <input type="hidden" value="{}" name="license" />
-    <script src="~/react-dist/app-bundle.js?v=@v"></script>
 
-    <div class="ui container">
-        <style>
-            .pass-container.active input.ui.input {
-                font-family: IRANSans !important;
-            }
+    <input type="hidden" value="@ViewBag.securityCertPatch.ToString()" name="securityCertPatch" />
+    <input type="hidden" value="@(ViewBag.needCaptcha == null ? "fasle" : ViewBag.needCaptcha.ToString())" name="needCaptcha" />
+    <input type="hidden" value="@System.Configuration.ConfigurationManager.AppSettings["captcha"]" name="captcha" />
 
-            .pass-container {
-                position: relative;
-            }
+    <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-12 tw-h-full tw-items-center">
+        <div class="tw-col-span-5">
 
-                .pass-container input.ui.input {
-                    font-family: text-security-disc !important;
-                    border-bottom-left-radius: 4px !important;
-                    border-bottom-right-radius: 4px !important;
-                    border-top-left-radius: 0 !important;
-                    border-top-right-radius: 0 !important;
-                }
+            <div class="ui container">
+                <style>
+                    body {
+                        margin: 0;
+                        padding-top: 0px;
+                        padding-bottom: 40px;
+                        background-color: #eee;
+                    }
 
-            i.eye.icon {
-                position: absolute !important;
-                left: 10px !important;
-                color: lightgray;
-                cursor: pointer !important;
-                z-index: 200000;
-                font-size: 20px;
-                top: 13px;
-            }
+                    .pass-container.active input.ui.input {
+                        font-family: IRANSans !important;
+                    }
 
-            .pass-container.active i.eye.icon {
-                color: #666;
-            }
+                    .pass-container {
+                        position: relative;
+                    }
 
+                        .pass-container input.ui.input {
+                            font-family: text-security-disc !important;
+                            border-bottom-left-radius: 4px !important;
+                            border-bottom-right-radius: 4px !important;
+                            border-top-left-radius: 0 !important;
+                            border-top-right-radius: 0 !important;
+                        }
 
-            .form-signin {
-                max-width: 970px;
-                margin-top: 80px;
-            }
+                    i.eye.icon {
+                        position: absolute !important;
+                        left: 10px !important;
+                        color: lightgray;
+                        cursor: pointer !important;
+                        z-index: 200000;
+                        font-size: 20px;
+                        top: 13px;
+                    }
 
-            .same-height {
-                margin-bottom: -99999px;
-                padding-bottom: 99999px;
-            }
-
-            .hide-overflow {
-                overflow: hidden;
-            }
-
-            .card {
-                padding: 40px;
-                background-color: #fff;
-                border-radius: 6px;
-            }
-
-            .logo {
-                max-width: 55%;
-                height: auto;
-                margin: 0 auto;
-                margin-bottom: 16px;
-                display: block;
-            }
-
-            .sadaf-desc {
-                font-size: 13px;
-                text-align: justify;
-                margin-bottom: 30px;
-            }
-
-            body {
-                margin: 0;
-                padding-top: 0px;
-                padding-bottom: 40px;
-                background-color: #eee;
-                overflow: auto;
-            }
-
-            .inline-h1 {
-                display: inline;
-                font-size: inherit;
-                font-family: Droid !important;
-            }
-
-            #activationModal .content li {
-                margin: 7px 0;
-            }
-
-            input[name=Password]::-webkit-input-placeholder {
-                font-family: IRANSans;
-            }
-
-            input[name=Password]:-ms-input-placeholder {
-                font-family: IRANSans;
-            }
-
-            input[name=Password]:-moz-placeholder {
-                font-family: IRANSans;
-            }
-
-            input[name=Password]::-moz-placeholder {
-                font-family: IRANSans;
-            }
-        </style>
+                    .pass-container.active i.eye.icon {
+                        color: #666;
+                    }
 
 
+                    .form-signin {
+                        max-width: 970px;
+                        margin-top: 40px;
+                    }
+
+                    .same-height {
+                        margin-bottom: -99999px;
+                        padding-bottom: 99999px;
+                    }
+
+                    .hide-overflow {
+                        overflow: hidden;
+                    }
+
+                    .card {
+                        /*padding: 40px;*/
+                        background-color: #fff;
+                        border-radius: 6px;
+                    }
+
+                    .logo {
+                        max-width: 55%;
+                        height: auto;
+                        margin: 0 auto;
+                        margin-bottom: 16px;
+                        display: block;
+                    }
+
+                    .sadaf-desc {
+                        font-size: 13px;
+                        text-align: justify;
+                        margin-bottom: 30px;
+                    }
+
+                    body {
+                        margin: 0;
+                        padding-top: 0px;
+                        padding-bottom: 40px;
+                        background-color: #fff;
+                        overflow: auto;
+                    }
+
+                    .inline-h1 {
+                        display: inline;
+                        font-size: inherit;
+                        font-family: Droid !important;
+                    }
+
+                    #activationModal .content li {
+                        margin: 7px 0;
+                    }
+
+                    input[name=Password]::-webkit-input-placeholder {
+                        font-family: IRANSans;
+                    }
+
+                    input[name=Password]:-ms-input-placeholder {
+                        font-family: IRANSans;
+                    }
+
+                    input[name=Password]:-moz-placeholder {
+                        font-family: IRANSans;
+                    }
+
+                    input[name=Password]::-moz-placeholder {
+                        font-family: IRANSans;
+                    }
+                </style>
 
 
-        <div id="contentx">
 
-            <form class="form-signin" method="post">
 
-                @Html.AntiForgeryToken()
+                <div id="contentx">
 
-                <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
-                <input type="hidden" name="ReturnUrlHash" value="" />
+                    <form class="form-signin" method="post">
 
-                <div class="ui stackable grid">
-                    <div class="col-md-6 six wide column">
-                        <div class="sadaf-desc">
+                        @Html.AntiForgeryToken()
 
-                            @if (ViewBag.logoId > 0) {
-                                <img class="logo" src="~/api/settings/getLogoFile/@ViewBag.logoId" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
-                            } else {
-                                <img class="logo" src="~/api/settings/getLogo/0" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
-                            }
-                            @*<img class="logo" src="~/Images/logo_half.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />*@
+                        <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+                        <input type="hidden" name="ReturnUrlHash" value="" />
 
-                            <p>
-                                @(ViewBag.msg["info"])
-                            </p>
-                            <div class="text-left">
-                                <a href="http://www.sadafdashboard.ir/files/sadaf@(BLL.Process.CommonUtils.AppSettings.userVerification() ?"-pdn":"").apk" class="ui xblack label">@ViewBag.msg["download android"]</a>
-                            </div>
+                        <div class="tw-px-10">
+                            <div class="tw-max-w-md  tw-m-auto">
+                                <div class="card ">
 
-                            <div style="margin-top:30px;">
+                                    @if (ViewBag.logoId > 0) {
+                                        <img class="logo" src="~/api/settings/getLogoFile/@ViewBag.logoId" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                                    } else {
+                                        <img class="logo" src="~/api/settings/getLogo/0" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                                    }
+                                    <br />
 
-                                <a style="display:flex; align-items:center;" href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">
-                                    @if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["showCopyRightLogo"] ?? "true")) {
-                                        <img class="logo" style="width:50px; margin-left:10px; margin-right:0;" src="~/Images/copy_right_logo.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+
+
+                                    <div style="direction: ltr">
+                                        <div class="ui fluid left icon input big">
+                                            <input name="UserName" type="text" class="" placeholder="@((ViewBag.pdn ?? false)  ? "نام کاربری یا کد ملی": ViewBag.msg["username"])" autofocus autocomplete="off">
+                                            <i class="user icon"></i>
+                                        </div>
+                                        <div class="pass-container">
+
+                                            <i class="eye icon"></i>
+                                            <div class="ui fluid left icon input big">
+                                                @if (ViewBag.savePasswordAbility) {
+                                                    <input name="Password" type="password" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
+                                                } else {
+                                                    <input name="Password" type="text" style="" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
+                                                }
+                                                <i class="lock icon"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*<label class="" style="margin: 10px 0; display: block;">
+                                            <input type="checkbox" value="remember-me" name="rememberme">
+                                            @ViewBag.msg["remember"]
+                                        </label>*@
+                                    <br />
+                                    <br />
+
+                                    <div class="field" id="capcha" style="display:none">
+                                        <div style="text-align:center;">
+                                            <div style="float:right;">
+                                                <img id="captcha-image" src="data:image/jpeg;base64,@ViewBag.captcha" />
+                                            </div>
+                                            <div class="ui button basic icon" id="reCaptcha" style="float:left; margin:0;"><i class="ui icon refresh"></i></div>
+                                        </div>
+                                        <div class="ui icon input" style="margin-bottom:15px; width:100%;">
+                                            <input name="captcha-code" type="text" class="ui fuild input" style="line-height: 1.7em;border-radius:4px;" />
+                                            <i class="chess board icon"></i>
+                                        </div>
+                                        <small class="field-info"></small>
+                                    </div>
+
+
+                                    @if (ViewBag.error != null) {
+                                        <div class="ui negative message">
+                                            @Html.Raw(ViewBag.error)
+                                        </div>
+                                    }
+                                    <button class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</button>
+                                    <div class="ui small form" style="margin-top:15px; display:none" id="login-type-div">
+                                        <div class=" inline fields">
+                                            <label class="" style="width:50%;">
+                                                @ViewBag.msg["login type"]
+                                            </label>
+                                            <select name="login-type" id="login-type" style="border: none;display: inline-block;width: 50%;border-bottom: 1px dashed;padding: 0;border-radius: 0;">
+                                                <option value="0">معمولی</option>
+                                                <option value="1">دو عاملی - پست الکترونیک</option>
+                                                <option value="2">دو عاملی - پیامک</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    @if (ViewBag.publicSignup ?? false) {
+                                        <br />
+                                        <a class="ui basic fluid button big" href="@Url.Action("signup", "account")">@ViewBag.msg["signup"]</a>
                                     }
 
-                                    <span>@Html.Raw(ViewBag.msg["copy right"])</span>
-                                </a>
-                            </div>
+                                    @if (ViewBag.sso != null && (ViewBag.sso.enable ?? false)) {
+                                        <br />
+                                        <a class="ui basic fluid button big" href="@Url.Action("logincas", "account")">@ViewBag.sso.loginKeyLabel</a>
+                                    }
+                                    @if (!String.IsNullOrEmpty(ViewBag.supportLink)) {
+                                        <br />
+                                        <a title="@ViewBag.supportDesc" class="ui basic fluid button big" target="_blank" href="@ViewBag.supportLink">@(ViewBag.supportTitle ?? "پشتیبانی")</a>
+                                    }
 
-                        </div>
-                    </div>
-                    <div class="col-md-6 six wide column">
-                        <div class="card">
-                            <div style="direction: ltr">
-                                <div class="ui fluid left icon input big">
-                                    <input name="UserName" type="text" class="" placeholder="@((ViewBag.pdn ?? false)  ? "نام کاربری یا کد ملی": ViewBag.msg["username"])" autofocus autocomplete="off">
-                                    <i class="user icon"></i>
-                                </div>
-                                <div class="pass-container">
-                                    <i class="eye icon"></i>
-                                    <div class="ui fluid left icon input big">
-                                        @*<div style="display:none" ><input tabindex="-1" name="Password2" value="" type="password" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]"></div>*@
-                                        <input name="Password" type="text" style="" autocomplete="off" class="ui fuild input" placeholder="@ViewBag.msg["password"]">
-                                        <i class="lock icon"></i>
+                                    <a style="margin-top:40px; display:block;" class="pointer" href="@Url.Action("resetPass", "account")">@ViewBag.msg["forgot password"]</a>
+                                    <div class="xpull-right" style="font-size: 10px; padding: 30px 0;">
+                                        <br />
+                                        <div>@ViewBag.msg["version"] : @(version.Major + "." + version.Minor + "." + version.Build )  </div>
+                                        <div>@ViewBag.msg["db version"]: @ViewBag.DbVersion</div>
+                                        <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
+                                        <br />
+                                        <a class="show-help pointer">@ViewBag.msg["help"]</a>
                                     </div>
-                                </div>
-                            </div>
 
-                            @*<label class="" style="margin: 10px 0; display: block;">
-                                    <input type="checkbox" value="remember-me" name="rememberme">
-                                    @ViewBag.msg["remember"]
-                                </label>*@
-                            <br />
-                            <br />
-                            <br />
-
-                            <div class="field" id="capcha" style="display:none">
-                                <div style="text-align:center;">
-                                    <div style="float:right;">
-                                        <img id="captcha-image" src="data:image/jpeg;base64,@ViewBag.captcha" />
+                                    <div class="text-left">
+                                        <a href="http://www.sadafdashboard.ir/files/sadaf@(BLL.Process.CommonUtils.AppSettings.userVerification() ?"-pdn":"").apk" class="ui xblack label">@ViewBag.msg["download android"]</a>
                                     </div>
-                                    <div class="ui button basic icon" id="reCaptcha" style="float:left; margin:0;"><i class="ui icon refresh"></i></div>
-                                </div>
-                                <div class="ui icon input" style="margin-bottom:15px; width:100%;">
-                                    <input name="captcha-code" type="text" class="ui fuild input" style="line-height: 1.7em;border-radius:4px;" />
-                                    <i class="chess board icon"></i>
-                                </div>
-                                <small class="field-info"></small>
-                            </div>
 
 
-                            @if (ViewBag.error != null) {
-                                <div class="ui negative message">
-                                    @Html.Raw(ViewBag.error)
                                 </div>
-                            }
-                            <button class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</button>
-                            <div class="ui small form" style="margin-top:15px; display:none" id="login-type-div">
-                                <div class=" inline fields">
-                                    <label class="" style="width:50%;">
-                                        @ViewBag.msg["login type"]
-                                    </label>
-                                    <select name="login-type" id="login-type" style="border: none;display: inline-block;width: 50%;border-bottom: 1px dashed;padding: 0;border-radius: 0;">
-                                        <option value="0">معمولی</option>
-                                        <option value="1">دو عاملی - پست الکترونیک</option>
-                                        <option value="2">دو عاملی - پیامک</option>
-                                    </select>
-                                </div>
+
 
                             </div>
 
-                            @if (ViewBag.publicSignup ?? false) {
-                                <br />
-                                <a class="ui basic fluid button big" href="@Url.Action("signup", "account")">@ViewBag.msg["signup"]</a>
-                            }
-
-                            @if (ViewBag.sso != null && (ViewBag.sso.enable ?? false)) {
-                                <br />
-                                <a class="ui basic fluid button big" href="@Url.Action("logincas", "account")">@ViewBag.sso.loginKeyLabel</a>
-                            }
-                            @if (!String.IsNullOrEmpty(ViewBag.supportLink)) {
-                                <br />
-                                <a title="@ViewBag.supportDesc" class="ui basic fluid button big" target="_blank" href="@ViewBag.supportLink">@(ViewBag.supportTitle ?? "پشتیبانی")</a>
-                            }
-
-                            <a style="margin-top:40px; display:block;" class="pointer" href="@Url.Action("resetPass", "account")">@ViewBag.msg["forgot password"]</a>
-                            <div class="xpull-right" style="font-size: 10px; padding: 30px 0;">
-                                <br />
-                                <div>@ViewBag.msg["version"] : @(version.Major + "." + version.Minor + "." + version.Build )  </div>
-                                <div>@ViewBag.msg["db version"]: @ViewBag.DbVersion</div>
-                                <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
-                                <br />
-                                <a class="show-help pointer">@ViewBag.msg["help"]</a>
-                            </div>
 
                         </div>
 
-
-                    </div>
-
+                    </form>
 
                 </div>
 
-            </form>
-
-        </div>
-
-        <div id="message" style="display:none">
-            لطفا از مرورگر
-            <b>کروم (Chrome)</b>
-            استفاده کنید.
-            <br />
-            <small>
-                سرعت مرورگر کروم در پردازش المان‌های گرافیکی نسبت به دیگر مرورگرها بالاتر است!
-            </small>
-            <br />
-            <br />
-
-            <p class="small">
-                در صورتی که مایل به استفاده از مرورگر فعلی خود هستید و با آگاهی از اینکه
-                ممکن است با مشکلات ناخواسته‌ای روبرو شوید روی کلید زیر کلیک کنید.
-
-            </p>
-            <button class="btn btn-danger" id="show-login"> استفاده از مرورگر فعلی</button>
-        </div>
-        @section scripts{
-            <script>
-                $('i.eye.icon').on('click', function () {
-                    var icon = $('.pass-container');
-                    if (icon.hasClass('active')) {
-                        icon.removeClass('active');
-                    } else {
-                        icon.addClass('active');
-                    }
-                });
-            </script>
-
-            <script>
+                <script>
             (function () {
-                var needCaptch = JSON.parse("@(ViewBag.needCaptcha == null ? "False" : ViewBag.needCaptcha )".toLowerCase());
-                var securityCertPatch = JSON.parse("@(ViewBag.securityCertPatch == null ? "False" : ViewBag.securityCertPatch )".toLowerCase());
-                var captcha = JSON.parse("@( System.Configuration.ConfigurationManager.AppSettings["captcha"] ?? "false")".toLowerCase());
-
-                if (securityCertPatch) {
-                    var lastLoginTyep = localStorage.getItem('login-type') || "0";
-                    $('#login-type').val(lastLoginTyep)
-                }
-
-                function showCapcha(f) {
-                    if (f) { $('#capcha').fadeIn(); }
-                    if (!f) { $('#capcha').fadeOut();}
-                }
-
-                $('#login-type').on('change', function () {
-                    localStorage.setItem('login-type', $('#login-type').val());
-                    invalidate();
-                });
-
-                invalidate();
-
-                function invalidate() {
-                    var type = $('#login-type').val();
-                    showCapcha((+type != 0 || needCaptch) && (securityCertPatch || captcha));
-                    var $loginTypeDiv = $('#login-type-div');
-                    if (securityCertPatch) { $loginTypeDiv.show(); } else { $loginTypeDiv.hide();}
-                }
-
-                $('#reCaptcha').on('click', function () {
-                    $.post('@Url.Action("getCaptcha")', function (d) {
-                        $('#captcha-image').attr('src', 'data:image/jpeg;base64,'+d)
-                    })
-                });
-                    $('.ui.modal').modal();
-                    $('#last-changes').modal('attach events', '.show-last-change', 'show');
-                    $('#login-help').modal('attach events', '.show-help', 'show');
 
 
-                    $('input[name=ReturnUrlHash]').val(location.hash);
-
-                    var isChrome = !!window.chrome && !!window.chrome.webstore;
-                    var show = JSON.parse("@(System.Configuration.ConfigurationManager.AppSettings["justChrome"] ?? "false")");
-
-                    if (!isChrome && show) {
-                        $('#content').hide();
-                        $('#message').show();
-                    }
-
-                    $('#show-login').on('click', function () {
-                        $('#content').show();
-                        $('#message').hide();
-                    })
             }) ();
-            </script>
-
-        }
+                </script>
 
 
-        <div id="last-changes" class="ui modal">
-            <i class="close icon"></i>
+                <div id="last-changes" class="ui modal">
+                    <i class="close icon"></i>
 
-            <div class="header">
-                <div class="">لیست تغییرات</div>
+                    <div class="header">
+                        <div class="">لیست تغییرات</div>
+                    </div>
+
+                    <div class="content scrolling">
+                        <ul>
+                            @{
+                                var text = File.ReadAllLines(Server.MapPath("~/ChangeLog.txt"));
+                                for (int i = 0; i < text.Length; i++) {
+                                    text[i] = BLL.Process.CommonUtils.PersianDigit(text[i]);
+                                    text[i] = System.Text.RegularExpressions.Regex.Replace(text[i], "^([^\t]*)$",
+                                        (i == 0 ? "" : "</ul>") + "<ul style='margin-top:40px'><h3> نسخه $1</h3>");
+                                    text[i] = System.Text.RegularExpressions.Regex.Replace(text[i],
+                                        "^\t+-\\s*([۰۱۲۳۴۵۶۷۸۹0123456789/]*)\\s*(.*)$", "</li><li > <div>$2<div>");
+                                    <text>@Html.Raw(text[i])</text>
+                                }
+                            }
+                        </ul>
+
+                    </div>
+
+                    <div class="actions">
+                        <div class="ui button deny black">تأیید</div>
+                    </div>
+
+                </div>
+                <div id="login-help" class="ui modal">
+                    <i class="close icon"></i>
+
+                    <div class="header">
+                        <div class="">راهنمای ورود</div>
+                    </div>
+
+                    <div class="content scrolling" style="line-height:1.9">
+                        <b>ورود عادی: </b>
+                        برای ورود به برنامه نیاز به نام کاربری و کلمه عبور است.
+                        ایجاد نام کاربری توسط مدیر سامانه انجام می‌شود. پس از دریافت اطلاعات ورود از مدیر، پس از وارد کردن
+                        نام کاربری و کلمه عبور در قسمت‌های مربوطه. کلید ورود را فشار دهید.
+
+                        <br />
+                        <br />
+                        <b>ورود دو عاملی: </b>
+                        در صورتی که دسترسی شما به صورت دو عاملی تعیین شده باشد، با انتخاب شیوه ورود به صورت دو عاملی با پست الکترنیک را انتخاب کنید. با وارد کردن اطلاعات ورود در سامانه
+                        یک کد ورود به ایمیل شما ارسال می‌شود. ۲۰ دقیقه فرصت دارید تا با وارد کردن این کد وارد برنامه شوید.
+
+                    </div>
+
+                    <div class="actions">
+                        <div class="ui button deny black">تأیید</div>
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="content scrolling">
-                <ul>
-                    @{
-                        var text = File.ReadAllLines(Server.MapPath("~/ChangeLog.txt"));
-                        for (int i = 0; i < text.Length; i++) {
-                            text[i] = BLL.Process.CommonUtils.PersianDigit(text[i]);
-                            text[i] = System.Text.RegularExpressions.Regex.Replace(text[i], "^([^\t]*)$",
-                                (i == 0 ? "" : "</ul>") + "<ul style='margin-top:40px'><h3> نسخه $1</h3>");
-                            text[i] = System.Text.RegularExpressions.Regex.Replace(text[i],
-                                "^\t+-\\s*([۰۱۲۳۴۵۶۷۸۹0123456789/]*)\\s*(.*)$", "</li><li > <div>$2<div>");
-                            <text>@Html.Raw(text[i])</text>
+        </div>
+
+        <div class="site-panel tw-col-span-7 tw-bg-[#2c5abc] tw-bg-cover tw-center tw-p-10 tw-flex tw-flex-col tw-text-white tw-h-full">
+
+            <div class="tw-grow tw-flex tw-items-center tw-p-36">
+                @*<p>@(ViewBag.msg["info"])</p>*@
+            </div>
+
+            <div>
+
+                <div style="margin-top:30px;">
+                    <a class="tw-justify-end tw-flex tw-items-center tw-text-white hover:tw-text-white" href="https://www.sadafdashboard.ir" target="_blank">
+                        @if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["showCopyRightLogo"] ?? "true")) {
+                            <img class="logo" style="width:50px; margin-left:10px; margin-right:0;" src="~/Images/icon-inverse-copyright.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
                         }
-                    }
-                </ul>
+
+                        <span>@Html.Raw(ViewBag.msg["copy right"])</span>
+                    </a>
+                </div>
 
             </div>
 
-            <div class="actions">
-                <div class="ui button deny black">تأیید</div>
-            </div>
+
+
 
         </div>
-        <div id="login-help" class="ui modal">
-            <i class="close icon"></i>
-
-            <div class="header">
-                <div class="">راهنمای ورود</div>
-            </div>
-
-            <div class="content scrolling" style="line-height:1.9">
-                <b>ورود عادی: </b>
-                برای ورود به برنامه نیاز به نام کاربری و کلمه عبور است.
-                ایجاد نام کاربری توسط مدیر سامانه انجام می‌شود. پس از دریافت اطلاعات ورود از مدیر، پس از وارد کردن
-                نام کاربری و کلمه عبور در قسمت‌های مربوطه. کلید ورود را فشار دهید.
-
-                <br />
-                <br />
-                <b>ورود دو عاملی: </b>
-                در صورتی که دسترسی شما به صورت دو عاملی تعیین شده باشد، با انتخاب شیوه ورود به صورت دو عاملی با پست الکترنیک را انتخاب کنید. با وارد کردن اطلاعات ورود در سامانه
-                یک کد ورود به ایمیل شما ارسال می‌شود. ۲۰ دقیقه فرصت دارید تا با وارد کردن این کد وارد برنامه شوید.
-
-            </div>
-
-            <div class="actions">
-                <div class="ui button deny black">تأیید</div>
-            </div>
-
-        </div>
-
     </div>
 
+
+
+
+    <script src="~/react-dist/app-bundle.js?v=@v"></script>
 
 </body>
 

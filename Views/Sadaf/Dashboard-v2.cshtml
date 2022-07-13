@@ -1,0 +1,305 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html style="background-color:#eceff1!important;">
+<head>
+    <meta charset="utf-8" />
+    <base href="@Href("~")">
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    @{
+        var isRelease = bool.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+        var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+        var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+        if (!isRelease) {
+            v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+        }
+
+    }
+
+    @*<link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />*@
+    <link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />
+
+
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+            display: none !important;
+        }
+
+        .clusterize-extra-row {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+            .clusterize-extra-row.clusterize-keep-parity {
+                display: none;
+            }
+
+        .clusterize-content {
+            outline: 0;
+        }
+
+        .clusterize-no-data td {
+            text-align: center;
+        }
+    </style>
+
+    <meta name="fontiran.com:license" content="X4ZQZ">
+
+    @if (ViewBag.theme != null) {
+        var theme = (BLL.Process.ThemeModel)ViewBag.theme;
+        <style>
+            @Html.Raw(theme.extraCss)
+
+            .my-fix::-webkit-scrollbar {
+                background-color: darkgrey;
+            }
+
+            .side-menu-item-container.active {
+                /*رنگ گروه منوی فعال*/
+                background-color: @theme.menuActiveGroupBackColor;
+            }
+
+
+            .ui.inverted.segment, .ui.primary.inverted.segment {
+                /*رنگ پشت منوی سمت راست*/
+                background-color: @theme.menuBackColor;
+                /*رنگ متن منوی سمت راست
+                color: @theme.menuColor;
+            */
+            }
+
+            .side-menu-item.active {
+                /*رنگ خط سمت راست منوی فعال*/
+                border-right: 5px solid @theme.menuActiveBorderColor;
+                /*color: #ff5722;
+                font-weight: bold;
+            */
+            }
+
+            .side-menu-item {
+                color: @theme.menuColor;
+            }
+
+                .side-menu-item:hover {
+                    /*رنگ منو در حالتی موس روی آن است*/
+                    background-color: @theme.menuHoverColor;
+                }
+
+            .sadaf-footer a {
+                /*رنگ لینک پایین */
+                color: @theme.menuColor;
+            }
+
+            body.theme2 {
+    background-color: @theme.dashboardBackColor !important;
+}
+        </style>
+    }
+
+</head>
+<body ng-app="sadaf" ng-cloak ng-controller="dashboardPageCtrl" class="theme2" style="overflow-y: hidden;height: initial;">
+    <input type="hidden" value="@ViewBag.lang" id="lang" />
+    <input type="hidden" id="isFullscreen" value="true" />
+    <input type="hidden" id="dashboardPublishMenuId" value="@ViewBag.MenuId" />
+    <input type="hidden" id="appId" value="@ViewBag.appId" />
+    <input type="hidden" id="isShared" value="1" />
+
+
+
+    <div class="main-container full-height-container" xstyle="height:initial;max-height:initial;overflow-y:initial;">
+
+        <div class="" style="display:flex;flex-direction:row;padding:10px 0 0 10px;flex-wrap: wrap-reverse;justify-content: flex-end;">
+
+            <div ng-show="menuCategories.licenceRemain.remain <= 3" class="ui label red">
+                تعداد روز باقیمانده از جواز استفاده:
+                <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
+            </div>
+
+            <div class="" id="filter-box" ng-app="filterBox" style="transition:width 0.4s ease; flex:1 1 auto;">
+                <div ng-controller="filterBoxController" id="filter-box-controller">
+
+                    <div ng-if="otherFilters.length + userControlFilter.length >1"
+                         class="ui label"
+                         title="{{'clear'| translate}}">
+                        <a ng-click="clearAll()" class="pointer"><b>{{'clear all'| translate}}</b></a>
+                    </div>
+
+
+                    <div ng-repeat="j in otherFilters | filter:{value:''}"
+                         class="ui label"
+                         title="{{j.valueCaption}}">
+                        <b>{{j.keyCaption}}: </b>{{getCleanValue(j.valueCaption)}}
+                        <i class="delete icon" ng-click="removeDrillDown($index)"></i>
+                    </div>
+
+
+
+                    <div ng-repeat="i in userControlFilter "
+                         ng-if="i.values && i.values.length"
+                         class="ui label"
+                         title="{{i.values.join(', ')}}">
+                        <b>{{i.key}}: </b>{{i.xCaption}} <span ng-bind-html="i.Caption"></span>
+                        <i class="delete icon" ng-hide="i.disableClear" ng-click="removeUserControl($index)"></i>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <ng-view></ng-view>
+
+    </div>
+
+    <div id="form-holder">
+        <sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="formSettings"></sadaf-form>
+    </div>
+
+    <div class="ui modal small" id="filter-member-dialog">
+        <i class="close icon"></i>
+        <div class="header">
+            فیلتر کردن مقادیر
+        </div>
+        <div class="content">
+            <div id="filter-member-dialog-content">
+                <div class="ui active inverted dimmer">
+                    <div class="ui text loader">در حال بارگذاری</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="actions">
+            <div class="ui button deny black">{{'انصراف' | translate}}</div>
+            <div class="ui button green" onclick="app.helper.filterMemberDialogOk()">انتخاب</div>
+        </div>
+    </div>
+
+    <div class="ui modal small" id="change-pass">
+        <div class="header">
+            پیام
+        </div>
+        <div class="content">
+            به دلایل امنیتی لازم است کلمه عبور شما تغییر پیدا کند. لطفا به صفحه تغییر کلمه عبور بروید.
+
+        </div>
+        <div class="actions">
+            <a class="ui button green" href="~/Profile/#/changepass">تغییر کلمه عبور</a>
+        </div>
+    </div>
+
+    <div class="ui modal small" id="input-comments">
+        <i class="close icon"></i>
+        <div class="header">
+            کامنت
+        </div>
+        <div class="content">
+            <div class="ui form">
+                <div class="field">
+                    <label>کامنت</label>
+                    <input ng-model="comment.value" type="text" class="" placeholder="">
+                </div>
+            </div>
+            <div class="alert alert-danger" ng-show="comment.error">
+                <div ng-show="comment.error.title">
+                    <b>{{comment.error.title}}</b>
+                    <p>{{comment.error.desc}}</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="actions">
+            <div class="ui button deny black">{{'انصراف' | translate}}</div>
+            <div class="ui button green" ng-class="{disabled: modal.inProgress, loading : modal.inProgress}" ng-click="comment.ok()">{{modal.btnText}}</div>
+        </div>
+    </div>
+
+    <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
+    <input type="hidden" value="@Request.Url.AbsoluteUri" name="aboluteUrl" />
+    <input type="hidden" value="@v" name="version" />
+    <input type="hidden" value="@ViewBag.isRtl" name="isRtl" />
+    <input type="hidden" value="@(Url.Action("management", "sadaf") + "/")" name="hashUrlPrefix" />
+    <input type="hidden" value="@(Html.Raw(ViewBag.license ?? "{}").ToString().Replace("\"","\\\""))" name="license" />
+    <input type="hidden" value="@((ViewBag.englishDigit ?? false ).ToString().ToLower())" name="useEnglishDigit" />
+    <input type="hidden" value="true" name="shareMode" />
+    <script src="~/react-dist/app-bundle.js?v=@v"></script>
+
+    @if (ViewBag.cdn.enable) {
+        for (int i = 0; i < ViewBag.cdn.items.Count; i++) {
+            if (ViewBag.cdn.items[i].type == 1) {
+                <script src="@ViewBag.cdn.items[i].link"></script>
+            }
+            if (ViewBag.cdn.items[i].type == 0) {
+                <link href="@ViewBag.cdn.items[i].link" rel="stylesheet" />
+            }
+        }
+    }
+
+
+    <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
+    <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
+
+    <script>
+        //dashboard.mode = 'auto';
+
+        var userVariable = @Html.Raw(Json.Encode(ViewBag.userVariable));
+        if(_.isArray(userVariable)){
+            localStorage.setItem('userVariable',JSON.stringify( userVariable));
+        }
+
+
+        var app = app || {};
+        app.useEnglishDigit = JSON.parse("@((ViewBag.englishDigit ?? false ).ToString().ToLower())");
+        app.shareMode = true;
+        // app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        // app.aboluteUrl = "@Request.Url.AbsoluteUri";
+        // app.version = "@v";
+        // app.setUrlPrefix("@Url.Action("Index", "Charts", new { area = "Moderation" })");
+        // app.setAboluteUrl("@Request.Url.AbsoluteUri");
+        // app.userId = user.Id;
+
+
+
+
+        var hash = "@ViewBag.returnUrlHash";
+        if (hash) {
+            location.hash = hash;
+        }
+
+        //TODO add to core
+        $.ajaxSetup({
+            beforeSend: function (xhr) {
+                var key = _.last(window.location.pathname.split('/'));
+                xhr.setRequestHeader("key", key);
+            }
+        });
+
+    </script>
+
+    <script>
+
+    </script>
+
+    @*Clickjacking Defense*@
+    @*<style id="antiClickjack">
+            body {
+                display: none !important;
+            }
+        </style>
+
+        <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        </script>*@
+</body>
+
+</html>
