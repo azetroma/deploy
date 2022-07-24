@@ -1,0 +1,411 @@
+﻿    @if (!(ViewBag.noframe ?? false)) {
+<div class="side-menu ui segment my-fix inverted no-padd no-margin ">
+
+    <div class="" style="text-align:center; padding:16px 16px;">
+
+        @if (ViewBag.theme != null && ViewBag.theme.logoId > 0) {
+        <img src="~/api/upload/getPic/@ViewBag.theme.logoId " class="tw-inline-block" style="max-width:100%; max-height:128px;" alt="Alternate Text" />
+        } else {
+        <img src="~/api/settings/getLogo/1" class="tw-inline-block" style="max-width:100%; max-height:128px;" alt="Alternate Text" />
+        }
+    </div>
+
+    <div class="my-fix-flex-container" ui-sortable="sortableCatOptions" xng-model="menuCategories.data">
+        <div class="side-menu-item-container menu-category" ng-repeat="mc in menuCategories.data" ng-class="{active: mc.active}" on-finish-render="ngRepeatFinished" data-id="{{mc.category.Id}}">
+
+            <div class="side-menu-item side-menu-item-parent" ng-click="closeAll(mc, true);">
+                <i class="icon angle down icon-animate large float-left" ng-class="{rotate: mc.open}"></i>  {{mc.category.Name}}
+                <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="mc.hasAddPer || mc.hasEditPer || mc.hasDeletePer" style="line-height:1.5em">
+                    <i class="setting icon"></i>
+                    <div class="menu transition hidden" tabindex="-1">
+                        <div class="item" ng-show="mc.hasAddPer" ng-click="addMenuToCategory(mc);$event.stopPropagation();"><i class="add circle icon"></i>{{'اضافه کردن صفحه جدید' | translate}}</div>
+                        <div class="item" ng-show="mc.hasEditPer" ng-click="editCategory(mc);$event.stopPropagation();"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
+                        <div class="item" ng-show="mc.hasDeletePer" ng-click="deleteCategory(mc, $index);$event.stopPropagation();"><i class="trash alternate outline icon"></i>{{'حذف' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="connected-sortable" uib-collapse="!mc.open" xng-model="mc.menus" ui-sortable="sortableOptions" ng-style="{ 'min-height': !mc.menus.length ? '10px' : 'auto' }">
+                <div class="side-menu-item side-menu-item-child dashboard-menu" ng-repeat="m in mc.menus" href="#dashboard/{{m.menu.Id}}" data-id="{{m.menu.Id}}" on-finish-render="ngRepeatFinished" ng-class="{active: m.active}" ng-click="$event.stopPropagation();">
+
+                    <a href="#/app/{{mc.category.MainMenuId}}/dashboard/{{m.menu.Id}}" ng-click="closeSidebar(); cancelRequests();">
+                        <div class="ui mini dropdown icon circular left floated " ng-click="$event.stopPropagation();" ng-if="m.hasEditPer || m.hasDeletePer" style="line-height: 1.5em;">
+                            <i class="setting icon"></i>
+                            <div class="menu transition hidden" tabindex="-1">
+                                <div class="item" ng-show="m.hasEditPer" ng-click="editMenu(m)"><i class="edit icon"></i>{{'تغییر نام' | translate}}</div>
+                                <div class="item" ng-show="m.hasDeletePer" ng-click="deleteMenu(m, mc, $index)"><i class="trash alternate outline icon"></i>{{'حذف' | translate}}</div>
+                                <div class="item" ng-show="m.hasEditPer" ng-click="duplicateMenu(m, mc);"><i class="copy icon"></i>{{'تکرار' | translate}}</div>
+                            </div>
+                        </div>
+                        {{m.menu.Name}}
+                    </a>
+                </div>
+
+                <div ng-hide="mc.menus.length"> <div style="padding:10px 30px; color:gray; font-size:8px;">{{'no dashboard' | translate}}</div></div>
+            </div>
+        </div>
+
+
+        <div class="reorder-menus-container" style="padding:20px 7px; font-size:11px; cursor:pointer" ng-show="menuCategories.hasAddPer">
+            <i class="icon sort icon-animate reorder-menus"
+               ng-click="toggleEdit()"
+               ng-show="reorderPermission"
+               style=""></i>
+            <div class="btn btn-link" ng-click="addCat()">
+                <i class="icon add circle"></i>
+                {{'add new group' | translate}}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="sadaf-footer">
+        @{
+        try {
+        <text>
+            <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?" http: //www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
+            - {{'version' | translate}} @(version.Major + "." + version.Minor + "." + version.Build)
+        </text>
+        } catch (Exception) {
+
+        }
+        }
+    </div>
+</div>
+    }
+
+
+
+<div class="pusher" id="">
+
+    <div class="main-container full-height-container" @(!(ViewBag.noframe ?? false) ? "" : "style=margin-left:0;margin-right:0;" )>
+
+        <div class="dashboard-page-top-side" style="display:block;">
+            <style>
+                .top-menu.list .item, .top-menu.list a.item i.icon {
+                    color: #424242;
+                }
+
+                .sadaf-circular-preogress svg {
+                    display: block;
+                }
+
+                #laptop, #tablet, #smartphone, #smartphone-land {
+                    color: gray;
+                    cursor: pointer;
+                }
+
+                    #laptop.active, #tablet.active, #smartphone.active, #smartphone-land.active {
+                        color: black;
+                    }
+            </style>
+            <div class="ui horizontal list top-menu" style="white-space: nowrap; float:left;">
+
+                <div class="item sadaf-circular-preogress " style="position: relative;width: 20px;height: 18px;"></div>
+
+                <div class="item dashboard-edit-panel" id="device-selector" style="display:none">
+                    <div class="ui horizontal list">
+
+                        <div class="item"><i id="laptop" class="icon laptop "></i></div>
+                        <div class="item"><i id="tablet" class="icon alternate tablet "></i></div>
+                        <div class="item"><i id="smartphone" class="icon alternate mobile " style="transform: rotate(-90deg); transform-origin: 55% 65%;"></i></div>
+                        <div class="item"><i id="smartphone-land" class="icon alternate mobile "></i></div>
+                    </div>
+                </div>
+
+                <div class="item  xdashboard-edit-panel" style="display:xnone" title="{{'print' | translate}}" ng-click="print()">
+                    <i class="icons large pointer">
+                        <i class="print  icon"></i>
+                    </i>
+                </div>
+
+                <div class="item dashboard-edit-panel" style="display:none" title="{{'export' | translate}}" ng-click="export()">
+                    <i class="icons large pointer">
+                        <i class="icon arrow alternate circle up outline border-transparent"></i>
+                    </i>
+                </div>
+
+
+                <div class="item dashboard-edit-panel" style="display:none" title="{{'add chart' | translate}}" ng-click="addChart()">
+                    <i class="icons large pointer xadd-chart-btn">
+                        <i class="chart area icon"></i>
+                        <i class="corner add icon"></i>
+                    </i>
+                </div>
+
+                <div class="item dashboard-edit-panel" style="display:none" title="{{'add form' | translate}}" ng-click="addFormSettings.visible = true">
+                    <i class="icons large pointer" ng-click="addFormSettings.visible = true">
+                        <i class="clipboard outline icon"></i>
+                        <i class="corner add icon"></i>
+                    </i>
+                    <select-form on-select="onFormSelect(forms)" settings="addFormSettings"></select-form>
+                </div>
+
+                <div class="item dashboard-edit-panel" style="display:none" title="{{'share dashboard' | translate}}" ng-click="publishDashboard.show()">
+                    <i class="large share alternate icon pointer"></i>
+                </div>
+                @if (useApp) {
+                <a class="item" ng-show="@(ViewBag.isLoginByLink ??false)" ng-click="dashboardOptions.toggleFav()">
+                    <i class="large icon heart " ng-class="{outline: !dashboardOptions.isFav , red: dashboardOptions.isFav}"></i>
+                </a>
+                }
+
+                <div class="item" ng-if="@(ViewBag.isLoginByLink ??false ? " false " : " true ")">
+                    <i class="large icon pointer full-screen-toggle" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="تمام صفحه"></i>
+                </div>
+                <div class="item" ng-if="@(ViewBag.hasSupport ?? false ? " true" : "false" )">
+                    <a target="_blank" href="@ViewBag.supportLink" style="color: #424242">
+                        <i class="large icon pointer headphones" ng-class="{expand : !isFullscreen, compress: isFullscreen }" ng-click="fullscreenToggle()" title="@ViewBag.supportTitle"></i>
+                    </a>
+                </div>
+
+                <div class="item" ng-if="@(ViewBag.isLoginByLink ??false ? " false " : " true ") && isFullscreen">
+                    <i class="large icon pointer play-toggle" ng-show="isFullscreen" ng-class="{play : !slidePlay, pause: slidePlay}" ng-click="slidePlayToggle()" title="اسلاید شو"></i>
+                </div>
+                <notification class="item" ng-show="notifyOption.show" ng-model="notifyOption"></notification>
+
+                @if (useApp) {
+                <a class="item" ng-show="@(ViewBag.isLoginByLink ??false)" href="@Url.Action(" main","sadaf") /">
+                    <i class="large icon home"></i>
+                </a>
+                }
+
+                <div class="item ui dropdown username" ng-show="@(ViewBag.xisLoginByLink ?? false)">
+                    <div style="white-space:nowrap">
+                        <span class="user-account-hide-segment">
+                            @{
+                            var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
+                            <text> @user.FirstName @user.LastName</text>
+                            }
+                        </span>
+                        <i class="icon user outline large "></i>
+                    </div>
+                    <div class="menu transition hidden" tabindex="-1">
+                        <a ng-if="menuCategories.hasAminPermission" class="item user-account-hide-segment" href="~/sadaf/management/"><i class="icon setting"></i> {{'mainmenu_management' | translate}} </a>
+                        <a class="item user-account-hide-segment" href="~/profile/"><i class="icon user"></i> {{'profile' | translate}} </a>
+                        <a class="item" href="~/account/logoff"><i class="icon sign out"></i>{{'signout' | translate}}</a>
+                    </div>
+                </div>
+                <div class="item" ng-show="@(ViewBag.isLoginByLink ??false)">
+                    <i class="large icon sidebar link toc-toggle"></i>
+                </div>
+
+            </div>
+
+
+            <div ng-show="(isFullscreen && dashboardOptions.showTitleFullscreen) || dashboardOptions.showTitle" class="page-title"
+                 style="display:inline-block;white-space:nowrap; margin-bottom:8px;">
+                {{name}}
+            </div>
+
+            <div ng-show="menuCategories.licenceRemain.remain <= 3" style="margin: 0 8px;display:inline-block;">
+                <div class="ui label red">
+                    {{'licence remaining' | translate}}:
+                    <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
+                </div>
+            </div>
+
+            <div class="" id="filter-box" ng-app="filterBox" style="transition:width 0.4s ease; flex:1 1 auto;text-align:right;display:inline-block;xmargin-bottom:25px;">
+                <div ng-controller="filterBoxController" id="filter-box-controller" xdata-spy="affix" xdata-offset-top="100" xstyle="position:fixed; z-index:2; width: calc( 100% - 550px)">
+
+                    <div ng-if="otherFilters.length + userControlFilter.length >1"
+                         class="ui label"
+                         title="{{'clear'| translate}}">
+                        <a ng-click="clearAll()" class="pointer"><b>{{'clear all'| translate}}</b></a>
+                    </div>
+
+                    <div ng-repeat="j in otherFilters | filter:{value:''}"
+                         class="ui label"
+                         title="{{j.valueCaption}}">
+                        <b>{{j.keyCaption}}: </b>{{getCleanValue(j.valueCaption)}}
+                        <i class="delete icon" ng-click="removeDrillDown($index)"></i>
+                    </div>
+
+                    <div ng-repeat="i in userControlFilter "
+                         ng-if="i.values && i.values.length"
+                         class="ui label"
+                         title="{{i.values.join(', ')}}">
+                        <b>{{i.label}}: </b>{{i.xCaption}} <span ng-bind-html="i.Caption"></span>
+                        <i class="delete icon" ng-hide="i.disableClear" ng-click="removeUserControl($index)"></i>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <style>
+            .dashboard-page-top-side .buttons .ui.button, .dashboard-page-top-side .ui.button, .dashboard-page-top-side .ui.buttons {
+                box-shadow: none !important;
+                border: none;
+                border-radius: 0;
+            }
+        </style>
+
+
+        <ng-view></ng-view>
+
+    </div>
+
+    <div id="form-holder">
+        <sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="formSettings"></sadaf-form>
+
+    </div>
+
+
+</div>
+
+
+<sm-modal visible="publishDashboard.showModal">
+    <div class="header">
+        {{ 'share modal title' | translate }}
+    </div>
+
+    <div class="content">
+        {{'share modal desc' | translate}}
+        <br />
+        <br />
+        <div ng-show="publishDashboard.publish">
+            <b style="font-weight: 800;">{{ 'link' | translate}}:</b> <a class="ui label ltr" href="{{app.urlPrefix + 'sadaf/dashboard/' + publishDashboard.url}}" target="_blank">{{app.urlPrefix + 'sadaf/dashboard/' + publishDashboard.url}}</a>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui button " ng-click="publishDashboard.publishing(!publishDashboard.publish)" ng-class="{loading: publishDashboard.publishProgress, green: !publishDashboard.publish, red: publishDashboard.publish }">
+            <i class="icon mini cloud"></i>{{ !publishDashboard.publish ? ('publish' | translate) : ('unpublish' | translate)}}
+        </div>
+
+        <div class="ui black deny button">
+            {{'cancel' | translate}}
+        </div>
+
+    </div>
+</sm-modal>
+
+<div class="ui modal small" id="edit-menus">
+    <i class="close icon"></i>
+    <div class="header">
+        {{'dashboard page edit' | translate}}
+    </div>
+    <div class="content">
+        <p ng-show="modal.body" ng-bind-html="modal.body"></p>
+
+        <div class="ui form">
+            <div class="field" ng-show="modal.label">
+                <label>{{modal.label}}</label>
+                <input ng-model="modal.val" type="text" class="" placeholder="">
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+
+        <div class="ui toggle checkbox" ng-show="modal.showPermanent">
+            <input type="checkbox" ng-model="modal.deletePermanent">
+            <label>حذف منو از سامانه</label>
+            <small>
+                در صورتی که این آپشن را انتخاب نکنید تنها ارتباط منو با گروه منو حذف خواهد شد و
+                این منو در گروه‌منوهای دیگر حذف نخواهد شد.
+            </small>
+        </div>
+
+        <div class="alert alert-danger" ng-show="modal.error">
+            <div ng-show="modal.error.title">
+                <b>{{modal.error.title}}</b>
+                <p>{{modal.error.desc}}</p>
+            </div>
+            <div ng-hide="modal.error.title" ng-bind-html="modal.error">
+            </div>
+        </div>
+
+    </div>
+    <div class="actions">
+        <div class="ui button black" ng-click="hideModal()">{{'انصراف' | translate}}</div>
+        <div class="ui button {{modal.btnClass}}" ng-class="{disabled: modal.inProgress, loading : modal.inProgress}" ng-click="modal.ok()">{{modal.btnText}}</div>
+    </div>
+</div>
+
+<div class="ui modal small" id="filter-member-dialog">
+    <i class="close icon"></i>
+    <div class="header">
+        {{'filter' | translate}}
+    </div>
+    <div class="content">
+        <div id="filter-member-dialog-content">
+            <div class="ui active inverted dimmer">
+                <div class="ui text loader">{{'در حال بارگذاری' | translate}}</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="actions">
+        <div class="ui button deny black">{{'انصراف' | translate}}</div>
+        <div class="ui button green" onclick="app.helper.filterMemberDialogOk()">انتخاب</div>
+    </div>
+</div>
+
+<div class="ui modal small" id="deleteChart">
+    <i class="close icon"></i>
+    <div class="header">
+        {{'delete' | translate}}
+    </div>
+    <div class="content">
+        <div class="ui header">
+            {{'delete chart msg' | translate}}
+        </div>
+        {{'delete chart msg desc' | translate}}
+        <br />
+        <br />
+        <br />
+
+
+        <div class="ui toggle checkbox">
+            <input type="checkbox" id="delete-from-dash" xchecked="checked">
+            <label>{{'delete from system' | translate}}</label>
+        </div>
+
+    </div>
+    <div class="actions">
+        <div class="ui button deny black">{{'انصراف' | translate}}</div>
+        <div class="ui button red action-btn" onclick="window.dashboard.deleteChart()">{{'حذف'|translate}}</div>
+    </div>
+</div>
+
+<div class="ui modal small" id="change-pass">
+    <div class="header">
+        {{'message' | translate}}
+    </div>
+    <div class="content">
+        {{'change password message' | translate}}
+
+    </div>
+    <div class="actions">
+        <a class="ui button green" href="~/Profile/#/changepass">{{'change password' | translate}}</a>
+    </div>
+</div>
+
+<div class="ui modal small" id="input-comments">
+    <i class="close icon"></i>
+    <div class="header">
+        {{'comment' | translate}}
+    </div>
+    <div class="content">
+        <div class="ui form">
+            <div class="field">
+                <label>{{'comment' | translate}}</label>
+                <input ng-model="comment.value" type="text" class="" placeholder="">
+            </div>
+        </div>
+        <div class="alert alert-danger" ng-show="comment.error">
+            <div ng-show="comment.error.title">
+                <b>{{comment.error.title}}</b>
+                <p>{{comment.error.desc}}</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="actions">
+        <div class="ui button deny black">{{'انصراف' | translate}}</div>
+        <div class="ui button green" ng-class="{disabled: modal.inProgress, loading : modal.inProgress}" ng-click="comment.ok()">{{modal.btnText}}</div>
+    </div>
+</div>

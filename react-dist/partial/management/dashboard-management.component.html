@@ -1,0 +1,87 @@
+﻿<div xng-app="management" xng-controller="menusCtrl" xng-cloak layout="row" flex layout-fill>
+
+    <md-sidenav ng-show="!noframe" class="md-sidenav-right site-sidenav"
+                md-component-id="r"
+                xmd-disable-backdrop
+                xmd-is-locked-open="$mdMedia('gt-md')"
+                md-is-locked-open="$mdMedia('gt-md') && lock"
+                md-whiteframe="1"
+                style="max-width:250px">
+
+        <a href="http://www.sadafdashboard.ir" target="_blank">
+            <img ng-src="{{app.urlPrefix}}api/settings/getLogo/0" alt="Sadaf" style="max-width:100%;max-height:128px; margin:15px auto; display:block" />
+        </a>
+
+        <md-content flex>
+            <md-list style="width:100%">
+
+                <div ng-repeat="mc in menuCategories.data">
+                    <md-list-item class="md-no-sticky pointer header" ng-click="mc.isOpen = !mc.isOpen; closeAll(mc);" ng-class="{active: mc.isOpen}">
+                        <div layout="row" flex layout-align="start center">
+                            <b> {{mc.category.Name}}</b>
+                            <span flex></span>
+                            <span class="material-icons icon-animate " ng-class="{rotate : mc.isOpen}">keyboard_arrow_down</span>
+                        </div>
+                    </md-list-item>
+                    <div uib-collapse="!mc.isOpen">
+                        <md-list-item class="menu" ng-click="closeNav()" href="{{app.hashUrlPrefix}}#{{m.menu.Link}}" ng-repeat="m in mc.menus" ng-class="{active: m.active}">
+                            <span class="material-icons left-margin-16">{{m.menu.icon}}</span>
+                            <p class="md-offset"> {{ m.menu.Name }} </p>
+                        </md-list-item>
+                    </div>
+                    <md-divider></md-divider>
+                </div>
+            </md-list>
+        </md-content>
+    </md-sidenav>
+
+    <div layout="column" flex>
+
+        <md-toolbar show="!noframe" style="max-height:50px">
+            <div class="md-toolbar-tools" style="color: white;">
+                <md-button class="md-icon-button" aria-label="Settings" xhide-gt-md>
+                    <span class="material-icons" ng-click="toggle()">menu</span>
+                </md-button>
+
+                <div layout="row">
+                    <span ng-repeat="i in toolbar.getTitles()" layout="row" layout-align="center center">
+                        <span class="material-icons" ng-hide="$index == 0">keyboard_arrow_left</span>
+                        <md-button style="min-width:0" ng-click="i.click()" aria-label="click">{{i.name}}</md-button>
+                    </span>
+                </div>
+
+                <div>
+                    <div ng-show="menuCategories.licenceRemain.remain <= 15" class="ui label red">
+                        تعداد روز باقیمانده از جواز استفاده:
+                        <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
+                    </div>
+                </div>
+
+                <span flex></span>
+                <md-button href="{{useApp? app.urlPrefix + 'sadaf/main/': app.urlPrefix + ''}}">
+                    {{'dashboard' | translate}}
+                </md-button>
+                <md-button href="/#/content/1">
+                    {{'help' | translate}}
+                </md-button>
+
+                <md-menu>
+                    <md-button class="md-icon-button" ng-click="$mdMenu.open($event)">
+                        <span class="material-icons">power_settings_new</span>
+                    </md-button>
+                    <md-menu-content width="3">
+
+                        <md-menu-item>
+                            <md-button href="profile/"><span>{{'profile' | translate }} </span></md-button>
+                        </md-menu-item>
+
+                        <md-menu-item>
+                            <md-button href="Account/LogOff"><span>{{'signout' | translate }}</span></md-button>
+                        </md-menu-item>
+                </md-menu>
+            </div>
+        </md-toolbar>
+        <ng-view flex layout="column"></ng-view>
+    </div>
+
+</div>

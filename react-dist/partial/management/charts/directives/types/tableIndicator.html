@@ -11,7 +11,8 @@
                 {{'add' | translate}}  <i class="icon plus"></i>
             </div>
         </div>
-
+       
+        <br/>
         <div class="form-row" layout="row" layout-align="start center" ng-if="config.legend">
             <div class="checkbox">
                 <label class="">
@@ -20,27 +21,19 @@
             </div>
             <span class="form-divider" ng-show="prop[config.name].indicatorLegendShow" flex></span>
             <text-editor on-change="change()" prop="prop[config.name].indicatorLegendFont" ng-show="prop[config.name].indicatorLegendShow"></text-editor>
-        </div>
-
-        <fieldset ng-repeat="item in prop[config.name].indicator">
-            <legend>
-                <span layout="row" layout-align="start center">
-                    <span>{{ 'indicator' | translate }} {{$index+1}} </span>
-
+        </div> 
+        
+        <div ng-repeat="item in prop[config.name].indicator"  class="tw-relative tw-mb-2">
+                <div class="tw-absolute tw-left-1 tw-top-1 tw-z-10">
                     <span class="ui compact mini icon basic pointer" ng-click="prop[config.name].indicator.splice($index, 1)" title="{{'remove' | translate}}">
-                        <i class="icon remove"></i>
+                        <i class="icon trash alternate outline "></i>
                     </span>
                     <span class="ui compact mini icon basic pointer" ng-click="copy( prop[config.name].indicator, $index)" title="{{'remove' | translate}}">
-                        <i class="icon copy"></i>
+                        <i class="icon copy alternate outline "></i>
                     </span>
-
-                </span>
-            </legend>
-            <div>
-
+                </div>
                 <sadaf-indicator config="config" ng-model="item" series="prop.series" ng-change="change()"></sadaf-indicator>
-            </div>
-        </fieldset>
+        </div>
 
     </menu-body>
 </menu-item>

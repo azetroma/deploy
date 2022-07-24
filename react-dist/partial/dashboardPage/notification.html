@@ -124,7 +124,7 @@
                             <li ng-repeat="m in n.Content.resultRows">
                                 {{persian(m.Name)}}
                                 <ul>
-                                    <li ng-repeat="l in m.Labels">{{persian(l)}}:  {{isNan(m.Data[$index])?m.Data[$index]: persian(d3.format(m.props[$index].formatString)(m.Data[$index]))}}</li>
+                                    <li ng-repeat="l in m.Labels">{{persian(l)}}:  {{isNan(m.Data[$index])?m.Data[$index]: persian(d3.format(m.props[$index].formatString || 'A')(m.Data[$index]))}}</li>
                                 </ul>
                             </li>
                         </ul>

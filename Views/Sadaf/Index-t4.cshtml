@@ -1,0 +1,203 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <base href="@Href("~")">
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    @{
+        var isRelease = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+        var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+        var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+        if (!isRelease) {
+            v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+        }
+        var useApp = BLL.Process.CommonUtils.AppSettings.useApp();
+        var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
+
+    }
+
+    @*<link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />*@
+    <link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />
+
+
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+            display: none !important;
+        }
+
+        .clusterize-extra-row {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+            .clusterize-extra-row.clusterize-keep-parity {
+                display: none;
+            }
+
+        .clusterize-content {
+            outline: 0;
+        }
+
+        .clusterize-no-data td {
+            text-align: center;
+        }
+    </style>
+
+    <meta name="fontiran.com:license" content="X4ZQZ">
+    <style>
+
+        body.theme2 {
+            /*background-color: #EFEBE9!important;*/
+        }
+    </style>
+
+    @if (ViewBag.theme != null) {
+        var theme = (BLL.Process.ThemeModel)ViewBag.theme;
+        <style>
+            @Html.Raw(theme.extraCss)
+
+            .my-fix::-webkit-scrollbar {
+                background-color: darkgrey;
+            }
+
+            .side-menu-item-container.active {
+                /*رنگ گروه منوی فعال*/
+                background-color: @theme.menuActiveGroupBackColor;
+            }
+
+
+            .ui.inverted.segment, .ui.primary.inverted.segment {
+                /*رنگ پشت منوی سمت راست*/
+                background-color: @theme.menuBackColor;
+                /*رنگ متن منوی سمت راست
+                color: @theme.menuColor;
+            */
+            }
+
+            .side-menu-item.active {
+                /*رنگ خط سمت راست منوی فعال*/
+                border-right: 5px solid @theme.menuActiveBorderColor;
+                /*color: #ff5722;
+                font-weight: bold;
+            */
+            }
+
+            .side-menu-item .icon-animate {
+                color: @theme.menuColor;
+            }
+
+                .side-menu-item:hover {
+                    /*رنگ منو در حالتی موس روی آن است*/
+                    background-color: @theme.menuHoverColor;
+                }
+
+            .sadaf-footer a {
+                /*رنگ لینک پایین */
+                color: @theme.menuColor;
+            }
+
+            body.theme2 {
+    background-color: @theme.dashboardBackColor !important;
+}
+        </style>
+    }
+
+</head>
+<body xng-app="sadaf" xng-cloak class="theme2">
+
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="upgradeModuleName" value="sadaf" />
+    <input type="hidden" id="isFullscreen" value="@ViewBag.UserProfile.IsFullScreen" />
+    <input type="hidden" id="defaultId" value="@ViewBag.defaultId" />
+    <input type="hidden" id="appId" value="@ViewBag.appId" />
+    <input type="hidden" name="noframe" value="@ViewBag.noframe" />
+    <input type="hidden" name="logoId" value="@(ViewBag.theme != null ? ViewBag.theme.logoId : 0)" />
+    <input type="hidden" name="version-text" value="@(version.Major + "." + version.Minor + "." + version.Build)" />
+    <input type="hidden" name="isLoginByLink" value="@ViewBag.isLoginByLink" />
+    <input type="hidden" name="useApp" value="@useApp" />
+    <input type="hidden" name="hasSupport" value="@ViewBag.hasSupport" />
+    <input type="hidden" name="supportTitle" value="@ViewBag.supportTitle" />
+    <input type="hidden" name="username" value="@user.FirstName @user.LastName" />
+    <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
+    <input type="hidden" value="@Request.Url.AbsoluteUri" name="aboluteUrl" />
+    <input type="hidden" value="@v" name="version" />
+    <input type="hidden" value="@ViewBag.isRtl" name="isRtl" />
+    <input type="hidden" value="@(Url.Action("management", "sadaf") + "/")" name="hashUrlPrefix" />
+    <input type="hidden" value="@(Html.Raw(ViewBag.license).ToString().Replace("\"","\\\""))" name="license" />
+    <input type="hidden" value="auto" name="mode" />
+    <input type="hidden" value="@ViewBag.lang" id="lang" />
+    <input type="hidden" value="@(ViewBag.dualBoot == null ? "" : ViewBag.dualBoot.ToString())" name="dualBoot" />
+
+    <dashboard-page></dashboard-page>
+
+
+    @if (ViewBag.cdn.enable) {
+        for (int i = 0; i < ViewBag.cdn.items.Count; i++) {
+            if (ViewBag.cdn.items[i].type == 1) {
+                <script src="@ViewBag.cdn.items[i].link"></script>
+            }
+            if (ViewBag.cdn.items[i].type == 0) {
+                <link href="@ViewBag.cdn.items[i].link" rel="stylesheet" />
+            }
+        }
+    }
+
+    <script src="~/react-dist/app-bundle.js?v=@v"></script>
+
+    <script>
+        //iframe communication
+        //window.addEventListener('message', function (e) {
+        //    if (!_.isString(e.data)) return;
+
+        //    try {
+        //        var message = JSON.parse(e.data);
+        //        var $el = $('[ng-controller=dashboardPageCtrl]');
+        //        var scope = angular.element($el).scope();
+        //        scope.iframeService.handleMessage(message);
+        //        scope.$apply();
+        //    } catch (e) {
+        //    }
+
+        //});
+
+    </script>
+
+    @*Clickjacking Defense*@
+    <style id="antiClickjack">
+        body {
+            display: none !important;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var isLoginByLink = "@ViewBag.isLoginByLink";
+
+        if (self === top || isLoginByLink ==="True") {
+            var antiClickjack = document.getElementById("antiClickjack");
+            antiClickjack.parentNode.removeChild(antiClickjack);
+        } else {
+            top.location = self.location;
+        }
+    </script>
+
+    <style>
+        .affix {
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            padding: 10px 0px;
+        }
+    </style>
+
+
+
+</body>
+
+</html>

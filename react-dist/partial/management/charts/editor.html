@@ -118,7 +118,7 @@
                                             <div class="pointer datasource-field" ng-hide="hide(i, 'check-name')" ng-repeat="i in u.Hierarchies"
                                                  index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
                                                 <span ng-click="addToChart(i)">
-                                                    <img src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon tw-inline-block" />
+                                                    <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon tw-inline-block" />
                                                     {{i.Name}}
                                                 </span>
                                                 <olap-add-column ng-if="i.Type==1" data="u" model="i" onchange="updateDatasources" style="display:inline-block; position:absolute; left:8px;"></olap-add-column>
@@ -288,7 +288,7 @@
                                              ng-hide="existIn(i, measures) || hide(i, 'measure', showMeasureName)"
                                              index="{{$index}}"
                                              data-name="{{i.UniqueName}}" type="measure" draggable-items>
-                                            <img src="{{app.urlPrefix}}Images/measure.png" class="chart-editor-data-hicon" />
+                                            <img ng-src="{{app.urlPrefix}}Images/measure.png" class="chart-editor-data-hicon" />
                                             {{i.Name}} 
                                         </div>
                                     </div>
@@ -316,7 +316,7 @@
                                                          ng-hide="existIn(i, measures) || hide(i, 'measure')"
                                                          index="{{$index}}"
                                                          data-name="{{i.UniqueName}}" type="kpi" draggable-items>
-                                                        <img src="{{app.urlPrefix}}Images/kpi.png" class="chart-editor-data-hicon" />
+                                                        <img ng-src="{{app.urlPrefix}}Images/kpi.png" class="chart-editor-data-hicon" />
                                                         {{i.Name}}
                                                     </div>
                                                 </collapse-body>
@@ -344,7 +344,7 @@
                                              ng-repeat="i in olapCubes[+selectedOlapCube].NamedSets" type="namedset"
                                              ng-hide="existIn(i, measures.concat(dimensions).concat(where)) || hide(i, 'check-name', i)"
                                              index="{{$index}}" dimindex="{{$index}}" hi="i" draggable-items>
-                                            <img src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                            <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
                                             {{i.Name}}
                                         </div>
                                     </collapse-body>
@@ -379,7 +379,7 @@
                                                      ng-hide="existIn(i, measures.concat(dimensions).concat(where)) || hide(i, 'check-name', v)"
                                                      group-name="{{k}}"
                                                      index="{{$index}}" dimindex="{{u.index}}" hi="i" draggable-items>
-                                                    <img src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                                    <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
                                                     {{i.Name}}
                                                 </div>
                                             </collapse-body>
@@ -391,7 +391,7 @@
                                              group-name=""
                                              ng-hide="existIn(i, measures.concat(dimensions).concat(where))|| hide(i, 'check-name')"
                                              index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
-                                            <img src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                            <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
                                             {{i.Name}}
                                         </div>
 
@@ -493,98 +493,8 @@
                 </style>
 
 
-                <md-menu ng-if="!newChartEnable">
-                    <md-button ng-click="$mdMenu.open($event)" style="font-size:10px">
-                        {{getChartName(expandedChartType) }}
-                    </md-button>
-                    <md-menu-content>
-                        <div>
+              
 
-                            <div layout="row" layout-wrap>
-                                <div flex="25" ng-class="{'active': expandedChartType == 1  }"  ng-click="$mdMenu.hide();changeChartType(1)"><div class="old-item-pad chart-type-item">{{'bar' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 2  }"  ng-click="$mdMenu.hide();changeChartType(2)"><div class="old-item-pad chart-type-item">{{'bar-stack' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 21 }" ng-click="$mdMenu.hide();changeChartType(21)"><div class="old-item-pad chart-type-item">{{'percent-stack-bar' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 3  }"  ng-click="$mdMenu.hide();changeChartType(3)"><div class="old-item-pad chart-type-item">{{'خطی' | translate}}  </div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 4  }"  ng-click="$mdMenu.hide();changeChartType(4)"><div class="old-item-pad chart-type-item">{{'stack-line' | translate}}  </div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 22 }" ng-click="$mdMenu.hide();changeChartType(22)"><div class="old-item-pad chart-type-item">{{'percent-stack-line' | translate}} </div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 5  }"  ng-click="$mdMenu.hide();changeChartType(5)"><div class="old-item-pad chart-type-item">{{'area' | translate}}  </div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 6  }"  ng-click="$mdMenu.hide();changeChartType(6)"><div class="old-item-pad chart-type-item">{{'stack area' | translate}}  </div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 23 }" ng-click="$mdMenu.hide();changeChartType(23)"><div class="old-item-pad chart-type-item">{{'percent-stack-area' | translate}} </div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 28 }" ng-click="$mdMenu.hide();changeChartType(28)"><div class="old-item-pad chart-type-item">{{'جعبه‌ای' | translate}} </div></div>
-                            </div>
-
-                            <md-divider></md-divider>
-
-                            <div layout="row" layout-wrap>
-                                <div flex="25" ng-class="{'active': expandedChartType == 7 }" ng-click="$mdMenu.hide();changeChartType(7)"><div class="old-item-pad chart-type-item">{{'pie' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 8 }" ng-click="$mdMenu.hide();changeChartType(8)"><div class="old-item-pad chart-type-item">{{'donut' | translate}}</div></div>
-                            </div>
-
-                            <md-divider></md-divider>
-
-                            <div layout="row" layout-wrap>
-                                <div flex="25" ng-class="{'active': expandedChartType == 9 }" ng-click="$mdMenu.hide();changeChartType(9)"><div class="old-item-pad chart-type-item">{{'arc gauge' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 24 }" ng-click="$mdMenu.hide();changeChartType(24)"><div class="old-item-pad chart-type-item">{{'multi part arc gauge' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 25 }" ng-click="$mdMenu.hide();changeChartType(25)"><div class="old-item-pad chart-type-item">{{'linear gauge' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 26 }" ng-click="$mdMenu.hide();changeChartType(26)"><div class="old-item-pad chart-type-item">{{'multi part linear gauge' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 27 }" ng-click="$mdMenu.hide();changeChartType(27)"><div class="old-item-pad chart-type-item">{{'number' | translate}}</div></div>
-                            </div>
-
-                            <md-divider></md-divider>
-
-                            <div layout="row" layout-wrap>
-                                <div flex="25" ng-class="{'active': expandedChartType == 10 }" ng-click="$mdMenu.hide();changeChartType(10)"><div class="old-item-pad chart-type-item">{{'نمودار رادار' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 11 }" ng-click="$mdMenu.hide();changeChartType(11)"><div class="old-item-pad chart-type-item">{{'نقشه' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 12 }" ng-click="$mdMenu.hide();changeChartType(12)"><div class="old-item-pad chart-type-item">{{'نمودار درختی' | translate}}</div></div>
-                            </div>
-
-                            <md-divider></md-divider>
-
-                            <div layout="row" layout-wrap>
-                                <div flex="25" ng-class="{'active': expandedChartType == 13 }" ng-click="$mdMenu.hide();changeChartType(13)"><div class="old-item-pad chart-type-item">{{'aggregated table' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 14 }" ng-click="$mdMenu.hide();changeChartType(14)"><div class="old-item-pad chart-type-item">{{'table' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 29 }" ng-click="$mdMenu.hide();changeChartType(29)"><div class="old-item-pad chart-type-item">جدول فرم - ورود اطلاعات</div></div>
-                            </div>
-
-                            <md-divider></md-divider>
-                             
-                            <div layout="row" layout-wrap>
-                                <div flex="25" ng-class="{'active': expandedChartType == 15 }" ng-click="$mdMenu.hide();changeChartType(15)"><div class="old-item-pad chart-type-item">{{'single select' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 16 }" ng-click="$mdMenu.hide();changeChartType(16)"><div class="old-item-pad chart-type-item">{{'multi select' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 17 }" ng-click="$mdMenu.hide();changeChartType(17)"><div class="old-item-pad chart-type-item">{{'تاریخ' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 18 }" ng-click="$mdMenu.hide();changeChartType(18)"><div class="old-item-pad chart-type-item">{{'محدوده تاریخ' | translate}} </div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 19 }" ng-click="$mdMenu.hide();changeChartType(19)"><div class="old-item-pad chart-type-item">{{'range number' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 20 }" ng-click="$mdMenu.hide();changeChartType(20)"><div class="old-item-pad chart-type-item">{{'search' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 30 }" ng-click="$mdMenu.hide();changeChartType(30)"><div class="old-item-pad chart-type-item">{{'تغییر شاخص' | translate}}</div></div>
-                                <div flex="25" ng-class="{'active': expandedChartType == 31 }" ng-click="$mdMenu.hide();changeChartType(31)"><div class="old-item-pad chart-type-item">{{'کلید فیلتر' | translate}}</div></div>
-                            </div>
-
-                            <md-divider></md-divider>
-
-                            <div layout="row" layout-wrap>
-                                <div flex="25" ng-repeat="x in newChartList">
-                                    <div ccc ng-class="{'active': expandedChartType == x.type }" ng-click="$mdMenu.hide();changeChartType(x.type)">
-                                        <div class="chart-type-item">
-                                            {{ x.name | translate}}
-                                            <div ng-if="x.iconLink"><img src="{{x.iconLink}}" /></div>{{x.iconLink}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <md-divider></md-divider>
-
-                            <div ng-repeat="(k, v) in customCharts2">
-                                <div style="padding:4px 8px; color: #9e9e9e;font-size: 0.8em;"> {{k == 'null'? 'بدون دسته‌بندی' : k}}</div>
-                                <div layout="row" layout-wrap>
-                                    <div ng-repeat="c in v" flex="25" ng-class="{'active': expandedChartType == c.id+1000 }" ng-click="$mdMenu.hide();changeChartType(c.id+1000, true)"><div class="chart-type-item old-item-pad">{{c.name}}</div></div>
-                                </div>
-                                <md-divider></md-divider>
-                            </div>
-
-                        </div>
-                    </md-menu-content>
-                </md-menu>
                 <div class="chart-selector ui small button" ng-if="newChartEnable"> {{getChartName(expandedChartType) }}</div>
                 <div class="ui flowing basic admission popup" ng-if="newChartEnable" style="padding:0;">
                     <div style="max-height:250px;overflow-y:auto">
@@ -593,7 +503,7 @@
                             <div ng-repeat="x in newChartList">
                                 <div ccc ng-class="{'active': expandedChartType == x.type }" ng-click="hidemenu(x.type);">
                                     <div class="chart-type-item" layout="row">
-                                        <img class="icon" src="{{x.iconLink || defaultIcon}}" title=" {{ x.name | translate}}" />
+                                        <img class="icon" ng-src="{{x.iconLink || defaultIcon}}" title=" {{ x.name | translate}}" />
                                     </div>
                                 </div>
                             </div> 
@@ -605,7 +515,7 @@
                             <div layout="row" layout-wrap>
                                 <div ng-repeat="c in i.items" ng-class="{'active': expandedChartType == c.type  }" ng-click="hidemenu(c.type)">
                                     <div class="chart-type-item">
-                                        <img class="icon" src="{{c.iconLink || defaultIcon}}" title=" {{ c.title | translate}}" />
+                                        <img class="icon" ng-src="{{c.iconLink || defaultIcon}}" title=" {{ c.title | translate}}" />
                                         <span class="title" ng-if="!c.iconLink"> {{c.title | translate}}</span>
                                     </div>
                                 </div>
@@ -672,7 +582,7 @@
                 <md-content flex id="divX" class="item-container" ui-sortable="sortableOptions" ng-model="dimensions">
                     <div flex layout="row" layout-align="start center" ng-click="gotoDimentionSettings(i, $index)" ng-repeat="i in dimensions track by $index" class="pointer datasource-item">
                         <span class="material-icons small small-size" ng-click="dimensions.splice($index,1);refreshChart();">close</span>
-                        <img src="{{app.urlPrefix}}Images/hierarchy1.png">
+                        <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png">
                         {{i.Name}}
                         <span flex></span>
                         <span class="material-icons small small-size " ng-click="filterMember(i)">filter_list</span>
@@ -698,12 +608,12 @@
 
                 <div flex layout="row" layout-align="start center" ng-repeat="i in olapData.measures track by $index" class="pointer datasource-item">
                     <span class="material-icons small small-size" ng-click="olapData.measures.splice($index,1)">close</span>
-                    <img src="{{app.urlPrefix}}Images/measure.png">
+                    <img ng-src="{{app.urlPrefix}}Images/measure.png">
                     {{i.Name}}
                 </div>
                 <div flex layout="row" layout-align="start center" ng-repeat="i in olapData.kpis track by $index" class="pointer datasource-item">
                     <span class="material-icons small small-size" ng-click="olapData.kpis.splice($index,1)">close</span>
-                    <img src="{{app.urlPrefix}}Images/kpi.png">
+                    <img ng-src="{{app.urlPrefix}}Images/kpi.png">
                     {{i.Name}}
                 </div>
             </div>
@@ -715,7 +625,7 @@
                 <md-content flex id="divProv" class="item-container" ui-sortable="sortableOptions" ng-model="where">
                     <div flex layout="row" layout-align="start center" ng-click="gotoWhereSettings(i, $index)" ng-repeat="i in where track by $index" class="pointer datasource-item">
                         <span class="material-icons small small-size" ng-click="where.splice($index,1);refreshChart();">close</span>
-                        <img src="{{app.urlPrefix}}Images/hierarchy1.png">
+                        <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png">
                         {{i.Name}}
                         <span flex></span>
                         <span class="material-icons small small-size" ng-click="filterMember(i)">filter_list</span>
