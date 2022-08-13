@@ -121,6 +121,8 @@
 
             <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
             <input type="hidden" name="ReturnUrlHash" value="" />
+            <input type="hidden" name="loginPics" value="@(ViewBag.loginPics == null ? "false": ViewBag.loginPics.ToString())" />
+            <input type="hidden" name="isPdn" value="@BLL.Process.CommonUtils.AppSettings.userVerification().ToString()" />
 
             <div class="tw-px-10">
                 <div class="tw-max-w-md  tw-m-auto">
@@ -157,7 +159,8 @@
                         @*<label class="" style="margin: 10px 0; display: block;">
                         <input type="checkbox" value="remember-me" name="rememberme">
                         @ViewBag.msg["remember"]
-                    </label>*@
+                        </label>*@
+
                         <br />
                         <br />
 
@@ -223,7 +226,7 @@
                         </div>
 
                         <div class="text-left">
-                            <a href="http://www.sadafdashboard.ir/files/sadaf@(BLL.Process.CommonUtils.AppSettings.userVerification() ?"-pdn":"").apk" class="ui xblack label">@ViewBag.msg["download android"]</a>
+                            <a href="http://www.sadafdashboard.ir/files/sadaf.apk" class="ui xblack label">@ViewBag.msg["download android"]</a>
                         </div>
 
                     </div>

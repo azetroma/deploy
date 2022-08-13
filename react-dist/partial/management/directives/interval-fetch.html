@@ -101,7 +101,7 @@
 
 
         <!--Requests-->
-        <div class="ui ui dimmable dimmed">
+        <div class="ui dimmable dimmed">
             <div class="ui modal interval-fetch-modal"  >
                 <div class="header">اضافه کردن افزار به صورت دستی</div>
                 <div class="content ui form">
@@ -123,6 +123,44 @@
                 </div>
                 <div class="actions">
                     <div class="ui green button" ng-click="addNew()" ng-class="{loading: addNewProgress}">اضافه کردن</div>
+                    <div class="ui black button deny">لغو</div>
+                </div>
+            </div>
+            <div class="ui modal interval-fetch-modal-auto"  >
+                <div class="header">اضافه کردن دسته‌ای</div>
+                <div class="content ui form">
+                    <p>
+                        برای وارد کردن یک افراز از داده‌ها به صورت دستی از این فرم استفاده کنید. دقت کنید که مقادیر وارد شده به عنوان شروع و پایان اشتراکی با
+                        دیگر افرازها نداشته باشد زیرا باعث می‌شود برخی از داده‌ها تکرار شوند.
+                    </p>
+                    <div class="fields">
+                        <div class="six wide field">
+                            <label><span class="ltr inline">@{from}</span></label>
+                            <input type="text" ng-model="addModel.from" placeholder="شروع" />
+                        </div>
+                        <div class="six wide field">
+                            <label><span class="ltr inline">@{to}</span></label>
+                            <input type="text" ng-model="addModel.to" placeholder="پایان" />
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="six wide field">
+                            <label><span class="ltr inline">اندازه هر افزار به دقیقه</span></label>
+                            <input type="text" ng-model="addModel.distance" placeholder="پایان" />
+                        </div>
+                        <div class="six wide field">
+                            <label><span class="ltr inline">اختلاف بین انتهای افزار با ابتدای افزار بعدی به دقیقه</span></label>
+                            <input type="text" ng-model="addModel.diff" placeholder="پایان" />
+                        </div>
+                    </div>
+                        <div class=" field">
+                            <label><span class="ltr inline">تعداد درخواست‌های همزمان</span></label>
+                            <input type="text" ng-model="addModel.connection" placeholder="پایان" />
+                        </div>
+
+                </div>
+                <div class="actions">
+                    <div class="ui green button" ng-click="addNewAuto()" ng-class="{loading: addNewProgress}">اضافه کردن</div>
                     <div class="ui black button deny">لغو</div>
                 </div>
             </div>
@@ -169,7 +207,8 @@
                         </table>
 
                         <div class="ui mini gray button right floated" ng-hide="noMore" ng-click="more()">دریافت اطلاعات بیشتر...</div>
-                        <div class="ui mini green button right floated" ng-click="addModal()">اضافه کردن</div>
+                        <div class="ui mini green button right floated" ng-click="addModal()">اضافه کردن تکی</div>
+                        <div class="ui mini basic button right floated" ng-click="addModalAuto()"> اضافه کردن دسته‌ای</div>
                         <div class="ui mini red button right floated" ng-class="{loading: deleteAllProgress}" ng-click="deleteAll()">حذف همه</div>
                     </collapse-body>
                 </collapse>

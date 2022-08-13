@@ -52,17 +52,17 @@
         </div>
 
         <div class="site-panel tw-relative tw-col-span-7 tw-bg-[#2c5abc] tw-bg-cover tw-center xtw-p-10 tw-flex tw-flex-col tw-text-white tw-h-full">
-            <div class="tw-absolute tw-w-full tw-h-full tw-bg-[#000] tw-opacity-30" ></div>
+            <div class="tw-absolute tw-w-full tw-h-full tw-bg-[#000] tw-opacity-30"></div>
             <div class="tw-grow tw-flex tw-items-center tw-p-36">
                 @*<p>@(ViewBag.msg["info"])</p>*@
             </div>
 
             <div class="tw-z-50 tw-mx-10 tw-my-5">
 
-                <div >
-                    <a class="tw-justify-end tw-flex tw-items-center tw-text-white hover:tw-text-white" href="https://www.sadafdashboard.ir" target="_blank">
+                <div>
+                    <a style="font-size:12px;" class="tw-justify-end tw-flex tw-items-center tw-text-white hover:tw-text-white" href="https://www.sadafdashboard.ir" target="_blank">
                         @if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["showCopyRightLogo"] ?? "true")) {
-                            <div class="copyright-logo logo tw-bg-cover" style="width:50px; height:50px; margin-left:10px; margin-right:0;" xsrc="~/Images/icon-inverse-copyright.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" ></div>
+                            <div class="copyright-logo logo tw-bg-cover" style="width:40px; height:40px; margin-left:10px; margin-right:0;" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت"></div>
                         }
 
                         <span>@Html.Raw(ViewBag.msg["copy right"])</span>
