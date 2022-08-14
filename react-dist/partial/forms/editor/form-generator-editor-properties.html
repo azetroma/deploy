@@ -185,9 +185,8 @@
 
 
         </div>
-
         <div class="field" ng-show="!c.control.active.dropdown.useRemoteData && !c.control.active.dropdown.useFormula">
-            <label>{{'selectable values' | translate}}</label>
+            <label>{{'selectable values' | translate}} </label>
             <textarea layout-fill
                       ng-model="c.control.active.dropdown.itemsTemp"
                       ng-change="c.control.createItems(c.control.active)"
