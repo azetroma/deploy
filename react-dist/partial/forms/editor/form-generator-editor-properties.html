@@ -174,17 +174,11 @@
 
         <div class="field" ng-if="c.control.active.dropdown.useFormula">
             <label>{{'فرمول' | translate}}</label>
-            <!--<textarea layout-fill class="ltr"
-              ng-model="c.control.active.dropdown.formula"
-              ng-change="c.control.createItems(c.control.active)"
-              placeholder="فرمول" rows="5"></textarea>-->
             <sm-dropdown items="c.activeSibling.rootControls"
                          class="selection search"
                          model="c.control.active.dropdown.formula" label="item.label + ' ' + item.name" value="item.name"></sm-dropdown>
-
-
-
         </div>
+
         <div class="field" ng-show="!c.control.active.dropdown.useRemoteData && !c.control.active.dropdown.useFormula">
             <label>{{'selectable values' | translate}} </label>
             <textarea layout-fill
