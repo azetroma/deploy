@@ -121,7 +121,6 @@
 
             <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
             <input type="hidden" name="ReturnUrlHash" value="" />
-            <input type="hidden" name="loginPics" value="@(ViewBag.loginPics == null ? "false": ViewBag.loginPics.ToString())" />
             <input type="hidden" name="isPdn" value="@BLL.Process.CommonUtils.AppSettings.userVerification().ToString()" />
 
             <div class="tw-px-10">

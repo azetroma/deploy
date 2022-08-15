@@ -41,6 +41,7 @@
     <input type="hidden" value="@(ViewBag.needCaptcha == null ? "false" : ViewBag.needCaptcha.ToString())" name="needCaptcha" />
     <input type="hidden" value="@System.Configuration.ConfigurationManager.AppSettings["captcha"]" name="captcha" />
     <input type="hidden" value="@(ViewBag.captcha == null ? "" :ViewBag.captcha)" name="captcha-val" />
+    <input type="hidden" name="loginPics" value="@(ViewBag.loginPics == null ? "false": ViewBag.loginPics.ToString())" />
 
     <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-12 tw-h-full tw-items-center tw-bg-white">
         <div class="tw-col-span-5">
