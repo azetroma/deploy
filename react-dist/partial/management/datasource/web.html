@@ -177,7 +177,7 @@
                                     <div class="three fields">
                                         <div class="field">
                                             <label>روش اجرای حلقه</label>
-                                            <sm-dropdown items="[{key:'paging', value:'صفحه‌بندی'},{key:'numbers', value:'محدوده عدد'},{key:'array', value:'آرایه دلخواه'}]" class="selection fluid"
+                                            <sm-dropdown items="[{key:'paging', value:'صفحه‌بندی'},{key:'numbers', value:'محدوده عدد'},{key:'array', value:'آرایه دلخواه'},{key:'datasource', value:'لیست از منبع داده'}]" class="selection fluid"
                                                          model="model.paging.type" label="item.value" value="item.key"></sm-dropdown>
                                         </div>
                                         <div class="field">
@@ -190,6 +190,23 @@
                                         </div>
                                     </div>
 
+                                    <div class="" ng-show="model.paging.type == 'datasource'">
+
+                                        <div class="two fields">
+
+                                            <div class="field">
+                                                <label>منبع داده</label>
+                                                <sm-dropdown items="datasourceList" class="fluid selection search"
+                                                             model="model.paging.datasource" label="item.Name" value="item.Id"></sm-dropdown>
+                                            </div>
+                                            <div class="field">
+                                                <label>نام ستون منبع داده</label>
+                                                <!--<input class="ltr" ng-model="model.paging.datasourceColumn">-->
+                                                <sm-dropdown items="datasourceColumns" class="fluid selection search"
+                                                             model="model.paging.datasourceColumn" label="item" value="item"></sm-dropdown>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
                                     <div class="three fields" ng-show="model.paging.type == 'paging'">
