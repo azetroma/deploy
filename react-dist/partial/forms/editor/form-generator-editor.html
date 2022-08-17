@@ -127,9 +127,9 @@
         <div flex="25" layout="column">
 
             <div class="ui left tiny secondary pointing menu">
-                <div class="item header">
+                <div class="item header"> 
                     {{'تنظیمات' | translate}}
-                </div>
+                </div> 
 
                 <div class="item">
                     <!--<span ng-show="!c.control.active.name">{{c.pages.activePage.name}}</span>
@@ -139,7 +139,7 @@
             </div>
             <md-content layout="column" flex class="form-generator-side-column form-property-section">
 
-                <ng-include src="c.app.urlPrefix + 'dist/partial/forms/editor/form-generator-editor-properties.html'"></ng-include>
+                <ng-include src="c.app.templatePrefix + '/partial/forms/editor/form-generator-editor-properties.html'"></ng-include>
             </md-content>
         </div>
 
@@ -203,7 +203,7 @@
                     {{'toolbox' | translate}}
                 </div>
             </div>
-            <ng-include flex src="c.app.urlPrefix + 'dist/partial/forms/editor/form-generator-editor-component.html'"></ng-include>
+            <ng-include flex src="c.app.templatePrefix + '/partial/forms/editor/form-generator-editor-component.html'"></ng-include>
         </div>
     </div>
 
