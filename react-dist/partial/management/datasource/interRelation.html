@@ -128,7 +128,7 @@
                     <!--items="(parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Fields | filterColumns:parent.modalRelationObject.conditions:false:$index" label="item" value="item"-->
                     <div class="four wide column field" ng-hide="item.right.isText">
                         <sm-dropdown class="selection search scrolling" settings="{fullTextSearch: true}"
-                                     items="(parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Fields" label="item" value="item"
+                                     items="(parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Fields " label="item" value="item"
                                      model="item.right.column"></sm-dropdown>
                     </div>
                     <div class="four wide column field" ng-show="item.right.isText">
@@ -179,7 +179,7 @@
                             <b>{{(parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Name}}  </b>
                         </p>
                         <div class="ltr">
-                            <span ng-repeat="i in (parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Fields"
+                            <span ng-repeat="i in (parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Fields track by $index"
                                   ng-click="parent.addFormula(i,parent.modalRelationObject.left)"
                                   class="btn btn-sm btn-default pointer sadaf-label">[id{{parent.modalRelationObject.left}}].[{{i}}]</span>
                         </div>
@@ -190,7 +190,7 @@
                             <b>{{(parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Name}}</b>
                         </p>
                         <div class="ltr">
-                            <span ng-repeat="i in (parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Fields"
+                            <span ng-repeat="i in (parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Fields track by $index"
                                   ng-click="parent.addFormula(i, parent.modalRelationObject.right)"
                                   class="btn btn-sm btn-default pointer sadaf-label">[id{{parent.modalRelationObject.right}}].[{{i}}]</span>
                         </div>

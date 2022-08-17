@@ -160,7 +160,7 @@
                                                         <th style="width:50%">{{ 'نام جایگزین' | translate}}</th>
                                                     </tr>
                                                 </thead>
-                                                <tr ng-repeat="j in i.Fields">
+                                                <tr ng-repeat="j in i.Fields track by $index">
                                                     <td style="border-top:none">
                                                         <div class="checkbox" style="padding: 0px 30px;">
                                                             <label>
@@ -411,7 +411,7 @@
 
                 <div layout="row" layout-align="start center" ng-repeat="item in $scope.modalRelationObject.conditions" layout-margin>
                     <md-select flex ng-model="item.left" aria-label="item left">
-                        <md-option ng-repeat=" i in ($scope.selectedDatasource | filter:{ Id: $scope.modalRelationObject.left } )[0].Fields" value="{{i}}">{{i}}</md-option>
+                        <md-option ng-repeat=" i in ($scope.selectedDatasource | filter:{ Id: $scope.modalRelationObject.left } )[0].Fields  track by $index" value="{{i}}">{{i}}</md-option>
                     </md-select>
                     <md-select ng-model="item.op" aria-label="item operand">
                         <md-option>=</md-option>
@@ -420,7 +420,7 @@
                         <md-option><</md-option>
                     </md-select>
                     <md-select flex ng-model="item.right" aria-label="item right">
-                        <md-option ng-repeat="i in ($scope.selectedDatasource | filter:{ Id: $scope.modalRelationObject.right } )[0].Fields" value="{{i}}">{{i}}</md-option>
+                        <md-option ng-repeat="i in ($scope.selectedDatasource | filter:{ Id: $scope.modalRelationObject.right } )[0].Fields  track by $index" value="{{i}}">{{i}}</md-option>
                     </md-select>
                     <md-button class="md-icon-button" ng-click="$scope.addRelationLimit()">
                         <span class="material-icons">add</span>
