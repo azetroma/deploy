@@ -33,6 +33,7 @@
                                     </div>
                                 </md-input-container>
                             </div>
+                            <change-table-name id="id" table-name="tableName"></change-table-name>
 
 
                             <md-switch ng-model="disable" aria-label="Disable">
@@ -218,9 +219,9 @@
 
 
                             <!--<div ng-show="error" style="text-align: right;" class="alert alert-danger ">
-                    <button type="button" class="close" aria-label="Close" ng-click="error=null">  <span aria-hidden="true">&times;</span></button>
-                    <p ng-bind-html="error"></p>
-                </div>-->
+        <button type="button" class="close" aria-label="Close" ng-click="error=null">  <span aria-hidden="true">&times;</span></button>
+        <p ng-bind-html="error"></p>
+    </div>-->
 
 
 
@@ -258,8 +259,17 @@
                         </div>
 
                         <!--<md-switch ng-model="model.ColumnStoreIndex" ng-show="type == 2" aria-label="ColumnStoreIndex">
-                            ایندکس ستونی
-                        </md-switch>-->
+                                ایندکس ستونی
+                            </md-switch>-->
+
+                        <div class="field">
+                            <div class="ui button" ng-class="{loading: clearCacheProgress, disabled: clearCacheProgress}" ng-click="clearCache()">پاک کردن کش (Cache) منبع داده</div>
+                            <small class="gray">
+                                با پاک کردن کش منبع داده، نتیجه‌ی تمامی گزارش‌های مرتبط با این منبع داده پاک خواهند شد
+                                و ممکن است برای اولین بار اجرای گزارش سرعت کمتری داشته باشد.
+                            </small>
+                        </div>
+
 
 
                         <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
