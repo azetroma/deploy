@@ -67,7 +67,11 @@
                             <div ng-show="model.type == 'JSON' || model.type == 'SOAP'">
                                 <div class="field">
                                     <label>اجرای کد روی خروجی</label>
-                                    <textarea spellcheck="false" ng-model="model.jsonPostProcess" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
+
+                                        <feditor flex lang="js" ng-model="model.jsonPostProcess"></feditor>
+
+
+                                    <!--<textarea spellcheck="false" ng-model="model.jsonPostProcess" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>-->
                                     <small class="gray">
                                         داده‌های خروجی در قالب شی data در دسترس هستند. کد نوشته شده باید یک
                                         شی به عنوان خروجی با کلید واژه return  داشته باشد

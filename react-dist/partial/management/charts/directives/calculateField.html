@@ -34,7 +34,79 @@
 
             </div>
 
+            <div class="ui modal calculate-field-modal">
+                <div class="header">
+                    <h3 xstyle="margin-bottom:40px">{{'شاخص محاسباتی' | translate}}</h3>
+                </div>
+                <div class="content">
 
+                    <div class="ui form">
+                        <div class="ui field">
+                            <label>{{ 'نام' | translate }}</label>
+                            <input ng-model="currentFormula.name" type="text" />
+                        </div>
+                    </div>
+
+                    <div class="tw-text-left" ng-if="renderEditor">
+                        <feditor flex ng-model="currentFormula.formula" lang="sql" list="map" type="calc"></feditor>
+                    </div>
+
+
+                    <div class="label label-info">پیشنهاد می‌شود به جای استفاده از ایندکس ستون از نام ستون استفاده شود تا در حالت‌ مرتب کردن مشکلی به وجود نیاید </div>
+
+
+                    <div ng-click="helpC = !helpC" style="font-size:0.8em; color:gray;cursor:pointer;">{{'help' | translate}}</div>
+                    <div style="font-size:0.8em; color:gray;" uib-collapse="!helpC">
+                        <p class="help-block small desc">
+                            از این فرمول برای دسترسی به مقادیر ردیف‌های دیگر اطلاعات استفاده می‌شود.
+                            هر سلول از جدول اطلاعات به صورت
+                            <span style="display:inline-block; direction:ltr">
+
+                                <code>{R<+ یا ->&lt;number&gt;, C&lt;number&gt;}</code>
+                            </span>
+                            نمایش داده می‌شود. R نشان دهنده ردیف است و عددی که بعد از آن نمایش داده می‌شود
+                            مکان نسبی ردیف مورد نظر به ردیف جاری را نشان می‌دهد. برای مثال ردیف قبلی با
+                            <code>R-1</code> و ردیف بعدی با <code>R+1</code>
+                            نمایش داده می‌شود.
+
+                            C نشان دهنده ستون است و عددی که بعد از آن آورده می‌شود برای مشخص کردن ستون مورد نظر است.
+                            برای نمونه ستون اول با
+                            <code>C0</code>و ستون دوم با <code>C1</code>
+                            نشان داده می‌شود.
+
+                        </p>
+                        <p class="help-block small">
+                            {{ 'مثال' | translate }}<br />
+                            ستون اول از ردیف قبلی :
+                            <code>{R-1, C0}</code>
+                            <br />
+                            اختلاف ستون اول با ستون اول از ردیف قبلی :
+                            <code>{R+0, C0} - {R-1, C0}</code>
+                            <br />
+                        </p>
+                        <p class="help-block small" style="direction:ltr;">
+                            توابع قابل استفاده<br />
+                            <code>sum([column])</code><br />
+                            <code>min([column])</code><br />
+                            <code>max([column])</code><br />
+                            <code>count([column])</code><br />
+                            <code>avg([column])</code><br />
+                            <code>sum_row()</code><br />
+                            <code>min_row()</code><br />
+                            <code>max_row()</code><br />
+                            <code>avg_row()</code><br />
+                            <code>count_row()</code><br />
+                        </p>
+                    </div>
+
+
+                </div>
+                <div class="actions">
+                    <div class="ui button green" ng-class="{loading: savePerProgress}" ng-click="addFormula()" ng-disabled="savePerProgress">
+                        {{ !savePerProgress ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
+                    </div>
+                </div>
+            </div>
 
 
         </div>
@@ -57,17 +129,24 @@
         <md-dialog-content>
             <div layout-margin class="md-dialog-content">
 
+                <div class="ui form">
+                    <div  class="ui field">
+                        <label>{{ 'نام' | translate }}</label>
+                        <input ng-model="parent.currentFormula.name" type="text" />
+                    </div>
+                </div>
 
-                <md-input-container class="md-block">
-                    <label>{{ 'نام' | translate }}</label>
-                    <input ng-model="parent.currentFormula.name" type="text" />
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>{{ 'فرمول' | translate }}</label>
-                    <input class="ltr formula-input" style="font-family:monospace" ng-model="parent.currentFormula.formula" type="text" />
-                </md-input-container>
-               
-                <p class="label label-info">پیشنهاد می‌شود به جای استفاده از ایندکس ستون از نام ستون استفاده شود تا در حالت‌ مرتب کردن مشکلی به وجود نیاید </p>
+                <!--<md-input-container class="md-block">
+        <label>{{ 'فرمول' | translate }}</label>
+        <input class="ltr formula-input" style="font-family:monospace" ng-model="parent.currentFormula.formula" type="text" />
+    </md-input-container>-->
+                <div>
+                    <feditor flex ng-model="parent.currentFormula.formula" lang="sql" list="parent.map"></feditor>
+                </div>
+                <div>
+                {{parent.map | json}}
+                </div>
+                <div class="label label-info">پیشنهاد می‌شود به جای استفاده از ایندکس ستون از نام ستون استفاده شود تا در حالت‌ مرتب کردن مشکلی به وجود نیاید </div>
 
                 <ul style="font-size:0.8em;">
                     لیست ستون‌ها
@@ -95,7 +174,7 @@
                         <code>C0</code>و ستون دوم با <code>C1</code>
                         نشان داده می‌شود.
 
-                    </p>  
+                    </p>
                     <p class="help-block small">
                         {{ 'مثال' | translate }}<br />
                         ستون اول از ردیف قبلی :
