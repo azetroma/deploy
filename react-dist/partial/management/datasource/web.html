@@ -99,7 +99,9 @@
 
                                 <div class="field">
                                     <label>{{'Body' | translate}}</label>
-                                    <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>
+                                    <!--                                    <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>-->
+                                    <feditor flex lang="xml" ng-model="model.rawBody"></feditor>
+
                                 </div>
 
 

@@ -188,10 +188,14 @@
 
                             </div>
 
-                            <div layout="row" ng-show="script">
-                                <md-input-container class="md-block">
-                                    <textarea rows="15" class="form-control" ng-model="script" style="resize:vertical; font-family: Courier, arial; direction: ltr; font-size: 12px;" aria-label="query"></textarea>
-                                    <span class="material-icons small" ng-click="showDialog($event)" title="{{'edit_query' | translate}}">fullscreen</span>
+                            <div layout="row" ng-show="script" flex>
+                                <div flex>
+                                    <!--<textarea rows="15" class="form-control" ng-model="script" style="resize:vertical; font-family: Courier, arial; direction: ltr; font-size: 12px;" aria-label="query"></textarea>-->
+                                    <feditor flex type="dim" ng-model="script"></feditor>
+                                    <!--<div ng-click="format()" class="ui tiny button">مرتب کردن کد</div>-->
+                                    <div ng-click="showDialog($event)" title="تمام صفحه" class="ui tiny icon button "><i class="ui icon expand"></i></div>
+
+                                    <!--<span class="material-icons small" ng-click="showDialog($event)" title="{{'edit_query' | translate}}">fullscreen</span>-->
                                     <p style="margin-top:10px; font-size:12px;">
                                         {{ 'برای به روز شدن اسکریپت از کلید' | translate}}<b>{{ 'دریافت اسکریپت' | translate}}</b> استفاده کنید.
                                         در حالتی که اسکریپت نمایش داده می‌شود برای اعمال شدن تغییرات باید از کلید
@@ -199,7 +203,7 @@
                                         استفاده کنید یا اسکریپت را پاک کنید.
                                         <md-button ng-click="script=null">{{ 'پاک کردن اسکریپت' | translate}}</md-button>
                                     </p>
-                                </md-input-container>
+                                </div>
                             </div>
 
 

@@ -25,10 +25,10 @@
             <div class="form-row" layout="column">
                 <label>{{ 'فرمول' | translate }}</label>
                 <!--<div flex layout="row">
-                    <textarea flex class="form-control disabled text-formula" ng-model="dimensions[model.selectedDimension].formula"
-                              ng-change="changeFormula(dimensions[model.selectedDimension]);change()" ng-model-options="{ updateOn: 'blur' }"></textarea>
-                    <span class="material-icons small" ng-click="showDialog('dimention', $event)">fullscreen</span>
-                </div>-->
+        <textarea flex class="form-control disabled text-formula" ng-model="dimensions[model.selectedDimension].formula"
+                  ng-change="changeFormula(dimensions[model.selectedDimension]);change()" ng-model-options="{ updateOn: 'blur' }"></textarea>
+        <span class="material-icons small" ng-click="showDialog('dimention', $event)">fullscreen</span>
+    </div>-->
                 <div flex layout="row">
                     <feditor flex type="dim" ng-model="dimensions[model.selectedDimension].formula" list="map" ng-change="changeFormula(dimensions[model.selectedDimension]);change()"></feditor>
                 </div>

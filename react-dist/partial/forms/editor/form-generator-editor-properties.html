@@ -441,7 +441,7 @@
             <label>{{'فرمول' | translate}}</label>
             <!--<textarea class="code ltr" ng-model="c.control.active.alert.expression"></textarea>-->
             <div flex>
-                <feditor flex ng-model="c.control.active.alert.expression" lang="js" list="c.activeSibling.autoCompelete"></feditor>
+                <feditor flex nosort ng-model="c.control.active.alert.expression" lang="js" list="c.activeSibling.autoCompelete"></feditor>
             </div>
 
 
@@ -472,7 +472,7 @@
             <label>{{'فرمول' | translate}}</label>
             <!--<textarea class="code ltr" ng-model=""></textarea>-->
             <div flex>
-                <feditor flex type="5" ng-model="c.control.active.calculate.expression" lang="js" list="c.activeSibling.autoCompelete"></feditor>
+                <feditor nosort flex type="5" ng-model="c.control.active.calculate.expression" lang="js" list="c.activeSibling.autoCompelete"></feditor>
             </div>
 
             <div class="desc ui small">
@@ -513,7 +513,7 @@
         <label>{{'فرمول' | translate}}</label>
         <!--<textarea class="code ltr" ng-model="c.control.active.calculate.expression"></textarea>-->
         <div flex>
-            <feditor flex type="16" ng-model="c.control.active.calculate.expression" lang="js" list="c.controlListAutoCompelete"></feditor>
+            <feditor nosort flex type="16" ng-model="c.control.active.calculate.expression" lang="js" list="c.controlListAutoCompelete"></feditor>
         </div>
 
     </div>

@@ -109,9 +109,14 @@
 
                             <div class="field">
                                 <label>پرس‌وجو</label>
-                                <textarea class="ltr" ng-model="model.Query" md-select-on-focus rows="3" style="resize:vertical;font-family:Courier, arial; direction:ltr; min-height:100px;"></textarea>
+                                <!--<textarea class="ltr" ng-model="model.Query" md-select-on-focus rows="3" style="resize:vertical;font-family:Courier, arial; direction:ltr; min-height:100px;"></textarea>-->
+                                <div flex layout="row">
+                                    <feditor flex ng-model="model.Query" lang="sql"></feditor>
+                                </div>
                                 <div style="text-align:left">
-                                    <span class="material-icons small" ng-click="showDialog($event)" title="{{'edit_query' | translate}}">fullscreen</span>
+                                    <!--<div ng-click="format()" class="ui tiny button">مرتب کردن کد</div>-->
+                                    <div ng-click="showDialog($event)" title="تمام صفحه"class="ui tiny icon button "><i class="ui icon expand"></i></div>
+                                    <!--<span class="material-icons small" ng-click="showDialog($event)" title="{{'edit_query' | translate}}">fullscreen</span>-->
                                 </div>
                             </div>
 
