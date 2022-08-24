@@ -34,6 +34,14 @@
         }
     </style>
 
+    @if (ViewBag.theme != null) {
+        var theme = (BLL.Process.ThemeModel)ViewBag.theme;
+        <style>
+            @Html.Raw(theme.extraCss)
+        </style>
+    }
+
+
     <meta name="fontiran.com:license" content="X4ZQZ">
 
 </head>

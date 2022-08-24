@@ -659,7 +659,8 @@
 
         <div class="field">
             <label>قالب چاپ</label>
-            <textarea ng-model="c.printLayout" rows="5" class="ltr"></textarea>
+            <feditor ng-model="c.printLayout" lang="html" list="c.controlListAutoCompelete"></feditor>
+            <!--<textarea ng-model="c.printLayout" rows="5" class="ltr"></textarea>-->
             <div style="text-align:left">
                 <span class="material-icons small" ng-click="showDialog($event)" title="{{'edit_query' | translate}}">fullscreen</span>
             </div>
