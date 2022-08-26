@@ -2,17 +2,18 @@
 <div>
     <div class="form-row" layout="column" layout-align="start right">
         <label class="col-sm-4">الگوی پرینت</label>
-        <textarea ng-model="model.layout" class="ltr" style="width:100%; resize:vertical;" />
-        <div class="form-row" layout="row" layout-align="start center">
-            <div class="label ui small" ng-repeat="i in ngModel.series" ng-click="model.layout =  model.layout  + '@{' + i  + '}'">{{i}}</div>
-        </div>
+        <!--<textarea ng-model="model.layout" class="ltr" style="width:100%; resize:vertical;" />-->
+        <feditor xng-if="render" type="print-settings" ng-model="model.layout" lang="html" list="map"></feditor>
+        <!--<div class="form-row" layout="row" layout-align="start center">
+        <div class="label ui small" ng-repeat="i in ngModel.series" ng-click="model.layout =  model.layout  + '@{' + i  + '}'">{{i}}</div>
+    </div>-->
         <div>
             <small>
                 <ul class="ui list">
-            <li class="gray">نام ستون باید به صورت @{name} نوشته شود</li>
-            <li class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</li>
-            <li class="gray"><span class="ltr code">each{{'{{[exp]}\}'}}</span> برای اجرا روی تمام ردیف‌ها</li>
-            <li class="gray">برای تبدیل اعداد به حروف از تابع <span class="ltr code">Num2persian()</span> استفاده کنید</li>
+                    <li class="gray">نام ستون باید به صورت @{name} نوشته شود</li>
+                    <li class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</li>
+                    <li class="gray"><span class="ltr code">each{{'{{[exp]}\}'}}</span> برای اجرا روی تمام ردیف‌ها</li>
+                    <li class="gray">برای تبدیل اعداد به حروف از تابع <span class="ltr code">Num2persian()</span> استفاده کنید</li>
                 </ul>
             </small>
         </div>
