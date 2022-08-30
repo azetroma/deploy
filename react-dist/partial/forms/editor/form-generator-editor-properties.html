@@ -499,24 +499,24 @@
             <sm-dropdown items="['sum','avg','var']" model="c.control.active.calculate.func" ng-init="c.control.active.calculate.func = 'sum'"></sm-dropdown>
         </div>
         <!--<div class="field">
-            <label>{{'selectable controls' | translate}}</label>
-            <div class="ui mini labels">
-                <div class="ui label pointer" ng-repeat="f in c.controlList track by $index"
-                     ng-show="f.childOfMultiRow && (f.type === 2 || f.type === 5)"
-                     ng-click="c.control.active.calculate.expression = c.control.active.calculate.expression + c.control.active.calculate.func+'(['+ f.name + '])'">
-                    {{f.name}} {{f.label}}
-                </div>
+        <label>{{'selectable controls' | translate}}</label>
+        <div class="ui mini labels">
+            <div class="ui label pointer" ng-repeat="f in c.controlList track by $index"
+                 ng-show="f.childOfMultiRow && (f.type === 2 || f.type === 5)"
+                 ng-click="c.control.active.calculate.expression = c.control.active.calculate.expression + c.control.active.calculate.func+'(['+ f.name + '])'">
+                {{f.name}} {{f.label}}
             </div>
-        </div>-->
-
-    <div class="field">
-        <label>{{'فرمول' | translate}}</label>
-        <!--<textarea class="code ltr" ng-model="c.control.active.calculate.expression"></textarea>-->
-        <div flex>
-            <feditor nosort flex type="16" ng-model="c.control.active.calculate.expression" lang="js" list="c.controlListAutoCompelete"></feditor>
         </div>
+    </div>-->
+        {{c.controlListAutoCompelete.length | json}}
+        <div class="field">
+            <label>{{'فرمول' | translate}}</label>
+            <!--<textarea class="code ltr" ng-model="c.control.active.calculate.expression"></textarea>-->
+            <div flex>
+                <feditor nosort flex type="16" ng-model="c.control.active.calculate.expression" lang="js" list="c.controlListAutoCompelete"></feditor>
+            </div>
 
-    </div>
+        </div>
 
     </div>
 

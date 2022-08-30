@@ -186,10 +186,10 @@
 
                 $('.final-step').on("click", function () {
                     var btn = $(this);
-                    btn.addClass('loading');
+                    btn.addClass('loading disabled');
 
                     activate($('textarea').val(), function () {
-                        btn.removeClass('loading');
+                        btn.removeClass('loading disabled');
                     });
                 });
 
