@@ -121,6 +121,7 @@
 
             <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
             <input type="hidden" name="ReturnUrlHash" value="" />
+            <input type="hidden" name="savePasswordAbility" value="@ViewBag.savePasswordAbility.ToString()" />
             <input type="hidden" name="isPdn" value="@BLL.Process.CommonUtils.AppSettings.userVerification().ToString()" />
 
             <div class="tw-px-10">
