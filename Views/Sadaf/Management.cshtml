@@ -21,30 +21,23 @@
         var useApp = BLL.Process.CommonUtils.AppSettings.useApp();
     }
 
-    <script>
+
+<script>
             var app = app || {};
         app.urlPrefix = "@Url.Action("Index", "Charts", new { area = "Moderation" })".replace(/Moderation.*/g, "");
+        app.urlPrefix = "@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
         app.hashUrlPrefix = "@Url.Action("management", "sadaf")" + "/";
         app.version = "@v";
 
-    </script>
+</script>
 
     <link href="~/dist/css/admin-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
     <link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />
 
-    @*<script src="~/dist/lib/src-noconflict/ace.js"type="text/javascript"charset="utf-8"></script>*@
 
     <script src="~/dist/js/lib-all.js?v=@v"></script>
     <script src="~/dist/js/lib-admin-extra.js?v=@v"></script>
-
-
-    @*<script src="~/dist/lib/leaflet.js"></script>
-        <link rel="stylesheet" href="~/dist/lib/leaflet.css" />*@
-
-
-    @*<script src="~/dist/lib/sortable-n.js"></script>
-        <script src="~/dist/lib/sortable-ng.min.js"></script>*@
 
     @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
 
@@ -136,8 +129,6 @@
         }
 
 
-        @*<script src="~/src/js/charts/newCharts/bubble.js?v=@v"></script>*@
-        @*<script src="~/src/js/charts/newCharts/horizontal-bar-chart.js?v=@v"></script>*@
         <script src="~/src/js/charts/jquery.sit.Chart.js?v=@v"></script>
         <script src="~/src/js/charts/su.jquery.sit.Gauge.js?v=@v"></script>
         <script src="~/src/js/charts/jquery.sit.Map.js?v=@v"></script>
@@ -150,18 +141,9 @@
         <script src="~/src/js/charts/tipsy.js"></script>
         <script src="~/src/js/dashboardPage/su.dashboardLayout.js?v=@v"></script>
 
-        @*<link href="~/src/css/management/OlapChartDesign.css?v=@v" rel="stylesheet" />
-            <link href="~/src/css/management/bootstarp-chart.css?v=@v" rel="stylesheet" />
-            <link href="~/src/css/management/sadaf.css?v=@v" rel="stylesheet" />
-            <link href="~/src/css/management/sadaf@(ViewBag.isRtl ? "-rtl" : "-ltr").css?v=@v" rel="stylesheet" />
-            <link href="~/dist/css/chart@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />*@
 
     } else {
         <script src="~/dist/js/admin-all.js?v=@v"></script>
-        @*<script src="~/dist/js/services.js?v=@v"></script>
-            <script src="~/dist/js/forms-app.js?v=@v"></script>
-            <script src="~/dist/js/admin-app.js?v=@v"></script>
-            <script src="~/dist/js/charts-theme2.js?v=@v"></script>*@
     }
 
 
@@ -175,9 +157,7 @@
             }
         }
     }
-    <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
-    <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
-
+        
     <script>
     </script>
 
@@ -188,7 +168,16 @@
     </style>
 </head>
 
+
 <body layout="row" layout-fill @(ViewBag.isRtl ? @"dir=rtl" : "")>
+    <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
+    <input type="hidden" value="@Request.Url.AbsoluteUri" name="aboluteUrl" />
+    <input type="hidden" value="@v" name="version" />
+    <input type="hidden" value="@(Url.Action("management", "sadaf") + "/")" name="hashUrlPrefix" />
+
+    @*<script src="~/react-dist/app-bundle.js?v=@v"></script>*@
+    <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
+    <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 
     <div ng-app="management" ng-controller="menusCtrl" ng-cloak layout="row" flex layout-fill>
         <input type="hidden" value="@ViewBag.lang" id="lang" />

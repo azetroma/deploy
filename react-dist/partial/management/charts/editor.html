@@ -7,7 +7,14 @@
 
             <div layout="row" layout-align="start center" class="datasource-item-header">
                 <span>{{ 'تنظیمات' | translate }}</span>
-                <span flex></span>
+                <div class="ui mini form" flex style="margin:7px;" ng-show="chartType.id>10 && !chartType.isCustom">
+                    <div class="field icon ui input fluid">
+                        <input type="text" ng-model="chartProp.settingQuery" placeholder="{{'search' | translate}}" />
+                        <i class="icon" ng-class="{remove: chartProp.settingQuery.length, search: !chartProp.settingQuery}" ng-click="chartProp.settingQuery = ''" style="cursor:pointer !important; pointer-events:all !important"></i>
+                    </div>
+                </div>
+                <span flex ng-hide="chartType.id>10 && !chartType.isCustom"></span>
+
                 <div ng-show="app.license.securityCertPatch && id > 0" class="ui mini label">
                     {{'integrity check' | translate}} &nbsp;
                     <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
@@ -33,6 +40,8 @@
                         <div ng-show="type != 'combo-kpi' && !isOlap" layout="column" style="min-height:200px" layout-fill>
                             <div layout="row" layout-align="start center" class="datasource-item-header">
                                 <span>{{ 'data' | translate }}</span>
+
+
                                 <span flex></span>
                                 <span ng-hide="!chartType.isCustom && chartType.id==7" class="material-icons small small-size pointer" ng-click="showRelatedDatasource($event)" title="{{'add' | translate}}">
                                     add

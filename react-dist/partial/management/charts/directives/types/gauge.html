@@ -136,7 +136,7 @@
             </md-menu-content>
         </md-menu>-->
                     <div ng-repeat="icon in ngModel.gauge.info.icons track by $index">
-                        <sadaf-icons style="display:inline-block" ng-model="icon" ng-change="refreshChart('refresh')"></sadaf-icons>
+                        <sadaf-icons style="display:inline-block" ng-model="icon" type="image, icon" ng-change="refreshChart('refresh')"></sadaf-icons>
                         <i class="icon remove gray pointer" ng-click="ngModel.gauge.info.icons.splice($index, 1);refreshChart('refresh')"></i>
                     </div>
 

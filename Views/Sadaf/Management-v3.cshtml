@@ -47,6 +47,7 @@
     <input type="hidden" value="@(Url.Action("management", "sadaf") + "/")" name="hashUrlPrefix" />
     <input type="hidden" value="@(Html.Raw(ViewBag.license).ToString().Replace("\"","\\\""))" name="license" />
     <input type="hidden" value="@ViewBag.lang" id="lang" />
+    <input type="hidden" value="@(BLL.ApplicationLicense.ClientLicenseManager.GetInstance().DatasourceMetadata ? "true": "false")" name="DatasourceMetadata" />
 
     <link href="~/react-dist/styles.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 

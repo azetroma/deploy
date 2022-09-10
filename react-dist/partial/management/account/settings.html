@@ -26,33 +26,36 @@
                             <input required ng-model="model.Brand">
                         </div>
 
+
+
+
                         <div class="ui secondary segment">
 
-                        <div class="ui header">تنظیمات صفحه لاگین</div>
-
-                        <div class="field">
-                            <label>{{'login desc' | translate}}</label>
-                            <textarea ng-model="model.loginPageText" style="line-height: 2em;"></textarea>
-                        </div>
-
-                        <div class="two column fields fluid">
+                            <div class="ui header">تنظیمات صفحه لاگین</div>
 
                             <div class="field">
-                                <label>{{'لینک صفحه پشتیبانی' | translate}}</label>
-                                <input class="ltr" placeholder="https://www." ng-model="model.supportLink" />
-                                <small class="small gray"> در صورتی که برای پشتیبانی کاربران پرتال یا صفحه‌ی خاصی دارید لینک و نام صفحه را اینجا وارد کنید</small>
+                                <label>{{'login desc' | translate}}</label>
+                                <textarea ng-model="model.loginPageText" style="line-height: 2em;"></textarea>
                             </div>
-                            <div class="field">
-                                <label>{{'نام لینک' | translate}}</label>
-                                <input ng-model="model.supportTitle" />
-                            </div>
-                            <div class="field">
-                                <label>{{'توضیحات مربوط به کلید' | translate}}</label>
-                                <input ng-model="model.supportDesc" />
+
+                            <div class="two column fields fluid">
+
+                                <div class="field">
+                                    <label>{{'لینک صفحه پشتیبانی' | translate}}</label>
+                                    <input class="ltr" placeholder="https://www." ng-model="model.supportLink" />
+                                    <small class="small gray"> در صورتی که برای پشتیبانی کاربران پرتال یا صفحه‌ی خاصی دارید لینک و نام صفحه را اینجا وارد کنید</small>
+                                </div>
+                                <div class="field">
+                                    <label>{{'نام لینک' | translate}}</label>
+                                    <input ng-model="model.supportTitle" />
+                                </div>
+                                <div class="field">
+                                    <label>{{'توضیحات مربوط به کلید' | translate}}</label>
+                                    <input ng-model="model.supportDesc" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                        </div>
                     <br/>
                     <div class="ui form sadaf-form settings">
 
@@ -170,7 +173,7 @@
                             <label>{{'export data max row count' | translate}}</label>
                             <input type="number" ng-model="model.exportDataMaxRow">
                         </div>
-                        
+
                         <div>
                             <div class="ui dividing header">تنظیمات کلی منابع داده</div>
                             <div class="ui button" ng-class="{loading : rescheduleProcess, disabled: rescheduleProcess}" ng-click="reschedule()">
@@ -290,7 +293,7 @@
                             <small class="gray">در صورت استفاده از این گزینه کل مدل داده‌ای پاک شده و دوباره ساخته می‌شود. این فرآیند ممکن چند دقیقه زمان ببرد.</small>
                         </div>
 
-                        
+
 
 
                         <div class="field !tw-m-0">
@@ -314,6 +317,22 @@
                                 نمایش تصویر در صفحه لاگین
                             </md-checkbox>
                         </div>
+
+                        <div ng-show="model.loginPics" class="ui secondary segment">
+                            <p>
+
+                                با استفاده از کلید زیر می‌توانید عکس‌های مورد نظر برای نمایش در صفحه لاگین را انتخاب کنید.
+                                در صورت عدم انتخاب عکس به صورت پیش فرض عکس‌های سامانه نمایش داده می‌شود.
+                            عکس‌های انتخابی باید حداقل 800x600 باشند
+                            </p>
+                            <div class="ui button mini compact icon" ng-click="model.pics.push({name: '', type:'image'})"
+                                 xng-init="model.pics  = model.pics  || [{name:'8', type:'image'}]"><i class="icon add"></i> اضافه کردن عکس</div>
+                            <div ng-repeat="icon in model.pics track by $index" class="tw-inline-block tw-mx-3">
+                                <sadaf-icons type="image" style="display:inline-block" ng-model="icon" key="$index"></sadaf-icons>
+                                <i class="icon trash outline alternate gray pointer" ng-click="model.pics.splice($index, 1);"></i>
+                            </div>
+                        </div>
+
 
                         <div class="field !tw-m-0">
                             <md-checkbox class="md-block" ng-model="model.sendMessageByLogin.enable">

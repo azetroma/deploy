@@ -1,4 +1,5 @@
-<div class="form-row" layout="row" layout-align="start center">
+
+<div class="form-row" layout="row" layout-align="start center" ng-show="!query.length || ('تازه شدن داده‌ها').indexOf(query)!=-1">
     <label class="col-sm-4">{{ 'تازه شدن داده‌ها' | translate }}</label>
     <span class="form-divider" flex></span><div class="col-sm-8">
         <select class="selectpicker-x form-control" ng-model="model.refreshPeriod" ng-change="change()"
@@ -17,7 +18,7 @@
     </div>
 </div>
 
-<div class="form-row" layout="row" layout-align="start center">
+<div class="form-row" layout="row" layout-align="start center"  ng-show="!query.length || ('باز کردن صفحه با کلیک روی نمودار').indexOf(query)!=-1">
     <div class="col-sm-offset-4 col-sm-8">
         <div class="checkbox">
             <label class="">
@@ -27,9 +28,9 @@
     </div>
 </div>
 
-<div ng-show="model.openDashboard.checked" class="ui secondary segment">
+<div ng-show="model.openDashboard.checked " class="ui secondary segment" >
 
-    <div class="form-row" layout="row" layout-align="start center" ng-show="model.openDashboard && model.openDashboard.checked ">
+    <div class="form-row" layout="row" layout-align="start center" ng-show="model.openDashboard && model.openDashboard.checked &&((!query.length || ('operation type'|translate).indexOf(query)!=-1)) ">
         <label class="col-sm-4">{{ 'operation type' | translate }}</label>
         <span class="form-divider" flex></span><div class="col-sm-8">
             <select class="form-control" ng-model="model.openDashboard.type"
@@ -37,14 +38,14 @@
         </div>
     </div>
 
-    <div class="form-row" layout="row" layout-align="start center" ng-show="model.openDashboard.type == 'dashboard'">
+    <div class="form-row" layout="row" layout-align="start center" ng-show="model.openDashboard.type == 'dashboard' && (!query.length || ('انتخاب صفحه' | translate).indexOf(query)!=-1)">
         <label class="col-sm-4">{{ 'انتخاب صفحه' | translate }}</label>
         <span class="form-divider" flex></span><div class="col-sm-8">
             <sm-dropdown class="selection search mini" model="model.openDashboard.dashboardId" items="menus" label="item.name" value="item.id"></sm-dropdown>
         </div>
     </div>
 
-    <div class="form-row" layout="row" layout-align="start center" ng-show="model.openDashboard.type == 'link'">
+    <div class="form-row" layout="row" layout-align="start center" ng-show="model.openDashboard.type == 'link' && (!query.length || ('لینک' | translate).indexOf(query)!=-1)">
         <label class="col-sm-4">{{ 'لینک' | translate }}</label>
         <span class="form-divider" flex></span><div class="col-sm-8">
             <input type="text" class="form-control ltr" placeholder="{{ 'لینک' | translate }}" ng-model="model.openDashboard.link"
@@ -52,7 +53,7 @@
         </div>
     </div>
 
-    <div class="form-row" layout="row" layout-align="start center" ng-show="model.openDashboard.type == 'dashboard'">
+    <div class="form-row" layout="row" layout-align="start center" ng-show="model.openDashboard.type == 'dashboard' && (!query.length || ('operation type' | translate).indexOf(query)!=-1)">
         <label class="col-sm-4">{{ 'operation type' | translate }}</label>
         <span class="form-divider" flex></span><div class="col-sm-8">
             <select class="form-control" ng-model="model.openDashboard.passFilterType"
@@ -64,7 +65,7 @@
 
 
 
-<div class="form-row" layout="row" layout-align="start center">
+<div class="form-row" layout="row" layout-align="start center" ng-show="!query.length || ('غیرفعال کردن نمودار').indexOf(query)!=-1">
     <div class="checkbox">
         <label>
             <input type="checkbox" ng-model="model.disable" ng-change="change()" /> غیرفعال کردن نمودار
@@ -72,7 +73,7 @@
     </div>
 </div>
 
-<div class="form-row" layout="row" layout-align="start center">
+<div class="form-row" layout="row" layout-align="start center" ng-show="!query.length || ('Dont show title' | translate).indexOf(query)!=-1">
     <div class="col-sm-offset-4 col-sm-8">
         <div class="checkbox">
             <label class="">
@@ -82,13 +83,13 @@
     </div>
 </div>
 
-<div class="form-row" layout="row" layout-align="start center" ng-if="!model.dontShowTitle">
+<div class="form-row" layout="row" layout-align="start center" ng-if="!model.dontShowTitle && (!query.length || ('title font' | translate).indexOf(query)!=-1)">
     <label class="col-sm-4">{{'title font' | translate}}</label>
     <span class="form-divider" flex></span>
     <text-editor prop="model.titleFont" on-change="change()" default="{color:'rgba(0,0,0,.54)', fontSize:'14px'}"></text-editor>
 </div>
 
-<div class="form-row" layout="row" layout-align="start center">
+<div class="form-row" layout="row" layout-align="start center" ng-show="!query.length || ('background color' | translate).indexOf(query)!=-1">
     <label class="col-sm-4">{{'background color'| translate}}</label>
     <span class="form-divider" flex></span>
     <div class="col-sm-8">
@@ -96,11 +97,11 @@
     </div>
 </div>
 
-<div class="form-row" layout="row" layout-align="start center">
+<div class="form-row" layout="row" layout-align="start center" ng-show="!query.length || ('رنگ پشت زمینه به صورت طیفی' | translate).indexOf(query)!=-1">
     <label><input type="checkbox" ng-model="model.backgroundColorIsGradient" ng-change="change()" /> رنگ پشت زمینه به صورت طیفی  </label>
 </div>
 
-<div class="form-row" layout="row" layout-align="start center" ng-show="model.backgroundColorIsGradient">
+<div class="form-row" layout="row" layout-align="start center" ng-show="model.backgroundColorIsGradient &&(!query.length || ('انتخاب طیف رنگ' | translate).indexOf(query)!=-1)">
     <label class="col-sm-4">انتخاب طیف رنگ</label>
     <span class="form-divider" flex></span>
     <div class="col-sm-8">
@@ -109,7 +110,7 @@
     </div>
 </div>
 
-<div class="form-row" layout="row" layout-align="start center" title="نمودارهایی که گروه یکسانی داشته باشند در صفحه داشبورد یکدیگر را فیلتر می‌کنند">
+<div class="form-row" layout="row" layout-align="start center" title="نمودارهایی که گروه یکسانی داشته باشند در صفحه داشبورد یکدیگر را فیلتر می‌کنند" ng-show="!query.length || ('گروه نمودار' | translate).indexOf(query)!=-1">
     <label>گروه نمودار</label>
     <span class="form-divider" flex></span>
     <input type="text" class="form-control" placeholder="گروه نمودار"
@@ -117,9 +118,9 @@
            ng-model-options="{ updateOn: 'blur' }"
            ng-model="model.groups" />
 </div>
-<small class="grey">در صورت نیاز به چند گروه اسم گروه‌ها را با , از هم جدا کنید</small>
+<small class="grey"  ng-show="!query.length || ('گروه نمودار' | translate).indexOf(query)!=-1">در صورت نیاز به چند گروه اسم گروه‌ها را با , از هم جدا کنید</small>
 
-<div class="form-row" layout="row" layout-align="start center">
+<div class="form-row" layout="row" layout-align="start center" ng-show="!query.length || ('transpose' | translate).indexOf(query)!=-1">
     <div class="col-sm-offset-4 col-sm-8">
         <div class="checkbox">
             <label class="">
@@ -127,10 +128,10 @@
             </label>
         </div>
     </div>
+<small class="grey" ng-show="!query.length || ('transpose' | translate).indexOf(query)!=-1">در صورت فعال کردن این گزینه امکان رفتن به عمق غیر فعال می‌شود</small>
 </div>
-<small class="grey">در صورت فعال کردن این گزینه امکان رفتن به عمق غیر فعال می‌شود</small>
 
-<div class="form-row" layout="row" layout-align="start center">
+<div class="form-row" layout="row" layout-align="start center" ng-show="!query.length || ('مرتب کردن داده‌ها' | translate).indexOf(query)!=-1">
     <div class="checkbox">
             <label class="">
                 <input type="checkbox" ng-model="model.sort.enable" ng-change="change()" /> مرتب کردن داده‌ها
@@ -138,7 +139,7 @@
     </div>
 </div>
 
-<div class="prop-segment" ng-if="model.sort.enable">
+<div class="prop-segment" ng-if="model.sort.enable" ng-show="!query.length || ('مرتب‌سازی براساس' | translate).indexOf(query)!=-1">
     <div class="form-row" layout="row" layout-align="start center">
         <label class="col-sm-4">مرتب‌سازی براساس</label>
         <span class="form-divider" flex></span><div class="col-sm-8">
@@ -146,7 +147,7 @@
         </div>
     </div> 
 
-    <div class="form-row" layout="row" layout-align="start center">
+    <div class="form-row" layout="row" layout-align="start center" ng-show="!query.length || ('نوع مرتب کردن' | translate).indexOf(query)!=-1">
         <label class="col-sm-4">نوع مرتب کردن</label>
         <span class="form-divider" flex></span><div class="col-sm-8">
             <select class="form-control" ng-model="model.sort.type"
@@ -156,7 +157,7 @@
 </div>
 
 <div ng-show="license.chartExportApi">
-    <div class="form-row" layout="row" layout-align="start center">
+    <div class="form-row" layout="row" layout-align="start center"ng-show="!query.length || ('خروجی داده‌های نمودار به صورت API' | translate).indexOf(query)!=-1">
         <div class="col-sm-offset-4 col-sm-8">
             <div class="checkbox">
                 <label class="">
@@ -165,15 +166,15 @@
             </div>
         </div>
     </div>
-    <div class="ui small segment " ng-show="model.exportApi" title="لینک API" style="word-break: break-all;">
+    <div class="ui small segment " ng-show="model.exportApi" ng-if="!query.length || ('خروجی داده‌های نمودار به صورت API' | translate).indexOf(query)!=-1"title="لینک API" style="word-break: break-all;" >
 
-        <div class="ltr" style="margin-bottom:5px;" ng-if="!model.useParams">
+        <div class="ltr" style="margin-bottom:5px;" ng-if="!model.useParams" ng-show="!query.length || ('' | translate).indexOf(query)!=-1">
             <ul style="padding-left:20px">
                 <li><b>Link: </b> {{prefix}}api/chartdata/export/{{apiKey.id}}?key={{apiKey.key}}&type=csv</li>
                 <li><b>Method: </b> GET</li>
             </ul>
         </div>
-        <div class="ltr" style="margin-bottom:5px;" ng-if="model.useParams">
+        <div class="ltr" style="margin-bottom:5px;" ng-if="model.useParams" ng-show="!query.length || ('' | translate).indexOf(query)!=-1">
             <ul style="padding-left:20px">
                 <li><b>Link: </b> {{prefix}}api/chartdata/export</li>
                 <li><b>Method: </b> POST</li>
@@ -185,7 +186,7 @@
 
         </div>
 
-        <div class="form-row" layout="row" layout-align="start center">
+        <div class="form-row" layout="row" layout-align="start center" ng-show="!query.length || ('ارسال پارامتر به وب سرویس' | translate).indexOf(query)!=-1">
             <div class="col-sm-offset-4 col-sm-8">
                 <div class="checkbox">
                     <label class="">
@@ -195,7 +196,7 @@
             </div>
         </div>
         <br />
-        <div ng-if="model.useParams">
+        <div ng-if="model.useParams"ng-show="!query.length || ('ارسال پارامتر به وب سرویس' | translate).indexOf(query)!=-1">
             <div class="ui mini button" ng-click="model.exportApiParams.push({columns:[{}]})">اضافه کردن پارامتر</div>
             <div ng-repeat="i in model.exportApiParams" class="ui mini secondary segment">
                 <div class="ui fluid action  input">

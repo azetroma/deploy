@@ -36,6 +36,7 @@
     <input type="hidden" value="@ViewBag.isRtl" name="isRtl" />
     <input type="hidden" value="@(Url.Action("management", "sadaf") + "/")" name="hashUrlPrefix" />
     <input type="hidden" value="{}" name="license" />
+    <input type="hidden" value="@ViewBag.pics" name="pics" />
 
     <input type="hidden" value="@ViewBag.securityCertPatch.ToString()" name="securityCertPatch" />
     <input type="hidden" value="@(ViewBag.needCaptcha == null ? "false" : ViewBag.needCaptcha.ToString())" name="needCaptcha" />

@@ -3,7 +3,7 @@
 
     <md-menu style="display:inline-block" ng-if="hasIcon">
         <div>
-            <span class="ui mini compact icon button" ng-click="$mdMenu.open($event)">انتخاب آیکن<!--<i ng-class="model.name"></i>--></span>
+            <span class="ui mini compact icon button" ng-click="$mdMenu.open($event)">انتخاب آیکن</span>
         </div>
         <md-menu-content>
             <div style="width:500px; overflow:auto;" class="icons-menu">
@@ -26,9 +26,9 @@
         </md-menu-content>
     </md-menu>
 
-    <image-loader image-label="" ng-model="picModel" ng-if="hasImage"></image-loader>
-
+    <image-loader image-label="" ng-model="picModel" ng-if="hasImage" ></image-loader>
+    
     <i class="ui icon" ng-class="model.name" ng-if="hasIcon"></i>
-    <img ng-if="model.type == 'image' && hasImage" align="top" width="35" ng-src="{{app.urlPrefix + 'api/upload/getPic/' + model.name}}" />
+    <!--<img ng-if="model.type == 'image' && hasImage" align="top" width="35" ng-src="{{app.urlPrefix + 'api/upload/getPic/' + model.name}}" />-->
 
 </div>
