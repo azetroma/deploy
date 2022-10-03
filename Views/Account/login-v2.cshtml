@@ -157,9 +157,9 @@
                         </div>
 
                         @*<label class="" style="margin: 10px 0; display: block;">
-                        <input type="checkbox" value="remember-me" name="rememberme">
-                        @ViewBag.msg["remember"]
-                        </label>*@
+        <input type="checkbox" value="remember-me" name="rememberme">
+        @ViewBag.msg["remember"]
+        </label>*@
 
                         <br />
                         <br />
@@ -185,7 +185,7 @@
                             </div>
                         }
                         <button class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</button>
-                        
+
                         <div class="ui small form" style="margin-top:15px; display:none" id="login-type-div">
                             <div class=" inline fields">
                                 <label class="" style="width:50%;">
@@ -213,16 +213,24 @@
                             <a title="@ViewBag.supportDesc" class="ui basic fluid button big" target="_blank" href="@ViewBag.supportLink">@(ViewBag.supportTitle ?? "پشتیبانی")</a>
                         }
 
+
+
+
                         <a style="margin-top:40px; display:block;" class="pointer" href="@Url.Action("resetPass", "account")">@ViewBag.msg["forgot password"]</a>
-                        <div class="tw-flex  tw-justify-between   tw-space-x-2 tw-space-x-reverse" 
+
+                        <div style="margin-top:40px; display:block;">
+                            @(ViewBag.msg["info"])
+                        </div>
+                        
+                        <div class="tw-flex  tw-justify-between   tw-space-x-2 tw-space-x-reverse"
                              style="font-size: 13px; padding: 20px 0;">
                             @{
                                 var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
                             }
                             <div>@ViewBag.msg["version"] : <b>@BLL.Process.CommonUtils.PersianDigit(version.Major + "." + version.Minor + "." + version.Build) </b> </div>
-                             <span>|</span> <div>@ViewBag.msg["db version"]: <b> @BLL.Process.CommonUtils.PersianDigit(ViewBag.DbVersion.ToString())</b></div>
-                             <span>|</span> <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
-                             <span>|</span> <a class="show-help pointer">@ViewBag.msg["help"]</a>
+                            <span>|</span> <div>@ViewBag.msg["db version"]: <b> @BLL.Process.CommonUtils.PersianDigit(ViewBag.DbVersion.ToString())</b></div>
+                            <span>|</span> <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
+                            <span>|</span> <a class="show-help pointer">@ViewBag.msg["help"]</a>
                         </div>
 
                         <div class="text-left">
