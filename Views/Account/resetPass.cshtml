@@ -107,7 +107,7 @@
 
                     <div style="margin-top:30px;">
 
-                        <a style="display:flex; align-items:center;" href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">
+                        <a style="display:flex; align-items:center;" href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().License.HideCopyrightTemporary?"http://www.sadafdashboard.ir":"#")" target="_blank">
                             @if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["showCopyRightLogo"] ?? "true")) {
                                 <img class="logo" style="width:50px; margin-left:10px; margin-right:0;" src="~/Images/copy_right_logo.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
                             }

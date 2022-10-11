@@ -183,7 +183,7 @@
                 @{
                     try {
                         <text>
-                            <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
+                            <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().License.HideCopyrightTemporary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
                             - {{'version' | translate}} @(version.Major + "." + version.Minor + "." + version.Build)
                         </text>
                     } catch (Exception) {
@@ -551,6 +551,7 @@
     <input type="hidden" value="@(Html.Raw(ViewBag.license).ToString().Replace("\"","\\\""))" name="license" />
     <input type="hidden" value="auto" name="mode" />
     <input type="hidden" value="@ViewBag.lang" id="lang" />
+    <input type="hidden" value="@ViewBag.defaultDashboard" name="defaultDashboard" />
 
     <script src="~/react-dist/app-bundle.js?v=@v"></script>
     @*<link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />*@

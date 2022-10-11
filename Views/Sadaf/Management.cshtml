@@ -192,7 +192,7 @@
                         md-whiteframe="1"
                         style="max-width:250px">
 
-                <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">
+                <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().License.HideCopyrightTemporary?"http://www.sadafdashboard.ir":"#")" target="_blank">
                     <img src="~/api/settings/getLogo/0" alt="Sadaf" style="max-width:100%;max-height:128px; margin:15px auto; display:block" />
                     @*<img src="~/Images/logo_half.png" alt="Sadaf" style="max-width:100%;max-height:128px; margin:15px auto; display:block" />*@
                 </a>
@@ -300,7 +300,7 @@
         app.useEnglishDigit = JSON.parse("@((ViewBag.englishDigit ?? false ).ToString().ToLower())");
         app.lang.setLang();
         app.version = '@v';
-        app.datasourceMetadata = @(BLL.ApplicationLicense.ClientLicenseManager.GetInstance().DatasourceMetadata ? "true": "false")
+        app.datasourceMetadata = @(BLL.ApplicationLicense.ClientLicenseManager.GetInstance().License.DatasourceMetadata ? "true": "false")
         var hash = "@ViewBag.returnUrlHash";
         if (hash) {
             location.hash = hash;

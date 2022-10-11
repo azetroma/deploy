@@ -61,7 +61,7 @@
     <meta name="fontiran.com:license" content="X4ZQZ">
 </head>
 
-<body ng-app="sadafHelp" ng-cloak ng-controller="sideMenuCtrl as sc">
+<body ng-app="sadafHelp" ng-cloak ng-controller="sideMenuCtrl as sc" class="help">
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <div class="side-menu ui segment my-fix inverted no-padd no-margin">
 
@@ -88,7 +88,7 @@
             @{
                 try {
                     <text>
-                        <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
+                        <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().License.HideCopyrightTemporary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
                         - نسخه @(version.Major + "." + version.Minor + "." + version.Build )
                     </text>
                 } catch (Exception) {
@@ -154,7 +154,7 @@
         var app = app || {};
         app.urlPrefix = "@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, "");
         app.aboluteUrl = "@Request.Url.AbsoluteUri";
-        app.setUrlPrefix("@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, ""));
+        @*app.setUrlPrefix("@Url.Action("management", "sadaf")".replace(/sadaf\/management.*/g, ""));*@
         app.hashUrlPrefix = "@Url.Action("help", "sadaf")" + "/";
         app.version = '@(Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")
             ? (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString() : ver.ToString())';

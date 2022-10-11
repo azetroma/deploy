@@ -31,7 +31,7 @@
 
                 <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select; menuInvalidate()" ng-dblclick="goto(row, $event)">
                     <td width="20" style="padding:6px 16px 0 0">
-                        <md-checkbox ng-model="row.select" ng-click="$event.stopPropagation(); menuInvalidate()" aria-label="{{'select' | translate}}"></md-checkbox>
+                        <md-checkbox ng-model="row.select" ng-click="$event.stopPropagation();" ng-change="menuInvalidate()" aria-label="{{'select' | translate}}"></md-checkbox>
                     </td>
                     <td width="20">{{utils.persian($index+1)}}</td>
                     <td><span class="pointer" ng-click="edit($event, row); $event.stopPropagation();">{{row.name}}</span></td>

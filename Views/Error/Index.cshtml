@@ -1,18 +1,32 @@
 ﻿@{
     Layout = null;
+    var isRelease = bool.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+    var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+    var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+    if (!isRelease) {
+        v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+    }
+
 }
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link href='/dist/css/dash-all.css' rel='stylesheet' />
+    <link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />
     <title>خطا!</title>
 </head>
 <body>
     <div style="padding:100px; text-align:center;">
-        <div style="font-size:64px;font-weight:800; padding:24px;">چیزی برای نمایش وجود ندارد
+
+        <div class="error-animation"></div>
+
+        <div style="font-size:64px;font-weight:800; padding:24px;margin-top:-100px;">
+            چیزی برای نمایش وجود ندارد
         </div>
         <div>دوباره همه چیز را بررسی کنید و در صورت درست بودن با مدیر سامانه تماس بگیرید</div>
+        <br />
+        <br />
+        <a href="/">رفتن به صفحه اصلی</a>
     </div>
 </body>
 </html>

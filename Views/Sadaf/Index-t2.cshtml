@@ -296,7 +296,7 @@
                 @{
                     try {
                         <text>
-                            <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().HideCopyrightTemorary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
+                            <a href="@(!BLL.ApplicationLicense.ClientLicenseManager.GetInstance().License.HideCopyrightTemporary?"http://www.sadafdashboard.ir":"#")" target="_blank">{{'copyright' | translate}}</a>
                             - {{'version' | translate}} @(version.Major + "." + version.Minor + "." + version.Build)
                         </text>
                     } catch (Exception) {

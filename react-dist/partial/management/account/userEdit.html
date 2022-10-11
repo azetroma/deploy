@@ -34,7 +34,7 @@
 
                                 <md-input-container flex>
                                     <label>{{'name' | translate}}</label>
-                                    <input " ng-model="model.FirstName">
+                                    <input  ng-model="model.FirstName">
                                     <div ng-messages="userForm.name.$error">
                                         <div ng-message="required">{{'form_name_required' | translate}}</div>
                                     </div>
@@ -105,6 +105,10 @@
 
                             <md-switch ng-model="model.active">
                                 {{'active' | translate}}
+                            </md-switch>
+
+                            <md-switch ng-model="model.readonly">
+                                {{'دسترسی فقط خواندنی' | translate}}
                             </md-switch>
 
 
