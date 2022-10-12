@@ -88,7 +88,7 @@
             */
             }
 
-            .side-menu-item .icon-animate {
+            .side-menu-item, .icon-animate {
                 color: @theme.menuColor;
             }
 
@@ -114,6 +114,7 @@
     <input type="hidden" id="isFullscreen" value="@ViewBag.UserProfile.IsFullScreen" />
     <input type="hidden" id="defaultId" value="@ViewBag.defaultId" />
     <input type="hidden" id="appId" value="@ViewBag.appId" />
+    <input type="hidden" id="userVariable" value="@(string.IsNullOrEmpty(ViewBag.userVariable)?"": Html.Raw((ViewBag.userVariable.Replace("\"","&quot;"))))" />
 
     @if (!(ViewBag.noframe ?? false)) {
         <div class="side-menu ui segment my-fix inverted no-padd no-margin ">
