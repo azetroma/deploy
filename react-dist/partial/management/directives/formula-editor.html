@@ -1,6 +1,6 @@
 ﻿<div class="ui form root" ng-class="{'fullscreen': fullscreen}" style="">
     <i class="ui icon close link" ng-click="setFullscreen()" ng-if="fullscreen"></i>
-    <div class="editor" style="direction: ltr; border: solid 1px #efefef; padding: 8px; background: #fff;"></div>
+    <div class="editor" style="direction: ltr; border: solid 1px #efefef; padding: 8px; background: #fff; max-height:300px; overflow-y:auto"></div>
 
     <div>
         <div ng-if="!nosort" ng-click="format()" class="ui icon tiny tw-float-left " title="مرتب کردن کد (Shift-Ctrl-F)">

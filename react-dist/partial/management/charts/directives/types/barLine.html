@@ -170,8 +170,8 @@
                                     {name:'3', value:'پشته کردن درصدی تمام میله‌ها'},
                                     ]">
                             <!--<option value="1" selected="selected">{{ 'بدون پشته' | translate }}</option>
-                            <option value="2">{{ 'پشته کردن تمام میله‌ها' | translate }}</option>
-                            <option value="3">{{ 'پشته کردن درصدی تمام میله‌ها' | translate }}</option>-->
+                <option value="2">{{ 'پشته کردن تمام میله‌ها' | translate }}</option>
+                <option value="3">{{ 'پشته کردن درصدی تمام میله‌ها' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -198,8 +198,8 @@
                                     {name:'3', value:'پشته کردن درصدی تمام خط‌ها'},
                                     ]">
                             <!--<option value="1" selected="selected">{{ 'بدون پشته' | translate }}</option>
-                            <option value="2">{{ 'پشته کردن تمام خط‌ها' | translate }}</option>
-                            <option value="3">{{ 'پشته کردن درصدی تمام خط‌ها' | translate }}</option>-->
+                <option value="2">{{ 'پشته کردن تمام خط‌ها' | translate }}</option>
+                <option value="3">{{ 'پشته کردن درصدی تمام خط‌ها' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -366,6 +366,8 @@
 
                 <dimention-color-selector ng-model="ngModel.bar.info.dimColor" dim-color="ngModel.dimColor" ng-change="refreshChart('refresh')"></dimention-color-selector>
                 <div><small>قابل استفاده تنها برای نمودار میله‌ای و جعبه‌ای</small></div>
+
+
 
             </div>
         </menu-body>
@@ -685,7 +687,6 @@
     <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
 
     <calculate-fields calculated-fields="calculatedFields" model="ngModel"></calculate-fields>
-
     <management-only-dir management-only="managementOnly"></management-only-dir>
 
 

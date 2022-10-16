@@ -170,14 +170,48 @@
                 }
 
                 $('.auto-active').on('click', function () {
-                    var btn = $(this);
+                    $('.auto-active').addClass('loading disabled');
+                    $.post("@Url.Action("ActivationAuto")", { 'info': '@ViewBag.SystemInfo' },
+                        function (data) {
+                            $('.auto-active').removeClass('loading disabled');
+                            if (data.result) {
+                                $('#activationModal').modal('show');
+                                $('#activationModal .content').html('<p>جواز استفاده از برنامه به درستی نصب شد</p>\
+                                                    <ul>\
+                                                        <li><b>نام سازمان: </b>' + data.Organization + '</li>\
+                                                        <li><b>نام واحد: </b>' + data.OrganizationUnit + '</li>\
+                                                        <li><b>شناسه مشتری: </b>' + data.CustomerId + '</li>\
+                                                        <li><b>تعداد مجاز کاربران: </b>' + persian(data.UserCount) + '</li>\
+                                                        <li><b>قابلیت استفاده از متغیر کاربری: </b>' + data.CanUseUserVariable + '</li>\
+                                                        <li><b>انواع منابع داده مجاز: </b>' + data.DataSources + '</li>\
+                                                        <li><b>زمان انقضای جواز: </b>' + persian(data.EndTime) + '</li>\
+                                                        <li><b>لیست ماژول‌های مورد استفاده: </b>' + (!data.modules.length ? 'لیست ماژول‌ها خالی است' : '<ul><li class="ui  label" style="margin:7px;">' + data.modules.join('</li><li class="ui  label" style="margin:7px;">') + '</li></ul>') + '</li>\
+                                                    </ul>');
+                                $('.prior-step').hide();
+                                $('.first-step').hide();
+                                $('.final-step').hide();
+                                $('.btn-default').hide();
+                                $('.success-step').show()
+                            }
+                            else {
+                                $('#activationModal .content').prepend('<div class="ui negative message">' + data.msg + '</div>');
+                            }
+                            if (finish) finish();
+
+                        }).fail(function () {
+                            $('.auto-active').removeClass('loading disabled');
+                            alert('خطا در ارتباط با سرور');
+                        });
+
+
+                    @*var btn = $(this);
                     btn.addClass('loading');
                     $.post('http://licence.sadafdashboard.ir/api/LicenceManager/get', ({ '': '@ViewBag.SystemInfo' }), function (data) {
                         activate(data.licence, function () {
                             btn.removeClass('loading');
                             $('#activationModal').modal('show');
                         });
-                    });
+                    });*@
                 });
 
                 $('.success-step').on("click", function () {

@@ -20,7 +20,7 @@
                     <small ng-if="item.desc">{{item.desc}}</small>
 
                     <div ng-if="item.type=='section' && (!item.if ||  ngModel[type].general[item.if.key] == item.if.value)" class="prop-segment">
-                        <div ng-repeat="i in item.items" >
+                        <div ng-repeat="i in item.items">
                             <general-custom-control parent="ngModel[type].general" item="i" change="refreshChart('refresh')"></general-custom-control>
                             <small ng-if="i.desc">{{i.desc}}</small>
                         </div>
@@ -32,6 +32,9 @@
 
                 </div>
 
+                <div>
+                    ngModel.series = {{ngModel.series|json}}
+                </div>
 
 
             </div>

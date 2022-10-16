@@ -173,11 +173,6 @@
 
 
 
-
-
-
-
-
                             <div ng-show="model.type == 'JSON' || model.type == 'SOAP'">
 
                                 <div class="field">
@@ -341,6 +336,25 @@
                                 <span class="material-icons icon-animate" ng-class="{'rotate-90' : showAuth}">keyboard_arrow_left</span>
                                 <span>{{'احراز هویت' | translate}}</span>
                             </p>
+
+                            <div class="ui secondary small segment">
+                                <b>متغیرهای قابل استفاده در آدرس، پارامترها و ...</b>
+                               <ul>
+                                   <li>
+                                <small>مقدار توکن در متغیر <span class="ltr inline ui label">@token</span> ذخیره می‌شود و میتوانید از این متغیر استفاده کنید</small>
+                                   </li>
+                                   <li>
+                                       <small>تاریخ روز جاری به صورت شمسی در متغیر <span class="ltr inline ui label">@shamsiDate(format, [add-minute])</span> ذخیره می‌شود و مقدار add-minute تعداد دقیقه‌ای است که به تاریخ جاری کم یا اضافه می شود. برای کم کردن از عدد منفی استفاده شود.</small>
+                                   </li>
+                                   <li>
+                                       <small>تاریخ روز جاری به صورت شمسی در متغیر <span class="ltr inline ui label">@miladiDate(format, [add-minute])</span> ذخیره می‌شود و مقدار add-minute تعداد دقیقه‌ای است که به تاریخ جاری کم یا اضافه می شود. برای کم کردن از عدد منفی استفاده شود.</small>
+
+                                   </li>
+                               </ul>
+
+
+                            </div>
+
                             <div class="three fields" uib-collapse="!showAuth" layout-padding>
 
                                 <div class="field" flex-gt-sm>

@@ -16,7 +16,7 @@
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'نام' | translate }}</label>
                 <span class="form-divider" flex></span><div class="col-sm-8">
-                    <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}"
+                    <input type="text" class="form-control"   placeholder="{{ 'نام' | translate }}"
                            ng-change="changeDimensionName('{{dimensions[model.selectedDimension].Name}}',dimensions[model.selectedDimension])"
                            ng-model="dimensions[model.selectedDimension].Name" ng-model-options="{ updateOn: 'blur' }" />
                 </div>
@@ -30,9 +30,16 @@
         <span class="material-icons small" ng-click="showDialog('dimention', $event)">fullscreen</span>
     </div>-->
                 <div flex layout="row">
-                    <feditor flex type="dim" ng-model="dimensions[model.selectedDimension].formula" list="map" ng-change="changeFormula(dimensions[model.selectedDimension]);change()"></feditor>
+                    <feditor ng-if="!isOlap" flex type="dim" ng-model="dimensions[model.selectedDimension].formula" list="map" ng-change="changeFormula(dimensions[model.selectedDimension]);change()"></feditor>
                 </div>
             </div>
+                <div ng-if="isOlap" class="ui secondary small segment">
+                    <code  flex class="ltr col-lg-pull-4 border block">
+                        {{dimensions[model.selectedDimension].formula}}
+                    </code>
+                    <br/>
+                    <small class="gray">برای تغییر فرمول در حالت DAX لازم است یک ستون جدید تعریف کنید</small>
+                </div>
 
 
             <div class="form-row" layout="row" layout-align="start center">
