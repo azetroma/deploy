@@ -56,7 +56,68 @@
                 <div ng-show="ngModel.gauge.info.haveCustomText && ngModel.gauge.info.style == 'number'">
 
                     <ng-quill-editor on-content-changed="refreshChart('refresh')" style="direction:ltr;" ng-model="ngModel.gauge.info.customText"
-                                     ng-init="ngModel.gauge.info.customText = ngModel.gauge.info.customText || '<p><strong style=&quot;font-size: 32px;&quot;>@value @icon</strong></p><p> میزان فروش @label </p>'"></ng-quill-editor>
+                                     ng-init="ngModel.gauge.info.customText = ngModel.gauge.info.customText || '<p><strong style=&quot;font-size: 32px;&quot;>@value @icon</strong></p><p> میزان فروش @label </p>'">
+                        <ng-quill-toolbar>
+                            <div>
+
+                                <span class="ql-formats">
+                                    <select class="ql-font">
+                                        <option selected></option>
+                                        <option value="serif"></option>
+                                        <option value="monospace"></option>
+                                    </select>
+                                    <select class="ql-size">
+                                        <option value="12px">12</option>
+                                        <option value="14px">14</option>
+                                        <option value="16px">16</option>
+                                        <option value="17px">17</option>
+                                        <option value="20px">20</option>
+                                        <option value="24px">24</option>
+                                        <option value="28px">28</option>
+                                        <option value="32px">32</option>
+                                        <option value="38px">38</option>
+                                        <option value="48px">48</option>
+                                        <option value="72px">72</option>
+                                        <option value="100px">100</option>
+                                        <option value="150px">150</option>
+                                        <option value="200px">200</option>
+                                        <option value="250px">250</option>
+                                        <option value="300px">300</option>
+                                        <option value="350px">350</option>
+                                        <option value="400px">400</option>
+                                        <option value="450px">450</option>
+                                        <option value="500px">500</option>
+                                    </select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-bold"></button>
+                                    <button class="ql-italic"></button>
+                                    <button class="ql-underline"></button>
+                                    <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <select class="ql-color"></select>
+                                    <select class="ql-background"></select>
+                                </span>sdsds
+                                <span class="ql-formats">
+                                    <button class="ql-list" value="ordered"></button>
+                                    <button class="ql-list" value="bullet"></button>
+                                    <select class="ql-align">
+                                        <option selected></option>
+                                        <option value="center"></option>
+                                        <option value="right"></option>
+                                        <option value="justify"></option>
+                                    </select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-link"></button>
+                                    <button class="ql-image"></button>
+                                </span>
+
+                            </div>
+                        </ng-quill-toolbar>
+
+                    </ng-quill-editor>
 
                     <div class="ltr gray" style="font-size: 0.85em;display: flex;flex-direction: row;justify-content: space-between;">
 

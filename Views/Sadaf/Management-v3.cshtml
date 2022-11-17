@@ -49,7 +49,7 @@
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" value="@(BLL.ApplicationLicense.ClientLicenseManager.GetInstance().License.DatasourceMetadata ? "true": "false")" name="DatasourceMetadata" />
 
-    <link href="~/react-dist/styles.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
+    <link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />
 
     <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 

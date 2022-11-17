@@ -1,15 +1,24 @@
-﻿<div class="ui form root" ng-class="{'fullscreen': fullscreen}" style="">
+﻿<div class="ui form root w-full" ng-class="{'fullscreen': fullscreen}" style="">
     <i class="ui icon close link" ng-click="setFullscreen()" ng-if="fullscreen"></i>
-    <div class="editor" style="direction: ltr; border: solid 1px #efefef; padding: 8px; background: #fff; max-height:300px; overflow-y:auto"></div>
+    <div class="editor"
+         style="direction: ltr; border: solid 1px #efefef; padding: 8px; background: #fff; overflow-y:auto"
+         ng-style="{ 'max-height': (fullHeight || fullscreen ? '100%' : '300px') }">
 
-    <div>
+
+    </div>
+    <div style="display:none" class="default-value">
+        <ng-transclude></ng-transclude>
+    </div>
+
+    <div ng-if="!readonly">
         <div ng-if="!nosort" ng-click="format()" class="ui icon tiny tw-float-left " title="مرتب کردن کد (Shift-Ctrl-F)">
             <i class="ui icon sort amount down link"></i>
         </div>
         <div ng-click="setFullscreen()" class="ui icon tiny tw-float-left " title="تمام صفحه">
-            <i ng-if="!fullscreen"class="ui icon expand link"></i>
-            <i ng-if="fullscreen"class="ui icon compress link"></i>
+            <i ng-if="!fullscreen" class="ui icon expand link"></i>
+            <i ng-if="fullscreen" class="ui icon compress link"></i>
         </div>
+
     </div>
 
 </div>

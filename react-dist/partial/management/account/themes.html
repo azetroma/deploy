@@ -1,15 +1,19 @@
 ﻿<div layout="column" flex>
-    <md-content flex class="content " layout="row" no-background>
+    <md-content flex class="content" layout="row" no-background>
         <div flex="10" hide-sm hide-xs></div>
         <div flex="80" flex-xs="100" flex-sm="100">
-            <md-card style="margin:40px 0; padding:16px">
-
+            <md-card style="margin: 40px 0; padding: 16px; min-height: calc(100% - 80px)">
                 <div ng-if=" path === '/themes'">
                     <theme-list></theme-list>
+                    <!--<ng-theme-list></ng-theme-list>-->
                 </div>
 
                 <div ng-if="path === '/compare-data'">
                     <compare-data ng-model="compareDataModel"></compare-data>
+                </div>
+
+                <div ng-if="path === '/okr'" class="tw-min-h-full tw-flex-grow tw-flex">
+                    <okrapp class="tw-min-h-full tw-flex tw-flex-grow -tw-m-4"></okrapp>
                 </div>
 
                 <div ng-if="path === '/eventNotifications'">
@@ -38,7 +42,7 @@
                 <div ng-if="path === '/chart-import'">
                     <chart-import datasources="datasources"></chart-import>
                 </div>
-                
+
                 <div ng-if="isUserVariableDetail">
                     <user-variables-detail name="variableName"></user-variables-detail>
                 </div>
@@ -46,11 +50,8 @@
                 <div ng-if="isOlapTables">
                     <olap-query id="id" onchange="onSaveTable"></olap-query>
                 </div>
-
             </md-card>
         </div>
         <div flex="10" hide-sm hide-xs></div>
     </md-content>
 </div>
-
-

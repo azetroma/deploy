@@ -1,0 +1,74 @@
+﻿<div>
+    <div class="ui pointing secondary menu">
+        <div class="active item">لیست پوسته ها</div><div class="right menu">
+            <div class="item">
+                <button class="ui button mini compact" (click)="newTheme()"> <i aria-hidden="true" class="add icon"></i> اضافه کردن</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="ui table">
+        <thead>
+            <tr>
+                <th style="width:50px">#</th>
+                <th>نام</th>
+                <th style="width:100px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of data;  index as i">
+                <td>{{persian(i + 1, true)}}</td>
+                <td class="pointer" (click)="edit(item)">{{item.name}}</td>
+                <td style="text-align:left">
+                    <div class="ui mini basic icon button" (click)="delete(item)">
+                        <i class="ui icon alternate trash outline"></i>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <div class="ui modal theme">
+        <div class="header">{{model.id>0 ? 'ویرایش پوسته' : 'پوسته جدید'}}</div>
+        <div class="content" *ngIf="model">
+            <div class="ui form">
+
+                <div class="fields"><label>نام</label> <input class="!tw-mx-3" [(ngModel)]="model.name" /></div>
+                <div class="fields"><label>رنگ پشت زمینه منو‌ها</label><input class="!tw-w-4 tw-h-4 tw-cursor-pointer !tw-mx-3" [(colorPicker)]="model.menuBackColor" [style.background]="model.menuBackColor" /></div>
+                <div class="fields"><label>رنگ منو‌ها</label><input class="!tw-w-4 tw-h-4 tw-cursor-pointer !tw-mx-3" [(colorPicker)]="model.menuColor" [style.background]="model.menuColor" /></div>
+                <div class="fields"><label>رنگ گروه منوی فعال</label><input class="!tw-w-4 tw-h-4 tw-cursor-pointer !tw-mx-3" [(colorPicker)]="model.menuActiveGroupBackColor" [style.background]="model.menuActiveGroupBackColor" /></div>
+                <div class="fields"><label>رنگ منوی انتخاب شده</label><input class="!tw-w-4 tw-h-4 tw-cursor-pointer !tw-mx-3" [(colorPicker)]="model.menuActiveBorderColor" [style.background]="model.menuActiveBorderColor" /></div>
+                <div class="fields"><label>رنگ Hover منو</label><input class="!tw-w-4 tw-h-4 tw-cursor-pointer !tw-mx-3" [(colorPicker)]="model.menuHoverColor" [style.background]="model.menuHoverColor" /></div>
+                <div class="fields"><label>رنگ پشت زمینه صفحه داشبورد</label><input class="!tw-w-4 tw-h-4 tw-cursor-pointer !tw-mx-3" [(colorPicker)]="model.dashboardBackColor" [style.background]="model.dashboardBackColor" /></div>
+                <div class="fields"><label>رنگ تیتر نمودارها</label><input class="!tw-w-4 tw-h-4 tw-cursor-pointer !tw-mx-3" [(colorPicker)]="model.chartTitleColor" [style.background]="model.chartTitleColor" /></div>
+
+                <div>
+                    <label>لوگو</label>
+                    <div class="tw-w-full tw-inline-block">
+                        <div class="ui button" (click)="upload()">انتخاب فایل</div>
+                        <input #fileInput type="file" accept="image/*" style="display:none" (change)="uploadHandle($event)" />
+                        <img width="100" src="{{model.logo}}" style="margin:0 auto; display:block" />
+                        <img *ngIf="model.logoId > 0 && !model.logo" width="100" src="{{app.urlPrefix + 'api/upload/getPic/' + model.logoId}}" style="margin:0 auto; display:block" />
+                    </div>
+                </div>
+                <br/>
+                <div class="field">
+                    <label>قوانین CSS اضافی</label>
+                    <textarea class="ltr" [(ngModel)]="model.extraCss" name="extraCss"></textarea>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="actions">
+            <button (click)="save()" class="ui button green" [class.loading]="saveProgress" [class.disabled]="saveProgress">ذخیره</button>
+            <button (click)="cancel()" class="ui button black">لغو</button>
+            <button (click)="reset()" class="ui button basic">بازنشانی</button>
+        </div>
+
+    </div>
+
+</div>

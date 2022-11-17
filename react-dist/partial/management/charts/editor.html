@@ -297,7 +297,7 @@
                                              ng-hide="existIn(i, measures) || hide(i, 'measure', showMeasureName)"
                                              index="{{$index}}"
                                              data-name="{{i.UniqueName}}" type="measure" draggable-items>
-                                            <img ng-src="{{app.urlPrefix}}Images/measure.png" class="chart-editor-data-hicon" />
+                                            <img ng-src="{{app.urlPrefix}}Images/measure.png" class="chart-editor-data-hicon tw-inline-block" />
                                             {{i.Name}} 
                                         </div>
                                     </div>
@@ -325,7 +325,7 @@
                                                          ng-hide="existIn(i, measures) || hide(i, 'measure')"
                                                          index="{{$index}}"
                                                          data-name="{{i.UniqueName}}" type="kpi" draggable-items>
-                                                        <img ng-src="{{app.urlPrefix}}Images/kpi.png" class="chart-editor-data-hicon" />
+                                                        <img ng-src="{{app.urlPrefix}}Images/kpi.png" class="chart-editor-data-hicon tw-inline-block" />
                                                         {{i.Name}}
                                                     </div>
                                                 </collapse-body>
@@ -353,7 +353,7 @@
                                              ng-repeat="i in olapCubes[+selectedOlapCube].NamedSets" type="namedset"
                                              ng-hide="existIn(i, measures.concat(dimensions).concat(where)) || hide(i, 'check-name', i)"
                                              index="{{$index}}" dimindex="{{$index}}" hi="i" draggable-items>
-                                            <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                            <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon  tw-inline-block" />
                                             {{i.Name}}
                                         </div>
                                     </collapse-body>
@@ -388,7 +388,7 @@
                                                      ng-hide="existIn(i, measures.concat(dimensions).concat(where)) || hide(i, 'check-name', v)"
                                                      group-name="{{k}}"
                                                      index="{{$index}}" dimindex="{{u.index}}" hi="i" draggable-items>
-                                                    <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                                    <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon  tw-inline-block" />
                                                     {{i.Name}}
                                                 </div>
                                             </collapse-body>
@@ -400,7 +400,7 @@
                                              group-name=""
                                              ng-hide="existIn(i, measures.concat(dimensions).concat(where))|| hide(i, 'check-name')"
                                              index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
-                                            <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon" />
+                                            <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon  tw-inline-block" />
                                             {{i.Name}}
                                         </div>
 

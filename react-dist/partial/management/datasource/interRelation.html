@@ -150,7 +150,7 @@
 
                 <div ng-if="parent.modalRelationObject.leftModelType == 1 || parent.modalRelationObject.rightModelType == 1">
 
-                    <div class="inline field">
+                    <div class="inline two column fields">
                         <label>نوع ارتباط</label>
                         <sm-dropdown class="selection"
                                      items="[
@@ -159,10 +159,23 @@
                                          {label:'یک به یک 1-1', value:2},
                                          ]" label="item.label" value="item.value"
                                      model="parent.modalRelationObject.cardinality"></sm-dropdown>
-                                         <!--{label:'*-* چند به چند', value:3},-->
+                        <!--{label:'*-* چند به چند', value:3},-->
 
                     </div>
-                
+                    <div>
+                        <div class="inline field">
+                            <label>جهت ارتباط</label>
+                            <sm-dropdown class="selection"
+                                         items="[
+                                               {label:'دو طرفه', value:0},
+                                               {label:'یک طرفه', value:1},
+                                            ]" label="item.label" value="item.value"
+                                         model="parent.modalRelationObject.direction"></sm-dropdown>
+                            <!--{label:'*-* چند به چند', value:3},-->
+
+                        </div>
+                    </div>
+
                     <div class="field">
                         <md-checkbox ng-model="parent.modalRelationObject.isActive">
                             ارتباط فعال

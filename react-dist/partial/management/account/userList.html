@@ -60,7 +60,8 @@
                     <div class="cell" style="width: 50px"><span>{{'type' | translate}}</span></div>
                     <div class="cell" style="width: 30%">{{'roles' | translate}}</div>
                     <div class="cell" style="width: 100px">آخرین لاگین</div>
-                    <div class="cell" style="width: 50px">وضعیت</div>
+                    <div class="cell" style="width: 50px">وضعیت</div> 
+                    <div class="cell" style="width: 100px">نوع دسترسی</div>
                     <!--<div class="cell" style="width: 100px" ng-show="securityCertPatch">{{'integrity check' | translate}}</div>-->
                 </div>
 
@@ -87,10 +88,11 @@
                                 <a ng-repeat="i in row.roles" href="{{app.hashUrlPrefix+'#/roles/edit/'+ i.id}}"> {{i.name}}</a>
                             </div>
                         </div>
-                        <div class="cell ltr" style="width: 100px;"><small class="gray ">{{timeFormat(row.lastLogin)}}</small></div>
-                        <div class="cell" style="width: 50px;"><small class="gray">{{row.state == 0 ? 'فعال' : row.state == 1 ? 'غیر فعال' :'فقط مشاهده پروفایل'}}</small></div>
+                        <div class="cell ltr" style="width: 100px; text-align: center"><small class="gray ">{{timeFormat(row.lastLogin)}}</small></div>
+                        <div class="cell" style="width: 50px; text-align: center"><small class="gray">{{row.state == 0 ? 'فعال' : row.state == 1 ? 'غیر فعال' :'فقط مشاهده پروفایل'}}</small></div>
+                        <div class="cell" style="width: 100px; text-align:center"><small class="gray">{{row.state == 0 ? 'کامل' : 'فقط خواندنی'}}</small></div>
                         <!--<div class="cell" style="width: 100px;" ng-show="securityCertPatch"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></div>
-                        <div class="cell" style="width: 100px;" ng-hide="securityCertPatch"></div>-->
+    <div class="cell" style="width: 100px;" ng-hide="securityCertPatch"></div>-->
 
                     </div>
                 </md-virtual-repeat-container>

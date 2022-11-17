@@ -369,6 +369,11 @@
         </div>
     </div>
 
+    <div>
+        <label>اجرای کد در صورت تغییر داده‌ی کنترل</label>
+        <sadaf-tasks ng-model="c.control.active.tasks" trigger="5" ng-init="c.control.active.tasks = c.control.active.tasks || []"></sadaf-tasks>
+    </div>
+
     <!-- تنظیمات مربوط به کلید -->
     <div ng-if="c.control.active.type == 15" class="field">
         <div class="inline fields">
@@ -441,7 +446,7 @@
             <label>{{'فرمول' | translate}}</label>
             <!--<textarea class="code ltr" ng-model="c.control.active.alert.expression"></textarea>-->
             <div flex>
-                <feditor flex nosort ng-model="c.control.active.alert.expression" lang="js" list="c.activeSibling.autoCompelete"></feditor>
+                <feditor control-s="saveFormShotcut()" flex nosort ng-model="c.control.active.alert.expression" lang="js" list="c.activeSibling.autoCompelete"></feditor>
             </div>
 
 
@@ -472,7 +477,7 @@
             <label>{{'فرمول' | translate}}</label>
             <!--<textarea class="code ltr" ng-model=""></textarea>-->
             <div flex>
-                <feditor nosort flex type="5" ng-model="c.control.active.calculate.expression" lang="js" list="c.activeSibling.autoCompelete"></feditor>
+                <feditor control-s="saveFormShotcut()" nosort flex type="5" ng-model="c.control.active.calculate.expression" lang="js" list="c.activeSibling.autoCompelete"></feditor>
             </div>
 
             <div class="desc ui small">
@@ -508,12 +513,11 @@
             </div>
         </div>
     </div>-->
-        {{c.controlListAutoCompelete.length | json}}
         <div class="field">
             <label>{{'فرمول' | translate}}</label>
             <!--<textarea class="code ltr" ng-model="c.control.active.calculate.expression"></textarea>-->
             <div flex>
-                <feditor nosort flex type="16" ng-model="c.control.active.calculate.expression" lang="js" list="c.controlListAutoCompelete"></feditor>
+                <feditor control-s="saveFormShotcut()" nosort flex type="16" ng-model="c.control.active.calculate.expression" lang="js" list="c.controlListAutoCompelete"></feditor>
             </div>
 
         </div>
@@ -590,11 +594,12 @@
         <sadaf-checkbox ng-model="c.formInfo.saveAndCopy">نمایش کلید «ذخیره و کپی در فرم جدید»</sadaf-checkbox>
     </div>
     <div class="inline fields">
-        <label>روش مدیریت ویرایش همزمان دو کاربر</label>
+        <label>ویرایش همزمان</label>
         <sm-dropdown items="[{name:'جلوگیری از ذخیره در صورت تغییر فرم', value:'prevent-save'}, {name:'ذخیره کنترل‌هایی که کاربر دسترسی دارد', value:'save-access'}]"
                      class=""
                      model="c.formInfo.concurrentSave" label="item.name" value="item.value"></sm-dropdown>
     </div>
+    <small class="gray">در صورتی که دو کاربر به صورت همزمان یک فرم را باز کرده باشند، روش ذخیره کردن اطلاعات با این گزینه مشخص می‌شود.</small>
 
 
     <div class="inline fields">
@@ -613,15 +618,22 @@
             <button ng-click="c.triggers.splice($index, 1)" class="ui mini  basic icon button" style="box-shadow: none; position: absolute; top :0; left:0; z-index: 2;"><i class="ui icon close"></i></button>
             <div class="inline fields">
                 <label>{{'run on event' | translate}}</label>
-                <sm-dropdown items="[  {label:('new record' | translate), value:0}
+                                    <!--{label:('new record' | translate), value:0}
                                      , {label:('edit record' | translate), value:1}
-                                     , {label:('delete record' | translate), value:2}
+                                     , {label:('delete record' | translate), value:2}-->
+                <sm-dropdown items="[  
+                                         {label: 'ذخیره رکورد جدید', value:0},
+                                         {label: 'ذخیره و ویرایش رکورد', value:1},
+                                         {label: 'حذف رکورد', value:2},
+                                         {label: 'باز شدن فرم جدید', value:3},
+                                         {label: 'باز شدن فرم با داده', value:4},
+                                         {label: 'تغییر داده‌های فرم', value:5},
                                     ]"
                              class=""
                              model="t.type" label="item.label" value="item.value"></sm-dropdown>
             </div>
             <div class="field">
-                <sadaf-tasks ng-model="t.tasks" ng-init="t.tasks = t.tasks || []"></sadaf-tasks>
+                <sadaf-tasks ng-model="t.tasks" trigger="t.type" ng-init="t.tasks = t.tasks || []"></sadaf-tasks>
             </div>
 
         </div>
@@ -655,19 +667,25 @@
 
     </div>
 
-    <div ng-if="app.license.formPrint" class="ui secondary segment">
+    <div class="field" sm-popup-inline="">
+        <sadaf-checkbox ng-model="c.printEnable" label="">نمایش تنظیمات پرینت</sadaf-checkbox>
+    </div>
+
+    <div ng-if="app.license.formPrint && c.printEnable" class="ui secondary segment">
 
         <div class="field">
             <label>قالب چاپ</label>
-            <feditor ng-model="c.printLayout" lang="html" list="c.controlListAutoCompelete"></feditor>
+            <feditor control-s="saveFormShotcut()" ng-model="c.printLayout" lang="html" list="c.controlListAutoCompelete"></feditor>
             <!--<textarea ng-model="c.printLayout" rows="5" class="ltr"></textarea>-->
-            <div style="text-align:left">
+            <!--<div style="text-align:left">
                 <span class="material-icons small" ng-click="showDialog($event)" title="{{'edit_query' | translate}}">fullscreen</span>
-            </div>
+            </div>-->
 
             <small class="gray">
-                از شناسه فیلدها با پیشوند @  برای استفاده از جایگزینی مقدار فیلدها استفاده کنید مثل
-                @field-1
+                از شناسه فیلدها با پیشوند @  برای استفاده از جایگزینی مقدار فیلدها استفاده کنید م
+ثل
+                @fie
+                ld-1
                 همچنین می‌توانید از
                 نام ستون با الگوی زیر استفاده کنید {{'[columnNamee]'}}
             </small><br />

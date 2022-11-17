@@ -1,0 +1,61 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <base href="@Href("~")">
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    @{
+        var isRelease = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+        var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+        var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+        if (!isRelease) {
+            v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+        }
+        var useApp = BLL.Process.CommonUtils.AppSettings.useApp();
+        var user = BLL.Security.Users.getUserByUsername(User.Identity.Name);
+    }
+
+    <link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />
+
+    <meta name="fontiran.com:license" content="X4ZQZ">
+
+
+</head>
+<body>
+
+    <input type="hidden" name="upgradeModuleName" value="management" />
+    <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
+
+    <okrapp></okrapp>
+
+    <script src="~/react-dist/app-bundle.js?v=@v"></script>
+
+    @*Clickjacking Defense*@
+    <style id="antiClickjack">
+        body {
+            display: none !important;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var isLoginByLink = "@ViewBag.isLoginByLink";
+
+        if (self === top || isLoginByLink ==="True") {
+            var antiClickjack = document.getElementById("antiClickjack");
+            antiClickjack.parentNode.removeChild(antiClickjack);
+        } else {
+            top.location = self.location;
+        }
+    </script>
+
+
+</body>
+
+</html>
