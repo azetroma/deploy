@@ -16,6 +16,10 @@
                     <okrapp class="tw-min-h-full tw-flex tw-flex-grow -tw-m-4"></okrapp>
                 </div>
 
+                <div ng-if="path === '/etl'" class="tw-min-h-full tw-flex-grow tw-flex">
+                    <etl-app class="tw-min-h-full tw-flex tw-flex-grow -tw-m-4"></etl-app>
+                </div>
+
                 <div ng-if="path === '/eventNotifications'">
                     <notification-list datasources="datasources"></notification-list>
                 </div>
