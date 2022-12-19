@@ -1,0 +1,7 @@
+@use '~@angular/material' as mat;
+
+$my-custom-typography: mat.define-typography-config(
+    $font-family: 'IRANSans',
+); 
+   
+@include mat.core($my-custom-typography);

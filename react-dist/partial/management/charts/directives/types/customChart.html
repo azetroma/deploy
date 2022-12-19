@@ -60,7 +60,7 @@
 
                     <div ng-if="item.type=='section' && (!item.if ||  ngModel[type].series[ngModel.selectedSeries][item.if.key] == item.if.value)" style=" padding: 10px; margin: 10px 0px; background-color: rgb(239, 239, 239); border-radius: 4px;">
                         <div ng-repeat="i in item.items">
-                            <general-custom-control parent="ngModel[type].series[ngModel.selectedSeries]" item="i" change="refreshChart('refresh');changeAllSeries(item.key)"></general-custom-control>
+                            <general-custom-control parent="ngModel[type].series[ngModel.selectedSeries]" item="i" change="refreshChart('refresh');changeAllSeries(i.key)"></general-custom-control>
                             <small ng-if="i.desc">{{i.desc}}</small>
                         </div>
                     </div>

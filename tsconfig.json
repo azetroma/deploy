@@ -1,14 +1,32 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
-    "module": "commonjs",
+    "target": "ES2022",
+    "module": "es2020",
+    "baseUrl": "./",
+    // "target": "ES2022",
+    "moduleResolution": "node",
+    // "module": "ESNext",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": false,
+    "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "importHelpers": true,
+
 
   },
   "include": [ "src_v2/**/*" ],
@@ -16,4 +34,11 @@
   //"angularCompilerOptions": {
   //  "enableIvy": true
   //}
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+
 }

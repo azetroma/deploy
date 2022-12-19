@@ -1,0 +1,27 @@
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+.mat-select,
+.mat-option,
+.mat-tooltip,
+.mat-simple-snackbar,
+.mat-form-field ,
+.mat-menu-item,
+.mat-checkbox,
+.mat-list-option,
+.mdc-list,
+.mdc-button
+.mat-dialog-title,
+.mat-mdc-floating-label{
+    font-family: IRANSans !important;
+}
+
+.mdc-button{
+    letter-spacing: normal !important;
+}
+/*
+.mat-drawer,
+.mat-drawer-inner-container {
+    overflow: visible;
+}
+*/
+

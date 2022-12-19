@@ -1,0 +1,59 @@
+﻿<h1 class="ui dividing header">  رهنمای نوشتن کدهای جاوا اسکریپت در فرم‌ساز</h1>
+<p>
+</p>
+
+<h3>توابع و اشیا در دسترس</h3>
+زمان نوشتن کد جاوا به صورت پیش فرض به موارد زیر دسترسی دارید
+
+<ul class="ltr tw-text-md">
+    <li><span class="ui  label ltr">formModel</span>  اطلاعات فرم در این شی در دسترسی هستند</li>
+    <li><span class="ui  label ltr">params</span> پارامترهای اضافی در این شی قرار می‌گیرند</li>
+    <li><span class="ui  label ltr">findControl([name or column name])</span>  تابع پیدا کردن کنترل در فرم</li>
+    <li><span class="ui  label ltr">runOnAllControll([formModel], controlCallback(cnt, row, index, pagecnt, isFromMultiRow), pageCallback(page))</span>  اجرای کد روی تمام کنترل‌ها</li>
+    <li><span class="ui  label ltr">moment(control.value, 'jYYYY/jMM/jDD')</span>  تبدیل مقدار تاریخ به زمان</li>
+</ul>
+
+<h3>params</h3>
+<p>در این شی موارد زیر در دسترس هستند</p>
+<ul class="ltr tw-text-md">
+    <li><span class="ui  label ltr">change</span> فیلدی که تغییر کرده است در این پروپرتی قرار داده می شود. </li>
+    <li><span class="ui  label ltr">settings</span> تنظیمات نموداری که فرم را باز می‌کند در این پروپرتی در دسترس است</li>
+</ul>
+
+
+<h3>مقداردهی به فیلد</h3>
+<p>
+    با پیدا کردن فیلد توسط تابع findControl یک شی برگردانده می‌شود که دارای دو پروپرتی به نام‌های
+    value و listValue
+    می‌باشد که به ترتیب برای مقدار تکی و چند مقداری استفاده می‌شوند.
+</p>
+<h3>اجرای کوئری روی پایگاه داده</h3>
+<p>برای اجرای پرس‌وجو روی پایگاه داده لازم است به شکل زیر یک درخواست سمت سرور ارسال کنید و نتیجه را پردازش کنید.</p>
+
+<feditor lang="js" full-height readonly>
+let contract = findControl('contract');
+let rows = findControl('field-2');
+
+http
+    .post('/api/forms/query', {
+        query: `select *
+                from [forms_data_1019_H9TYKTK8hcCB-field-2]
+                where [forms_data_1019_H9TYKTK8hcCB-FK] = ${contract.value}`
+    })
+    .then((res) => {
+        console.log('data', res.data);
+        rows.multiRowForm.rows = [];
+        _.each(res.data.data, item => {
+            let a = rows.multiRowForm.addRow();
+            a[0].value = item[7];
+        });
+    });
+</feditor>
+
+
+<h3>اضافه کردن ردیف جدید به کنترل تکرار شونده</h3>
+<feditor lang="js" full-height readonly>
+let rows = findControl('field-2');
+let a = rows.multiRowForm.addRow();
+a[0].value = 'value';
+</feditor>

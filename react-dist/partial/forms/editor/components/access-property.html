@@ -16,7 +16,7 @@
         <div class="inline fields">
             <label class="four wide field">نوع عملیات</label>
             <div class="eight wide field">
-                <sm-dropdown model="rule.type" class="" settings="{fullTextSearch: true, forceSelection: false}" 
+                <sm-dropdown  model="rule.type" class="" settings="{fullTextSearch: true, forceSelection: false}" 
                              items="[
                              {type: 1, name:'نمایش به شرط...'},
                              {type: 2, name:'ویرایش به شرط...'},
@@ -27,14 +27,14 @@
         <div class="inline fields">
             <label class="four wide field">براساس</label>
             <div class="eight wide field">
-                <sm-dropdown model="rule.baseon" class="" settings="{fullTextSearch: true, forceSelection: false}" 
+                <sm-dropdown xon-change="change()" model="rule.baseon" class="" settings="{fullTextSearch: true, forceSelection: false}" 
                              items="[{type: 1, name:'مقدار کنترل'},{type: 2, name:'متغیر کاربری'},{type: 3, name:'نقش کاربر'}]" label="item.name" value="item.type"></sm-dropdown>
             </div>
         </div>
         <div class="inline fields" ng-if="rule.baseon == 1">
             <label class="four wide field">کنترل</label>
             <div class="eight wide field">
-                <sm-dropdown model="rule.control" class="selection search fluid" style="width:100%" settings="{fullTextSearch: true, forceSelection: false}" items="controls.row" label="item.label" value="item.name"></sm-dropdown>
+                <sm-dropdown xon-change="change()" model="rule.control" class="selection search fluid" style="width:100%" settings="{fullTextSearch: true, forceSelection: false}" items="controls.row" label="item.label" value="item.name"></sm-dropdown>
             </div>
         </div>
         <div class="inline fields" ng-if="rule.baseon == 1">
@@ -49,26 +49,26 @@
                                  {type: 4, name:'کوچک‌تر'},
                                  {type: 5, name:'کوچک‌تر مساوی'},
                              ]"
-                             label="item.name" value="item.type"></sm-dropdown>
+                             label="item.name" value="item.type" xon-change="change()"></sm-dropdown>
             </div>
         </div>
         <div class="inline fields" ng-if="rule.baseon == 2">
             <label class="four wide field">انتخاب متغیر کاربری</label>
             <div class="eight wide field">
                 <!--<sm-dropdown class="selection fluid search" items="variables" model="rule.variable" label="item" value="item"></sm-dropdown>-->
-                <sadaf-user-variables style="width:100%" ng-model="rule.variable"></sadaf-user-variables>
+                <sadaf-user-variables style="width:100%" ng-model="rule.variable"xon-change="change()"></sadaf-user-variables>
             </div>
         </div>
         <div class="inline fields" ng-if="rule.baseon == 1 || rule.baseon == 2">
             <label class="four wide field">مقدار</label>
             <div class="eight wide field">
-                <input ng-model="rule.value" />
+                <input ng-model="rule.value" xng-change="change()"  />
             </div>
         </div>
         <div class="inline fields" ng-if="rule.baseon == 3">
             <label class="four wide field">انتخاب نقش</label>
             <div class="eight wide field">
-                <select-roles style="width:100%" ng-model="rule.roles"></select-roles>
+                <select-roles style="width:100%" ng-model="rule.roles" xon-change="change()"></select-roles>
             </div>
         </div>
     </div>
