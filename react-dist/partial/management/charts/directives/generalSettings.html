@@ -269,6 +269,17 @@
     </div>
 </div>
 
+<div class="form-row" layout="row" layout-align="start center" ng-show="model.aggregation!=-1">
+    <div class="col-sm-offset-4 col-sm-8">
+        <div class="checkbox">
+            <label class="">
+                <input type="checkbox" ng-model="model.sortMeasures" ng-change="change()" /> {{ 'مرتب کردن شاخص‌ها در حالت تجمیع' | translate }}
+            </label>
+        </div>
+    </div>
+</div>
+
+
 <div
     class="prop-segment"
     ng-if="model.sort.enable"
