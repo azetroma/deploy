@@ -259,14 +259,26 @@
             </sadaf-checkbox>
         </div>
 
-        <div class="inline fields" ng-show="!c.control.active.dropdown.useRemoteData">
+        <div class="f-field" ng-show="!c.control.active.dropdown.useRemoteData">
             <label>{{'حالت نمایش' | translate}}</label>
             <sm-dropdown
-                items="[{key:'combo', value:'combo'}
-                                 , {key:'radio', value:'radio'}
-                                ]"
-                class=""
+                items="[  {key:'combo', value:'combo'}
+                        , {key:'radio', value:'radio'}
+                       ]"
+                class="value selection"
                 model="c.control.active.dropdown.theme"
+                label="item.value"
+                value="item.key"
+            ></sm-dropdown>
+        </div>
+        <div class="f-field" ng-if="c.control.active.dropdown.theme == 'radio'">
+            <label>{{'شکل' | translate}}</label>
+            <sm-dropdown
+                items="[  {key:'block', value:'هر آیتم در یک خط'}
+                        , {key:'inline-block', value:'تمام آیتم‌ها در یک خط'}
+                       ]"
+                class="value selection"
+                model="c.control.active.uiConfig.radioBlock"
                 label="item.value"
                 value="item.key"
             ></sm-dropdown>
