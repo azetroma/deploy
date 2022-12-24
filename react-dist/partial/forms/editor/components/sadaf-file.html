@@ -1,0 +1,123 @@
+﻿<div>
+    <div
+        ng-if="multiple"
+        class="file-uplaod"
+        ng-class="[(model.uiConfig.border ? 'ui segment':'')]"
+        ng-style="{'background-color':( model.uiConfig.color) }"
+    >
+        <div class="ui secondary pointing tiny menu">
+            <div class="active item">
+                <styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label>
+                <span ng-show="model.validations.isRequire" style="color: #db2828">&nbsp;*&nbsp;</span>
+            </div>
+            <div class="ui right item" ng-hide="model.readonly">
+                <div
+                    class="pointer"
+                    ngf-select
+                    ngf-change="upload($files, $event, $rejectedFiles)"
+                    ngf-multiple="true"
+                    ngf-allow-dir="false"
+                    ngf-accept="'*'"
+                >
+                    {{'add file' | translate}}<i class="icon plus square outline large"></i>
+                </div>
+            </div>
+        </div>
+
+        <div ng-hide="model.attachment.uploadList.length" class="gray center aligned twelve wide column">
+            <small>{{'no file selected' | translate}}</small>
+        </div>
+        <div class="">
+            <div ng-repeat="file in model.attachment.uploadList" class="file-item">
+                <div class="">
+                    <div class="">
+                        <span class="ui img"><i class="icon file outline large" ng-class="file.icon"></i></span>
+                        <span ng-hide="file.serverDbId || file.serverPath">{{file.name}} </span>
+                        <a
+                            ng-show="file.serverDbId || file.serverPath"
+                            class="file-link"
+                            target="_blank"
+                            href="{{getLink(file)}}"
+                            >{{file.name}}
+                        </a>
+                        <span
+                            ng-show="file.uploadFinish && file.success && !model.readonly"
+                            class="pointer"
+                            ng-click="model.attachment.uploadList.splice($index,1)"
+                            ><i class="icon remove small grey"></i
+                        ></span>
+                        <span ng-show="file.uploadFinish && !file.success" class="ui tiny"
+                            ><span class="ui text tiny active inline center loader"></span
+                        ></span>
+                        <sm-progress
+                            class="blue tiny"
+                            model="file.progress"
+                            ng-show="file.progress != null && !file.uploadFinish"
+                            style="margin-top: 4px"
+                        ></sm-progress>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div
+        ng-if="!multiple"
+        class="file-uplaod"
+        ng-class="[(model.uiConfig.border ? 'ui segment':'')]"
+        ng-style="{'background-color':( model.uiConfig.color) }"
+    >
+     
+    <div class="ui right item" ng-hide="model.readonly">
+        <div
+            class="pointer"
+            ngf-select
+            ngf-change="upload($files, $event, $rejectedFiles)"
+            ngf-multiple="false"
+            ngf-allow-dir="false"
+            ngf-accept="'*'"
+        >
+            {{'add file' | translate}}<i class="icon plus square outline large"></i>
+        </div>
+    </div>
+
+
+        <div ng-hide="model.attachment.uploadList.length" class="gray center aligned twelve wide column">
+            <small>{{'no file selected' | translate}}</small>
+        </div>
+        <div class="">
+            <div ng-repeat="file in model.attachment.uploadList" class="file-item">
+                <div class="">
+                    <div class="">
+                        <span class="ui img"><i class="icon file outline large" ng-class="file.icon"></i></span>
+                        <span ng-hide="file.serverDbId || file.serverPath">{{file.name}} </span>
+                        <a
+                            ng-show="file.serverDbId || file.serverPath"
+                            class="file-link"
+                            target="_blank"
+                            href="{{getLink(file)}}"
+                            >{{file.name}}
+                        </a>
+                        <span
+                            ng-show="file.uploadFinish && file.success && !model.readonly"
+                            class="pointer"
+                            ng-click="model.attachment.uploadList.splice($index,1)"
+                            ><i class="icon remove small grey"></i
+                        ></span>
+                        <span ng-show="file.uploadFinish && !file.success" class="ui tiny"
+                            ><span class="ui text tiny active inline center loader"></span
+                        ></span>
+                        <sm-progress
+                            class="blue tiny"
+                            model="file.progress"
+                            ng-show="file.progress != null && !file.uploadFinish"
+                            style="margin-top: 4px"
+                        ></sm-progress>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
