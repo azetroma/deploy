@@ -1,7 +1,12 @@
 ﻿<div layout="column" flex>
     <md-content flex class="content" layout="row" no-background>
-        <div flex="10" hide-sm hide-xs></div>
-        <div flex="80" flex-xs="100" flex-sm="100">
+
+            <div ng-if="isbpms" class="tw-min-h-full tw-flex-grow tw-flex">
+                <bpms-app routes="{{path}}" class="tw-min-h-full tw-flex tw-flex-grow"></bpms-app>
+            </div>
+
+        <div ng-if="!isbpms" flex="10" hide-sm hide-xs></div>
+        <div ng-if="!isbpms" flex="80" flex-xs="100" flex-sm="100">
             <md-card style="margin: 40px 0; padding: 16px; min-height: calc(100% - 80px)">
                 <div ng-if=" path === '/themes'">
                     <theme-list></theme-list>
@@ -56,6 +61,6 @@
                 </div>
             </md-card>
         </div>
-        <div flex="10" hide-sm hide-xs></div>
+        <div ng-if="!isbpms"flex="10" hide-sm hide-xs></div>
     </md-content>
 </div>

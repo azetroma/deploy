@@ -2,6 +2,7 @@
 
 <style></style>
 
+
 <form autocomplete="off" ng-show="c.control.active.name" class="ui tiny form">
     <div class="f-field">
         <label>{{'identity'|translate}}</label>
@@ -69,6 +70,7 @@
             {k:'six',v:'۶' },
             {k:'four',v:'۴' },
             {k:'three',v:'۳' },
+            {k:'two',v:'۲' },
             ]"
             ng-class="{active: i.k == c.control.active.columnClass}"
             class="ui button"
@@ -342,7 +344,7 @@
 
     <!-- تنظیمات مربوط به کنترل عددی -->
     <div
-        ng-show="!c.control.active.hideFormat &&( c.control.active.type == 2 || c.control.active.type == 5 || c.control.active.type == 16|| c.control.active.type == 17|| c.control.active.type == 12|| c.control.active.type == 4)"
+        ng-show="!c.control.active.hideFormat &&( c.control.active.type == 2 ||c.control.active.type == 3 || c.control.active.type == 5 || c.control.active.type == 16|| c.control.active.type == 17|| c.control.active.type == 12|| c.control.active.type == 4)"
         class="field"
     >
         <div class="f-field">
@@ -765,7 +767,6 @@
         </div>
         <small class="gray">حاشیه باید به صورت <span class="ltr code">10px 0px</span> باشد </small>
 
-        
         <div class="f-field">
             <label>{{'color'|translate}}</label>
             <div
@@ -838,23 +839,22 @@
         ></text-editor>
     </div>
 
-<div ng-if="c.control.active.type == 19">
-
-    <div class="f-field">
-        <label>تم نمایش</label>
-        <sm-dropdown
-            items="[{k:'menu', label:'حالت چند گزینه‌ای'}, {k:'dragdrop', label:'درگ دراپ'}
+    <div ng-if="c.control.active.type == 19">
+        <div class="f-field">
+            <label>تم نمایش</label>
+            <sm-dropdown
+                items="[{k:'menu', label:'حالت چند گزینه‌ای'}, {k:'dragdrop', label:'درگ دراپ'}
             , {k:'input', label:'کلید'}]"
-            model="c.control.active.uiConfig.theme"
-            value="item.k"
-            label="item.label"
-            class="selection value"
-        ></sm-dropdown>
-    </div>
-    <div class="f-field">
-        <label>نوع فایل ورودی</label>
-        <sm-dropdown
-            items="[{k:'image/*', label:'تصویر'}
+                model="c.control.active.uiConfig.theme"
+                value="item.k"
+                label="item.label"
+                class="selection value"
+            ></sm-dropdown>
+        </div>
+        <div class="f-field">
+            <label>نوع فایل ورودی</label>
+            <sm-dropdown
+                items="[{k:'image/*', label:'تصویر'}
             , {k:'audio/*', label:'صدا'}
             , {k:'video/*', label:'ویدئو'}
             , {k:'.pdf', label:'pdf'}
@@ -862,47 +862,51 @@
             , {k:'.xlsx', label:'xlsx'}
             , {k:'*', label:'همه فایل‌ها'}]
             "
-            model="c.control.active.uiConfig.accept"
-            value="item.k"
-            label="item.label"
-            class="selection multiple value"
-        ></sm-dropdown>
+                model="c.control.active.uiConfig.accept"
+                value="item.k"
+                label="item.label"
+                class="selection multiple value"
+            ></sm-dropdown>
+        </div>
+
+        <div class="field">
+            <sadaf-checkbox
+                ng-if="c.control.active.uiConfig.theme == 'dragdrop'"
+                ng-model="c.control.active.uiConfig.showIcon"
+                >نمایش آیکن</sadaf-checkbox
+            >
+        </div>
+        <div class="field">
+            <sadaf-checkbox
+                ng-if="c.control.active.uiConfig.theme == 'dragdrop'"
+                ng-model="c.control.active.uiConfig.compact"
+                >فضای نمایشی کمتر</sadaf-checkbox
+            >
+        </div>
+
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.single">انتخاب تنها یک فایل</sadaf-checkbox>
+        </div>
+
+        <div class="field" ng-if="c.control.active.uiConfig.theme != 'menu'">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.showEmptyMessage"
+                >نمایش پیغام لیست خالی فایل</sadaf-checkbox
+            >
+        </div>
+
+        <div
+            class="f-field"
+            ng-if="c.control.active.uiConfig.showEmptyMessage && c.control.active.uiConfig.theme != 'menu'"
+        >
+            <label>متن عدم انتخاب فایل</label>
+            <input class="value" ng-model="c.control.active.uiConfig.emptyMessage" />
+        </div>
+
+        <div class="f-field" ng-if="c.control.active.uiConfig.theme == 'dragdrop'">
+            <label>متن داخل باکس</label>
+            <input class="value" ng-model="c.control.active.uiConfig.message" />
+        </div>
     </div>
-
-
-    <div class="field">
-        <sadaf-checkbox ng-if="c.control.active.uiConfig.theme == 'dragdrop'" ng-model="c.control.active.uiConfig.showIcon">نمایش آیکن</sadaf-checkbox>
-    </div>
-    <div class="field">
-        <sadaf-checkbox ng-if="c.control.active.uiConfig.theme == 'dragdrop'" ng-model="c.control.active.uiConfig.compact">فضای نمایشی کمتر</sadaf-checkbox>
-    </div>
-
-    <div class="field">
-        <sadaf-checkbox ng-model="c.control.active.uiConfig.single">انتخاب تنها یک فایل</sadaf-checkbox>
-    </div>
-    
-    <div class="field" ng-if="c.control.active.uiConfig.theme != 'menu'"> 
-        <sadaf-checkbox ng-model="c.control.active.uiConfig.showEmptyMessage">نمایش پیغام لیست خالی فایل</sadaf-checkbox>
-    </div>
-
-    <div class="f-field" ng-if="c.control.active.uiConfig.showEmptyMessage && c.control.active.uiConfig.theme != 'menu'">
-        <label>متن عدم انتخاب فایل</label>
-        <input
-            class="value"
-            ng-model="c.control.active.uiConfig.emptyMessage"
-        />
-    </div> 
-
-    <div class="f-field" ng-if="c.control.active.uiConfig.theme == 'dragdrop'">
-        <label>متن داخل باکس</label>
-        <input
-            class="value"
-            ng-model="c.control.active.uiConfig.message"
-        />
-    </div>
-
-
-</div>
 
     <div ng-if="c.control.active.type == 13">
         <div class="field">
@@ -952,6 +956,13 @@
             <table-lookup ng-model="c.control.active" controls="c.activeSibling"></table-lookup>
         </div>
     </div>
+
+
+    <div ng-if="c.pages.data.length">
+        انتقال به صحفه
+        <div class="ui mini button" ng-if="!p.active" ng-repeat="p in c.pages.data" ng-click="moveToPage(p)">{{p.name}}</div>
+    </div>
+    
 </form>
 
 <!-- تنظیمات صفحه -->

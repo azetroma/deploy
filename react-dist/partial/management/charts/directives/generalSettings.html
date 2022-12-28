@@ -273,12 +273,12 @@
     <div class="col-sm-offset-4 col-sm-8">
         <div class="checkbox">
             <label class="">
-                <input type="checkbox" ng-model="model.sortMeasures" ng-change="change()" /> {{ 'مرتب کردن شاخص‌ها در حالت تجمیع' | translate }}
+                <input type="checkbox" ng-model="model.sortMeasures" ng-change="change()" /> {{ 'مرتب کردن شاخص‌ها در
+                حالت تجمیع' | translate }}
             </label>
         </div>
     </div>
 </div>
-
 
 <div
     class="prop-segment"
@@ -386,24 +386,27 @@
         >
             <div class="ui mini button" ng-click="model.exportApiParams.push({columns:[{}]})">اضافه کردن پارامتر</div>
             <div ng-repeat="i in model.exportApiParams" class="ui mini secondary segment">
-                <div class="ui fluid action input">
-                    <input flex type="text" class="form-control" placeholder="نام پارامتر" ng-model="i.name" />
-                    <div class="ui mini icon button" ng-click="model.exportApiParams.splice($index, 1)">
-                        <i class="ui icon trash alternate outline"></i>
+                <div class="two column fields fluid">
+                    <div class="ui fluid action input">
+                        <input flex type="text" class="form-control" placeholder="نام پارامتر" ng-model="i.name" />
+                        <div class="ui mini icon button" ng-click="model.exportApiParams.splice($index, 1)">
+                            <i class="ui icon trash alternate outline"></i>
+                        </div>
                     </div>
-                </div>
 
-                <br />
-                <div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">smنوع پارامترهای ارسالی</label>
-                    <span class="form-divider" flex></span>
-                    <div class="col-sm-8">
-                        <select
-                            class="form-control"
-                            ng-model="i.type"
-                            ng-options="i.id as i.name for i in [ {id:0, name:'لیست'}, {id:2, name:'محدودیت رنج'}]"
-                        ></select>
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="col-sm-4">نوع پارامترهای ارسالی</label>
+                        <span class="form-divider" flex></span>
+                        <div class="col-sm-8">
+                            <select
+                                class="form-control"
+                                ng-model="i.type"
+                                ng-options="i.id as i.name for i in [ {id:0, name:'لیست'}, {id:2, name:'محدودیت رنج'}, {id:4, name:'مقدار با عملوند'}]"
+                            ></select>
+                        </div>
                     </div>
+                    <small>برای نوع عملوند باید در پارامتر دوم نوع عملوند ارسال شود.</small>
+
                 </div>
 
                 <br />
@@ -426,28 +429,31 @@
                         <i class="ui icon close"></i>
                     </div>
                 </div>
-                <br />
-                نمونه پارامترهای ارسالی
-                <pre class="ltr"> 
+
+            </div>
+            
+            <span class="ui mini button icon" ng-click="copyValue(model)">
+                <i class="ui icon link copy outline" title="کپی مقدار"></i>
+            </span>
+            <br />
+            هدر Content-Type درخواست باید application/json تنظیم شود. type میتواند یکی از دو مقدار json یا csv را
+            داشته باشد
+            <br />
+            نمونه پارامترهای ارسالی
+            <pre class="ltr"> 
 {
-  "key": "{{apiKey.key}}",
-  "id": {{apiKey.id}},
-  "type": "csv",
-  "filters": [
-<span ng-repeat="p in model.exportApiParams">    {
-        "name": "{{p.name}}",
-<span ng-if="p.type == 0">        "values": []</span>
-    },</span>
-  ]
+    "key": "{{apiKey.key}}",
+    "id": {{apiKey.id}},
+    "type": "csv",
+    "filters": [
+<span ng-repeat="p in model.exportApiParams">           {
+            "name": "{{p.name}}",
+<span ng-if="p.type == 0">          "values": []</span>
+            },</span>
+        ]
 }
 </pre>
-                <span class="ui mini button icon" ng-click="copyValue(model)">
-                    <i class="ui icon link copy outline" title="کپی مقدار" ></i>
-                </span>
-                <br />
-                هدر Content-Type درخواست باید application/json تنظیم شود. type میتواند یکی از دو مقدار json یا csv را
-                داشته باشد
-            </div>
+
         </div>
     </div>
 </div>
