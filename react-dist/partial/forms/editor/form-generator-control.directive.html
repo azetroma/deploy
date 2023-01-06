@@ -208,7 +208,7 @@
          ng-class="{required : model.validations.isRequire, error: model.error}"
          ng-if="model.type == 15">
         <label ng-hide="settings.showLabel===false">&nbsp;</label>
-        <div class="ui submit button fluid {{model.button.colorClass}} {{model.button.size}}" ng-class="{'loading disabled': model.progress}" ng-click="buttonClick()"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></div>
+        <div class="ui submit button fluid {{model.button.colorClass}} {{settings.controlSize || model.button.size}}" ng-class="{'loading disabled': model.progress}" ng-click="buttonClick()"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></div>
         <div></div>
         <small>{{model.description}}</small>
         <!--<new-form-modal ng-model="model.button"></new-form-modal>-->

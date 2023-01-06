@@ -75,8 +75,8 @@
                     class="form-page ui form"
                     ng-class="[page.size, page.feildClasses.join(' ')]"
                 >
-                    <div class="ui grid stackable content-form" style="align-items: flex-start;">
-                <form-control
+                    <div class="ui grid stackable content-form" style="align-items: flex-start">
+                        <form-control
                             ng-repeat="component in page.controls"
                             ng-model="component"
                             root="root"
@@ -142,7 +142,7 @@
                     sd-submit="submit()"
                     change="changeValue(model)"
                     ng-class="[{'highlight-control':component.highlight}, page.feildClass]"
-                    ></form-control>
+                ></form-control>
             </div>
             <div class="ui message red" ng-show="page.error">{{page.error}}</div>
         </div>
@@ -171,11 +171,20 @@
                         ng-show="settings.modal"
                         class="ui button green relative"
                         ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
-                        ng-click="submit(false, true)"
+                        ng-click="submit(false, true, false)"
                         ng-class="{loading: loading}"
                     >
-                        {{rowId ? 'ذخیره' : ('save' | translate )}} 
+                        {{rowId ? 'ذخیره' : ('save' | translate )}}
                         <span class="below-btn-helper" ng-hide="settings.modal"> Ctrl + s </span>
+                    </button>
+                    <button
+                        class="ui button blue relative"
+                        ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
+                        ng-click="submit(false, false, true)"
+                        ng-class="{loading: loading}"
+                        ng-if="isProcess"
+                    >
+                        {{rowId>0 ? 'ادامه' :'شروع'}} فرآیند
                     </button>
 
                     <!--TODO add to core-->
