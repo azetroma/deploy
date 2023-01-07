@@ -2,7 +2,6 @@
 
 <style></style>
 
-
 <form autocomplete="off" ng-show="c.control.active.name" class="ui tiny form">
     <div class="f-field">
         <label>{{'identity'|translate}}</label>
@@ -817,8 +816,8 @@
         <sadaf-checkbox
             ng-change="setToAll('uiConfig.fontLabel.enable')"
             ng-model="c.control.active.uiConfig.fontLabel.enable"
-            >تغییر فونت برچسب</sadaf-checkbox
-        >
+            >تغییر فونت برچسب
+        </sadaf-checkbox>
         &nbsp;&nbsp;&nbsp;
         <text-editor
             on-change="setToAll('uiConfig.fontLabel')"
@@ -838,6 +837,33 @@
         }"
         ></text-editor>
     </div>
+
+    <div class="field" ng-if="[3, 5, 16].includes(c.control.active.type)">
+        <sadaf-checkbox
+            ng-change="setToAll('uiConfig.fontValue.enable')"
+            ng-model="c.control.active.uiConfig.fontValue.enable"
+            >تغییر فونت مقدار
+        </sadaf-checkbox>
+        &nbsp;&nbsp;&nbsp;
+        <text-editor
+            on-change="setToAll('uiConfig.fontValue')"
+            style="display: inline-block"
+            ng-if="c.control.active.uiConfig.fontValue.enable"
+            prop="c.control.active.uiConfig.fontValue"
+            config="{
+            format: false,
+            bold: true,
+            size: true,
+            font: true,
+            color: true,
+            align: false,
+            rotate: false,
+            anchor: false,
+            position: false
+        }"
+        ></text-editor>
+    </div>
+
 
     <div ng-if="c.control.active.type == 19">
         <div class="f-field">
@@ -957,12 +983,12 @@
         </div>
     </div>
 
-
-    <div ng-if="c.pages.data.length">
+    <div ng-if="c.pages.data.length > 1">
         انتقال به صفحه
-        <div class="ui mini button" ng-if="!p.active" ng-repeat="p in c.pages.data" ng-click="moveToPage(p)">{{p.name}}</div>
+        <div class="ui mini button" ng-if="!p.active" ng-repeat="p in c.pages.data" ng-click="moveToPage(p)">
+            {{p.name}}
+        </div>
     </div>
-    
 </form>
 
 <!-- تنظیمات صفحه -->

@@ -156,7 +156,7 @@
 
     <div class="field" ng-if="model.type == 3" style="min-height: 38px;">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
-        <div class="value" ng-if="model.value">{{model.value | formatNumber:model | persian}}
+        <div class="value" ng-if="model.value"><styled-label>{{model.value | formatNumber:model | persian}}</styled-label>
             <i class="ui icon link copy outline" title="کپی مقدار" ng-click="copyValue(model)"></i>
         </div>
         <small>{{model.description}}</small>
@@ -217,8 +217,8 @@
     <div class="field " ng-class="{error: model.error}" ng-if="model.type == 5">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <div class="calculate-field  value">
-            <div ng-show="edit" class="ltr formula gray"><small> {{model.calculate.expression}}</small></div>
-            <div ng-hide="edit"><span>{{model.value | formatNumber:model | persian}}</span>
+            <div ng-show="edit" class="ltr formula gray"><styled-label><small> {{model.calculate.expression}}</small></styled-label></div>
+            <div ng-hide="edit"><span><styled-label font="model.uiConfig.fontValue"> {{model.value | formatNumber:model | persian}}</></span>
             <i class="ui icon link copy outline" title="کپی مقدار" ng-click="copyValue(model)"></i>
             </div>
         </div>
@@ -287,7 +287,7 @@
 
 
     <div class="" ng-class="{error: model.error}" ng-if="model.type == 18" style="width:100%">
-        <h3 class="ui dividing header" style="xmargin-top: 15px;color:rgba(0,0,0,.87);xmargin-bottom: 5px;"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></h3>
+        <h3 class="ui dividing header" style="color:rgba(0,0,0,.87);"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></h3>
         <small>{{model.description}}</small>
     </div>
 
