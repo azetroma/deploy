@@ -156,7 +156,7 @@
 
     <div class="field" ng-if="model.type == 3" style="min-height: 38px;">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
-        <div class="value" ng-if="model.value"><styled-label>{{model.value | formatNumber:model | persian}}</styled-label>
+        <div class="value" ng-if="model.value"><styled-label font="model.uiConfig.fontValue">{{model.value | formatNumber:model | persian}}</styled-label>
             <i class="ui icon link copy outline" title="کپی مقدار" ng-click="copyValue(model)"></i>
         </div>
         <small>{{model.description}}</small>
@@ -217,8 +217,8 @@
     <div class="field " ng-class="{error: model.error}" ng-if="model.type == 5">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <div class="calculate-field  value">
-            <div ng-show="edit" class="ltr formula gray"><styled-label><small> {{model.calculate.expression}}</small></styled-label></div>
-            <div ng-hide="edit"><span><styled-label font="model.uiConfig.fontValue"> {{model.value | formatNumber:model | persian}}</></span>
+            <div ng-show="edit" class="ltr formula gray"><styled-label font="model.uiConfig.fontValue"><small> {{model.calculate.expression}}</small></styled-label></div>
+            <div ng-hide="edit"><span><styled-label font="model.uiConfig.fontValue"> {{model.value | formatNumber:model | persian}}</styled-label></span>
             <i class="ui icon link copy outline" title="کپی مقدار" ng-click="copyValue(model)"></i>
             </div>
         </div>
@@ -231,11 +231,12 @@
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <div class="calculate-field value">
             <div ng-show="edit" class="ltr formula gray">
-                <small>
+               <styled-label font="model.uiConfig.fontValue"> <small>
                     <span>{{model.prefix}} </span>
                     {{model.calculate.expression}}
                     <span> {{model.postfix}}</span>
                 </small>
+            </styled-label>
             </div>
             <div ng-hide="edit">
                 <span>{{model.prefix}} </span>
@@ -251,7 +252,7 @@
     </div>
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{error: model.error, required:model.validations.isRequire}" ng-if="model.type == 8">
-        <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
+        <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-labeld-label> </label>
         <sadaf-time class=" value" ng-hide="model.readonly" ng-keydown="keyup($event)" ng-model="model.value" ng-change="changeValue()"></sadaf-time>
 
         <div ng-show="model.readonly">{{model.value}}</div>
