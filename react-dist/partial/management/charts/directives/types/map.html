@@ -250,7 +250,7 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'مکان نمایش راهنما' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <legend-position ng-model="ngModel.map.info.legendPosition" change="refreshChart('refresh')"></legend-position>
+                        <legend-position ng-model="ngModel.map.info.legendPosition" ng-change="refreshChart('refresh')"></legend-position>
                     </div>
                 </div>
 
