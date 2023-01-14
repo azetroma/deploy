@@ -501,6 +501,7 @@
             <access-property
                 name="c.control.active.name"
                 ng-model="c.control.active.access"
+                operand="c.control.active.accessOp"
                 source-fields="c.control.active.formLookup.formLookupSourceFields"
                 controls="c.activeSibling"
             ></access-property>
@@ -755,7 +756,7 @@
         <sadaf-checkbox ng-model="c.control.active.uiConfig.border">نمایش خط حاشیه‌ای</sadaf-checkbox>
     </div>
 
-    <div ng-if="c.control.active.type == 22">
+    <div ng-if="[22, 19,13].includes(c.control.active.type)">
         <div class="f-field">
             <label>حاشیه </label>
             <input
@@ -856,7 +857,7 @@
             size: true,
             font: true,
             color: true,
-            align: false,
+            align: true,
             rotate: false,
             anchor: false,
             position: false
@@ -1276,7 +1277,7 @@
     </div>
 
     <div class="field">
-        <access-property ng-model="c.pages.activePage.access" controls="c.activeSibling"></access-property>
+        <access-property ng-model="c.pages.activePage.access" operand="c.pages.activePage.accessOp" controls="c.activeSibling"></access-property>
     </div>
 
     <div class="field">

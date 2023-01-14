@@ -16,12 +16,12 @@
                         </div>
                     </div>
 
-                    <general-custom-control parent="ngModel[type].general" item="item" change="refreshChart('refresh')"></general-custom-control>
+                    <general-custom-control series="ngModel.series"parent="ngModel[type].general" item="item" change="refreshChart(item.refreshMode || 'refresh')"></general-custom-control>
                     <small ng-if="item.desc">{{item.desc}}</small>
 
                     <div ng-if="item.type=='section' && (!item.if ||  ngModel[type].general[item.if.key] == item.if.value)" class="prop-segment">
                         <div ng-repeat="i in item.items">
-                            <general-custom-control parent="ngModel[type].general" item="i" change="refreshChart('refresh')"></general-custom-control>
+                            <general-custom-control series="ngModel.series" parent="ngModel[type].general" item="i" change="refreshChart(i.refreshMode ||'refresh')"></general-custom-control>
                             <small ng-if="i.desc">{{i.desc}}</small>
                         </div>
                     </div>
@@ -47,7 +47,6 @@
                     <div>
                         <select id="series-selector" ng-model="ngModel.selectedSeries" ng-init="ngModel.selectedSeries=ngModel.selectedSeries||'{All}'"
                                 ng-options="i as i for i in ['{All}'].concat(ngModel.series)"></select>
-
                     </div>
                 </div>
 
@@ -55,12 +54,12 @@
 
                 <div ng-repeat="item in ngModel.customChartSettingTemplat.series" ng-show="!ngModel.settingQuery.length || item.title.indexOf(ngModel.settingQuery)!=-1">
 
-                    <general-custom-control parent="ngModel[type].series[ngModel.selectedSeries]" item="item" change="refreshChart('refresh');changeAllSeries(item.key)"></general-custom-control>
+                    <general-custom-control series="ngModel.series" parent="ngModel[type].series[ngModel.selectedSeries]" item="item" change="refreshChart(item.refreshMode ||'refresh');changeAllSeries(item.key)"></general-custom-control>
                     <small ng-if="item.desc">{{item.desc}}</small>
 
                     <div ng-if="item.type=='section' && (!item.if ||  ngModel[type].series[ngModel.selectedSeries][item.if.key] == item.if.value)" style=" padding: 10px; margin: 10px 0px; background-color: rgb(239, 239, 239); border-radius: 4px;">
                         <div ng-repeat="i in item.items">
-                            <general-custom-control parent="ngModel[type].series[ngModel.selectedSeries]" item="i" change="refreshChart('refresh');changeAllSeries(i.key)"></general-custom-control>
+                            <general-custom-control series="ngModel.series" parent="ngModel[type].series[ngModel.selectedSeries]" item="i" change="refreshChart(i.refreshMode ||'refresh');changeAllSeries(i.key)"></general-custom-control>
                             <small ng-if="i.desc">{{i.desc}}</small>
                         </div>
                     </div>
@@ -73,7 +72,7 @@
 
     <alert prop="ngModel"  config="{name:type}"></alert>
 
-    <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:key, show:[1], legend: true}"></table-indicator>
+    <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:key, show:ngModel.customChartSettingTemplat.indicatorShow || [1], legend: true}"></table-indicator>
 
     <global-variable dimensions="dimensions" measures="measures" prop="ngModel"></global-variable>
 

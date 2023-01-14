@@ -1,74 +1,204 @@
 ﻿<div>
-
-
     <!--<sadaf-checkbox ng-model="model.enable" xng-change="c.control.resetListValue()">
     </sadaf-checkbox>-->
     کنترل دسترسی نمایش و ویرایش &nbsp;&nbsp;&nbsp;
     <div class="ui icon mini button" ng-click="add()">
         قانون جدید
-        <i class="gray pointer icon plus" ></i>
+        <i class="gray pointer icon plus"></i>
+    </div>
+
+    <div class="inline fields" ng-if="model.length > 1" ng-init="operand = operand || 2">
+        <label class="eight wide field">نوع عملوند بین قوانین</label>
+        <div class="four wide field">
+            <sm-dropdown
+                model="operand"
+                class=""
+                items="[{type: 1, name:'و'},{type: 2, name:'یا'}]"
+                label="item.name"
+                value="item.type"
+            ></sm-dropdown>
+        </div>
     </div>
 
     <div class="ui secondary segment small" ng-repeat="rule in model track by $index">
-
-        <i title="حذف کردن قانون" class="gray pointer icon trash alternate outline" style="float:left" ng-click="model.splice($index, 1)" xng-hide="model.length==1"></i>
+        <i
+            title="حذف کردن قانون"
+            class="gray pointer icon trash alternate outline"
+            style="float: left"
+            ng-click="model.splice($index, 1)"
+            xng-hide="model.length==1"
+        ></i>
 
         <div class="inline fields">
             <label class="four wide field">نوع عملیات</label>
             <div class="eight wide field">
-                <sm-dropdown  model="rule.type" class="" settings="{fullTextSearch: true, forceSelection: false}" 
-                             items="[
+                <sm-dropdown
+                    model="rule.type"
+                    class=""
+                    settings="{fullTextSearch: true, forceSelection: false}"
+                    items="[
                              {type: 1, name:'نمایش به شرط...'},
                              {type: 2, name:'ویرایش به شرط...'},
-                             ]" 
-                             label="item.name" value="item.type"></sm-dropdown>
+                             ]"
+                    label="item.name"
+                    value="item.type"
+                ></sm-dropdown>
             </div>
         </div>
         <div class="inline fields">
             <label class="four wide field">براساس</label>
             <div class="eight wide field">
-                <sm-dropdown xon-change="change()" model="rule.baseon" class="" settings="{fullTextSearch: true, forceSelection: false}" 
-                             items="[{type: 1, name:'مقدار کنترل'},{type: 2, name:'متغیر کاربری'},{type: 3, name:'نقش کاربر'}]" label="item.name" value="item.type"></sm-dropdown>
+                <sm-dropdown
+                    xon-change="change()"
+                    model="rule.baseon"
+                    class=""
+                    settings="{fullTextSearch: true, forceSelection: false}"
+                    items="[{type: 1, name:'مقدار کنترل'},{type: 2, name:'متغیر کاربری'},{type: 3, name:'نقش کاربر'}]"
+                    label="item.name"
+                    value="item.type"
+                ></sm-dropdown>
             </div>
         </div>
         <div class="inline fields" ng-if="rule.baseon == 1">
             <label class="four wide field">کنترل</label>
             <div class="eight wide field">
-                <sm-dropdown xon-change="change()" model="rule.control" class="selection search fluid" style="width:100%" settings="{fullTextSearch: true, forceSelection: false}" items="controls.row" label="item.label" value="item.name"></sm-dropdown>
+                <sm-dropdown
+                    xon-change="change()"
+                    model="rule.control"
+                    class="selection search fluid"
+                    style="width: 100%"
+                    settings="{fullTextSearch: true, forceSelection: false}"
+                    items="controls.row"
+                    label="item.label"
+                    value="item.name"
+                ></sm-dropdown>
             </div>
         </div>
         <div class="inline fields" ng-if="rule.baseon == 1">
             <label class="four wide field">عملوند</label>
             <div class="eight wide field">
-                <sm-dropdown model="rule.operand" class=""
-                             items="[
+                <sm-dropdown
+                    model="rule.operand"
+                    class=""
+                    items="[
                                  {type: 0, name:'برابر'},
                                  {type: 1, name:'نابرابر'},
                                  {type: 2, name:'بزرگ‌تر'},
                                  {type: 3, name:'بزرگ‌تر مساوی'},
                                  {type: 4, name:'کوچک‌تر'},
                                  {type: 5, name:'کوچک‌تر مساوی'},
+                                 {type: 6, name:'شامل'},
                              ]"
-                             label="item.name" value="item.type" xon-change="change()"></sm-dropdown>
+                    label="item.name"
+                    value="item.type"
+                    xon-change="change()"
+                ></sm-dropdown>
             </div>
         </div>
         <div class="inline fields" ng-if="rule.baseon == 2">
             <label class="four wide field">انتخاب متغیر کاربری</label>
             <div class="eight wide field">
                 <!--<sm-dropdown class="selection fluid search" items="variables" model="rule.variable" label="item" value="item"></sm-dropdown>-->
-                <sadaf-user-variables style="width:100%" ng-model="rule.variable"xon-change="change()"></sadaf-user-variables>
+                <sadaf-user-variables
+                    style="width: 100%"
+                    ng-model="rule.variable"
+                    xon-change="change()"
+                ></sadaf-user-variables>
             </div>
         </div>
-        <div class="inline fields" ng-if="rule.baseon == 1 || rule.baseon == 2">
+
+        <div class="inline fields" ng-if="(rule.baseon == 1 && rule.operand != 6) || rule.baseon == 2">
             <label class="four wide field">مقدار</label>
             <div class="eight wide field">
-                <input ng-model="rule.value" xng-change="change()"  />
+                <input ng-model="rule.value" xng-change="change()" />
             </div>
         </div>
+
+        <div
+            ng-if="(rule.baseon == 1 && rule.operand == 6) || rule.baseon == 2"
+            ng-init="rule.values = rule.values || ['']"
+        >
+            <div class="inline fields" ng-repeat="v in rule.values track by $index">
+                <div class="twelve wide field">
+                    <input ng-model="rule.values[$index]" />
+                    <span class="ui tiny compact icon button" ng-click="rule.values.push('')"
+                        ><i class="ui icon add"></i
+                    ></span>
+                    <span
+                        ng-show="rule.values.length>1"
+                        ng-click="rule.values.splice($index, 1)"
+                        class="ui tiny compact icon button"
+                        ><i class="ui icon delete"></i
+                    ></span>
+                </div>
+            </div>
+        </div>
+
         <div class="inline fields" ng-if="rule.baseon == 3">
             <label class="four wide field">انتخاب نقش</label>
             <div class="eight wide field">
-                <select-roles style="width:100%" ng-model="rule.roles" xon-change="change()"></select-roles>
+                <select-roles style="width: 100%" ng-model="rule.roles" xon-change="change()"></select-roles>
+            </div>
+        </div>
+
+        <div ng-if="rule.baseon == 1">
+
+            <div class="inline fields">
+                <label class="four wide field">شرط دوم</label>
+                <div class="eight wide field">
+                    <sm-dropdown
+                        model="rule.and"
+                        class=""
+                        items="[{type: 3, name:'بدون شرط'},{type: 1, name:'و'},{type: 2, name:'یا'}]"
+                        label="item.name"
+                        value="item.type"
+                    ></sm-dropdown>
+                </div>
+            </div>
+
+            <div class="inline fields" ng-if="rule.and!=3">
+                <label class="four wide field">عملوند</label>
+                <div class="eight wide field">
+                    <sm-dropdown
+                        model="rule.operand2"
+                        class=""
+                        items="[
+                                     {type: 0, name:'برابر'},
+                                     {type: 1, name:'نابرابر'},
+                                     {type: 2, name:'بزرگ‌تر'},
+                                     {type: 3, name:'بزرگ‌تر مساوی'},
+                                     {type: 4, name:'کوچک‌تر'},
+                                     {type: 5, name:'کوچک‌تر مساوی'},
+                                     {type: 6, name:'شامل'},
+                                 ]"
+                        label="item.name"
+                        value="item.type"
+                    ></sm-dropdown>
+                </div>
+            </div>
+ 
+            <div class="inline fields" ng-if="rule.operand2 != 6 && rule.and!=3">
+                <label class="four wide field">مقدار</label>
+                <div class="eight wide field">
+                    <input ng-model="rule.value2" xng-change="change()" />
+                </div>
+            </div>
+
+            <div ng-if="rule.operand2 == 6 && rule.and!=3" ng-init="rule.values2 = rule.values2 || ['']">
+                <div class="inline fields" ng-repeat="v in rule.values2 track by $index">
+                    <div class="twelve wide field">
+                        <input ng-model="rule.values2[$index]" />
+                        <span class="ui tiny compact icon button" ng-click="rule.values2.push('')"
+                            ><i class="ui icon add"></i
+                        ></span>
+                        <span
+                            ng-show="rule.values2.length>1"
+                            ng-click="rule.values2.splice($index, 1)"
+                            class="ui tiny compact icon button"
+                            ><i class="ui icon delete"></i
+                        ></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

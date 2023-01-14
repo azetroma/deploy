@@ -43,6 +43,23 @@
     value و listValue
     می‌باشد که به ترتیب برای مقدار تکی و چند مقداری استفاده می‌شوند.
 </p>
+
+<h3>دریافت داده از نمودار</h3>
+<p>
+</p>
+<feditor lang="js" full-height readonly>
+    http.post('/api/chartdata/getDataApi', {
+        "chart": 1280, 
+        "filters": [{
+            "formula": "[id143].[_id]",
+            "values": ['12']
+        }, ]
+    }).then(res => {
+        let data = res.data.data;
+    })
+
+</feditor>
+
 <h3>اجرای کوئری روی پایگاه داده</h3>
 <p>برای اجرای پرس‌وجو روی پایگاه داده لازم است به شکل زیر یک درخواست سمت سرور ارسال کنید و نتیجه را پردازش کنید.</p>
 
