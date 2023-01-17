@@ -1,5 +1,5 @@
 ﻿
-<div    ng-style="{backgroundColor: [22,19,13].includes(model.type)?'': model.uiConfig.color || '' }" 
+<div    ng-style="{backgroundColor: [22,19,13,25].includes(model.type)?'': model.uiConfig.color || '' }" 
         class=" field form-control {{model.name}} type-{{model.type}} form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ (!model.canEdit && model.type != 13) || (disabled == 'disabled' || disabled == 'true' ) ? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{ model.readonly? 'read-only':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
 
     <span ng-show="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
@@ -65,16 +65,17 @@
         <small>{{model.description}}</small>
     </div>
 
-    <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 7">
+    <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{disabled : model.validations.isDisable, required : model.validations.isRequire, error: model.error}" ng-if="model.type == 7">
         هنوز پیاده‌سازی نشده است
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
     </div>
 
-    <div class="field {{model.name}} form-{{id}} index-{{model.rowIndex}} {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 4">
+    <div 
+    class="field" ng-class="{'{{model.name}}':true, 'form-{{id}}':true, 'index-{{model.rowIndex}}':true,  disabled: model.validations.isDisable, required : model.validations.isRequire, error: model.error}"
+     ng-if="model.type == 4">
         <label ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
-
         <div class=" value" ng-if="model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData" ng-hide="model.readonly">
             <sadaf-dropdwon ng-change="changeValue()" ng-keydown="keyup($event)" ng-model="model" form-id="{{id}}" class="multiple" edit="{{edit}}"></sadaf-dropdwon>
         </div>
@@ -133,10 +134,15 @@
 
         <div class="value" ng-hide="model.readonly"
              ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData && model.dropdown.theme =='radio'">
-            <div class="form-radio tw-px-2" ng-class="[model.uiConfig.radioBlock == 'inline-block' ? 'tw-space-x-4 tw-space-x-reverse ':'']">
+            <div class="form-radio tw-px-2" ng-class="[model.uiConfig.radioBlock == 'inline-block' ? 'tw-space-x-4 tw-space-x-reverse ':'']"
+            ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
                 <div ng-repeat="option in model.dropdown.items track by $index" ng-style="{display: model.uiConfig.radioBlock || 'block'}">
                     <input class="pointer" type="radio" id="model-radio-{{model.name}}-row-{{model.rowIndex}}-index-{{$index}}" name="model-radio-{{model.name}}-row-{{model.rowIndex}}-index-{{$index}}" ng-value="option.value" ng-change="changeValue()" ng-model="model.value" />
-                    <label class="pointer" for="model-radio-{{model.name}}-row-{{model.rowIndex}}-index-{{$index}}">{{ option.label }}</label>
+                    <label class="pointer" for="model-radio-{{model.name}}-row-{{model.rowIndex}}-index-{{$index}}">
+                        <styled-label font="model.uiConfig.fontValue">
+                            {{ option.label }}
+                        </styled-label>
+                    </label>
                 </div>
 
                 <!--<span ng-repeat="item in model.dropdown.items">
@@ -156,11 +162,15 @@
 
     <div class="field action-icon" ng-if="model.type == 3" style="min-height: 38px;">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
-        <div class="value" ng-if="model.value" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
+        <div class="value tw-relative" ng-if="model.value" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
             <styled-label font="model.uiConfig.fontValue">{{model.value | formatNumber:model | persian}}</styled-label>
-            <i class="ui icon link copy outline" title="کپی مقدار" ng-click="copyValue(model)"></i>
+            <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
         </div>
         <small>{{model.description}}</small>
+    </div>
+
+    <div class="field chart-container" ng-if="model.type == 25"  ng-style="{margin: model.uiConfig.margin, minHeight:( model.uiConfig.minHeight||'150')+'px'}">
+        <chart model="model" style="width:100%; height:100%"></chart>
     </div>
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 9">
@@ -221,8 +231,9 @@
             <div ng-show="edit" class="ltr formula gray" 
             ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
             <styled-label font="model.uiConfig.fontValue"><small> {{model.calculate.expression}}</small></styled-label></div>
-            <div ng-hide="edit" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}"><span><styled-label font="model.uiConfig.fontValue"> {{model.value | formatNumber:model | persian}}</styled-label></span>
-            <i class="ui icon link copy outline" title="کپی مقدار" ng-click="copyValue(model)"></i>
+            <div class="tw-relative" ng-hide="edit" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
+                <span><styled-label font="model.uiConfig.fontValue"> {{model.value | formatNumber:model | persian}}</styled-label></span>
+                <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
             </div>
         </div>
         <small class="helper">{{model.error}}</small>
@@ -241,11 +252,11 @@
                 </small>
             </styled-label>
             </div>
-            <div ng-hide="edit" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
+            <div class="tw-relative" ng-hide="edit" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
                 <span>{{model.prefix}} </span>
                 <span>{{model.value | formatNumber:model | persian}}</span>
                 <span> {{model.postfix}}</span>
-                <i class="ui icon link copy outline" title="کپی مقدار" ng-click="copyValue(model)"></i>
+                <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
 
             </div>
         </div>

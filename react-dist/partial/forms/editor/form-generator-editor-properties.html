@@ -756,7 +756,7 @@
         <sadaf-checkbox ng-model="c.control.active.uiConfig.border">نمایش خط حاشیه‌ای</sadaf-checkbox>
     </div>
 
-    <div ng-if="[22, 19,13].includes(c.control.active.type)">
+    <div ng-if="[22, 19,13, 25].includes(c.control.active.type)">
         <div class="f-field">
             <label>حاشیه </label>
             <input
@@ -766,17 +766,18 @@
             />
         </div>
         <small class="gray">حاشیه باید به صورت <span class="ltr code">10px 0px</span> باشد </small>
-
+    </div>
+    <div ng-if="[25].includes(c.control.active.type)">
         <div class="f-field">
-            <label>{{'color'|translate}}</label>
-            <div
-                class="value"
-                md-color-picker
-                ng-model="c.control.active.controlGroup.color"
-                md-color-default-tab="'genericPalette'"
-            ></div>
+            <label>حداقل ارتفاع </label>
+            <input
+                ng-model="c.control.active.uiConfig.minHeight"
+                type="number"
+                ng-init="c.control.active.uiConfig.minHeight = c.control.active.uiConfig.minHeight || 150"
+            />
         </div>
-
+    </div>
+    <div ng-if="[22, 19,13].includes(c.control.active.type)">
         <div class="f-field">
             <label>{{'controls size' | translate}}</label>
             <control-size class="value" ng-model="c.control.active.uiConfig.size"></control-size>
@@ -839,7 +840,7 @@
         ></text-editor>
     </div>
 
-    <div class="field" ng-if="[3, 5, 16].includes(c.control.active.type)">
+    <div class="field" ng-if="[3, 5, 16, 4].includes(c.control.active.type)">
         <sadaf-checkbox
             ng-change="setToAll('uiConfig.fontValue.enable')"
             ng-model="c.control.active.uiConfig.fontValue.enable"
@@ -864,7 +865,6 @@
         }"
         ></text-editor>
     </div>
-
 
     <div ng-if="c.control.active.type == 19">
         <div class="f-field">
@@ -974,6 +974,73 @@
             <sadaf-checkbox ng-model="c.control.active.preventRelation">
                 عدم ایجاد ارتباط خودکار بین منبع داده تکرار شونده و فرم اصلی
             </sadaf-checkbox>
+        </div>
+    </div>
+
+    <div class="tw-mb-3" ng-if="c.control.active.type == 25">
+        <div class="field">
+            <select-datasource type="charts" ng-model="c.control.active.uiConfig.chart"></select-datasource>
+        </div>
+        <div class="f-field">
+            <label>اضافه کردن پارامتر جدید</label>
+            <div class="ui icon basic mini button" ng-click="c.control.active.uiConfig.chartParams.push({type:0})">
+                <i class="ui icon add"></i>
+            </div>
+        </div>
+
+        <div class="ui tiny secondary segment" ng-repeat="p in c.control.active.uiConfig.chartParams">
+            <div class="tw-flex">
+                <label>نوع پارامتر</label>
+                <sm-dropdown
+                    items="[{name:'لیست', value:0}, 
+                    {name:'بین دو مقدار', value:1 },
+                    {name:'بزرگتر', value:2 },
+                    {name:'بزرگتر مساوی', value:3 },
+                    {name:'کوچکتر', value:4 },
+                     {name:'کوچکتر مساوی', value:5 }
+                     ]"
+                    style="min-width: 100px;"
+                    model="p.type"
+                    label="item.name"
+                    value="item.value"
+                ></sm-dropdown>
+                <div class="tw-grow"></div>
+                <div
+                    class="ui icon basic mini button"
+                    ng-click="c.control.active.uiConfig.chartParams.splice($index, 0, {type:0})"
+                >
+                    <i class="ui icon add"></i>
+                </div>
+                <div
+                    ng-if="c.control.active.uiConfig.chartParams.length>1"
+                    class="ui icon basic mini button"
+                    ng-click="c.control.active.uiConfig.chartParams.splice($index, 1)"
+                >
+                    <i class="ui icon close"></i>
+                </div>
+            </div>
+            <div class="f-field"></div>
+
+            <div class="f-field">
+                <label>فرمول نمودار</label>
+                <feditor
+                    class="value"
+                    control-s="saveFormShotcut()"
+                    ng-model="p.chartFormula"
+                    lang="js"
+                    list="c.controlListAutoCompelete"
+                ></feditor>
+            </div>
+            <div class="f-field">
+                <label>فرمول دریافت مقادیر</label>
+                <feditor
+                    class="value"
+                    control-s="saveFormShotcut()"
+                    ng-model="p.valueFormula"
+                    lang="js"
+                    list="c.controlListAutoCompelete"
+                ></feditor>
+            </div>
         </div>
     </div>
 
@@ -1277,7 +1344,11 @@
     </div>
 
     <div class="field">
-        <access-property ng-model="c.pages.activePage.access" operand="c.pages.activePage.accessOp" controls="c.activeSibling"></access-property>
+        <access-property
+            ng-model="c.pages.activePage.access"
+            operand="c.pages.activePage.accessOp"
+            controls="c.activeSibling"
+        ></access-property>
     </div>
 
     <div class="field">

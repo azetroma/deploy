@@ -90,3 +90,11 @@ let rows = findControl('field-2');
 let a = rows.multiRowForm.addRow();
 a[0].value = 'value';
 </feditor>
+
+<h3>تشخیص شماره نموداری که فرم را باز کرده است</h3>
+<feditor lang="js" full-height readonly>
+if(params.settings.ChartInPageId == 1313){
+    let c = findControl('field-4', formModel);
+        c.value = 'هزینه'
+}
+</feditor>
