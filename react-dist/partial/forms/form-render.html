@@ -101,6 +101,8 @@
                     <p>{{error.desc}}</p>
                 </div>
                 <span ng-hide="error"> {{'server error try again' | translate}} </span>
+                <br/>
+                <div class="ui button black small compact" ng-click="submittedStatus=0">اصلاح داده‌های فرم</div>
             </div>
 
             <div class="ui error message" ng-show="pages.length > 1 && pagesContainError.length">
@@ -184,7 +186,7 @@
                         ng-class="{loading: loading}"
                         ng-if="isProcess"
                     >
-                        {{rowId>0 ? 'ادامه' :'شروع'}} فرآیند
+                        {{ process.type==3? 'شروع مجدد': rowId>0 ? 'ادامه' :'شروع'}} فرآیند {{process.type}}
                     </button>
 
                     <!--TODO add to core-->
