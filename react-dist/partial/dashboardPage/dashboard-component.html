@@ -373,6 +373,8 @@
 
         <ng-view></ng-view>
     </div>
+    
+    <select-workflow-dialog style="float: left;" [open]="selectWorkflow" (on-select)="onSelect($event)" (open-change)="changeSelectWorkflow($event)" ></select-workflow-dialog>
 
     <div id="form-holder">
         <sadaf-form

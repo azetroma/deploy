@@ -75,7 +75,7 @@
                     class="form-page ui form"
                     ng-class="[page.size, page.feildClasses.join(' ')]"
                 >
-                    <div class="ui grid stackable content-form" style="align-items: flex-start">
+                    <div class="ui stackable grid content-form" style="align-items: flex-start">
                         <form-control
                             ng-repeat="component in page.controls"
                             ng-model="component"
@@ -89,28 +89,6 @@
                     </div>
                     <div class="ui message red" ng-show="page.error">{{page.error}}</div>
                 </div>
-            </div>
-
-            <div class="ui success message" ng-show="submittedStatus==1">
-                {{'Information was saved successfully' | translate}}
-            </div>
-
-            <div class="ui error message" ng-show="submittedStatus==2">
-                <div ng-show="error">
-                    <h3>{{error.title}}</h3>
-                    <p>{{error.desc}}</p>
-                </div>
-                <span ng-hide="error"> {{'server error try again' | translate}} </span>
-                <br/>
-                <div class="ui button black small compact" ng-click="submittedStatus=0">اصلاح داده‌های فرم</div>
-            </div>
-
-            <div class="ui error message" ng-show="pages.length > 1 && pagesContainError.length">
-                <!--{{'error in pages'|translate}}-->
-                <b> لیست خطا‌ها</b>
-                <ul>
-                    <li ng-repeat="p in pagesContainError">{{p}}</li>
-                </ul>
             </div>
 
             <div ng-if="showVersion && app.license.formVersioning" style="margin-top: 10px">
@@ -129,6 +107,28 @@
                     on-restore="restore(model)"
                     on-detail="setValue(model)"
                 ></versions>
+            </div>
+
+            <div class="ui success message" ng-show="submittedStatus==1">
+                {{'Information was saved successfully' | translate}}
+            </div>
+
+            <div class="ui error message" ng-show="submittedStatus==2">
+                <div ng-show="error">
+                    <h3>{{error.title}}</h3>
+                    <p>{{error.desc}}</p>
+                </div>
+                <span ng-hide="error"> {{'server error try again' | translate}} </span>
+                <br />
+                <div class="ui button black small compact" ng-click="submittedStatus=0">اصلاح داده‌های فرم</div>
+            </div>
+
+            <div class="ui error message" ng-show="pages.length > 1 && pagesContainError.length">
+                <!--{{'error in pages'|translate}}-->
+                <b> لیست خطا‌ها</b>
+                <ul>
+                    <li ng-repeat="p in pagesContainError">{{p}}</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -154,9 +154,31 @@
         xng-show="!formLoading"
         ng-style="{'margin-top':settings.modal ? '0':'40px', 'min-height':'64px'}"
     >
-        <div class="ui grid content-form rtl" ng-show="submittedStatus == 0 || submittedStatus==1">
+        <div class="tw-m-3 tw-text-right tw-space-y-1 tw-text-sm" ng-if="process.enable">
+            <div class="tw-max-h-52 tw-overflow-auto tw-mb-2" style="margin-top: -14px" ng-if="process.history.length">
+                <table class="ui tiny compact table tw-table-auto">
+                    <tr ng-repeat="i in process.history">
+                        <td width="30">{{persian($index+1)}}</td>
+                        <td width="115">{{persian(moment(i.time).format('jYYYY/jMM/jDD HH:mm'))}}</td>
+                        <td>{{i.user}}</td>
+                        <td>
+                            <span class="ui compact tiny label">{{i.prev_state}}</span> به
+                            <span class="ui compact tiny label">{{i.state}}</span>
+                        </td>
+                        <td>{{i.hamesh}}</td>
+                    </tr>
+                </table>
+            </div>
+            <ng-sadaf-textarea
+                placeholder="توضیحات ارجاع کار (هامش نویسی)"
+                [model]="process.hamesh"
+                (model-change)="changeHamesh($event)"
+                min="1"
+            ></ng-sadaf-textarea>
+        </div>
+        <div class="ui stackable grid content-form rtl" ng-show="submittedStatus == 0 || submittedStatus==1">
             <div xclass="left floated eight wide column left aligned">
-                <div ng-hide="submittedStatus!=0">
+                <div ng-hide="submittedStatus!=0 || process.type==5">
                     <!--<button class="ui button blue" ng-show="pages.length>1" ng-disabled="activePage == 0" ng-click="activePage = activePage-1">قبلی</button>
                 <button class="ui button blue" ng-show="pages.length>1" ng-disabled="activePage == pages.length-1" ng-click="activePage = activePage+1">ادامه</button>-->
                     <button
@@ -164,6 +186,7 @@
                         ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
                         ng-click="submit()"
                         ng-class="{loading: loading}"
+                        ng-if="!isProcess ||(isProcess && process.showNext)"
                     >
                         {{ settings.modal ? 'ذخیره و خروج' : 'ذخیره'}}
                         <!--{{rowId ? 'ذخیره و خروج' : ('save' | translate )}}-->
@@ -175,6 +198,7 @@
                         ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
                         ng-click="submit(false, true, false)"
                         ng-class="{loading: loading}"
+                        ng-if="!isProcess ||(isProcess && process.showNext)"
                     >
                         {{rowId ? 'ذخیره' : ('save' | translate )}}
                         <span class="below-btn-helper" ng-hide="settings.modal"> Ctrl + s </span>
@@ -184,14 +208,23 @@
                         ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
                         ng-click="submit(false, false, true)"
                         ng-class="{loading: loading}"
-                        ng-if="isProcess"
+                        ng-if="isProcess && process.showNext && process.type!=3"
                     >
-                        {{ process.type==3? 'شروع مجدد': rowId>0 ? 'ادامه' :'شروع'}} فرآیند {{process.type}}
+                        {{ process.nextKeyLabel ||( rowId>0 ? 'ادامه فرآیند' :'شروع فرآیند')}}
+                    </button>
+                    <button
+                        class="ui button blue relative"
+                        ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
+                        ng-click="submit(false, false, true)"
+                        ng-class="{loading: loading}"
+                        ng-if="process.type==3 && isProcess &&  process.showReset"
+                    >
+                        شروع مجدد
                     </button>
 
                     <!--TODO add to core-->
                     <button
-                        ng-if="data.formInfo.saveAndCopy"
+                        ng-if="data.formInfo.saveAndCopy && !isProcess"
                         class="ui button relative"
                         ng-disabled="(activePage != pages.length-1 && !rowId ) || (!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
                         ng-click="submitAndCopy()"
@@ -223,11 +256,23 @@
 
             <div xclass="right floated four wide column right aligned">
                 <button
+                    ng-if="!process.enable"
                     class="ui button red"
                     ng-show="rowId && deletePermission && submittedStatus == 0"
+                    ng-class="{loading: loading}"
                     ng-click="remove()"
                 >
                     {{'delete' | translate}}
+                </button>
+                <button
+                    ng-if="process.enable && ![5,1,3].includes( process.type) && (process.showReject || process.showWithdraw)"
+                    class="ui button red"
+                    ng-show="submittedStatus == 0"
+                    ng-disabled="loading"
+                    ng-class="{loading: loading}"
+                    ng-click="rejectOrWithdraw()"
+                >
+                    {{process.isOwner ? 'انصراف': 'مردود کردن'}}
                 </button>
                 <div
                     class="ui success message"

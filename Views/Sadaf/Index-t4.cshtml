@@ -2,7 +2,7 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html>
+<html @(ViewBag.isRtl ? "dir=rtl" : "")>
 <head>
     <meta charset="utf-8" />
     <base href="@Href("~")">
@@ -111,7 +111,6 @@
 
 </head>
 <body ng-app="sadaf" ng-cloak class="theme2">
-
     @Html.AntiForgeryToken()
     <input type="hidden" name="upgradeModuleName" value="sadaf" />
     <input type="hidden" id="isFullscreen" value="@ViewBag.UserProfile.IsFullScreen" />

@@ -74,6 +74,12 @@
                                                     </md-button>
                                                 </div>
                                             </md-toolbar>
+                                            <div class="ui mini form" style="margin:7px;">
+                                                <div class="field icon ui input fluid">
+                                                    <input type="text" ng-model="$scope.rdsQuery" placeholder="جستجو" class="ng-pristine ng-valid ng-empty ng-touched" aria-invalid="false" style="">
+                                                    <i class="icon search" ng-class="{remove: $scope.rdsQuery.length, search: !$scope.rdsQuery}" ng-click="$scope.rdsQuery = ''" style="cursor:pointer !important; pointer-events:all !important" role="button" tabindex="0"></i>
+                                                </div>
+                                            </div>
                                             <md-dialog-content>
 
                                                 <!--<div class="md-padding" layout="column" layout-align="center center">
@@ -81,12 +87,6 @@
                                                 </div>-->
 
 
-                                                <div class="ui mini form" style="margin:7px;">
-                                                    <div class="field icon ui input fluid">
-                                                        <input type="text" ng-model="$scope.rdsQuery" placeholder="جستجو" class="ng-pristine ng-valid ng-empty ng-touched" aria-invalid="false" style="">
-                                                        <i class="icon search" ng-class="{remove: $scope.rdsQuery.length, search: !$scope.rdsQuery}" ng-click="$scope.rdsQuery = ''" style="cursor:pointer !important; pointer-events:all !important" role="button" tabindex="0"></i>
-                                                    </div>
-                                                </div>
 
                                                 <div class="ui inline centered tiny loader" ng-hide="$scope.relatedDatasourceList" ng-class="{active: !relatedDatasourceList}"></div>
 
