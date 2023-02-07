@@ -29,11 +29,11 @@
                                     <div ng-message="required">نام را وارد کنید</div>
                                 </div>
                             </md-input-container>
+
                             <change-table-name id="id" table-name="tableName"></change-table-name>
                             
-
                             <div layout="row" style="margin:18px 0">
-                                <input id="input-file-id" class="ng-hide" type="file" accept=".xlsx,.csv,.xls" />
+                                <input id="input-file-id" class="ng-hide" type="file" accept=".xlsx,.csv,.xls,.mdb" />
                                 <label for="input-file-id" class="md-button md-primary ">انتخاب فایل</label>
                                 <span flex></span>
                                 <span ng-bind-html="fileName" class=""></span>
@@ -51,6 +51,7 @@
                                     <md-select ng-model="extention">
                                         <md-option value="XLS">XLS</md-option>
                                         <md-option value="CSV">CSV</md-option>
+                                        <md-option value="MDB">MDB</md-option>
                                     </md-select>
                                 </md-input-container>
                                 <md-input-container class="md-block" flex-gt-sm>
