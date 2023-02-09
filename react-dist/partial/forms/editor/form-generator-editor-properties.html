@@ -7,6 +7,12 @@
         <label>{{'identity'|translate}}</label>
         <span class="value" ng-show="c.control.active.name"> {{c.control.active.name}}</span>
     </div>
+    <div class="f-field">
+        <label>نوع</label>
+        <span class="value" ng-show="c.control.active.name"> {{c.control.active.typeName}}</span>
+    </div>
+
+    
 
     <div class="f-field">
         <label>{{'column name in table'|translate}}</label>
@@ -515,6 +521,12 @@
                 {{'row separator' | translate}}
             </sadaf-checkbox>
         </div>
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.hideAddButton">
+                مخفی کردن کلید ردیف جدید
+            </sadaf-checkbox>
+        </div>
+
 
         <!-- <div class="f-field">
             <label>{{'column count' | translate}}</label>
@@ -803,7 +815,7 @@
         ></sm-dropdown>
     </div>
 
-    <div class="f-field" ng-if="![22].includes(c.control.active.type)">
+    <div class="f-field" xng-if="![22].includes(c.control.active.type)">
         <label>رنگ پشت زمینه</label>
         <div
             class=""

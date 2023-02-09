@@ -16,12 +16,6 @@
                 <select ng-model="model.dateType">
                     <option value="jalali-date">شمسی</option>
                     <option value="miladi-date">میلادی</option>
-                    <!--<option value="jalali-date">شمسی - فقط تاریخ</option>
-                <option value="jalali-date-time">شمسی - تاریخ و ساعت</option>
-                <option value="jalali-date-time-mili">شمسی - تاریخ و ساعت - میلی ثانیه</option>
-                <option value="miladi-date">میلادی - فقط تاریخ</option>
-                <option value="miladi-date-time">میلادی - تاریخ و ساعت</option>
-                <option value="miladi-date-time-mili">میلادی - تاریخ و ساعت - میلی ثانیه</option>-->
                 </select>
             </div>
             <div class="four wide field">
@@ -50,8 +44,23 @@
                 قرار می‌دهد. ممکن است در برخی از حالات برای جلوگیری از همپوشانی داده‌ها لازم باشد این مقدار کمتر یا بیشتر شود. این مقدار برحسب دقیقه است و برای کم کردن از علامت منفی استفاده کنید.
                 </small>
             </div>
-             
+        </div>
 
+        <div class="fields" >
+            <div class="six wide field">
+                <label>فرمول To</label>
+                <input type="text" ng-model="model.formulaTo" placeholder="فرمول To" />
+                <small class="grey">
+                    مثال @shamsiLastDayOfMonth(yyyy/MM/dd)
+            </small>
+            </div>
+            <div class="six wide field">
+                <label>فرمول From</label>
+                <input type="text" ng-model="model.formulaFrom" placeholder="فرمول From" />
+                       <small class="grey">
+                        مثال @shamsiFirstDayOfMonth(yyyy/MM/dd)
+                </small>
+     </div>
         </div>
 
         <div class="fields">

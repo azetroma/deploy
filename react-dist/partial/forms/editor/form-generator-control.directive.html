@@ -190,7 +190,8 @@
         <small>{{model.description}}</small>
     </div>
 
-    <div class="field {{model.validations.isRequire ? 'required' : ''}} {{model.name}} form-{{id}}-type-12" ng-class="{required : model.validations.isRequire, error: model.error}" ng-if="model.type == 12">
+    <div  
+    ng-class="['field',(model.validations.isDisable?'disabled':''), (model.validations.isRequire?'required':''), (model.error?'error':''), model.name, 'form-'+id+'-type-12']" ng-if="model.type == 12">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <new-form-modal  ng-if="model.formLookup.showAddButton && model.renderForm" ng-model="model.formDialogInfo" control="model"></new-form-modal>
         <div class="auto-hide-container  value" style="position:relative;">
@@ -219,7 +220,7 @@
          ng-class="{required : model.validations.isRequire, error: model.error}"
          ng-if="model.type == 15">
         <label ng-hide="settings.showLabel===false">&nbsp;</label>
-        <div class="ui submit button fluid {{model.button.colorClass}} {{settings.controlSize || model.button.size}}" ng-class="{'loading disabled': model.progress}" ng-click="buttonClick()"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></div>
+        <div class="ui compact submit button fluid {{model.button.colorClass}} {{settings.controlSize || model.button.size}}" ng-class="{'loading disabled': model.progress}" ng-click="buttonClick()"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></div>
         <div></div>
         <small>{{model.description}}</small>
         <!--<new-form-modal ng-model="model.button"></new-form-modal>-->
