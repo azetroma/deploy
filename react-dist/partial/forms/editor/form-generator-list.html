@@ -1,15 +1,70 @@
 ﻿<div layout="row" flex>
     <md-content flex no-background>
-        <div layout="column" flex> 
-
-            <md-card style="margin:40px; padding:16px" flex>
+        <div layout="column" flex>
+            <md-card style="margin: 40px; padding: 16px" flex>
                 <div class="" flex layout="row" layout-align="start center">
                     <h3>{{'Forms' | translate}}</h3>
                     <span flex></span>
                     <div class="ui label yellow" ng-show="c.formsModule==0">نسخه نمایشی</div>
-                    <md-button ng-hide="c.data.length >= 3 && c.formsModule==0" href="{{c.app.hashUrlPrefix}}#/forms" class="md-icon-button" title="{{'add' | translate}}">
+                    <md-button
+                        ng-hide="c.data.length >= 3 && c.formsModule==0"
+                        href="{{c.app.hashUrlPrefix}}#/forms"
+                        class="md-icon-button"
+                        title="{{'add' | translate}}"
+                    >
                         <span class="material-icons">add_circle_outline</span>
                     </md-button>
+
+
+                    <span
+                    class="ui icon button basic"
+                    ng-class="{loading: c.backupProgress, disabled: c.backupProgress}"
+                    title="{{'گرفتن پشتیبان از داده‌ها' | translate}}"
+                    ng-click="c.backupAll()"
+                >
+                    <i class="ui icon hdd outline"></i>
+                </span>
+
+                <md-menu ng-if="c.allBacks.length">
+                    <span
+                        title="{{'بازگرداندن پشتیبان' | translate}}"
+                        ng-click="$mdMenu.open($event); $event.stopPropagation();"
+                        ng-class="{loading: c.restoreProgress}"
+                        class="ui icon button basic"
+                    >
+                        <i class="ui icon undo"></i>
+                    </span>
+
+                    <md-menu-content width="4">
+                        <div ng-repeat="bak in c.allBacks" class="tw-flex tw-space-y-1 tw-px-3">
+                            <span class="tw-grow tw-flex tw-items-center tw-pl-3">
+                                <span class="tw-pl-3">{{bak.time}}</span> 
+                                <span class="ui compact tiny label">
+                                    جدول: {{persian(bak.table_count)}}
+                                </span>
+                                <span class="ui compact tiny label">
+                                    رکورد: {{persian(bak.row_count)}}
+                                </span>
+                            </span>
+                            <span
+                                style="width: 38px"
+                                class="ui icon button basic"
+                                title="{{'بازگرداندن پشتیبان' | translate}}"
+                                ng-click="c.restoreAll(bak)"
+                            >
+                                <i class="ui icon undo"></i>
+                            </span>
+                            <span
+                                style="width: 38px"
+                                class="ui icon button basic"
+                                title="{{'حذف' | translate}}"
+                                ng-click="c.deleteBackupAll(bak)"
+                            >
+                                <i class="ui icon trash alternate outline"></i>
+                            </span>
+                        </div>
+                    </md-menu-content>
+                </md-menu>
 
                 </div>
 
@@ -18,41 +73,113 @@
                         <th>#</th>
                         <th>{{'name' | translate}}</th>
                         <th>{{'last update' | translate}}</th>
-                        <th></th> 
+                        <th></th>
                         <!--<th></th>-->
                     </tr>
                     <tr ng-repeat="i in c.data">
                         <td>{{c.utils.persian($index + 1)}}</td>
                         <td>
-                            <a ng-show="i.permissions.EditPermission" ng-if="i.systemType == 0" href="{{c.app.hashUrlPrefix + '#/forms/' + i.id}}">{{i.name}}</a>
+                            <a
+                                ng-show="i.permissions.EditPermission"
+                                ng-if="i.systemType == 0"
+                                href="{{c.app.hashUrlPrefix + '#/forms/' + i.id}}"
+                                >{{i.name}}</a
+                            >
                             <a ng-show="i.permissions.EditPermission" ng-if="i.systemType != 0">{{i.name}}</a>
-                            <a ng-hide="i.permissions.EditPermission">{{i.name}} <span class="ui label mini">بدون مجوز ویرایش</span></a>
+                            <a ng-hide="i.permissions.EditPermission"
+                                >{{i.name}} <span class="ui label mini">بدون مجوز ویرایش</span></a
+                            >
                         </td>
                         <td>{{c.utils.persian(i.lastRefresh)}}</td>
                         <td>
-                            <div layout="row" layout-sm="row" layout-align="start center" style="width:150px">
-                                <md-button ng-show="i.permissions.DeletePermission" class="md-icon-button gray" ng-click="c.delete($event, i, $index)" title="{{'remove' | translate}}">
-                                    <span class="material-icons small pointer gray">delete</span>
-                                </md-button>
-                                <md-button class="md-icon-button gray" title="{{'ساخت گزارش' | translate}}" href="{{app.urlPrefix}}sadaf/management/#/charts/new/normal/0/{{i.datasourceId}}/1">
-                                    <span class="material-icons small pointer gray">insert_chart</span>
-                                </md-button>
-                                <md-button class="md-icon-button gray" title="{{'کپی' | translate}}" ng-click="c.copy($event, i, $index)">
-                                    <span class="material-icons small pointer gray">content_copy</span>
-                                </md-button>
-                            </div>
+                            <div layout="row" layout-sm="row" layout-align="start center" style="width: 250px">
+                                <a href="{{app.urlPrefix}}sadaf/management/#/charts/new/normal/0/{{i.datasourceId}}/1">
+                                    <button class="ui icon button basic" title="{{'ساخت گزارش' | translate}}">
+                                        <i class="ui icon chart line"></i>
+                                    </button>
+                                </a>
+                                <span
+                                    class="ui icon button basic"
+                                    title="{{'کپی' | translate}}"
+                                    ng-click="c.copy($event, i, $index)"
+                                >
+                                    <i class="ui icon clone outline"></i>
+                                </span>
 
+                                <span
+                                    class="ui icon button basic"
+                                    ng-show="i.permissions.DeletePermission"
+                                    ng-click="c.delete($event, i, $index)"
+                                    title="{{'remove' | translate}}"
+                                >
+                                    <i class="ui icon trash alternate outline"></i>
+                                </span>
+
+                                <span
+                                    class="ui icon button basic"
+                                    ng-class="{loading: i.backupProgress, disabled: i.backupProgress}"
+                                    title="{{'گرفتن پشتیبان از داده‌ها' | translate}}"
+                                    ng-click="c.backup($event, i, $index)"
+                                >
+                                    <i class="ui icon hdd outline"></i>
+                                </span>
+
+                                <md-menu ng-if="i.backs.length">
+                                    <span
+                                        title="{{'بازگرداندن پشتیبان' | translate}}"
+                                        ng-click="$mdMenu.open($event); $event.stopPropagation();"
+                                        ng-class="{loading: i.restoreProgress}"
+                                        class="ui icon button basic"
+                                    >
+                                        <i class="ui icon undo"></i>
+                                    </span>
+
+                                    <md-menu-content width="4">
+                                        <div ng-repeat="bak in i.backs" class="tw-flex tw-space-y-1 tw-px-3">
+                                            <span class="tw-grow tw-flex tw-items-center tw-pl-3">
+                                                <span class="tw-pl-3">{{bak.time}}</span> 
+                                                <span class="ui compact tiny label">
+                                                    جدول: {{persian(bak.table_count)}}
+                                                </span>
+                                                <span class="ui compact tiny label">
+                                                    رکورد: {{persian(bak.row_count)}}
+                                                </span>
+                                            </span>
+                                            <span
+                                                style="width: 38px"
+                                                class="ui icon button basic"
+                                                title="{{'بازگرداندن پشتیبان' | translate}}"
+                                                ng-click="c.restore(bak, i)"
+                                            >
+                                                <i class="ui icon undo"></i>
+                                            </span>
+                                            <span
+                                                style="width: 38px"
+                                                class="ui icon button basic"
+                                                title="{{'حذف' | translate}}"
+                                                ng-click="c.deleteBackup(bak, i)"
+                                            >
+                                                <i class="ui icon trash alternate outline"></i>
+                                            </span>
+                                        </div>
+                                    </md-menu-content>
+                                </md-menu>
+                            </div>
                         </td>
                         <!--<td ng-show="c.securityCertPatch "><i ng-show="i.sign" class="ui icon green check"></i><i ng-hide="i.sign" class="ui icon red times"></i></td>
                         <td ng-hide="c.securityCertPatch "></td>-->
-
                     </tr>
                 </table>
                 <div layout="row" layout-sm="column" layout-align="space-around" ng-show="c.progress" layout-margin>
                     <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
                 </div>
-                <div ng-hide="(c.data && c.data.length) || c.progress" class="md-caption" style="padding:10px 16px; text-align:right">داده‌ای برای نمایش وجود ندارد</div>
-
+                <div
+                    ng-hide="(c.data && c.data.length) || c.progress"
+                    class="md-caption"
+                    style="padding: 10px 16px; text-align: right"
+                >
+                    داده‌ای برای نمایش وجود ندارد
+                </div>
             </md-card>
         </div>
     </md-content>

@@ -355,7 +355,8 @@
                         class="ui label"
                         title="{{i.values.join(', ')}}"
                     >
-                        <b>{{i.label}}: </b>{{i.xCaption}} <span ng-bind-html="i.Caption"></span>
+                    
+                        <b>{{i.label}}: </b> <span ng-bind-html="i.Caption"></span>
                         <i class="delete icon" ng-hide="i.disableClear" ng-click="removeUserControl($index)"></i>
                     </div>
                 </div>
