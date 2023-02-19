@@ -12,8 +12,6 @@
         <span class="value" ng-show="c.control.active.name"> {{c.control.active.typeName}}</span>
     </div>
 
-    
-
     <div class="f-field">
         <label>{{'column name in table'|translate}}</label>
         <input
@@ -156,6 +154,39 @@
                 ng-model="c.control.active.validations.autoIncrementSeed"
                 placeholder="{{'begin value'|translate}}"
             />
+        </div>
+    </div>
+
+    <div ng-if="c.control.active.type == 26">
+        <div class="f-field">
+            <label>قالب شماره</label>
+            <input class="ltr" ng-model="c.control.active.numbering.template" />
+        </div>
+        <div class="ltr">
+            <small>
+                <span
+                    class="ui compact basic mini label tw-px-[6px] tw-py-[4px] !tw-bg-stone-100"
+                    ng-repeat="i in ['@day','@month', '@year', '@counter' ,'@username', '@field-[#]']"
+                    ng-click="c.control.active.numbering.template=c.control.active.numbering.template + ' ' + i"
+                    >{{i}}
+                </span>
+            </small>
+        </div>
+        <br/>
+        <div class="f-field">
+            <label>شروع شمارنده</label>
+            <input ng-model="c.control.active.numbering.start" />
+        </div>
+        <div class="field">
+            <label>محدوده شمارنده</label>
+            <sm-dropdown
+                model="c.control.active.numbering.groups"
+                class="selection multiple"
+                items="c.activeSibling.row"
+                settings="{fullTextSearch: true, forceSelection: false}"
+                label="item.label"
+                value="item.name"
+            ></sm-dropdown>
         </div>
     </div>
 
@@ -527,7 +558,6 @@
             </sadaf-checkbox>
         </div>
 
-
         <!-- <div class="f-field">
             <label>{{'column count' | translate}}</label>
             <sm-dropdown
@@ -852,7 +882,7 @@
         ></text-editor>
     </div>
 
-    <div class="field" ng-if="[3, 5, 16, 4].includes(c.control.active.type)">
+    <div class="field" ng-if="[3, 5, 16, 4, 26].includes(c.control.active.type)">
         <sadaf-checkbox
             ng-change="setToAll('uiConfig.fontValue.enable')"
             ng-model="c.control.active.uiConfig.fontValue.enable"
@@ -1011,7 +1041,7 @@
                     {name:'کوچکتر', value:4 },
                      {name:'کوچکتر مساوی', value:5 }
                      ]"
-                    style="min-width: 100px;"
+                    style="min-width: 100px"
                     model="p.type"
                     label="item.name"
                     value="item.value"

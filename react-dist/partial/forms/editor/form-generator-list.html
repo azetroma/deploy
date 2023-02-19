@@ -6,93 +6,153 @@
                     <h3>{{'Forms' | translate}}</h3>
                     <span flex></span>
                     <div class="ui label yellow" ng-show="c.formsModule==0">نسخه نمایشی</div>
-                    <md-button
-                        ng-hide="c.data.length >= 3 && c.formsModule==0"
-                        href="{{c.app.hashUrlPrefix}}#/forms"
-                        class="md-icon-button"
-                        title="{{'add' | translate}}"
-                    >
-                        <span class="material-icons">add_circle_outline</span>
-                    </md-button>
-
 
                     <span
-                    class="ui icon button basic"
-                    ng-class="{loading: c.backupProgress, disabled: c.backupProgress}"
-                    title="{{'گرفتن پشتیبان از داده‌ها' | translate}}"
-                    ng-click="c.backupAll()"
-                >
-                    <i class="ui icon hdd outline"></i>
-                </span>
-
-                <md-menu ng-if="c.allBacks.length">
-                    <span
-                        title="{{'بازگرداندن پشتیبان' | translate}}"
-                        ng-click="$mdMenu.open($event); $event.stopPropagation();"
-                        ng-class="{loading: c.restoreProgress}"
                         class="ui icon button basic"
+                        ng-show="canDirEdit"
+                        ng-click="dirEdit($event)"
+                        title="{{'rename_folder' | translate}}"
                     >
-                        <i class="ui icon undo"></i>
+                        <i class="icons">
+                            <i class="pencil alternate icon"></i>
+                        </i>
                     </span>
 
-                    <md-menu-content width="4">
-                        <div ng-repeat="bak in c.allBacks" class="tw-flex tw-space-y-1 tw-px-3">
-                            <span class="tw-grow tw-flex tw-items-center tw-pl-3">
-                                <span class="tw-pl-3">{{bak.time}}</span> 
-                                <span class="ui compact tiny label">
-                                    جدول: {{persian(bak.table_count)}}
-                                </span>
-                                <span class="ui compact tiny label">
-                                    رکورد: {{persian(bak.row_count)}}
-                                </span>
-                            </span>
-                            <span
-                                style="width: 38px"
-                                class="ui icon button basic"
-                                title="{{'بازگرداندن پشتیبان' | translate}}"
-                                ng-click="c.restoreAll(bak)"
-                            >
-                                <i class="ui icon undo"></i>
-                            </span>
-                            <span
-                                style="width: 38px"
-                                class="ui icon button basic"
-                                title="{{'حذف' | translate}}"
-                                ng-click="c.deleteBackupAll(bak)"
-                            >
-                                <i class="ui icon trash alternate outline"></i>
-                            </span>
-                        </div>
-                    </md-menu-content>
-                </md-menu>
+                    <span
+                        class="ui icon button basic"
+                        ng-show="canForward"
+                        ng-click="forward($event)"
+                        title="{{'move_to_folder' | translate}}"
+                    >
+                        <i class="icons">
+                            <i class="ui icon folder outline"></i>
+                            <i class="corner arrow up icon"></i>
+                        </i>
+                    </span>
+                    <span
+                        class="ui icon button basic"
+                        ng-click="newPackage($event)"
+                        title="{{'new_folder' | translate}}"
+                    >
+                        <i class="icons">
+                            <i class="ui icon folder outline"></i>
+                            <i class="bottom left corner add icon"></i>
+                        </i>
+                    </span>
 
+                    <a href="{{c.app.hashUrlPrefix}}#/forms" ng-hide="data.length >= 3 && c.formsModule==0">
+                        <span title="{{'add' | translate}}" class="ui icon button basic">
+                            <i class="ui icon plus"></i>
+                        </span>
+                    </a>
+                    <span
+                        class="ui icon button basic"
+                        ng-show="canDelete"
+                        ng-click="delete()"
+                        title="{{'remove' | translate}}"
+                    >
+                        <i class="ui icon trash alternate outline"></i>
+                    </span>
+
+                    <span
+                        class="ui icon button basic"
+                        ng-class="{loading: c.backupProgress, disabled: c.backupProgress}"
+                        title="{{'گرفتن پشتیبان از داده‌ها' | translate}}"
+                        ng-click="c.backupAll()"
+                    >
+                        <i class="ui icon hdd outline"></i>
+                    </span>
+
+                    <md-menu ng-if="c.allBacks.length">
+                        <span
+                            title="{{'بازگرداندن پشتیبان' | translate}}"
+                            ng-click="$mdMenu.open($event); $event.stopPropagation();"
+                            ng-class="{loading: c.restoreProgress}"
+                            class="ui icon button basic"
+                        >
+                            <i class="ui icon undo"></i>
+                        </span>
+
+                        <md-menu-content width="4">
+                            <div ng-repeat="bak in c.allBacks" class="tw-flex tw-space-y-1 tw-px-3">
+                                <span class="tw-grow tw-flex tw-items-center tw-pl-3">
+                                    <span class="tw-pl-3">{{bak.time}}</span>
+                                    <span class="ui compact tiny label"> جدول: {{persian(bak.table_count)}} </span>
+                                    <span class="ui compact tiny label"> رکورد: {{persian(bak.row_count)}} </span>
+                                </span>
+                                <span
+                                    style="width: 38px"
+                                    class="ui icon button basic"
+                                    title="{{'بازگرداندن پشتیبان' | translate}}"
+                                    ng-click="c.restoreAll(bak)"
+                                >
+                                    <i class="ui icon undo"></i>
+                                </span>
+                                <span
+                                    style="width: 38px"
+                                    class="ui icon button basic"
+                                    title="{{'حذف' | translate}}"
+                                    ng-click="c.deleteBackupAll(bak)"
+                                >
+                                    <i class="ui icon trash alternate outline"></i>
+                                </span>
+                            </div>
+                        </md-menu-content>
+                    </md-menu>
                 </div>
 
                 <table class="sadaf-table">
                     <tr>
+                        <th></th>
                         <th>#</th>
+                        <th></th>
                         <th>{{'name' | translate}}</th>
                         <th>{{'last update' | translate}}</th>
                         <th></th>
                         <!--<th></th>-->
                     </tr>
-                    <tr ng-repeat="i in c.data">
-                        <td>{{c.utils.persian($index + 1)}}</td>
+                    <tr ng-repeat="i in data">
+                        <td width="20" style="padding: 6px 16px 0 0">
+                            <md-checkbox
+                                ng-model="i.select"
+                                ng-click="$event.stopPropagation();"
+                                ng-change="menuInvalidate()"
+                                aria-label="{{'select' | translate}}"
+                            ></md-checkbox>
+                        </td>
+                        <td width="20">{{c.utils.persian($index+1)}}</td>
+                        <td width="20">
+                            <span ng-if="i.type==1" class="material-icons" style="color: #757575">folder</span>
+                        </td>
+
                         <td>
                             <a
-                                ng-show="i.permissions.EditPermission"
+                                ng-show="i.permissions.EditPermission || i.type==1"
                                 ng-if="i.systemType == 0"
-                                href="{{c.app.hashUrlPrefix + '#/forms/' + i.id}}"
-                                >{{i.name}}</a
+                                ng-click="goto(i)"
                             >
-                            <a ng-show="i.permissions.EditPermission" ng-if="i.systemType != 0">{{i.name}}</a>
-                            <a ng-hide="i.permissions.EditPermission"
-                                >{{i.name}} <span class="ui label mini">بدون مجوز ویرایش</span></a
+                                {{i.name}}
+                            </a>
+                            <a
+                                ng-show="i.permissions.EditPermission|| i.type==1"
+                                ng-if="i.systemType != 0"
+                                ng-click="goto(i)"
                             >
+                                {{i.name}}
+                            </a>
+                            <a ng-hide="i.permissions.EditPermission || i.type==1">
+                                {{i.name}} <span class="ui label mini">بدون مجوز ویرایش</span>
+                            </a>
                         </td>
-                        <td>{{c.utils.persian(i.lastRefresh)}}</td>
+                        <td>{{c.utils.persian(i.lastRefresh||'')}}</td>
                         <td>
-                            <div layout="row" layout-sm="row" layout-align="start center" style="width: 250px">
+                            <div
+                                layout="row"
+                                layout-sm="row"
+                                layout-align="start center"
+                                style="width: 250px"
+                                ng-if="i.type==2"
+                            >
                                 <a href="{{app.urlPrefix}}sadaf/management/#/charts/new/normal/0/{{i.datasourceId}}/1">
                                     <button class="ui icon button basic" title="{{'ساخت گزارش' | translate}}">
                                         <i class="ui icon chart line"></i>
@@ -108,6 +168,7 @@
 
                                 <span
                                     class="ui icon button basic"
+                                    ng-if="i.type==21"
                                     ng-show="i.permissions.DeletePermission"
                                     ng-click="c.delete($event, i, $index)"
                                     title="{{'remove' | translate}}"
@@ -116,6 +177,7 @@
                                 </span>
 
                                 <span
+                                    ng-if="i.type==2"
                                     class="ui icon button basic"
                                     ng-class="{loading: i.backupProgress, disabled: i.backupProgress}"
                                     title="{{'گرفتن پشتیبان از داده‌ها' | translate}}"
@@ -124,7 +186,7 @@
                                     <i class="ui icon hdd outline"></i>
                                 </span>
 
-                                <md-menu ng-if="i.backs.length">
+                                <md-menu ng-if="i.backs.length && i.type==2">
                                     <span
                                         title="{{'بازگرداندن پشتیبان' | translate}}"
                                         ng-click="$mdMenu.open($event); $event.stopPropagation();"
@@ -137,7 +199,7 @@
                                     <md-menu-content width="4">
                                         <div ng-repeat="bak in i.backs" class="tw-flex tw-space-y-1 tw-px-3">
                                             <span class="tw-grow tw-flex tw-items-center tw-pl-3">
-                                                <span class="tw-pl-3">{{bak.time}}</span> 
+                                                <span class="tw-pl-3">{{bak.time}}</span>
                                                 <span class="ui compact tiny label">
                                                     جدول: {{persian(bak.table_count)}}
                                                 </span>
@@ -174,7 +236,7 @@
                     <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
                 </div>
                 <div
-                    ng-hide="(c.data && c.data.length) || c.progress"
+                    ng-hide="(data && data.length) || c.progress"
                     class="md-caption"
                     style="padding: 10px 16px; text-align: right"
                 >

@@ -1,7 +1,6 @@
 ﻿<div flex layout="column">
     <md-toolbar class="md-primary md-hue-3" md-theme="t1">
-        <div class="md-toolbar-tools ">
-
+        <div class="md-toolbar-tools">
             <!--{{'interRelation' | translate}}-->
             <span flex></span>
 
@@ -10,11 +9,31 @@
                 <md-tooltip>{{'remove' | translate}}</md-tooltip>
             </md-button>
 
-            <md-button class="md-icon-button" ng-click="new($event)">
-                <span class="material-icons">add_circle</span>
-                <md-tooltip>{{'add' | translate}}</md-tooltip>
+            <md-button
+                class="md-icon-button cssFade"
+                ng-show="canDirEdit"
+                ng-click="dirEdit($event)"
+                title="{{'rename_folder' | translate}}"
+            >
+                <span class="material-icons">edit</span>
+            </md-button>
+            <md-button
+                class="md-icon-button cssFade"
+                ng-show="canForward"
+                ng-click="forward($event)"
+                title="{{'move_to_folder' | translate}}"
+            >
+                <span class="material-icons">forward</span>
             </md-button>
 
+            <md-button class="md-icon-button" ng-click="newPackage($event)" title="{{'new_folder' | translate}}">
+                <span class="material-icons">create_new_folder</span>
+            </md-button>
+
+            <md-button class="md-icon-button" ng-click="new($event)">
+                <span class="material-icons">add_circle_outline</span>
+                <md-tooltip>{{'add' | translate}}</md-tooltip>
+            </md-button>
         </div>
     </md-toolbar>
 
@@ -23,31 +42,55 @@
             <table class="sadaf-table">
                 <tr>
                     <th>
-                        <md-checkbox ng-model="selectAllCheckbox" ng-change="selectAll()" aria-label="{{'select_all' | translate}}"></md-checkbox>
+                        <md-checkbox
+                            ng-model="selectAllCheckbox"
+                            ng-change="selectAll()"
+                            aria-label="{{'select_all' | translate}}"
+                        ></md-checkbox>
                     </th>
                     <th>#</th>
+                    <th></th>
                     <th>{{'name' | translate}}</th>
                 </tr>
 
-                <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select; menuInvalidate()" ng-dblclick="goto(row, $event)">
-                    <td width="20" style="padding:6px 16px 0 0">
-                        <md-checkbox ng-model="row.select" ng-click="$event.stopPropagation();" ng-change="menuInvalidate()" aria-label="{{'select' | translate}}"></md-checkbox>
+                <tr
+                    ng-repeat="row in data"
+                    ng-class="{active : row.select}"
+                    ng-click="row.select = !row.select; menuInvalidate()"
+                >
+                    <td width="20" style="padding: 6px 16px 0 0">
+                        <md-checkbox
+                            ng-model="row.select"
+                            ng-click="$event.stopPropagation();"
+                            ng-change="menuInvalidate()"
+                            aria-label="{{'select' | translate}}"
+                        ></md-checkbox>
                     </td>
                     <td width="20">{{utils.persian($index+1)}}</td>
-                    <td><span class="pointer" ng-click="edit($event, row); $event.stopPropagation();">{{row.name}}</span></td>
+                    <td width="20">
+                        <span ng-if="row.type==1" class="material-icons" style="color: #757575">folder</span>
+                    </td>
+
+                    <td>
+                        <span class="pointer" ng-click="goto($event, row); $event.stopPropagation();">
+                            {{row.name}}
+                        </span>
+                    </td>
                 </tr>
             </table>
             <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
                 <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
             </div>
-            <div ng-hide="(data && data.length) || progress" class="md-caption" style="padding:16px; text-align:center">داده‌ای برای نمایش وجود ندارد</div>
-
+            <div
+                ng-hide="(data && data.length) || progress"
+                class="md-caption"
+                style="padding: 16px; text-align: center"
+            >
+                داده‌ای برای نمایش وجود ندارد
+            </div>
         </md-content>
     </div>
 </div>
-
-
-
 
 <script type="text/ng-template" id="datasourceRelation/add-relation.html">
     <md-dialog aria-label="{{'interRelation' | translate}}" ng-cloak id="inter-relation-dialog" flex="80">
@@ -235,6 +278,4 @@
             </div>
         </md-dialog-actions>
     </md-dialog>
-
-
 </script>

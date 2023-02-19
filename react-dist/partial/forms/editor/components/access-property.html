@@ -53,12 +53,35 @@
                     model="rule.baseon"
                     class=""
                     settings="{fullTextSearch: true, forceSelection: false}"
-                    items="[{type: 1, name:'مقدار کنترل'},{type: 2, name:'متغیر کاربری'},{type: 3, name:'نقش کاربر'}]"
+                    items="[{type: 1, name:'مقدار کنترل'},
+                            {type: 2, name:'متغیر کاربری'},
+                            {type: 3, name:'نقش کاربر'},
+                            {type: 4, name:'وضعیت فرم'},
+                            ]"
                     label="item.name"
                     value="item.type"
                 ></sm-dropdown>
             </div>
         </div>
+
+        <div class="inline fields" ng-if="rule.baseon == 4">
+            <label class="four wide field">وضعیت</label>
+            <div class="eight wide field">
+                <sm-dropdown
+                    xon-change="change()"
+                    model="rule.formState"
+                    class=""
+                    settings="{fullTextSearch: true, forceSelection: false}"
+                    items="[{type: 1, name:'فرم جدید'},
+                            {type: 2, name:'ویرایش فرم'},
+                            ]"
+                    label="item.name"
+                    value="item.type"
+                ></sm-dropdown>
+            </div>
+        </div>
+
+
         <div class="inline fields" ng-if="rule.baseon == 1">
             <label class="four wide field">کنترل</label>
             <div class="eight wide field">
