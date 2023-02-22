@@ -22,7 +22,6 @@
                 <span class="material-icons">date_range</span>
             </md-button>
 
-
             <md-button
                 class="md-icon-button cssFade"
                 ng-show="canDirEdit"
@@ -134,9 +133,9 @@
                     </td>
                     <td width="20">{{utils.persian( (page - 1) * pageCount + $index+1)}}</td>
                     <td width="20">
-                        <span class="material-icons" style="color: #757575"
-                            >{{row.type == 1 ? 'folder' : 'storage'}}</span
-                        >
+                        <i ng-if="row.type==1" class="ui icon folder outline large gray"></i>
+                        <i ng-if="row.type==2" class="ui icon hdd outline large gray"></i>
+                        <span ng-if="row.type==12" class="material-icons" style="color: #757575">storage</span>
                     </td>
                     <td>
                         <span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();"
@@ -145,28 +144,26 @@
                     </td>
                     <td width="20"><span class="md-caption" lang="en">{{getTypeName(row.dsType)}}</span></td>
                     <td class="md-caption">{{utils.persian(row.lastRefresh)}}</td>
-                    <td width="20">
-                        <md-button
-                            class="md-icon-button"
+                    <td width="20"></td>
+                    <td width="120">
+                        <span
+                            class=""
                             title="{{'add_chart' | translate}}"
                             ng-click="insertChart(row, $event); $event.stopPropagation();"
                             ng-if="row.type == 2"
                         >
-                            <span class="material-icons" style="color: #757575">insert_chart</span>
-                            <!--<md-tooltip>{{'add_chart' | translate}}</md-tooltip>-->
-                        </md-button>
-                    </td>
-                    <td>
-                        <div ng-show="row.type == 2 && row.charts.length">
+                            <i class="ui link icon plus square outline large gray"></i>
+                        </span>
+                        <span ng-show="row.type == 2 && row.charts.length">
                             <md-menu md-offset="0 -7">
-                                <md-button
+                                <span
                                     title="{{'charts_list' | translate}}"
-                                    aria-label="Open demo menu"
-                                    class="md-icon-button"
+                                    class=""
                                     ng-click="$mdMenu.open($event); $event.stopPropagation();"
                                 >
-                                    <span class="material-icons" style="color: #757575">toc</span>
-                                </md-button>
+                                    <!-- <span class="material-icons" style="color: #757575">toc</span> -->
+                                    <i class="ui link icon list alternate outline huge gray"></i>
+                                </span>
                                 <md-menu-content width="4">
                                     <md-menu-item ng-repeat="c in row.charts">
                                         <md-button href="{{app.hashUrlPrefix}}#/charts/edit/0/{{c.id}}">
@@ -175,7 +172,7 @@
                                     </md-menu-item>
                                 </md-menu-content>
                             </md-menu>
-                        </div>
+                        </span>
                     </td>
                     <td>{{row.user}}</td>
                     <!--<td ng-show="securityCertPatch && row.type == 2"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></td>

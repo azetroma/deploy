@@ -1156,12 +1156,13 @@
                                      , {label:('delete record' | translate), value:2}-->
                 <sm-dropdown
                     items="[  
-                                         {label: 'ذخیره رکورد جدید', value:0},
-                                         {label: 'ذخیره و ویرایش رکورد', value:1},
-                                         {label: 'حذف رکورد', value:2},
-                                         {label: 'باز شدن فرم جدید', value:3},
-                                         {label: 'باز شدن فرم با داده', value:4},
-                                         {label: 'تغییر داده‌های فرم', value:5},
+                                         {label: 'ذخیره رکورد جدید (سمت سرور)', value:0},
+                                         {label: 'ویرایش رکورد (سمت سرور)', value:1},
+                                         {label: 'حذف رکورد (سمت سرور)', value:2},
+                                         {label: 'باز شدن فرم جدید (سمت کلاینت)', value:3},
+                                         {label: 'باز شدن فرم با داده (سمت کلاینت)', value:4},
+                                         {label: 'تغییر داده‌های فرم (سمت کلاینت)', value:5},
+                                         {label: 'فشردن کلید ذخیره (سمت کلاینت)', value:6},
                                     ]"
                     class=""
                     model="t.type"
@@ -1171,6 +1172,7 @@
             </div>
             <div class="field">
                 <sadaf-tasks ng-model="t.tasks" trigger="t.type" ng-init="t.tasks = t.tasks || []"></sadaf-tasks>
+                <small ng-if="t.type==6">در صورتی که تابع مقدار false را برگرداند فرم ذخیره نخواهد شد</small>
             </div>
         </div>
     </div>
@@ -1307,6 +1309,16 @@
     <div class="field">
         <sadaf-checkbox ng-model="c.mapTable.enable">عدم ایجاد جدول و استفاده از جدول موجود</sadaf-checkbox>
     </div>
+    
+    <div class="field">
+        <label>اسکریپت‌های کلی فرم</label>
+        <feditor control-s="saveFormShotcut()" flex ng-model="c.clientModel.generalScript" lang="js" ></feditor>
+        <small class="gray">این تکه کد زمان باز شدن فرم اجرا می‌شود. میتوانید توابعی که لازم دارید را در 
+            scope
+            ذخیره کنید و سپس در وظیفه‌های هر کنترل از آن‌ها استفاده کنید.
+        </small>
+    </div>
+    
 
     <style>
         .inline-form.field input {

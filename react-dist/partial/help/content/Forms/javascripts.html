@@ -11,6 +11,11 @@
     <li><span class="ui  label ltr">findControl([name or column name])</span>  تابع پیدا کردن کنترل در فرم</li>
     <li><span class="ui  label ltr">runOnAllControll([formModel], controlCallback(cnt, row, index, pagecnt, isFromMultiRow), pageCallback(page))</span>  اجرای کد روی تمام کنترل‌ها</li>
     <li><span class="ui  label ltr">moment(control.value, 'jYYYY/jMM/jDD')</span>  تبدیل مقدار تاریخ به زمان</li>
+    
+    <li><span class="ui  label ltr">scope,depersian,persian</span>  شی اصلی فرم که میتوانید توابع اضافه را در آن ذخیره کنید</li>
+    <li><span class="ui  label ltr">persian</span>  تابع فارسی کردن اعداد</li>
+    <li><span class="ui  label ltr">depersian</span>  تابع انگلیسی کردن اعداد</li>
+    
 </ul>
 
 <h3>params</h3>
@@ -45,7 +50,8 @@
 </p>
 
 <h3>دریافت داده از نمودار</h3>
-<p>
+<p>در این حالت لازم نیست گزینه api 
+    در نمودار فعال شده باشد
 </p>
 <feditor lang="js" full-height readonly>
     http.post('/api/chartdata/getDataApi', {
@@ -96,5 +102,22 @@ a[0].value = 'value';
 if(params.settings.ChartInPageId == 1313){
     let c = findControl('field-4', formModel);
         c.value = 'هزینه'
+}
+</feditor>
+
+
+<h3>رویداد فشردن کلید ذخیره (سمت کلاینت) </h3>
+<p>در صورت استفاده از این رویداد و نوشتن کد جاوا اسکریپت در صورتی که 
+    کد اجرا شده مقدار false 
+    را برگرداند، ذخیره انجام نخواهد شد.
+    برای نمایش پیغام خطا می‌توانید به صورت زیر یک شی را برگردانید.
+</p>
+<feditor lang="js" full-height readonly>
+{
+    result: false,
+    pageMessages:[{
+        name: '_all', 
+        error: 'Error Message'
+    }]
 }
 </feditor>

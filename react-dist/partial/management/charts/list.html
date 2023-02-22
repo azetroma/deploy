@@ -135,7 +135,7 @@
                     <td width="20">{{utils.persian( (page - 1) * pageCount  + $index+1)}}</td>
 
                     <td width="20">
-                        <span ng-show="row.type==1" class="material-icons" style="color:#757575">folder</span>
+                        <i ng-if="row.type==1" class="ui icon folder outline large gray"></i>
                         <img ng-show="row.type==2" ng-src="{{getChartTypeImage(row.chartType)}}" title="{{getTypeName(row.chartType)}}" />
                     </td>
                     <td>

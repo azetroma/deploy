@@ -68,8 +68,11 @@
                     </td>
                     <td width="20">{{utils.persian($index+1)}}</td>
                     <td width="20">
-                        <span ng-if="row.type==1" class="material-icons" style="color: #757575">folder</span>
-                    </td>
+                        <span class="" style="color: #757575">
+                            <i ng-if="row.type==1" class="ui icon folder outline large gray"></i>
+                            <i ng-if="row.type==2" class="ui icon arrows alternate horizontal large gray"></i>
+                        </span>
+                </td>
 
                     <td>
                         <span class="pointer" ng-click="goto($event, row); $event.stopPropagation();">

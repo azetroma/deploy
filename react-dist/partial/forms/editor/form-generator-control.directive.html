@@ -3,10 +3,10 @@
         class=" field form-control {{model.name}} type-{{model.type}} form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ (!model.canEdit && model.type != 13) || (disabled == 'disabled' || disabled == 'true' ) ? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{ model.readonly? 'read-only':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
 
     <span ng-show="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
+    <span ng-show="edit" class="ui label mini compact hidden-mark" style="color:black; opacity: 0.6;">{{model.name.replace('field-', '')}}</span>
     <div class="control-actions" ng-if="edit">
         <span class="material-icons small small-size pointer gray" ng-click="remove()" title="delete">delete</span>
         <span ng-if="model.type!=22 && model.type!=13" class="material-icons small small-size pointer gray" ng-click="copy()" title="copy">content_copy</span>
-        
     </div>
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 0">

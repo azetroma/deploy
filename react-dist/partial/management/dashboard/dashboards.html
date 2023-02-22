@@ -50,7 +50,7 @@
                         <md-checkbox ng-model="row.select" ng-click="$event.stopPropagation()" ng-change="menuInvalidate()" aria-label="{{'select' | translate}}"></md-checkbox>
                     </td>
                     <td width="20">{{utils.persian($index+1)}}</td>
-                    <td><a class="pointer" href="{{app.hashUrlPrefix}}#/dashboards/{{row.id}}">{{row.name}}</a></td>
+                    <td><a class="pointer" href="{{app.hashUrlPrefix}}#/dashboards/{{row.id}}" style="color:rgba(0,0,0,0.87)">{{row.name}}</a></td>
                     <td class="md-caption">{{utils.persian(row.time)}}</td>
                      
                 </tr>

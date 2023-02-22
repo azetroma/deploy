@@ -122,17 +122,20 @@
                         </td>
                         <td width="20">{{c.utils.persian($index+1)}}</td>
                         <td width="20">
-                            <span ng-if="i.type==1" class="material-icons" style="color: #757575">folder</span>
+                            <span class="" style="color: #757575">
+                                <i ng-if="i.type==1" class="ui icon folder outline large"></i>
+                                <i ng-if="i.type==2" class="ui icon file alternate outline large"></i>
+                            </span>
                         </td>
 
                         <td>
-                            <a
+                            <span class="pointer"
                                 ng-show="i.permissions.EditPermission || i.type==1"
                                 ng-if="i.systemType == 0"
                                 ng-click="goto(i)"
                             >
                                 {{i.name}}
-                            </a>
+                            </span>
                             <a
                                 ng-show="i.permissions.EditPermission|| i.type==1"
                                 ng-if="i.systemType != 0"
