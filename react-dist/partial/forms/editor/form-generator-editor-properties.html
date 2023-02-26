@@ -709,7 +709,6 @@
             <div flex>
                 <feditor
                     control-s="saveFormShotcut()"
-                    nosort
                     flex
                     ignore-beauty-pattern="\[field-\d+\]"
                     type="5"
@@ -758,7 +757,7 @@
             <div flex>
                 <feditor
                     control-s="saveFormShotcut()"
-                    nosort
+                    ignore-beauty-pattern="\[field-\d+\]"
                     flex
                     type="16"
                     ng-model="c.control.active.calculate.expression"
@@ -1307,10 +1306,6 @@
     </div>
 
     <div class="field">
-        <sadaf-checkbox ng-model="c.mapTable.enable">عدم ایجاد جدول و استفاده از جدول موجود</sadaf-checkbox>
-    </div>
-    
-    <div class="field">
         <label>اسکریپت‌های کلی فرم</label>
         <feditor control-s="saveFormShotcut()" flex ng-model="c.clientModel.generalScript" lang="js" ></feditor>
         <small class="gray">این تکه کد زمان باز شدن فرم اجرا می‌شود. میتوانید توابعی که لازم دارید را در 
@@ -1318,6 +1313,15 @@
             ذخیره کنید و سپس در وظیفه‌های هر کنترل از آن‌ها استفاده کنید.
         </small>
     </div>
+    
+    <div class="field">
+        <sadaf-checkbox ng-model="c.clientModel.createDax">ایجاد منبع داده DAX مجزا</sadaf-checkbox>
+    </div>
+
+    <div class="field">
+        <sadaf-checkbox ng-model="c.mapTable.enable">عدم ایجاد جدول و استفاده از جدول موجود</sadaf-checkbox>
+    </div>
+    
     
 
     <style>

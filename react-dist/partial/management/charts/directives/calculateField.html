@@ -20,6 +20,12 @@
                 <div ng-repeat="i in calculatedFields.fields track by $index" class="item" layout="row" layout-align="start center">
                     {{i.name}}
                     <span class="form-divider flex" flex=""></span>
+                    <div class="md-icon-button " style="padding:4px;" ng-click="up($index, $event)" title="{{'edit' | translate}}">
+                        <span class="material-icons small small-size pointer">keyboard_arrow_up</span>
+                    </div>
+                    <div class="md-icon-button " style="padding:4px;" ng-click="down($index, $event)" title="{{'edit' | translate}}">
+                        <span class="material-icons small small-size pointer">keyboard_arrow_down</span>
+                    </div>
                     <div class="md-icon-button " style="padding:4px;" ng-click="edit($index, $event)" title="{{'edit' | translate}}">
                         <span class="material-icons small small-size pointer">edit</span>
                     </div>

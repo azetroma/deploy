@@ -244,16 +244,16 @@
     layout-align="start center"
     ng-show="!query.length || ('transpose' | translate).indexOf(query)!=-1"
 >
-    <div class="col-sm-offset-4 col-sm-8">
+    <!-- <div class="col-sm-offset-4 col-sm-8">
         <div class="checkbox">
             <label class="">
                 <input type="checkbox" ng-model="model.transpose" ng-change="change()" /> {{ 'transpose' | translate }}
             </label>
         </div>
     </div>
-    <small class="grey" ng-show="!query.length || ('transpose' | translate).indexOf(query)!=-1"
-        >در صورت فعال کردن این گزینه امکان رفتن به عمق غیر فعال می‌شود</small
-    >
+    <small class="grey" ng-show="!query.length || ('transpose' | translate).indexOf(query)!=-1">
+        در صورت فعال کردن این گزینه امکان رفتن به عمق غیر فعال می‌شود
+    </small> -->
 </div>
 
 <div
@@ -406,7 +406,6 @@
                         </div>
                     </div>
                     <small>برای نوع عملوند باید در پارامتر دوم نوع عملوند ارسال شود.</small>
-
                 </div>
 
                 <br />
@@ -429,15 +428,14 @@
                         <i class="ui icon close"></i>
                     </div>
                 </div>
-
             </div>
-            
+
             <span class="ui mini button icon" ng-click="copyValue(model)">
                 <i class="ui icon link copy outline" title="کپی مقدار"></i>
             </span>
             <br />
-            هدر Content-Type درخواست باید application/json تنظیم شود. type میتواند یکی از دو مقدار json یا csv را
-            داشته باشد
+            هدر Content-Type درخواست باید application/json تنظیم شود. type میتواند یکی از دو مقدار json یا csv را داشته
+            باشد
             <br />
             نمونه پارامترهای ارسالی
             <pre class="ltr"> 
@@ -453,7 +451,6 @@
         ]
 }
 </pre>
-
         </div>
     </div>
 </div>
