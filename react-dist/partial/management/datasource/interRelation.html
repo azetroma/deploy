@@ -4,6 +4,21 @@
             <!--{{'interRelation' | translate}}-->
             <span flex></span>
 
+            <small><small> فیلتر منبع داده </small> &nbsp;</small>
+            <i ng-if="filterDatasource" ng-click="clearFilter()" title="حذف فیلتر" class="ui icon close small link"></i>
+            <div class="ui form">
+                <div class="field">
+                    <sm-dropdown
+                        class="selection search"
+                        settings="{fullTextSearch: true}"
+                        items="datasourceList"
+                        label="item.Name"
+                        value="item.Id"
+                        model="filterDatasource"
+                    ></sm-dropdown>
+                </div>
+            </div>
+
             <md-button class="md-icon-button cssFade" ng-show="showMenu" ng-click="delete($event)">
                 <span class="material-icons">delete</span>
                 <md-tooltip>{{'remove' | translate}}</md-tooltip>
@@ -72,7 +87,7 @@
                             <i ng-if="row.type==1" class="ui icon folder outline large gray"></i>
                             <i ng-if="row.type==2" class="ui icon arrows alternate horizontal large gray"></i>
                         </span>
-                </td>
+                    </td>
 
                     <td>
                         <span class="pointer" ng-click="goto($event, row); $event.stopPropagation();">
