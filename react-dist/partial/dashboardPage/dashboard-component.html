@@ -238,7 +238,7 @@
                     ></i>
                 </a>
 
-                <div class="item" ng-if="!isLoginByLink">
+                <div class="item" ng-if="!isLoginByLink && !shareMode">
                     <i
                         class="large icon pointer full-screen-toggle"
                         ng-class="{expand : !isFullscreen, compress: isFullscreen }"
@@ -257,7 +257,7 @@
                     </a>
                 </div>
 
-                <div class="item" ng-if="(isLoginByLink ?  false  :  true  ) && isFullscreen">
+                <div class="item" ng-if="(isLoginByLink ?  false  :  true  ) && isFullscreen && !shareMode">
                     <i
                         class="large icon pointer play-toggle"
                         ng-show="isFullscreen"
@@ -272,7 +272,7 @@
                     <i class="large icon home"></i>
                 </a>
 
-                <div class="item ui dropdown username" ng-show="!isLoginByLink">
+                <div class="item ui dropdown username" ng-show="!isLoginByLink && !shareMode">
                     <div style="white-space: nowrap">
                         <span class="user-account-hide-segment">
                             <text> {{username}}</text>
@@ -294,7 +294,7 @@
                         >
                     </div>
                 </div>
-                <div class="item" ng-show="!isLoginByLink">
+                <div class="item" ng-show="!isLoginByLink && !shareMode">
                     <i class="large icon sidebar link toc-toggle"></i>
                 </div>
             </div>

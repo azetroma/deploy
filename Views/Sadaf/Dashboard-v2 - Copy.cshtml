@@ -102,7 +102,7 @@
     }
 
 </head>
-<body ng-app="sadaf" ng-cloak class="theme2" style="overflow-y: hidden;height: initial;">
+<body ng-app="sadaf" ng-cloak ng-controller="dashboardPageCtrl" class="theme2" style="overflow-y: hidden;height: initial;">
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" id="isFullscreen" value="true" />
     <input type="hidden" id="dashboardPublishMenuId" value="@ViewBag.MenuId" />
@@ -110,8 +110,114 @@
     <input type="hidden" id="isShared" value="1" />
 
 
-    <dashboard-page></dashboard-page>
 
+    <div class="main-container full-height-container" xstyle="height:initial;max-height:initial;overflow-y:initial;">
+
+        <div class="" style="display:flex;flex-direction:row;padding:10px 0 0 10px;flex-wrap: wrap-reverse;justify-content: flex-end;">
+
+            <div ng-show="menuCategories.licenceRemain.remain <= 3" class="ui label red">
+                تعداد روز باقیمانده از جواز استفاده:
+                <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
+            </div>
+
+            <div class="" id="filter-box" ng-app="filterBox" style="transition:width 0.4s ease; flex:1 1 auto;">
+                <div ng-controller="filterBoxController" id="filter-box-controller">
+
+                    <div ng-if="otherFilters.length + userControlFilter.length >1"
+                         class="ui label"
+                         title="{{'clear'| translate}}">
+                        <a ng-click="clearAll()" class="pointer"><b>{{'clear all'| translate}}</b></a>
+                    </div>
+
+
+                    <div ng-repeat="j in otherFilters | filter:{value:''}"
+                         class="ui label"
+                         title="{{j.valueCaption}}">
+                        <b>{{j.keyCaption}}: </b>{{getCleanValue(j.valueCaption)}}
+                        <i class="delete icon" ng-click="removeDrillDown($index)"></i>
+                    </div>
+
+
+
+                    <div ng-repeat="i in userControlFilter "
+                         ng-if="i.values && i.values.length"
+                         class="ui label"
+                         title="{{i.values.join(', ')}}">
+                        <b>{{i.key}}: </b>{{i.xCaption}} <span ng-bind-html="i.Caption"></span>
+                        <i class="delete icon" ng-hide="i.disableClear" ng-click="removeUserControl($index)"></i>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <ng-view></ng-view>
+
+    </div>
+
+    <div id="form-holder">
+        <sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="formSettings"></sadaf-form>
+    </div>
+
+    <div class="ui modal small" id="filter-member-dialog">
+        <i class="close icon"></i>
+        <div class="header">
+            فیلتر کردن مقادیر
+        </div>
+        <div class="content">
+            <div id="filter-member-dialog-content">
+                <div class="ui active inverted dimmer">
+                    <div class="ui text loader">در حال بارگذاری</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="actions">
+            <div class="ui button deny black">{{'انصراف' | translate}}</div>
+            <div class="ui button green" onclick="app.helper.filterMemberDialogOk()">انتخاب</div>
+        </div>
+    </div>
+
+    <div class="ui modal small" id="change-pass">
+        <div class="header">
+            پیام
+        </div>
+        <div class="content">
+            به دلایل امنیتی لازم است کلمه عبور شما تغییر پیدا کند. لطفا به صفحه تغییر کلمه عبور بروید.
+
+        </div>
+        <div class="actions">
+            <a class="ui button green" href="~/Profile/#/changepass">تغییر کلمه عبور</a>
+        </div>
+    </div>
+
+    <div class="ui modal small" id="input-comments">
+        <i class="close icon"></i>
+        <div class="header">
+            کامنت
+        </div>
+        <div class="content">
+            <div class="ui form">
+                <div class="field">
+                    <label>کامنت</label>
+                    <input ng-model="comment.value" type="text" class="" placeholder="">
+                </div>
+            </div>
+            <div class="alert alert-danger" ng-show="comment.error">
+                <div ng-show="comment.error.title">
+                    <b>{{comment.error.title}}</b>
+                    <p>{{comment.error.desc}}</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="actions">
+            <div class="ui button deny black">{{'انصراف' | translate}}</div>
+            <div class="ui button green" ng-class="{disabled: modal.inProgress, loading : modal.inProgress}" ng-click="comment.ok()">{{modal.btnText}}</div>
+        </div>
+    </div>
 
     <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
     <input type="hidden" value="@Request.Url.AbsoluteUri" name="aboluteUrl" />
