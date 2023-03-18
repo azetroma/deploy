@@ -1,6 +1,10 @@
 <div class="general-control">
-
-    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'checkbox'&& (!item.if ||  parent[item.if.key] == item.if.value)">
+    <div
+        class="form-row"
+        layout="row"
+        layout-align="start center"
+        ng-if="item.type == 'checkbox'&& (!item.if ||  parent[item.if.key] == item.if.value)"
+    >
         <div class="col-sm-offset-4 col-sm-8">
             <div class="checkbox">
                 <label class="">
@@ -10,54 +14,128 @@
         </div>
     </div>
 
-    <div class="form-row" layout="row" layout-align="start center" ng-if="(item.type == 'text' || item.type == 'number')&& (!item.if ||  parent[item.if.key] == item.if.value)">
+    <div
+        class="form-row"
+        layout="row"
+        layout-align="start center"
+        ng-if="(item.type == 'text' || item.type == 'number')&& (!item.if ||  parent[item.if.key] == item.if.value)"
+    >
         <label class="col-sm-4">{{item.title}}</label>
         <span class="form-divider" flex></span>
         <div class="col-sm-8">
-            <input type="{{item.type}}" class="form-control" placeholder="{{item.title }}" ng-model="parent[item.key]"
-                   ng-change="onchange()" ng-model-options="{ updateOn: 'blur' }" />
+            <input
+                type="{{item.type}}"
+                class="form-control"
+                placeholder="{{item.title }}"
+                ng-model="parent[item.key]"
+                ng-change="onchange()"
+                ng-model-options="{ updateOn: 'blur' }"
+            />
         </div>
     </div>
 
-    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'select'&& (!item.if ||  parent[item.if.key] == item.if.value)">
+    <div
+        class="form-row"
+        layout="row"
+        layout-align="start center"
+        ng-if="item.type == 'select'&& (!item.if ||  parent[item.if.key] == item.if.value)"
+    >
         <label class="col-sm-4">{{ item.title }}</label>
         <span class="form-divider" flex></span>
-        <select ng-model="parent[item.key]" ng-change="onchange()"
-                ng-options="i.value as i.name for i in item.entries"></select>
+        <select
+            ng-model="parent[item.key]"
+            ng-change="onchange()"
+            ng-options="i.value as i.name for i in item.entries"
+        ></select>
     </div>
-    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'font' && (!item.if ||  parent[item.if.key] == item.if.value)">
+    <div
+        class="form-row"
+        layout="row"
+        layout-align="start center"
+        ng-if="item.type == 'font' && (!item.if ||  parent[item.if.key] == item.if.value)"
+    >
         <label>{{item.title}}</label>
         <span class="form-divider" flex></span>
         <text-editor prop="parent[item.key]" on-change="onchange()" config="item.config"></text-editor>
     </div>
 
-    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'color'&& (!item.if ||  parent[item.if.key] == item.if.value)">
+    <div
+        class="form-row"
+        layout="row"
+        layout-align="start center"
+        ng-if="item.type == 'color'&& (!item.if ||  parent[item.if.key] == item.if.value)"
+    >
         <label class="col-sm-4">{{item.title}}</label>
         <span class="form-divider" flex></span>
-        <div class="col-sm-8"> 
-        <div md-color-picker ng-model="parent[item.key]" md-color-default-tab="'genericPalette'" on-change="onchange(value)"></div>
+        <div class="col-sm-8">
+            <div
+                md-color-picker
+                ng-model="parent[item.key]"
+                md-color-default-tab="'genericPalette'"
+                on-change="onchange(value)"
+            ></div>
         </div>
     </div>
 
-    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'editor'&& (!item.if ||  parent[item.if.key] == item.if.value)">
-        <ng-quill-editor on-content-changed="onchange()" style="direction:ltr;"
-                         ng-model="parent[item.key]"
-                         ng-init="parent[item.key]"></ng-quill-editor>
+    <div
+        class="form-row"
+        layout="row"
+        layout-align="start center"
+        ng-if="item.type == 'editor'&& (!item.if ||  parent[item.if.key] == item.if.value)"
+    >
+        <ng-quill-editor
+            on-content-changed="onchange()"
+            style="direction: ltr"
+            ng-model="parent[item.key]"
+            ng-init="parent[item.key]"
+        ></ng-quill-editor>
     </div>
 
-    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'icon'&& (!item.if ||  parent[item.if.key] == item.if.value)">
+    <div
+        class="form-row"
+        layout="row"
+        layout-align="start center"
+        ng-if="item.type == 'icon'&& (!item.if ||  parent[item.if.key] == item.if.value)"
+    >
         <label class="col-sm-4">{{item.title}}</label>
         <span class="form-divider" flex></span>
         <div class="col-sm-8">
             <sadaf-icons ng-model="parent[item.key]" ng-change="onchange()"></sadaf-icons>
         </div>
     </div>
-    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'button' && (!item.if ||  parent[item.if.key] == item.if.value)">
+    <div
+        class="form-row"
+        layout="row"
+        layout-align="start center"
+        ng-if="item.type == 'button' && (!item.if ||  parent[item.if.key] == item.if.value)"
+    >
         <label class="col-sm-4">{{item.title}}</label>
         <span class="form-divider" flex></span>
         <div class="col-sm-8">
-            <div class="ui button compact tiny" ng-click="item.callback(item, parent, prop, onchange)">{{item.keyTitle || item.title}}</div>
+            <div class="ui button compact tiny" ng-click="item.callback(item, parent, prop, onchange)">
+                {{item.keyTitle || item.title}}
+            </div>
         </div>
     </div>
-
+    <div
+        ng-if="item.type == 'series-type' && (!item.if ||  parent[item.if.key] == item.if.value)"
+        class="mini secondary segment ui"
+        style="margin-top: 12px"
+    >
+        <div class="ui tiny header">{{item.title}}</div>
+        <div ng-repeat="s in series" class="form-row" layout="row" layout-align="start center">
+            <label class="col-sm-4">{{s}}</label>
+            <span class="form-divider" flex></span>
+            <div class="col-sm-8 ui compact mini buttons">
+                <div
+                    class="ui button compact mini"
+                    ng-class="{active: parent[item.key][t.value]==s}"
+                    ng-repeat="t in item.types"
+                    ng-click="parent[item.key][t.value]=s; item.onChange(t,s,item, parent, prop, onchange); onchange();"
+                >
+                    {{t.name}}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
