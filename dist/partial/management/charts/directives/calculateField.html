@@ -66,7 +66,7 @@
                     <label>{{ 'فرمول' | translate }}</label>
                     <input class="ltr formula-input" style="font-family:monospace" ng-model="parent.currentFormula.formula" type="text" />
                 </md-input-container>
-               
+
                 <p class="label label-info">پیشنهاد می‌شود به جای استفاده از ایندکس ستون از نام ستون استفاده شود تا در حالت‌ مرتب کردن مشکلی به وجود نیاید </p>
 
                 <ul style="font-size:0.8em;">
@@ -104,6 +104,19 @@
                         اختلاف ستون اول با ستون اول از ردیف قبلی :
                         <code>{R+0, C0} - {R-1, C0}</code>
                         <br />
+                    </p>
+                    <p class="help-block small">
+                        توابع قابل استفاده<br />
+                        <code>sum([column])</code><br />
+                        <code>min([column])</code><br />
+                        <code>max([column])</code><br />
+                        <code>count([column])</code><br />
+                        <code>avg([column])</code><br />
+                        <code>sum_row()</code><br />
+                        <code>min_row()</code><br />
+                        <code>max_row()</code><br />
+                        <code>avg_row()</code><br />
+                        <code>count_row()</code><br />
                     </p>
                 </div>
             </div>

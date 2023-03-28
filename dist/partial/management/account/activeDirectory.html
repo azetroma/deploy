@@ -151,8 +151,13 @@
                         <div class="ui xbulleted list">
                             <div class="item"><b>Subject:     </b>  {{ad.cert.Subject}}</div>
                             <div class="item"><b>Issuer:      </b>  {{ad.cert.Issuer}}</div>
-                            <div class="item"><b>Begin:       </b>  {{ad.moment(ad.cert.NotBefore)}}</div>
-                            <div class="item"><b>Expire:      </b>  {{ad.moment(ad.cert.NotAfter)}}</div>
+                            <!--<div class="item"><b>Begin:       </b>  {{ad.moment(ad.cert.NotBefore)}}</div>
+                            <div class="item"><b>Expire:      </b>  {{ad.moment(ad.cert.NotAfter)}}</div>-->
+
+                        <div class="item"><b>Begin:       </b>  {{ad.moment.unix(ad.cert.NotBefore).format("MM/DD/YYYY")}}</div>
+                        <div class="item"><b>Expire:       </b> {{ad.moment.unix(ad.cert.NotAfter).format("MM/DD/YYYY")}}</div>
+
+
                             <div class="item"><b>SerialNumber:</b>  {{ad.cert.SerialNumber}}</div>
                         </div>
                     </div>
