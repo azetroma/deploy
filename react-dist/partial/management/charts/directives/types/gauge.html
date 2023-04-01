@@ -66,9 +66,10 @@
                             <div>
                                 <span class="ql-formats">
                                     <select class="ql-font">
-                                        <option selected></option>
-                                        <option value="serif"></option>
-                                        <option value="monospace"></option>
+                                        <option selected>پیش فرض</option>
+                                        <option value="Sahel">Sahel</option>
+                                        <option value="IRANSans">IRANSans</option>
+                                        <option value="Droid">Droid</option>
                                     </select>
                                     <select class="ql-size">
                                         <option value="12px">12</option>
@@ -229,10 +230,6 @@
                                     {name:'large', value:'بزرگ' },
                                     {name:'veryLarge', value:'خیلی بزرگ' },
                                     ]">
-                            <!--<option value="small">{{ 'کوچک' | translate }}</option>
-                <option value="medium" selected="selected">{{ 'متوسط' | translate }}</option>
-                <option value="large">{{ 'بزرگ' | translate }}</option>
-                <option value="veryLarge">{{ 'خیلی بزرگ' | translate }}</option>-->
                         </select>
                     </div>
                 </div>
@@ -333,8 +330,63 @@
                         <input type="text" class="form-control" placeholder="{{ 'فاصله خط‌ها' | translate }}" ng-model-options="{ updateOn: 'blur' }" ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.lineHeight" ng-init="ngModel.gauge.info.lineHeight = ngModel.gauge.info.lineHeight || 1.4"/>
                     </div>
                 </div>
-                
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.showPic" checked="checked" /> {{ 'نمایش مجزای آیکن' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.gauge.info.showPic">
+                    <label class="col-sm-4">{{ 'مکان آیکن' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class="selectpicker-x form-control" ng-change="refreshChart('refresh')" 
+                                ng-model="ngModel.gauge.info.picPosition"
+                                ng-options="i.name as  i.value for i in [
+                                    {name:'top', value: 'بالا'  },
+                                    {name:'left', value:'چپ' },
+                                    {name:'right', value:'راست' },
+                                    {name:'bottom', value:'پایین' },
+                                    ]">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row" layout="row" layout-align="start center"ng-show="ngModel.gauge.info.showPic">
+                    <label class="col-sm-4">{{ 'اندازه آیکن' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="{{ 'اندازه آیکن' | translate }}" 
+                               ng-model-options="{ updateOn: 'blur' }" ng-change="refreshChart('refresh')" 
+                               ng-model="ngModel.gauge.info.picSize" 
+                               ng-init="ngModel.gauge.info.picSize = ngModel.gauge.info.picSize || '65px'"/>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center"ng-show="ngModel.gauge.info.showPic">
+                    <label class="col-sm-4">{{ 'حاشیه آیکن' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="{{ 'حاشیه آیکن' | translate }}" 
+                               ng-model-options="{ updateOn: 'blur' }" ng-change="refreshChart('refresh')" 
+                               ng-model="ngModel.gauge.info.picMargin" 
+                               ng-init="ngModel.gauge.info.picMargin = ngModel.gauge.info.picMargin || '0'"/>
+                    </div>
+                </div>
+
             </div>
+
+            <div class="form-row" layout="row" layout-align="start center">
+                <div class="col-sm-offset-4 col-sm-8">
+                    <div class="checkbox">
+                        <label class="">
+                            <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.scroll" checked="checked" /> {{ 'نمایش اسکرول' | translate }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
 
             </div>
         </menu-body>
