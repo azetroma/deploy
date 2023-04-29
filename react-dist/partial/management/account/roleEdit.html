@@ -1,5 +1,4 @@
-﻿
-<div layout="column" flex>
+﻿<div layout="column" flex>
     <md-content flex class="content role-container" layout="row">
         <style>
             .role-container select {
@@ -10,7 +9,6 @@
         </style>
         <div flex="10" hide-sm hide-xs></div>
         <div flex="80" flex-xs="100" flex-sm="100">
-
             <md-card>
                 <md-card-title>
                     <md-card-title-text>
@@ -27,21 +25,29 @@
                     <div>
                         <form name="roleForm">
                             <div class="ui form">
+                                <div class="field">
+                                    <label>{{'name' | translate}}</label>
+                                    <input required name="name" ng-model="model.RoleName" />
+                                    <div ng-messages="roleForm.name.$error">
+                                        <div ng-message="required">{{'form_name_required' | translate}}</div>
+                                    </div>
+                                </div>
                                 <div class="two fields">
                                     <div class="field">
-                                        <label>{{'name' | translate}}</label>
-                                        <input required name="name" ng-model="model.RoleName">
-                                        <div ng-messages="roleForm.name.$error">
-                                            <div ng-message="required">{{'form_name_required' | translate}}</div>
-                                        </div>
+                                        <label>&nbsp;</label>
+                                        <sadaf-checkbox ng-model="model.forceOpenPage">
+                                            نمایش صفحه داشبورد بعد از ورود
+                                        </sadaf-checkbox>
                                     </div>
-
-                                    <div class="field">
+                                    <div class="field" ng-show="model.forceOpenPage">
                                         <label>{{'role_default_menu' | translate}}</label>
-                                        <sm-dropdown class="selection search" items="menusFlat" model="model.FirstMenuId" label="item.name" value="item.id"></sm-dropdown>
-                                        <div class="errors" ng-messages="roleForm.defaultPage.$error">
-                                            <div ng-message="required">{{'default_page_required' | translate}}</div>
-                                        </div>
+                                        <sm-dropdown
+                                            class="selection search"
+                                            items="menusFlat"
+                                            model="model.FirstMenuId"
+                                            label="item.name"
+                                            value="item.id"
+                                        ></sm-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -59,76 +65,116 @@
                                     min-height: 20px;
                                 }
 
-                                    .role-edit md-checkbox .md-label {
-                                        margin-top: 0px;
-                                        margin-bottom: 10px;
-                                    }
+                                .role-edit md-checkbox .md-label {
+                                    margin-top: 0px;
+                                    margin-bottom: 10px;
+                                }
 
-                                    .role-edit md-checkbox .md-container {
-                                        margin: 11px 3px 3px;
-                                    }
+                                .role-edit md-checkbox .md-container {
+                                    margin: 11px 3px 3px;
+                                }
                             </style>
 
                             <div class="prop-section role-edit">
-
                                 <menu-container>
-
                                     <menu-item>
                                         <menu-header ng-click="renderMenu = true">{{'menus' | translate}}</menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px" ng-if="renderMenu">
+                                            <div style="margin: 0 20px" ng-if="renderMenu">
                                                 <collapse ng-repeat="(k,v) in menus">
                                                     <div layout="row">
-                                                        <collapse-header>
-                                                            {{jsonParse(k).name}}
-                                                        </collapse-header>
+                                                        <collapse-header> {{jsonParse(k).name}} </collapse-header>
                                                         <span flex></span>
-                                                        <md-select style="margin:0" aria-label="{{'permission' | translate}}" ng-model="menuCategoriesAction[jsonParse(k).id]">
-                                                            <md-option value="0">{{'permission_not' | translate}}</md-option>
-                                                            <md-option value="1">{{'permission_view' | translate}}</md-option>
-                                                            <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
-                                                            <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
+                                                        <md-select
+                                                            style="margin: 0"
+                                                            aria-label="{{'permission' | translate}}"
+                                                            ng-model="menuCategoriesAction[jsonParse(k).id]"
+                                                        >
+                                                            <md-option value="0"
+                                                                >{{'permission_not' | translate}}</md-option
+                                                            >
+                                                            <md-option value="1"
+                                                                >{{'permission_view' | translate}}</md-option
+                                                            >
+                                                            <md-option value="2"
+                                                                >{{'permission_view_edit' | translate}}</md-option
+                                                            >
+                                                            <md-option value="4"
+                                                                >{{'permission_view_edit_delete' |
+                                                                translate}}</md-option
+                                                            >
                                                         </md-select>
                                                     </div>
                                                     <collapse-body>
-                                                        <div style="margin:0 20px">
-                                                            <div ng-repeat="r in v" layout="row" layout-align="start center">
-                                                                <md-checkbox ng-model="r.check" ng-change="setViewPermission(k, v)" ng-disabled="r.disable">{{r.name}}  </md-checkbox>
+                                                        <div style="margin: 0 20px">
+                                                            <div
+                                                                ng-repeat="r in v"
+                                                                layout="row"
+                                                                layout-align="start center"
+                                                            >
+                                                                <md-checkbox
+                                                                    ng-model="r.check"
+                                                                    ng-change="setViewPermission(k, v)"
+                                                                    ng-disabled="r.disable"
+                                                                    >{{r.name}}
+                                                                </md-checkbox>
                                                                 <small ng-if="r.disable">
-                                                                    &nbsp;&nbsp; این داشبورد تکراری است. برای تغییر به گروه منوی
+                                                                    &nbsp;&nbsp; این داشبورد تکراری است. برای تغییر به
+                                                                    گروه منوی
                                                                     <b>{{r.enableParent}}</b>
                                                                     مراجعه کنید
                                                                 </small>
                                                                 <span flex></span>
-                                                                <select ng-show="r.check" ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
+                                                                <select
+                                                                    ng-show="r.check"
+                                                                    ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                                 (item.v == 2 && !r.permissions.EditPermission)||
-                                                                (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
+                                                                (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey"
+                                                                    ng-model="r.action"
+                                                                ></select>
                                                             </div>
                                                         </div>
                                                     </collapse-body>
                                                 </collapse>
-
-
                                             </div>
                                         </menu-body>
                                     </menu-item>
 
                                     <menu-item>
-                                        <menu-header ng-click="renderUsers = true">{{'members' | translate}}</menu-header>
+                                        <menu-header ng-click="renderUsers = true"
+                                            >{{'members' | translate}}</menu-header
+                                        >
                                         <menu-body>
                                             <div ng-if="renderUsers">
                                                 <div class="ui form">
                                                     <div class="field">
                                                         <div class="ui icon input">
-                                                            <input type="text" placeholder="جستجو..." ng-model="uSearch.username">
+                                                            <input
+                                                                type="text"
+                                                                placeholder="جستجو..."
+                                                                ng-model="uSearch.username"
+                                                            />
                                                             <i class="search icon"></i>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <md-virtual-repeat-container style="height:400px;">
-                                                    <div style="height:30px;" md-virtual-repeat="r in users | filterUsers:uSearch " layout="row" layout-align="start center">
-                                                        <label><input type="checkbox" ng-model="r.check" /> {{r.username}} - {{r.name}}</label>
-                                                        <a href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
+                                                <md-virtual-repeat-container style="height: 400px">
+                                                    <div
+                                                        style="height: 30px"
+                                                        md-virtual-repeat="r in users | filterUsers:uSearch "
+                                                        layout="row"
+                                                        layout-align="start center"
+                                                    >
+                                                        <label
+                                                            ><input type="checkbox" ng-model="r.check" /> {{r.username}}
+                                                            - {{r.name}}</label
+                                                        >
+                                                        <a
+                                                            href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}"
+                                                            style="margin: 0 14px"
+                                                            class="material-icons small small-size pointer"
+                                                            >open_in_new</a
+                                                        >
                                                     </div>
                                                 </md-virtual-repeat-container>
                                             </div>
@@ -136,135 +182,208 @@
                                     </menu-item>
 
                                     <menu-item>
-                                        <menu-header ng-click="rendermUsers = true">{{'manageable users' | translate}}</menu-header>
+                                        <menu-header ng-click="rendermUsers = true"
+                                            >{{'manageable users' | translate}}</menu-header
+                                        >
                                         <menu-body>
                                             <div ng-if="rendermUsers">
                                                 <div class="ui form">
                                                     <div class="field">
                                                         <div class="ui icon input">
-                                                            <input type="text" placeholder="جستجو..." ng-model="umSearch.username">
+                                                            <input
+                                                                type="text"
+                                                                placeholder="جستجو..."
+                                                                ng-model="umSearch.username"
+                                                            />
                                                             <i class="search icon"></i>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <md-virtual-repeat-container style="height:400px;">
-                                                    <div style="height:30px;" md-virtual-repeat="r in manageableUsers | filterUsers:umSearch" layout="row" layout-align="start center">
-                                                        <label><input type="checkbox" ng-model="r.check" /> {{r.username}} - {{r.name}}</label>
-                                                        <a href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}" style="margin:0 14px;" class="material-icons small small-size pointer">open_in_new</a>
+                                                <md-virtual-repeat-container style="height: 400px">
+                                                    <div
+                                                        style="height: 30px"
+                                                        md-virtual-repeat="r in manageableUsers | filterUsers:umSearch"
+                                                        layout="row"
+                                                        layout-align="start center"
+                                                    >
+                                                        <label
+                                                            ><input type="checkbox" ng-model="r.check" /> {{r.username}}
+                                                            - {{r.name}}</label
+                                                        >
+                                                        <a
+                                                            href="{{app.hashUrlPrefix + '#/users/edit/' + r.id}}"
+                                                            style="margin: 0 14px"
+                                                            class="material-icons small small-size pointer"
+                                                            >open_in_new</a
+                                                        >
                                                     </div>
                                                 </md-virtual-repeat-container>
-
                                             </div>
                                         </menu-body>
                                     </menu-item>
 
-
                                     <menu-item>
-                                        <menu-header ng-click="renderDatasource = true">{{'datasources' | translate}}</menu-header>
+                                        <menu-header ng-click="renderDatasource = true"
+                                            >{{'datasources' | translate}}</menu-header
+                                        >
                                         <menu-body>
                                             <div style="" class="ui form" ng-if="renderDatasource">
                                                 <div class="fields">
                                                     <div class="field">
                                                         <label>&nbsp;</label>
                                                         <div class="ui icon input">
-                                                            <input type="text" placeholder="جستجو..." ng-model="datasourceSearch.name">
+                                                            <input
+                                                                type="text"
+                                                                placeholder="جستجو..."
+                                                                ng-model="datasourceSearch.name"
+                                                            />
                                                             <i class="search icon"></i>
                                                         </div>
                                                     </div>
                                                     <div class="field">
                                                         <label>مجوزهای دسترسی کلی</label>
-                                                        <select style="margin:0; padding:6px" class="" ng-model="datasourceActionAll" ng-change="actionAll('datasource', datasourceActionAll)" aria-label="{{'permission' | translate}}">
+                                                        <select
+                                                            style="margin: 0; padding: 6px"
+                                                            class=""
+                                                            ng-model="datasourceActionAll"
+                                                            ng-change="actionAll('datasource', datasourceActionAll)"
+                                                            aria-label="{{'permission' | translate}}"
+                                                        >
                                                             <option value="1">{{'permission_view' | translate}}</option>
-                                                            <option value="2">{{'permission_view_edit' | translate}}</option>
-                                                            <option value="4">{{'permission_view_edit_delete' | translate}}</option>
+                                                            <option value="2">
+                                                                {{'permission_view_edit' | translate}}
+                                                            </option>
+                                                            <option value="4">
+                                                                {{'permission_view_edit_delete' | translate}}
+                                                            </option>
                                                         </select>
                                                     </div>
 
                                                     <div class="field">
                                                         <label>&nbsp;</label>
-                                                        <div class="ui icon teal button" title="{{'add' | translate}}" ng-click="$event.stopPropagation(); addDatasource($event)">
+                                                        <div
+                                                            class="ui icon teal button"
+                                                            title="{{'add' | translate}}"
+                                                            ng-click="$event.stopPropagation(); addDatasource($event)"
+                                                        >
                                                             <i class="icon add"></i>
                                                         </div>
                                                     </div>
 
                                                     <div class="field">
                                                         <label>&nbsp;</label>
-                                                        <div class="ui icon red button" title=" {{'remove_all' | translate}}" ng-click="$event.stopPropagation(); clearDatasources()">
+                                                        <div
+                                                            class="ui icon red button"
+                                                            title=" {{'remove_all' | translate}}"
+                                                            ng-click="$event.stopPropagation(); clearDatasources()"
+                                                        >
                                                             <i class="icon alternate outline trash"></i>
                                                         </div>
                                                     </div>
-
                                                 </div>
 
-                                                <div ng-repeat="r in datasources|filter:datasourceSearch" layout="row" layout-align="start center">
-                                                    <div style="width:20px">
-                                                        <i class="icon small close link gray" title="{{'remove' | translate}}" ng-click="delete('datasource', r.id )"></i>
+                                                <div
+                                                    ng-repeat="r in datasources|filter:datasourceSearch"
+                                                    layout="row"
+                                                    layout-align="start center"
+                                                >
+                                                    <div style="width: 20px">
+                                                        <i
+                                                            class="icon small close link gray"
+                                                            title="{{'remove' | translate}}"
+                                                            ng-click="delete('datasource', r.id )"
+                                                        ></i>
                                                     </div>
                                                     <div flex>
                                                         <span>{{r.name}}</span>
                                                     </div>
-                                                    <div style="margin:4px 8px; font-size:0.7em;">
-                                                        <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
+                                                    <div style="margin: 4px 8px; font-size: 0.7em">
+                                                        <select
+                                                            ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                                 (item.v == 2 && !r.permissions.EditPermission)||
-                                                                (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
+                                                                (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey"
+                                                            ng-model="r.action"
+                                                        ></select>
                                                     </div>
-
-
-
                                                 </div>
                                             </div>
                                         </menu-body>
                                     </menu-item>
 
                                     <menu-item>
-                                        <menu-header ng-click="renderCharts = true">{{'charts' | translate}}</menu-header>
+                                        <menu-header ng-click="renderCharts = true"
+                                            >{{'charts' | translate}}</menu-header
+                                        >
                                         <menu-body>
                                             <div ng-if="renderCharts" class="ui form">
                                                 <div class="fields">
-
                                                     <div class="field">
                                                         <label>&nbsp;</label>
                                                         <div class="ui icon input">
-                                                            <input type="text" placeholder="جستجو..." ng-model="chartSearch.name">
+                                                            <input
+                                                                type="text"
+                                                                placeholder="جستجو..."
+                                                                ng-model="chartSearch.name"
+                                                            />
                                                             <i class="search icon"></i>
                                                         </div>
                                                     </div>
 
-
-
                                                     <div class="field">
                                                         <label>مجوزهای اضافه کلی</label>
-                                                        <sm-dropdown class="multiple selection"
-                                                                     items="[
+                                                        <sm-dropdown
+                                                            class="multiple selection"
+                                                            items="[
                                                                             {label:'کامنت', val:8}
                                                                            ,{label:'خروجی اکسل', val:9}
                                                                            ,{label:'فیلتر', val:10}
                                                                            ,{label:'توضیحات', val:11}
-                                                                        ]" model="extraActionAllx" label="item.label" value="item.val" settings="{useLabels: false, message:{count:'{count} مورد'}}"></sm-dropdown>
+                                                                        ]"
+                                                            model="extraActionAllx"
+                                                            label="item.label"
+                                                            value="item.val"
+                                                            settings="{useLabels: false, message:{count:'{count} مورد'}}"
+                                                        ></sm-dropdown>
                                                     </div>
                                                     <div class="field">
                                                         <label>مجوزهای دسترسی کلی</label>
-                                                        <select style="margin:0; padding:6px" class="" ng-model="chartActionAll" ng-change="actionAll('chart', chartActionAll)" aria-label="{{'permission' | translate}}">
+                                                        <select
+                                                            style="margin: 0; padding: 6px"
+                                                            class=""
+                                                            ng-model="chartActionAll"
+                                                            ng-change="actionAll('chart', chartActionAll)"
+                                                            aria-label="{{'permission' | translate}}"
+                                                        >
                                                             <option value="1">{{'permission_view' | translate}}</option>
-                                                            <option value="2">{{'permission_view_edit' | translate}}</option>
-                                                            <option value="4">{{'permission_view_edit_delete' | translate}}</option>
+                                                            <option value="2">
+                                                                {{'permission_view_edit' | translate}}
+                                                            </option>
+                                                            <option value="4">
+                                                                {{'permission_view_edit_delete' | translate}}
+                                                            </option>
                                                         </select>
                                                     </div>
                                                     <div class="field">
                                                         <label>&nbsp;</label>
-                                                        <div class="ui teal button icon" title="{{'add' | translate}}" ng-click="$event.stopPropagation(); addChart($event)">
+                                                        <div
+                                                            class="ui teal button icon"
+                                                            title="{{'add' | translate}}"
+                                                            ng-click="$event.stopPropagation(); addChart($event)"
+                                                        >
                                                             <i class="icon add"></i>
                                                         </div>
                                                     </div>
 
-
                                                     <div class="field">
                                                         <label>&nbsp;</label>
-                                                        <div title="{{'remove_all' | translate}}" class="ui red button icon" ng-click="$event.stopPropagation(); clearCharts()">
+                                                        <div
+                                                            title="{{'remove_all' | translate}}"
+                                                            class="ui red button icon"
+                                                            ng-click="$event.stopPropagation(); clearCharts()"
+                                                        >
                                                             <i class="icon alternate outline trash"></i>
                                                         </div>
                                                     </div>
-
                                                 </div>
 
                                                 <style>
@@ -272,51 +391,68 @@
                                                         width: 100%;
                                                     }
 
-                                                        .role-permission-table tr:first-child {
-                                                            border-bottom: 1px solid silver;
-                                                        }
+                                                    .role-permission-table tr:first-child {
+                                                        border-bottom: 1px solid silver;
+                                                    }
 
-                                                        .role-permission-table th {
-                                                            padding: 10px 0;
-                                                        }
+                                                    .role-permission-table th {
+                                                        padding: 10px 0;
+                                                    }
 
-                                                        .role-permission-table .all td {
-                                                            padding: 10px 0;
-                                                            background-color: #e0e0e0;
-                                                        }
+                                                    .role-permission-table .all td {
+                                                        padding: 10px 0;
+                                                        background-color: #e0e0e0;
+                                                    }
                                                 </style>
 
-
-
-                                                <md-virtual-repeat-container style="height:400px;">
-                                                    <div style="height:40px;" md-virtual-repeat="r in charts|filter:chartSearch" layout="row" flex layout-align="start center">
-                                                        <div style="width:20px">
-                                                            <i class="icon small close link gray" ng-click="delete('chart', r.id )"></i>
+                                                <md-virtual-repeat-container style="height: 400px">
+                                                    <div
+                                                        style="height: 40px"
+                                                        md-virtual-repeat="r in charts|filter:chartSearch"
+                                                        layout="row"
+                                                        flex
+                                                        layout-align="start center"
+                                                    >
+                                                        <div style="width: 20px">
+                                                            <i
+                                                                class="icon small close link gray"
+                                                                ng-click="delete('chart', r.id )"
+                                                            ></i>
                                                         </div>
 
-                                                        <div flex><a target="_blank" href="{{app.hashUrlPrefix + '#/charts/edit/0/' + r.id}}">{{r.name}}</a></div>
-                                                        <div style="margin-left: 8px;">
-
-
+                                                        <div flex>
+                                                            <a
+                                                                target="_blank"
+                                                                href="{{app.hashUrlPrefix + '#/charts/edit/0/' + r.id}}"
+                                                                >{{r.name}}</a
+                                                            >
+                                                        </div>
+                                                        <div style="margin-left: 8px">
                                                             <div class="ui mini input">
-                                                                <sm-dropdown class="multiple selection"
-                                                                             items="[
+                                                                <sm-dropdown
+                                                                    class="multiple selection"
+                                                                    items="[
                                                                             {label:'کامنت', val:8}
                                                                            ,{label:'خروجی اکسل', val:9}
                                                                            ,{label:'فیلتر', val:10}
                                                                            ,{label:'توضیحات', val:11}
-                                                                        ]" model="r.chartExtraPermissions" label="item.label" value="item.val"></sm-dropdown>
-
+                                                                        ]"
+                                                                    model="r.chartExtraPermissions"
+                                                                    label="item.label"
+                                                                    value="item.val"
+                                                                ></sm-dropdown>
                                                             </div>
                                                         </div>
-                                                        <div style="margin-left: 8px;font-size:0.7em;">
-                                                            <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
+                                                        <div style="margin-left: 8px; font-size: 0.7em">
+                                                            <select
+                                                                ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                             (item.v == 2 && !r.permissions.EditPermission)||
-                                                            (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
+                                                            (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey"
+                                                                ng-model="r.action"
+                                                            ></select>
                                                         </div>
                                                     </div>
                                                 </md-virtual-repeat-container>
-
                                             </div>
                                         </menu-body>
                                     </menu-item>
@@ -324,248 +460,339 @@
                                     <menu-item>
                                         <menu-header ng-click="renderForms = true">{{'Forms' | translate}}</menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px" ng-click="renderForms">
+                                            <div style="margin: 0 20px" ng-click="renderForms">
                                                 <div layout="row" layout-align="start center">
                                                     <span class="form-divider" flex></span>
-                                                    <md-button class="" ng-click="$event.stopPropagation(); addFormSettings.visible=true" layout="row" layout-align="start center">
+                                                    <md-button
+                                                        class=""
+                                                        ng-click="$event.stopPropagation(); addFormSettings.visible=true"
+                                                        layout="row"
+                                                        layout-align="start center"
+                                                    >
                                                         {{'add' | translate}}
-                                                        <span class="material-icons" title="{{'add' | translate}}">add</span>
+                                                        <span class="material-icons" title="{{'add' | translate}}"
+                                                            >add</span
+                                                        >
                                                     </md-button>
 
-                                                    <select-form on-select="onFormSelect(forms,settings)" settings="addFormSettings"></select-form>
+                                                    <select-form
+                                                        on-select="onFormSelect(forms,settings)"
+                                                        settings="addFormSettings"
+                                                    ></select-form>
 
                                                     <span class="form-divider" flex></span>
                                                 </div>
 
                                                 <div ng-repeat="r in forms" layout="row" layout-align="start center">
-                                                    <md-button class="md-icon-button" ng-click="forms.splice($index, 1)" layout="row" layout-align="start center" title="{{'remove' | translate}}">
+                                                    <md-button
+                                                        class="md-icon-button"
+                                                        ng-click="forms.splice($index, 1)"
+                                                        layout="row"
+                                                        layout-align="start center"
+                                                        title="{{'remove' | translate}}"
+                                                    >
                                                         <span class="material-icons">clear</span>
                                                     </md-button>
 
                                                     <span>{{r.name}}</span>
                                                     <span flex></span>
-                                                    <form-premission style="margin:0 10px;" ng-model="r.recordPermission"></form-premission>
-                                                    <md-select style="margin:0" class="" ng-model="r.action" aria-label="{{'permission' | translate}}">
-                                                        <md-option value="1">{{'permission_view' | translate}}</md-option>
-                                                        <md-option value="2">{{'permission_view_edit' | translate}}</md-option>
-                                                        <md-option value="4">{{'permission_view_edit_delete' | translate}}</md-option>
+                                                    <form-premission
+                                                        style="margin: 0 10px"
+                                                        ng-model="r.recordPermission"
+                                                    ></form-premission>
+                                                    <md-select
+                                                        style="margin: 0"
+                                                        class=""
+                                                        ng-model="r.action"
+                                                        aria-label="{{'permission' | translate}}"
+                                                    >
+                                                        <md-option value="1"
+                                                            >{{'permission_view' | translate}}</md-option
+                                                        >
+                                                        <md-option value="2"
+                                                            >{{'permission_view_edit' | translate}}</md-option
+                                                        >
+                                                        <md-option value="4"
+                                                            >{{'permission_view_edit_delete' | translate}}</md-option
+                                                        >
                                                     </md-select>
                                                 </div>
                                             </div>
                                         </menu-body>
                                     </menu-item>
 
-
-
                                     <menu-item ng-if="licenseThemes">
                                         <menu-header ng-click="renderThemes = true">پوسته‌ها</menu-header>
                                         <menu-body>
                                             <div ng-if="renderThemes">
-                                                <div style="height:40px;" ng-repeat="r in themes" layout="row" layout-align="start center">
-                                                    <md-checkbox ng-model="r.check">{{r.name}}  </md-checkbox>
+                                                <div
+                                                    style="height: 40px"
+                                                    ng-repeat="r in themes"
+                                                    layout="row"
+                                                    layout-align="start center"
+                                                >
+                                                    <md-checkbox ng-model="r.check">{{r.name}} </md-checkbox>
                                                     <span flex></span>
-                                                    <div style="width:180px" ng-show="r.check">
-                                                        <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
+                                                    <div style="width: 180px" ng-show="r.check">
+                                                        <select
+                                                            ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                             (item.v == 2 && !r.permissions.EditPermission)||
-                                                            (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
+                                                            (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey"
+                                                            ng-model="r.action"
+                                                        ></select>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </menu-body>
                                     </menu-item>
-
-
 
                                     <menu-item ng-if="useApp">
                                         <menu-header ng-click="rendermainmenu = true">پروژه‌ها</menu-header>
                                         <menu-body>
                                             <div ng-if="rendermainmenu">
-                                                <div style="height:40px;" ng-repeat="r in mainmenus" layout="row" layout-align="start center">
-                                                    <md-checkbox ng-model="r.check"  >{{r.name}}  </md-checkbox>
+                                                <div
+                                                    style="height: 40px"
+                                                    ng-repeat="r in mainmenus"
+                                                    layout="row"
+                                                    layout-align="start center"
+                                                >
+                                                    <md-checkbox ng-model="r.check">{{r.name}} </md-checkbox>
                                                     <span flex></span>
-                                                    <div style="width:180px" ng-show="r.check">
-                                                        <select ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
+                                                    <div style="width: 180px" ng-show="r.check">
+                                                        <select
+                                                            ng-options="item.v as item.c disable when (item.v == 1 && !r.permissions.ViewPermission)||
                                                             (item.v == 2 && !r.permissions.EditPermission)||
-                                                            (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey" ng-model="r.action"></select>
+                                                            (item.v == 4 && !r.permissions.DeletePermission) for item in actionsKey"
+                                                            ng-model="r.action"
+                                                        ></select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </menu-body>
                                     </menu-item>
 
-
-
-
-
                                     <menu-item>
-                                        <menu-header>
-                                            {{'انتخاب مجوزهای عملیاتی' | translate}}
-                                        </menu-header>
+                                        <menu-header> {{'انتخاب مجوزهای عملیاتی' | translate}} </menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px">
+                                            <div style="margin: 0 20px">
                                                 <div ng-repeat="r in actions">
                                                     <h3>
-                                                        <md-checkbox ng-model="r.checkAll" ng-change="checkAll(r)">{{r.title}}</md-checkbox>
+                                                        <md-checkbox ng-model="r.checkAll" ng-change="checkAll(r)"
+                                                            >{{r.title}}</md-checkbox
+                                                        >
                                                     </h3>
                                                     <div ng-repeat="i in r.childes">
-                                                        <md-checkbox ng-model="i.check" ng-disabled="i.disable">{{i.name}}</md-checkbox>
+                                                        <md-checkbox ng-model="i.check" ng-disabled="i.disable"
+                                                            >{{i.name}}</md-checkbox
+                                                        >
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </menu-body>
                                     </menu-item>
 
                                     <menu-item>
-                                        <menu-header>
-                                            {{'متغیرهای کاربری' | translate}}
-                                        </menu-header>
+                                        <menu-header> {{'متغیرهای کاربری' | translate}} </menu-header>
                                         <menu-body>
-                                            <div style="margin:0 20px">
+                                            <div style="margin: 0 20px">
+                                                در این قسمت می‌توانید به صورت خودکار روی صفحه‌های داشبورد یک یا چند
+                                                متغیر کاربری اعمال کنید. برای صفحه مورد نظر متغیر کاربری و فرمول مورد
+                                                نظر را تعریف کنید تا به صورت خودکار برای تمام نمودارهای صفحه فرمول مورد
+                                                نظر برابر مقدار متغیر کاربری قرار گرفته و نمایش داده شود.
 
-                                                در این قسمت می‌توانید به صورت خودکار روی صفحه‌های داشبورد یک یا چند متغیر کاربری اعمال کنید. برای صفحه
-                                                مورد نظر متغیر کاربری و فرمول مورد نظر را تعریف کنید تا به صورت
-                                                خودکار برای تمام نمودارهای صفحه فرمول مورد نظر برابر مقدار متغیر کاربری قرار گرفته و نمایش داده شود.
+                                                <div
+                                                    class="ui mini icon button"
+                                                    style="margin: 10px 10px"
+                                                    ng-click="model.dashboardVariables.push({userVariables:[{}]})"
+                                                >
+                                                    <i class="icon add"></i> اضافه کردن
+                                                </div>
 
-
-
-                                                <div class="ui mini icon button" style="margin:10px 10px" ng-click="model.dashboardVariables.push({userVariables:[{}]})"><i class="icon add"></i> اضافه کردن</div>
-
-                                                <div class="ui form horizontal segments" ng-repeat="item in model.dashboardVariables">
-
-
-                                                    <div class="ui segment" style="display:flex; min-width:50%">
-
-                                                        <div style="flex-grow:1">
+                                                <div
+                                                    class="ui form horizontal segments"
+                                                    ng-repeat="item in model.dashboardVariables"
+                                                >
+                                                    <div class="ui segment" style="display: flex; min-width: 50%">
+                                                        <div style="flex-grow: 1">
                                                             <div class="field fluid">
                                                                 <label>{{'داشبورد' | translate}}</label>
-                                                                <sm-dropdown class="selection search multiple" items="menusFlat" model="item.dashboards" label="item.name" value="item.id"></sm-dropdown>
+                                                                <sm-dropdown
+                                                                    class="selection search multiple"
+                                                                    items="menusFlat"
+                                                                    model="item.dashboards"
+                                                                    label="item.name"
+                                                                    value="item.id"
+                                                                ></sm-dropdown>
                                                             </div>
                                                         </div>
 
-                                                        <div class="field" style="max-width: 55px; margin-right:14px">
+                                                        <div class="field" style="max-width: 55px; margin-right: 14px">
                                                             <label>&nbsp;</label>
-                                                            <div class="ui icon  button" ng-click="model.dashboardVariables.splice($index, 1)"> <i class="icon trash outline alternate"></i></div>
+                                                            <div
+                                                                class="ui icon button"
+                                                                ng-click="model.dashboardVariables.splice($index, 1)"
+                                                            >
+                                                                <i class="icon trash outline alternate"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="ui segment" style="min-width: 50%">
-
                                                         <div ng-repeat="p in item.userVariables" class="ui form">
                                                             <div class="two column fields">
                                                                 <div class="field">
                                                                     <label ng-if="$index == 0">متغیر کاربری</label>
-                                                                    <sm-dropdown class="selection search" model="p.name" items="auto.keys" label="item.title" value="item.title"></sm-dropdown>
+                                                                    <sm-dropdown
+                                                                        class="selection search"
+                                                                        model="p.name"
+                                                                        items="auto.keys"
+                                                                        label="item.title"
+                                                                        value="item.title"
+                                                                    ></sm-dropdown>
                                                                 </div>
 
                                                                 <div class="field">
                                                                     <label ng-if="$index == 0">فرمول ستون</label>
-                                                                    <input required name="name" ng-model="p.formula">
+                                                                    <input required name="name" ng-model="p.formula" />
                                                                 </div>
 
-                                                                <div class="field" style="max-width: 55px;">
+                                                                <div class="field" style="max-width: 55px">
                                                                     <label ng-if="$index == 0">&nbsp;</label>
-                                                                    <div class="ui icon button" ng-click="item.userVariables.push({})"> <i class="icon add"></i></div>
+                                                                    <div
+                                                                        class="ui icon button"
+                                                                        ng-click="item.userVariables.push({})"
+                                                                    >
+                                                                        <i class="icon add"></i>
+                                                                    </div>
                                                                 </div>
 
-                                                                <div class="field" style="max-width: 55px;" ng-if="item.userVariables.length>1">
+                                                                <div
+                                                                    class="field"
+                                                                    style="max-width: 55px"
+                                                                    ng-if="item.userVariables.length>1"
+                                                                >
                                                                     <label ng-if="$index == 0">&nbsp;</label>
-                                                                    <div class="ui icon  button" ng-click="item.userVariables.splice($index, 1)"> <i class="icon trash outline alternate"></i></div>
+                                                                    <div
+                                                                        class="ui icon button"
+                                                                        ng-click="item.userVariables.splice($index, 1)"
+                                                                    >
+                                                                        <i class="icon trash outline alternate"></i>
+                                                                    </div>
                                                                 </div>
-
                                                             </div>
-
                                                         </div>
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                         </menu-body>
                                     </menu-item>
-
-
-
                                 </menu-container>
                             </div>
-
-
                         </form>
-
-
                     </div>
-                    <div style="margin:20px 0 0 0 " class="ui form">
+                    <div style="margin: 20px 0 0 0" class="ui form">
                         <div class="field" ng-show="securityCertPatch">
                             <label>{{'multi factor authentication type' | translate}}</label>
                             <!--, {label:'دو عاملی - پیامک', val:2}-->
-                            <sm-dropdown class="selection fluid" items="[{label:'ساده', val:0}
+                            <sm-dropdown
+                                class="selection fluid"
+                                items="[{label:'ساده', val:0}
                                              ,{label:'دو عاملی - پست الکترونیک', val:1}
                                              ,{label:'دو عاملی - پیامک', val:2}
-                                             ]" model="model.multiFactorAuthenticationType" label="item.label" value="item.val"></sm-dropdown>
+                                             ]"
+                                model="model.multiFactorAuthenticationType"
+                                label="item.label"
+                                value="item.val"
+                            ></sm-dropdown>
                         </div>
                         <div class="field" ng-show="licenseThemes">
                             <label>پوسته فعال</label>
-                            <sm-dropdown class="selection fluid" items="selectThemes" model="model.activeTheme" label="item.name" value="item.id"></sm-dropdown>
+                            <sm-dropdown
+                                class="selection fluid"
+                                items="selectThemes"
+                                model="model.activeTheme"
+                                label="item.name"
+                                value="item.id"
+                            ></sm-dropdown>
                         </div>
 
                         <div class="field">
-                            <sadaf-checkbox ng-model="model.passwordPolicy">  {{'complicate password' | translate}}</sadaf-checkbox>
+                            <sadaf-checkbox ng-model="model.passwordPolicy">
+                                {{'complicate password' | translate}}</sadaf-checkbox
+                            >
                         </div>
 
                         <div ng-show="model.passwordPolicy" class="ui secondary segment">
-
                             <div class="field">
-                                <sadaf-checkbox ng-model="model.passwordPolicyDigit">  {{'at least one number' | translate}}</sadaf-checkbox>
+                                <sadaf-checkbox ng-model="model.passwordPolicyDigit">
+                                    {{'at least one number' | translate}}</sadaf-checkbox
+                                >
                             </div>
 
                             <div class="field">
-                                <sadaf-checkbox ng-model="model.passwordPolicyUpper">  {{'at least one upper case char' | translate}}</sadaf-checkbox>
+                                <sadaf-checkbox ng-model="model.passwordPolicyUpper">
+                                    {{'at least one upper case char' | translate}}</sadaf-checkbox
+                                >
                             </div>
 
                             <div class="field">
-                                <sadaf-checkbox ng-model="model.passwordPolicyLower">  {{'at least one lower case char' | translate}}</sadaf-checkbox>
+                                <sadaf-checkbox ng-model="model.passwordPolicyLower">
+                                    {{'at least one lower case char' | translate}}</sadaf-checkbox
+                                >
                             </div>
 
                             <div class="field">
-                                <sadaf-checkbox ng-model="model.passwordPolicyChar">  {{'at least one special char' | translate}}</sadaf-checkbox>
+                                <sadaf-checkbox ng-model="model.passwordPolicyChar">
+                                    {{'at least one special char' | translate}}</sadaf-checkbox
+                                >
                             </div>
 
                             <div class="inline field">
-                                <label>  {{'minimum length' | translate}}</label>
+                                <label> {{'minimum length' | translate}}</label>
                                 <input type="number" ng-model="model.passwordPolicyLength" />
                             </div>
-
                         </div>
-
                     </div>
-                    <div style="margin:0 0 100px 0">
-                        <div class="ui form" style="margin-bottom:50px;">
+                    <div style="margin: 0 0 100px 0">
+                        <div class="ui form" style="margin-bottom: 50px">
                             <div class="field">
                                 <label>
                                     {{'parent role' | translate}}
-                                    <i class="icon ui small trash pointer" ng-show="isAdmin" ng-click="parent=0;changeParent();"></i>
+                                    <i
+                                        class="icon ui small trash pointer"
+                                        ng-show="isAdmin"
+                                        ng-click="parent=0;changeParent();"
+                                    ></i>
                                 </label>
-                                <select ng-options="item.id as item.name for item in roles" ng-model="parent" ng-change="changeParent()"></select>
+                                <select
+                                    ng-options="item.id as item.name for item in roles"
+                                    ng-model="parent"
+                                    ng-change="changeParent()"
+                                ></select>
                             </div>
                             <div class="field">
                                 <label>{{'role managers' | translate}}</label>
-                                <sm-dropdown class="selection search multiple fluid" items="users" model="model.Admins" label="item.username" value="item.id"></sm-dropdown>
-                                <small class="gray">
-                                    {{'role manager desc' | translate}}
-                                </small>
+                                <sm-dropdown
+                                    class="selection search multiple fluid"
+                                    items="users"
+                                    model="model.Admins"
+                                    label="item.username"
+                                    value="item.id"
+                                ></sm-dropdown>
+                                <small class="gray"> {{'role manager desc' | translate}} </small>
                             </div>
                             <!--<div class="">
                                 <sm-checkbox mofielddel="model.multiFactorAuthentication" label="{{'use multi factor authentication' | translate}}"></sm-checkbox>
                             </div>-->
-
                         </div>
 
                         <div ng-if="isEdit">
-
                             <h3 class="">
                                 {{'child roles' | translate}}
-                                <a class="ui button icon mini right floated" href="{{app.hashUrlPrefix + '#/roles/edit/0/' + id}}">
+                                <a
+                                    class="ui button icon mini right floated"
+                                    href="{{app.hashUrlPrefix + '#/roles/edit/0/' + id}}"
+                                >
                                     {{'add' | translate}}
                                     <i class="ui icon add" title="add Role"></i>
                                 </a>
@@ -577,38 +804,34 @@
                             </div>
                         </div>
                     </div>
-
                 </md-content>
 
                 <md-card-actions layout="row">
                     <span flex></span>
 
                     <md-button ng-click="save(false)" ng-disabled="saveProgress || !restoreFinish">
-                        {{saveProgress == false || saveProgressState != 'stay' ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی...' | translate)}}
+                        {{saveProgress == false || saveProgressState != 'stay' ? ('ذخیره' | translate) : ('در حال
+                        ذخیره‌سازی...' | translate)}}
                     </md-button>
                     <md-button ng-click="save(true)" ng-disabled="saveProgress|| !restoreFinish">
-                        {{saveProgress == false || saveProgressState != 'exit'? ('ذخیره و بازگشت' | translate) : ('در حال ذخیره‌سازی...' | translate)}}
+                        {{saveProgress == false || saveProgressState != 'exit'? ('ذخیره و بازگشت' | translate) : ('در
+                        حال ذخیره‌سازی...' | translate)}}
                     </md-button>
-
                 </md-card-actions>
-
-
             </md-card>
 
             <md-card ng-show="testResult" flex>
-                <md-content style="max-height:200px;" id="card-resize" layout="column" flex>
+                <md-content style="max-height: 200px" id="card-resize" layout="column" flex>
                     <div ng-bind-html="testResult" flex></div>
                 </md-content>
             </md-card>
 
             <md-card ng-show="error" layout="row" flex>
-                <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
+                <md-content style="background-color: #f2dede" layout="column" flex layout-padding>
                     <div ng-bind-html="error" flex></div>
                 </md-content>
             </md-card>
-
         </div>
         <div flex="10" hide-sm hide-xs></div>
-
     </md-content>
 </div>
