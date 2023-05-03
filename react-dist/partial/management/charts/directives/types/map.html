@@ -18,6 +18,7 @@
                                 {name:'نقشه واقعی', value:'real' },
                                 ]"></select>
                 </div>
+                <map-wms-selector ng-model="ngModel.map.info.layers" ng-change="refreshChart('refresh')"></map-wms-selector>
 
                 <div class="ui mini secondary segment" ng-show="ngModel.map.info.mapType == 'real' && license.realMap">
                     <div class="form-row" layout="row" layout-align="start center">
