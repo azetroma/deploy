@@ -245,41 +245,44 @@
 
                 </div>
 
-                <div class="field">
-                    <md-checkbox ng-model="parent.modalRelationObject.includeLeft">
-                        نمایش تمام ردیف‌های {{(parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Name}}
-                    </md-checkbox>
-                </div>
-
-                <div class="field">
-                    <md-checkbox ng-model="parent.modalRelationObject.includeRight">
-                        نمایش تمام ردیف‌های {{(parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Name}}
-                    </md-checkbox>
-
-                </div>
-                <div>
-                    <div ng-show="(parent.modalRelationObject.conditions|filter:{left:{isText:true} }).length>0" style="margin-top:20px" layout-margin>
-                        <p>
-                            {{ 'لیست ستون‌های' | translate }}
-                            <b>{{(parent.datasourceList | filter:{ Id: parent.modalRelationObject.left } )[0].Name}}  </b>
-                        </p>
-                        <div class="ltr">
-                            <span ng-repeat="i in parent.modalRelationObject.leftFields track by $index"
-                                  ng-click="parent.addFormula(i,parent.modalRelationObject.left)"
-                                  class="btn btn-sm btn-default pointer sadaf-label">[id{{parent.modalRelationObject.left}}].[{{i}}]</span>
+                <div ng-if="parent.modalRelationObject.leftModelType == 0 || parent.modalRelationObject.rightModelType == 0">
+                    <div class="field">
+                        <md-checkbox ng-model="parent.modalRelationObject.includeLeft">
+                            نمایش تمام ردیف‌های <b>{{(parent.datasourceList | filterid:parent.modalRelationObject.left ).Name}}</b>
+                        </md-checkbox>
+                    </div>
+    
+                    <div class="field">
+                        <md-checkbox ng-model="parent.modalRelationObject.includeRight">
+                            نمایش تمام ردیف‌های <b>{{(parent.datasourceList | filterid:parent.modalRelationObject.right  ).Name}}</b>
+                        </md-checkbox>
+    
+                    </div>
+                    <div>
+                        <div ng-show="(parent.modalRelationObject.conditions|filter:{left:{isText:true} }).length>0" style="margin-top:20px" layout-margin>
+                            <p>
+                                {{ 'لیست ستون‌های' | translate }}
+                                <b>{{(parent.datasourceList | filterid:parent.modalRelationObject.left ).Name}}  </b>
+                            </p>
+                            <div class="ltr">
+                                <span ng-repeat="i in parent.modalRelationObject.leftFields track by $index"
+                                      ng-click="parent.addFormula(i,parent.modalRelationObject.left)"
+                                      class="btn btn-sm btn-default pointer sadaf-label">[id{{parent.modalRelationObject.left}}].[{{i}}]</span>
+                            </div>
+                        </div>
+                        <div ng-show="(parent.modalRelationObject.conditions|filter:{right:{isText:true} }).length>0" style="margin-top:20px" layout-margin>
+                            <p>
+                                {{ 'لیست ستون‌های' | translate }}
+                                <b>{{(parent.datasourceList | filterid:parent.modalRelationObject.right ).Name}}</b>
+                            </p>
+                            <div class="ltr">
+                                <span ng-repeat="i in parent.modalRelationObject.rightFields track by $index"
+                                      ng-click="parent.addFormula(i, parent.modalRelationObject.right)"
+                                      class="btn btn-sm btn-default pointer sadaf-label">[id{{parent.modalRelationObject.right}}].[{{i}}]</span>
+                            </div>
                         </div>
                     </div>
-                    <div ng-show="(parent.modalRelationObject.conditions|filter:{right:{isText:true} }).length>0" style="margin-top:20px" layout-margin>
-                        <p>
-                            {{ 'لیست ستون‌های' | translate }}
-                            <b>{{(parent.datasourceList | filter:{ Id: parent.modalRelationObject.right } )[0].Name}}</b>
-                        </p>
-                        <div class="ltr">
-                            <span ng-repeat="i in parent.modalRelationObject.rightFields track by $index"
-                                  ng-click="parent.addFormula(i, parent.modalRelationObject.right)"
-                                  class="btn btn-sm btn-default pointer sadaf-label">[id{{parent.modalRelationObject.right}}].[{{i}}]</span>
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="ui segment red" ng-show="parent.error" style="margin-top:20px">
