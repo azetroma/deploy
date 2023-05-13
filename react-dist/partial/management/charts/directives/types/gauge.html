@@ -388,6 +388,17 @@
             </div>
 
 
+            <div class="form-row" layout="row" layout-align="start center">
+                <label class="col-sm-4">کاراکتر یا متن برای مقادیر بدون داده</label>
+                <span class="form-divider" flex></span><div class="col-sm-8">
+                    <input type="text" class="form-control" ng-change="refreshChart('refresh')" ng-model-options="{ updateOn: 'blur' }" 
+                    ng-model="ngModel.gauge.info.nullValue" ng-init="ngModel.gauge.info.nullValue=ngModel.gauge.info.nullValue||'-'" />
+                </div>
+            </div>
+
+
+
+
             </div>
         </menu-body>
     </menu-item>
