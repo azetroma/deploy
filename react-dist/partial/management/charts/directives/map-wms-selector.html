@@ -1,0 +1,29 @@
+<div class="ui small segment">
+    <div class="ui mini form">
+        <div ng-repeat="s in ngModel" class="tw-flex tw-items-center">
+            <span class="tw-flex-1">{{s.name}}</span>
+            <div class="tw-flex-1">
+                <input
+                    ng-model="s.caption"
+                    placeholder="نام"
+                    ng-change="change()"
+                    ng-model-options="{updateOn: 'blur'}"
+                />
+            </div>
+            <div class="tw-mx-2">
+                <label>
+                    نمایش راهنما
+                    <input type="checkbox" ng-model="s.legend" ng-change="change()" />
+                </label>
+            </div>
+            <i class="ui icon link close" ng-click="ngModel.splice($index, 1);change();"></i>
+        </div>
+    </div>
+
+    <br />
+    <br />
+<label>اضافه کردن لایه به نقشه</label>
+    <div ng-repeat="server in servers">
+        <map-wms-selector-item add="added(item)" model="server" folder=""></map-wms-selector-item>
+    </div>
+</div>
