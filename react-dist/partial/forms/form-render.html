@@ -123,6 +123,19 @@
                 <div class="ui button black small compact" ng-click="submittedStatus=0">اصلاح داده‌های فرم</div>
             </div>
 
+
+            
+            <div class="ui error message" ng-show="needToDelete">
+                <div >
+                    <p>ردیف اطلاعاتی مربوط به گردش کار حذف شده است. امکان ادامه این گردش وجود ندارد. 
+                        لطفا این گردش را پاک کنید.
+                    </p>
+                </div>
+                <br />
+                <div class="ui button red small compact" ng-click="deleteWorkflow()">حذف گردش</div>
+            </div>
+ 
+
             <div class="ui error message" ng-show="pages.length > 1 && pagesContainError.length">
                 <!--{{'error in pages'|translate}}-->
                 <b> لیست خطا‌ها</b>
