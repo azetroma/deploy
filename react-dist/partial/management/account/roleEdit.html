@@ -81,6 +81,39 @@
                                         <menu-header ng-click="renderMenu = true">{{'menus' | translate}}</menu-header>
                                         <menu-body>
                                             <div style="margin: 0 20px" ng-if="renderMenu">
+<<<<<<< Updated upstream
+=======
+                                                <div layout="row">
+                                                    <md-checkbox
+                                                        ng-model="menuAllCheck"
+                                                        ng-change="setmenuAllCheck(menuAllCheck)"
+                                                    >
+                                                        انتخاب همه
+                                                    </md-checkbox>
+
+                                                    <span flex></span>
+
+                                                    <div class="field">
+                                                        <label>مجوزهای دسترسی کلی</label>
+                                                        <select
+                                                            style="margin: 0; padding: 6px"
+                                                            class=""
+                                                            ng-model="menuActionAll"
+                                                            ng-change="actionAllForMenu(menuActionAll)"
+                                                            aria-label="{{'permission' | translate}}"
+                                                        >
+                                                            <option value="1">{{'permission_view' | translate}}</option>
+                                                            <option value="2">
+                                                                {{'permission_view_edit' | translate}}
+                                                            </option>
+                                                            <option value="4">
+                                                                {{'permission_view_edit_delete' | translate}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+>>>>>>> Stashed changes
                                                 <collapse ng-repeat="(k,v) in menus">
                                                     <div layout="row">
                                                         <collapse-header> {{jsonParse(k).name}} </collapse-header>
@@ -147,6 +180,7 @@
                                         <menu-body>
                                             <div ng-if="renderUsers">
                                                 <div class="ui form">
+<<<<<<< Updated upstream
                                                     <div class="field">
                                                         <div class="ui icon input">
                                                             <input
@@ -155,6 +189,26 @@
                                                                 ng-model="uSearch.username"
                                                             />
                                                             <i class="search icon"></i>
+=======
+                                                    <div class="fields">
+                                                        <div class="field">
+                                                            <md-checkbox
+                                                                ng-model="userAllCheck"
+                                                                ng-change="setuserAllCheck(userAllCheck)"
+                                                            >
+                                                                انتخاب همه
+                                                            </md-checkbox>
+                                                        </div>
+                                                        <div class="field">
+                                                            <div class="ui icon input">
+                                                                <input
+                                                                    type="text"
+                                                                    placeholder="جستجو..."
+                                                                    ng-model="uSearch.username"
+                                                                />
+                                                                <i class="search icon"></i>
+                                                            </div>
+>>>>>>> Stashed changes
                                                         </div>
                                                     </div>
                                                 </div>
@@ -188,6 +242,7 @@
                                         <menu-body>
                                             <div ng-if="rendermUsers">
                                                 <div class="ui form">
+<<<<<<< Updated upstream
                                                     <div class="field">
                                                         <div class="ui icon input">
                                                             <input
@@ -196,6 +251,27 @@
                                                                 ng-model="umSearch.username"
                                                             />
                                                             <i class="search icon"></i>
+=======
+                                                    <div class="fields">
+                                                        <div class="field">
+                                                            <md-checkbox
+                                                                ng-model="userxAllCheck"
+                                                                ng-change="setuserxAllCheck(userxAllCheck)"
+                                                            >
+                                                                انتخاب همه
+                                                            </md-checkbox>
+                                                        </div>
+
+                                                        <div class="field">
+                                                            <div class="ui icon input">
+                                                                <input
+                                                                    type="text"
+                                                                    placeholder="جستجو..."
+                                                                    ng-model="umSearch.username"
+                                                                />
+                                                                <i class="search icon"></i>
+                                                            </div>
+>>>>>>> Stashed changes
                                                         </div>
                                                     </div>
                                                 </div>
