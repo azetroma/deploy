@@ -266,7 +266,7 @@
             </div>
             <div class="tw-relative" ng-hide="edit" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
                 <span>{{model.prefix}} </span>
-                <span>{{model.value | formatNumber:model | persian}}</span>
+                <styled-label font="model.uiConfig.fontValue"> <span>{{model.value | formatNumber:model | persian}}</span> </styled-label>
                 <span> {{model.postfix}}</span>
                 <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
 
@@ -319,7 +319,7 @@
     </div>
 
     <div class="field " ng-class="{error: model.error}" ng-if="model.type == 19" >
-        <sadaf-file ng-model="model" style="width:100%"></sadaf-file>
+        <sadaf-file ng-model="model" settings="settings" style="width:100%"></sadaf-file>
 
         <small class="helper">{{model.error}}</small>
         <div></div>
