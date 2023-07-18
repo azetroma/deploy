@@ -65,6 +65,29 @@
                     </div>
                 </div>
 
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="prop[type].info.useLocalVariable" /> 
+                                استفاده از متغیر محلی
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-show="prop[type].info.useLocalVariable">
+                    <label class="col-sm-4">نام متغیر</label>
+                    <span class="form-divider" flex></span>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="نام متغیر" ng-change="refreshChart('refresh')" 
+                        ng-model="prop[type].info.localVariable" ng-model-options="{ updateOn: 'blur' }" />
+                    </div>
+                </div>
+                <small ng-show="prop[type].info.useLocalVariable" class="gray">برای استفاده از متغیر در فرمول‌ها باید به صورت زیر نام متغیر را در فرمول قرار دهید
+
+                    <code class="ltr">{{'{'+'{variable_name}'+'}'}}</code>
+                </small>
 
 
             </div>
