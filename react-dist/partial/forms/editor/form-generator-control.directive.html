@@ -161,12 +161,16 @@
     </div>
 
     <div class="field action-icon" ng-if="model.type == 3" style="min-height: 38px;">
-        <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
+        <label title="{{model.description}}" ng-hide="settings.showLabel===false">
+            <pre><styled-label font="model.uiConfig.fontLabel">{{model.label}}</styled-label></pre>
+        </label>
         <div class="value tw-relative" ng-if="model.value" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
             <styled-label font="model.uiConfig.fontValue">{{model.value | formatNumber:model | persian}}</styled-label>
             <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
         </div>
-        <small>{{model.description}}</small>
+        <small>
+            <pre>{{model.description}}</pre>
+        </small>
     </div>
 
     <div class="field action-icon" ng-if="model.type == 26" style="min-height: 38px;">
