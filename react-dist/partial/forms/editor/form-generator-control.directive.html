@@ -198,7 +198,7 @@
     </div>
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 14">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
-        <sadaf-date-time class=" value" ng-change="changeValue()" ng-hide="model.readonly" ng-model="model.value" sd-keyup="keyup($event)"></sadaf-date-time>
+        <sadaf-date-time class=" value" ng-change="changeValue()" ng-hide="model.readonly" ng-model="model.value" control="model" sd-keyup="keyup($event)"></sadaf-date-time>
         <div ng-show="model.readonly">{{model.value | persian}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>

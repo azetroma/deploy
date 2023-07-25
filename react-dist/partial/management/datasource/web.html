@@ -33,7 +33,7 @@
                                     <change-table-name id="id" table-name="tableName"></change-table-name>
 
                                 </div>
-                                <div class="three wide column field">
+                                <div class="three wide column field" ng-hide="isWfs">
                                     <label>{{'نوع داده' | translate}}</label>
                                     <sm-dropdown items="[{key:'XML', value:'XML'},{key:'CSV', value:'CSV'},{key:'JSON', value:'JSON'},{key:'SOAP', value:'SOAP'}]"
                                                  class="selection fluid"
@@ -41,7 +41,7 @@
 
                                 </div>
 
-                                <div class="three wide column field" ng-hide="model.type == 'SOAP'">
+                                <div class="three wide column field" ng-hide="model.type == 'SOAP' || isWfs">
                                     <label>{{'متد' | translate}}</label>
                                     <sm-dropdown items="[{key:'GET', value:'GET'},{key:'POST', value:'POST'}]" class="selection fluid"
                                                  model="model.method" label="item.value" value="item.key"></sm-dropdown>
@@ -144,9 +144,10 @@
 
                             </div>
 
-                            <div class="field">
+                            <div class="field" ng-hide="isWfs">
                                 <sadaf-checkbox ng-model="model.loginByToken.enable">دریافت توکن لاگین</sadaf-checkbox>
                             </div>
+
                             <div class="ui secondary segment" ng-show="model.loginByToken.enable">
 
                                 <div class="three fields">
@@ -287,6 +288,7 @@
                                 </div>
                             </div>
                             <br />
+
                             <p ng-click="showParams = !showParams" layout="row" class="pointer" xng-hide="model.type == 'SOAP'">
                                 <span class="material-icons icon-animate" ng-class="{'rotate-90' : showParams}">keyboard_arrow_left</span>
                                 <span>{{'پارامترها' | translate}}</span>
@@ -424,7 +426,7 @@
 
                             <datasource-schedule ng-show="model.autoRefresh==-1" ng-model="schedule"> </datasource-schedule>
 
-                            <interval-fetch ng-model="model.intervalFetch" fields="fields" , datasource-id="{{id}}"></interval-fetch>
+                            <interval-fetch ng-hide="isWfs" ng-model="model.intervalFetch" fields="fields" , datasource-id="{{id}}"></interval-fetch>
 
                             <div class="field">
                                 <div class="ui button" ng-class="{loading: clearCacheProgress, disabled: clearCacheProgress}" ng-click="clearCache()">پاک کردن کش (Cache) منبع داده</div>
@@ -437,7 +439,7 @@
 
 
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
-                            <datasource-metainfo ng-model="model.metainfo"></datasource-metainfo>
+                            <datasource-metainfo ng-hide="isWfs" ng-model="model.metainfo"></datasource-metainfo>
 
                             <br />
 
