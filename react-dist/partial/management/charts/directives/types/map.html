@@ -18,7 +18,21 @@
                                 {name:'نقشه واقعی', value:'real' },
                                 ]"></select>
                 </div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <div class="checkbox">
+                            <label class="">
+                                <input type="checkbox" ng-model="ngModel.map.info.dontShowShapes" ng-change="refreshChart('refresh')" /> عدم نمایش نقشه مجازی
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
                 <map-wms-selector ng-model="ngModel.map.info.layers" ng-change="refreshChart('refresh')"></map-wms-selector>
+                <br/>
+                <map-wfs-selector ng-model="ngModel.map.info.wfsLayers" ng-change="refreshChart('refresh')"></map-wfs-selector>
 
                 <div class="ui mini secondary segment" ng-show="ngModel.map.info.mapType == 'real' && license.realMap">
                     <div class="form-row" layout="row" layout-align="start center">
