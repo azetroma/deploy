@@ -623,6 +623,8 @@
                         {{i.Name}}
                         <span flex></span>
                         <span class="material-icons small small-size " ng-click="filterMember(i)">filter_list</span>
+                        <i ng-if="i.isFilter" title="پاک کردن فیلتر" class="ui link icon eraser" ng-click="clearFilter(i)"></i>
+                          
                     </div>
                 </md-content>
             </div>
@@ -637,9 +639,10 @@
                     <div flex layout="row" layout-align="start center" ng-click="gotoMeasureSettings(i, $index)" ng-repeat="i in measures track by $index" class="pointer datasource-item">
                         <span class="material-icons small small-size" ng-click="measures.splice($index,1);refreshChart();invalidateDims();">close</span>
                         <img ng-src="{{app.urlPrefix}}Images/{{i.type && i.type=='measure' ? 'measure' :i.type && i.type=='kpi' ? 'kpi' :'hierarchy1'}}.png">
-                        {{i.Name}}
+                        {{i.Name}} 
                         <span flex></span>
                         <span class="material-icons small small-size" ng-click="filterMember(i)" ng-show="((!i.aggregation || i.aggregation=='NONE') && !i.type) || (i.type!='measure' && i.type!='kpi')">filter_list</span>
+                        <i ng-if="i.isFilter" title="پاک کردن فیلتر" class="ui link icon eraser" ng-click="clearFilter(i)"></i>
                     </div>
                 </md-content>
 
@@ -666,6 +669,7 @@
                         {{i.Name}}
                         <span flex></span>
                         <span class="material-icons small small-size" ng-click="filterMember(i)">filter_list</span>
+                        <i ng-if="i.isFilter" title="پاک کردن فیلتر" class="ui link icon eraser" ng-click="clearFilter(i)"></i>
                     </div>
                 </md-content>
 

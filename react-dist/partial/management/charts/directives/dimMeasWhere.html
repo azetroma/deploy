@@ -24,11 +24,7 @@
 
             <div class="form-row" layout="column">
                 <label>{{ 'فرمول' | translate }}</label>
-                <!--<div flex layout="row">
-        <textarea flex class="form-control disabled text-formula" ng-model="dimensions[model.selectedDimension].formula"
-                  ng-change="changeFormula(dimensions[model.selectedDimension]);change()" ng-model-options="{ updateOn: 'blur' }"></textarea>
-        <span class="material-icons small" ng-click="showDialog('dimention', $event)">fullscreen</span>
-    </div>-->
+             
                 <div flex layout="row">
                     <feditor ng-if="!isOlap" flex type="dim" ng-model="dimensions[model.selectedDimension].formula" list="map" ng-change="changeFormula(dimensions[model.selectedDimension]);change()"></feditor>
                 </div>
@@ -65,17 +61,8 @@
             <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].sortKey == 'CUSTOM_FORMULA'">
                 <label class="col-md-12">{{ 'فرمول مرتب کردن' | translate }}</label>
                     <div flex layout="row">
-                        <feditor flex ng-model="dimensions[model.selectedDimension].sortFormula" list="map" ng-change="changeFormula(dimensions[model.selectedDimension]);change()"></feditor>
+                        <feditor flex ng-model="dimensions[model.selectedDimension].sortFormula" list="map" ng-change="change()"></feditor>
                     </div>
-                    <!--
-                <div class="col-sm-12">
-                        <textarea class="form-control disabled text-formula" ng-model="dimensions[model.selectedDimension].sortFormula"
-              ng-change="changeFormula(dimensions[model.selectedDimension]);change()"
-              ng-model-options="{ updateOn: 'blur' }"></textarea>
-                </div>
-                        -->
-
-
             </div>
 
             <div class="form-row" layout="row" layout-align="start center">
@@ -229,12 +216,7 @@
             </div>
             <div class="form-row" layout="column">
                 <label class="col-md-12">{{ 'فرمول' | translate }}</label>
-                <!--<div flex layout="row">
-        <textarea flex class="form-control disabled text-formula" ng-model="measures[model.selectedMeasure].formula"
-                  ng-model-options="{ updateOn: 'blur' }"
-                  ng-change="changeFormula(measures[model.selectedMeasure]);change()"></textarea>
-        <span class="material-icons small" ng-click="showDialog('measure', $event, measures[model.selectedMeasure])">fullscreen</span>
-    </div>-->
+
                 <div flex layout="row">
                     <feditor flex ng-model="measures[model.selectedMeasure].formula" list="map" ng-change="changeFormula(measures[model.selectedMeasure]);change()"></feditor>
                 </div>
@@ -259,11 +241,8 @@
                                    ng-model-options="{ updateOn: 'blur' }"
                                    ng-change="change()"
                                    ng-model="f.name" />
-                            <!--<textarea flex class="form-control disabled text-formula" ng-model="f.formula"
-              ng-model-options="{ updateOn: 'blur' }"
-              ng-change="changeFormula(measures[model.selectedMeasure]);change()"></textarea>-->
 
-                            <div flex>
+                                   <div flex>
                                 <feditor flex ng-model="f.formula" list="map" ng-change="changeFormula(measures[model.selectedMeasure]);change()"></feditor>
                             </div>
 
@@ -307,13 +286,8 @@
 
             <div class="form-row" layout="column">
                 <label class="col-md-12">{{ 'فرمول' | translate }}</label>
-                <!--<div flex layout="row">
-        <textarea flex class="form-control disabled text-formula" ng-model="where[model.selectedwhere].formula"
-                  ng-model-options="{ updateOn: 'blur' }"
-                  ng-change="changeFormula(where[model.selectedwhere]);change()"></textarea>
-        <span class="material-icons small" ng-click="showDialog('where', $event)">fullscreen</span>
-    </div>-->
 
+                
 
                 <div flex>
                     <feditor flex ng-model="where[model.selectedwhere].formula" list="datasource.CubeInfo.Dimensions" ng-change="changeFormula(where[model.selectedwhere]);change()"></feditor>
