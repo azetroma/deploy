@@ -161,8 +161,9 @@
                     </div>
                 </div>
 
-
             </div>
+            <br/>
+            <convert-to-datetime prefix="dims" ng-model="dimensions[model.selectedDimension]"></convert-to-datetime>
 
         </div>
     </menu-body>
@@ -255,6 +256,9 @@
             </div>
 
             <top-measure dims="dimensions" ng-model="measures[model.selectedMeasure].Top" ng-change="refreshChart('refreshWithData');" ng-show="measures[model.selectedMeasure].aggregation != 'NONE'"></top-measure>
+
+            <br/>
+            <convert-to-datetime prefix="measure" ng-model="measures[model.selectedMeasure]"></convert-to-datetime>
 
         </div>
     </menu-body>
