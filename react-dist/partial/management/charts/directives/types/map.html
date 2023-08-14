@@ -510,10 +510,36 @@
 
                 <top-measure ng-model="ngModel.map.series[ngModel.selectedSeries].top" ng-change="refreshChart('refreshWithData');"></top-measure>
 
+                <div ng-repeat="item in appCharts.map.template.series">
+                    <general-custom-control series="ngModel.series" parent="ngModel[type].series[ngModel.selectedSeries]" prop="ngModel[type]" item="item" change="refreshChart(item.refreshMode ||'refresh');changeAllSeries(item.key)"></general-custom-control>
+                    <small ng-if="item.desc">{{item.desc}}</small>
+                    <div ng-if="item.type=='section' && (!item.if ||  ngModel[type].series[ngModel.selectedSeries][item.if.key] == item.if.value)" style=" padding: 10px; margin: 10px 0px; background-color: rgb(239, 239, 239); border-radius: 4px;">
+                        <div ng-repeat="i in item.items">
+                            <general-custom-control series="ngModel.series" parent="ngModel[type].series[ngModel.selectedSeries]" prop="ngModel[type]" item="i" change="refreshChart(i.refreshMode ||'refresh');changeAllSeries(i.key)"></general-custom-control>
+                            <small ng-if="i.desc">{{i.desc}}</small>
+                        </div>
+                    </div>
+
+                    <map-tooltip-modal
+                        ng-change="refreshChart('refresh')"
+                        columns="ngModel[type].series[ngModel.selectedSeries].columns"
+                        ng-if="item.type == 'tooltip-modal' && (!item.if ||  ngModel[type].series[ngModel.selectedSeries][item.if.key] == item.if.value)"
+                        ng-model="ngModel[type].series[ngModel.selectedSeries][item.key]" ></map-tooltip-modal>
+    
+                </div>
+ 
+                <div class="ui small secondary segment" ng-if="ngModel[type].series[ngModel.selectedSeries].symbols && ngModel[type].series[ngModel.selectedSeries].symbols.length">
+                    <div class="" style="display: inline-block; margin: 7px;" ng-repeat="i in ngModel[type].series[ngModel.selectedSeries].symbols">
+                        <span>{{i}}</span>
+                        <sadaf-icons type="image" style="display: inline-block; height: 20px;" ng-model="ngModel[type].series[ngModel.selectedSeries].symbolsModel[i]" ng-change="refreshChart()"></sadaf-icons>
+                    </div>
+                </div>
+
             </div>
 
         </menu-body>
     </menu-item>
+
     <alert prop="ngModel"  config="{name:'map'}"></alert>
 
     <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:'map', show:[1,7] , legend: true, stripeEnable:true}"></table-indicator>
@@ -524,5 +550,6 @@
     <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
     <calculate-fields calculated-fields="calculatedFields" model="ngModel"></calculate-fields>
     <management-only-dir management-only="managementOnly"></management-only-dir>
+
 
 </menu-container>

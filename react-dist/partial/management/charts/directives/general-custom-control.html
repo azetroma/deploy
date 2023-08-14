@@ -38,11 +38,12 @@
         class="form-row"
         layout="row"
         layout-align="start center"
-        ng-if="item.type == 'select'&& (!item.if ||  parent[item.if.key] == item.if.value)"
+        ng-if="item.type == 'select' && (!item.if ||  parent[item.if.key] == item.if.value)"
     >
         <label class="col-sm-4">{{ item.title }}</label>
         <span class="form-divider" flex></span>
         <select
+            ng-init="item.callback(item, parent, prop, onchange)"
             ng-model="parent[item.key]"
             ng-change="onchange()"
             ng-options="i.value as i.name for i in item.entries"
