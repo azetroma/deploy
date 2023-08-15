@@ -1,10 +1,11 @@
 <div class="ui small segment">
-    <div class="ui mini form">
+    <div class="ui mini xform" ng-if="ngModel.length">
         <div ng-repeat="s in ngModel" class="tw-flex tw-items-center">
-            <span class="tw-flex-1">{{s.name}}</span>
+            <i class="ui icon link close" ng-click="ngModel.splice($index, 1);change();"></i>
             <div class="tw-flex-1">
                 <input
                     ng-model="s.caption"
+                    ng-init="s.caption = s.caption || s.name"
                     placeholder="نام"
                     ng-change="change()"
                     ng-model-options="{updateOn: 'blur'}"
@@ -16,12 +17,11 @@
                     <input type="checkbox" ng-model="s.legend" ng-change="change()" />
                 </label>
             </div>
-            <i class="ui icon link close" ng-click="ngModel.splice($index, 1);change();"></i>
         </div>
+        <br />
+        <br />
     </div>
 
-    <br />
-    <br />
 <label>اضافه کردن لایه به نقشه</label>
     <div ng-repeat="server in servers">
         <map-wms-selector-item add="added(item)" model="server" folder=""></map-wms-selector-item>

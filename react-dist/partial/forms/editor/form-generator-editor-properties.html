@@ -1162,6 +1162,7 @@
                                          {label: 'باز شدن فرم با داده (سمت کلاینت)', value:4},
                                          {label: 'تغییر داده‌های فرم (سمت کلاینت)', value:5},
                                          {label: 'فشردن کلید ذخیره (سمت کلاینت)', value:6},
+                                         {label: 'فشردن کلید ادامه فرآیند (سمت کلاینت)', value:7},
                                     ]"
                     class=""
                     model="t.type"
@@ -1171,7 +1172,19 @@
             </div>
             <div class="field">
                 <sadaf-tasks ng-model="t.tasks" trigger="t.type" ng-init="t.tasks = t.tasks || []"></sadaf-tasks>
-                <small ng-if="t.type==6">در صورتی که تابع مقدار false را برگرداند فرم ذخیره نخواهد شد</small>
+                <small ng-if="t.type==6||t.type==7">
+                    در صورتی که تابع مقدار false را برگرداند فرم ذخیره نخواهد شد
+                در صورت تمایل برای نمایش خطا از کد زیر استفاده کنید
+                <pre class="ltr">
+return {
+    result: false,
+    pageMessages: [{
+        name: '_all',
+        error: 'متن خطا'
+    }]
+};
+                </pre>
+                </small>
             </div>
         </div>
     </div>
