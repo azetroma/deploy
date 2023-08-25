@@ -83,7 +83,7 @@
         </div>
         <div style="display:inline-block; padding: 0 10px;">
 
-            <div class="ui labeled icon button teal" ng-click="c.save()" ng-class="{loading: c.saveProgress}">
+            <div class="ui labeled icon button teal" ng-click="c.save()" ng-class="{loading: c.saveProgress, disabled: c.saveProgress}">
                 <i class="icon save"></i>
                 {{'save' | translate}}
             </div>
