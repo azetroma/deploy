@@ -139,4 +139,18 @@
             </div>
         </div>
     </div>
+
+    <div
+        ng-if="item.type == 'series-select' && (!item.if ||  parent[item.if.key] == item.if.value)"
+        xclass="mini secondary segment ui"
+        xstyle="margin-top: 12px"
+    >
+        <label class="col-sm-4">{{ item.title }}</label>
+        <span class="form-divider" flex></span>
+        <select
+            ng-model="parent[item.key]"
+            ng-change="onchange()"
+            ng-options="i as i for i in series"
+        ></select>
+    </div>
 </div>

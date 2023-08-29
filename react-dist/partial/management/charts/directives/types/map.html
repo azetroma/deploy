@@ -23,7 +23,7 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
-                                <input type="checkbox" ng-model="ngModel.map.info.dontShowShapes" ng-change="refreshChart('refresh')" /> عدم نمایش نقشه مجازی
+                                <input type="checkbox" ng-model="ngModel.map.info.dontShowShapes" ng-change="refreshChart('refreshWithData')" /> عدم نمایش نقشه مجازی
                             </label>
                         </div>
                     </div>
@@ -529,9 +529,23 @@
                 </div>
  
                 <div class="ui small secondary segment" ng-if="ngModel[type].series[ngModel.selectedSeries].symbols && ngModel[type].series[ngModel.selectedSeries].symbols.length">
-                    <div class="" style="display: inline-block; margin: 7px;" ng-repeat="i in ngModel[type].series[ngModel.selectedSeries].symbols">
-                        <span>{{i}}</span>
-                        <sadaf-icons type="image" style="display: inline-block; height: 20px;" ng-model="ngModel[type].series[ngModel.selectedSeries].symbolsModel[i]" ng-change="refreshChart()"></sadaf-icons>
+
+                    <div ng-if="i.symbol.type == 'esriPMS'|| i.symbol.type == 'esriSMS'" class="" style="display: inline-block; margin: 7px;" ng-repeat="i in ngModel[type].series[ngModel.selectedSeries].symbols">
+                        <span>{{i.value}}</span>
+                        <sadaf-icons 
+                        ng-init="ngModel[type].series[ngModel.selectedSeries].symbolsModel[i.value] = ngModel[type].series[ngModel.selectedSeries].symbolsModel[i.value] || {name:0, type:'image'}"
+                        type="image" style="display: inline-block; height: 20px;" ng-model="ngModel[type].series[ngModel.selectedSeries].symbolsModel[i.value]" ng-change="refreshChart()"></sadaf-icons>
+                    </div>
+
+                    <div ng-if="i.symbol.type == 'esriSLS'" class="" style="display: inline-block; margin: 7px;" ng-repeat="i in ngModel[type].series[ngModel.selectedSeries].symbols">
+                        <span>{{i.value}}</span>
+                        <div
+                            ng-init="ngModel[type].series[ngModel.selectedSeries].symbolsModel[i.value] = ngModel[type].series[ngModel.selectedSeries].symbolsModel[i.value]|| i.symbol.hexcolor"
+                            md-color-picker
+                            ng-model="ngModel[type].series[ngModel.selectedSeries].symbolsModel[i.value]"
+                            md-color-default-tab="'genericPalette'"
+                            on-change="refreshChart()"
+                        ></div>
                     </div>
                 </div>
 
