@@ -73,7 +73,7 @@
                     ng-class="{active : row.select}"
                     ng-click="row.select = !row.select; menuInvalidate()"
                 >
-                    <td width="20" style="padding: 6px 16px 0 0">
+                    <td width="20" class="in-table-checkbox">
                         <md-checkbox
                             ng-model="row.select"
                             ng-click="$event.stopPropagation();"
@@ -112,15 +112,6 @@
 
 <script type="text/ng-template" id="datasourceRelation/add-relation.html">
     <md-dialog aria-label="{{'interRelation' | translate}}" ng-cloak id="inter-relation-dialog" flex="80">
-        <style>
-            #inter-relation-dialog md-input-container .md-errors-spacer {
-                min-height: 0px !important;
-            }
-
-            md-dialog-content .ui.search.dropdown .menu {
-                max-height: 10rem !important;
-            }
-        </style>
 
         <md-toolbar md-theme="default">
             <div class="md-toolbar-tools">

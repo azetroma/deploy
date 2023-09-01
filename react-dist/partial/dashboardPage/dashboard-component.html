@@ -133,32 +133,7 @@
 <div class="pusher" id="">
     <div class="main-container full-height-container">
         <div class="dashboard-page-top-side" style="display: block">
-            <style>
-                .top-menu.list .item,
-                .top-menu.list a.item i.icon {
-                    color: #424242;
-                }
-
-                .sadaf-circular-preogress svg {
-                    display: block;
-                }
-
-                #laptop,
-                #tablet,
-                #smartphone,
-                #smartphone-land {
-                    color: gray;
-                    cursor: pointer;
-                }
-
-                #laptop.active,
-                #tablet.active,
-                #smartphone.active,
-                #smartphone-land.active {
-                    color: black;
-                }
-            </style>
-            <div class="ui horizontal list top-menu" style="white-space: nowrap; float: left">
+            <div class="ui horizontal list top-menu" >
                 <div class="item sadaf-circular-preogress" style="position: relative; width: 20px; height: 18px"></div>
 
                 <div class="item dashboard-edit-panel" id="device-selector" style="display: none">
@@ -321,13 +296,6 @@
                 class=""
                 id="filter-box"
                 xng-app="filterBox"
-                style="
-                    transition: width 0.4s ease;
-                    flex: 1 1 auto;
-                    text-align: right;
-                    display: inline-block;
-                    xmargin-bottom: 25px;
-                "
             >
                 <div
                     ng-controller="filterBoxController"

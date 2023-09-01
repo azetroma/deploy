@@ -24,7 +24,7 @@
     }
 
     @*<link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@v" rel="stylesheet" />*@
-    <link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />
+    <link href="~/react-dist/styles@(ViewBag.isRtl ? "" : ".ltr").css?v=@v" rel="stylesheet" />
 
 
     <style>
@@ -127,10 +127,10 @@
     <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
     <input type="hidden" value="@Request.Url.AbsoluteUri" name="aboluteUrl" />
     <input type="hidden" value="@v" name="version" />
-    <input type="hidden" value="@ViewBag.isRtl" name="isRtl" />
     <input type="hidden" value="@(Url.Action("management", "sadaf") + "/")" name="hashUrlPrefix" />
     <input type="hidden" value="@(Html.Raw(ViewBag.license).ToString().Replace("\"","\\\""))" name="license" />
     <input type="hidden" value="auto" name="mode" />
+    <input type="hidden" value="@ViewBag.isRtl" name="isRtl" />
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" value="@(ViewBag.dualBoot == null ? "" : ViewBag.dualBoot.ToString())" name="dualBoot" />
     <input type="hidden" value="@ViewBag.defaultDashboard" name="defaultDashboard" />
