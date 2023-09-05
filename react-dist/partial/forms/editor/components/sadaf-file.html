@@ -40,6 +40,8 @@
                             href="{{getLink(file)}}"
                             >{{file.name}}
                         </a>
+                        <span ng-if="file.error" class="ui label red">{{file.error}}</span>
+
                         <span
                             ng-show="file.uploadFinish && file.success && !model.readonly"
                             class="pointer"
@@ -99,6 +101,7 @@
                             href="{{getLink(file)}}"
                             >{{file.name}}
                         </a>
+                        <span ng-if="file.error" class="ui label red">{{file.error}}</span>
                         <span
                             ng-show="file.uploadFinish && file.success && !model.readonly"
                             class="pointer"

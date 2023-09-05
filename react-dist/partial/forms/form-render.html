@@ -123,18 +123,16 @@
                 <div class="ui button black small compact" ng-click="submittedStatus=0">اصلاح داده‌های فرم</div>
             </div>
 
-
-            
             <div class="ui error message" ng-show="needToDelete">
-                <div >
-                    <p>ردیف اطلاعاتی مربوط به گردش کار حذف شده است. امکان ادامه این گردش وجود ندارد. 
-                        لطفا این گردش را پاک کنید.
+                <div>
+                    <p>
+                        ردیف اطلاعاتی مربوط به گردش کار حذف شده است. امکان ادامه این گردش وجود ندارد. لطفا این گردش را
+                        پاک کنید.
                     </p>
                 </div>
                 <br />
                 <div class="ui button red small compact" ng-click="deleteWorkflow()">حذف گردش</div>
             </div>
- 
 
             <div class="ui error message" ng-show="pages.length > 1 && pagesContainError.length">
                 <!--{{'error in pages'|translate}}-->
@@ -301,6 +299,27 @@
                 >
                     خطا در ذخیره‌سازی
                 </div>
+            </div>
+
+            <div class="tw-mr-auto tw-order-2 " ng-if="!process.enable && formFlows.flows.length" >
+                <button
+                    class="ui mini icon button"
+                    ng-disabled="startFlowProgress || formFlows.isInFlow"
+                    ng-class="{loading: startFlowProgress}"
+                    ng-click="startFlow(selectedFlow)"
+                    title="اجرای گردش کار"
+                >
+                    <i class="ui icon play"></i>
+                </button>
+                <sm-dropdown
+                    ng-class="{disabled: formFlows.isInFlow}"
+                    class="selection mini search"
+                    items="formFlows.flows"
+                    model="selectedFlow"
+                    label="item.title"
+                    value="item"
+                ></sm-dropdown>
+                <span ng-show="formFlows.isInFlow" class="label black ui">فرم در حال گردش است</span>
             </div>
         </div>
         <button class="ui button black" ng-if="submittedStatus==2" ng-click="cancel()">{{'cancel' | translate}}</button>

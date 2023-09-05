@@ -323,7 +323,7 @@
     </div>
 
     <div class="field " ng-class="{error: model.error}" ng-if="model.type == 19" >
-        <sadaf-file ng-model="model" settings="settings" style="width:100%"></sadaf-file>
+        <sadaf-file id="{{id}}" ng-model="model" settings="settings" style="width:100%"></sadaf-file>
 
         <small class="helper">{{model.error}}</small>
         <div></div>
