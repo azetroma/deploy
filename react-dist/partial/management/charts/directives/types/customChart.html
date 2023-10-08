@@ -4,7 +4,8 @@
         <menu-header data-toggle="">{{ 'تنظیمات کلی' | translate }}</menu-header>
         <menu-body class="prop-section  form-horizontal">
             <div>
-                <general-settings query="ngModel.settingQuery" api-key="apiKey" ng-if="ngModel.customChartSettingTemplat.hasGeneralSettings" props="ngModel" ng-model="ngModel[type].info" ng-change="refreshChart('refreshWithData')"></general-settings>
+                
+                <general-settings datasource="datasource" query="ngModel.settingQuery" api-key="apiKey" ng-if="ngModel.customChartSettingTemplat.hasGeneralSettings" props="ngModel" ng-model="ngModel[type].info" ng-change="refreshChart('refreshWithData')"></general-settings>
 
                 <div ng-repeat="item in ngModel.customChartSettingTemplat.general" ng-show="!ngModel.settingQuery.length || item.title.indexOf(ngModel.settingQuery)!=-1">
 

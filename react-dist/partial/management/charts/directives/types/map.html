@@ -5,7 +5,7 @@
             <div>
                 <input type="hidden" ng-model="ngModel.map.info.canExportXlsx" value="true" />
 
-                <general-settings ng-model="ngModel.map.info" props="ngModel" ng-change="refreshChart('refresh')"></general-settings>
+                <general-settings datasource="datasource" ng-model="ngModel.map.info" props="ngModel" ng-change="refreshChart('refresh')"></general-settings>
 
                 <map-selector prop="ngModel.map.info.map"></map-selector>
 

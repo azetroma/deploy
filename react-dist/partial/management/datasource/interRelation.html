@@ -236,17 +236,30 @@
 
                 <div ng-if="parent.modalRelationObject.leftModelType == 0 || parent.modalRelationObject.rightModelType == 0">
                     <div class="field">
-                        <md-checkbox ng-model="parent.modalRelationObject.includeLeft">
+                        <sadaf-checkbox ng-model="parent.modalRelationObject.includeLeft">
                             نمایش تمام ردیف‌های <b>{{(parent.datasourceList | filterid:parent.modalRelationObject.left ).Name}}</b>
-                        </md-checkbox>
+                        </sadaf-checkbox>
                     </div>
     
                     <div class="field">
-                        <md-checkbox ng-model="parent.modalRelationObject.includeRight">
+                        <sadaf-checkbox ng-model="parent.modalRelationObject.includeRight">
                             نمایش تمام ردیف‌های <b>{{(parent.datasourceList | filterid:parent.modalRelationObject.right  ).Name}}</b>
-                        </md-checkbox>
+                        </sadaf-checkbox>
+                        <!-- <md-checkbox ng-model="parent.modalRelationObject.includeRight">
+                            نمایش تمام ردیف‌های <b>{{(parent.datasourceList | filterid:parent.modalRelationObject.right  ).Name}}</b>
+                        </md-checkbox> -->
     
                     </div>
+                    <!-- <div class="inline field">
+                        <label>روش محاسبه شرط در پرس‌وجو</label>
+                        <sm-dropdown class=""
+                                     items="[
+                                           {label:'where-exist', value:0},
+                                           {label:'where-join', value:1},
+                                        ]" label="item.label" value="item.value"
+                                     model="parent.modalRelationObject.whereMethod"></sm-dropdown>
+                    </div> -->
+
                     <div>
                         <div ng-show="(parent.modalRelationObject.conditions|filter:{left:{isText:true} }).length>0" style="margin-top:20px" layout-margin>
                             <p>
