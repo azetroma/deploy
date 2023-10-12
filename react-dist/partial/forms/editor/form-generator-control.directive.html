@@ -11,7 +11,7 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 0">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
-        <input ng-hide="model.readonly" type="text" ng-change="changeValue()" name="model.name" ng-model-options="{debounce:200}" autocomplete="off" ng-model="model.value" placeholder="{{model.label}}" ng-keydown="keyup($event)">
+        <input tabindex="{{model.validations.isDisable ? -1:0}}" ng-hide="model.readonly" type="text" ng-change="changeValue()" name="model.name" ng-model-options="{debounce:200}" autocomplete="off" ng-model="model.value" placeholder="{{model.label}}" ng-keydown="keyup($event)">
         <div ng-show="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
@@ -32,7 +32,7 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 1">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
-        <textarea rows="2" class="sadaf-form-textarea value" ng-hide="model.readonly" ng-change="changeValue()" lines ng-model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)"></textarea>
+        <textarea tabindex="{{model.validations.isDisable ? -1:0}}" rows="2" class="sadaf-form-textarea value" ng-hide="model.readonly" ng-change="changeValue()" lines ng-model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)"></textarea>
         <div ng-show="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
@@ -42,9 +42,9 @@
     <div class="field {{model.validations.isRequire ? 'required' : ''}} " ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 2">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
         <div class="formatted-input-container value">
-            <input type="number" ng-change="changeValue()" placeholder="{{model.label}}" id="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly" autocomplete="off" model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)">
+            <input tabindex="{{model.validations.isDisable ? -1:0}}" type="number" ng-change="changeValue()" placeholder="{{model.label}}" id="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly" autocomplete="off" model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)">
             <label class="formatted-input-label" for="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly || model.value == null">{{model.value | formatNumber:model}}</label>
-        </div>
+        </div> 
         <div ng-show="model.readonly">{{model.value | formatNumber:model}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
@@ -77,7 +77,9 @@
      ng-if="model.type == 4">
         <label ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
         <div class=" value" ng-if="model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData" ng-hide="model.readonly">
-            <sadaf-dropdwon ng-change="changeValue()" ng-keydown="keyup($event)" ng-model="model" form-id="{{id}}" class="multiple" edit="{{edit}}"></sadaf-dropdwon>
+            <styled-labell font="model.uiConfig.fontValue">
+                <sadaf-dropdwon ng-change="changeValue()" ng-keydown="keyup($event)" ng-model="model" form-id="{{id}}" class="multiple" edit="{{edit}}"></sadaf-dropdwon>
+            </styled-label>
         </div>
 
         <div ng-show="model.readonly" ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData">
@@ -160,11 +162,11 @@
         <small>{{model.description}}</small>
     </div>
 
-    <div class="field action-icon" ng-if="model.type == 3" style="min-height: 38px;">
+    <div class="field action-icon tw-relative tw-flex tw-items-center tw-justify-center" ng-if="model.type == 3" style="min-height: 38px;">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false">
             <pre><styled-label font="model.uiConfig.fontLabel">{{model.label}}</styled-label></pre>
         </label>
-        <div class="value tw-relative" ng-if="model.value" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
+        <div class="value  " ng-if="model.value" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
             <styled-label font="model.uiConfig.fontValue">{{model.value | formatNumber:model | persian}}</styled-label>
             <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
         </div>

@@ -1,11 +1,10 @@
 ﻿<div layout="column" flex>
-    <md-content flex class="content " layout="row" no-background>
+    <md-content flex class="content" layout="row" no-background>
         <div flex="15" hide-sm hide-xs></div>
         <div flex="70" flex-xs="100" flex-sm="100">
-            <md-card style="margin:40px 0; padding:16px">
-
+            <md-card style="margin: 40px 0; padding: 16px">
                 <div class="">
-                    <h3 style="margin-bottom:40px">{{'تنظیمات کلی برنامه' | translate}}</h3>
+                    <h3 style="margin-bottom: 40px">{{'تنظیمات کلی برنامه' | translate}}</h3>
                 </div>
 
                 <div>
@@ -20,26 +19,21 @@
                         }
                     </style>
 
-                    <div class="ui form ">
+                    <div class="ui form">
                         <div class="field">
                             <label>{{'نام سازمان' | translate}}</label>
-                            <input required ng-model="model.Brand">
+                            <input required ng-model="model.Brand" />
                         </div>
 
-
-
-
                         <div class="ui secondary segment">
-
                             <div class="ui header">تنظیمات صفحه لاگین</div>
 
                             <div class="field">
                                 <label>{{'login desc' | translate}}</label>
-                                <textarea ng-model="model.loginPageText" style="line-height: 2em;"></textarea>
+                                <textarea ng-model="model.loginPageText" style="line-height: 2em"></textarea>
                             </div>
 
                             <div class="two column fields fluid">
-
                                 <div class="field">
                                     <label>{{'لینک صفحه پشتیبانی' | translate}}</label>
                                     <input class="ltr" placeholder="https://www." ng-model="model.supportLink" />
@@ -56,23 +50,25 @@
                             </div>
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <div class="ui form sadaf-form settings">
-
-
                         <div ng-show="securityCertPatch">
-                            <div class="ui button field" ng-class="{loading : certCheckProgress, disabled: certCheckProgress}" ng-click="checkSmsCert()">بررسی و تایید گواهینامه سرور پیام کوتاه</div>
+                            <div class="ui button field" ng-class="{loading : certCheckProgress, disabled: certCheckProgress}" ng-click="checkSmsCert()">
+                                بررسی و تایید گواهینامه سرور پیام کوتاه
+                            </div>
                             <span class="" ng-class="{green :model.smsApprovedHash.length, red:!model.smsApprovedHash.length }">
                                 <span ng-show="model.smsApprovedHash.length || !invelidCert">گواهینامه سرور پیامک مورد تایید است</span>
                                 <span ng-hide="model.smsApprovedHash.length">قبلا تایید نشده است</span>
-                                <i class="ui icon " ng-class="{check :model.smsApprovedHash.length || !invelidCert, close:!model.smsApprovedHash.length }"></i>
+                                <i class="ui icon" ng-class="{check :model.smsApprovedHash.length || !invelidCert, close:!model.smsApprovedHash.length }"></i>
                             </span>
                         </div>
 
                         <a class="ui primary button field" ng-show="compareData" ng-href="{{app.hashUrlPrefix}}#/compare-data">همگام‌سازی داده‌ها با سرور دوم</a>
                         <a class="ui primary button field" ng-show="license.telegram" ng-href="{{app.hashUrlPrefix}}#/telegram-config">تنظیمات اکانت تلگرام</a>
                         <a class="ui primary button field" ng-show="verification" ng-href="{{app.hashUrlPrefix}}#/login-page-logo">تنظیمات لوگو براساس دامنه</a>
-                        <a class="ui primary button field" ng-class="{loading: appUpdateProgress, disabled: appUpdateProgress}" ng-show="license.kpiApp" ng-click="appUpdate()">نصب و به روز رسانی ماژول تحلیل شاخص‌ها</a>
+                        <a class="ui primary button field" ng-class="{loading: appUpdateProgress, disabled: appUpdateProgress}" ng-show="license.kpiApp" ng-click="appUpdate()"
+                            >نصب و به روز رسانی ماژول تحلیل شاخص‌ها</a
+                        >
 
                         <div class="ui secondary segment" ng-show="securityCertPatch">
                             <h3>مدیریت عملیات لاگین ناموفق</h3>
@@ -82,19 +78,25 @@
                                     <label>حد پایین لاگین ناموفق</label>
                                 </div>
                                 <div class="four wide field">
-                                    <input type="number" ng-model="model.maxFailedLogin">
+                                    <input type="number" ng-model="model.maxFailedLogin" />
                                 </div>
                                 <div class="two wide field">
                                     <label>عملیات - حد پایین لاگین ناموفق</label>
                                 </div>
                                 <div class="four wide field">
-                                    <sm-dropdown class="search selection " model="model.maxFailedLoginAction" items="[
+                                    <sm-dropdown
+                                        class="search selection"
+                                        model="model.maxFailedLoginAction"
+                                        items="[
                                          {id:1, name:'ارسال هشدار به شماره موبایل کاربر'},
                                          {id:5, name:'ارسال هشدار به ایمیل کاربر'},
                                          {id:2, name:'فعال کردن کد کپچا'},
                                          {id:3, name:'غیر فعال کردن کاربر به مدت ۱۰ دقیقه'},
                                          {id:4, name:'نادیده گرفتن'},
-                                         ]" label="item.name" value="item.id"></sm-dropdown>
+                                         ]"
+                                        label="item.name"
+                                        value="item.id"
+                                    ></sm-dropdown>
                                 </div>
                             </div>
                             <div class="fields">
@@ -102,19 +104,25 @@
                                     <label>حد بالای لاگین ناموفق</label>
                                 </div>
                                 <div class="four wide field">
-                                    <input type="number" ng-model="model.maxFailedLoginUpper">
+                                    <input type="number" ng-model="model.maxFailedLoginUpper" />
                                 </div>
                                 <div class="two wide field">
                                     <label>عملیات - حد بالای لاگین ناموفق</label>
                                 </div>
                                 <div class="four wide field">
-                                    <sm-dropdown class="search selection " model="model.maxFailedLoginUpperAction" items="[
+                                    <sm-dropdown
+                                        class="search selection"
+                                        model="model.maxFailedLoginUpperAction"
+                                        items="[
                                          {id:1, name:'ارسال هشدار به شماره موبایل کاربر'},
                                          {id:5, name:'ارسال هشدار به ایمیل کاربر'},
                                          {id:2, name:'فعال کردن کد کپچا'},
                                          {id:3, name:'غیر فعال کردن کاربر به مدت ۱۰ دقیقه'},
                                          {id:4, name:'نادیده گرفتن'},
-                                         ]" label="item.name" value="item.id"></sm-dropdown>
+                                         ]"
+                                        label="item.name"
+                                        value="item.id"
+                                    ></sm-dropdown>
                                 </div>
                             </div>
                             <div class="fields">
@@ -122,56 +130,62 @@
                                     <label> کد اشتباه در ورود دو عاملی</label>
                                 </div>
                                 <div class="four wide field">
-                                    <input type="number" ng-model="model.maxFailedLoginTwoFactor">
+                                    <input type="number" ng-model="model.maxFailedLoginTwoFactor" />
                                 </div>
                                 <div class="two wide field">
                                     <label>عملیات - کد اشتباه در ورود دو عاملی</label>
                                 </div>
                                 <div class="four wide field">
-                                    <sm-dropdown class="search selection " model="model.maxFailedLoginTwoFactorAction" items="[
+                                    <sm-dropdown
+                                        class="search selection"
+                                        model="model.maxFailedLoginTwoFactorAction"
+                                        items="[
                                          {id:1, name:'ارسال هشدار به شماره موبایل کاربر'},
                                          {id:5, name:'ارسال هشدار به ایمیل کاربر'},
                                          {id:2, name:'شروع مجدد فرآیند'},
                                          {id:3, name:'غیر فعال کردن کاربر به مدت ۱۰ دقیقه'},
                                          {id:4, name:'نادیده گرفتن'},
-                                         ]" label="item.name" value="item.id"></sm-dropdown>
+                                         ]"
+                                        label="item.name"
+                                        value="item.id"
+                                    ></sm-dropdown>
                                 </div>
                             </div>
 
                             <div class="fields">
-                                <div class="two wide field">
-                                </div>
+                                <div class="two wide field"></div>
                                 <div class="four wide field">
-                                    <md-checkbox class="md-block" ng-model="model.calcFaildLoginByIp">
-                                        محاسبه تعداد لاگین‌های ناموفق براساس IP کاربر
-                                    </md-checkbox>
+                                    <md-checkbox class="md-block" ng-model="model.calcFaildLoginByIp"> محاسبه تعداد لاگین‌های ناموفق براساس IP کاربر </md-checkbox>
                                 </div>
                             </div>
-
-
                         </div>
-
 
                         <div class="field">
                             <label>{{'session timeout' | translate}}</label>
-                            <input type="number" ng-model="model.sessionTime">
+                            <input type="number" ng-model="model.sessionTime" />
                             <small><small>{{'time minute' | translate}}</small></small>
                         </div>
 
                         <div class="field" ng-show="securityCertPatch">
                             <label>{{'integrity fail action' | translate}}</label>
-                            <sm-dropdown class="search selection multiple" model="model.integrityFailActions" items="[{id:0, name:'جلوگیری از انجام عملیات'},{id:1, name:'گرفتن لاگ'},{id:2, name:'هشدار به مدیر سیستم'}]" label="item.name" value="item.id"></sm-dropdown>
+                            <sm-dropdown
+                                class="search selection multiple"
+                                model="model.integrityFailActions"
+                                items="[{id:0, name:'جلوگیری از انجام عملیات'},{id:1, name:'گرفتن لاگ'},{id:2, name:'هشدار به مدیر سیستم'}]"
+                                label="item.name"
+                                value="item.id"
+                            ></sm-dropdown>
                         </div>
 
                         <div class="field">
                             <label>{{'حداکثر حجم فایل در آپلود' | translate}}</label>
-                            <input type="number" ng-model="model.maxUploadLength">
+                            <input type="number" ng-model="model.maxUploadLength" />
                             <small><small>{{'حجم به کیلو بایت' | translate}}</small></small>
                         </div>
 
                         <div class="field">
                             <label>{{'export data max row count' | translate}}</label>
-                            <input type="number" ng-model="model.exportDataMaxRow">
+                            <input type="number" ng-model="model.exportDataMaxRow" />
                         </div>
 
                         <div>
@@ -182,32 +196,35 @@
                             <small class="gray">اجرای زمانبندی دوباره متناسب با تعداد منابع داده ممکن است زمان‌بر باشد.</small>
                         </div>
 
-
                         <br />
                         <div ng-show="securityCertPatch" class="">
                             <div class="field !tw-m-0">
-                                <md-checkbox class="md-block" ng-model="model.preventLogin">
-                                    جلوگیری از ورود به برنامه
-                                </md-checkbox>
+                                <md-checkbox class="md-block" ng-model="model.preventLogin"> جلوگیری از ورود به برنامه </md-checkbox>
                             </div>
                             <div ng-show="model.preventLogin" class="tw-mb-4">
                                 <div class="ui pointing secondary menu">
                                     <div class="active item">قوانین ورود مجاز</div>
                                     <div class="right menu">
-                                        <div class="item pointer" ng-click="model.preventLoginRules.push({})"> <i class="icon add"></i> قانون جدید</div>
+                                        <div class="item pointer" ng-click="model.preventLoginRules.push({})"><i class="icon add"></i> قانون جدید</div>
                                     </div>
                                 </div>
                                 <small>
-                                    تنها در صورتی به کاربر اجازه ورود داده می‌شود که یک قانون به وی اجازه ورود داده باشد. در صورتی
-                                    که اجازه ورود به کاربر یا نقشی داده نشود ولی قانون کلی اجازه بدهد، اولویت با قانونی است که
-                                    نقش یا کاربر را تعیین کرده است. بین نقش و کاربر نیز تعیین کاربر اولویت بالاتری دارد.
+                                    تنها در صورتی به کاربر اجازه ورود داده می‌شود که یک قانون به وی اجازه ورود داده باشد. در صورتی که اجازه ورود به کاربر یا نقشی داده نشود ولی
+                                    قانون کلی اجازه بدهد، اولویت با قانونی است که نقش یا کاربر را تعیین کرده است. بین نقش و کاربر نیز تعیین کاربر اولویت بالاتری دارد.
                                 </small>
 
-                                <div ng-hide="model.preventLoginRules.length" class="ui secondary segment center aligned">هنوز قانونی تعریف نشده است. با استفاده از کلید بالا یک قانون جدید ایجاد کنید.</div>
+                                <div ng-hide="model.preventLoginRules.length" class="ui secondary segment center aligned">
+                                    هنوز قانونی تعریف نشده است. با استفاده از کلید بالا یک قانون جدید ایجاد کنید.
+                                </div>
                                 <div ng-repeat="rule in model.preventLoginRules" class="ui segments">
                                     <div class="ui small secondary segment">
-                                        <div class="pointer" style="position: absolute;left: 0;top: 0;border: none;box-shadow: none;" title="delete" ng-click="model.preventLoginRules.splice($index,1)">
-                                            <i class="ui small icon  close"></i>
+                                        <div
+                                            class="pointer"
+                                            style="position: absolute; left: 0; top: 0; border: none; box-shadow: none"
+                                            title="delete"
+                                            ng-click="model.preventLoginRules.splice($index,1)"
+                                        >
+                                            <i class="ui small icon close"></i>
                                         </div>
 
                                         <div class="fields">
@@ -225,7 +242,6 @@
                                             </div>
                                         </div>
 
-
                                         <div class="fields">
                                             <div class="two wide field">
                                                 <label>محدوه IP</label>
@@ -239,7 +255,6 @@
                                             <div class="four wide field">
                                                 <sm-dropdown class="search selection multiple" model="rule.locations" items="locations" label="item" value="item"></sm-dropdown>
                                             </div>
-
                                         </div>
                                         <div class="fields">
                                             <div class="two wide field">
@@ -256,7 +271,6 @@
                                                 <input type="number" ng-model="rule.maxFailedLogin" />
                                             </div>
                                         </div>
-
 
                                         <div class="fields">
                                             <div class="two wide field">
@@ -276,30 +290,17 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
-
-
                         </div>
-
-
 
                         <div ng-show="app.license.olap">
                             <div class="ui dividing header">تنظیمات مدل داده‌ای</div>
-                            <div class="ui button" ng-class="{loading : rebuildProcess, disabled: rebuildProcess}" ng-click="rebuildOlap($event)">
-                                ساخت دوباره مدل
-                            </div>
+                            <div class="ui button" ng-class="{loading : rebuildProcess, disabled: rebuildProcess}" ng-click="rebuildOlap($event)">ساخت دوباره مدل</div>
                             <small class="gray">در صورت استفاده از این گزینه کل مدل داده‌ای پاک شده و دوباره ساخته می‌شود. این فرآیند ممکن چند دقیقه زمان ببرد.</small>
                         </div>
 
-
-
-
                         <div class="field !tw-m-0">
-                            <md-checkbox class="md-block" ng-model="model.publicSignup">
-                                {{'can signup' | translate}}
-                            </md-checkbox>
+                            <md-checkbox class="md-block" ng-model="model.publicSignup"> {{'can signup' | translate}} </md-checkbox>
                         </div>
 
                         <div class="field" ng-show="model.publicSignup">
@@ -308,51 +309,59 @@
                             <small><small>{{'default role desc' | translate}}</small></small>
                         </div>
                         <div class="field !tw-m-0">
-                            <md-checkbox class="md-block" ng-model="model.savePasswordAbility">
-                                امکان ذخیره کلمه عبور در صفحه لاگین
-                            </md-checkbox>
+                            <md-checkbox class="md-block" ng-model="model.savePasswordAbility"> امکان ذخیره کلمه عبور در صفحه لاگین </md-checkbox>
                         </div>
                         <div class="field !tw-m-0">
-                            <md-checkbox class="md-block" ng-model="model.loginPics">
-                                نمایش تصویر در صفحه لاگین
-                            </md-checkbox>
+                            <md-checkbox class="md-block" ng-model="model.loginPics"> نمایش تصویر در صفحه لاگین </md-checkbox>
                         </div>
 
                         <div ng-show="model.loginPics" class="ui secondary segment">
                             <p>
-                                با استفاده از کلید زیر می‌توانید عکس‌های مورد نظر برای نمایش در صفحه لاگین را انتخاب کنید.
-                                در صورت عدم انتخاب عکس به صورت پیش فرض عکس‌های سامانه نمایش داده می‌شود.
-                            عکس‌های انتخابی باید حداقل 800x600 باشند
+                                با استفاده از کلید زیر می‌توانید عکس‌های مورد نظر برای نمایش در صفحه لاگین را انتخاب کنید. در صورت عدم انتخاب عکس به صورت پیش فرض عکس‌های سامانه
+                                نمایش داده می‌شود. عکس‌های انتخابی باید حداقل 800x600 باشند
                             </p>
-                            <div class="ui button mini compact icon" ng-click="model.pics.push({name: '', type:'image'})"
-                                 xng-init="model.pics  = model.pics  || [{name:'8', type:'image'}]"><i class="icon add"></i> اضافه کردن عکس</div>
+                            <div
+                                class="ui button mini compact icon"
+                                ng-click="model.pics.push({name: '', type:'image'})"
+                                xng-init="model.pics  = model.pics  || [{name:'8', type:'image'}]"
+                            >
+                                <i class="icon add"></i> اضافه کردن عکس
+                            </div>
                             <div ng-repeat="icon in model.pics track by $index" class="tw-inline-block tw-mx-3">
-                                <sadaf-icons type="image" style="display:inline-block" ng-model="icon" key="$index"></sadaf-icons>
+                                <sadaf-icons type="image" style="display: inline-block" ng-model="icon" key="$index"></sadaf-icons>
                                 <i class="icon trash outline alternate gray pointer" ng-click="model.pics.splice($index, 1);"></i>
                             </div>
                         </div>
 
-
                         <div class="field !tw-m-0">
-                            <md-checkbox class="md-block" ng-model="model.sendMessageByLogin.enable">
-                                {{'send message after login' | translate}}
-                            </md-checkbox>
+                            <md-checkbox class="md-block" ng-model="model.sendMessageByLogin.enable"> {{'send message after login' | translate}} </md-checkbox>
                         </div>
 
                         <div class="ui secondary segment" ng-show="model.sendMessageByLogin.enable">
-
                             <div class="fields">
                                 <div class="two wide field">
                                     <label>{{'type' | translate}}</label>
                                 </div>
                                 <div class="four wide field">
-                                    <sm-dropdown class="selection multiple" model="model.sendMessageByLogin.type" items="[{id:0, name:('sms'| translate)},{id:1, name:('email'| translate)}]" label="item.name" value="item.id"></sm-dropdown>
+                                    <sm-dropdown
+                                        class="selection multiple"
+                                        model="model.sendMessageByLogin.type"
+                                        items="[{id:0, name:('sms'| translate)},{id:1, name:('email'| translate)}]"
+                                        label="item.name"
+                                        value="item.id"
+                                    ></sm-dropdown>
                                 </div>
                                 <div class="two wide field">
                                     <label>{{'send when' | translate}}</label>
                                 </div>
                                 <div class="four wide field">
-                                    <sm-dropdown class="selection multiple" model="model.sendMessageByLogin.when" items="[{id:0, name:('successful login' | translate)},{id:1, name:('unsuccessful login' | translate)}]" label="item.name" value="item.id"></sm-dropdown>
+                                    <sm-dropdown
+                                        class="selection multiple"
+                                        model="model.sendMessageByLogin.when"
+                                        items="[{id:0, name:('successful login' | translate)},{id:1, name:('unsuccessful login' | translate)}]"
+                                        label="item.name"
+                                        value="item.id"
+                                    ></sm-dropdown>
                                 </div>
                             </div>
 
@@ -361,21 +370,15 @@
                                     <label>{{'message template' | translate}}</label>
                                 </div>
                                 <div class="ten wide field">
-                                    <textarea class="ltr" rows="3" ng-model="model.sendMessageByLogin.template" style="line-height: 2em;"></textarea>
+                                    <textarea class="ltr" rows="3" ng-model="model.sendMessageByLogin.template" style="line-height: 2em"></textarea>
                                     <div class="ltr">
-                                        @when = [{{'successful login' | translate}} , {{'unsuccessful login' | translate}}],
-                                        @brand = {{'نام سازمان' | translate}},
-                                        @detail = {{'detail' | translate}}
-                                        @ip= IP
-                                        @agent=  {{'user agent' | translate}}
-                                        @path=  {{'request path' | translate}}
-                                        @time=  {{'time' | translate}}
-                                        @date=  {{'date' | translate}}
+                                        @when = [{{'successful login' | translate}} , {{'unsuccessful login' | translate}}], @brand = {{'نام سازمان' | translate}}, @detail =
+                                        {{'detail' | translate}} @ip= IP @agent= {{'user agent' | translate}} @path= {{'request path' | translate}} @time= {{'time' | translate}}
+                                        @date= {{'date' | translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="field !tw-m-0" ng-if="cdn">
                             <md-checkbox class="md-block" ng-model="model.cdn.enable">استفاده از CDN</md-checkbox>
@@ -385,10 +388,16 @@
                         <div class="ui secondary segment" ng-show="model.cdn.enable && model.cdn.items.length" ng-if="cdn">
                             <div class="fields" ng-repeat="item in model.cdn.items">
                                 <div class="seven wide field">
-                                    <input type="text" ng-model="item.link" placeholder="لینک">
+                                    <input type="text" ng-model="item.link" placeholder="لینک" />
                                 </div>
                                 <div class="three wide field">
-                                    <sm-dropdown class="selection fluid" model="item.type" items="[{id:0, name:'css'},{id:1, name:'javascript'}]" label="item.name" value="item.id"></sm-dropdown>
+                                    <sm-dropdown
+                                        class="selection fluid"
+                                        model="item.type"
+                                        items="[{id:0, name:'css'},{id:1, name:'javascript'}]"
+                                        label="item.name"
+                                        value="item.id"
+                                    ></sm-dropdown>
                                 </div>
                                 <div class="two wide field">
                                     <div class="ui compact mini icon button" ng-click="addCdn()"><i class="icon add"></i></div>
@@ -400,44 +409,89 @@
                         <br />
 
                         <div ng-if="uploadLogo">
-
                             <div class="field">
                                 <label>انتخاب لوگو</label>
-                                <input type="file" ng-model="model.logo" onchange="angular.element(this).scope().previewFile(this , false)">
+                                <input type="file" ng-model="model.logo" onchange="angular.element(this).scope().previewFile(this , false)" />
                             </div>
 
                             <div class="field">
                                 <label>انتخاب لوگوی با رنگ معکوس</label>
-                                <input type="file" ng-model="model.logo" onchange="angular.element(this).scope().previewFile(this , true)">
+                                <input type="file" ng-model="model.logo" onchange="angular.element(this).scope().previewFile(this , true)" />
                             </div>
+                        </div>
 
+                        <div>
+                            <sadaf-checkbox ng-model="model.ratelimit.enable">محدودیت روی تعداد درخواست</sadaf-checkbox>
+                            <div class="ui secondary segment" ng-if="model.ratelimit.enable">
+                                <div class="ui small button" ng-click="addRateLimitRule()">اضافه کردن</div>
+                                <div class="inline fields">
+                                    <div class="three wide field">
+                                        <label>نام کنترلر</label>
+                                        <small class="desc gray"> همه کنترلرها = * </small>
+                                    </div>
+                                    <div class="three wide field">
+                                        <label>نام درخواست</label>
+                                        <small class="desc gray">همه درخواست‌ها = * </small>
+                                    </div>
+                                    <div class="two wide field">
+                                        <label>دوره زمانی</label>
+                                    </div>
+                                    <div class="two wide field">
+                                        <label>حداکثر تعداد درخواست</label>
+                                    </div>
+                                    <div class="two wide field">
+                                        <label></label>
+                                    </div>
+                                </div>
+
+                                <div class="inline fields" ng-repeat="rule in model.ratelimit.rules">
+                                    <div class="three wide field">
+                                        <div>
+                                            <input type="text" ng-model="rule.controller" />
+                                        </div>
+                                    </div>
+                                    <div class="three wide field">
+                                        <div>
+                                            <input type="text" ng-model="rule.action" />
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide field">
+                                        <sm-dropdown
+                                            class=""
+                                            items="[
+                                        {name:'روزانه', id:'day'}, 
+                                        {name:'ساعتی', id:'hour'},
+                                        {name:'دقیقه', id:'minute'}]"
+                                            model="rule.type"
+                                            label="item.name"
+                                            value="item.id"
+                                        ></sm-dropdown>
+                                    </div>
+                                    <div class="two wide field">
+                                        <input type="number" ng-model="rule.count" />
+                                    </div>
+                                    <div class="two wide field">
+                                        <div class="ui small button" ng-click="model.ratelimit.rules.splice($index, 1)">حذف کردن</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <br />
                         <br />
 
-                        <div class="ui red message" ng-show="error">
-                            <strong>خطا!</strong> <span ng-bind-html="error"></span>
-                        </div>
-
+                        <div class="ui red message" ng-show="error"><strong>خطا!</strong> <span ng-bind-html="error"></span></div>
 
                         <div layout="row">
-
                             <md-button ng-click="save($event)" ng-disabled="saveProgress">
                                 {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
                             </md-button>
 
-                            <md-button ng-click="cancel()">
-                                {{'cancel' | translate}}
-                            </md-button>
-
-
+                            <md-button ng-click="cancel()"> {{'cancel' | translate}} </md-button>
                         </div>
                     </div>
-
                 </div>
-
-
             </md-card>
         </div>
         <div flex="15" hide-sm hide-xs></div>
@@ -446,21 +500,16 @@
     <div class="ui modal sms-cert-modal">
         <div class="header">گواهینامه نامعتبر</div>
         <div class="content ltr">
-
-            <div ng-hide="invelidCert">
-                گواهینامه ارائه شده توسط سرور معتبر است
-            </div>  
+            <div ng-hide="invelidCert">گواهینامه ارائه شده توسط سرور معتبر است</div>
 
             <div ng-show="invelidCert">
-                <p>
-                    گواهینامه‌ای که سرور ارائه کرده است معتبر نیست. لطفا در صورتی که از گواهینامه ارائه شده اطمینان دارید گزینه تایید را انتخاب کنید.
-                </p>
-                <div class="ui xbulleted list" style="text-align:left;">
-                    <div class="item"><b>Subject:     </b>  {{cert.Subject}}</div>
-                    <div class="item"><b>Issuer:      </b>  {{cert.Issuer}}</div>
-                    <div class="item"><b>Begin:       </b>  {{moment(cert.NotBefore/1000)}}</div>
-                    <div class="item"><b>Expire:      </b>  {{moment(cert.NotAfter/1000)}}</div>
-                    <div class="item"><b>SerialNumber:</b>  {{cert.SerialNumber}}</div>
+                <p>گواهینامه‌ای که سرور ارائه کرده است معتبر نیست. لطفا در صورتی که از گواهینامه ارائه شده اطمینان دارید گزینه تایید را انتخاب کنید.</p>
+                <div class="ui xbulleted list" style="text-align: left">
+                    <div class="item"><b>Subject: </b> {{cert.Subject}}</div>
+                    <div class="item"><b>Issuer: </b> {{cert.Issuer}}</div>
+                    <div class="item"><b>Begin: </b> {{moment(cert.NotBefore/1000)}}</div>
+                    <div class="item"><b>Expire: </b> {{moment(cert.NotAfter/1000)}}</div>
+                    <div class="item"><b>SerialNumber:</b> {{cert.SerialNumber}}</div>
                 </div>
             </div>
         </div>
@@ -471,5 +520,3 @@
         </div>
     </div>
 </div>
-
-

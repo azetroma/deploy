@@ -74,6 +74,7 @@
             {k:'four',v:'۴' },
             {k:'three',v:'۳' },
             {k:'two',v:'۲' },
+            {k:'one',v:'۱' },
             ]"
             ng-class="{active: i.k == c.control.active.columnClass}"
             class="ui button"
@@ -555,6 +556,16 @@
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.uiConfig.hideAddButton">
                 مخفی کردن کلید ردیف جدید
+            </sadaf-checkbox>
+        </div>
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.hideRowNumber">
+                عدم نمایش شماره ردیف
+            </sadaf-checkbox>
+        </div>
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.rowCopyButton">
+                نمایش کلید کپی و حذف ردیف
             </sadaf-checkbox>
         </div>
 
