@@ -394,9 +394,13 @@
                                  , {key:'.0f', value:'#'}
                                  , {key:'.1f', value:'#.0'}
                                  , {key:'.2f', value:'#.00'}
+                                 , {key:'.1~f', value:'#.n'}
+                                 , {key:'.2~f', value:'#.nn'}
                                  , {key:',.0f', value:'#,#'}
                                  , {key:',.1f', value:'#,#:0'}
                                  , {key:',.2f', value:'#,#:00'}
+                                 , {key:',.1~f', value:'#,#:n'}
+                                 , {key:',.2~f', value:'#,#:nn'}
                                  , {key:'', value:('normal' | translate)},]"
                 class="value selection"
                 model="c.control.active.format"
@@ -568,6 +572,15 @@
                 نمایش کلید کپی و حذف ردیف
             </sadaf-checkbox>
         </div>
+        <div class="f-field">
+            <label class="">{{'بیشترین ارتفاع' | translate}}</label>
+            <input
+                type="text"
+                ng-model="c.control.active.uiConfig.maxHeight"
+                autocomplete="nope"
+                placeholder="{{'بیشترین ارتفاع' | translate}}"
+            />
+        </div>
 
         <!-- <div class="f-field">
             <label>{{'column count' | translate}}</label>
@@ -597,6 +610,9 @@
         </div>
     </div>
 
+    <div style="margin-bottom: -20px;">
+        <label>اضافه کردن کد در صورت تغییر مقدار</label>
+    </div>
     <sadaf-tasks
         ng-model="c.control.active.tasks"
         trigger="5"
@@ -892,7 +908,7 @@
         ></text-editor>
     </div>
 
-    <div class="field" ng-if="[3, 5, 16, 4, 26].includes(c.control.active.type)">
+    <div class="field" ng-if="[0,1,2,3, 5, 16, 4, 26].includes(c.control.active.type)">
         <sadaf-checkbox
             ng-change="setToAll('uiConfig.fontValue.enable')"
             ng-model="c.control.active.uiConfig.fontValue.enable"

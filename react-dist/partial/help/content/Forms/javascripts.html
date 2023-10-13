@@ -121,3 +121,15 @@ if(params.settings.ChartInPageId == 1313){
     }]
 }
 </feditor>
+
+<h3>نمایش یا عدم نمایش ردیف‌ها در تکرارشونده </h3>
+<p>
+
+</p>
+<feditor lang="js" full-height readonly>
+rows.multiRowForm.showIndex = [];
+_.each(rows.multiRowForm.rows, (item, i) => {
+    let show  = true || false;
+    rows.multiRowForm.showIndex.push(show);
+});
+</feditor>

@@ -11,7 +11,9 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 0">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
-        <input tabindex="{{model.validations.isDisable ? -1:0}}" ng-hide="model.readonly" type="text" ng-change="changeValue()" name="model.name" ng-model-options="{debounce:200}" autocomplete="off" ng-model="model.value" placeholder="{{model.label}}" ng-keydown="keyup($event)">
+        <styled-label font="model.uiConfig.fontValue">
+            <input tabindex="{{model.validations.isDisable ? -1:0}}" ng-hide="model.readonly" type="text" ng-change="changeValue()" name="model.name" ng-model-options="{debounce:200}" autocomplete="off" ng-model="model.value" placeholder="{{model.label}}" ng-keydown="keyup($event)">
+        </styled-label>
         <div ng-show="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
@@ -32,7 +34,18 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 1">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
-        <textarea tabindex="{{model.validations.isDisable ? -1:0}}" rows="2" class="sadaf-form-textarea value" ng-hide="model.readonly" ng-change="changeValue()" lines ng-model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)"></textarea>
+        <!-- <textarea tabindex="{{model.validations.isDisable ? -1:0}}" rows="2" class="sadaf-form-textarea value" ng-hide="model.readonly" ng-change="changeValue()" lines ng-model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)"></textarea> -->
+        <!-- {{model.value}} -->
+        <styled-label font="model.uiConfig.fontValue">
+            <ng-sadaf-textarea
+            class="sadaf-form-textarea value" 
+            placeholder="{{model.label}}"
+            (model-change)="setValue($event)"
+            [model]="model.value"
+            min="1"
+            ></ng-sadaf-textarea>
+        </styled-label>
+
         <div ng-show="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
@@ -42,8 +55,10 @@
     <div class="field {{model.validations.isRequire ? 'required' : ''}} " ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 2">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
         <div class="formatted-input-container value">
-            <input tabindex="{{model.validations.isDisable ? -1:0}}" type="number" ng-change="changeValue()" placeholder="{{model.label}}" id="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly" autocomplete="off" model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)">
-            <label class="formatted-input-label" for="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly || model.value == null">{{model.value | formatNumber:model}}</label>
+            <styled-label font="model.uiConfig.fontValue">
+                <input tabindex="{{model.validations.isDisable ? -1:0}}" type="number" ng-change="changeValue()" ng-paste='handlePaste($event)' placeholder="{{model.label}}" id="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly" autocomplete="off" model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)">
+                <label  for="id-{{randomId}}-{{model.name}}" class="formatted-input-label"ng-hide="model.readonly || model.value == null">{{model.value | formatNumber:model}}</label>
+            </styled-label>
         </div> 
         <div ng-show="model.readonly">{{model.value | formatNumber:model}}</div>
         <small class="helper">{{model.error}}</small>
