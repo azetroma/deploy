@@ -36,9 +36,9 @@
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
         <!-- <textarea tabindex="{{model.validations.isDisable ? -1:0}}" rows="2" class="sadaf-form-textarea value" ng-hide="model.readonly" ng-change="changeValue()" lines ng-model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)"></textarea> -->
         <!-- {{model.value}} -->
-        <styled-label font="model.uiConfig.fontValue">
+        <styled-label class="sadaf-form-textarea value" font="model.uiConfig.fontValue">
             <ng-sadaf-textarea
-            class="sadaf-form-textarea value" 
+            class="" 
             placeholder="{{model.label}}"
             (model-change)="setValue($event)"
             [model]="model.value"
