@@ -2,8 +2,8 @@
 <div    ng-style="{backgroundColor: [22,19,13,25].includes(model.type)?'': model.uiConfig.color || '' }" 
         class=" field form-control {{model.name}} type-{{model.type}} form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ (!model.canEdit && model.type != 13) || (disabled == 'disabled' || disabled == 'true' ) ? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{ model.readonly? 'read-only':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
 
-    <span ng-show="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
-    <span ng-show="edit" class="ui label mini compact hidden-mark" style="color:black; opacity: 0.6;">{{model.name.replace('field-', '')}}</span>
+    <span ng-if="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
+    <span ng-if="edit" class="ui label mini compact hidden-mark" style="color:black; opacity: 0.6;">{{model.name.replace('field-', '')}}</span>
     <div class="control-actions" ng-if="edit">
         <span class="material-icons small small-size pointer gray" ng-click="remove()" title="delete">delete</span>
         <span ng-if="model.type!=22 && model.type!=13" class="material-icons small small-size pointer gray" ng-click="copy()" title="copy">content_copy</span>
@@ -14,7 +14,7 @@
         <styled-label font="model.uiConfig.fontValue">
             <input tabindex="{{model.validations.isDisable ? -1:0}}" ng-hide="model.readonly" type="text" ng-change="changeValue()" name="model.name" ng-model-options="{debounce:200}" autocomplete="off" ng-model="model.value" placeholder="{{model.label}}" ng-keydown="keyup($event)">
         </styled-label>
-        <div ng-show="model.readonly">{{model.value}}</div>
+        <div ng-if="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
@@ -46,7 +46,7 @@
             ></ng-sadaf-textarea>
         </styled-label>
 
-        <div ng-show="model.readonly">{{model.value}}</div>
+        <div ng-if="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
@@ -60,7 +60,7 @@
                 <label  for="id-{{randomId}}-{{model.name}}" class="formatted-input-label"ng-hide="model.readonly || model.value == null">{{model.value | formatNumber:model}}</label>
             </styled-label>
         </div> 
-        <div ng-show="model.readonly">{{model.value | formatNumber:model}}</div>
+        <div ng-if="model.readonly">{{model.value | formatNumber:model}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
@@ -71,7 +71,7 @@
         <sadaf-checkbox class="value" ng-hide="model.readonly" ng-model="model.value" label="{{model.label}}" ng-change="changeValue()">
             &nbsp;<styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label>
         </sadaf-checkbox>
-        <div ng-show="model.readonly">
+        <div ng-if="model.readonly">
             <i class="icon" ng-class="{'square outline':!model.value, 'checkmark box':model.value}"></i>
             <b ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></b>
         </div>
@@ -97,14 +97,14 @@
             </styled-label>
         </div>
 
-        <div ng-show="model.readonly" ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData">
+        <div ng-if="model.readonly" ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData">
             {{model.dropdown.listValue.join(', ')}}
         </div>
-        <div ng-show="model.readonly" ng-if="model.dropdown.useRemoteData">
+        <div ng-if="model.readonly" ng-if="model.dropdown.useRemoteData">
             {{model.dropdown.listValue.join(', ') || model.value}}
         </div>
 
-        <div ng-show="model.readonly" ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData">
+        <div ng-if="model.readonly" ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData">
             {{_.find(model.dropdown.items, {value: model.value}).label}}
         </div>
 
@@ -208,7 +208,7 @@
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 9">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <sadaf-calendar class=" value" ng-hide="model.readonly" ng-model="model.value" control="model" ng-change="changeValue()" sd-keyup="keyup($event)"></sadaf-calendar>
-        <div ng-show="model.readonly">{{model.value | persian}}</div>
+        <div ng-if="model.readonly">{{model.value | persian}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
@@ -216,7 +216,7 @@
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 14">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <sadaf-date-time class=" value" ng-change="changeValue()" ng-hide="model.readonly" ng-model="model.value" control="model" sd-keyup="keyup($event)"></sadaf-date-time>
-        <div ng-show="model.readonly">{{model.value | persian}}</div>
+        <div ng-if="model.readonly">{{model.value | persian}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
@@ -235,7 +235,7 @@
                title="ویرایش"
                xstyle="margin:5px 5px 0 0;" style="z-index: 20; position: absolute; left: 55px; top: 5px;"></i>
         </div>
-        <div ng-show="model.readonly">{{model.formLookup.selected ? model.formLookup.selected.join(', ') : model.formLookup.keyControlsBindedValue.join(', ')}}</div>
+        <div ng-if="model.readonly">{{model.formLookup.selected ? model.formLookup.selected.join(', ') : model.formLookup.keyControlsBindedValue.join(', ')}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
@@ -261,7 +261,7 @@
     <div class="field action-icon" ng-class="{error: model.error}" ng-if="model.type == 5">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <div class="calculate-field  value">
-            <div ng-show="edit" class="ltr formula gray" 
+            <div ng-if="edit" class="ltr formula gray" 
             ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
             <styled-label font="model.uiConfig.fontValue"><small> {{model.calculate.expression}}</small></styled-label></div>
             <div class="tw-relative" ng-hide="edit" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
@@ -277,7 +277,7 @@
     <div class="field action-icon" ng-class="{error: model.error}" ng-if="model.type == 16">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <div class="calculate-field value">
-            <div ng-show="edit" class="ltr formula gray" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
+            <div ng-if="edit" class="ltr formula gray" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
                <styled-label font="model.uiConfig.fontValue"> <small>
                     <span>{{model.prefix}} </span>
                     {{model.calculate.expression}}
@@ -302,7 +302,7 @@
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-labeld-label> </label>
         <sadaf-time class=" value" ng-hide="model.readonly" ng-keydown="keyup($event)" ng-model="model.value" ng-change="changeValue()"></sadaf-time>
 
-        <div ng-show="model.readonly">{{model.value}}</div>
+        <div ng-if="model.readonly">{{model.value}}</div>
 
         <small class="helper">{{model.error}}</small>
         <div></div>
@@ -313,7 +313,7 @@
     <div class="field " ng-class="{error: model.error}" ng-if="model.type == 17">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <div class="calculate-field value">
-            <div ng-show="edit" class="ltr formula gray">
+            <div ng-if="edit" class="ltr formula gray">
                 <small>
                     <span>{{model.prefix}} </span>
                     lookup
@@ -321,9 +321,9 @@
                 </small>
             </div>
             <div ng-hide="edit">
-                <div xng-show="model.inProgress" ng-class="{active: model.inProgress}" class="ui dimmer inverted"><div class="ui mini inline loader"></div></div>
+                <div xng-if="model.inProgress" ng-class="{active: model.inProgress}" class="ui dimmer inverted"><div class="ui mini inline loader"></div></div>
                 <span>{{model.prefix}} </span>
-                <span ng-show="model.value!=null">{{model.tableLookup.label | formatNumber:model | persian}}</span>
+                <span ng-if="model.value!=null">{{model.tableLookup.label | formatNumber:model | persian}}</span>
                 <span> {{model.postfix}}</span>&nbsp;
             </div>
         </div>
@@ -411,7 +411,7 @@
         <sadaf-checkbox ng-hide="model.readonly" ng-model="model.value" label="{{model.label}}">
             <styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label>
         </sadaf-checkbox>
-        <div ng-show="model.readonly">
+        <div ng-if="model.readonly">
             <i class="icon" ng-class="{'square outline':!model.value, 'checkmark box':model.value}"></i>
             <b ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></b>
         </div>
