@@ -1,4 +1,4 @@
-<div class="ui small segment">
+<div class="ui small segment" ng-if="info">
     <div class="ui mini xform" ng-if="ngModel.length">
         <div ng-repeat="s in ngModel" class="tw-flex tw-items-center">
             <i class="ui icon link close" ng-click="ngModel.splice($index, 1);change();"></i>
@@ -22,8 +22,8 @@
         <br />
     </div>
 
-<label>اضافه کردن لایه به نقشه</label>
+<label>اضافه کردن لایه به نقشه</label> 
     <div ng-repeat="server in servers">
-        <map-wms-selector-item add="added(item)" model="server" folder=""></map-wms-selector-item>
+        <map-wms-selector-item info="info" add="added(item)" model="server" folder=""></map-wms-selector-item>
     </div>
 </div>
