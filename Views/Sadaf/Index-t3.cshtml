@@ -125,7 +125,8 @@
                 @if (ViewBag.theme != null && ViewBag.theme.logoId > 0) {
                     <img src="~/api/upload/getPic/@ViewBag.theme.logoId " class="tw-inline-block" style="max-width:100%; max-height:128px;" alt="Alternate Text" />
                 } else {
-                    <img src="~/api/settings/getLogo/1" class="tw-inline-block" style="max-width:100%; max-height:128px;" alt="Alternate Text" />
+                    @*<img src="~/api/settings/getLogo/1" class="tw-inline-block" style="max-width:100%; max-height:128px;" alt="Alternate Text" />*@
+                    <img src="~/images/icon-inverse.png" class="tw-inline-block" style="max-width:100%; max-height:128px;" alt="Alternate Text" />
                 }
             </div>
 

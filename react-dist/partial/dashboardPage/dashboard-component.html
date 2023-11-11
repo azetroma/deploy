@@ -7,13 +7,18 @@
             style="max-width: 100%; max-height: 128px"
             alt="Alternate Text"
         />
-        <img
+        <!--<img
             ng-if="logoId<=0"
             ng-src="{{app.urlPrefix}}api/settings/getLogo/1"
             class="tw-inline-block"
             style="max-width: 100%; max-height: 128px"
             alt="Alternate Text"
-        />
+        />-->
+    <img ng-if="logoId<=0"
+         src="~/images/icon-inverse.png"
+         class="tw-inline-block"
+         style="max-width: 100%; max-height: 128px"
+         alt="Alternate Text" />
     </div>
     <div class="my-fix-flex-container" ui-sortable="sortableCatOptions" xng-model="menuCategories.data">
         <div
@@ -243,8 +248,12 @@
                 </div>
                 <notification class="item" ng-show="notifyOption.show" ng-model="notifyOption"></notification>
 
+                <a class="item" ng-show="showGotoDefaultPage" href="{{app.urlPrefix +'#/'+ defaultPageLink}}">
+                    <i class="fal icon fa-arrow-square-left" xng-click="gotoDefaultPage()" title="بازگشت به داشبورد اصلی" style="font-size: 22px; line-height: 1;"></i>
+                </a>
+
                 <a class="item" ng-show="!isLoginByLink && useApp" href="{{app.urlPrefix+'sadaf/main'}}">
-                    <i class="large icon home"></i>
+                    <i class="large icon home" ></i>
                 </a>
 
                 <div class="item ui dropdown username" ng-show="!isLoginByLink && !shareMode">

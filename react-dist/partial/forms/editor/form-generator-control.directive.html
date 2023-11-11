@@ -11,7 +11,7 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 0">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
-        <styled-label font="model.uiConfig.fontValue">
+        <styled-label class=" value" font="model.uiConfig.fontValue">
             <input tabindex="{{model.validations.isDisable ? -1:0}}" ng-hide="model.readonly" type="text" ng-change="changeValue()" name="model.name" ng-model-options="{debounce:200}" autocomplete="off" ng-model="model.value" placeholder="{{model.label}}" ng-keydown="keyup($event)">
         </styled-label>
         <div ng-if="model.readonly">{{model.value}}</div>
@@ -92,7 +92,7 @@
      ng-if="model.type == 4">
         <label ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
         <div class=" value" ng-if="model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData" ng-hide="model.readonly">
-            <styled-labell font="model.uiConfig.fontValue">
+            <styled-label class=" value"font="model.uiConfig.fontValue">
                 <sadaf-dropdwon ng-change="changeValue()" ng-keydown="keyup($event)" ng-model="model" form-id="{{id}}" class="multiple" edit="{{edit}}"></sadaf-dropdwon>
             </styled-label>
         </div>
