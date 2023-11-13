@@ -103,11 +103,9 @@
 
                 <md-card-actions layout="row">
                     <span flex></span>
-
-                    <md-button ng-click="save()" ng-disabled="!testResult && !isEdit">
-                        ذخیره
+                    <md-button ng-click="save()" ng-disabled="(!testResult && !isEdit) || saveProgress">
+                        {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
                     </md-button>
-
                 </md-card-actions>
 
 
