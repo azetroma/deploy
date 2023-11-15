@@ -128,6 +128,13 @@
                         <div md-color-picker ng-model="ngModel.map.info.defaultColor" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
                     </div>
                 </div>
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">رنگ منطقه انتخاب شده</label>
+                    <span class="form-divider" flex></span>
+                    <div class="col-sm-8">
+                        <div md-color-picker ng-model="ngModel.map.info.activeColor" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
+                    </div>
+                </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="checkbox">
@@ -341,7 +348,8 @@
                         </div>
                     </p>
                 </div>
-                <div class="form-row" layout="row" layout-align="start center" ng-if="!license.disableLatLong">
+                license.disableLatLong = {{license.disableLatLong}}
+                <div class="form-row" layout="row" layout-align="start center" ng-if="!!!license.disableLatLong">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label class="">
