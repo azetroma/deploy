@@ -2,7 +2,7 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html >
+<html style="height:initial">
 <head>
     <meta charset="utf-8" />
     <base href="@Href("~")">
@@ -148,6 +148,22 @@
         .chart-widget {
             page-break-before: always;
         }
+
+        .print-page .full-height-container {
+            height: initial;
+            max-height: initial;
+        }
+
+        @@media print {
+            dashboard-page {
+                display: initial;
+            }
+            .chart-widget {
+                page-break-inside: avoid;
+                page-break-before: always;
+            }
+
+        }
     </style>
     <style name="size">
         @@page {
@@ -156,13 +172,14 @@
         }
     </style>
 </head>
-<body ng-app="sadaf" ng-cloak ng-controller="dashboardPageCtrl" class="theme2" style="overflow-y: scroll; height: initial; background: #fff !important;">
+<body ng-app="sadaf" ng-cloak ng-controller="printController" class="theme2 print-page" style="overflow-y: scroll; height: initial; background: #fff !important;">
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" id="isFullscreen" value="true" />
     <input type="hidden" id="dashboardPublishMenuId" value="@ViewBag.MenuId" />
     <input type="hidden" id="appId" value="@ViewBag.appId" />
     <input type="hidden" id="isShared" value="1" />
     <input type="hidden" id="print-mode" value="true" />
+
 
     <div class="ui mini form no-print" style="padding: 10px 20px;border-bottom: 1px solid #efefef;background: #64B5F6;">
         <div class="fields">
@@ -182,125 +199,32 @@
                 <div class="ui button icon basic" ng-click="backToDash()"> نمایش صفحه داشبورد  </div>
             </div>
         </div>
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     </div>
 
 
-
-    <div class="main-container full-height-container" ng-class="{horiz: pageOrientation === '1', vert : pageOrientation === '0'}" style="height:initial;max-height:initial;overflow-y:initial; margin: 0 auto;">
-        <div style="position:absolute; margin-right:-10px;" class="no-print">
+    <div ng-class="{horiz: pageOrientation === '1', vert : pageOrientation === '0'}"
+         style="height: initial; max-height: initial; overflow-y: initial; margin: 0 auto;">
+        <div style="position:absolute; xmargin-right:-10px;" class="no-print">
             <div class="border" ng-class="{horiz: pageOrientation === '1', vert : pageOrientation === '0'}"></div>
             <div class="border" ng-class="{horiz: pageOrientation === '1', vert : pageOrientation === '0'}"></div>
             <div class="border" ng-class="{horiz: pageOrientation === '1', vert : pageOrientation === '0'}"></div>
         </div>
-        <div class="" style="display:flex;flex-direction:row;padding:10px 0 0 10px;flex-wrap: wrap-reverse;justify-content: flex-end;">
 
-            <div ng-show="menuCategories.licenceRemain.remain <= 3" class="ui label red">
-                تعداد روز باقیمانده از جواز استفاده:
-                <b style="text-decoration:underline;">{{persian(menuCategories.licenceRemain.remain, isPersian)}}</b> روز
-            </div>
-
-            <div class="" id="filter-box" ng-app="filterBox" style="transition:width 0.4s ease; flex:1 1 auto;">
-                <div ng-controller="filterBoxController" id="filter-box-controller">
-
-                    <div ng-if="otherFilters.length + userControlFilter.length >1"
-                         class="ui label"
-                         title="{{'clear'| translate}}">
-                        <a ng-click="clearAll()" class="pointer"><b>{{'clear all'| translate}}</b></a>
-                    </div>
-
-
-                    <div ng-repeat="j in otherFilters | filter:{value:''}"
-                         class="ui label"
-                         title="{{j.valueCaption}}">
-                        <b>{{j.keyCaption}}: </b>{{getCleanValue(j.valueCaption)}}
-                        <i class="delete icon" ng-click="removeDrillDown($index)"></i>
-                    </div>
-
-
-
-                    <div ng-repeat="i in userControlFilter "
-                         ng-if="i.values && i.values.length"
-                         class="ui label"
-                         title="{{i.values.join(', ')}}">
-                        <b>{{i.key}}: </b>{{i.xCaption}} <span ng-bind-html="i.Caption"></span>
-                        <i class="delete icon" ng-hide="i.disableClear" ng-click="removeUserControl($index)"></i>
-                    </div>
+        @if (ViewBag.theme != null) {
+            var theme = (BLL.Process.ThemeModel)ViewBag.theme;
+            var mh = theme.printHeaderMaxHeight > 0 ? theme.printHeaderMaxHeight + "px" : "initial";
+            var align = theme.headerAlign ?? "initial";
+            if (@theme.printHeaderId > 0) {
+                <div style="text-align: @align; background-color:white; padding:10px 0" >
+                    <img style="max-height: @mh; display:inline-block;" src="~/api/upload/getPic/@theme.printHeaderId" />
                 </div>
+            }
+        }
 
-            </div>
-
-
-        </div>
-
-        <ng-view></ng-view>
-
+        <dashboard-page hidemenu></dashboard-page>
     </div>
 
-    <div id="form-holder">
-        <sadaf-form id="{{formId}}" row-id="{{rowId}}" on-cancel="hideForm()" on-finish="hideForm()" settings="formSettings"></sadaf-form>
-    </div>
 
-    <div class="ui modal small" id="filter-member-dialog">
-        <i class="close icon"></i>
-        <div class="header">
-            فیلتر کردن مقادیر
-        </div>
-        <div class="content">
-            <div id="filter-member-dialog-content">
-                <div class="ui active inverted dimmer">
-                    <div class="ui text loader">در حال بارگذاری</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="actions">
-            <div class="ui button deny black">{{'انصراف' | translate}}</div>
-            <div class="ui button green" onclick="app.helper.filterMemberDialogOk()">انتخاب</div>
-        </div>
-    </div>
-
-    <div class="ui modal small" id="change-pass">
-        <div class="header">
-            پیام
-        </div>
-        <div class="content">
-            به دلایل امنیتی لازم است کلمه عبور شما تغییر پیدا کند. لطفا به صفحه تغییر کلمه عبور بروید.
-
-        </div>
-        <div class="actions">
-            <a class="ui button green" href="~/Profile/#/changepass">تغییر کلمه عبور</a>
-        </div>
-    </div>
-
-    <div class="ui modal small" id="input-comments">
-        <i class="close icon"></i>
-        <div class="header">
-            کامنت
-        </div>
-        <div class="content">
-            <div class="ui form">
-                <div class="field">
-                    <label>کامنت</label>
-                    <input ng-model="comment.value" type="text" class="" placeholder="">
-                </div>
-            </div>
-            <div class="alert alert-danger" ng-show="comment.error">
-                <div ng-show="comment.error.title">
-                    <b>{{comment.error.title}}</b>
-                    <p>{{comment.error.desc}}</p>
-                </div>
-            </div>
-
-        </div>
-        <div class="actions">
-            <div class="ui button deny black">{{'انصراف' | translate}}</div>
-            <div class="ui button green" ng-class="{disabled: modal.inProgress, loading : modal.inProgress}" ng-click="comment.ok()">{{modal.btnText}}</div>
-        </div>
-    </div>
 
     <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
     <input type="hidden" value="@Request.Url.AbsoluteUri" name="aboluteUrl" />
@@ -370,16 +294,16 @@
 
     <script>
         //iframe communication
-        var $el = $('[ng-controller=dashboardPageCtrl]');
-        window.addEventListener('message', function (e) {
-            if (!_.isString(e.data)) return;
+        //var $el = $('[ng-controller=dashboardPageCtrl]');
+        //window.addEventListener('message', function (e) {
+        //    if (!_.isString(e.data)) return;
 
-            var message = JSON.parse(e.data);
+        //    var message = JSON.parse(e.data);
 
-            var scope = angular.element($el).scope();
-            scope.iframeService.handleMessage(message);
-            scope.$apply();
-        });
+        //    var scope = angular.element($el).scope();
+        //    scope.iframeService.handleMessage(message);
+        //    scope.$apply();
+        //});
 
     </script>
 
