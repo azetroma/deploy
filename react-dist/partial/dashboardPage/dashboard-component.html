@@ -134,11 +134,10 @@
         </text>
     </div>
 </div>
-
 <div class="pusher" id="">
     <div class="main-container full-height-container">
         <div class="dashboard-page-top-side" style="display: block">
-            <div class="ui horizontal list top-menu" >
+            <div ng-hide="hidemenu" class="ui horizontal list top-menu" >
                 <div class="item sadaf-circular-preogress" style="position: relative; width: 20px; height: 18px"></div>
 
                 <div class="item dashboard-edit-panel" id="device-selector" style="display: none">
@@ -284,6 +283,7 @@
             </div>
 
             <div
+                ng-if="!hidemenu"
                 ng-show="(isFullscreen && dashboardOptions.showTitleFullscreen) || dashboardOptions.showTitle"
                 class="page-title"
                 style="display: inline-block; white-space: nowrap; margin-bottom: 8px"

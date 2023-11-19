@@ -378,7 +378,7 @@
                         </div>
                     </p>
                 </div>
-                license.disableLatLong = {{license.disableLatLong}}
+
                 <div class="form-row" layout="row" layout-align="start center" ng-if="!!!license.disableLatLong">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
@@ -419,11 +419,17 @@
                     </div>
 
                     <div class="form-row" layout="row" layout-align="start center">
-                        <label class="col-sm-4">{{ 'رنگ' | translate }}</label>
+                        <label class="col-sm-4">{{ 'رنگ علامت روی نقشه' | translate }}</label>
                         <span class="form-divider" flex></span><div class="col-sm-8">
                             <div md-color-picker ng-model="ngModel.map.info.showLatLng.color" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
                         </div>
                     </div>
+
+                    <!-- <div>
+                        <sadaf-icons style="display:inline-block" ng-model="ngModel.map.info.showLatLng.icon" type="image, icon" ng-change="refreshChart('refresh')"></sadaf-icons>
+                        <i class="icon remove gray pointer" ng-click="ngModel.map.info.showLatLng.icon = null; refreshChart('refresh')"></i>
+                    </div> -->
+
 
                     <div class="form-row" layout="row" layout-align="start center">
                         <label>زوم شروع نمایش </label>
