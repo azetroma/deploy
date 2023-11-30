@@ -49,7 +49,8 @@ dddd
                         <div class="ui button" (click)="upload()">انتخاب فایل</div>
                         <input #fileInput type="file" accept="image/*" style="display:none" (change)="uploadHandle($event)" />
                         <img width="100" src="{{model.logo}}" style="margin:0 auto; display:block" />
-                        <img *ngIf="model.logoId > 0 && !model.logo" width="100" src="{{app.urlPrefix + 'api/upload/getPic/' + model.logoId}}" style="margin:0 auto; display:block" />
+                        <imgx *ngIf="model.logoId > 0 && !model.logo" width="100" src="{{app.urlPrefix + 'api/upload/getPic/' + model.logoId}}" style="margin:0 auto; display:block" />
+                        <img *ngIf="model.logoId > 0 && !model.logo" width="100" src="{{app.urlPrefix}}api/upload/getpic/{{model.logoId}}?oid={{model.id}}&token={{app.token}}&type=theme" style="margin:0 auto; display:block" />
                     </div>
                 </div>
                 <div>
@@ -58,7 +59,8 @@ dddd
                         <div class="ui button" (click)="upload()">انتخاب فایل</div>
                         <input #fileInput type="file" accept="image/*" style="display:none" (change)="uploadHandle($event)" />
                         <img width="100" src="{{model.printHeader}}" style="margin:0 auto; display:block" />
-                        <img *ngIf="model.printHeader > 0 && !model.printHeader" width="100" src="{{app.urlPrefix + 'api/upload/getPic/' + model.printHeader}}" style="margin:0 auto; display:block" />
+                        <imgx *ngIf="model.printHeader > 0 && !model.printHeader" width="100" src="{{app.urlPrefix + 'api/upload/getPic/' + model.printHeader}}" style="margin:0 auto; display:block" />
+                        <img *ngIf="model.printHeader > 0 && !model.printHeader" width="100" src="{{app.urlPrefix}}api/upload/getpic/{{model.printHeader}}?oid={{model.id}}&token={{app.token}}&type=theme" style="margin:0 auto; display:block" />
                     </div>
                 </div>
                 <br/>

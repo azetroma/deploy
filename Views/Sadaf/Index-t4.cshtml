@@ -118,6 +118,7 @@
     <input type="hidden" id="appId" value="@ViewBag.appId" />
     <input type="hidden" name="noframe" value="@ViewBag.noframe" />
     <input type="hidden" name="logoId" value="@(ViewBag.theme != null ? ViewBag.theme.logoId : 0)" />
+    <input type="hidden" name="themeId" value="@(ViewBag.theme != null ? ViewBag.theme.id : 0)" />
     <input type="hidden" name="version-text" value="@(version.Major + "." + version.Minor + "." + version.Build)" />
     <input type="hidden" name="isLoginByLink" value="@ViewBag.isLoginByLink" />
     <input type="hidden" name="useApp" value="@useApp" />

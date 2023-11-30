@@ -2,7 +2,8 @@
     <div class="" style="text-align: center; padding: 16px 16px">
         <img
             ng-if="logoId>0"
-            ng-src="{{app.urlPrefix}}api/upload/getPic/{{logoId}}"
+            xng-src="{{app.urlPrefix}}api/upload/getPic/{{logoId}}"
+            ng-src="{{app.urlPrefix}}api/upload/getPic/{{logoId}}/?type=theme&oid={{themeId}}"
             class="tw-inline-block"
             style="max-width: 100%; max-height: 128px"
             alt="Alternate Text"
