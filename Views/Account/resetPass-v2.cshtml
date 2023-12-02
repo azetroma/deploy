@@ -1,132 +1,109 @@
 @{
     Layout = "~/Views/Shared/_LayoutLogin-v2.cshtml";
 }
-    <style>
-        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
-            display: none !important;
-        }
+<style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+        display: none !important;
+    }
 
-        .form-signin {
-            max-width: 970px;
-            margin-top: 80px;
-        }
+    .form-signin {
+        max-width: 970px;
+        margin-top: 80px;
+    }
 
-        .same-height {
-            margin-bottom: -99999px;
-            padding-bottom: 99999px;
-        }
+    .same-height {
+        margin-bottom: -99999px;
+        padding-bottom: 99999px;
+    }
 
-        .hide-overflow {
-            overflow: hidden;
-        }
+    .hide-overflow {
+        overflow: hidden;
+    }
 
-        .card {
-            padding: 40px;
-            background-color: #fff;
-            border-radius: 6px;
-        }
+    .card {
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 6px;
+    }
 
-        .logo {
-            max-width: 55%;
-            height: auto;
-            margin: 0 auto;
-            margin-bottom: 16px;
-            display: block;
-        }
+    .logo {
+        max-width: 55%;
+        height: auto;
+        margin: 0 auto;
+        margin-bottom: 16px;
+        display: block;
+    }
 
-        .sadaf-desc {
-            font-size: 13px;
-            text-align: justify;
-            margin-bottom: 30px;
-        }
+    .sadaf-desc {
+        font-size: 13px;
+        text-align: justify;
+        margin-bottom: 30px;
+    }
 
-        body {
-            margin: 0;
-            padding-top: 0px;
-            padding-bottom: 40px;
-            background-color: #eee;
-            overflow: auto;
-        }
+    body {
+        margin: 0;
+        padding-top: 0px;
+        padding-bottom: 40px;
+        background-color: #eee;
+        overflow: auto;
+    }
 
-        .inline-h1 {
-            display: inline;
-            font-size: inherit;
-            font-family: Droid !important;
-        }
+    .inline-h1 {
+        display: inline;
+        font-size: inherit;
+        font-family: Droid !important;
+    }
 
-        #activationModal .content li {
-            margin: 7px 0;
-        }
+    #activationModal .content li {
+        margin: 7px 0;
+    }
 
-        .form-signin {
-            transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-        }
+    .form-signin {
+        transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    }
 
-        .field-info {
-            font-weight: 200;
-            font-size: 0.8em;
-            color: gray;
-        }
+    .field-info {
+        font-weight: 200;
+        font-size: 0.8em;
+        color: gray;
+    }
 
-        .field.error .field-info {
-            color: #9f3a38;
-        }
+    .field.error .field-info {
+        color: #9f3a38;
+    }
 
-        .form-signin .field input {
-            line-height: 1.7em !important;
-            padding: 8px 16px !important;
-        }
+    .form-signin .field input {
+        line-height: 1.7em !important;
+        padding: 8px 16px !important;
+    }
 
-        .form-signin input[type=number]::-webkit-inner-spin-button,
-        .form-signin input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none !important;
-            -moz-appearance: none !important;
-            opacity: 0;
-            margin: 0;
-        }
-    </style>
+    .form-signin input[type=number]::-webkit-inner-spin-button,
+    .form-signin input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        opacity: 0;
+        margin: 0;
+    }
+</style>
 
 
 
-    <div class="card xform-signin tw-max-w-md  tw-m-auto" ng-app="resetPass" ng-controller="cntl">
-        <div style="">
+<div class="card xform-signin tw-max-w-md  tw-m-auto" ng-app="resetPass" ng-controller="cntl">
+    <div style="">
 
-            <div class="ui big form">
+        <div class="ui big form">
 
-                <div ng-show="step==1" class="field" ng-class="{error: validation.username==-1}">
+            <div ng-show="step==1">
+
+                <div class="field" ng-class="{error: validation.username==-1}">
                     <label>@ViewBag.msg["username"]</label>
                     <div class="ui icon input" ng-class="{loading: checkUsernameProgress}">
                         <input autocomplete="off" ng-model-options="{ allowInvalid: true, debounce: 500 }" xng-change="checkUsername()" ng-model="model.username" type="text" class="ui fuild input" />
                         <i class="user icon" ng-class="{'link green check' : validation.username==1, 'user' : validation.username!=1}"></i>
                     </div>
                     <div class="field-info" ng-show="error.username.length">{{error.username}}</div>
-                    @*<div class="field-info" ng-show="!model.username.length">کد ملی ۱۰ رقمی</div>*@
                 </div>
 
-                <div ng-show="step==2" class="field" ng-class="{error: validation.mobile==-1}">
-                    <label>@ViewBag.msg["mobile"]</label>
-                    <div class="ui icon input">
-                        <input ng-model="model.mobile" ng-blur="fieldValidate('mobile')" style="direction:ltr;text-align:left;padding-left: 70px !important;" type="text" autocomplete="off" class="ui fuild input" />
-                        <div style="position: absolute;left: 45px !important;top: 9px;font-weight:800">۰۹</div>
-                        <i class="phone icon" xng-class="{'green link check' : validation.mobile==1, 'phone':  validation.email==1}"></i>
-                    </div>
-                    <small class="field-info">{{error.mobile}}</small>
-                </div>
-
-
-                <div class="field" ng-class="{error : error.captcha.length}">
-                    <div style="text-align:center;">
-                        <div style="float:right;">
-                            <img ng-src="data:image/jpeg;base64,{{captchaPic}}" />
-                        </div>
-                        <div class="ui button basic icon" ng-click="reCaptcha()" style="float:left; margin:0;"><i class="ui icon refresh"></i></div>
-                    </div>
-                    <div class="ui icon input">
-                        <input ng-model="model.captcha" type="text" class="ui fuild input" />
-                        <i class="chess board icon"></i>
-                    </div>
-                    <small class="field-info">{{error.captcha}}</small>
-                </div>
 
                 <div class="ui small form" style="margin-top:15px;" id="login-type-div">
                     <div class=" inline fields">
@@ -148,27 +125,68 @@
                     {{successMessage}}
                 </div>
 
+                <div class="field" style="margin-top:15px;" ng-class="{error : error.captcha.length}">
+                    <div style="text-align:center;">
+                        <div style="float:right;">
+                            <img ng-src="data:image/jpeg;base64,{{captchaPic}}" />
+                        </div>
+                        <div class="ui button basic icon" ng-click="reCaptcha()" style="float:left; margin:0;"><i class="ui icon refresh"></i></div>
+                    </div>
+                    <div class="ui icon input">
+                        <input ng-model="model.captcha" type="text" class="ui fuild input" />
+                        <i class="chess board icon"></i>
+                    </div>
+                    <small class="field-info">{{error.captcha}}</small>
+                </div>
+
+
+
                 <button class="ui blue fluid button big submit" ng-class="{loading: loading, disabled: loading }" ng-click="submit()" type="submit" style="margin-top:35px;">
-                    درخواست کلمه عبور جدید
+                    {{step == 1 ? 'درخواست کلمه عبور جدید' : 'ورود'}}
                 </button>
+
                 <br />
+
                 <small>
                     <a href="@Href("~")">صفحه اصلی</a>
                 </small>
+
             </div>
-        </div>
-        <div class="ui modal info-modal">
-            <div class="header">پیام</div>
-            <div class="content">کلمه عبور شما تغییر کرد و کلمه عبور جدید برای شما ارسال شد</div>
-            <div class="actions">
-                <div class="ui green button" ng-click="login()">صفحه ورود به برنامه</div>
+            <div ng-show="step==4">
+
+                @*<div class="field">
+            <label>کد ارسال شده</label>
+            <div class="ui icon input">
+                <input ng-model="model.password" style="direction:ltr;text-align:left;" type="text" autocomplete="off" class="ui fuild input" />
+                <i class="lock icon" xng-class="{'green link check' : validation.mobile==1, 'phone':  validation.email==1}"></i>
+            </div>
+        </div>*@
+
+                <div class="ui secondary inverted green segment" ng-if="successMessage">
+                    کد برای شما ارسال شد. لطفا از این کد به عنوان رمز عبور استفاده کرده و وارد سیستم شوید
+                </div>
+                <a href="@Href("~")" class="ui black fluid button big submit" ng-class="{loading: loading, disabled: loading }" type="submit" style="margin-top:35px;">
+                     باز کردن صفحه ورود 
+                </a>
+
+
             </div>
 
+
         </div>
-        @if (ViewBag.error != null) {
-            <div class="ui negative message">
-                @Html.Raw(ViewBag.error)
-            </div>
-        }
+    </div>
+    <div class="ui modal info-modal">
+        <div class="header">پیام</div>
+        <div class="content">کلمه عبور شما تغییر کرد و کلمه عبور جدید برای شما ارسال شد</div>
+        <div class="actions">
+            <div class="ui green button" ng-click="login()">صفحه ورود به برنامه</div>
+        </div>
 
     </div>
+    @if (ViewBag.error != null) {
+        <div class="ui negative message">
+            @Html.Raw(ViewBag.error)
+        </div>
+    }
+
+</div>

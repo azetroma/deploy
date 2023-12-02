@@ -9,14 +9,16 @@
 
 
 }
-@if (isRelease) {
-    <script src="~/dist/js/profile.js?v=@v"></script>
+@*@if (isRelease) {
+        <script src="~/dist/js/profile.js?v=@v"></script>
 
-} else {
-    <script src="~/src/js/dashboardPage/navbar/navbar.js?v=@v" ></script>
-    <script src="~/src/js/dashboardPage/app.js?v=@v" ></script>
-    <script src="~/src/js/profile/profile.js?v=@v"></script>
-}
+    } else {
+        <script src="~/src/js/dashboardPage/navbar/navbar.js?v=@v" ></script>
+        <script src="~/src/js/dashboardPage/app.js?v=@v" ></script>
+        <script src="~/src/js/profile/profile.js?v=@v"></script>
+    }*@
+
+<script src="~/react-dist/app-bundle.js?v=@v"></script>
 
 
 @*<div class="sadaf-root" ng-app="profileCat" ng-cloak>

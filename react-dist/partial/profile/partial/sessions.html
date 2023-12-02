@@ -13,9 +13,9 @@
             </tr>
         </thead>
         <tr ng-repeat="item in list">
-            <td>{{$index + 1}}</td>
-            <td>{{moment.utc(item.LastActivity).format('jYYYY-jMM-jDD HH:mm:ss')}} <br /><small>{{moment(item.LastActivity, 'YYYY/MM/DD HH:mm:dd').fromNow()}}</small></td>
-            <td>{{moment.utc(item.LastLogin).format('jYYYY-jMM-jDD HH:mm:ss')}} <br /><small>{{moment(item.LastLogin, 'YYYY/MM/DD HH:mm:dd').fromNow()}}</small></td>
+            <td>{{persian($index + 1)}}</td>
+            <td>{{persian(moment.utc(item.LastActivity).format('jYYYY-jMM-jDD HH:mm:ss'))}} <br /><small>{{persian(moment(item.LastActivity, 'YYYY/MM/DD HH:mm:dd').fromNow())}}</small></td>
+            <td>{{persian(moment.utc(item.LastLogin).format('jYYYY-jMM-jDD HH:mm:ss'))}} <br /><small>{{persian(moment(item.LastLogin, 'YYYY/MM/DD HH:mm:dd').fromNow())}}</small></td>
             <td>{{item.Type == 0 ? ('web' | translate) : ('mobile' | translate)}}</td>
             <td style="max-width:200px;"><small>{{item.Agent}}</small></td>
             <td width="20"> 
