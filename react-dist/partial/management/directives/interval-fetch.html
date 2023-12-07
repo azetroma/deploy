@@ -12,15 +12,18 @@
 
         <div class="fields" >
             <div class="four wide field">
-                <label>نوع تاریخ</label>
+                <label>نوع</label>
                 <select ng-model="model.dateType">
-                    <option value="jalali-date">شمسی</option>
-                    <option value="miladi-date">میلادی</option>
+                    <option value="jalali-date">تاریخ شمسی</option>
+                    <option value="miladi-date">تاریخ میلادی</option>
+                    <option value="id">شناسه</option>
                 </select>
             </div>
             <div class="four wide field">
-                <label>فرمت تاریخ</label>
-                <input type="text" ng-model="model.format" placeholder="فرمت تاریخ" />
+                <div ng-hide="model.dateType == 'id'">
+                    <label>فرمت تاریخ</label>
+                    <input type="text" ng-model="model.format" placeholder="فرمت تاریخ" />
+                </div>
             </div>
 
             <div class="four wide field">
