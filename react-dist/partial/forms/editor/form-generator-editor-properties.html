@@ -107,54 +107,33 @@
         <sadaf-checkbox ng-model="c.control.active.validations.isRequire"> {{'require' | translate}} </sadaf-checkbox>
     </div>
     <div class="field" ng-show="c.controlProperty(c.control.active).disable">
-        <sadaf-checkbox ng-model="c.control.active.validations.isDisable" ng-change="setToAll('validations.isDisable')">
-            {{'غیر فعال کردن' | translate}}
-        </sadaf-checkbox>
+        <sadaf-checkbox ng-model="c.control.active.validations.isDisable" ng-change="setToAll('validations.isDisable')"> {{'غیر فعال کردن' | translate}} </sadaf-checkbox>
     </div>
     <div class="field" ng-show="c.controlProperty(c.control.active).regex">
-        <sadaf-checkbox
-            ng-model="c.control.active.validations.regexValidation"
-            ng-change="setToAll('validations.regexValidation')"
-        >
-            اعتبارسنجی با Regex
-        </sadaf-checkbox>
+        <sadaf-checkbox ng-model="c.control.active.validations.regexValidation" ng-change="setToAll('validations.regexValidation')"> اعتبارسنجی با Regex </sadaf-checkbox>
     </div>
     <div class="field" ng-show="c.control.active.validations.regexValidation">
         <label>Regex</label>
-        <input
-            ng-model="c.control.active.validations.regex"
-            ng-change="setToAll('validations.regex')"
-            style="direction: ltr"
-            placeholder="Regex"
-        />
+        <input ng-model="c.control.active.validations.regex" ng-change="setToAll('validations.regex')" style="direction: ltr" placeholder="Regex" />
     </div>
 
     <div class="field" ng-hide="c.control.active.dontShowHide">
-        <sadaf-checkbox ng-model="c.control.active.hidden" ng-change="setToAll('hidden')"
-            >{{'مخفی کردن'|translate}}</sadaf-checkbox
-        >
+        <sadaf-checkbox ng-model="c.control.active.hidden" ng-change="setToAll('hidden')">{{'مخفی کردن'|translate}}</sadaf-checkbox>
     </div>
     <div class="field" ng-show="c.controlProperty(c.control.active).showUniqueProp">
-        <sadaf-checkbox
-            ng-model="c.control.active.validations.enforceUnique"
-            ng-change="setToAll('validations.enforceUnique')"
-        >
-            {{'unique' | translate}}
-        </sadaf-checkbox>
+        <sadaf-checkbox ng-model="c.control.active.validations.enforceUnique" ng-change="setToAll('validations.enforceUnique')"> {{'unique' | translate}} </sadaf-checkbox>
+    </div>
+    <div class="field">
+        <sadaf-checkbox ng-model="c.control.active.uiConfig.hideClearBtn" ng-change="setToAll('uiConfig.hideClearBtn')"> {{'مخفی کردن کلید پاک کردن' | translate}} </sadaf-checkbox>
     </div>
 
     <div class="fields" ng-show="c.control.active.type == 2" style="margin-bottom: 0">
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.validations.autoIncrement">
-                {{'auto increment' | translate}}
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.validations.autoIncrement"> {{'auto increment' | translate}} </sadaf-checkbox>
         </div>
 
         <div class="field" ng-show="c.control.active.validations.autoIncrement">
-            <input
-                ng-model="c.control.active.validations.autoIncrementSeed"
-                placeholder="{{'begin value'|translate}}"
-            />
+            <input ng-model="c.control.active.validations.autoIncrementSeed" placeholder="{{'begin value'|translate}}" />
         </div>
     </div>
 
@@ -173,7 +152,7 @@
                 </span>
             </small>
         </div>
-        <br/>
+        <br />
         <div class="f-field">
             <label>شروع شمارنده</label>
             <input ng-model="c.control.active.numbering.start" />
@@ -192,17 +171,11 @@
     </div>
 
     <div class="field" ng-show="c.controlProperty(c.control.active).default">
-        <sadaf-checkbox ng-model="c.control.active.hasDefault" ng-change="setToAll('hasDefault')"
-            >{{'has default'|translate}}</sadaf-checkbox
-        >
+        <sadaf-checkbox ng-model="c.control.active.hasDefault" ng-change="setToAll('hasDefault')">{{'has default'|translate}}</sadaf-checkbox>
     </div>
 
     <div class="field" ng-show="c.controlProperty(c.control.active).default && c.control.active.hasDefault">
-        <input
-            ng-model="c.control.active.defaultValue"
-            ng-change="setToAll('defaultValue')"
-            placeholder="{{'مقدار پیش‌فرض'|translate}}"
-        />
+        <input ng-model="c.control.active.defaultValue" ng-change="setToAll('defaultValue')" placeholder="{{'مقدار پیش‌فرض'|translate}}" />
     </div>
 
     <div ng-if="c.control.active.type == 9">
@@ -220,11 +193,7 @@
     <div ng-if="c.control.active.type == 20" class="prop-section">
         <div class="f-field">
             <label>فونت</label>
-            <text-editor
-                class="value"
-                prop="c.control.active.uiConfig.font"
-                config="{format: false,bold: false,size: true,font: true,color: false,align: false}"
-            ></text-editor>
+            <text-editor class="value" prop="c.control.active.uiConfig.font" config="{format: false,bold: false,size: true,font: true,color: false,align: false}"></text-editor>
         </div>
         <div class="f-field">
             <label>حداقل ارتفاع </label>
@@ -233,69 +202,41 @@
     </div>
 
     <div class="field" ng-show="c.control.active.type == 1 || c.control.active.type == 0 || c.control.active.type == 2">
-        <sadaf-checkbox ng-model="c.control.active.validations.checkLen" ng-change="setToAll('validations.checkLen')"
-            >{{'length limit'|translate}}</sadaf-checkbox
-        >
+        <sadaf-checkbox ng-model="c.control.active.validations.checkLen" ng-change="setToAll('validations.checkLen')">{{'length limit'|translate}}</sadaf-checkbox>
     </div>
 
     <div class="field" ng-show="c.control.active.validations.checkLen">
-        <input
-            ng-model="c.control.active.validations.minLen"
-            ng-change="setToAll('validations.minLen')"
-            placeholder="{{'min length'|translate}}"
-        />
+        <input ng-model="c.control.active.validations.minLen" ng-change="setToAll('validations.minLen')" placeholder="{{'min length'|translate}}" />
     </div>
 
     <div class="field" ng-show="c.control.active.validations.checkLen">
-        <input
-            ng-model="c.control.active.validations.maxLen"
-            ng-change="setToAll('validations.maxLen')"
-            placeholder="{{'max length'|translate}}"
-        />
+        <input ng-model="c.control.active.validations.maxLen" ng-change="setToAll('validations.maxLen')" placeholder="{{'max length'|translate}}" />
     </div>
 
     <div class="field" ng-show="c.control.active.type == 2">
-        <sadaf-checkbox
-            ng-model="c.control.active.validations.checkNumber"
-            ng-change="setToAll('validations.checkNumber')"
-        >
+        <sadaf-checkbox ng-model="c.control.active.validations.checkNumber" ng-change="setToAll('validations.checkNumber')">
             <span>{{'value limit'|translate}}</span>
         </sadaf-checkbox>
     </div>
     <div class="field" ng-show="c.control.active.validations.checkNumber">
-        <input
-            ng-model="c.control.active.validations.minNumber"
-            ng-change="setToAll('validations.minNumber')"
-            placeholder="{{'min value'|translate}}"
-        />
+        <input ng-model="c.control.active.validations.minNumber" ng-change="setToAll('validations.minNumber')" placeholder="{{'min value'|translate}}" />
     </div>
 
     <div class="field" ng-show="c.control.active.validations.checkNumber">
-        <input
-            ng-model="c.control.active.validations.maxNumber"
-            ng-change="setToAll('validations.maxNumber')"
-            placeholder="{{'max value'|translate}}"
-        />
+        <input ng-model="c.control.active.validations.maxNumber" ng-change="setToAll('validations.maxNumber')" placeholder="{{'max value'|translate}}" />
     </div>
 
     <!--<div ng-show="c.control.active.type == 4 && c.control.active.dropdown.isUserVariable" class="field">
         <sadaf-user-variables ng-model="c.control.active.userVariable"></sadaf-user-variables>
     </div>-->
     <!-- تنظیمات مربوط به دراپ دان -->
-    <div
-        ng-show="c.control.active.type == 4 && !c.control.active.dropdown.isUser && !c.control.active.dropdown.isRole"
-        class="field"
-    >
+    <div ng-show="c.control.active.type == 4 && !c.control.active.dropdown.isUser && !c.control.active.dropdown.isRole" class="field">
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.dropdown.multiSelectDropdown">
-                {{'drop down multi select' | translate}}
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.dropdown.multiSelectDropdown"> {{'drop down multi select' | translate}} </sadaf-checkbox>
         </div>
 
         <div class="field" ng-if="!c.control.active.dropdown.isUser">
-            <sadaf-checkbox ng-model="c.control.active.dropdown.useRemoteData" ng-change="c.control.resetListValue()">
-                {{'use remote data'|translate}}
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.dropdown.useRemoteData" ng-change="c.control.resetListValue()"> {{'use remote data'|translate}} </sadaf-checkbox>
         </div>
 
         <div class="f-field" ng-show="!c.control.active.dropdown.useRemoteData">
@@ -324,9 +265,7 @@
         </div>
 
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.dropdown.useFormula">
-                مقادیر قابل انتخاب به صورت فرمول
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.dropdown.useFormula"> مقادیر قابل انتخاب به صورت فرمول </sadaf-checkbox>
         </div>
 
         <div class="field" ng-if="c.control.active.dropdown.useFormula">
@@ -352,22 +291,14 @@
         </div>
 
         <div ng-if="c.control.active.dropdown.useRemoteData && !c.control.active.dropdown.isUser">
-            <sadaf-checkbox ng-model="c.control.active.dropdown.preventRelation"
-                >عدم ایجاد ارتباط بین منبع داده و فرم</sadaf-checkbox
-            >
+            <sadaf-checkbox ng-model="c.control.active.dropdown.preventRelation">عدم ایجاد ارتباط بین منبع داده و فرم</sadaf-checkbox>
             <br />
             <br />
-            <select-datasource-columns
-                ng-model="c.control.active.dropdown"
-                controls="c.activeSibling"
-                control="c.control.active"
-            ></select-datasource-columns>
+            <select-datasource-columns ng-model="c.control.active.dropdown" controls="c.activeSibling" control="c.control.active"></select-datasource-columns>
         </div>
 
         <div class="field" ng-if="c.control.active.dropdown.useRemoteData && !c.control.active.dropdown.isUser">
-            <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
-                {{'filter' | translate}}
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()"> {{'filter' | translate}} </sadaf-checkbox>
             <filter-property
                 ng-show="c.control.active.useFilter"
                 name="c.control.active.name"
@@ -458,39 +389,23 @@
     <div ng-show="c.control.active.type == 5 || c.control.active.type == 16|| c.control.active.type == 17">
         <div class="f-field">
             <label class="">{{'prefix' | translate}}</label>
-            <input
-                type="text"
-                ng-model="c.control.active.prefix"
-                name="prefix"
-                autocomplete="nope"
-                placeholder="{{'prefix' | translate}}"
-            />
+            <input type="text" ng-model="c.control.active.prefix" name="prefix" autocomplete="nope" placeholder="{{'prefix' | translate}}" />
         </div>
 
         <div class="f-field">
             <label class="">{{'postfix' | translate}}</label>
-            <input
-                type="text"
-                ng-model="c.control.active.postfix"
-                name="postfix"
-                autocomplete="nope"
-                placeholder="{{'postfix' | translate}}"
-            />
+            <input type="text" ng-model="c.control.active.postfix" name="postfix" autocomplete="nope" placeholder="{{'postfix' | translate}}" />
         </div>
     </div>
 
     <!-- تنظیمات مربوط به ارجاع به فرم -->
     <div ng-if="c.control.active.type == 12" class="field">
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.formLookup.showAddButton" ng-change="c.control.resetListValue()">
-                {{'show new record botton' | translate}}
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.formLookup.showAddButton" ng-change="c.control.resetListValue()"> {{'show new record botton' | translate}} </sadaf-checkbox>
         </div>
 
         <div class="field" sm-popup-inline="">
-            <sadaf-checkbox ng-model="c.control.active.formLookup.duplicateDatasource">
-                ایجاد کپی از منبع داده مبدا
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.formLookup.duplicateDatasource"> ایجاد کپی از منبع داده مبدا </sadaf-checkbox>
         </div>
 
         <div class="f-field">
@@ -506,24 +421,15 @@
 
         <sm-popup-detached class="ui mini basic fluid">
             <div class="header">راهنما</div>
-            <div class="gray">
-                برای جلوگیری از ایجاد دور در ارتباط بین منابع داده در صورت استفاده از چند ارجاع به یک فرم از این گزینه
-                استفاده کنید.
-            </div>
+            <div class="gray">برای جلوگیری از ایجاد دور در ارتباط بین منابع داده در صورت استفاده از چند ارجاع به یک فرم از این گزینه استفاده کنید.</div>
         </sm-popup-detached>
 
         <div class="field">
-            <form-lookup-property
-                root-form="{{c.id}}"
-                ng-model="c.control.active.formLookup"
-                control="c.control.active"
-            ></form-lookup-property>
+            <form-lookup-property root-form="{{c.id}}" ng-model="c.control.active.formLookup" control="c.control.active"></form-lookup-property>
         </div>
 
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()">
-                {{'filter' | translate}}
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.useFilter" ng-change="c.control.resetListValue()"> {{'filter' | translate}} </sadaf-checkbox>
             <filter-property
                 ng-show="c.control.active.useFilter"
                 name="c.control.active.name"
@@ -553,33 +459,20 @@
     <!-- تنظیمات مربوط به فرم چند ردیفه -->
     <div ng-show="c.control.active.type == 13" class="field">
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.multiRowForm.separator">
-                {{'row separator' | translate}}
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.multiRowForm.separator"> {{'row separator' | translate}} </sadaf-checkbox>
         </div>
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.uiConfig.hideAddButton">
-                مخفی کردن کلید ردیف جدید
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.hideAddButton"> مخفی کردن کلید ردیف جدید </sadaf-checkbox>
         </div>
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.uiConfig.hideRowNumber">
-                عدم نمایش شماره ردیف
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.hideRowNumber"> عدم نمایش شماره ردیف </sadaf-checkbox>
         </div>
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.uiConfig.rowCopyButton">
-                نمایش کلید کپی و حذف ردیف
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.rowCopyButton"> نمایش کلید کپی و حذف ردیف </sadaf-checkbox>
         </div>
         <div class="f-field">
             <label class="">{{'بیشترین ارتفاع' | translate}}</label>
-            <input
-                type="text"
-                ng-model="c.control.active.uiConfig.maxHeight"
-                autocomplete="nope"
-                placeholder="{{'بیشترین ارتفاع' | translate}}"
-            />
+            <input type="text" ng-model="c.control.active.uiConfig.maxHeight" autocomplete="nope" placeholder="{{'بیشترین ارتفاع' | translate}}" />
         </div>
 
         <!-- <div class="f-field">
@@ -601,23 +494,14 @@
 
         <div class="f-field">
             <label>{{'new record botton text' | translate}}</label>
-            <input
-                class=""
-                ng-model="c.control.active.multiRowForm.addKeyText"
-                autocomplete="off"
-                placeholder="{{'new record' | translate}}"
-            />
+            <input class="" ng-model="c.control.active.multiRowForm.addKeyText" autocomplete="off" placeholder="{{'new record' | translate}}" />
         </div>
     </div>
 
-    <div style="margin-bottom: -20px;">
+    <div style="margin-bottom: -20px">
         <label>اضافه کردن کد در صورت تغییر مقدار</label>
     </div>
-    <sadaf-tasks
-        ng-model="c.control.active.tasks"
-        trigger="5"
-        ng-init="c.control.active.tasks = c.control.active.tasks || []"
-    ></sadaf-tasks>
+    <sadaf-tasks ng-model="c.control.active.tasks" trigger="5" ng-init="c.control.active.tasks = c.control.active.tasks || []"></sadaf-tasks>
 
     <!-- تنظیمات مربوط به کلید -->
     <div ng-if="c.control.active.type == 15" class="field">
@@ -649,10 +533,7 @@
             <control-size ng-model="c.control.active.button.size"></control-size>
         </div>
 
-        <sadaf-tasks
-            ng-model="c.control.active.button.tasks"
-            ng-init="c.control.active.button.tasks = c.control.active.button.tasks || []"
-        ></sadaf-tasks>
+        <sadaf-tasks ng-model="c.control.active.button.tasks" ng-init="c.control.active.button.tasks = c.control.active.button.tasks || []"></sadaf-tasks>
     </div>
 
     <div ng-if="c.control.active.type==24">
@@ -693,22 +574,12 @@
                 </div>
             </div>
         </div>-->
-        <div>
-            در صورتی که فرمول زیر مقدار true داشته باشد هشدار نمایش داده می‌شود. در صورتی که فرمول یک رشته را برگرداند
-            رشته به عنوان متن پیام در نظر گرفته می‌شود
-        </div>
+        <div>در صورتی که فرمول زیر مقدار true داشته باشد هشدار نمایش داده می‌شود. در صورتی که فرمول یک رشته را برگرداند رشته به عنوان متن پیام در نظر گرفته می‌شود</div>
         <div class="field">
             <label>{{'فرمول' | translate}}</label>
             <!--<textarea class="code ltr" ng-model="c.control.active.alert.expression"></textarea>-->
             <div flex>
-                <feditor
-                    control-s="saveFormShotcut()"
-                    flex
-                    nosort
-                    ng-model="c.control.active.alert.expression"
-                    lang="js"
-                    list="c.activeSibling.autoCompelete"
-                ></feditor>
+                <feditor control-s="saveFormShotcut()" flex nosort ng-model="c.control.active.alert.expression" lang="js" list="c.activeSibling.autoCompelete"></feditor>
             </div>
 
             <div class="desc ui small">
@@ -748,8 +619,7 @@
             <div class="desc ui small">
                 برای نمایش فیلدهای داخل تکرار شونده از الگوی زیر استفاده کنید
                 <span class="ltr inline">[multirow-field-number][index][field-num]</span>
-                همچنین index می‌تواند عدد صحیح یا عبارت index باشد که در حالت دوم به صورت پویا مقداردهی می‌شود و index
-                ردیف فیلد محاسباتی فعلی را نشان خواهد داد
+                همچنین index می‌تواند عدد صحیح یا عبارت index باشد که در حالت دوم به صورت پویا مقداردهی می‌شود و index ردیف فیلد محاسباتی فعلی را نشان خواهد داد
                 <br />
                 مثال اضافه کردن تاریخ: moment([field-14], 'jYYYY/jMM/jDD').add(20, 'days').format('jYYYY/jMM/jDD')
                 <br />
@@ -762,11 +632,7 @@
     <div ng-if="c.control.active.type == 16" class="field">
         <div class="inline fields">
             <label>{{'تابع تجمیع' | translate}}</label>
-            <sm-dropdown
-                items="['sum','avg','var']"
-                model="c.control.active.calculate.func"
-                ng-init="c.control.active.calculate.func = 'sum'"
-            ></sm-dropdown>
+            <sm-dropdown items="['sum','avg','var']" model="c.control.active.calculate.func" ng-init="c.control.active.calculate.func = 'sum'"></sm-dropdown>
         </div>
         <!--<div class="field">
         <label>{{'selectable controls' | translate}}</label>
@@ -798,9 +664,7 @@
     <!-- تنظیمات مربوط به کنترل دسترسی -->
     <div ng-hide="c.control.active.dontShowAccessControl" class="field">
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.accessControlView" label="{{'view access control' | translate}}"
-                >{{'view access control' | translate}}</sadaf-checkbox
-            >
+            <sadaf-checkbox ng-model="c.control.active.accessControlView" label="{{'view access control' | translate}}">{{'view access control' | translate}}</sadaf-checkbox>
         </div>
 
         <div class="field" ng-show="c.control.active.accessControlView">
@@ -809,9 +673,7 @@
         </div>
 
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.accessControlEdit" label="{{'edit access control' | translate}}"
-                >{{'edit access control' | translate}}</sadaf-checkbox
-            >
+            <sadaf-checkbox ng-model="c.control.active.accessControlEdit" label="{{'edit access control' | translate}}">{{'edit access control' | translate}}</sadaf-checkbox>
         </div>
 
         <div class="field" ng-show="c.control.active.accessControlEdit">
@@ -827,22 +689,14 @@
     <div ng-if="[22, 19,13, 25].includes(c.control.active.type)">
         <div class="f-field">
             <label>حاشیه </label>
-            <input
-                ng-model="c.control.active.uiConfig.margin"
-                type="text"
-                ng-init="c.control.active.uiConfig.margin = c.control.active.uiConfig.margin || '0px 0px'"
-            />
+            <input ng-model="c.control.active.uiConfig.margin" type="text" ng-init="c.control.active.uiConfig.margin = c.control.active.uiConfig.margin || '0px 0px'" />
         </div>
         <small class="gray">حاشیه باید به صورت <span class="ltr code">10px 0px</span> باشد </small>
     </div>
     <div ng-if="[25].includes(c.control.active.type)">
         <div class="f-field">
             <label>حداقل ارتفاع </label>
-            <input
-                ng-model="c.control.active.uiConfig.minHeight"
-                type="number"
-                ng-init="c.control.active.uiConfig.minHeight = c.control.active.uiConfig.minHeight || 150"
-            />
+            <input ng-model="c.control.active.uiConfig.minHeight" type="number" ng-init="c.control.active.uiConfig.minHeight = c.control.active.uiConfig.minHeight || 150" />
         </div>
     </div>
     <div ng-if="[22, 19,13].includes(c.control.active.type)">
@@ -873,21 +727,12 @@
 
     <div class="f-field" xng-if="![22].includes(c.control.active.type)">
         <label>رنگ پشت زمینه</label>
-        <div
-            class=""
-            md-color-picker
-            ng-model="c.control.active.uiConfig.color"
-            md-color-default-tab="'genericPalette'"
-        ></div>
+        <div class="" md-color-picker ng-model="c.control.active.uiConfig.color" md-color-default-tab="'genericPalette'"></div>
         <i title="پاک کردن رنگ" class="ui link icon close" ng-click="c.control.active.uiConfig.color = null"></i>
     </div>
 
     <div class="field">
-        <sadaf-checkbox
-            ng-change="setToAll('uiConfig.fontLabel.enable')"
-            ng-model="c.control.active.uiConfig.fontLabel.enable"
-            >تغییر فونت برچسب
-        </sadaf-checkbox>
+        <sadaf-checkbox ng-change="setToAll('uiConfig.fontLabel.enable')" ng-model="c.control.active.uiConfig.fontLabel.enable">تغییر فونت برچسب </sadaf-checkbox>
         &nbsp;&nbsp;&nbsp;
         <text-editor
             on-change="setToAll('uiConfig.fontLabel')"
@@ -909,11 +754,7 @@
     </div>
 
     <div class="field" ng-if="[0,1,2,3, 5, 16, 4, 26].includes(c.control.active.type)">
-        <sadaf-checkbox
-            ng-change="setToAll('uiConfig.fontValue.enable')"
-            ng-model="c.control.active.uiConfig.fontValue.enable"
-            >تغییر فونت مقدار
-        </sadaf-checkbox>
+        <sadaf-checkbox ng-change="setToAll('uiConfig.fontValue.enable')" ng-model="c.control.active.uiConfig.fontValue.enable">تغییر فونت مقدار </sadaf-checkbox>
         &nbsp;&nbsp;&nbsp;
         <text-editor
             on-change="setToAll('uiConfig.fontValue')"
@@ -967,18 +808,10 @@
         </div>
 
         <div class="field">
-            <sadaf-checkbox
-                ng-if="c.control.active.uiConfig.theme == 'dragdrop'"
-                ng-model="c.control.active.uiConfig.showIcon"
-                >نمایش آیکن</sadaf-checkbox
-            >
+            <sadaf-checkbox ng-if="c.control.active.uiConfig.theme == 'dragdrop'" ng-model="c.control.active.uiConfig.showIcon">نمایش آیکن</sadaf-checkbox>
         </div>
         <div class="field">
-            <sadaf-checkbox
-                ng-if="c.control.active.uiConfig.theme == 'dragdrop'"
-                ng-model="c.control.active.uiConfig.compact"
-                >فضای نمایشی کمتر</sadaf-checkbox
-            >
+            <sadaf-checkbox ng-if="c.control.active.uiConfig.theme == 'dragdrop'" ng-model="c.control.active.uiConfig.compact">فضای نمایشی کمتر</sadaf-checkbox>
         </div>
 
         <div class="field">
@@ -986,15 +819,10 @@
         </div>
 
         <div class="field" ng-if="c.control.active.uiConfig.theme != 'menu'">
-            <sadaf-checkbox ng-model="c.control.active.uiConfig.showEmptyMessage"
-                >نمایش پیغام لیست خالی فایل</sadaf-checkbox
-            >
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.showEmptyMessage">نمایش پیغام لیست خالی فایل</sadaf-checkbox>
         </div>
 
-        <div
-            class="f-field"
-            ng-if="c.control.active.uiConfig.showEmptyMessage && c.control.active.uiConfig.theme != 'menu'"
-        >
+        <div class="f-field" ng-if="c.control.active.uiConfig.showEmptyMessage && c.control.active.uiConfig.theme != 'menu'">
             <label>متن عدم انتخاب فایل</label>
             <input class="value" ng-model="c.control.active.uiConfig.emptyMessage" />
         </div>
@@ -1007,10 +835,7 @@
 
     <div ng-if="c.control.active.type == 13">
         <div class="field">
-            <sadaf-checkbox
-                ng-model="c.control.active.accessControlJustNewRecord"
-                label="مجاز تنها برای اضافه کردن ردیف جدید"
-            >
+            <sadaf-checkbox ng-model="c.control.active.accessControlJustNewRecord" label="مجاز تنها برای اضافه کردن ردیف جدید">
                 مجاز تنها برای اضافه کردن ردیف جدید
             </sadaf-checkbox>
         </div>
@@ -1035,15 +860,10 @@
             <sadaf-checkbox ng-model="c.control.active.uiConfig.matrixMode">نمایش ماتریسی</sadaf-checkbox>
         </div>
 
-        <small class="gray">
-            برای نمایش ماتریسی لازم است سه کنترل در تکرار شونده قرار بگیرند که به ترتیب اولی و دومی چند گزینه‌ای و کنترل
-            سوم مقدار شاخص باشد.
-        </small>
+        <small class="gray"> برای نمایش ماتریسی لازم است سه کنترل در تکرار شونده قرار بگیرند که به ترتیب اولی و دومی چند گزینه‌ای و کنترل سوم مقدار شاخص باشد. </small>
         <br />
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.preventRelation">
-                عدم ایجاد ارتباط خودکار بین منبع داده تکرار شونده و فرم اصلی
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.preventRelation"> عدم ایجاد ارتباط خودکار بین منبع داده تکرار شونده و فرم اصلی </sadaf-checkbox>
         </div>
     </div>
 
@@ -1075,16 +895,10 @@
                     value="item.value"
                 ></sm-dropdown>
                 <div class="tw-grow"></div>
-                <div
-                    class="ui icon basic mini button"
-                    ng-click="c.control.active.uiConfig.chartParams.splice($index, 0, {type:0})"
-                >
+                <div class="ui icon basic mini button" ng-click="c.control.active.uiConfig.chartParams.splice($index, 0, {type:0})">
                     <i class="ui icon add"></i>
                 </div>
-                <div
-                    class="ui icon basic mini button"
-                    ng-click="c.control.active.uiConfig.chartParams.splice($index, 1)"
-                >
+                <div class="ui icon basic mini button" ng-click="c.control.active.uiConfig.chartParams.splice($index, 1)">
                     <i class="ui icon close"></i>
                 </div>
             </div>
@@ -1092,23 +906,11 @@
 
             <div class="f-field">
                 <label>فرمول نمودار</label>
-                <feditor
-                    class="value"
-                    control-s="saveFormShotcut()"
-                    ng-model="p.chartFormula"
-                    lang="js"
-                    list="c.controlListAutoCompelete"
-                ></feditor>
+                <feditor class="value" control-s="saveFormShotcut()" ng-model="p.chartFormula" lang="js" list="c.controlListAutoCompelete"></feditor>
             </div>
             <div class="f-field">
                 <label>فرمول دریافت مقادیر</label>
-                <feditor
-                    class="value"
-                    control-s="saveFormShotcut()"
-                    ng-model="p.valueFormula"
-                    lang="js"
-                    list="c.controlListAutoCompelete"
-                ></feditor>
+                <feditor class="value" control-s="saveFormShotcut()" ng-model="p.valueFormula" lang="js" list="c.controlListAutoCompelete"></feditor>
             </div>
         </div>
     </div>
@@ -1122,9 +924,7 @@
 
     <div ng-if="c.pages.data.length > 1">
         انتقال به صفحه
-        <div class="ui mini button" ng-if="!p.active" ng-repeat="p in c.pages.data" ng-click="moveToPage(p)">
-            {{p.name}}
-        </div>
+        <div class="ui mini button" ng-if="!p.active" ng-repeat="p in c.pages.data" ng-click="moveToPage(p)">{{p.name}}</div>
     </div>
 </form>
 
@@ -1148,10 +948,7 @@
             value="item.value"
         ></sm-dropdown>
     </div>
-    <small class="gray"
-        >در صورتی که دو کاربر به صورت همزمان یک فرم را باز کرده باشند، روش ذخیره کردن اطلاعات با این گزینه مشخص
-        می‌شود.</small
-    >
+    <small class="gray">در صورتی که دو کاربر به صورت همزمان یک فرم را باز کرده باشند، روش ذخیره کردن اطلاعات با این گزینه مشخص می‌شود.</small>
 
     <div class="inline fields">
         <label>اندازه دیالوگ بازشونده فرم</label>
@@ -1170,11 +967,7 @@
             {{'add task on event' | translate}} <i class="ui icon add"></i>
         </div>
         <div ng-repeat="t in c.triggers" class="ui segment">
-            <button
-                ng-click="c.triggers.splice($index, 1)"
-                class="ui mini basic icon button"
-                style="box-shadow: none; position: absolute; top: 0; left: 0; z-index: 2"
-            >
+            <button ng-click="c.triggers.splice($index, 1)" class="ui mini basic icon button" style="box-shadow: none; position: absolute; top: 0; left: 0; z-index: 2">
                 <i class="ui icon close"></i>
             </button>
             <div class="inline fields">
@@ -1202,9 +995,8 @@
             <div class="field">
                 <sadaf-tasks ng-model="t.tasks" trigger="t.type" ng-init="t.tasks = t.tasks || []"></sadaf-tasks>
                 <small ng-if="t.type==6||t.type==7">
-                    در صورتی که تابع مقدار false را برگرداند فرم ذخیره نخواهد شد
-                در صورت تمایل برای نمایش خطا از کد زیر استفاده کنید
-                <pre class="ltr">
+                    در صورتی که تابع مقدار false را برگرداند فرم ذخیره نخواهد شد در صورت تمایل برای نمایش خطا از کد زیر استفاده کنید
+                    <pre class="ltr">
 return {
     result: false,
     pageMessages: [{
@@ -1212,34 +1004,27 @@ return {
         error: 'متن خطا'
     }]
 };
-                </pre>
+                </pre
+                    >
                 </small>
             </div>
         </div>
     </div>
 
     <div class="field" sm-popup-inline="">
-        <sadaf-checkbox ng-model="c.dynamicAcl" ng-change="c.getAllRelatedDatasource()" label=""
-            >کنترل دسترسی به صورت پویا</sadaf-checkbox
-        >
+        <sadaf-checkbox ng-model="c.dynamicAcl" ng-change="c.getAllRelatedDatasource()" label="">کنترل دسترسی به صورت پویا</sadaf-checkbox>
     </div>
 
     <div class="ui secondary segment" ng-if="c.dynamicAcl">
         <small class="gray">
-            در صورتی که در یکی از فرم‌های ارجاع شده به این فرم کنترلی از نوع نقش وجود داشته باشد می‌توانید از این امکان
-            استفاده کنید و ورود اطلاعات دراین فرم را تنها برای کاربران نقش انتخاب شده مجاز کنید
+            در صورتی که در یکی از فرم‌های ارجاع شده به این فرم کنترلی از نوع نقش وجود داشته باشد می‌توانید از این امکان استفاده کنید و ورود اطلاعات دراین فرم را تنها برای کاربران
+            نقش انتخاب شده مجاز کنید
         </small>
 
         <div class="ui inline active small loader" ng-if="c.relatedDsProgress"></div>
         <div class="field" ng-if="!c.relatedDsProgress">
             <label>انتخاب منبع داده</label>
-            <sm-dropdown
-                items="c.relatedDatasources"
-                class="selection fluid search"
-                model="c.dynamicAclDatasource"
-                label="item.name"
-                value="item.id"
-            ></sm-dropdown>
+            <sm-dropdown items="c.relatedDatasources" class="selection fluid search" model="c.dynamicAclDatasource" label="item.name" value="item.id"></sm-dropdown>
         </div>
         <div class="field" ng-if="!c.relatedDsProgress">
             <label>انتخاب ستون حاوی شناسه نقش</label>
@@ -1260,27 +1045,20 @@ return {
     <div ng-if="app.license.formPrint && c.printEnable" class="ui secondary segment">
         <div class="field">
             <label>قالب چاپ</label>
-            <feditor
-                control-s="saveFormShotcut()"
-                ng-model="c.printLayout"
-                lang="html"
-                list="c.controlListAutoCompelete"
-            ></feditor>
+            <feditor control-s="saveFormShotcut()" ng-model="c.printLayout" lang="html" list="c.controlListAutoCompelete"></feditor>
             <!--<textarea ng-model="c.printLayout" rows="5" class="ltr"></textarea>-->
             <!--<div style="text-align:left">
                 <span class="material-icons small" ng-click="showDialog($event)" title="{{'edit_query' | translate}}">fullscreen</span>
             </div>-->
 
             <small class="gray">
-                از شناسه فیلدها با پیشوند @ برای استفاده از جایگزینی مقدار فیلدها استفاده کنید مثل @field-1 همچنین
-                می‌توانید از نام ستون با الگوی زیر استفاده کنید {{'[columnNamee]'}} </small
+                از شناسه فیلدها با پیشوند @ برای استفاده از جایگزینی مقدار فیلدها استفاده کنید مثل @field-1 همچنین می‌توانید از نام ستون با الگوی زیر استفاده کنید
+                {{'[columnNamee]'}} </small
             ><br />
-            <small class="gray"
-                >در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</small
-            >
+            <small class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</small>
             <br /><small class="gray"
-                >در صورت استفاده فیلد تکرار شونده به این صورت استفاده کنید. each(@[field name]){{'{{[template]}\}'}} که
-                در آن نام فیلد تکرار شونده ابتدا آورده می‌شود و نام فیلدهای ردیف در template قرار میگیرند.</small
+                >در صورت استفاده فیلد تکرار شونده به این صورت استفاده کنید. each(@[field name]){{'{{[template]}\}'}} که در آن نام فیلد تکرار شونده ابتدا آورده می‌شود و نام فیلدهای
+                ردیف در template قرار میگیرند.</small
             >
             <br /><small class="gray">برای تبدیل اعداد به حروف از تابع Num2persian() استفاده کنید</small>
         </div>
@@ -1315,14 +1093,11 @@ return {
             </div>
         </form>
         <sadaf-checkbox ng-model="c.printExtra.preventPersian">جلوگیری از فارسی کردن اعداد</sadaf-checkbox>
-
     </div>
 
     <div class="ui mini secondary clearing segment">
         <div class="ui mini header left floated">متغیرهای کاربری</div>
-        <div class="ui icon basic mini button right floated" ng-click="c.userVariables.push({})">
-            اضافه کردن <i class="ui icon add"></i>
-        </div>
+        <div class="ui icon basic mini button right floated" ng-click="c.userVariables.push({})">اضافه کردن <i class="ui icon add"></i></div>
         <div ng-repeat="item in c.userVariables" class="clear">
             <div class="fields">
                 <div class="five wide field">
@@ -1351,13 +1126,12 @@ return {
 
     <div class="field">
         <label>اسکریپت‌های کلی فرم</label>
-        <feditor control-s="saveFormShotcut()" flex ng-model="c.clientModel.generalScript" lang="js" ></feditor>
-        <small class="gray">این تکه کد زمان باز شدن فرم اجرا می‌شود. میتوانید توابعی که لازم دارید را در 
-            scope
-            ذخیره کنید و سپس در وظیفه‌های هر کنترل از آن‌ها استفاده کنید.
+        <feditor control-s="saveFormShotcut()" flex ng-model="c.clientModel.generalScript" lang="js"></feditor>
+        <small class="gray"
+            >این تکه کد زمان باز شدن فرم اجرا می‌شود. میتوانید توابعی که لازم دارید را در scope ذخیره کنید و سپس در وظیفه‌های هر کنترل از آن‌ها استفاده کنید.
         </small>
     </div>
-    
+
     <div class="field">
         <sadaf-checkbox ng-model="c.clientModel.createDax">ایجاد منبع داده DAX مجزا</sadaf-checkbox>
     </div>
@@ -1365,8 +1139,6 @@ return {
     <div class="field">
         <sadaf-checkbox ng-model="c.mapTable.enable">عدم ایجاد جدول و استفاده از جدول موجود</sadaf-checkbox>
     </div>
-    
-    
 
     <style>
         .inline-form.field input {
@@ -1383,9 +1155,7 @@ return {
 
     <div class="ui mini secondary clearing segment inline-form" ng-show="c.mapTable.enable">
         <div class="field">
-            <sadaf-checkbox ng-model="c.mapTable.externalTable"
-                >استفاده از جداول خارجی به جز منابع داده
-            </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.mapTable.externalTable">استفاده از جداول خارجی به جز منابع داده </sadaf-checkbox>
         </div>
 
         <div ng-show="!c.mapTable.externalTable">
@@ -1445,17 +1215,11 @@ return {
     </div>
 
     <div class="field">
-        <access-property
-            ng-model="c.pages.activePage.access"
-            operand="c.pages.activePage.accessOp"
-            controls="c.activeSibling"
-        ></access-property>
+        <access-property ng-model="c.pages.activePage.access" operand="c.pages.activePage.accessOp" controls="c.activeSibling"></access-property>
     </div>
 
     <div class="field">
-        <sadaf-checkbox ng-model="c.pages.activePage.rowValidation.uniqueMultiField" label=""
-            >{{'unique value for multi control' | translate}}</sadaf-checkbox
-        >
+        <sadaf-checkbox ng-model="c.pages.activePage.rowValidation.uniqueMultiField" label="">{{'unique value for multi control' | translate}}</sadaf-checkbox>
     </div>
 
     <div ng-show="c.pages.activePage.rowValidation.uniqueMultiField" class="field">
@@ -1465,13 +1229,7 @@ return {
         </div>
         <div class="fields" ng-repeat="f in c.pages.activePage.rowValidation.uniques track by $index">
             <div class="twelve wide field">
-                <sm-dropdown
-                    class="selection multiple search xfluid"
-                    model="f"
-                    items="c.controlList"
-                    label="item.label"
-                    value="item.name"
-                ></sm-dropdown>
+                <sm-dropdown class="selection multiple search xfluid" model="f" items="c.controlList" label="item.label" value="item.name"></sm-dropdown>
             </div>
 
             <div class="one wide field" ng-show="c.pages.activePage.rowValidation.uniques.length != 1">

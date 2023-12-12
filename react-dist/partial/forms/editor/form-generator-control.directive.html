@@ -1,6 +1,6 @@
 ﻿
 <div    ng-style="{backgroundColor: [22,19,13,25].includes(model.type)?'': model.uiConfig.color || '' }" 
-        class=" field form-control {{model.name}} type-{{model.type}} form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ (!model.canEdit && model.type != 13) || (disabled == 'disabled' || disabled == 'true' ) ? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{ model.readonly? 'read-only':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
+        class=" field form-control {{model.uiConfig.hideClearBtn ? '' : 'showClearBtn'}} {{model.name}} type-{{model.type}} form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ (!model.canEdit && model.type != 13) || (disabled == 'disabled' || disabled == 'true' ) ? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{ model.readonly? 'read-only':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
 
     <span ng-if="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
     <span ng-if="edit" class="ui label mini compact hidden-mark" style="color:black; opacity: 0.6;">{{model.name.replace('field-', '')}}</span>
@@ -8,6 +8,7 @@
         <span class="material-icons small small-size pointer gray" ng-click="remove()" title="delete">delete</span>
         <span ng-if="model.type!=22 && model.type!=13" class="material-icons small small-size pointer gray" ng-click="copy()" title="copy">content_copy</span>
     </div>
+    <i ng-show="[0,1,2,4,6,8,9,14,12].includes(model.type) && !model.uiConfig.hideClearBtn && (model.dropdown.listValue.length || model.value)" title="پاک کردن" ng-click="clearValue()" class="type-{{model.type}} dropdown-clear-btn ui icon ui icon times circle link"></i>
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 0">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
@@ -224,16 +225,17 @@
 
     <div  
     ng-class="['field',(model.validations.isDisable?'disabled':''), (model.validations.isRequire?'required':''), (model.error?'error':''), model.name, 'form-'+id+'-type-12']" ng-if="model.type == 12">
-        <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
+    <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <new-form-modal  ng-if="model.formLookup.showAddButton && model.renderForm" ng-model="model.formDialogInfo" control="model"></new-form-modal>
         <div class="auto-hide-container  value" style="position:relative;">
             <form-lookup-get-id ng-keydown="keyup($event)" ng-change="changeValue()" ng-hide="model.readonly" ng-model="model" id="{{id}}" ng-style="model.formLookup.showAddButton && {width: 'calc(100%)'} || {width: '100%'}"></form-lookup-get-id>
-            <i ng-hide="model.readonly" ng-if="model.formLookup.showAddButton" class="auto-hide-icon icon add square big inverted black pointer" ng-click="model.renderForm = true;showFormInModal()"
+            <i ng-hide="model.readonly" ng-if="model.formLookup.showAddButton" class="link inline-btn-add-item auto-hide-icon icon add square large inverted black pointer" ng-click="model.renderForm = true;showFormInModal()"
                title="اضافه کردن"
-               xstyle="margin:5px 5px 0 0;" style="z-index:20; position: absolute;left: 22px;top: 5px;"></i>
-            <i ng-hide="model.readonly || +model.value==0" ng-if="model.formLookup.showAddButton" class="auto-hide-icon icon pen square big inverted black pointer" ng-click="model.renderForm = true;editFormInModal(model)"
+               ></i>
+            <i ng-hide="model.readonly || +model.value==0" ng-if="model.formLookup.showAddButton" 
+            class="inline-btn-edit-item link auto-hide-icon icon pen square large inverted black pointer" ng-click="model.renderForm = true;editFormInModal(model)"
                title="ویرایش"
-               xstyle="margin:5px 5px 0 0;" style="z-index: 20; position: absolute; left: 55px; top: 5px;"></i>
+               ></i>
         </div>
         <div ng-if="model.readonly">{{model.formLookup.selected ? model.formLookup.selected.join(', ') : model.formLookup.keyControlsBindedValue.join(', ')}}</div>
         <small class="helper">{{model.error}}</small>
