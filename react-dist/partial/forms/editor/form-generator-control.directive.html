@@ -1,5 +1,5 @@
 ﻿
-<div    ng-style="{backgroundColor: [22,19,13,25].includes(model.type)?'': model.uiConfig.color || '' }" 
+<div ng-style="{backgroundColor: [22,19,13,25].includes(model.type)?'': model.uiConfig.color || '' }" 
         class=" field form-control {{model.uiConfig.hideClearBtn ? '' : 'showClearBtn'}} {{model.name}} type-{{model.type}} form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ (!model.canEdit && model.type != 13) || (disabled == 'disabled' || disabled == 'true' ) ? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{ model.readonly? 'read-only':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
 
     <span ng-if="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
@@ -8,7 +8,12 @@
         <span class="material-icons small small-size pointer gray" ng-click="remove()" title="delete">delete</span>
         <span ng-if="model.type!=22 && model.type!=13" class="material-icons small small-size pointer gray" ng-click="copy()" title="copy">content_copy</span>
     </div>
-    <i ng-show="[0,1,2,4,6,8,9,14,12].includes(model.type) && !model.uiConfig.hideClearBtn && (model.dropdown.listValue.length || model.value)" title="پاک کردن" ng-click="clearValue()" class="type-{{model.type}} dropdown-clear-btn ui icon ui icon times circle link"></i>
+    <i ng-show="[0,1,2,4,6,8,9,14,12].includes(model.type) && 
+                !model.validations.isDisable && 
+                 model.canEdit && 
+                !model.uiConfig.hideClearBtn && (model.dropdown.listValue.length || model.value)" 
+       title="پاک کردن" ng-click="clearValue()" 
+       class="type-{{model.type}} dropdown-clear-btn ui icon ui icon times circle link"></i>
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 0">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
@@ -312,7 +317,7 @@
     </div>
 
 
-    <div class="field " ng-class="{error: model.error}" ng-if="model.type == 17">
+    <div class="field action-icon" ng-class="{error: model.error}" ng-if="model.type == 17">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <div class="calculate-field value">
             <div ng-if="edit" class="ltr formula gray">
@@ -327,6 +332,7 @@
                 <span>{{model.prefix}} </span>
                 <span ng-if="model.value!=null">{{model.tableLookup.label | formatNumber:model | persian}}</span>
                 <span> {{model.postfix}}</span>&nbsp;
+                <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
             </div>
         </div>
 
