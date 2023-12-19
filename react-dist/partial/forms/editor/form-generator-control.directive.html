@@ -267,7 +267,7 @@
 
     <div class="field action-icon" ng-class="{error: model.error}" ng-if="model.type == 5">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
-        <div class="calculate-field  value">
+        <div class="calculate-field value {{(model.uiConfig.hideDashLine?'hide-dash-line':'')}}">
             <div ng-if="edit" class="ltr formula gray" 
             ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
             <styled-label font="model.uiConfig.fontValue"><small> {{model.calculate.expression}}</small></styled-label></div>
@@ -283,7 +283,7 @@
 
     <div class="field action-icon" ng-class="{error: model.error}" ng-if="model.type == 16">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
-        <div class="calculate-field value">
+        <div class="calculate-field value {{(model.uiConfig.hideDashLine?'hide-dash-line':'')}}">
             <div ng-if="edit" class="ltr formula gray" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
                <styled-label font="model.uiConfig.fontValue"> <small>
                     <span>{{model.prefix}} </span>
@@ -319,7 +319,7 @@
 
     <div class="field action-icon" ng-class="{error: model.error}" ng-if="model.type == 17">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
-        <div class="calculate-field value">
+        <div class="calculate-field value {{(model.uiConfig.hideDashLine?'hide-dash-line':'')}}">
             <div ng-if="edit" class="ltr formula gray">
                 <small>
                     <span>{{model.prefix}} </span>

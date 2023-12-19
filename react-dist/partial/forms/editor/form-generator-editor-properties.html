@@ -396,6 +396,12 @@
             <label class="">{{'postfix' | translate}}</label>
             <input type="text" ng-model="c.control.active.postfix" name="postfix" autocomplete="nope" placeholder="{{'postfix' | translate}}" />
         </div>
+
+        <div class="f-field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.hideDashLine">عدم نمایش خطچین زیر مقدار</sadaf-checkbox>
+        </div>
+
+        
     </div>
 
     <!-- تنظیمات مربوط به ارجاع به فرم -->
@@ -850,6 +856,16 @@
             <sm-dropdown
                 items="[{k:'simple', label:'جدولی ساده'}, {k:'group', label:'گروهی'}]"
                 model="c.control.active.uiConfig.theme"
+                value="item.k"
+                label="item.label"
+                class="selection value"
+            ></sm-dropdown>
+        </div>
+        <div class="f-field" ng-show=".control.active.uiConfig.theme == 'simple'">
+            <label>مکان عمودی آیتم‌ها در جدول</label>
+            <sm-dropdown
+                items="[{k:'top', label:'بالا'}, {k:'center', label:'وسط'}]"
+                model="c.control.active.uiConfig.verticalAlign"
                 value="item.k"
                 label="item.label"
                 class="selection value"
