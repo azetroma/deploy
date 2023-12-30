@@ -471,6 +471,9 @@
             <sadaf-checkbox ng-model="c.control.active.uiConfig.hideAddButton"> مخفی کردن کلید ردیف جدید </sadaf-checkbox>
         </div>
         <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.hideName">عدم نمایش نام</sadaf-checkbox>
+        </div>
+        <div class="field">
             <sadaf-checkbox ng-model="c.control.active.uiConfig.hideRowNumber"> عدم نمایش شماره ردیف </sadaf-checkbox>
         </div>
         <div class="field">
@@ -688,7 +691,7 @@
         </div>
     </div>
 
-    <div class="field" ng-if="[13, 19].includes(c.control.active.type)">
+    <div class="field" ng-if="[13, 19, 22].includes(c.control.active.type)">
         <sadaf-checkbox ng-model="c.control.active.uiConfig.border">نمایش خط حاشیه‌ای</sadaf-checkbox>
     </div>
 
@@ -871,7 +874,6 @@
                 class="selection value"
             ></sm-dropdown>
         </div>
-
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.uiConfig.matrixMode">نمایش ماتریسی</sadaf-checkbox>
         </div>

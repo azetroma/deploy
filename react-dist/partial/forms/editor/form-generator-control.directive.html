@@ -27,7 +27,7 @@
     </div>
 
     <div ng-if="model.type==22" style="width: 100%;">
-        <sadafgroup page="page" ng-model="model" change="changeValue(model)" edit-context="editContext" id="{{id}}" edit="{{edit}}"></sadafgroup>
+        <sadafgroup settings="settings" page="page" ng-model="model" change="changeValue(model)" edit-context="editContext" id="{{id}}" edit="{{edit}}"></sadafgroup>
     </div>
 
     <div ng-if="model.type==23">
@@ -184,10 +184,10 @@
     </div>
 
     <div class="field action-icon tw-relative tw-flex tw-items-center tw-justify-center" ng-if="model.type == 3" style="min-height: 38px;">
-        <label title="{{model.description}}" ng-hide="settings.showLabel===false">
+        <label class="tw-flex-1" title="{{model.description}}" ng-hide="settings.showLabel===false">
             <pre><styled-label font="model.uiConfig.fontLabel">{{model.label}}</styled-label></pre>
         </label>
-        <div class="value  " ng-if="model.value" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
+        <div class="value tw-flex-1" ng-if="model.value" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
             <styled-label font="model.uiConfig.fontValue">{{model.value | formatNumber:model | persian}}</styled-label>
             <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
         </div>
