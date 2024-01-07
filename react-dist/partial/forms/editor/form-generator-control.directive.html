@@ -29,6 +29,9 @@
     <div ng-if="model.type==22" style="width: 100%;">
         <sadafgroup settings="settings" page="page" ng-model="model" change="changeValue(model)" edit-context="editContext" id="{{id}}" edit="{{edit}}"></sadafgroup>
     </div>
+    <div ng-if="model.type==27" style="width: 100%;">
+        <sadaf-picture settings="settings" page="page" ng-model="model" change="changeValue(model)" edit-context="editContext" id="{{id}}" edit="{{edit}}"></sadaf-picture>
+    </div>
 
     <div ng-if="model.type==23">
         <form-comment ng-model="model" id="{{id}}" edit="{{edit}}"></form-comment>

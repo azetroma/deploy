@@ -156,11 +156,14 @@
                 </div>
 
             </div>
-            <md-content flex class="ui form editor tw-flex tw-flex-col " ng-class="[c.pages.activePage.size, c.pages.activePage.feildClasses.join(' ')]" style="padding:16px 16px; min-height:350px">
+            <md-content flex class="ui form editor tw-flex tw-flex-col " ng-class="[c.pages.activePage.size, c.pages.activePage.feildClasses.join(' ')]" 
+                        ng-style="{'background-color': (c.clientModel.color || '#f4f6f9')}"
+                        style="padding:16px 16px; min-height:350px">
                 <div class="tw-grow">
 
                     <div ng-sortable="{group: {name: 'form', pull:true},sort:true, animation:150}" class=" xdrop-target ui grid content-form sortable-refresh" style="align-items: flex-start;margin:0;padding:0; min-height:50px;">
                         <form-control ng-repeat="component in c.pages.activePage.controls track by $index"
+                                      ng-if="component.systemType != 1"
                                       ng-model="component"
                                       id="{{c.id}}"
                                       edit="true"
@@ -176,7 +179,6 @@
 
                 </div>
                 <div>
-
                     <div ng-show="!c.pages.footer" class="ui mini icon button" ng-click="c.pages.addFooter()"> اضافه کردن فوتر <i class="ui icon add"></i></div>
                     <div ng-show="c.pages.footer" class="ui mini icon button" ng-click="c.pages.removeFooter()"> حذف فوتر <i class="ui icon outline delete"></i></div>
                     <div ng-show="c.pages.footer"  class="tw-border-gray-200 !tw-my-4 tw-p-7 tw-border tw-rounded  ui grid content-form sortable-refresh"

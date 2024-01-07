@@ -85,23 +85,32 @@
     </div>
     <br />
     <br />
-    <!-- <div class="ui compact mini buttons" >
-        <div class="ui button"ng-click="c.control.active.columnClass='one'">۱</div>
-        <div class="ui button"ng-click="c.control.active.columnClass='two'">۲</div>
-        <div class="ui button"ng-click="c.control.active.columnClass='three'">۳</div>
-        <div class="ui button"ng-click="c.control.active.columnClass='four'">&nbsp;۴</div>
-        <div class="ui button"ng-click="c.control.active.columnClass='five'">&nbsp;۵</div>
-        <div class="ui button"ng-click="c.control.active.columnClass='six'">&nbsp;۶</div>
+
+    <div ng-if="c.controlProperty(c.control.active).type == 27">
+        <div class="f-field">
+            <label>انتخاب عکس</label>
+            <sadaf-icons type="image" ng-model="c.control.active.uiConfig.pic" ng-change="setToAll('uiConfig.pic')"></sadaf-icons>
+        </div>
+        <div class="f-field">
+            <label>حداکثر ارتفاع </label>
+            <input ng-model="c.control.active.uiConfig.maxHeight" type="number" />
+        </div>
+        <div class="f-field">
+            <label>نوع فیت کردن</label>
+            <sm-dropdown
+                items="[  {key:'cover', value:'cover'}
+                        , {key:'contain', value:'contain'}
+                        , {key:'fill', value:'fill'}
+                        , {key:'scale-down', value:'scale-down'}
+                       ]"
+                class="value selection"
+                model="c.control.active.uiConfig.objectFit"
+                label="item.value"
+                value="item.key"
+            ></sm-dropdown>
+        </div>
+
     </div>
-    <br/>
-    <div class="ui compact mini buttons" >
-        <div class="ui button"ng-click="c.control.active.columnClass='seven'">۷</div>
-        <div class="ui button"ng-click="c.control.active.columnClass='eight'">۸</div>
-        <div class="ui button"ng-click="c.control.active.columnClass='nine'">۹</div>
-        <div class="ui button"ng-click="c.control.active.columnClass='ten'">۱۰</div>
-        <div class="ui button"ng-click="c.control.active.columnClass='eleven'">۱۱</div>
-        <div class="ui button"ng-click="c.control.active.columnClass='twelve'">۱۲</div>
-    </div> -->
 
     <div class="field" ng-show="c.controlProperty(c.control.active).require">
         <sadaf-checkbox ng-model="c.control.active.validations.isRequire"> {{'require' | translate}} </sadaf-checkbox>
@@ -400,8 +409,6 @@
         <div class="f-field">
             <sadaf-checkbox ng-model="c.control.active.uiConfig.hideDashLine">عدم نمایش خطچین زیر مقدار</sadaf-checkbox>
         </div>
-
-        
     </div>
 
     <!-- تنظیمات مربوط به ارجاع به فرم -->
@@ -691,7 +698,7 @@
         </div>
     </div>
 
-    <div class="field" ng-if="[13, 19, 22].includes(c.control.active.type)">
+    <div class="field" ng-if="[13, 19, 22, 27].includes(c.control.active.type)">
         <sadaf-checkbox ng-model="c.control.active.uiConfig.border">نمایش خط حاشیه‌ای</sadaf-checkbox>
     </div>
 
@@ -857,7 +864,7 @@
         <div class="f-field">
             <label>تم نمایش</label>
             <sm-dropdown
-                items="[{k:'simple', label:'جدولی ساده'}, {k:'group', label:'گروهی'}]"
+                items="[{k:'simple', label:'جدولی ساده'}, {k:'group', label:'گروهی'}, {k:'simple-v2', label:'جدولی ساده-v2'}]"
                 model="c.control.active.uiConfig.theme"
                 value="item.k"
                 label="item.label"
@@ -956,6 +963,13 @@
     <div class="field">
         <sadaf-checkbox ng-model="c.formInfo.saveAndCopy">نمایش کلید «ذخیره و کپی در فرم جدید»</sadaf-checkbox>
     </div>
+
+    <div class="f-field" >
+        <label>رنگ پشت زمینه</label>
+        <div class="" md-color-picker ng-model="c.clientModel.color" md-color-default-tab="'genericPalette'"></div>
+        <i title="پاک کردن رنگ" class="ui link icon close" ng-click="c.control.active.uiConfig.color = null"></i>
+    </div>
+
     <div class="inline fields">
         <label>ویرایش همزمان</label>
         <sm-dropdown
