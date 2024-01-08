@@ -168,7 +168,6 @@
                     >
                         {{ process.nextKeyLabel ||( rowId>0 ? 'ادامه فرآیند' :'شروع فرآیند')}}
                     </button>
-
                     <button
                         class="ui button green relative"
                         ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
