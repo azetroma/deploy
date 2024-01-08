@@ -83,8 +83,9 @@ http
         console.log('data', res.data);
         rows.multiRowForm.rows = [];
         _.each(res.data.data, item => {
-            let a = rows.multiRowForm.addRow();
+            let a = utils.addRow(rows);
             a[0].value = item[7];
+            rows.multiRowForm.rows.push(a);
         });
     });
 </feditor>
@@ -93,8 +94,9 @@ http
 <h3>اضافه کردن ردیف جدید به کنترل تکرار شونده</h3>
 <feditor lang="js" full-height readonly>
 let rows = findControl('field-2');
-let a = rows.multiRowForm.addRow();
+let a = utils.addRow(rows)
 a[0].value = 'value';
+rows.multiRowForm.rows.push(a);
 </feditor>
 
 <h3>تشخیص شماره نموداری که فرم را باز کرده است</h3>

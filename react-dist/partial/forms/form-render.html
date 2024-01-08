@@ -52,6 +52,7 @@
                             ng-repeat="component in page.controls track by $index"
                             ng-model="component"
                             root="root"
+                            ng-if="component.systemType==0"
                             page="page"
                             id="{{id}}"
                             sd-submit="submit()"
