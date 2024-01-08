@@ -18,7 +18,7 @@
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 0">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
         <styled-label class=" value" font="model.uiConfig.fontValue">
-            <input tabindex="{{model.validations.isDisable ? -1:0}}" ng-hide="model.readonly" type="text" ng-change="changeValue()" name="model.name" ng-model-options="{debounce:200}" autocomplete="off" ng-model="model.value" placeholder="{{model.label}}" ng-keydown="keyup($event)">
+            <input tabindex="{{model.validations.isDisable ? -1:0}}" ng-hide="model.readonly" type="text" ng-change="changeValue()" name="model.name" ng-model-options="{debounce:200}" autocomplete="off" ng-model="model.value" placeholder="{{model.uiConfig.hidePlaceholder ? '': model.label}}" ng-keydown="keyup($event)">
         </styled-label>
         <div ng-if="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
@@ -48,7 +48,7 @@
         <styled-label class="sadaf-form-textarea value" font="model.uiConfig.fontValue">
             <ng-sadaf-textarea
             class="" 
-            placeholder="{{model.label}}"
+            placeholder="{{model.uiConfig.hidePlaceholder ? '': model.label}}"
             (model-change)="setValue($event)"
             [model]="model.value"
             min="1"
@@ -65,7 +65,7 @@
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
         <div class="formatted-input-container value">
             <styled-label font="model.uiConfig.fontValue">
-                <input tabindex="{{model.validations.isDisable ? -1:0}}" type="number" ng-change="changeValue()" ng-paste='handlePaste($event)' placeholder="{{model.label}}" id="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly" autocomplete="off" model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)">
+                <input tabindex="{{model.validations.isDisable ? -1:0}}" type="number" ng-change="changeValue()" ng-paste='handlePaste($event)' placeholder="{{model.uiConfig.hidePlaceholder ? '': model.label}}" id="id-{{randomId}}-{{model.name}}" ng-hide="model.readonly" autocomplete="off" model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)">
                 <label  for="id-{{randomId}}-{{model.name}}" class="formatted-input-label"ng-hide="model.readonly || model.value == null">{{model.value | formatNumber:model}}</label>
             </styled-label>
         </div> 

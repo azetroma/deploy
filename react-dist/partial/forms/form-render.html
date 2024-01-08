@@ -19,6 +19,26 @@
         <!--TODO add to core-->
     </div>
 
+
+    <div class="actions !tw-text-right" ng-if="header" style="border-bottom: 1px solid rgba(34, 36, 38, 0.15); border-top:none;">
+        <div ng-show="header" class="form-page ui form" ng-class="header.size">
+            <div class="ui grid stackable content-form">
+                <form-control
+                    ng-repeat="component in header.controls track by $index"
+                    ng-model="component"
+                    root="root"
+                    id="{{id}}"
+                    page="header"
+                    sd-submit="submit()"
+                    change="changeValue(model)"
+                    ng-class="[{'highlight-control':component.highlight}, page.feildClass]"
+                ></form-control>
+            </div>
+            <div class="ui message red" ng-show="header.error">{{page.error}}</div>
+        </div>
+    </div>
+
+
     <div class="content" ng-style="{'background-color': (data.clientModelParsed.color || '#f4f6f9')}" style="min-height: 300px; position: relative">
         <!-- <div class="cover" ng-style="{'visibility': (formLoading  ? 'visible' : 'hidden')}" style="background-color:white; position:absolute; width:100%; height:100%;margin:-21px;z-index:2; transition:all 2s ease-in-out"></div>-->
         <div class="" ng-show="formLoading">
@@ -27,6 +47,9 @@
                 {{'form_loading' | translate}}
             </div>
         </div>
+
+    
+
 
         <div
             ng-show="!formLoading"

@@ -146,6 +146,11 @@
         </div>
     </div>
 
+    <div class="field" ng-show="[0,1,2].includes(c.control.active.type)">
+        <sadaf-checkbox ng-model="c.control.active.uiConfig.hidePlaceholder">مخفی کردن متن راهنما (placeholder)</sadaf-checkbox>
+    </div>
+
+
     <div ng-if="c.control.active.type == 26">
         <div class="f-field">
             <label>قالب شماره</label>
