@@ -131,7 +131,9 @@
              ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData && model.dropdown.theme =='radio'">
             <div class="form-radio" ng-class="[model.uiConfig.radioBlock == 'inline-block' ? 'tw-space-x-4 tw-space-x-reverse':'']">
                 <span ng-repeat="item in model.dropdown.items" ng-style="{display: model.uiConfig.radioBlock || 'block'}">
-                    <sm-checkbox model="model['chbx'+$index].check" xng-init="model['chbx'+$index] = {}" on-change="multiselectChange(model['chbx'+$index], model, $index, item)" class="" name="model-radio-{{model.name}}"
+                    <sm-checkbox model="model['chbx'+$index].check" 
+                                 on-change="multiselectChange(model['chbx'+$index], model, $index, item)"
+                                 name="model-radio-{{model.name}}"
                                  value="item.value"
                                  label="{{item.label}}" />
                     <br />
@@ -163,8 +165,8 @@
             <div class="form-radio tw-px-2" ng-class="[model.uiConfig.radioBlock == 'inline-block' ? 'tw-space-x-4 tw-space-x-reverse ':'']"
             ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
                 <div ng-repeat="option in model.dropdown.items track by $index" ng-style="{display: model.uiConfig.radioBlock || 'block'}">
-                    <input class="pointer" type="radio" id="model-radio-{{model.name}}-row-{{model.rowIndex}}-index-{{$index}}" name="model-radio-{{model.name}}-row-{{model.rowIndex}}-index-{{$index}}" ng-value="option.value" ng-change="changeValue()" ng-model="model.value" />
-                    <label class="pointer" for="model-radio-{{model.name}}-row-{{model.rowIndex}}-index-{{$index}}">
+                    <input class="pointer" type="radio" id="{{model.rowId}}-model-radio-{{model.name}}-row-{{model.rowIndex}}-index-{{$index}}" name="model-radio-{{model.name}}-row-{{model.rowIndex}}-index-{{$index}}" ng-value="option.value" ng-change="changeValue()" ng-model="model.value" />
+                    <label class="pointer" for="{{model.rowId}}-model-radio-{{model.name}}-row-{{model.rowIndex}}-index-{{$index}}">
                         <styled-label font="model.uiConfig.fontValue">
                             {{ option.label }}
                         </styled-label>
