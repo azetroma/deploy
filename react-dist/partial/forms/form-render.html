@@ -4,40 +4,41 @@
     ng-class="{ 'fullscreen'  : data.modalSize == 'fullscreen','small'  : data.modalSize == 'small', 'large'  : data.modalSize == 'large', 'form-editor': settings.modal, 'jqmodal modal': settings.modal}"
 >
     <i ng-if="settings.modal" class="close icon" ng-click="cancel()"></i>
-    <div ng-if="settings.modal" class="header" style="background-color: #f9fafb; overflow-x: auto">
+    <div ng-if="settings.modal && !data.clientModelParsed.hideTitlebar" class="header" ng-style="{'background-color': (data.clientModelParsed.titleColor || '##f9fafb')}"style=" overflow-x: auto">
         {{data.name}} &nbsp;
-        <div class="ui pagination mini menu right floated up-tabs" ng-if="pages.length>1" xstyle="overflow-x:auto; overflow-y:hidden;">
-            <div class="item pointer" ng-repeat="page in pages track by $index" ng-show="page.canView" ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
-                <div class="content">
-                    <div class="title">{{page.name}}</div>
-                </div>
-            </div>
-        </div>
 
         <button class="ui button basic small" ng-if="app.license.formPrint && data.printLayout" ng-click="print()">{{'print' | translate}} <i class="ui icon print"></i></button>
 
         <!--TODO add to core-->
     </div>
 
-
-    <div class="actions !tw-text-right" ng-if="header" style="border-bottom: 1px solid rgba(34, 36, 38, 0.15); border-top:none;">
-        <div ng-show="header" class="form-page ui form" ng-class="header.size">
-            <div class="ui grid stackable content-form">
-                <form-control
-                    ng-repeat="component in header.controls track by $index"
-                    ng-model="component"
-                    root="root"
-                    id="{{id}}"
-                    page="header"
-                    sd-submit="submit()"
-                    change="changeValue(model)"
-                    ng-class="[{'highlight-control':component.highlight}, page.feildClass]"
-                ></form-control>
+    <div class="header-section" ng-style="{'padding-bottom': (!settings.modal?'14px':0), 'background-color': (data.clientModelParsed.headerColor || '##f9fafb')}">
+        <div class="form-header" ng-if="header">
+            <div ng-show="header" class="form-page ui form" ng-class="header.size">
+                <div class="ui grid stackable content-form">
+                    <form-control
+                        ng-repeat="component in header.controls "
+                        ng-model="component"
+                        root="root"
+                        id="{{id}}"
+                        page="header"
+                        sd-submit="submit()"
+                        change="changeValue(model)"
+                        ng-class="[{'highlight-control':component.highlight}, page.feildClass]"
+                    ></form-control>
+                </div>
+                <div class="ui message red" ng-show="header.error">{{page.error}}</div>
             </div>
-            <div class="ui message red" ng-show="header.error">{{page.error}}</div>
+        </div>
+
+        <div class="paging-section ui secondary pointing menu" ng-if="pages.length>1">
+            <div class="item pointer" ng-repeat="page in pages " ng-show="page.canView" ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
+                <div class="content">
+                    <div class="title">{{page.name}}</div>
+                </div>
+            </div>
         </div>
     </div>
-
 
     <div class="content" ng-style="{'background-color': (data.clientModelParsed.color || '#f4f6f9')}" style="min-height: 300px; position: relative">
         <!-- <div class="cover" ng-style="{'visibility': (formLoading  ? 'visible' : 'hidden')}" style="background-color:white; position:absolute; width:100%; height:100%;margin:-21px;z-index:2; transition:all 2s ease-in-out"></div>-->
@@ -48,31 +49,39 @@
             </div>
         </div>
 
-    
-
-
         <div
             ng-show="!formLoading"
             style="-webkit-transition: height 1s ease; -moz-transition: height 1s ease; -o-transition: height 1s ease; transition: height 1s ease"
-            xng-style="{'height': formLoading ? '100px': 'auto'}"
         >
-            <div ng-if="!settings.modal">
+            <!-- <div ng-if="!settings.modal">
                 <div style="margin-top: 1rem"></div>
                 <div class="ui small menu" ng-show="pages.length>1">
-                    <div class="item pointer" ng-repeat="page in pages track by $index" ng-show="page.canView" ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
+                    <div
+                        class="item pointer"
+                        ng-repeat="page in pages track by $index"
+                        ng-show="page.canView"
+                        ng-class="{active: $index == activePage}"
+                        ng-click="setActivePage($index+0)"
+                    >
                         <div class="content">
                             <div class="title">{{page.name}}</div>
                         </div>
                     </div>
                 </div>
                 <div style="margin-top: 1rem"></div>
-            </div>
+            </div> -->
 
             <div ng-show="submittedStatus == 0 || submittedStatus==1">
-                <div ng-repeat="page in pages track by $index" ng-if="renderPage[$index]" ng-show="$index == activePage" class="form-page ui form" ng-class="[page.size, page.feildClasses.join(' ')]">
+                <div
+                    ng-repeat="page in pages "
+                    ng-if="renderPage[$index]"
+                    ng-show="$index == activePage"
+                    class="form-page ui form"
+                    ng-class="[page.size, page.feildClasses.join(' ')]"
+                >
                     <div class="ui stackable grid content-form" style="align-items: flex-start">
                         <form-control
-                            ng-repeat="component in page.controls track by $index"
+                            ng-repeat="component in page.controls "
                             ng-model="component"
                             root="root"
                             ng-if="component.systemType==0"
@@ -116,16 +125,16 @@
                 <!--{{'error in pages'|translate}}-->
                 <b> لیست خطا‌ها</b>
                 <ul>
-                    <li ng-repeat="p in pagesContainError track by $index">{{p}}</li>
+                    <li ng-repeat="p in pagesContainError ">{{p}}</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="actions !tw-text-right" ng-if="footer">
+    <div class="actions !tw-text-right" ng-if="footer" ng-style="{'background-color': (data.clientModelParsed.footerColor || '##f9fafb')}">
         <div ng-show="footer" class="form-page ui form" ng-class="page.size">
             <div class="ui grid stackable content-form">
                 <form-control
-                    ng-repeat="component in footer.controls track by $index"
+                    ng-repeat="component in footer.controls "
                     ng-model="component"
                     root="root"
                     id="{{id}}"
@@ -142,7 +151,7 @@
         <div class="tw-m-3 tw-text-right tw-space-y-1 tw-text-sm" ng-if="process.enable">
             <div class="tw-max-h-52 tw-overflow-auto tw-mb-2" style="margin-top: -14px" ng-if="process.history.length">
                 <table class="ui tiny compact table tw-table-auto">
-                    <tr ng-repeat="i in process.history track by $index">
+                    <tr ng-repeat="i in process.history ">
                         <td width="30">{{persian($index+1)}}</td>
                         <td width="115">{{persian(moment(i.time).format('jYYYY/jMM/jDD HH:mm'))}}</td>
                         <td>{{i.user}}</td>
@@ -160,7 +169,7 @@
             <div xclass="left floated eight wide column left aligned">
                 <div ng-hide="submittedStatus!=0 || process.type==5">
                     <button
-                        class="ui button  relative"
+                        class="ui button relative"
                         ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
                         ng-click="submit()"
                         ng-class="{loading: loading, green: !isProcess, basic: isProcess}"
@@ -199,7 +208,7 @@
                         ng-if="isProcess && process.taskType.type== 1"
                         title="در صورت تایید فرآیند ادامه پیدا می‌کند"
                     >
-                    <i class="ui icon check"></i>
+                        <i class="ui icon check"></i>
                         {{ process.taskType.approveText || 'تایید'}}
                     </button>
                     <button
@@ -210,8 +219,8 @@
                         ng-if="isProcess && process.taskType.type == 1"
                         title="در صورت عدم تایید، طبق فرآیند، فرم به مراحل قبلی ارسال می‌شود"
                     >
-                    <i class="ui icon close"></i>
-                    {{ process.taskType.rejectText || 'عدم تایید'}}
+                        <i class="ui icon close"></i>
+                        {{ process.taskType.rejectText || 'عدم تایید'}}
                     </button>
 
                     <button
@@ -244,7 +253,7 @@
 
             <div xclass="right floated four wide column right aligned">
                 <button ng-if="!process.enable" class="ui button red" ng-show="rowId && deletePermission && submittedStatus == 0" ng-class="{loading: loading}" ng-click="remove()">
-                   <i class="ui icon trash alternate outline"></i>
+                    <i class="ui icon trash alternate outline"></i>
                     {{'delete' | translate}}
                 </button>
                 <button

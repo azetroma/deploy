@@ -1,15 +1,21 @@
-﻿
-<style>
-    .form-components .wide.column{
-        min-height:initial;
+﻿<style>
+    .form-components .wide.column {
+        min-height: initial;
     }
 </style>
-<div class="form-components" ng-sortable="c.compConf"layout="row" layout-fill layout-wrap layout-align="start start" style="overflow:auto; font-size:12px;">
-    <div class="draggable-element"  ng-repeat="o in c.items track by $index" style="width:50%; display:inline-block;">
-        <div class="fg-component cursor" >
-            <div class="ui secondary small segment fluid item-box" style="margin:0px 4px; padding:8px" >
-                <i class="{{o.icon}} icon large"></i>
-                {{o.key}} 
+<div class="tw-flex tw-flex-col tw-h-full">
+    <div class="ui mini form tw-mb-2">
+        <div class="field">
+            <input type="text" ng-model="comQuery" placeholder="جستجو" />
+        </div>
+    </div>
+    <div class="form-components tw-flex-1" ng-sortable="c.compConf" layout="row" layout-wrap layout-align="start start" style="overflow: auto; font-size: 12px">
+        <div class="draggable-element" ng-repeat="o in c.items| filter:{key:comQuery} track by $index" style="width: 100%; display: inline-block">
+            <div class="fg-component cursor">
+                <div class="ui secondary small segment fluid item-box" style="margin: 0px 4px; padding: 8px">
+                    <i class="{{o.icon}} icon large"></i>
+                    {{o.key}}
+                </div>
             </div>
         </div>
     </div>

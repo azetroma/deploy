@@ -1,8 +1,6 @@
-﻿
-<div ng-style="{backgroundColor: [22,19,13,25].includes(model.type)?'': model.uiConfig.color || '' }" 
-        class=" field form-control {{model.uiConfig.hideClearBtn ? '' : 'showClearBtn'}} {{model.name}} type-{{model.type}} form-{{randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ (!model.canEdit && model.type != 13) || (disabled == 'disabled' || disabled == 'true' ) ? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{ model.readonly? 'read-only':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
-
-    <span ng-if="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
+﻿<div ng-style="model.styles" 
+class=" field form-control {{model.uiConfig.hideClearBtn ? '' : 'showClearBtn'}} {{model.name}} type-{{model.type}} form-{{model.randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ (!model.canEdit && model.type != 13) || (disabled == 'disabled' || disabled == 'true' ) ? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{ model.readonly? 'read-only':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
+     <span ng-if="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
     <span ng-if="edit" class="ui label mini compact hidden-mark" style="color:black; opacity: 0.6;">{{model.name.replace('field-', '')}}</span>
     <div class="control-actions" ng-if="edit">
         <span class="material-icons small small-size pointer gray" ng-click="remove()" title="delete">delete</span>
@@ -51,6 +49,7 @@
             placeholder="{{model.uiConfig.hidePlaceholder ? '': model.label}}"
             (model-change)="setValue($event)"
             [model]="model.value"
+            [disabled]="model.validations.isDisable || !!disabled || !model.canEdit"
             min="1"
             ></ng-sadaf-textarea>
         </styled-label>

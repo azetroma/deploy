@@ -1,31 +1,31 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "esnext",
     "baseUrl": "./",
-    // "target": "ES2022",
-    "moduleResolution": "node",
-    // "module": "ESNext",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "emitDecoratorMetadata": true,
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "downlevelIteration": true,
 
+
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
     "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "lib": [
+      "ES2022",
+      "dom"
+    ]
 
 
   },

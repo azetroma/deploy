@@ -48,21 +48,23 @@
     <div ng-if="model.type==24">
         <form-alert ng-model="model" id="{{id}}" edit="{{edit}}"></form-alert>
     </div>
-
+asdasdasdsad
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 1">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
         <!-- <textarea tabindex="{{model.validations.isDisable ? -1:0}}" rows="2" class="sadaf-form-textarea value" ng-hide="model.readonly" ng-change="changeValue()" lines ng-model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)"></textarea> -->
         <!-- {{model.value}} -->
         <styled-label class="sadaf-form-textarea value" font="model.uiConfig.fontValue">
+            asdasdasd
             <ng-sadaf-textarea
             class="" 
             placeholder="{{model.label}}"
             (model-change)="setValue($event)"
             [model]="model.value"
+            [disabled]="model.validations.isDisable"
             min="1"
             ></ng-sadaf-textarea>
         </styled-label>
-
+        model.validations.isDisable={{model.validations.isDisable}}
         <div ng-if="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
