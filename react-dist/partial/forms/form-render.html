@@ -12,7 +12,7 @@
         <!--TODO add to core-->
     </div>
 
-    <div class="header-section" ng-style="{'padding-bottom': (!settings.modal?'14px':0), 'background-color': (data.clientModelParsed.headerColor || '##f9fafb')}">
+    <div class="header-section" ng-if="header || pages.length>1" ng-style="{'padding-bottom': (!settings.modal?'14px':0), 'background-color': (data.clientModelParsed.headerColor || '##f9fafb')}">
         <div class="form-header" ng-if="header">
             <div ng-show="header" class="form-page ui form" ng-class="header.size">
                 <div class="ui grid stackable content-form">

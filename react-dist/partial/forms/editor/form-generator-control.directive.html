@@ -1,6 +1,7 @@
 ﻿<div ng-style="model.styles" 
-class=" field form-control {{model.uiConfig.hideClearBtn ? '' : 'showClearBtn'}} {{model.name}} type-{{model.type}} form-{{model.randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ (!model.canEdit && model.type != 13) || (disabled == 'disabled' || disabled == 'true' ) ? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{ model.readonly? 'read-only':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
-     <span ng-if="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
+    class=" field form-control {{model.uiConfig.hideClearBtn ? '' : 'showClearBtn'}} {{model.name}} type-{{model.type}} form-{{model.randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ (!model.canEdit && model.type != 13) || (disabled == 'disabled' || disabled == 'true' ) ? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{ model.readonly? 'read-only':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
+
+    <span ng-if="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
     <span ng-if="edit" class="ui label mini compact hidden-mark" style="color:black; opacity: 0.6;">{{model.name.replace('field-', '')}}</span>
     <div class="control-actions" ng-if="edit">
         <span class="material-icons small small-size pointer gray" ng-click="remove()" title="delete">delete</span>
@@ -242,9 +243,9 @@ class=" field form-control {{model.uiConfig.hideClearBtn ? '' : 'showClearBtn'}}
                title="اضافه کردن"
                ></i>
             <i ng-hide="model.readonly || +model.value==0" ng-if="model.formLookup.showAddButton" 
-            class="inline-btn-edit-item link auto-hide-icon icon pen square large inverted black pointer" ng-click="model.renderForm = true;editFormInModal(model)"
-               title="ویرایش"
-               ></i>
+               class="inline-btn-edit-item link auto-hide-icon icon pen square large inverted black pointer" 
+               ng-click="model.renderForm = true;editFormInModal(model)"
+               title="ویرایش"></i>
         </div>
         <div ng-if="model.readonly">{{model.formLookup.selected ? model.formLookup.selected.join(', ') : model.formLookup.keyControlsBindedValue.join(', ')}}</div>
         <small class="helper">{{model.error}}</small>

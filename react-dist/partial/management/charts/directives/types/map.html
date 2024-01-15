@@ -83,8 +83,9 @@
                         <span class="form-divider" flex></span>
                         <select ng-model="ngModel.map.info.realMap.type" ng-change="refreshChart('refresh')"
                                 ng-options="i.value as  i.name for i in [
-                                {name:'نقشه آنلاین openStreet', value: 'open-street-online'  },
-                                {name:'نقشه آفلاین google', value: 'google-offline'  },
+                                    {name:'نقشه آنلاین openStreet', value: 'open-street-online'  },
+                                    {name:'نقشه آفلاین google', value: 'google-offline'  },
+                                    {name:'نقشه ماهواره‌ای', value: 'bing'  },
                                 ]"></select>
                         <!--
         {name:'نقشه آفلاین openStreet', value: 'open-street-offline'  },
@@ -389,7 +390,7 @@
                     </div>
                 </div>
 
-                <div ng-if="ngModel.map.info.showLatLng.enable">
+                <div class="ui secondary small segment" ng-if="ngModel.map.info.showLatLng.enable">
 
                     <div class="form-row" layout="row" layout-align="start center">
                         <label>latitude</label>
@@ -425,6 +426,16 @@
                         </div>
                     </div>
 
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox">
+                                <label class="">
+                                    <input type="checkbox" ng-model="ngModel.map.info.showLatLng.showPin" ng-change="refreshChart('refresh')" /> نمایش آیکن پین در محل lat و lng
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+    
                     <!-- <div>
                         <sadaf-icons style="display:inline-block" ng-model="ngModel.map.info.showLatLng.icon" type="image, icon" ng-change="refreshChart('refresh')"></sadaf-icons>
                         <i class="icon remove gray pointer" ng-click="ngModel.map.info.showLatLng.icon = null; refreshChart('refresh')"></i>

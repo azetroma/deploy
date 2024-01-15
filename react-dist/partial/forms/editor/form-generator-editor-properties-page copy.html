@@ -1,0 +1,282 @@
+﻿<div class="ui tiny header">{{'profile_general_setting' | translate}}</div>
+
+<div class="field">
+    <sadaf-checkbox ng-model="c.showSubmitedInfo" label="">{{'show submitted info' | translate}}</sadaf-checkbox>
+</div>
+<div class="field">
+    <sadaf-checkbox ng-model="c.formInfo.saveAndCopy">نمایش کلید «ذخیره و کپی در فرم جدید»</sadaf-checkbox>
+</div>
+
+<div class="f-field" >
+    <label>رنگ پشت زمینه</label>
+    <div class="" md-color-picker ng-model="c.clientModel.color" md-color-default-tab="'genericPalette'"></div>
+    <i title="پاک کردن رنگ" class="ui link icon close" ng-click="c.control.active.uiConfig.color = null"></i>
+</div>
+
+<div class="inline fields">
+    <label>ویرایش همزمان</label>
+    <sm-dropdown
+        items="[{name:'جلوگیری از ذخیره در صورت تغییر فرم', value:'prevent-save'}, {name:'ذخیره کنترل‌هایی که کاربر دسترسی دارد', value:'save-access'}]"
+        class=""
+        model="c.formInfo.concurrentSave"
+        label="item.name"
+        value="item.value"
+    ></sm-dropdown>
+</div>
+<small class="gray">در صورتی که دو کاربر به صورت همزمان یک فرم را باز کرده باشند، روش ذخیره کردن اطلاعات با این گزینه مشخص می‌شود.</small>
+
+<div class="inline fields">
+    <label>اندازه دیالوگ بازشونده فرم</label>
+    <sm-dropdown
+        items="[ {label:('کوچک' | translate), value:'small'}, {label:('normal' | translate), value:'large'},{label:'خیلی بزرگ', value:'fullscreen'}]"
+        class=""
+        model="c.modalSize"
+        label="item.label"
+        value="item.value"
+        ng-init="c.control.active.multiRowForm.controlSize = ''"
+    ></sm-dropdown>
+</div>
+
+<div class="field">
+    <div class="ui mini icon button" ng-click="c.triggers.push({type:0})" ng-init="c.triggers= c.triggers ||[];">
+        {{'add task on event' | translate}} <i class="ui icon add"></i>
+    </div>
+    <div ng-repeat="t in c.triggers" class="ui segment">
+        <button ng-click="c.triggers.splice($index, 1)" class="ui mini basic icon button" style="box-shadow: none; position: absolute; top: 0; left: 0; z-index: 2">
+            <i class="ui icon close"></i>
+        </button>
+        <div class="inline fields">
+            <label>{{'run on event' | translate}}</label>
+            <!--{label:('new record' | translate), value:0}
+                                 , {label:('edit record' | translate), value:1}
+                                 , {label:('delete record' | translate), value:2}-->
+            <sm-dropdown
+                items="[  
+                                     {label: 'ذخیره رکورد جدید (سمت سرور)', value:0},
+                                     {label: 'ویرایش رکورد (سمت سرور)', value:1},
+                                     {label: 'حذف رکورد (سمت سرور)', value:2},
+                                     {label: 'باز شدن فرم جدید (سمت کلاینت)', value:3},
+                                     {label: 'باز شدن فرم با داده (سمت کلاینت)', value:4},
+                                     {label: 'تغییر داده‌های فرم (سمت کلاینت)', value:5},
+                                     {label: 'فشردن کلید ذخیره (سمت کلاینت)', value:6},
+                                     {label: 'فشردن کلید ادامه فرآیند (سمت کلاینت)', value:7},
+                                ]"
+                class=""
+                model="t.type"
+                label="item.label"
+                value="item.value"
+            ></sm-dropdown>
+        </div>
+        <div class="field">
+            <sadaf-tasks ng-model="t.tasks" trigger="t.type" ng-init="t.tasks = t.tasks || []"></sadaf-tasks>
+            <small ng-if="t.type==6||t.type==7">
+                در صورتی که تابع مقدار false را برگرداند فرم ذخیره نخواهد شد در صورت تمایل برای نمایش خطا از کد زیر استفاده کنید
+                <pre class="ltr">
+return {
+result: false,
+pageMessages: [{
+    name: '_all',
+    error: 'متن خطا'
+}]
+};
+            </pre
+                >
+            </small>
+        </div>
+    </div>
+</div>
+
+<div class="field" sm-popup-inline="">
+    <sadaf-checkbox ng-model="c.dynamicAcl" ng-change="c.getAllRelatedDatasource()" label="">کنترل دسترسی به صورت پویا</sadaf-checkbox>
+</div>
+
+<div class="ui secondary segment" ng-if="c.dynamicAcl">
+    <small class="gray">
+        در صورتی که در یکی از فرم‌های ارجاع شده به این فرم کنترلی از نوع نقش وجود داشته باشد می‌توانید از این امکان استفاده کنید و ورود اطلاعات دراین فرم را تنها برای کاربران
+        نقش انتخاب شده مجاز کنید
+    </small>
+
+    <div class="ui inline active small loader" ng-if="c.relatedDsProgress"></div>
+    <div class="field" ng-if="!c.relatedDsProgress">
+        <label>انتخاب منبع داده</label>
+        <sm-dropdown items="c.relatedDatasources" class="selection fluid search" model="c.dynamicAclDatasource" label="item.name" value="item.id"></sm-dropdown>
+    </div>
+    <div class="field" ng-if="!c.relatedDsProgress">
+        <label>انتخاب ستون حاوی شناسه نقش</label>
+        <sm-dropdown
+            items="(c.relatedDatasources | filter:{id:c.dynamicAclDatasource})[0].columns.Hierarchies"
+            class="selection fluid search"
+            model="c.dynamicAclColumn"
+            label="item.Name"
+            value="item.UniqueName"
+        ></sm-dropdown>
+    </div>
+</div>
+
+<div class="field" sm-popup-inline="">
+    <sadaf-checkbox ng-model="c.printEnable" label="">نمایش تنظیمات پرینت</sadaf-checkbox>
+</div>
+
+<div ng-if="app.license.formPrint && c.printEnable" class="ui secondary segment">
+    <div class="field">
+        <label>قالب چاپ</label>
+        <feditor control-s="saveFormShotcut()" ng-model="c.printLayout" lang="html" list="c.controlListAutoCompelete"></feditor>
+        <!--<textarea ng-model="c.printLayout" rows="5" class="ltr"></textarea>-->
+        <!--<div style="text-align:left">
+            <span class="material-icons small" ng-click="showDialog($event)" title="{{'edit_query' | translate}}">fullscreen</span>
+        </div>-->
+
+        <small class="gray">
+            از شناسه فیلدها با پیشوند @ برای استفاده از جایگزینی مقدار فیلدها استفاده کنید مثل @field-1 همچنین می‌توانید از نام ستون با الگوی زیر استفاده کنید
+            {{'[columnNamee]'}} </small
+        ><br />
+        <small class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</small>
+        <br /><small class="gray"
+            >در صورت استفاده فیلد تکرار شونده به این صورت استفاده کنید. each(@[field name]){{'{{[template]}\}'}} که در آن نام فیلد تکرار شونده ابتدا آورده می‌شود و نام فیلدهای
+            ردیف در template قرار میگیرند.</small
+        >
+        <br /><small class="gray">برای تبدیل اعداد به حروف از تابع Num2persian() استفاده کنید</small>
+    </div>
+    <div class="two column fields">
+        <div class="field">
+            <label>جهت چاپ</label>
+            <sm-dropdown
+                items="[{name:'عمودی', value:0}, {name:'افقی', value:1}]"
+                class="selection fluid"
+                model="c.printOrientation"
+                label="item.name"
+                value="item.value"
+            ></sm-dropdown>
+        </div>
+        <div class="field">
+            <label>اندازه صفحه</label>
+            <sm-dropdown
+                items="[{name:'A4', value:'A4'}, {name:'A5', value:'A5'}]"
+                class="selection fluid"
+                model="c.printPage"
+                label="item.name"
+                value="item.value"
+            ></sm-dropdown>
+        </div>
+    </div>
+
+    <form autocomplete="off">
+        <div class="field">
+            <label>نام فایل چاپ</label>
+            <input type="text" ng-model="c.printFileName" autocomplete="chrome-off" name="print-file-name" fill />
+            <small class="gray">از نام ستون‌ها به صورت [columnname] می‌توانید در نام استفاده کنید</small>
+        </div>
+    </form>
+    <sadaf-checkbox ng-model="c.printExtra.preventPersian">جلوگیری از فارسی کردن اعداد</sadaf-checkbox>
+</div>
+
+<div class="ui mini secondary clearing segment">
+    <div class="ui mini header left floated">متغیرهای کاربری</div>
+    <div class="ui icon basic mini button right floated" ng-click="c.userVariables.push({})">اضافه کردن <i class="ui icon add"></i></div>
+    <div ng-repeat="item in c.userVariables" class="clear">
+        <div class="fields">
+            <div class="five wide field">
+                <label>نام ستون</label>
+                <input type="text" autocomplete="off" ng-model="item.column" />
+            </div>
+
+            <div class="five wide field">
+                <label>نام متغیر</label>
+                <sadaf-user-variables class="five wide" ng-model="item.variable"></sadaf-user-variables>
+            </div>
+
+            <div class="field">
+                <label>&nbsp;</label>
+                <div class="ui icon basic mini button" ng-click="c.userVariables.splice($index, 1)">
+                    <i class="ui icon close"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <sadaf-checkbox ng-model="c.userVariablesInEdit">استفاده در زمان ویرایش رکورد</sadaf-checkbox>
+        <small class="gray">در حالت عادی تنها در زمان ایجاد رکورد از متغیر کاربری استفاده می‌شود.</small>
+    </div>
+</div>
+
+<div class="field">
+    <label>اسکریپت‌های کلی فرم</label>
+    <feditor control-s="saveFormShotcut()" flex ng-model="c.clientModel.generalScript" lang="js"></feditor>
+    <small class="gray"
+        >این تکه کد زمان باز شدن فرم اجرا می‌شود. میتوانید توابعی که لازم دارید را در scope ذخیره کنید و سپس در وظیفه‌های هر کنترل از آن‌ها استفاده کنید.
+    </small>
+</div>
+
+<div class="field">
+    <sadaf-checkbox ng-model="c.clientModel.createDax">ایجاد منبع داده DAX مجزا</sadaf-checkbox>
+</div>
+
+<div class="field">
+    <sadaf-checkbox ng-model="c.mapTable.enable">عدم ایجاد جدول و استفاده از جدول موجود</sadaf-checkbox>
+</div>
+
+<style>
+    .inline-form.field input {
+        width: 70% !important;
+    }
+
+    .inline-form.field > label {
+        width: 29% !important;
+        display: inline-block !important;
+        text-align: left;
+        padding-left: 10px;
+    }
+</style>
+
+<div class="ui mini secondary clearing segment inline-form" ng-show="c.mapTable.enable">
+    <div class="field">
+        <sadaf-checkbox ng-model="c.mapTable.externalTable">استفاده از جداول خارجی به جز منابع داده </sadaf-checkbox>
+    </div>
+
+    <div ng-show="!c.mapTable.externalTable">
+        <div class="field">
+            <select-datasource ng-model="c.mapTable.datasource"></select-datasource>
+        </div>
+        <div class="field inline-form">
+            <select-column ng-model="c.mapTable.columnId" id="c.mapTable.datasource.value"></select-column>
+        </div>
+    </div>
+
+    <div ng-show="c.mapTable.externalTable">
+        <div class="field inline-form">
+            <label>سرور</label>
+            <input autocomplete="off" type="text" ng-model="c.mapTable.server" />
+        </div>
+
+        <div class="field inline-form">
+            <label>پایگاه داده</label>
+            <input autocomplete="off" type="text" ng-model="c.mapTable.database" />
+        </div>
+
+        <div class="field inline-form">
+            <label>نام کاربری</label>
+            <input autocomplete="off" type="text" ng-model="c.mapTable.user" />
+        </div>
+
+        <div class="field inline-form">
+            <label>کلمه عبور</label>
+            <input autocomplete="off" type="password" ng-model="c.mapTable.pass" />
+        </div>
+
+        <div class="field inline-form">
+            <label>نام جدول</label>
+            <input autocomplete="off" type="text" ng-model="c.mapTable.tableName" />
+        </div>
+
+        <div class="field inline-form">
+            <label>نام ستون شناسه</label>
+            <input autocomplete="off" type="text" ng-model="c.mapTable.columnId" />
+        </div>
+    </div>
+
+    <div class="field inline-form">
+        <label></label>
+        <sadaf-checkbox ng-model="c.mapTable.hasSystemColumns">دارای ستون‌های سیستمی</sadaf-checkbox>
+    </div>
+</div>
+
