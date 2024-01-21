@@ -131,6 +131,37 @@
                 ng-style="{'background-color': (c.clientModel.color || '#f4f6f9')}"
                 style="padding: 16px 16px; min-height: 350px"
             >
+            <div class="tw-mb-4">
+                <div ng-show="!c.pages.header" class="ui mini icon button" ng-click="c.pages.addFooter(false, 2)">اضافه کردن هدر <i class="ui icon add"></i></div>
+                <div class="ui form editor secondary segment" ng-show="c.pages.header">
+                    <div class="tw-absolute tw-left-0 tw-top-0" ng-click="c.pages.removeFooter(2)">
+                        حذف هدر
+                        <i class="ui link icon trash outline alternate"></i>
+                    </div>
+                    <div
+                        ng-show="c.pages.header"
+                        class="ui grid content-form sortable-refresh"
+                        style="min-height: 70px"
+                        ng-sortable="{group: {name: 'form', pull:true},sort:true, animation:150}"
+                    >
+                        <form-control
+                            ng-repeat="component in c.pages.header.controls track by $index"
+                            ng-show="component.systemType != 1"
+                            ng-model="component"
+                            id="{{c.id}}"
+                            edit="true"
+                            edit-context="c"
+                            page="c.pages.header"
+                            class=""
+                            ng-class="[{'active':component.isActive}]"
+                            remove="c.pages.removeControl($index, component,c.pages.header)"
+                            copy="c.pages.copy($index, component, c.pages.header)"
+                            settings-click="c.control.setActive(component); "
+                            ng-click="c.control.setActive(component, $event); "
+                        ></form-control>
+                    </div>
+                </div>
+            </div>
                 <div class="tw-grow">
                     <div
                         ng-sortable="{group: {name: 'form', pull:true},sort:true, animation:150}"
@@ -138,7 +169,7 @@
                         style="align-items: flex-start; margin: 0; padding: 0; min-height: 50px"
                     >
                         <form-control
-                            ng-repeat="component in c.pages.activePage.controls track by $index"
+                            ng-repeat="component in c.pages.activePage.controls  track by $index"
                             ng-show="component.systemType != 1"
                             ng-model="component"
                             id="{{c.id}}"
@@ -155,37 +186,7 @@
                     </div>
                 </div>
 
-                <div class="tw-mt-4">
-                    <div ng-show="!c.pages.header" class="ui mini icon button" ng-click="c.pages.addFooter(false, 2)">اضافه کردن هدر <i class="ui icon add"></i></div>
-                    <div class="ui form editor secondary segment" ng-show="c.pages.header">
-                        <div class="tw-absolute tw-left-0 tw-top-0" ng-click="c.pages.removeFooter(2)">
-                            حذف هدر
-                            <i class="ui link icon trash outline alternate"></i>
-                        </div>
-                        <div
-                            ng-show="c.pages.header"
-                            class="ui grid content-form sortable-refresh"
-                            style="min-height: 70px"
-                            ng-sortable="{group: {name: 'form', pull:true},sort:true, animation:150}"
-                        >
-                            <form-control
-                                ng-repeat="component in c.pages.header.controls track by $index"
-                                ng-if="component.systemType != 1"
-                                ng-model="component"
-                                id="{{c.id}}"
-                                edit="true"
-                                edit-context="c"
-                                page="c.pages.header"
-                                class=""
-                                ng-class="[{'active':component.isActive}]"
-                                remove="c.pages.removeControl($index, component,c.pages.header)"
-                                copy="c.pages.copy($index, component, c.pages.header)"
-                                settings-click="c.control.setActive(component); "
-                                ng-click="c.control.setActive(component, $event); "
-                            ></form-control>
-                        </div>
-                    </div>
-                </div>
+            
 
                 <div class="tw-mt-4">
                     <div ng-show="!c.pages.footer" class="ui mini icon button" ng-click="c.pages.addFooter(false, 1)">اضافه کردن فوتر <i class="ui icon add"></i></div>
@@ -202,8 +203,8 @@
                             ng-sortable="{group: {name: 'form', pull:true},sort:true, animation:150}"
                         >
                             <form-control
-                                ng-repeat="component in c.pages.footer.controls track by $index"
-                                ng-if="component.systemType != 1"
+                                ng-repeat="component in c.pages.footer.controls track by $index "
+                                ng-show="component.systemType != 1"
                                 ng-model="component"
                                 id="{{c.id}}"
                                 edit="true"

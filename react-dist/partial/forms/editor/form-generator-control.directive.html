@@ -1,6 +1,5 @@
 ﻿<div ng-style="model.styles" 
     class=" field form-control {{model.uiConfig.hideClearBtn ? '' : 'showClearBtn'}} {{model.name}} type-{{model.type}} form-{{model.randomId}} {{settings.fromMultiRow ? '' :  model.columnClass + ' wide column'}} {{ (!model.canEdit && model.type != 13) || (disabled == 'disabled' || disabled == 'true' ) ? 'disabled':''}} {{ !model.canView? 'ng-hide':''}} {{ model.readonly? 'read-only':''}} {{(model.hidden && !edit ) ? 'ng-hide':''}}">
-
     <span ng-if="model.hidden && edit" class="material-icons small small-size hidden-mark">remove_red_eye</span>
     <span ng-if="edit" class="ui label mini compact hidden-mark" style="color:black; opacity: 0.6;">{{model.name.replace('field-', '')}}</span>
     <div class="control-actions" ng-if="edit">
@@ -190,7 +189,7 @@
 
     <div class="field action-icon tw-relative tw-flex tw-items-center tw-justify-center" ng-if="model.type == 3" style="min-height: 38px;">
         <label class="tw-flex-1" title="{{model.description}}" ng-hide="settings.showLabel===false">
-            <pre><styled-label font="model.uiConfig.fontLabel">{{model.label}}</styled-label></pre>
+            <pre ng-style="{textAlign:model.uiConfig.fontLabel.enable?model.uiConfig.fontLabel.align:'inherit'}" ><styled-label font="model.uiConfig.fontLabel">{{model.label}}</styled-label></pre>
         </label>
         <div class="value tw-flex-1" ng-if="model.value" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
             <styled-label font="model.uiConfig.fontValue">{{model.value | formatNumber:model | persian}}</styled-label>

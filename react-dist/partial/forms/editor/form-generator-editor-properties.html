@@ -424,7 +424,7 @@
             <sadaf-checkbox ng-model="c.control.active.formLookup.duplicateDatasource"> ایجاد کپی از منبع داده مبدا </sadaf-checkbox>
         </div>
 
-        <div class="field" >
+        <div class="field">
             <sadaf-checkbox ng-model="c.control.active.formLookup.noRelation">عدم ایجاد ارتباط بین فرم‌ها</sadaf-checkbox>
         </div>
 
@@ -472,6 +472,7 @@
                 operand="c.control.active.accessOp"
                 source-fields="c.control.active.formLookup.formLookupSourceFields"
                 controls="c.activeSibling"
+                on-change="setToAll('access')"
             ></access-property>
         </div>
     </div>
@@ -768,7 +769,7 @@
             size: true,
             font: true,
             color: true,
-            align: false,
+            align: true,
             rotate: false,
             anchor: false,
             position: false
@@ -869,7 +870,7 @@
         </div>
 
         <div class="f-field">
-            <label>تم نمایش</label>
+            <label>نحوه نمایش ردیف‌ها</label>
             <sm-dropdown
                 items="[{k:'simple', label:'جدولی ساده'}, {k:'group', label:'گروهی'}, {k:'simple-v2', label:'جدولی ساده-v2'}]"
                 model="c.control.active.uiConfig.theme"
@@ -878,16 +879,66 @@
                 class="selection value"
             ></sm-dropdown>
         </div>
-        <div class="f-field" ng-show="c.control.active.uiConfig.theme == 'simple'">
-            <label>مکان عمودی آیتم‌ها در جدول</label>
-            <sm-dropdown
-                items="[{k:'top', label:'بالا'}, {k:'center', label:'وسط'}]"
-                model="c.control.active.uiConfig.verticalAlign"
-                value="item.k"
-                label="item.label"
-                class="selection value"
-            ></sm-dropdown>
+        <div ng-if="c.control.active.uiConfig.theme == 'simple' || c.control.active.uiConfig.theme == 'simple-v2'">
+            <div class="f-field">
+                <label>مکان عمودی آیتم‌ها در جدول</label>
+                <sm-dropdown
+                    items="[{k:'top', label:'بالا'}, {k:'center', label:'وسط'}]"
+                    model="c.control.active.uiConfig.verticalAlign"
+                    value="item.k"
+                    label="item.label"
+                    class="selection value"
+                ></sm-dropdown>
+            </div>
+            <div class="f-field">
+                <label>رنگ جدول</label>
+                <div class="" on-change="changeSettings()" md-color-picker ng-model="c.control.active.uiConfig.themeColor" md-color-default-tab="'genericPalette'"></div>
+                <i title="پاک کردن رنگ" class="ui link icon close" ng-click="c.control.active.uiConfig.themeColor = null"></i>
+            </div>
         </div>
+        <div class="field">
+            <sadaf-checkbox ng-change="setToAll('uiConfig.fontLabel.enable')" ng-model="c.control.active.uiConfig.titleFont.enable"> تغییر فونت نام جدول </sadaf-checkbox>
+            &nbsp;&nbsp;&nbsp;
+            <text-editor
+                on-change="setToAll('uiConfig.titleFont')"
+                style="display: inline-block"
+                ng-if="c.control.active.uiConfig.titleFont.enable"
+                prop="c.control.active.uiConfig.titleFont"
+                config="{
+            format: false,
+            bold: true,
+            size: true,
+            font: true,
+            color: true,
+            align: true,
+            rotate: false,
+            anchor: false,
+            position: false
+        }"
+            ></text-editor>
+        </div>
+        <div class="field">
+            <sadaf-checkbox ng-change="setToAll('uiConfig.fontLabel.enable')" ng-model="c.control.active.uiConfig.addKeyFont.enable"> تغییر فونت کلید اضافه کردن </sadaf-checkbox>
+            &nbsp;&nbsp;&nbsp;
+            <text-editor
+                on-change="setToAll('uiConfig.addKeyFont')"
+                style="display: inline-block"
+                ng-if="c.control.active.uiConfig.addKeyFont.enable"
+                prop="c.control.active.uiConfig.addKeyFont"
+                config="{
+            format: false,
+            bold: true,
+            size: true,
+            font: true,
+            color: true,
+            align: true,
+            rotate: false,
+            anchor: false,
+            position: false
+        }"
+            ></text-editor>
+        </div>
+
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.uiConfig.matrixMode">نمایش ماتریسی</sadaf-checkbox>
         </div>
