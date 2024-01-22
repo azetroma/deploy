@@ -477,27 +477,70 @@
                     </div>
 
                     <div class="form-row" layout="row" layout-align="start center">
-                        <label class="col-sm-4">شاخص نمایش پاپ آپ</label>
-                        <span class="form-divider" flex></span><div class="col-sm-8">
-                            <select id="series-selector" ng-change="refreshChart('refresh')"
-                                    ng-model="ngModel.map.info.showLatLng.popupKpi"
-                                    ng-options="i as i for i in ngModel.series">
-                            </select>
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox">
+                                <label class="">
+                                    <input type="checkbox" ng-model="ngModel.map.info.showLatLng.hidePopup" ng-change="refreshChart('refresh')" />
+                                    مخفی کردن پاپ آپ
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row" ng-show="!ngModel.map.info.showLatLng.hidePopup" layout="row" layout-align="start center">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox">
+                                <label class="">
+                                    <input type="checkbox" ng-model="ngModel.map.info.showLatLng.popupOnLast" ng-change="refreshChart('refresh')" />
+                                    نمایش پاپ آپ فقط در لایه آخر
+                                </label>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-row" layout="row" layout-align="start center">
-                        <label>{{ 'فونت پاپ آپ' | translate }}</label>
-                        <span class="form-divider" flex></span>
-                        <text-editor prop="ngModel.map.info.showLatLng.popupFont" default="{fontSize:'14px', align:'center'}" on-change="refreshChart('refresh')"></text-editor>
-                    </div>
-
-                    <div class="form-row" layout="row" layout-align="start center">
-                        <label class="col-sm-4">متن دلخواه روی پاپ آپ</label>
-                        <span class="form-divider" flex></span><div class="col-sm-8">
-                            <input type="text" ng-model="ngModel.map.info.showLatLng.popupPrefix" ng-change="refreshChart('refresh')" />
+                    <div class="form-row" ng-show="!ngModel.map.info.showLatLng.hidePopup" layout="row" layout-align="start center">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox">
+                                <label class="">
+                                    <input type="checkbox" ng-model="ngModel.map.info.showLatLng.customPopupEnable" ng-change="refreshChart('refresh')" />
+                                     متن دلخواه پاپ آپ
+                                </label>
+                            </div>
                         </div>
                     </div>
+                    
+                    <div ng-if="ngModel.map.info.showLatLng.customPopupEnable">
+                        <sadaf-quil ng-model="ngModel.map.info.showLatLng.customPopup" ng-change="refreshChart('refresh')"></sadaf-quil>
+                        <div class="ltr gray" style="font-size: 0.85em;display: flex;flex-direction: row;flex-wrap: wrap; justify-content: space-between;">
+                            <div><strong> @s1 @s2 @s3...</strong>:نمایش شاخص‌ </div>
+                        </div>
+    
+                    </div>
+
+                    <div ng-if="!ngModel.map.info.showLatLng.customPopupEnable">
+                        <div class="form-row" layout="row" layout-align="start center">
+                            <label class="col-sm-4">شاخص نمایش پاپ آپ</label>
+                            <span class="form-divider" flex></span><div class="col-sm-8">
+                                <select id="series-selector" ng-change="refreshChart('refresh')"
+                                        ng-model="ngModel.map.info.showLatLng.popupKpi"
+                                        ng-options="i as i for i in ngModel.series">
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row" layout="row" layout-align="start center">
+                            <label>{{ 'فونت پاپ آپ' | translate }}</label>
+                            <span class="form-divider" flex></span>
+                            <text-editor prop="ngModel.map.info.showLatLng.popupFont" default="{fontSize:'14px', align:'center'}" on-change="refreshChart('refresh')"></text-editor>
+                        </div>
+                        
+                        <div class="form-row" layout="row" layout-align="start center">
+                            <label class="col-sm-4">متن دلخواه روی پاپ آپ</label>
+                            <span class="form-divider" flex></span><div class="col-sm-8">
+                                <input type="text" ng-model="ngModel.map.info.showLatLng.popupPrefix" ng-change="refreshChart('refresh')" />
+                            </div>
+                        </div>
+                    </div>
+
 
 
                 </div>
