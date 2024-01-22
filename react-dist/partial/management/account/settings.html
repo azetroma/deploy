@@ -155,7 +155,7 @@
                             <div class="fields">
                                 <div class="two wide field"></div>
                                 <div class="four wide field">
-                                    <md-checkbox class="md-block" ng-model="model.calcFaildLoginByIp"> محاسبه تعداد لاگین‌های ناموفق براساس IP کاربر </md-checkbox>
+                                    <sadaf-checkbox class="md-block" ng-model="model.calcFaildLoginByIp"> محاسبه تعداد لاگین‌های ناموفق براساس IP کاربر </sadaf-checkbox>
                                 </div>
                             </div>
                         </div>
@@ -198,8 +198,8 @@
 
                         <br />
                         <div ng-show="securityCertPatch" class="">
-                            <div class="field !tw-m-0">
-                                <md-checkbox class="md-block" ng-model="model.preventLogin"> جلوگیری از ورود به برنامه </md-checkbox>
+                            <div class="field">
+                                <sadaf-checkbox class="md-block" ng-model="model.preventLogin"> جلوگیری از ورود به برنامه </sadaf-checkbox>
                             </div>
                             <div ng-show="model.preventLogin" class="tw-mb-4">
                                 <div class="ui pointing secondary menu">
@@ -299,8 +299,8 @@
                             <small class="gray">در صورت استفاده از این گزینه کل مدل داده‌ای پاک شده و دوباره ساخته می‌شود. این فرآیند ممکن چند دقیقه زمان ببرد.</small>
                         </div>
 
-                        <div class="field !tw-m-0">
-                            <md-checkbox class="md-block" ng-model="model.publicSignup"> {{'can signup' | translate}} </md-checkbox>
+                        <div class="field">
+                            <sadaf-checkbox class="md-block" ng-model="model.publicSignup"> {{'can signup' | translate}} </sadaf-checkbox>
                         </div>
 
                         <div class="field" ng-show="model.publicSignup">
@@ -308,11 +308,11 @@
                             <sm-dropdown class="search selection" model="model.defaultRole" items="roles" label="item.name" value="item.id"></sm-dropdown>
                             <small><small>{{'default role desc' | translate}}</small></small>
                         </div>
-                        <div class="field !tw-m-0">
-                            <md-checkbox class="md-block" ng-model="model.savePasswordAbility"> امکان ذخیره کلمه عبور در صفحه لاگین </md-checkbox>
+                        <div class="field">
+                            <sadaf-checkbox class="md-block" ng-model="model.savePasswordAbility"> امکان ذخیره کلمه عبور در صفحه لاگین </sadaf-checkbox>
                         </div>
-                        <div class="field !tw-m-0">
-                            <md-checkbox class="md-block" ng-model="model.loginPics"> نمایش تصویر در صفحه لاگین </md-checkbox>
+                        <div class="field">
+                            <sadaf-checkbox class="md-block" ng-model="model.loginPics"> نمایش تصویر در صفحه لاگین </sadaf-checkbox>
                         </div>
 
                         <div ng-show="model.loginPics" class="ui secondary segment">
@@ -333,8 +333,8 @@
                             </div>
                         </div>
 
-                        <div class="field !tw-m-0">
-                            <md-checkbox class="md-block" ng-model="model.sendMessageByLogin.enable"> {{'send message after login' | translate}} </md-checkbox>
+                        <div class="field">
+                            <sadaf-checkbox class="md-block" ng-model="model.sendMessageByLogin.enable"> {{'send message after login' | translate}} </sadaf-checkbox>
                         </div>
 
                         <div class="ui secondary segment" ng-show="model.sendMessageByLogin.enable">
@@ -380,17 +380,17 @@
                             </div>
                         </div>
 
-                        <div class="field !tw-m-0" ng-if="cdn">
-                            <md-checkbox class="md-block" ng-model="model.cdn.enable">استفاده از CDN</md-checkbox>
-                            <div ng-show="model.cdn.enable" class="ui compact mini icon button" ng-click="addCdn()"><i class="icon add"></i></div>
+                        <div class="field" ng-if="cdn">
+                            <sadaf-checkbox class="md-block" ng-model="model.cdn.enable">استفاده از CDN</sadaf-checkbox>
                         </div>
-
-                        <div class="ui secondary segment" ng-show="model.cdn.enable && model.cdn.items.length" ng-if="cdn">
-                            <div class="fields" ng-repeat="item in model.cdn.items">
-                                <div class="seven wide field">
+                        
+                        <div class="ui secondary segment"ng-show="model.cdn.enable" ng-show="model.cdn.enable" ng-if="cdn">
+                            <div  class="ui compact mini icon button !tw-mb-2" ng-click="addCdn()"> اضافه کردن <i class="icon add"></i></div>
+                            <div class="tw-flex tw-items-center tw-mb-1 tw-space-x-1 tw-space-x-reverse" ng-repeat="item in model.cdn.items">
+                                <div class="tw-flex-1">
                                     <input type="text" ng-model="item.link" placeholder="لینک" />
                                 </div>
-                                <div class="three wide field">
+                                <div class="tw-w-[150px]">
                                     <sm-dropdown
                                         class="selection fluid"
                                         model="item.type"
@@ -399,14 +399,30 @@
                                         value="item.id"
                                     ></sm-dropdown>
                                 </div>
-                                <div class="two wide field">
+                                <div class="">
                                     <div class="ui compact mini icon button" ng-click="addCdn()"><i class="icon add"></i></div>
                                     <div class="ui compact mini icon button" ng-click="model.cdn.items.splice($index, 1)"><i class="icon delete"></i></div>
                                 </div>
                             </div>
                         </div>
-                        <br />
-                        <br />
+                        <div class="field" ng-if="cdn">
+                            <sadaf-checkbox class="md-block" ng-model="model.defaultSrc.enable">استفاده از defaultSrc</sadaf-checkbox>
+                        </div>
+                        
+                        <div class="ui secondary segment" ng-if="cdn" ng-show="model.defaultSrc.enable">
+                            <div  class="ui compact mini icon button !tw-mb-2" ng-click="addDefaultSrc()">  اضافه کردن <i class="icon add"></i></div>
+                            <div ng-show="model.defaultSrc.enable && model.defaultSrc.items.length">
+                                <div class="tw-flex tw-items-center tw-mb-1" ng-repeat="item in model.defaultSrc.items">
+                                    <div class="tw-flex-1 tw-me-2">
+                                        <input type="text" ng-model="item.name" placeholder="منبع" />
+                                    </div>
+                                    <div class="">
+                                        <div class="ui compact mini icon button" ng-click="addDefaultSrc()"><i class="icon add"></i></div>
+                                        <div class="ui compact mini icon button" ng-click="model.defaultSrc.items.splice($index, 1)"><i class="icon delete"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div ng-if="uploadLogo">
                             <div class="field">
