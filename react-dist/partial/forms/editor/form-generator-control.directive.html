@@ -116,49 +116,30 @@
             {{_.find(model.dropdown.items, {value: model.value}).label}}
         </div>
 
-        <!--<sm-dropdown ng-hide="model.readonly"
-             ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData && model.dropdown.theme !='radio'"
-             class="selection multiple search fluid"
-             model="model.dropdown.listValue"
-             xon-change="changeValue()"
-             items="model.dropdown.items"
-             label="item.label"
-             value="item.value"
-             settings="simpleDropdownsettings"
-             default-text="model.value" ng-keydown="keyup($event)"></sm-dropdown>-->
-        <div ng-hide="model.readonly" class=" value"
-             ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData && model.dropdown.theme =='radio'">
-            <div class="form-radio" ng-class="[model.uiConfig.radioBlock == 'inline-block' ? 'tw-space-x-4 tw-space-x-reverse':'']">
-                <span ng-repeat="item in model.dropdown.items" ng-style="{display: model.uiConfig.radioBlock || 'block'}">
-                    <sm-checkbox model="model['chbx'+$index].check" 
-                                 on-change="multiselectChange(model['chbx'+$index], model, $index, item)"
-                                 name="model-radio-{{model.name}}"
-                                 value="item.value"
-                                 label="{{item.label}}" />
-                    <br />
-                </span>
-            </div>
-        </div>
 
         <div class="value" ng-if="!model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData" ng-hide="model.readonly">
             <sadaf-dropdwon ng-change="changeValue()" ng-model="model" form-id="{{id}}" edit="{{edit}}"></sadaf-dropdwon>
         </div>
 
-        <!--<sm-dropdown ng-hide="model.readonly"
-             ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData && model.dropdown.theme !='radio'"
-             class="selection fluid"
-             model="model.value"
-             items="model.dropdown.items"
-             label="item.label"
-             xon-change="changeValue()"
-             value="item.value"
-             default-text="model.value"
-             ng-keydown="keyup($event)"></sm-dropdown>-->
         <sadaf-dropdown-static class="value" ng-change="changeValue()"
                                ng-hide="model.readonly"
                                ng-model="model"
-                               ng-if="!model.dropdown.useRemoteData && model.dropdown.theme !='radio'"></sadaf-dropdown-static>
+                               ng-if="!model.dropdown.useRemoteData"></sadaf-dropdown-static>
 
+        <!-- <div ng-hide="model.readonly" class=" value"
+             ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData && model.dropdown.theme =='radio'">
+                              <div class="form-radio" ng-class="[model.uiConfig.radioBlock == 'inline-block' ? 'tw-space-x-4 tw-space-x-reverse':'']">
+                                  <span ng-repeat="item in model.dropdown.items" ng-style="{display: model.uiConfig.radioBlock || 'block'}">
+                                      <sm-checkbox model="model['chbx'+$index].check" 
+                                                   on-change="multiselectChange(model['chbx'+$index], model, $index, item)"
+                                                   name="model-radio-{{model.name}}"
+                                                   value="item.value"
+                                                   label="{{item.label}}" />
+                                      <br />
+                                  </span>
+                              </div>
+                          </div>
+                                                
         <div class="value" ng-hide="model.readonly"
              ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData && model.dropdown.theme =='radio'">
             <div class="form-radio tw-px-2" ng-class="[model.uiConfig.radioBlock == 'inline-block' ? 'tw-space-x-4 tw-space-x-reverse ':'']"
@@ -171,15 +152,8 @@
                         </styled-label>
                     </label>
                 </div>
-
-                <!--<span ng-repeat="item in model.dropdown.items">
-                    <sm-radio model="model.value" class="" name="model-radio-{{model.name}}" on-change="changeValue()"
-                              value="item.value"
-                              label="{{item.label}}" />
-                    <br />
-                </span>-->
             </div>
-        </div>
+        </div> -->
 
 
         <small class="helper">{{model.error}}</small>

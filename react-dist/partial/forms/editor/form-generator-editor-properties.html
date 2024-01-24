@@ -273,6 +273,7 @@
                 model="c.control.active.uiConfig.radioBlock"
                 label="item.value"
                 value="item.key"
+                on-change="setToAll('uiConfig.radioBlock')"
             ></sm-dropdown>
         </div>
 
@@ -409,7 +410,7 @@
             <input type="text" ng-model="c.control.active.postfix" name="postfix" autocomplete="nope" placeholder="{{'postfix' | translate}}" />
         </div>
 
-        <div class="f-field">
+        <div class="field">
             <sadaf-checkbox ng-model="c.control.active.uiConfig.hideDashLine">عدم نمایش خطچین زیر مقدار</sadaf-checkbox>
         </div>
     </div>
@@ -1012,7 +1013,10 @@
 
     <div class="field !tw-mt-3">
         <label>قوانین css دلخواه</label>
-        <feditor class="value" control-s="saveFormShotcut()" ng-model="c.control.active.uiConfig.styles" lang="css"></feditor>
+        <feditor class="value" 
+        control-s="saveFormShotcut()" 
+        ng-change="setToAll('uiConfig.styles')"
+        ng-model="c.control.active.uiConfig.styles" lang="css"></feditor>
     </div>
 </form>
 

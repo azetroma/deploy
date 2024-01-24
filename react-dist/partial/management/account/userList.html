@@ -54,7 +54,7 @@
                 <div class="header" layout="row" layout-align="start center">
                     <div class="cell" style="width: 20px"></div>
                     <div class="cell" style="width: 50px"><md-checkbox class="no-margin" ng-model="selectAllCheckbox" ng-change="selectAll()" aria-label="{{ 'select_all' | translate}}"></md-checkbox></div>
-                    <div class="cell" style="width: 20px">#</div>
+                    <div class="cell" style="width: 40px">#</div>
                     <div class="cell" style="width: 15%">{{'username' | translate}}</div>
                     <div class="cell" style="width: 15%"><span>{{'name' | translate}}</span></div>
                     <div class="cell" style="width: 50px"><span>{{'type' | translate}}</span></div>
@@ -77,7 +77,7 @@
                     <div class="row" md-virtual-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select;" ng-dblclick="goto(row, $event)" style="height: 48px" layout="row" layout-align="start center">
                         <div class="cell" style="width: 20px"></div>
                         <div class="cell" style="width: 50px;"><md-checkbox class="no-margin" ng-model="row.select" ng-click="$event.stopPropagation();" aria-label="{{ 'choose' | translate}}"></md-checkbox></div>
-                        <div class="cell" style="width: 20px;">{{utils.persian($index+1)}}</div>
+                        <div class="cell" style="width: 40px;">{{utils.persian($index+1)}}</div>
 
                         <div class="cell" style="width: 15%;"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.username}}</span></div>
                         <div class="cell" style="width: 15%;"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></div>
