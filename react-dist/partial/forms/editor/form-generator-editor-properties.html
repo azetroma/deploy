@@ -945,10 +945,22 @@
         </div>
 
         <small class="gray"> برای نمایش ماتریسی لازم است سه کنترل در تکرار شونده قرار بگیرند که به ترتیب اولی و دومی چند گزینه‌ای و کنترل سوم مقدار شاخص باشد. </small>
-        <br />
-        <div class="field">
+
+        <div class="field !tw-mt-2">
             <sadaf-checkbox ng-model="c.control.active.preventRelation"> عدم ایجاد ارتباط خودکار بین منبع داده تکرار شونده و فرم اصلی </sadaf-checkbox>
         </div>
+        
+        <div class="f-field" ng-show="!c.control.active.preventRelation">
+            <label>جهت ارتباط جداول</label>
+            <sm-dropdown
+                items="[{key:'right', value:'نمایش تمام رکوردهای تکرار شونده'}, {key:'left', value:'نمایش تمام رکوردهای فرم اصلی'}]"
+                class="selection value"
+                model="c.control.active.relationType"
+                label="item.value"
+                value="item.key"
+            ></sm-dropdown>
+        </div>
+
     </div>
 
     <div class="tw-mb-3" ng-if="c.control.active.type == 25">

@@ -11,15 +11,15 @@
                 </div>
                 <div class="ui tw-w-full compact small basic icon buttons" style="margin: 8px 10px">
                     <div title="{{'save' | translate}}" class="ui basic icon button" ng-click="c.save()" ng-class="{loading: c.saveProgress, disabled: c.saveProgress}">
-                        <i class="icon save"></i>
+                        <i class="icon green save"></i>
                     </div>
 
                     <div title="{{'publish' | translate}}" class="ui basic icon button" ng-show="c.id" ng-click="c.publishVisible = true" ng-class="{loading: c.publishProgress}">
-                        <i class="icon cloud"></i>
+                        <i class="icon blue cloud"></i>
                     </div>
 
                     <div title="{{'settings' | translate}}" class="ui basic icon button" ng-click="setGeneralSettings()">
-                        <i class="icon cog"></i>
+                        <i class="icon orange cog"></i>
                     </div>
                 </div>
             </div>

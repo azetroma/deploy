@@ -73,9 +73,9 @@
 
             <div ng-show="submittedStatus == 0 || submittedStatus==1">
                 <div
-                    ng-repeat="page in pages "
+                    ng-repeat="page in pages"
                     ng-if="renderPage[$index]"
-                    ng-show="$index == activePage"
+                    ng-show="$index == activePage && page.canView"
                     class="form-page ui form"
                     ng-class="[page.size, page.feildClasses.join(' ')]"
                 >
@@ -134,7 +134,7 @@
         <div ng-show="footer" class="form-page ui form" ng-class="page.size">
             <div class="ui grid stackable content-form">
                 <form-control
-                    ng-repeat="component in footer.controls "
+                    ng-repeat="component in footer.controls"
                     ng-model="component"
                     root="root"
                     id="{{id}}"
