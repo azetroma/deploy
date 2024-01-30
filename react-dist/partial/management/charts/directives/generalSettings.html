@@ -149,16 +149,16 @@
 <small class="grey" ng-show="!query.length || ('گروه نمودار' | translate).indexOf(query)!=-1">در صورت نیاز به چند گروه اسم گروه‌ها را با , از هم جدا کنید</small>
 
 <div class="form-row" layout="row" layout-align="start center" ng-show="!query.length || ('transpose' | translate).indexOf(query)!=-1">
-    <!-- <div class="col-sm-offset-4 col-sm-8">
+    <div class="col-sm-offset-4 col-sm-8">
         <div class="checkbox">
             <label class="">
                 <input type="checkbox" ng-model="model.transpose" ng-change="change()" /> {{ 'transpose' | translate }}
             </label>
         </div>
     </div>
-    <small class="grey" ng-show="!query.length || ('transpose' | translate).indexOf(query)!=-1">
+    <small class="grey" >
         در صورت فعال کردن این گزینه امکان رفتن به عمق غیر فعال می‌شود
-    </small> -->
+    </small>
 </div>
 
 <div class="form-row" layout="row" layout-align="start center" ng-show="!query.length || ('مرتب کردن داده‌ها' | translate).indexOf(query)!=-1">
@@ -314,7 +314,7 @@
 </div>
 
 <div class="form-row" layout="row" layout-align="start center" ng-if="!datasource.isOlap && datasource.CubeInfo.Dimensions[0].ModelType!=1">
-        <label>روش محاسبه شرط در پرس‌وجو</label>
+    <label>روش محاسبه شرط در پرس‌وجو</label>
     <span class="form-divider" flex></span>
     <sm-dropdown
         class=""
@@ -325,27 +325,20 @@
         label="item.label"
         value="item.value"
         model="model.whereMethod"
-        ></sm-dropdown>
+    ></sm-dropdown>
 </div>
 <div ng-if="!datasource.isOlap && datasource.CubeInfo.Dimensions[0].ModelType!=1">
     <except-relation datasource="datasource" model="model.exceptRelation"></except-relation>
 </div>
 
-
 <div class="form-row" layout="row" layout-align="start center" ng-if="datasource.isOlap || datasource.CubeInfo.Dimensions[0].ModelType==1">
     <label>حداکثر تعداد رکورد در خروجی</label>
-<span class="form-divider" flex></span>
-<input
-type="text"
-class="form-control"
-ng-change="change()"
-ng-model-options="{ updateOn: 'blur' }"
-ng-model="model.topn"
-ng-init="model.topn=model.topn||100001"
-/>
+    <span class="form-divider" flex></span>
+    <input type="text" class="form-control" ng-change="change()" ng-model-options="{ updateOn: 'blur' }" ng-model="model.topn" ng-init="model.topn=model.topn||100001" />
 </div>
 
-    <!--<div class="form-row" layout="row" layout-align="start center">
+
+<!--<div class="form-row" layout="row" layout-align="start center">
     <div class="col-sm-offset-4 col-sm-8">
         <div class="checkbox">
             <label class="">

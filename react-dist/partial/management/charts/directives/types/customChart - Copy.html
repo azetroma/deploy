@@ -6,7 +6,6 @@
             <div>
 
                 <general-settings datasource="datasource" ng-if="ngModel.customChartSettingTemplat.hasGeneralSettings" ng-model="ngModel.customChart.info" ng-change="refreshChart('refresh')"></general-settings>
-              sss  {{type}}
                 <div ng-repeat="item in ngModel.customChartSettingTemplat.general">
 
                     <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'color'">
