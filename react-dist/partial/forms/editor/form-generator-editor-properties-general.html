@@ -12,6 +12,9 @@
 <div class="field">
     <sadaf-checkbox ng-model="c.clientModel.hideTitlebar">عدم نمایش نوار عنوان فرم</sadaf-checkbox>
 </div>
+<div class="field">
+    <sadaf-checkbox ng-model="c.clientModel.history">نمایش تاریخچه تغییرات</sadaf-checkbox>
+</div>
 
 <div class="f-field" >
     <label>رنگ پشت زمینه</label>
@@ -230,6 +233,14 @@ pageMessages: [{
 
 <div class="field">
     <sadaf-checkbox ng-model="c.clientModel.createDax">ایجاد منبع داده DAX مجزا</sadaf-checkbox>
+</div>
+<div class="ui mini secondary clearing segment ">
+    <div class="ui mini header left floated">لیست نمودارهای مجاز در فرم</div>
+    <!-- <smal class="gray">در صورتی که نموداری در اسکریپتهای فرم‌ فراخوان می‌شود، لازم است حتما اینجا نیز برای کنترل 
+        دسترسی انتخاب شود.
+    </smal> -->
+    <select-multi-chart ng-model ="c.clientModel.allowedChart" ></select-multi-chart>
+    
 </div>
 
 <div class="field">

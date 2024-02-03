@@ -29,6 +29,10 @@
                     {{'clear_licence' | translate}}
                 </md-button>
 
+                <div ng-if="error" class="ui message red">
+                    {{error}}
+                </div>
+
                 <span>{{'clear licence alert' | translate}}</span>
             </md-card>
         </div>

@@ -85,4 +85,27 @@
         <ng-view flex layout="column"></ng-view>
     </div>
 
+
+    <div class="ui modal password-verify tw-relative">
+        <!-- <i class="close icon"></i> -->
+        <div class="header">
+            <h3 xstyle="margin-bottom:40px">احراز هویت مجدد</h3>
+        </div>
+        <div class="content"> 
+            با توجه به حساسیت فعالیتی که میخواهید انجام دهید، 
+            لازم است مجددا کلمه عبور خود را وارد نمایید.
+
+            <div class="ui form">
+                <div class="field">
+                    <label>کلمه عبور</label>
+                    <input type="password" name="verify-password" autocomplete="false"/>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui button green" >احراز هویت و انجام عملیات</div>
+            <div class="ui button close" >بستن</div>
+        </div>
+    </div>
+
 </div>

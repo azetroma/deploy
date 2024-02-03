@@ -25,6 +25,13 @@
     <li><span class="ui  label ltr">settings</span> تنظیمات نموداری که فرم را باز می‌کند در این پروپرتی در دسترس است</li>
 </ul>
 
+<h3>حالت Progress در کلید</h3>
+<p>برای قرار دادن کلید در حالت progress لازم است به شکل زیر عمل شود</p>
+<feditor lang="js" full-height readonly>
+    let button = findControl('field-11');
+    button.progress = true;
+</feditor>  
+
 
 <h3>تشخیص اینکه فرم جدید است یا در حالت ویرایش است</h3>
 <p> برای اینکار لازم است مقدار 
@@ -51,10 +58,13 @@
 
 <h3>دریافت داده از نمودار</h3>
 <p>در این حالت لازم نیست گزینه api 
-    در نمودار فعال شده باشد
+    در نمودار فعال شده باشد.
+    
 </p>
+<p>شناسه نمودار و شناسه فرم را حتما باید به عنوان پارامتر به وب سرویس ارسال نمایید.</p>
 <feditor lang="js" full-height readonly>
     http.post('/api/chartdata/getDataApi', {
+        "form": 12, 
         "chart": 1280, 
         "filters": [{
             "formula": "[id143].[_id]",

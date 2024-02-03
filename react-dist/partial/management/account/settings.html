@@ -91,12 +91,18 @@
                                          {id:1, name:'ارسال هشدار به شماره موبایل کاربر'},
                                          {id:5, name:'ارسال هشدار به ایمیل کاربر'},
                                          {id:2, name:'فعال کردن کد کپچا'},
-                                         {id:3, name:'غیر فعال کردن کاربر به مدت ۱۰ دقیقه'},
+                                         {id:3, name:'غیر فعال کردن کاربر '},
                                          {id:4, name:'نادیده گرفتن'},
                                          ]"
                                         label="item.name"
                                         value="item.id"
                                     ></sm-dropdown>
+                                    <input
+                                        type="number"
+                                        placeholder="مدت غیر غعال بودن به دقیقه"
+                                        ng-if="model.maxFailedLoginAction == 3"
+                                        ng-model="model.maxFailedLoginActionMinute"
+                                    />
                                 </div>
                             </div>
                             <div class="fields">
@@ -117,12 +123,19 @@
                                          {id:1, name:'ارسال هشدار به شماره موبایل کاربر'},
                                          {id:5, name:'ارسال هشدار به ایمیل کاربر'},
                                          {id:2, name:'فعال کردن کد کپچا'},
-                                         {id:3, name:'غیر فعال کردن کاربر به مدت ۱۰ دقیقه'},
+                                         {id:3, name:'غیر فعال کردن کاربر'},
                                          {id:4, name:'نادیده گرفتن'},
                                          ]"
-                                        label="item.name"
-                                        value="item.id"
-                                    ></sm-dropdown>
+                                         label="item.name"
+                                         value="item.id"
+                                         ></sm-dropdown>
+                                         <!-- {id:5, name:'غیر فعال کردن کاربر به مدت دلخواه'}, -->
+                                    <input
+                                        type="number"
+                                        placeholder="مدت غیر غعال بودن به دقیقه"
+                                        ng-if="model.maxFailedLoginUpperAction == 3"
+                                        ng-model="model.maxFailedLoginUpperActionMinute"
+                                    />
                                 </div>
                             </div>
                             <div class="fields">
@@ -143,12 +156,18 @@
                                          {id:1, name:'ارسال هشدار به شماره موبایل کاربر'},
                                          {id:5, name:'ارسال هشدار به ایمیل کاربر'},
                                          {id:2, name:'شروع مجدد فرآیند'},
-                                         {id:3, name:'غیر فعال کردن کاربر به مدت ۱۰ دقیقه'},
+                                         {id:3, name:'غیر فعال کردن کاربر '},
                                          {id:4, name:'نادیده گرفتن'},
                                          ]"
                                         label="item.name"
                                         value="item.id"
                                     ></sm-dropdown>
+                                    <input
+                                        type="number"
+                                        placeholder="مدت غیر غعال بودن به دقیقه"
+                                        ng-if="model.maxFailedLoginTwoFactorAction == 3"
+                                        ng-model="model.maxFailedLoginTwoFactorActionMinute"
+                                    />
                                 </div>
                             </div>
 
@@ -383,9 +402,9 @@
                         <div class="field" ng-if="cdn">
                             <sadaf-checkbox class="md-block" ng-model="model.cdn.enable">استفاده از CDN</sadaf-checkbox>
                         </div>
-                        
-                        <div class="ui secondary segment"ng-show="model.cdn.enable" ng-show="model.cdn.enable" ng-if="cdn">
-                            <div  class="ui compact mini icon button !tw-mb-2" ng-click="addCdn()"> اضافه کردن <i class="icon add"></i></div>
+
+                        <div class="ui secondary segment" ng-show="model.cdn.enable" ng-show="model.cdn.enable" ng-if="cdn">
+                            <div class="ui compact mini icon button !tw-mb-2" ng-click="addCdn()">اضافه کردن <i class="icon add"></i></div>
                             <div class="tw-flex tw-items-center tw-mb-1 tw-space-x-1 tw-space-x-reverse" ng-repeat="item in model.cdn.items">
                                 <div class="tw-flex-1">
                                     <input type="text" ng-model="item.link" placeholder="لینک" />
@@ -406,15 +425,15 @@
                             </div>
                         </div>
                         <div class="field" ng-if="cdn">
-                            <sadaf-checkbox class="md-block" ng-model="model.defaultSrc.enable">استفاده از defaultSrc</sadaf-checkbox>
+                            <sadaf-checkbox class="md-block" ng-model="model.defaultSrc.enable">تنظیم مقدار default-src در هدر content-security-policy</sadaf-checkbox>
                         </div>
-                        
+
                         <div class="ui secondary segment" ng-if="cdn" ng-show="model.defaultSrc.enable">
-                            <div  class="ui compact mini icon button !tw-mb-2" ng-click="addDefaultSrc()">  اضافه کردن <i class="icon add"></i></div>
+                            <div class="ui compact mini icon button !tw-mb-2" ng-click="addDefaultSrc()">اضافه کردن <i class="icon add"></i></div>
                             <div ng-show="model.defaultSrc.enable && model.defaultSrc.items.length">
                                 <div class="tw-flex tw-items-center tw-mb-1" ng-repeat="item in model.defaultSrc.items">
                                     <div class="tw-flex-1 tw-me-2">
-                                        <input type="text" ng-model="item.name" placeholder="منبع" />
+                                        <input autocomplete="one-time-code" type="text" ng-model="item.name" placeholder="domain.example.com" />
                                     </div>
                                     <div class="">
                                         <div class="ui compact mini icon button" ng-click="addDefaultSrc()"><i class="icon add"></i></div>
@@ -436,7 +455,7 @@
                             </div>
                         </div>
 
-                        <div>
+                        <div ng-show="securityCertPatch">
                             <sadaf-checkbox ng-model="model.ratelimit.enable">محدودیت روی تعداد درخواست</sadaf-checkbox>
                             <div class="ui secondary segment" ng-if="model.ratelimit.enable">
                                 <div class="ui small button" ng-click="addRateLimitRule()">اضافه کردن</div>
@@ -494,6 +513,31 @@
                             </div>
                         </div>
 
+                        <div ng-show="securityCertPatch">
+                            <div class="field !tw-mt-4">
+                                <sadaf-checkbox ng-model="model.classifiedPage.enable">تعیین صفحه‌های حساس </sadaf-checkbox>
+                                <br/>
+                                <small class="gray">با تعیین صفحه‌های حساس، کاربر برای ویرایش این صفحه‌ها، لازم است کلمه عبور را مجددا وارد نماید.</small>
+                            </div>
+                            <div class="ui secondary segment" ng-if="model.classifiedPage.enable">
+                                <div class="ui tiny header">صفحه‌های حساس</div>
+                                <div ng-repeat="k in classifiedPage">
+                                    <sadaf-checkbox  ng-model="model.classifiedPage[k.key]">{{k.title}}</sadaf-checkbox>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fields !tw-mt-4" ng-show="securityCertPatch">
+                            <div class="field">
+                                <sadaf-checkbox ng-model="model.preventUseLastPassword">محدودیت کاربر برای انتخاب مجدد کلمه عبورهای قبلی</sadaf-checkbox>
+                            </div>
+
+                            <div class="field" ng-if="model.preventUseLastPassword">
+                                <label class="!tw-text-right">تعداد کلمه عبورهای قبلی جهت بررسی</label>
+                                <input ng-model="model.preventUseLastPasswordCount" />
+                                <small class="gray">عدد صفر یعنی تمام کلمات عبور قبلی</small>
+                            </div>
+                        </div>
                         <br />
                         <br />
 

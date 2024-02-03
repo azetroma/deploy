@@ -96,7 +96,7 @@
                 </div>
             </div>
 
-            <div ng-if="showVersion && app.license.formVersioning" style="margin-top: 10px">
+            <div ng-if="showVersion && app.license.formVersioning && data.clientModelParsed.history" style="margin-top: 10px">
                 <div ng-if="versionRestore" ng-click="backToBaseVersion()" class="ui mini button black" style="position: absolute; left: 18px">نمایش آخرین وضعیت</div>
                 <versions id="{{id}}" sub-id="{{rowId}}" type="8" on-restore="restore(model)" on-detail="setValue(model)"></versions>
             </div>
