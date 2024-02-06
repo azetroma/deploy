@@ -126,10 +126,10 @@
                                          {id:3, name:'غیر فعال کردن کاربر'},
                                          {id:4, name:'نادیده گرفتن'},
                                          ]"
-                                         label="item.name"
-                                         value="item.id"
-                                         ></sm-dropdown>
-                                         <!-- {id:5, name:'غیر فعال کردن کاربر به مدت دلخواه'}, -->
+                                        label="item.name"
+                                        value="item.id"
+                                    ></sm-dropdown>
+                                    <!-- {id:5, name:'غیر فعال کردن کاربر به مدت دلخواه'}, -->
                                     <input
                                         type="number"
                                         placeholder="مدت غیر غعال بودن به دقیقه"
@@ -515,14 +515,25 @@
 
                         <div ng-show="securityCertPatch">
                             <div class="field !tw-mt-4">
+                                <sadaf-checkbox ng-model="model.antivirusEnable">بررسی فایل‌ها توسط آنتی ویروس </sadaf-checkbox>
+                                <div class="ui small compact mini button" ng-class="{loading: antivirusProgress, disabled: antivirusProgress}" ng-click="checkAntivirus()">
+                                    بررسی نصب بودن آنتی ویروس
+                                </div>
+                                <div class="ui label green" ng-show="antivirus === true">برنامه آنتی ویروس Windown Defender روی سرور نصب است</div>
+                                <div class="ui label red" ng-show="antivirus === false">برنامه آنتی ویروس Windown Defender روی سرور نصب نیست</div>
+                                <br />
+                                <small class="gray">برای بررسی فایل‌ها توسط آنتی ویروس لازم است برنامه Windown Defender روی سرور نصب و فعال باشد.</small>
+                            </div>
+
+                            <div class="field !tw-mt-4">
                                 <sadaf-checkbox ng-model="model.classifiedPage.enable">تعیین صفحه‌های حساس </sadaf-checkbox>
-                                <br/>
+                                <br />
                                 <small class="gray">با تعیین صفحه‌های حساس، کاربر برای ویرایش این صفحه‌ها، لازم است کلمه عبور را مجددا وارد نماید.</small>
                             </div>
                             <div class="ui secondary segment" ng-if="model.classifiedPage.enable">
                                 <div class="ui tiny header">صفحه‌های حساس</div>
                                 <div ng-repeat="k in classifiedPage">
-                                    <sadaf-checkbox  ng-model="model.classifiedPage[k.key]">{{k.title}}</sadaf-checkbox>
+                                    <sadaf-checkbox ng-model="model.classifiedPage[k.key]">{{k.title}}</sadaf-checkbox>
                                 </div>
                             </div>
                         </div>
