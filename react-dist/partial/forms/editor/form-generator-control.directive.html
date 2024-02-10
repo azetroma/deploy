@@ -74,6 +74,7 @@
         <small>{{model.description}}</small>
     </div>
 
+
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 6">
         <label title="{{model.description}}" ng-hide="settings.showLabel === false || model.readonly">&nbsp;</label>
         <sadaf-checkbox class="value" ng-hide="model.readonly" ng-model="model.value" label="{{model.label}}" ng-change="changeValue()">
@@ -237,7 +238,18 @@
          ng-class="{required : model.validations.isRequire, error: model.error}"
          ng-if="model.type == 15">
         <label ng-hide="settings.showLabel===false">&nbsp;</label>
-        <div class="ui compact submit button fluid {{model.button.colorClass}} {{settings.controlSize || model.button.size}}" ng-class="{'loading disabled': model.progress}" ng-click="buttonClick()"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></div>
+        <div ng-class="[
+                (model.uiConfig.buttonType=='basic' ? 'basic' : ''), 
+                (!!model.uiConfig.icon ? 'icon':'fluid'), 
+                (model.progress ? 'loading disabled':'' ),
+                model.button.colorClass,
+                (settings.controlSize || model.button.size)]" 
+             title="{{model.uiConfig.tooltip}}"
+             class="ui compact submit button"
+             ng-click="buttonClick()">
+             <i ng-show="model.uiConfig.icon" class="ui icon {{model.uiConfig.icon}}"></i>
+            <styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label>
+        </div>
         <div></div>
         <small>{{model.description}}</small>
         <!--<new-form-modal ng-model="model.button"></new-form-modal>-->
@@ -250,7 +262,7 @@
             ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
             <styled-label font="model.uiConfig.fontValue"><small> {{model.calculate.expression}}</small></styled-label></div>
             <div class="tw-relative" ng-hide="edit" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
-                <span><styled-label font="model.uiConfig.fontValue"> {{model.value | formatNumber:model | persian}}</styled-label></span>
+                <span sdsd style="direction: ltr; display: inline-block;"><styled-label font="model.uiConfig.fontValue" > {{model.value | formatNumber:model | persian}}</styled-label></span>
                 <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
             </div>
         </div>

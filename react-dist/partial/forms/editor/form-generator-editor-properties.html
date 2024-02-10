@@ -370,6 +370,7 @@
             model="c.control.active.dataType"
             label="item.value"
             value="item.key"
+            xon-change="setToAll('dataType')"
         ></sm-dropdown>
     </div>
 
@@ -377,6 +378,7 @@
         <div class="f-field">
             <label>نوع داده</label>
             <sm-dropdown
+                xon-change="setToAll('dataType')"
                 items="[{key:'decimal', value:'عدد اعشاری (Decimal)'}, {key:'string', value:'رشته‌ای'}]"
                 class="selection fluid search value"
                 model="c.control.active.dataType"
@@ -533,7 +535,7 @@
         <div class="inline fields">
             <label>{{'color'|translate}}</label>
             <sm-dropdown
-                items="[{label:('red'     |translate), value:'red'},
+                items="[{label:('red' |translate), value:'red'},
                                  {label:('orange'   |translate), value:'orange'},
                                  {label:('yellow'      |translate), value:'yellow'},
                                  {label:('olive'    |translate), value:'olive'},
@@ -554,8 +556,29 @@
         </div>
 
         <div class="inline fields">
+            <label>نحوه نمایش</label>
+            <sm-dropdown
+                items="[         {label:('ساده' |translate), value:'basic'},
+                                 {label:('توپر'   |translate), value:''},
+                       ]"
+                class=""
+                model="c.control.active.uiConfig.buttonType"
+                label="item.label"
+                value="item.value"
+            ></sm-dropdown>
+        </div>
+
+        <div class="inline fields">
             <label>{{'size' | translate}}</label>
             <control-size ng-model="c.control.active.button.size"></control-size>
+        </div>
+        <div class="f-field">
+            <label>{{'متن راهنما' | translate}}</label>
+            <input class="" ng-model="c.control.active.uiConfig.tooltip" autocomplete="off" type="text" />
+        </div>
+        <div class="f-field">
+            <label>{{'آیکن' | translate}}</label>
+            <input class="" ng-model="c.control.active.uiConfig.icon" autocomplete="off" type="text" />
         </div>
 
         <sadaf-tasks ng-model="c.control.active.button.tasks" ng-init="c.control.active.button.tasks = c.control.active.button.tasks || []"></sadaf-tasks>
@@ -949,7 +972,7 @@
         <div class="field !tw-mt-2">
             <sadaf-checkbox ng-model="c.control.active.preventRelation"> عدم ایجاد ارتباط خودکار بین منبع داده تکرار شونده و فرم اصلی </sadaf-checkbox>
         </div>
-        
+
         <div class="f-field" ng-show="!c.control.active.preventRelation">
             <label>جهت ارتباط جداول</label>
             <sm-dropdown
@@ -960,7 +983,6 @@
                 value="item.key"
             ></sm-dropdown>
         </div>
-
     </div>
 
     <div class="tw-mb-3" ng-if="c.control.active.type == 25">
@@ -1025,10 +1047,7 @@
 
     <div class="field !tw-mt-3">
         <label>قوانین css دلخواه</label>
-        <feditor class="value" 
-        control-s="saveFormShotcut()" 
-        ng-change="setToAll('uiConfig.styles')"
-        ng-model="c.control.active.uiConfig.styles" lang="css"></feditor>
+        <feditor class="value" control-s="saveFormShotcut()" ng-change="setToAll('uiConfig.styles')" ng-model="c.control.active.uiConfig.styles" lang="css"></feditor>
     </div>
 </form>
 

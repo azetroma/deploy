@@ -6,10 +6,7 @@
     <i ng-if="settings.modal" class="close icon" ng-click="cancel()"></i>
     <div ng-if="settings.modal && !data.clientModelParsed.hideTitlebar" class="header" ng-style="{'background-color': (data.clientModelParsed.titleColor || '##f9fafb')}"style=" overflow-x: auto">
         {{data.name}} &nbsp;
-
         <button class="ui button basic small" ng-if="app.license.formPrint && data.printLayout" ng-click="print()">{{'print' | translate}} <i class="ui icon print"></i></button>
-
-        <!--TODO add to core-->
     </div>
 
     <div class="header-section" ng-if="header || pages.length>1" ng-style="{'padding-bottom': (!settings.modal?'14px':0), 'background-color': (data.clientModelParsed.headerColor || '##f9fafb')}">
@@ -188,7 +185,7 @@
                         ng-if="!isProcess ||(isProcess && process.showNext)"
                         title="{{isProcess ? 'ذخیره بدون اجرای فرآیند':''}}"
                     >
-                        {{rowId ? 'ذخیره' : ('save' | translate )}}
+                        {{ data.clientModelParsed.buttonSave || ('save' | translate )}}
                         <span class="below-btn-helper" ng-hide="settings.modal"> Ctrl + s </span>
                     </button>
                     <button
@@ -243,7 +240,7 @@
                     >
                         ذخیره و کپی در فرم جدید
                     </button>
-                    <button class="ui button basic" ng-show="(settings.modal || option.showCancel) && submittedStatus == 0" ng-click="cancel()">{{'cancel' | translate}}</button>
+                    <button class="ui button basic" ng-show="(settings.modal || option.showCancel) && submittedStatus == 0" ng-click="cancel()">{{data.clientModelParsed.buttonCancel || ('cancel' | translate)}}</button>
                 </div>
                 <button class="ui basic button close-btn" ng-show="submittedStatus!=0" ng-click="submitNewInfo()" ng-keyup="colseBtn($event)">
                     <i class="icon" ng-class="{refresh: !settings.modal , 'window close outline' : settings.modal }"></i>
@@ -291,6 +288,6 @@
                 <span ng-show="formFlows.isInFlow" class="label black ui">فرم در حال گردش است</span>
             </div>
         </div>
-        <button class="ui button black" ng-if="submittedStatus==2" ng-click="cancel()">{{'cancel' | translate}}</button>
+        <button class="ui button black" ng-if="submittedStatus==2" ng-click="cancel()">{{ data.clientModelParsed.buttonCancel || ('cancel' | translate)}}</button>
     </div>
 </div>

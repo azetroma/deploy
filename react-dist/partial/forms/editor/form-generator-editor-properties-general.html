@@ -37,6 +37,29 @@
     <i title="پاک کردن رنگ" class="ui link icon close" ng-click="c.clientModel.footerColor = null"></i>
 </div>
 
+<div class="f-field">
+    <label>{{'متن کلید ذخیره' | translate}}</label>
+    <input autocomplete="off" ng-model="c.clientModel.buttonSave" />
+</div>
+<div class="f-field">
+    <label>{{'متن کلید ذخیره و خروج' | translate}}</label>
+    <input autocomplete="off" ng-model="c.clientModel.buttonSaveExit" />
+</div>
+
+<div class="f-field">
+    <label>{{'متن کلید لغو' | translate}}</label>
+    <input autocomplete="off" ng-model="c.clientModel.buttonCancel" />
+</div>
+
+<div class="field">
+    <sadaf-checkbox ng-model="c.clientModel.askOnSave">سوال از کاربر زمان ذخیره اطلاعات</sadaf-checkbox>
+</div>
+
+<div class="field">
+    <sadaf-checkbox ng-model="c.clientModel.askOnCancel">سوال از کاربر زمان بستن فرم</sadaf-checkbox>
+</div>
+
+
 <div class="inline fields">
     <label>ویرایش همزمان</label>
     <sm-dropdown
