@@ -32,7 +32,7 @@
         <textarea ng-model="c.control.active.description" placeholder="{{'desc'|translate}}" rows="2"></textarea>
     </div>
 
-    <div class="field" ng-show="c.control.active.value || c.control.active.dropdown.listValue.length">
+    <div class="field" ng-show="c.control.active.value!=null || c.control.active.dropdown.listValue.length">
         <small class="gray">
             {{c.control.active.value}} {{c.control.active.dropdown.listValue.join(', ')}}
             <i class="icon remove" ng-click="c.clearValue()"></i>
@@ -135,13 +135,22 @@
         <sadaf-checkbox ng-model="c.control.active.uiConfig.hideClearBtn" ng-change="setToAll('uiConfig.hideClearBtn')"> {{'مخفی کردن کلید پاک کردن' | translate}} </sadaf-checkbox>
     </div>
 
-    <div class="fields" ng-show="c.control.active.type == 2" style="margin-bottom: 0">
-        <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.validations.autoIncrement"> {{'auto increment' | translate}} </sadaf-checkbox>
+    <div ng-show="c.control.active.type == 2">
+        <div class="fields" style="margin-bottom: 0">
+            <div class="field">
+                <sadaf-checkbox ng-model="c.control.active.validations.autoIncrement"> {{'auto increment' | translate}} </sadaf-checkbox>
+            </div>
+
+            <div class="field" ng-show="c.control.active.validations.autoIncrement">
+                <input ng-model="c.control.active.validations.autoIncrementSeed" placeholder="{{'begin value'|translate}}" />
+            </div>
         </div>
 
-        <div class="field" ng-show="c.control.active.validations.autoIncrement">
-            <input ng-model="c.control.active.validations.autoIncrementSeed" placeholder="{{'begin value'|translate}}" />
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.showSeparator"> {{'نمایش جداکننده سه رقمی' | translate}} </sadaf-checkbox>
+        </div>
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.preventNegative"> {{'ورود داده‌های منفی' | translate}} </sadaf-checkbox>
         </div>
     </div>
 
@@ -480,10 +489,63 @@
         </div>
     </div>
 
+    <div ng-if="c.control.active.mode == 'fromMulti'">
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.showInFooter"> {{'نمایش در فوتر جدول' | translate}} </sadaf-checkbox>
+        </div>
+        <div class="ui secondary segment" ng-if="c.control.active.uiConfig.showInFooter">
+            <div class="field" >
+                <label>{{'فرمول' | translate}}</label>
+                <div flex>
+                    <feditor
+                        control-s="saveFormShotcut()"
+                        ignore-beauty-pattern="\[field-\d+\]"
+                        flex
+                        type="16"
+                        ng-model="c.control.active.uiConfig.footerFormula"
+                        lang="js"
+                        list="c.controlListAutoCompelete"
+                    ></feditor>
+                </div>
+            </div>
+            <div class="f-field">
+                <label class="">{{'حداقل ارتفاع' | translate}}</label>
+                <input type="number" ng-model="c.control.active.uiConfig.footerFontMinHeight" autocomplete="nope" />
+            </div>
+    
+            <div class="field">
+                <sadaf-checkbox ng-change="setToAll('uiConfig.footerFontValue.enable')" ng-model="c.control.active.uiConfig.footerFontValue.enable"
+                    >تغییر فونت مقدار
+                </sadaf-checkbox>
+                &nbsp;&nbsp;&nbsp;
+                <text-editor
+                    on-change="setToAll('uiConfig.footerFontValue')"
+                    style="display: inline-block"
+                    ng-if="c.control.active.uiConfig.footerFontValue.enable"
+                    prop="c.control.active.uiConfig.footerFontValue"
+                    config="{
+                format: true,
+                bold: true,
+                size: true,
+                font: true,
+                color: true,
+                align: true,
+                rotate: false,
+                anchor: false,
+                position: false
+            }"
+                ></text-editor>
+            </div>
+        </div>
+    </div>
+
     <!-- تنظیمات مربوط به فرم چند ردیفه -->
     <div ng-show="c.control.active.type == 13" class="field">
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.multiRowForm.separator"> {{'row separator' | translate}} </sadaf-checkbox>
+        </div>
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.cellSeparator"> {{'خط جدا کننده ستون‌ها' | translate}} </sadaf-checkbox>
         </div>
         <div class="field">
             <sadaf-checkbox ng-model="c.control.active.uiConfig.hideAddButton"> مخفی کردن کلید ردیف جدید </sadaf-checkbox>
@@ -500,6 +562,14 @@
         <div class="f-field">
             <label class="">{{'بیشترین ارتفاع' | translate}}</label>
             <input type="text" ng-model="c.control.active.uiConfig.maxHeight" autocomplete="nope" placeholder="{{'بیشترین ارتفاع' | translate}}" />
+        </div>
+        <div class="f-field">
+            <label class="">{{'حاشیه عمودی هر دریف' | translate}}</label>
+            <input type="number" ng-model="c.control.active.uiConfig.paddingY" autocomplete="nope" />
+        </div>
+        <div class="f-field">
+            <label class="">{{'حاشیه افقی هر دریف' | translate}}</label>
+            <input type="number" ng-model="c.control.active.uiConfig.paddingX" autocomplete="nope" />
         </div>
 
         <!-- <div class="f-field">
@@ -801,7 +871,7 @@
         ></text-editor>
     </div>
 
-    <div class="field" ng-if="[0,1,2,3, 5, 16, 4, 26].includes(c.control.active.type)">
+    <div class="field" ng-if="[0,1,2,3, 5, 16, 4, 26, 22].includes(c.control.active.type)">
         <sadaf-checkbox ng-change="setToAll('uiConfig.fontValue.enable')" ng-model="c.control.active.uiConfig.fontValue.enable">تغییر فونت مقدار </sadaf-checkbox>
         &nbsp;&nbsp;&nbsp;
         <text-editor

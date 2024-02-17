@@ -156,3 +156,44 @@ scope.on('change-page', (pageIndex)=>{
     // do ...
 })
 </feditor>
+
+
+<h3>کلید پرینت در فرم </h3>
+<p>
+برای گرفتن پرینت لازم است تابع print فراخوان شود.
+
+<ul class="ltr tw-text-md">
+    پارامترهای ارسالی به تابع عبارتند از
+    <li><span class="ui  label ltr">persianize</span>  در صورت مقدار درست برای این متغیر، اعداد انگلیسی با
+    اعداد فارسی جایگزین می‌شوند.</li>
+    <li><span class="ui  label ltr">layout</span> قالب پرینت به صورت html 
+    در این پارامتر ارسال می‌شود. برای فراخوان کردن مقدار یک فیلد از نام یا نام ستون آن در داخل براکت استفاده کنید
+مثل [field-1].
+<small class="gray">
+    از شناسه فیلدها با پیشوند @ برای استفاده از جایگزینی مقدار فیلدها استفاده کنید مثل @field-1 همچنین می‌توانید از نام ستون با الگوی زیر استفاده کنید
+    {{'[columnNamee]'}} </small
+><br />
+<small class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</small>
+<br /><small class="gray"
+    >در صورت استفاده فیلد تکرار شونده به این صورت استفاده کنید. each(@[field name]){{'{{[template]}\}'}} که در آن نام فیلد تکرار شونده ابتدا آورده می‌شود و نام فیلدهای
+    ردیف در template قرار میگیرند.</small
+>
+<br /><small class="gray">برای تبدیل اعداد به حروف از تابع Num2persian() استفاده کنید</small>
+
+</li>
+    <li><span class="ui  label ltr">name</span>  نام فایل نهایی در صورت خروجی pdf</li>
+    <li><span class="ui  label ltr">oriantation</span>  حالت صفحه پرینت افقی یا عمودی. برای حالت افقی از عدد ۱ و برای 
+    حالت عمودی از عدد ۲ استفاده کنید</li>
+    <li><span class="ui  label ltr">size</span>  اندازه صفحه به صورت A4 یا A5</li>
+</ul>
+
+</p>
+<feditor lang="js" full-height readonly>
+let persianize = false;
+let layout = '<div>print template</div>';
+let name = 'pdfFileName';
+let oriantation = 1; // orientation == 1 ? 'landscape' : 'portrait'
+let size = 'A4'; // A5
+
+utils.print(persianize, layout, name, oriantation, size);
+</feditor>

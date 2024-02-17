@@ -1,4 +1,5 @@
 ﻿<!-- <div class="ui tiny header">{{'profile_general_setting' | translate}}</div> -->
+<form autocomplete="off">
 
 <div class="field">
     <sadaf-checkbox ng-model="c.showSubmitedInfo" label="">{{'show submitted info' | translate}}</sadaf-checkbox>
@@ -57,6 +58,10 @@
 
 <div class="field">
     <sadaf-checkbox ng-model="c.clientModel.askOnCancel">سوال از کاربر زمان بستن فرم</sadaf-checkbox>
+</div>
+
+<div class="field">
+    <sadaf-checkbox ng-model="c.clientModel.activeContextMenu">فعال کردن راست کلیک روی فرم</sadaf-checkbox>
 </div>
 
 
@@ -335,3 +340,4 @@ pageMessages: [{
     </div>
 </div>
 
+</form>

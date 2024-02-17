@@ -6,8 +6,8 @@
 
             <small><small> فیلتر منبع داده </small> &nbsp;</small>
             <i ng-if="filterDatasource" ng-click="clearFilter()" title="حذف فیلتر" class="ui icon close small link"></i>
-            <div class="ui form mini">
-                <div class="field">
+            <form class="ui form mini" autocomplete="off">
+                <!-- <div class="field">
                     <sm-dropdown
                         class="selection search"
                         settings="{fullTextSearch: true}"
@@ -16,8 +16,14 @@
                         value="item.Id"
                         model="filterDatasource"
                     ></sm-dropdown>
-                </div>
-            </div>
+                </div> -->
+                <div class="field">
+                    <ng-sadaf-dropdown  [config]="{items:datasourceList}" [(model)]="filterDatasource" 
+                        (on-change)="filterDatasourceCall($event)" labelprop="Name" valueprop="Id" >
+                    </ng-sadaf-dropdown>
+
+                </div> 
+            </form>
 
             <md-button class="md-icon-button cssFade" ng-show="showMenu" ng-click="delete($event)">
                 <span class="material-icons">delete</span>

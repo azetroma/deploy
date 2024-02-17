@@ -1,5 +1,5 @@
 ﻿<div class="chart-editor" layout="row" flex style="background-color:#fff">
-    <div flex="40" layout="row">
+    <form autocomplete="off" flex="40" layout="row">
 
         <!--Properties Container-->
         <div flex="60" layout="column" layout-fill>
@@ -9,7 +9,7 @@
                 <span>{{ 'تنظیمات' | translate }}</span>
                 <div class="ui mini form" flex style="margin:7px;" ng-show="chartType.id>10 && !chartType.isCustom">
                     <div class="field icon ui input fluid">
-                        <input type="text" ng-model="chartProp.settingQuery" placeholder="{{'search' | translate}}" />
+                        <input type="text" name="settings2-query" autocomplete="one-time-code" ng-model="chartProp.settingQuery" placeholder="{{'search' | translate}}" />
                         <i class="icon" ng-class="{remove: chartProp.settingQuery.length, search: !chartProp.settingQuery}" ng-click="chartProp.settingQuery = ''" style="cursor:pointer !important; pointer-events:all !important"></i>
                     </div>
                 </div>
@@ -53,8 +53,8 @@
                             </div>
 
                             <div class="ui mini form" style="margin:7px;">
-                                <div class="field icon ui input fluid">
-                                    <input type="text" ng-model="query" ng-model-options='{ debounce: 400 }' ng-change='invalidateDims()'
+                                <div class="field icon ui input fluid"> 
+                                    <input type="text" name="datasources-query" autocomplete="one-time-code" ng-model="query" ng-model-options='{ debounce: 400 }' ng-change='invalidateDims()'
                                            placeholder="{{'search' | translate}}" />
                                     <i class="icon" ng-class="{remove: query.length, search: !query}" ng-click="query = ''; invalidateDims()"
                                        style="cursor:pointer !important; pointer-events:all !important"></i>
@@ -266,7 +266,7 @@
                                                  label="item.caption"
                                                  value="item.name"></sm-dropdown>
                                     <div class="field icon ui input">
-                                        <input type="text" ng-model="query" ng-model-options='{ debounce: 400 }' ng-change='invalidateDims()'
+                                        <input autocomplete="one-time-code" name="settings-query" type="text" ng-model="query" ng-model-options='{ debounce: 400 }' ng-change='invalidateDims()'
                                                xng-change="resetShow()" placeholder="{{'search' | translate}}" />
                                         <i class="icon" ng-class="{remove: query.length, search: !query}" ng-click="query = '';invalidateDims();xresetShow()" style="cursor:pointer !important; pointer-events:all !important"></i>
                                     </div>
@@ -447,7 +447,7 @@
         </div>
 
         <md-divider></md-divider>
-    </div>
+    </form>
 
     <!--left panel for chart and selected dims-->
     <div flex="60" layout="column">
@@ -456,7 +456,7 @@
         <md-content flex="65" layout="column" style="padding:7px;">
             <div layout="row" layout-align="start center">
                 <md-input-container class="md-block no-errors-spacer" md-no-float style="margin:0 10px">
-                    <input ng-model="chartName" ng-change="refreshChart()" type="text" placeholder="{{ 'نام' | translate }}" />
+                    <input autocomplete="one-time-code" ng-model="chartName" ng-change="refreshChart()" type="text" placeholder="{{ 'نام' | translate }}" />
                 </md-input-container>
 
                 <md-button class="md-icon-button" ng-click="showDialog($event)" title="{{'dashboard' | translate}}">

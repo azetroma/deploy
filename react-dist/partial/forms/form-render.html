@@ -6,7 +6,7 @@
     <i ng-if="settings.modal" class="close icon" ng-click="cancel()"></i>
     <div ng-if="settings.modal && !data.clientModelParsed.hideTitlebar" class="header" ng-style="{'background-color': (data.clientModelParsed.titleColor || '##f9fafb')}"style=" overflow-x: auto">
         {{data.name}} &nbsp;
-        <button class="ui button basic small" ng-if="app.license.formPrint && data.printLayout" ng-click="print()">{{'print' | translate}} <i class="ui icon print"></i></button>
+        <button class="ui button basic small" ng-if="app.license.formPrint && data.printLayout" ng-click="printAction()">{{'print' | translate}} <i class="ui icon print"></i></button>
     </div>
 
     <div class="header-section" ng-if="header || pages.length>1" ng-style="{'padding-bottom': (!settings.modal?'14px':0), 'background-color': (data.clientModelParsed.headerColor || '##f9fafb')}">
