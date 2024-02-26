@@ -4,12 +4,23 @@
     ng-class="{ 'fullscreen'  : data.modalSize == 'fullscreen','small'  : data.modalSize == 'small', 'large'  : data.modalSize == 'large', 'form-editor': settings.modal, 'jqmodal modal': settings.modal}"
 >
     <i ng-if="settings.modal" class="close icon" ng-click="cancel()"></i>
-    <div ng-if="settings.modal && !data.clientModelParsed.hideTitlebar" class="header" ng-style="{'background-color': (data.clientModelParsed.titleColor || '##f9fafb')}"style=" overflow-x: auto">
+    <div
+        ng-if="settings.modal && !data.clientModelParsed.hideTitlebar"
+        class="header"
+        ng-style="{'background-color': (data.clientModelParsed.titleColor || '##f9fafb')}"
+        style="overflow-x: auto"
+    >
         {{data.name}} &nbsp;
-        <button class="ui button basic small" ng-if="app.license.formPrint && data.printLayout" ng-click="printAction()">{{'print' | translate}} <i class="ui icon print"></i></button>
+        <button class="ui button basic small" ng-if="app.license.formPrint && data.printLayout" ng-click="printAction()">
+            {{'print' | translate}} <i class="ui icon print"></i>
+        </button>
     </div>
 
-    <div class="header-section" ng-if="header || pages.length>1" ng-style="{'padding-bottom': (!settings.modal?'14px':0), 'background-color': (data.clientModelParsed.headerColor || '##f9fafb')}">
+    <div
+        class="header-section"
+        ng-if="header || pages.length>1"
+        ng-style="{'padding-bottom': (!settings.modal?'14px':0), 'background-color': (data.clientModelParsed.headerColor || '##f9fafb')}"
+    >
         <div class="form-header" ng-if="header">
             <div ng-show="header" class="form-page ui form" ng-class="header.size">
                 <div class="ui grid stackable content-form">
@@ -46,10 +57,7 @@
             </div>
         </div>
 
-        <div
-            ng-show="!formLoading"
-            style="-webkit-transition: height 1s ease; -moz-transition: height 1s ease; -o-transition: height 1s ease; transition: height 1s ease"
-        >
+        <div ng-show="!formLoading" style="-webkit-transition: height 1s ease; -moz-transition: height 1s ease; -o-transition: height 1s ease; transition: height 1s ease">
             <!-- <div ng-if="!settings.modal">
                 <div style="margin-top: 1rem"></div>
                 <div class="ui small menu" ng-show="pages.length>1">
@@ -67,7 +75,6 @@
                 </div>
                 <div style="margin-top: 1rem"></div>
             </div> -->
-
             <div ng-show="submittedStatus == 0 || submittedStatus==1">
                 <div
                     ng-repeat="page in pages"
@@ -145,8 +152,17 @@
         </div>
     </div>
     <div class="actions" xng-show="!formLoading" ng-style="{'margin-top':settings.modal ? '0':'40px', 'min-height':'64px'}">
-        <div class="tw-m-3 tw-text-right tw-space-y-1 tw-text-sm" ng-if="process.enable">
-            <div class="tw-max-h-52 tw-overflow-auto tw-mb-2" style="margin-top: -14px" ng-if="process.history.length">
+        <div class="tw-m-3 tw-text-right tw-space-y-1 tw-text-sm tw-mt-0" ng-if="process.enable">
+
+            <collapse>
+                <collapse-header>
+                    <div class="">هامش نویسی و نمایش گردش</div>
+                </collapse-header>
+                <collapse-body>
+
+
+
+            <div class="tw-max-h-52 tw-overflow-auto tw-my-2" style="xmargin-top: -14px" ng-if="process.history.length">
                 <table class="ui tiny compact table tw-table-auto">
                     <tr ng-repeat="i in process.history ">
                         <td width="30">{{persian($index+1)}}</td>
@@ -161,6 +177,10 @@
                 </table>
             </div>
             <ng-sadaf-textarea placeholder="توضیحات ارجاع کار (هامش نویسی)" [model]="process.hamesh" (model-change)="changeHamesh($event)" min="1"></ng-sadaf-textarea>
+
+        </collapse-body>
+    </collapse>            
+    
         </div>
         <div class="ui stackable grid content-form rtl" ng-show="submittedStatus == 0 || submittedStatus==1">
             <div xclass="left floated eight wide column left aligned">
@@ -190,7 +210,7 @@
                     </button>
                     <button
                         class="ui button blue relative"
-                        ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
+                        ng-hide="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
                         ng-click="submit(false, false, true)"
                         ng-class="{loading: loading}"
                         ng-if="isProcess && process.showNext && process.type!=3 && process.taskType.type!=1"
@@ -199,7 +219,7 @@
                     </button>
                     <button
                         class="ui button green relative"
-                        ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
+                        ng-hide="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
                         ng-click="approveProcess()"
                         ng-class="{loading: loading}"
                         ng-if="isProcess && process.taskType.type== 1"
@@ -210,7 +230,7 @@
                     </button>
                     <button
                         class="ui button red relative"
-                        ng-disabled="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
+                        ng-hide="(!editPermission && rowId)|| (!addPermission && !rowId) || submittedStatus != 0 || isValid() || loading"
                         ng-click="disapproveProcess()"
                         ng-class="{loading: loading}"
                         ng-if="isProcess && process.taskType.type == 1"
@@ -240,7 +260,9 @@
                     >
                         ذخیره و کپی در فرم جدید
                     </button>
-                    <button class="ui button basic" ng-show="(settings.modal || option.showCancel) && submittedStatus == 0" ng-click="cancel()">{{data.clientModelParsed.buttonCancel || ('cancel' | translate)}}</button>
+                    <button class="ui button basic" ng-show="(settings.modal || option.showCancel) && submittedStatus == 0" ng-click="cancel()">
+                        {{data.clientModelParsed.buttonCancel || ('cancel' | translate)}}
+                    </button>
                 </div>
                 <button class="ui basic button close-btn" ng-show="submittedStatus!=0" ng-click="submitNewInfo()" ng-keyup="colseBtn($event)">
                     <i class="icon" ng-class="{refresh: !settings.modal , 'window close outline' : settings.modal }"></i>
@@ -267,25 +289,35 @@
                 <div class="ui red message" style="display: inline-block; padding: 6px; margin: 0; font-size: 0.9em" ng-show="errorToast">خطا در ذخیره‌سازی</div>
             </div>
 
-            <div class="tw-mr-auto tw-order-2" ng-if="!process.enable && formFlows.flows.length">
-                <button
-                    class="ui mini icon button"
-                    ng-disabled="startFlowProgress || formFlows.isInFlow"
-                    ng-class="{loading: startFlowProgress}"
-                    ng-click="startFlow(selectedFlow)"
-                    title="اجرای گردش کار"
-                >
-                    <i class="ui icon play"></i>
-                </button>
-                <sm-dropdown
-                    ng-class="{disabled: formFlows.isInFlow}"
-                    class="selection mini search"
-                    items="formFlows.flows"
-                    model="selectedFlow"
-                    label="item.title"
-                    value="item._id"
-                ></sm-dropdown>
-                <span ng-show="formFlows.isInFlow" class="label black ui">فرم در حال گردش است</span>
+            <div class="tw-mr-auto tw-order-2 tw-flex tw-space-x-2 tw-space-x-reverse tw-items-center">
+                <div ng-if="!process.enable && formFlows.flows.length">
+                    <button
+                        class="ui mini icon button"
+                        ng-disabled="startFlowProgress || formFlows.isInFlow"
+                        ng-class="{loading: startFlowProgress}"
+                        ng-click="startFlow(selectedFlow)"
+                        title="اجرای گردش کار"
+                    >
+                        <i class="ui icon play"></i>
+                    </button>
+                    <sm-dropdown
+                        ng-class="{disabled: formFlows.isInFlow}"
+                        class="selection mini search"
+                        items="formFlows.flows"
+                        model="selectedFlow"
+                        label="item.title"
+                        value="item._id"
+                    ></sm-dropdown>
+                    <span ng-show="formFlows.isInFlow" class="label black ui">فرم در حال گردش است</span>
+                </div>
+                <div ng-show="data.clientModelParsed.showExcelImport">
+                    <button class="ui mini icon button" ng-click="downloadExcelTemplate()" title="دانلود قالب اکسل">
+                        <i class="ui icon download"></i>
+                    </button>
+                    <input type="file" class="excel-file" />
+                    <button class="ui mini icon button" ng-click="processExcel()">Upload</button>
+                    
+                </div>
             </div>
         </div>
         <button class="ui button black" ng-if="submittedStatus==2" ng-click="cancel()">{{ data.clientModelParsed.buttonCancel || ('cancel' | translate)}}</button>

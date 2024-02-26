@@ -7,12 +7,13 @@
 <div class="field">
     <sadaf-checkbox ng-model="c.formInfo.saveAndCopy">نمایش کلید «ذخیره و کپی در فرم جدید»</sadaf-checkbox>
 </div>
-<div class="field">
+<!-- <div class="field">
     <sadaf-checkbox ng-model="c.clientModel.showSuccessDialog">نمایش دیاگوک ذخیره موفق</sadaf-checkbox>
-</div>
+</div> -->
 <div class="field">
     <sadaf-checkbox ng-model="c.clientModel.hideTitlebar">عدم نمایش نوار عنوان فرم</sadaf-checkbox>
 </div>
+
 <div class="field">
     <sadaf-checkbox ng-model="c.clientModel.history">نمایش تاریخچه تغییرات</sadaf-checkbox>
 </div>
@@ -63,6 +64,9 @@
 <div class="field">
     <sadaf-checkbox ng-model="c.clientModel.activeContextMenu">فعال کردن راست کلیک روی فرم</sadaf-checkbox>
 </div>
+<div class="field">
+    <sadaf-checkbox ng-model="c.clientModel.showExcelImport">نمایش کلید ایمپورت از اکسل</sadaf-checkbox>
+</div>
 
 
 <div class="inline fields">
@@ -85,7 +89,6 @@
         model="c.modalSize"
         label="item.label"
         value="item.value"
-        ng-init="c.control.active.multiRowForm.controlSize = ''"
     ></sm-dropdown>
 </div>
 

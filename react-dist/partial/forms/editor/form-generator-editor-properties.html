@@ -150,7 +150,18 @@
             <sadaf-checkbox ng-model="c.control.active.uiConfig.showSeparator"> {{'نمایش جداکننده سه رقمی' | translate}} </sadaf-checkbox>
         </div>
         <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.uiConfig.preventNegative"> {{'ورود داده‌های منفی' | translate}} </sadaf-checkbox>
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.preventNegative"> {{'جلوگیری از ورود داده‌های منفی' | translate}} </sadaf-checkbox>
+        </div>
+    </div>
+
+    <div ng-show="c.control.active.type == 1">
+        <div class="f-field">
+            <label>حداقل ارتفاع (خط)</label>
+            <input ng-model="c.control.active.uiConfig.minLine" type="number"/>
+        </div>
+        <div class="f-field">
+            <label>حداکثر ارتفاع (خط)</label>
+            <input ng-model="c.control.active.uiConfig.maxLine" type="number"/>
         </div>
     </div>
 
@@ -494,7 +505,7 @@
             <sadaf-checkbox ng-model="c.control.active.uiConfig.showInFooter"> {{'نمایش در فوتر جدول' | translate}} </sadaf-checkbox>
         </div>
         <div class="ui secondary segment" ng-if="c.control.active.uiConfig.showInFooter">
-            <div class="field" >
+            <div class="field">
                 <label>{{'فرمول' | translate}}</label>
                 <div flex>
                     <feditor
@@ -512,7 +523,7 @@
                 <label class="">{{'حداقل ارتفاع' | translate}}</label>
                 <input type="number" ng-model="c.control.active.uiConfig.footerFontMinHeight" autocomplete="nope" />
             </div>
-    
+
             <div class="field">
                 <sadaf-checkbox ng-change="setToAll('uiConfig.footerFontValue.enable')" ng-model="c.control.active.uiConfig.footerFontValue.enable"
                     >تغییر فونت مقدار
@@ -584,10 +595,10 @@
             ></sm-dropdown>
         </div> -->
 
-        <div class="f-field">
+        <!-- <div class="f-field">
             <label>{{'controls size' | translate}}</label>
             <control-size class="value" ng-model="c.control.active.multiRowForm.controlSize"></control-size>
-        </div>
+        </div> -->
 
         <div class="f-field">
             <label>{{'new record botton text' | translate}}</label>

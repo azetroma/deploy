@@ -43,14 +43,15 @@
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
         <!-- <textarea tabindex="{{model.validations.isDisable ? -1:0}}" rows="2" class="sadaf-form-textarea value" ng-hide="model.readonly" ng-change="changeValue()" lines ng-model-options="{debounce:200}" ng-model="model.value" ng-keydown="keyup($event)"></textarea> -->
         <!-- {{model.value}} -->
-        <styled-label class="sadaf-form-textarea value" font="model.uiConfig.fontValue">
+        <styled-label ng-if="!model.readonly" class="sadaf-form-textarea value" font="model.uiConfig.fontValue">
             <ng-sadaf-textarea
             class="" 
             placeholder="{{model.uiConfig.hidePlaceholder ? '': model.label}}"
             (model-change)="setValue($event)"
             [model]="model.value"
             [disabled]="model.validations.isDisable || !!disabled || !model.canEdit"
-            min="1"
+            [min]="model.uiConfig.minLine"
+            [max]="model.uiConfig.maxLine"
             ></ng-sadaf-textarea>
         </styled-label>
 
@@ -100,13 +101,13 @@
     class="field" ng-class="{'{{model.name}}':true, 'form-{{id}}':true, 'index-{{model.rowIndex}}':true,  disabled: model.validations.isDisable, required : model.validations.isRequire, error: model.error}"
      ng-if="model.type == 4">
         <label ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
-        <div class=" value" ng-if="model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData" ng-hide="model.readonly">
+        <div class=" value" ng-if="model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData" xng-hide="model.readonly">
             <styled-label class=" value"font="model.uiConfig.fontValue">
                 <sadaf-dropdwon ng-change="changeValue()" ng-keydown="keyup($event)" ng-model="model" form-id="{{id}}" class="multiple" edit="{{edit}}"></sadaf-dropdwon>
             </styled-label>
         </div>
 
-        <div ng-if="model.readonly" ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData">
+        <!-- <div ng-if="model.readonly" ng-if="model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData">
             {{model.dropdown.listValue.join(', ')}}
         </div>
         <div ng-if="model.readonly" ng-if="model.dropdown.useRemoteData">
@@ -115,15 +116,15 @@
 
         <div ng-if="model.readonly" ng-if="!model.dropdown.multiSelectDropdown && !model.dropdown.useRemoteData">
             {{_.find(model.dropdown.items, {value: model.value}).label}}
-        </div>
+        </div> -->
 
 
-        <div class="value" ng-if="!model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData" ng-hide="model.readonly">
+        <div class="value" ng-if="!model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData" xng-hide="model.readonly">
             <sadaf-dropdwon ng-change="changeValue()" ng-model="model" form-id="{{id}}" edit="{{edit}}"></sadaf-dropdwon>
         </div>
 
         <sadaf-dropdown-static class="value" ng-change="changeValue()"
-                               ng-hide="model.readonly"
+                               xng-hide="model.readonly"
                                ng-model="model"
                                ng-if="!model.dropdown.useRemoteData"></sadaf-dropdown-static>
 
@@ -212,16 +213,16 @@
     <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <new-form-modal  ng-if="model.formLookup.showAddButton && model.renderForm" ng-model="model.formDialogInfo" control="model"></new-form-modal>
         <div class="auto-hide-container  value" style="position:relative;">
-            <form-lookup-get-id ng-keydown="keyup($event)" ng-change="changeValue()" ng-hide="model.readonly" ng-model="model" id="{{id}}" ng-style="model.formLookup.showAddButton && {width: 'calc(100%)'} || {width: '100%'}"></form-lookup-get-id>
-            <i ng-hide="model.readonly" ng-if="model.formLookup.showAddButton" class="link inline-btn-add-item auto-hide-icon icon add square large inverted black pointer" ng-click="model.renderForm = true;showFormInModal()"
+            <form-lookup-get-id ng-keydown="keyup($event)" ng-change="changeValue()" xng-hide="model.readonly" ng-model="model" id="{{id}}" ng-style="model.formLookup.showAddButton && {width: 'calc(100%)'} || {width: '100%'}"></form-lookup-get-id>
+            <i xng-hide="model.readonly" ng-if="model.formLookup.showAddButton" class="link inline-btn-add-item auto-hide-icon icon add square large inverted black pointer" ng-click="model.renderForm = true;showFormInModal()"
                title="اضافه کردن"
                ></i>
-            <i ng-hide="model.readonly || +model.value==0" ng-if="model.formLookup.showAddButton" 
+            <i xng-hide="model.readonly || +model.value==0" ng-if="model.formLookup.showAddButton" 
                class="inline-btn-edit-item link auto-hide-icon icon pen square large inverted black pointer" 
                ng-click="model.renderForm = true;editFormInModal(model)"
                title="ویرایش"></i>
         </div>
-        <div ng-if="model.readonly">{{model.formLookup.selected ? model.formLookup.selected.join(', ') : model.formLookup.keyControlsBindedValue.join(', ')}}</div>
+        <!-- <div ng-if="model.readonly">{{model.formLookup.selected ? model.formLookup.selected.join(', ') : model.formLookup.keyControlsBindedValue.join(', ')}}</div> -->
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
