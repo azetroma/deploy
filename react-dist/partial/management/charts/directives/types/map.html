@@ -608,11 +608,11 @@
                 <top-measure ng-model="ngModel.map.series[ngModel.selectedSeries].top" ng-change="refreshChart('refreshWithData');"></top-measure>
 
                 <div ng-repeat="item in appCharts.map.template.series">
-                    <general-custom-control series="ngModel.series" parent="ngModel[type].series[ngModel.selectedSeries]" prop="ngModel[type]" item="item" change="refreshChart(item.refreshMode ||'refresh');changeAllSeries(item.key)"></general-custom-control>
+                    <general-custom-control selected-series="ngModel.selectedSeries" series="ngModel.series" parent="ngModel[type].series[ngModel.selectedSeries]" prop="ngModel[type]" item="item" change="refreshChart(item.refreshMode ||'refresh');changeAllSeries(item.key)"></general-custom-control>
                     <small ng-if="item.desc">{{item.desc}}</small>
                     <div ng-if="item.type=='section' && (!item.if ||  ngModel[type].series[ngModel.selectedSeries][item.if.key] == item.if.value)" style=" padding: 10px; margin: 10px 0px; background-color: rgb(239, 239, 239); border-radius: 4px;">
                         <div ng-repeat="i in item.items">
-                            <general-custom-control series="ngModel.series" parent="ngModel[type].series[ngModel.selectedSeries]" prop="ngModel[type]" item="i" change="refreshChart(i.refreshMode ||'refresh');changeAllSeries(i.key)"></general-custom-control>
+                            <general-custom-control selected-series="ngModel.selectedSeries" series="ngModel.series" parent="ngModel[type].series[ngModel.selectedSeries]" prop="ngModel[type]" item="i" change="refreshChart(i.refreshMode ||'refresh');changeAllSeries(i.key)"></general-custom-control>
                             <small ng-if="i.desc">{{i.desc}}</small>
                         </div>
                     </div>

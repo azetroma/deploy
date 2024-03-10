@@ -1,16 +1,14 @@
-﻿
-
-<div flex layout="column">
+﻿<div flex layout="column">
     <md-toolbar xstyle="background-color:white; color:#666" class="md-primary md-hue-3" md-theme="t1">
-        <div class="md-toolbar-tools ">
+        <div class="md-toolbar-tools">
             <!--<div layout="row">
                 {{'لیست کاربران' | translate}}
             </div>-->
 
             <span flex></span>
 
-            <md-input-container md-no-float class="md-block" style="        margin-top: 30px">
-                <input autocomplete="one-time-code" ng-model="search" placeholder="جستجو">
+            <md-input-container md-no-float class="md-block" style="margin-top: 30px">
+                <input autocomplete="one-time-code" ng-model="search" placeholder="جستجو" />
             </md-input-container>
 
             <md-button class="md-icon-button cssFade" ng-show="isSelected()" ng-click="delete($event)" title="حذف">
@@ -22,10 +20,7 @@
                 <md-tooltip>{{'new_user' | translate}}</md-tooltip>
             </md-button>
 
-            <a class="md-button" href="{{app.hashUrlPrefix}}#/userBulkInsert">
-                {{'insert batch' | translate}}
-            </a>
-
+            <a class="md-button" href="{{app.hashUrlPrefix}}#/userBulkInsert"> {{'insert batch' | translate}} </a>
         </div>
     </md-toolbar>
 
@@ -35,33 +30,34 @@
                 .virtual-table {
                 }
 
-                    .virtual-table .header .cell {
-                        font-weight: 800;
-                    }
+                .virtual-table .header .cell {
+                    font-weight: 800;
+                }
 
-                    .virtual-table .cell {
-                        margin: 4px 8px;
-                        overflow: hidden;
-                        max-height: 40px;
-                    }
+                .virtual-table .cell {
+                    margin: 4px 8px;
+                    overflow: hidden;
+                    max-height: 40px;
+                }
 
-                    .virtual-table .row {
-                        border-top: 1px solid #efefef;
-                    }
+                .virtual-table .row {
+                    border-top: 1px solid #efefef;
+                }
             </style>
             <div class="virtual-table">
-
                 <div class="header" layout="row" layout-align="start center">
-                    <div class="cell" style="width: 20px"></div>
-                    <div class="cell" style="width: 50px"><md-checkbox class="no-margin" ng-model="selectAllCheckbox" ng-change="selectAll()" aria-label="{{ 'select_all' | translate}}"></md-checkbox></div>
+                    <div class="cell" style="width: 50px">
+                        <md-checkbox class="no-margin" ng-model="selectAllCheckbox" ng-change="selectAll()" aria-label="{{ 'select_all' | translate}}"></md-checkbox>
+                    </div>
                     <div class="cell" style="width: 40px">#</div>
-                    <div class="cell" style="width: 15%">{{'username' | translate}}</div>
-                    <div class="cell" style="width: 15%"><span>{{'name' | translate}}</span></div>
+                    <div class="cell" style="width: 12%">{{'username' | translate}}</div>
+                    <div class="cell" style="width: 12%"><span>{{'name' | translate}}</span></div>
                     <div class="cell" style="width: 50px"><span>{{'type' | translate}}</span></div>
-                    <div class="cell" style="width: 30%">{{'roles' | translate}}</div>
+                    <div class="cell" style="width: 20%">{{'roles' | translate}}</div>
                     <div class="cell" style="width: 100px">آخرین لاگین</div>
-                    <div class="cell" style="width: 50px">وضعیت</div> 
+                    <div class="cell" style="width: 50px">وضعیت</div>
                     <div class="cell" style="width: 100px">نوع دسترسی</div>
+                    <div class="cell" style="width: 100px">سازمان</div>
                     <div class="cell" style="width: 100px"></div>
                     <!--<div class="cell" style="width: 100px" ng-show="securityCertPatch">{{'integrity check' | translate}}</div>-->
                 </div>
@@ -69,39 +65,45 @@
                 <div layout="row" layout-sm="column" layout-align="space-around" ng-show="progress" layout-margin>
                     <md-progress-circular md-mode="indeterminate" md-diameter="30"></md-progress-circular>
                 </div>
-                <p ng-bind-html="error" ng-show="error" class="danger " layout-padding></p>
-                <div ng-hide="(data && data.length) || progress || error" class="md-caption" style="padding: 16px;text-align: center">داده‌ای برای نمایش وجود ندارد</div>
+                <p ng-bind-html="error" ng-show="error" class="danger" layout-padding></p>
+                <div ng-hide="(data && data.length) || progress || error" class="md-caption" style="padding: 16px; text-align: center">داده‌ای برای نمایش وجود ندارد</div>
 
+                <md-virtual-repeat-container style="height: calc(100vh - 180px)">
+                    <div
+                        class="row"
+                        md-virtual-repeat="row in data"
+                        ng-class="{active : row.select}"
+                        ng-click="row.select = !row.select;"
+                        ng-dblclick="goto(row, $event)"
+                        style="height: 48px"
+                        layout="row"
+                        layout-align="start center"
+                    >
+                        <div class="cell" style="width: 50px">
+                            <md-checkbox class="no-margin" ng-model="row.select" ng-click="$event.stopPropagation();" aria-label="{{ 'choose' | translate}}"></md-checkbox>
+                        </div>
+                        <div class="cell" style="width: 40px"><small>{{utils.persian($index+1)}}</small></div>
 
-                <md-virtual-repeat-container style="        height: calc(100vh - 180px);">
-
-                    <div class="row" md-virtual-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select;" ng-dblclick="goto(row, $event)" style="height: 48px" layout="row" layout-align="start center">
-                        <div class="cell" style="width: 20px"></div>
-                        <div class="cell" style="width: 50px;"><md-checkbox class="no-margin" ng-model="row.select" ng-click="$event.stopPropagation();" aria-label="{{ 'choose' | translate}}"></md-checkbox></div>
-                        <div class="cell" style="width: 40px;">{{utils.persian($index+1)}}</div>
-
-                        <div class="cell" style="width: 15%;"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.username}}</span></div>
-                        <div class="cell" style="width: 15%;"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></div>
-                        <div class="cell" style="width: 50px;"><small class="gray">{{row.type == 0 ? 'عادی' : 'اکتیودایرکتوری'}}</small></div>
-                        <div class="cell md-caption" style="        width: 30%;">
-                            <div layout-margin style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
-                                <span> </span>
+                        <div class="cell" style="width: 12%"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.username}}</span></div>
+                        <div class="cell" style="width: 12%"><span class="pointer" ng-click="goto(row, $event); $event.stopPropagation();">{{row.name}}</span></div>
+                        <div class="cell" style="width: 50px"><small class="gray">{{row.type == 0 ? 'عادی' : 'اکتیودایرکتوری'}}</small></div>
+                        <div class="cell" style="width: 20%">
+                            <div class="tw-space-x-2 tw-space-x-reverse" style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; font-size: 0.8em">
                                 <a ng-repeat="i in row.roles" href="{{app.hashUrlPrefix+'#/roles/edit/'+ i.id}}"> {{i.name}}</a>
                             </div>
                         </div>
-                        <div class="cell ltr" style="width: 100px; text-align: center"><small class="gray ">{{timeFormat(row.lastLogin)}}</small></div>
-                        <div class="cell" style="width: 50px; text-align: center"><small class="gray">{{row.state == 0 ? 'فعال' : row.state == 1 ? 'غیر فعال' :'فقط مشاهده پروفایل'}}</small></div>
-                        <div class="cell" style="width: 100px; text-align:center"><small class="gray">{{row.state == 0 ? 'کامل' : 'فقط خواندنی'}}</small></div>
-                        <div class="cell" style="width: 100px; text-align:center">
-                        <i class="ui link icon copy outline" title="کپی کردن کاربر" ng-click="copy(row)"></i>
+                        <div class="cell ltr" style="width: 100px; text-align: center"><small class="gray">{{timeFormat(row.lastLogin)}}</small></div>
+                        <div class="cell" style="width: 50px; text-align: center">
+                            <small class="gray">{{row.state == 0 ? 'فعال' : row.state == 1 ? 'غیر فعال' :'فقط مشاهده پروفایل'}}</small>
                         </div>
-                        <!--<div class="cell" style="width: 100px;" ng-show="securityCertPatch"><i ng-show="row.sign" class="ui icon green check"></i><i ng-hide="row.sign" class="ui icon red times"></i></div>
-    <div class="cell" style="width: 100px;" ng-hide="securityCertPatch"></div>-->
-
+                        <div class="cell" style="width: 100px; text-align: center"><small class="gray">{{row.state == 0 ? 'کامل' : 'فقط خواندنی'}}</small></div>
+                        <div class="cell" style="width: 100px; text-align: center"><small class="gray">{{row.org}}</small></div>
+                        <div class="cell" style="width: 100px; text-align: center">
+                            <i class="ui link icon copy outline" title="کپی کردن کاربر" ng-click="copy(row)"></i>
+                        </div>
                     </div>
                 </md-virtual-repeat-container>
             </div>
-
 
             <!--<table class="sadaf-table">
                 <tr>
@@ -135,12 +137,6 @@
 
                 </tr>
             </table>-->
-
         </md-content>
     </div>
-
-
-
-
-
 </div>
