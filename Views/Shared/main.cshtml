@@ -9,54 +9,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="fontiran.com:license" content="X4ZQZ">
     @*@if (ViewBag.isRtl) {
-        @Styles.Render("~/Content/css-rtl")
-    } else {
-        @Styles.Render("~/Content/css")
-    }*@
+            @Styles.Render("~/Content/css-rtl")
+        } else {
+            @Styles.Render("~/Content/css")
+        }*@
 
 
     @*<link href="~/dist/lib/bootstrap@(ViewBag.isRtl ? "-rtl" : "").min.css?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version" rel="stylesheet" />
-    <link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version" rel="stylesheet" />
-    <script src="~/dist/lib/jquery-1.11.1.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/jquery.fileupload.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/jquery.gridster.with-extras.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/jquery.gridster.with-extras.min2.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/jquery.ui.widget.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <link href="~/dist/css/dashboard/mian-dash@(ViewBag.isRtl ? "-rtl" : "").css?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version" rel="stylesheet" />
+        <script src="~/dist/lib/jquery-1.11.1.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/jquery-ui-1.10.4.custom.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/jquery.fileupload.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/jquery.gridster.with-extras.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/jquery.gridster.with-extras.min2.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/jquery.ui.widget.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
 
-    @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
-        <script src="~/dist/lib/angular.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    } else {
-        <script src="~/dist/lib/angular.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        @if (!Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true")) {
+            <script src="~/dist/lib/angular.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        } else {
+            <script src="~/dist/lib/angular.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        }
+
+        <script src="~/dist/lib/angular-messages.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/angular-sanitize.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/angular-translate.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/angular-translate-loader-static-files.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+
+        <script src="~/dist/lib/angular-animate.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/angular-route.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/bootstrap-datepicker.fa.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/bootstrap-datepicker.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/bootstrap-select.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+
+        @if (ViewBag.isRtl) {
+            <script src="~/dist/lib/bootstrap-select-defaults-fa_IR.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        } else {
+            <script src="~/dist/lib/bootstrap-select-defaults-en_US.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        }
+
+
+        <script src="~/dist/lib/bootstrap.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/d3.v3.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/sortable.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/topojson.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/lodash.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+        <script src="~/dist/lib/jquery.treeview.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>*@
+    
+    @*<link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version" rel="stylesheet" />
+        <script src="~/dist/js/lib-all.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>*@
+    
+    @{
+        var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
     }
-
-    <script src="~/dist/lib/angular-messages.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/angular-sanitize.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/angular-translate.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/angular-translate-loader-static-files.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-
-    <script src="~/dist/lib/angular-animate.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/angular-route.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/bootstrap-datepicker.fa.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/bootstrap-datepicker.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/bootstrap-select.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-
-    @if (ViewBag.isRtl) {
-        <script src="~/dist/lib/bootstrap-select-defaults-fa_IR.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    } else {
-        <script src="~/dist/lib/bootstrap-select-defaults-en_US.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    }
-
-
-    <script src="~/dist/lib/bootstrap.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/d3.v3.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/sortable.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/topojson.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/lodash.min.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
-    <script src="~/dist/lib/jquery.treeview.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>*@
-
-    <link href="~/dist/css/dash-all@(ViewBag.isRtl ? "-rtl" : "").css?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version" rel="stylesheet" />
-    <script src="~/dist/js/lib-all.js?v=@typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version"></script>
+    <link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />
+    <script src="~/react-dist/app-bundle.js?v=@v"></script>
 
 
     <style>

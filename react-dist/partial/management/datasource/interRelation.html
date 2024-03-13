@@ -17,7 +17,7 @@
                         model="filterDatasource"
                     ></sm-dropdown>
                 </div> -->
-                <div class="field">
+                <div class="field" style="min-width: 200px;">
                     <ng-sadaf-dropdown  [config]="{items:datasourceList}" [(model)]="filterDatasource" 
                         (on-change)="filterDatasourceCall($event)" labelprop="Name" valueprop="Id" >
                     </ng-sadaf-dropdown>
