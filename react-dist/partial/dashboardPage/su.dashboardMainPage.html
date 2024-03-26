@@ -198,9 +198,10 @@
         <h3 xstyle="margin-bottom:40px">پیام‌ها</h3>
     </div>
     <div class="contentx"> 
-        <notification-body></notification-body>
+        <notification-body hide-actions></notification-body>
     </div>
-    <!-- <div class="actions">
-        <div class="ui button" >بستن</div>
-    </div> -->
+    <div class="actions">
+        <div class="ui button" ng-click="readClose()">خواندن و بستن</div>
+        <div class="ui basic button" ng-click="close()" >بستن</div>
+    </div>
 </div>

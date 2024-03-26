@@ -85,8 +85,10 @@
                     </div>
                 </div>
                 <small ng-show="prop[type].info.useLocalVariable" class="gray">برای استفاده از متغیر در فرمول‌ها باید به صورت زیر نام متغیر را در فرمول قرار دهید
-
                     <code class="ltr">{{'{'+'{variable_name}'+'}'}}</code>
+                    همچنین در صورتی که میخواهید یکی از مقادیر از چند مقدار را داشته باشید می‌توانید 
+                    از ایندکس استفاده کنید. 
+                    <code class="ltr">{{'{'+'{variable_name[0]}'+'}'}}</code>
                 </small>
 
 
