@@ -611,6 +611,10 @@
     </div>
     <sadaf-tasks ng-model="c.control.active.tasks" trigger="5" ng-init="c.control.active.tasks = c.control.active.tasks || []"></sadaf-tasks>
 
+    <div class="field">
+        <sadaf-checkbox ng-model="c.control.active.uiConfig.activeAnyway">فعال بودن در هر حالتی</sadaf-checkbox>
+    </div>
+
     <!-- تنظیمات مربوط به کلید -->
     <div ng-if="c.control.active.type == 15" class="field">
         <div class="inline fields">
@@ -648,11 +652,6 @@
                 value="item.value"
             ></sm-dropdown>
         </div>
-
-        <div class="field">
-            <sadaf-checkbox ng-model="c.control.active.uiConfig.activeAnyway">فعال بودن در هر حالتی</sadaf-checkbox>
-        </div>
-
 
         <div class="inline fields">
             <label>{{'size' | translate}}</label>
