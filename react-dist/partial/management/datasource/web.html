@@ -350,7 +350,9 @@
 
                                 <div class="field" flex-gt-sm>
                                     <label>{{'احراز هویت' | translate}}</label>
-                                    <sm-dropdown items="[{key:'Basic Authentication', value:'Basic Authentication'}, {key:'Digest Authentication', value:'Digest Authentication'}]" class="selection fluid"
+                                    <sm-dropdown items="[{key:'Basic Authentication', value:'Basic Authentication'}
+                                    , {key:'Digest Authentication', value:'Digest Authentication'}
+                                    , {key:'Ntlm Authentication', value:'Ntlm Authentication'}]" class="selection fluid"
                                                  model="model.authenticationType" label="item.value" value="item.key"></sm-dropdown>
                                 </div>
 
