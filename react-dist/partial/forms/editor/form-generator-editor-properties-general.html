@@ -68,6 +68,19 @@
     <sadaf-checkbox ng-model="c.clientModel.showExcelImport">نمایش کلید ایمپورت از اکسل</sadaf-checkbox>
 </div>
 
+<div class="field" ng-show="c.clientModel.showExcelImport">
+    <sadaf-checkbox ng-model="c.clientModel.powerQuery.enable">اجرای کد PowerQuery پس از آپلود فایل</sadaf-checkbox>
+</div>
+
+<div class="field" ng-show="c.clientModel.powerQuery.enable && c.clientModel.showExcelImport">
+    <label>کد PowerQuery</label>
+    <feditor control-s="saveFormShotcut()" ng-model="c.clientModel.powerQuery.query" lang="js" ></feditor>
+</div>
+
+<div class="field">
+    <sadaf-checkbox ng-model="c.clientModel.showBatchEdit">نمایش کلید تغییر دسته‌ای رکوردها</sadaf-checkbox>
+</div>
+
 
 <div class="inline fields">
     <label>ویرایش همزمان</label>

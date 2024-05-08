@@ -152,22 +152,46 @@
                 </small>
 
             </div>
+
             <div ng-show="step==4">
 
                 @*<div class="field">
-            <label>کد ارسال شده</label>
-            <div class="ui icon input">
-                <input ng-model="model.password" style="direction:ltr;text-align:left;" type="text" autocomplete="off" class="ui fuild input" />
-                <i class="lock icon" xng-class="{'green link check' : validation.mobile==1, 'phone':  validation.email==1}"></i>
-            </div>
-        </div>*@
+                    <label>کد ارسال شده</label>
+                    <div class="ui icon input">
+                        <input autocomplete="off" ng-model="resetModel.code" type="text" class="ui fuild input" />
+                        <i class="code icon"></i>
+                    </div>
+                </div>
+
+
+                <div class="field">
+                    <label>کلمه عبور جدید</label>
+                    <div class="ui icon input">
+                        <input autocomplete="off" ng-model="resetModel.pass" type="password" class="ui fuild input" />
+                        <i class="code icon"></i>
+                    </div>
+                </div>
+
+
+                <div class="field">
+                    <label>تکرار کلمه عبور جدید</label>
+                    <div class="ui icon input">
+                        <input autocomplete="off" ng-model="resetModel.passRep" type="password" class="ui fuild input" />
+                        <i class="code icon"></i>
+                    </div>
+                </div>
+
+                <button class="ui blue fluid button big submit" ng-class="{loading: loading, disabled: loading }" ng-click="changePass()" type="submit" style="margin-top:35px;">
+                   تغییر کلمه عبور
+                </button>*@
+
 
                 <div class="ui secondary inverted green segment" ng-if="successMessage">
-                    کد برای شما ارسال شد. لطفا از این کد به عنوان رمز عبور استفاده کرده و وارد سیستم شوید
-                </div>
-                <a href="@Href("~")" class="ui black fluid button big submit" ng-class="{loading: loading, disabled: loading }" type="submit" style="margin-top:35px;">
-                     باز کردن صفحه ورود 
-                </a>
+            کد برای شما ارسال شد. لطفا از این کد به عنوان رمز عبور استفاده کرده و وارد سیستم شوید
+        </div>
+        <a href="@Href("~")" class="ui black fluid button big submit" ng-class="{loading: loading, disabled: loading }" type="submit" style="margin-top:35px;">
+            باز کردن صفحه ورود
+        </a>
 
 
             </div>

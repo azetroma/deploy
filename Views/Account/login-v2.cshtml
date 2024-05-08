@@ -233,10 +233,11 @@
                             <span>|</span> <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
                             <span>|</span> <a class="show-help pointer">@ViewBag.msg["help"]</a>
                         </div>
-
-                        <div class="text-left">
-                            <a href="https://www.sadafdashboard.ir/files/sadaf.apk" class="ui xblack label">@ViewBag.msg["download android"]</a>
-                        </div>
+                        @if (ViewBag.mobileApp ?? false) { 
+                            <div class="text-left">
+                                <a href="https://www.sadafdashboard.ir/files/sadaf.apk" class="ui xblack label">@ViewBag.msg["download android"]</a>
+                            </div>
+                        }
 
                     </div>
 

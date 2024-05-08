@@ -153,34 +153,28 @@
     </div>
     <div class="actions" xng-show="!formLoading" ng-style="{'margin-top':settings.modal ? '0':'40px', 'min-height':'64px'}">
         <div class="tw-m-3 tw-text-right tw-space-y-1 tw-text-sm tw-mt-0" ng-if="process.enable">
-
             <collapse>
                 <collapse-header>
                     <div class="">هامش نویسی و نمایش گردش</div>
                 </collapse-header>
                 <collapse-body>
-
-
-
-            <div class="tw-max-h-52 tw-overflow-auto tw-my-2" style="xmargin-top: -14px" ng-if="process.history.length">
-                <table class="ui tiny compact table tw-table-auto">
-                    <tr ng-repeat="i in process.history ">
-                        <td width="30">{{persian($index+1)}}</td>
-                        <td width="115">{{persian(moment(i.time).format('jYYYY/jMM/jDD HH:mm'))}}</td>
-                        <td>{{i.user}}</td>
-                        <td>
-                            <span class="ui compact tiny label">{{i.prev_state}}</span> به
-                            <span class="ui compact tiny label">{{i.state}}</span>
-                        </td>
-                        <td>{{i.hamesh}}</td>
-                    </tr>
-                </table>
-            </div>
-            <ng-sadaf-textarea placeholder="توضیحات ارجاع کار (هامش نویسی)" [model]="process.hamesh" (model-change)="changeHamesh($event)" min="1"></ng-sadaf-textarea>
-
-        </collapse-body>
-    </collapse>            
-    
+                    <div class="tw-max-h-52 tw-overflow-auto tw-my-2" style="xmargin-top: -14px" ng-if="process.history.length">
+                        <table class="ui tiny compact table tw-table-auto">
+                            <tr ng-repeat="i in process.history ">
+                                <td width="30">{{persian($index+1)}}</td>
+                                <td width="115">{{persian(moment(i.time).format('jYYYY/jMM/jDD HH:mm'))}}</td>
+                                <td>{{i.user}}</td>
+                                <td>
+                                    <span class="ui compact tiny label">{{i.prev_state}}</span> به
+                                    <span class="ui compact tiny label">{{i.state}}</span>
+                                </td>
+                                <td>{{i.hamesh}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <ng-sadaf-textarea placeholder="توضیحات ارجاع کار (هامش نویسی)" [model]="process.hamesh" (model-change)="changeHamesh($event)" min="1"></ng-sadaf-textarea>
+                </collapse-body>
+            </collapse>
         </div>
         <div class="ui stackable grid content-form rtl" ng-show="submittedStatus == 0 || submittedStatus==1">
             <div xclass="left floated eight wide column left aligned">
@@ -311,12 +305,14 @@
                     <span ng-show="formFlows.isInFlow" class="label black ui">فرم در حال گردش است</span>
                 </div>
                 <div ng-show="data.clientModelParsed.showExcelImport">
-                    <button class="ui mini icon button" ng-click="downloadExcelTemplate()" title="دانلود قالب اکسل">
+                    <!-- <button class="ui mini icon button" ng-click="downloadExcelTemplate()" title="دانلود قالب اکسل">
                         <i class="ui icon download"></i>
                     </button>
-                    <input type="file" class="excel-file" />
-                    <button class="ui mini icon button" ng-click="processExcel()">Upload</button>
-                    
+                    <label for="{{settings.selector}}-files" class="ui mini button">انتخاب فایل اکسل</label>
+                    <input id="{{settings.selector}}-files" type="file" class="tw-hidden excel-file" />
+                    <small>{{filename}}</small>
+                    <button class="ui mini icon button" ng-class="{loading: processProgress, disabled: processProgress}" ng-click="processExcel()">بارگذاری</button> -->
+                    <!-- <excel-import [formid]="id"></excel-import> -->
                 </div>
             </div>
         </div>

@@ -540,6 +540,7 @@
 
                         <div class="fields !tw-mt-4" ng-show="securityCertPatch">
                             <div class="field">
+                                <label class="!tw-text-right">&nbsp;</label>
                                 <sadaf-checkbox ng-model="model.preventUseLastPassword">محدودیت کاربر برای انتخاب مجدد کلمه عبورهای قبلی</sadaf-checkbox>
                             </div>
 
@@ -547,6 +548,42 @@
                                 <label class="!tw-text-right">تعداد کلمه عبورهای قبلی جهت بررسی</label>
                                 <input ng-model="model.preventUseLastPasswordCount" />
                                 <small class="gray">عدد صفر یعنی تمام کلمات عبور قبلی</small>
+                            </div>
+                        </div>
+                        <div class="!tw-mt-4" ng-show="securityCertPatch">
+                            <div class="field">
+                                <sadaf-checkbox ng-model="model.useWebserviceWhiteList">محدودیت روی فراخوانی وب سرویس (لیست سفید وب سرویس)</sadaf-checkbox>
+                            </div>
+
+                            <div class="field" ng-if="model.useWebserviceWhiteList">
+                                <label class="!tw-text-right">لیست دامنه‌های مجاز</label>
+                                <textarea class="field" ng-model="model.webserviceWhiteList"></textarea>
+                                <small class="gray">دامنه‌های مجاز را با خط تیره یا خط جدید یا کاما از هم جدا کنید.</small>
+                            </div>
+                        </div>
+                        <div class="!tw-mt-4" ng-show="securityCertPatch">
+                            <div class="field">
+                                <sadaf-checkbox ng-model="model.commonPassword.enable">جلوگیری از کلمه‌های عبور معمولی</sadaf-checkbox>
+                            </div>
+
+                            <div class="ui secondary segment" ng-show="model.commonPassword.enable">
+                                <p>یک منبع داده شامل کلمه عبورهای معمولی به سامانه معرفی کنید تا زمانی که کاربر کلمه عبور جدید تعریف می‌کند، سامانه با کلمه عبورهای معرفی شده 
+                                    مقایسه کرده و در صورت وجود آن، از تنظیم توسط کاربر، جلوگیری کند. </p>
+                                <div class="field" >
+                                    <div class="ui button" ng-click="selectDatasource()">انتخاب منبع داده</div>
+                                    <b> {{model.commonPassword.datasource.name}}</b>
+                                </div>
+
+                                <div class="field" ng-if="model.commonPassword.datasource">
+                                    <label>انتخاب ستون <small>ستون حاوی کلمات عبور</small></label>
+                                    <sm-dropdown
+                                        class="selection search"
+                                        items="datasourceColumns"
+                                        model="model.commonPassword.column"
+                                        label="item.Name"
+                                        value="item.UniqueName"
+                                    ></sm-dropdown>
+                                </div>
                             </div>
                         </div>
                         <br />
