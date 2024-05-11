@@ -410,14 +410,27 @@
                         </select>
                     </div>
 
-                    <div class="form-row" layout="row" layout-align="start center" ng-init="ngModel.map.info.showLatLng.maxSymbol = ngModel.map.info.showLatLng.maxSymbol || 25">
+                    <!-- <div class="form-row" layout="row" layout-align="start center" ng-init="ngModel.map.info.showLatLng.maxSymbol = ngModel.map.info.showLatLng.maxSymbol || 25">
                         <label>حداکثر تعداد علامت روی نقشه</label>
                         <span class="form-divider" flex></span>
                         <input type="number"
                                ng-change="refreshChart('refresh')"
                                ng-model-options="{ updateOn: 'blur' }"
                                ng-model="ngModel.map.info.showLatLng.maxSymbol" />
+                    </div> -->
+
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox">
+                                <label class="">
+                                    <input type="checkbox" ng-model="ngModel.map.info.showLatLng.showAll" ng-change="refreshChart('refresh')" />
+                                    نمایش تمام نقاط در سطح اول (بدون نمایش مجموع)
+                                </label>
+                                <small>در صورت زیاد بودن نقاط ممکن است باعث کندی اجرا شود.</small>
+                            </div>
+                        </div>
                     </div>
+
 
                     <div class="form-row" layout="row" layout-align="start center">
                         <label class="col-sm-4">{{ 'رنگ علامت روی نقشه' | translate }}</label>
@@ -539,6 +552,21 @@
                                 <input type="text" ng-model="ngModel.map.info.showLatLng.popupPrefix" ng-change="refreshChart('refresh')" />
                             </div>
                         </div>
+
+                        <div class="form-row" layout="row" layout-align="start center">
+                            <label class="col-sm-4">نمایش پنجره اطلاعات (پاپ آپ) با کلیک یا نگه داشتن</label>
+                            <span class="form-divider" flex></span><div class="col-sm-8">
+                               
+                    
+                                <select id="series-selector" ng-change="refreshChart('refresh')"
+                                        ng-model="ngModel.map.info.showLatLng.popupEvent"
+                                        ng-options="i.value as i.name for i in [ {name:'کلیک', value:'mouseclick'},
+                                        {name:'نگه داشتن موس', value:'mouseover'}]">
+                                </select>
+                            </div>
+                        </div>
+
+
                     </div>
 
 
@@ -546,6 +574,25 @@
                 </div>
 
                 <!--{{ngModel.map.info.showLatLng | json}}-->
+
+
+                <div ng-repeat="item in appCharts.map.template.general">
+                    <general-custom-control selected-series="ngModel.selectedSeries" series="ngModel.series" parent="appCharts.map.template.general" prop="ngModel[type]" item="item" change="refreshChart(item.refreshMode ||'refresh');changeAllSeries(item.key)"></general-custom-control>
+                    <small ng-if="item.desc">{{item.desc}}</small>
+                    <div ng-if="item.type=='section' && (!item.if ||  appCharts.map.template.general[item.if.key] == item.if.value)" style=" padding: 10px; margin: 10px 0px; background-color: rgb(239, 239, 239); border-radius: 4px;">
+                        <div ng-repeat="i in item.items">
+                            <general-custom-control selected-series="ngModel.selectedSeries" series="ngModel.series" parent="appCharts.map.template.general" prop="ngModel[type]" item="i" change="refreshChart(i.refreshMode ||'refresh');changeAllSeries(i.key)"></general-custom-control>
+                            <small ng-if="i.desc">{{i.desc}}</small>
+                        </div>
+                    </div>
+
+                    <map-tooltip-modal
+                        ng-change="refreshChart('refresh')"
+                        columns="appCharts.map.template.general.columns"
+                        ng-if="item.type == 'tooltip-modal' && (!item.if ||  appCharts.map.template.general[item.if.key] == item.if.value)"
+                        ng-model="appCharts.map.template.general[item.key]" ></map-tooltip-modal>
+    
+                </div>
 
             </div>
         </menu-body>
