@@ -45,9 +45,7 @@
                     </div>
 
                     <div class="ui secendary segment">
-
                         برای تعیین پیش فرض منطقه نمایش، روی نمودار منطقه مورد نظر را انتخاب کنید
-
                     </div>
 
                     <!--<div class="form-row" layout="row" layout-align="start center">
@@ -80,23 +78,20 @@
 
                     <div class="form-row" layout="row" layout-align="start center" ng-show="license.realMap">
                         <label>{{ 'نقشه' | translate }}</label>
-                        <select flex ng-model="ngModel.map.info.realMap.type" ng-change="refreshChart('refresh')"
+                        <span class="form-divider" flex></span>
+                        <select ng-model="ngModel.map.info.realMap.type" ng-change="refreshChart('refresh')"
                                 ng-options="i.value as  i.name for i in [
                                     {name:'نقشه آنلاین openStreet', value: 'open-street-online'  },
                                     {name:'نقشه آفلاین google', value: 'google-offline'  },
                                     {name:'نقشه ماهواره‌ای', value: 'bing'  },
                                     {name:'دلخواه', value: 'custom'  },
                                 ]"></select>
-                        <!--
-        {name:'نقشه آفلاین openStreet', value: 'open-street-offline'  },
-            {name:'نقشه آنلاین google', value: 'google-online'  },-->
                     </div>
 
                     <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.map.info.realMap.type == 'custom'">
-                        <label>آدرس نقشه دلخواه</label>
-                        <span class="form-divider" flex></span>
-                        <input type="text" ng-change="refreshChart('refresh')"ng-model-options="{ updateOn: 'blur' }" ng-model="ngModel.map.info.realMap.customUrl" />
+                        <input type="text" flex placeholder="آدرس نقشه دلخواه" ng-change="refreshChart('refresh')"ng-model-options="{ updateOn: 'blur' }" ng-model="ngModel.map.info.realMap.customUrl" />
                     </div>
+
                     <div class="gray"ng-show="ngModel.map.info.realMap.type == 'custom'">
                         <small >آدرس وارد شده باید به شکل https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png باشد</small>
                     </div>
@@ -562,20 +557,17 @@
                             </div>
                         </div>
 
-                        <div class="form-row" layout="row" layout-align="start center">
-                            <label class="col-sm-4">نمایش پنجره اطلاعات (پاپ آپ) با کلیک یا نگه داشتن</label>
-                            <span class="form-divider" flex></span><div class="col-sm-8">
-                               
-                    
-                                <select id="series-selector" ng-change="refreshChart('refresh')"
-                                        ng-model="ngModel.map.info.showLatLng.popupEvent"
-                                        ng-options="i.value as i.name for i in [ {name:'کلیک', value:'mouseclick'},
-                                        {name:'نگه داشتن موس', value:'mouseover'}]">
-                                </select>
-                            </div>
-                        </div>
 
+                    </div>
 
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="col-sm-4">نحوه نمایش  پنجره اطلاعات (پاپ آپ)</label>
+                        <span class="form-divider" flex></span>
+                        <select id="series-selector" ng-change="refreshChart('refresh')"
+                                ng-model="ngModel.map.info.showLatLng.popupEvent"
+                                ng-options="i.value as i.name for i in [ {name:'کلیک', value:'mouseclick'},
+                                {name:'نگه داشتن موس', value:'mouseover'}]">
+                        </select>
                     </div>
 
 
