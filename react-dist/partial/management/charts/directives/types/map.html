@@ -80,16 +80,25 @@
 
                     <div class="form-row" layout="row" layout-align="start center" ng-show="license.realMap">
                         <label>{{ 'نقشه' | translate }}</label>
-                        <span class="form-divider" flex></span>
-                        <select ng-model="ngModel.map.info.realMap.type" ng-change="refreshChart('refresh')"
+                        <select flex ng-model="ngModel.map.info.realMap.type" ng-change="refreshChart('refresh')"
                                 ng-options="i.value as  i.name for i in [
                                     {name:'نقشه آنلاین openStreet', value: 'open-street-online'  },
                                     {name:'نقشه آفلاین google', value: 'google-offline'  },
                                     {name:'نقشه ماهواره‌ای', value: 'bing'  },
+                                    {name:'دلخواه', value: 'custom'  },
                                 ]"></select>
                         <!--
         {name:'نقشه آفلاین openStreet', value: 'open-street-offline'  },
             {name:'نقشه آنلاین google', value: 'google-online'  },-->
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.map.info.realMap.type == 'custom'">
+                        <label>آدرس نقشه دلخواه</label>
+                        <span class="form-divider" flex></span>
+                        <input type="text" ng-change="refreshChart('refresh')"ng-model-options="{ updateOn: 'blur' }" ng-model="ngModel.map.info.realMap.customUrl" />
+                    </div>
+                    <div class="gray"ng-show="ngModel.map.info.realMap.type == 'custom'">
+                        <small >آدرس وارد شده باید به شکل https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png باشد</small>
                     </div>
 
                     <div class="form-row" layout="row" layout-align="start center">
