@@ -50,7 +50,12 @@
 
 <div class="f-field">
     <label>{{'متن کلید لغو' | translate}}</label>
-    <input autocomplete="off" ng-model="c.clientModel.buttonCancel" />
+    <input autocomplete="off" type="text" ng-model="c.clientModel.buttonCancel" />
+</div>
+
+<!--  correct autocomplete bug in chrome -->
+<div style="height: 0px; width: 0px; overflow: auto;"></div>
+    <input  autocomplete="off" type="text"    />
 </div>
 
 <div class="field">
