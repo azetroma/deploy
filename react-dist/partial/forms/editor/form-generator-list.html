@@ -50,6 +50,7 @@
                         ng-show="canDelete"
                         ng-click="delete()"
                         title="{{'remove' | translate}}"
+                        ng-class="{loading: deleteProgress}"
                     >
                         <i class="ui icon trash alternate outline"></i>
                     </span>
@@ -108,6 +109,7 @@
                         <th></th>
                         <th>{{'name' | translate}}</th>
                         <th>{{'last update' | translate}}</th>
+                        <th>کاربر</th>
                         <th></th>
                         <!--<th></th>-->
                     </tr>
@@ -148,6 +150,7 @@
                             </a>
                         </td>
                         <td>{{c.utils.persian(i.lastRefresh||'')}}</td>
+                        <td>{{i.username}}</td>
                         <td>
                             <div
                                 layout="row"

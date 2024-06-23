@@ -11,9 +11,14 @@
         style="overflow-x: auto"
     >
         {{data.name}} &nbsp;
-        <button class="ui button basic small" ng-if="app.license.formPrint && data.printLayout" ng-click="printAction()">
+        <button class="ui button basic small" ng-if="app.license.formPrint &&( data.clientModelParsed.print.type =='html' || !data.clientModelParsed.print.type )&& data.printLayout" ng-click="printAction()">
             {{'print' | translate}} <i class="ui icon print"></i>
         </button>
+        <div  ng-if="app.license.formPrint && data.clientModelParsed.print.type =='fastreport'">
+            <button ng-repeat="item in fastreport" class="ui button basic small" ng-click="fastreportPrint(item)" >
+                {{'print' | translate}} {{item.name}} <i class="ui icon print"></i>
+            </button>
+        </div>
     </div>
 
     <div

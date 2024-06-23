@@ -81,15 +81,7 @@
                                                 </div>
                                             </div>
                                             <md-dialog-content>
-
-                                                <!--<div class="md-padding" layout="column" layout-align="center center">
-                                                    <md-progress-circular ng-hide="$scope.relatedDatasourceList" md-mode='indeterminate'></md-progress-circular>
-                                                </div>-->
-
-
-
                                                 <div class="ui inline centered tiny loader" ng-hide="$scope.relatedDatasourceList" ng-class="{active: !relatedDatasourceList}"></div>
-
                                                 <table class="table">
                                                     <tr ng-repeat="i in $scope.relatedDatasourceList | filter:$scope.filterRelatedDatasource">
                                                         <td class="pointer" ng-click="$scope.addRelatedDatasource(i.Id); $mdDialog.hide()">{{i.Name}}</td>
