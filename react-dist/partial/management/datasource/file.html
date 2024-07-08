@@ -37,10 +37,24 @@
                                 <div ng-messages="fileForm.name.$error">
                                     <div ng-message="required">نام را وارد کنید</div>
                                 </div>
-                            </md-input-container> -->
+                            </md-input-container> --> 
 
                             <change-table-name id="id" table-name="tableName"></change-table-name>
                             
+                            <md-switch ng-model="disable" aria-label="Disable">
+                                غیر فعال کردن موقت منبع داده
+                                <md-tooltip>
+                                    با انتخاب این گزینه تمام نمودارها و گزارشاتی که از این منبع داده ساخته‌اید پیغام
+                                    <b> «در حال تغییر منبع داده» </b>
+                                    نمایش داده می‌شود
+
+                                </md-tooltip>
+                            </md-switch>
+                            <div class="field" ng-show="disable">
+                                <label>متن پیام نمایشی در گزارشات</label>
+                                <textarea ng-model="disableMessage" xmd-maxlength="150" rows="5" md-select-on-focus></textarea>
+                            </div>
+
                             <div layout="row" style="margin:18px 0">
                                 <input id="input-file-id" class="ng-hide" type="file" accept=".xlsx,.csv,.xls,.mdb" />
                                 <label for="input-file-id" class="md-button md-primary ">انتخاب فایل</label>
