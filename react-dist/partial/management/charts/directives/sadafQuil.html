@@ -1,0 +1,63 @@
+﻿import app from "../../../dashboardPage/su.app";
+
+(function ($) {
+    var md = angular.module('management');
+
+    md.directive('forecastSettings', function () {
+        return {
+            restrict: 'E',
+            template:/*html*/
+                `<div>
+                    
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label class="col-sm-4">
+                        <input type="checkbox" ng-change="ngChange()" ng-model="model.enable"  />
+                        فعال کردن پیش بینی
+                        </label>
+                    </div>
+
+                    <div ng-show="model.enable" class="mini secondary segment ui" style="margin-top: 12px">
+                        
+                            <div class="form-row" layout="row" layout-align="start center">
+                                <label class="col-sm-4">اندازه پنجره</label>
+                                <span class="form-divider" flex></span>
+                                <input type="text" ng-change="ngChange()" ng-model="model.window" ng-model-options="{ updateOn: 'blur' }" />
+                            </div>
+                        
+                            <div class="form-row" layout="row" layout-align="start center">
+                                <label class="col-sm-4">اندازه سری زمانی</label>
+                                <span class="form-divider" flex></span>
+                                <input type="text" ng-change="ngChange()" ng-model="model.series" ng-model-options="{ updateOn: 'blur' }" />
+                            </div>
+
+                            <div class="form-row" layout="row" layout-align="start center">
+                                <label class="col-sm-4">اندازه پیش بینی</label>
+                                <span class="form-divider" flex></span>
+                                <input type="text" ng-change="ngChange()" ng-model="model.horizon" ng-model-options="{ updateOn: 'blur' }" />
+                            </div>
+
+                            <div class="form-row" layout="row" layout-align="start center">
+                                <label class="col-sm-4">تعداد نقاطی که در نظر گرفته نشود</label>
+                                <span class="form-divider" flex></span>
+                                <input type="text" ng-change="ngChange()" ng-model="model.ignore" ng-model-options="{ updateOn: 'blur' }" />
+                            </div>
+
+                    </div>
+
+                 </div>`,
+            scope: {
+                model: '=?ngModel',
+                ngChange: '&?'
+            },
+
+            controller: ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+                $scope.progress = false;
+                $scope.model = $scope.model || { enable: false, window: 5, horizon: 5, series: 12, ignore: 0 };
+            }],
+
+            link: function () {
+            }
+
+        };
+    });
+})(jQuery);

@@ -1,0 +1,67 @@
+﻿<h1 class="ui dividing header">  ایجاد اتوماتیک گردش کار</h1>
+<p>
+    برای استفاده از api ایجاد گردش کار باید یک کنترل کلید در یک فرم ایجاد کنید.
+    سپس در قسمت وظیفه‌ها یک وظیفه‌ی <b>وب سرویس</b> اضافه کنید. 
+    آدرس زیر را به عنوان آدرس وب سرویس وارد کنید.
+
+</p>
+<feditor lang="js" full-height readonly>https://localhost/api/process/start</feditor> 
+<p>روش اجرای وب سرویس باید POST باشد و در قسمت پارامترها به صورت زیر اطلاعات را تکمیل کنید.</p>
+
+<feditor lang="js" full-height readonly>
+    {
+        processId: 5,
+        startEventId: 'StartEvent_1',
+        rowId: 0,
+        data: [{
+                type: 'input',
+                controlColumnName: 'province',
+                value: 'اصفهان'
+            }, {
+                type: 'input',
+                controlColumnName: 'scope',
+                value: 2
+            }, {
+                type: 'input',
+                controlColumnName: 'period',
+                value: 2
+            },
+            {
+                type: 'chart',
+                controlColumnName: 'daramad',
+                value: 2204,
+                chartFilters: [{
+                    type: 0,
+                    formula: '[id78].[title]',
+                    values: ['مدیریت ساخت']
+                }]
+    
+            }
+        ]
+    }
+</feditor> 
+
+
+<ul class="ltr tw-text-md">
+    <li><span class="ui  label ltr">processId</span> شناسه گردش کار مورد نظر برای ایجاد</li>
+    <li><span class="ui  label ltr">startEventId</span> شناسه مرحله شروع در گردش کار. برای پیدا کردن شناسه در قسمت ویرایش گردش کار روی مرحله شروع کلیک کلیک کنید.</li>
+    <li><span class="ui  label ltr">rowId</span> در صورتی که لازم نیست گردش کار فرم جدیدی ایجاد کند، شناسه رکورد فرم مورد نظر را وارد کنید. در صورتی که این پارامتر وارد نشده باشد از طریق پارامتر 
+    data یک رکورد جدید روی فرم ایجاد می‌شود</li>
+    <li><span class="ui  label ltr">data</span>  یک آرایه از شی item می‌باشد که در ادامه جزییات آن شرح داده خواهد شد.</li>
+</ul>
+<p>جزییات شی item</p>
+<ul class="ltr tw-text-md">
+    <li><span class="ui  label ltr">type</span> نوع شی در این قسمت مشخص می‌شود. می‌توان از مقادیر input, chart, datasource برای این قسمت استفاده کرد.
+    در صورتی که به صورت ساده میخواهد داده‌ای را در کنترل فرم قرار دهید از مقدار input استفاده کنید 
+    ولی در صورتی که لازم است مثلا برای تکرار شونده‌ها مقادیر جدولی استفاده کنید می‌توانید از نوع chart استفاده کنید. در اینصورت باید
+    شناسه چرات در قسمت value وارد شود.
+    </li>
+    <li><span class="ui  label ltr">controlColumnName</span> نام ستون در فرم. در قسمت طراحی فرم روی هر کنترل کلیک کنید و نام ستون آن‌را مشاهده کنید.</li>
+    <li><span class="ui  label ltr">value</span>  مقداری که میخواهید برای کنترل ذخیره شود</li>
+    <li><span class="ui  label ltr">chartFilters</span> فیلترهایی که به چارت ارسال می‌شود. {
+        type: 0,
+        formula: '[id78].[title]',
+        values: ['مدیریت ساخت']
+    }</li>
+</ul>
+
