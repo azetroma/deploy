@@ -242,9 +242,17 @@
                 <div class="ui small secondary segment" ng-show="ngModel.table.info.selectable == 'edit' ">
                     <div class="form-row" layout="row" layout-align="start center">
                         <label>
-                            <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showOperations" /> {{ 'نمایش کلیدهای کپی و حذف' | translate }}
+                            <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.showOperations" />
+                            نمایش کلیدهای عملیات
                         </label>
                     </div>
+                    <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.table.info.selectable == 'edit' && ngModel.table.info.showOperations">
+                        <label>
+                            <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.operationNotConfirm" />
+                            عدم سوال از کاربر برای تایید عملیات
+                        </label>
+                    </div>
+
 
                     <div class="form-row" layout="row" layout-align="start center" ng-show="datasource.CubeInfo.Dimensions[0].SystemType == 0">
                         <label class="col-sm-4">انتخاب فرم مرتبط</label>

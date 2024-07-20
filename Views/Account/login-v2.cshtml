@@ -203,12 +203,19 @@
                         @if (ViewBag.publicSignup ?? false) {
                             <br />
                             <a class="ui basic fluid button big" href="@Url.Action("signup", "account")">@ViewBag.msg["signup"]</a>
-                        }
+                                }
+
+                        @*@if(ViewBag.sso != null && (ViewBag.sso.enable ?? false)) {
+                            < br />
+                            < a class="ui basic fluid button big" href="@Url.Action("logincas", "account")">@ViewBag.sso.loginKeyLabel</a>
+                        }*@
 
                         @if (ViewBag.sso != null && (ViewBag.sso.enable ?? false)) {
                             <br />
-                            <a class="ui basic fluid button big" href="@Url.Action("logincas", "account")">@ViewBag.sso.loginKeyLabel</a>
+                            <a class="ui basic fluid button big" href="@Url.Action("sso", "account")?isWeb=true">@ViewBag.sso.loginKeyLabel</a>
                         }
+
+
                         @if (!String.IsNullOrEmpty(ViewBag.supportLink)) {
                             <br />
                             <a title="@ViewBag.supportDesc" class="ui basic fluid button big" target="_blank" href="@ViewBag.supportLink">@(ViewBag.supportTitle ?? "پشتیبانی")</a>

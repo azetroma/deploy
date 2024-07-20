@@ -139,6 +139,11 @@
                                 <small><a href="{{app.urlPrefix}}sadaf/help/#/content/1"> {{'help' | translate}}</a></small>
                             </div>
 
+                            <div  class="field" flex-gt-sm ng-show="isEdit">
+                                <sadaf-checkbox ng-model="forceSave" >
+                                    ذخیره منبع داده حتی با <b>عوض شدن قالب</b> فایل اکسل
+                                </sadaf-checkbox>
+                            </div>
 
                             <div  class="field" flex-gt-sm ng-show="license.excelImport">
                                 <sadaf-checkbox ng-change="changeSheet()" ng-model="powerQuery.enable">
