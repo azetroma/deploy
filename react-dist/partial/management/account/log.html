@@ -124,7 +124,7 @@
                         font-size: 11px;
                     }
                 </style>
-                <div style="overflow:auto; max-height:400px;">
+                <div style="overflow:auto; max-height:400px; margin:0 -14px; padding:0 14px;">
                     <div ng-show="getListProgress" class="ui active loader inline"></div>
                     <table class="ui very basic small table very compact log-table">
                         <thead>
@@ -174,7 +174,7 @@
                             <td>{{row.Subject        }}        </td>
                             <td ng-hide="securityCertPatch">     </td>
                             <td ng-show="securityCertPatch"><i ng-show="checkList[$index]" class="ui icon green check"></i><i ng-hide="checkList[$index]" class="ui icon red times"></i>        </td>
-                            <td>{{row. Detail            }}        </td>
+                            <td title="{{row. Detail}}">{{row.Detail.substring(0,150)}}        </td>
                         </tr>
                     </table>
                 </div>
@@ -186,6 +186,10 @@
                     <span> - </span>
                     تعداد ردیف در صفحه
                     <select ng-model="filters.rowCount" ng-options="r as r for r in [10,20,30, 50,100]" ng-change="filter()"></select>
+                </div>
+
+                <div style="width: 1px !important;height: 1px !important; overflow:hidden;">
+                    <input type="text" />
                 </div>
 
 

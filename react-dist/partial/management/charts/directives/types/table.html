@@ -7,7 +7,7 @@
 
                 <general-settings datasource="datasource" api-key="apiKey" ng-model="ngModel.table.info" props="ngModel" ng-change="refreshChart('refresh')"></general-settings>
 
-                <div class="form-row" layout="row" layout-align="start center">
+                <div class="form-row" layout="row" layout-align="start center" >
                     <label class="col-sm-4">{{ 'نوع تجمیع' | translate }}</label>
                     <span class="form-divider" flex></span>
                     <div class="col-sm-8">
@@ -563,6 +563,28 @@
                 </div>
 
                 <top-measure ng-model="ngModel.table.series[ngModel.selectedSeries].top" ng-change="refreshChart('refreshWithData');"></top-measure>
+
+                <div class="form-row" layout="row" layout-align="start center" ng-if="isComboKpi">
+                    <label class="col-sm-4">تابع تجمیع (در صورت استفاده از تجمیع نمودار)</label>
+                    <span class="form-divider" flex></span>
+                    <div class="col-sm-8">
+                        <select
+                            class="selectpicker-x form-control"
+                            ng-change="refreshChart('refreshWithData'); changeAllSeries('combineKpiFunc')"
+                            ng-model="ngModel.table.series[ngModel.selectedSeries].combineKpiFunc"
+                            ng-options="i.name as  i.value for i in [
+                                    {name:'0', value: 'sum'  },
+                                    {name:'1', value: 'avg'  },
+                                    {name:'2', value: 'max'  },
+                                    {name:'3', value: 'min'  },
+                                    ]"
+                        >
+                        </select>
+                    </div>
+                </div>
+
+
+
             </div>
         </menu-body>
     </menu-item>

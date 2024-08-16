@@ -1,0 +1,256 @@
+﻿<style>
+    .sortable-ghost {
+        width: auto !important;
+    }
+
+    .fg-header .item {
+        padding: 10px;
+    }
+
+    .fg-component {
+        margin: 4px 0;
+    }
+
+    .cursor {
+        cursor: move;
+    }
+
+    .inline-input {
+        border: none !important;
+        border-radius: 0 !important;
+        border-bottom: 1px dashed silver !important;
+    }
+
+    .inline-input:hover,
+    .inline-input:focus {
+        background-color: #efefef !important;
+    }
+
+    .editor.ui.form .field {
+        margin-bottom: 0;
+    }
+
+    .editor.ui.form .field.active {
+        background-color: rgba(220, 237, 200, 0.35);
+    }
+
+    .editor.ui.form .column {
+        /* در سی اس اس بار چارت ارتفاع حداقل ست شده است که نمیدانم چرا!*/
+        min-height: initial;
+    }
+
+    .editor .ui.grid.content-form .column {
+        padding: 10px 5px;
+        padding-top: 0px;
+    }
+
+    .form-control-highlight {
+        border: 1px dashed #077847;
+        background-color: #b9ffe1;
+        width: 100px;
+        /*min-width: 100px;*/
+        height: 80px;
+    }
+
+    .form-components .form-control-highlight {
+        width: 0px;
+        height: 0px;
+        border: none;
+    }
+
+    .form-generator-side-column {
+        padding: 0 8px;
+    }
+</style>
+
+<div layout="column" layout-fill>
+    <div layout="row" flex>
+        <div flex="25" layout="column">
+            <div class="tw-flex tw-flex-col tw-items-center tw-p-2">
+                <div class="item ui input tw-flex-1 tw-w-full">
+                    <input type="text" class="inline-input ui header aligned center !tw-p-1" ng-model="c.name" />
+                    <div ng-show="c.app.license.securityCertPatch && c.id > 0" class="ui label">
+                        {{'integrity check' | translate}} &nbsp;
+                        <i class="ui icon  {{c.sign ? 'green check' : 'red times'}}"></i>
+                    </div>
+
+                </div>
+                <div class="ui  tw-w-full compact small basic icon buttons" style="margin: 8px 10px">
+                    <div title="{{'save' | translate}}" class="ui basic icon button" ng-click="c.save()" ng-class="{loading: c.saveProgress, disabled: c.saveProgress}">
+                        <i class="icon save"></i>
+                    </div>
+
+                    <div title="{{'publish' | translate}}" class="ui basic icon button" ng-show="c.id" ng-click="c.publishVisible = true" ng-class="{loading: c.publishProgress}">
+                        <i class="icon cloud"></i>
+                    </div>
+
+                    <div title="{{'settings' | translate}}" class="ui basic icon button" ng-click="setGeneralSettings()">
+                        <i class="icon cog"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui left tiny secondary pointing menu">
+                <div class="item header">{{'تنظیمات' | translate}}</div>
+
+                <div class="item">
+                    <!--<span ng-show="!c.control.active.name">{{c.pages.activePage.name}}</span>
+                    <span ng-show="c.control.active.name">{{c.control.active.name}}</span>-->
+                </div>
+            </div>
+            <md-content layout="column" flex class="form-generator-side-column form-property-section">
+                <ng-include src="c.app.templatePrefix + '/partial/forms/editor/form-generator-editor-properties.html'"></ng-include>
+            </md-content>
+        </div>
+
+        <div flex="60" class="form-generator-side-column" layout="column">
+            <!-- <div style="width:100%; height:100px">
+                <sadaf-split name="form-editor" style="width:100%; height:100px;display: block;">
+                    <div segment-1 >salam q1</div>
+                    <div segment-2 ">salam q2</div>
+                </sadaf-split>
+            </div> -->
+            <div
+                class="ui left tiny secondary pointing menu !tw-mb-0 !tw-mt-2"
+                ng-sortable="{group: {name: 'pages', pull:false, put:false}, animation:150}"
+                style="overflow-x: auto; overflow-y: hidden"
+            >
+                <div class="item pointer" ng-repeat="p in c.pages.data track by $index " ng-show="p.type == 0" ng-click="c.pages.setActive(p)" ng-class="{active: p.active}">
+                    {{p.name | persian}} &nbsp; {{c.pages.length}}
+                    <i class="icon remove gray pointer" ng-hide="c.pages.data.length == 1" ng-click="c.pages.remove($index)" style="margin: 0"></i>
+                </div>
+
+                <div class="item pointer" ng-click="c.pages.add()" ng-class="{active: p.active}" style="opacity: 0.4">
+                    {{'new page' | translate}}
+                    <i class="add icon gray pointer"></i>
+                </div>
+            </div>
+            <md-content
+                flex
+                class="ui form editor tw-flex tw-flex-col"
+                ng-class="[c.pages.activePage.size, c.pages.activePage.feildClasses.join(' ')]"
+                ng-style="{'background-color': (c.clientModel.color || '#f4f6f9')}"
+                style="padding: 16px 16px; min-height: 350px"
+            >
+            <div class="tw-mb-4">
+                <div ng-show="!c.pages.header" class="ui mini icon button" ng-click="c.pages.addFooter(false, 2)">اضافه کردن هدر <i class="ui icon add"></i></div>
+                <div class="ui form editor secondary segment" ng-show="c.pages.header">
+                    <div class="tw-absolute tw-left-0 tw-top-0" ng-click="c.pages.removeFooter(2)">
+                        حذف هدر
+                        <i class="ui link icon trash outline alternate"></i>
+                    </div>
+                    <div
+                        ng-show="c.pages.header"
+                        class="ui grid content-form sortable-refresh"
+                        style="min-height: 70px"
+                        ng-sortable="{group: {name: 'form', pull:true},sort:true, animation:150}"
+                    >
+                        <form-control
+                            ng-repeat="component in c.pages.header.controls track by $index"
+                            ng-show="component.systemType != 1"
+                            ng-model="component"
+                            id="{{c.id}}"
+                            edit="true"
+                            edit-context="c"
+                            page="c.pages.header"
+                            class=""
+                            ng-class="[{'active':component.isActive}]"
+                            remove="c.pages.removeControl($index, component,c.pages.header)"
+                            copy="c.pages.copy($index, component, c.pages.header)"
+                            settings-click="c.control.setActive(component); "
+                            ng-click="c.control.setActive(component, $event); "
+                        ></form-control>
+                    </div>
+                </div>
+            </div>
+                <div class="tw-grow">
+                    <div
+                        ng-sortable="{group: {name: 'form', pull:true},sort:true, animation:150}"
+                        class="xdrop-target ui grid content-form sortable-refresh"
+                        style="align-items: flex-start; margin: 0; padding: 0; min-height: 50px"
+                    >
+                        <form-control
+                            ng-repeat="component in c.pages.activePage.controls  track by $index"
+                            ng-show="component.systemType != 1"
+                            ng-model="component"
+                            id="{{c.id}}"
+                            edit="true"
+                            edit-context="c"
+                            page="c.pages.activePage"
+                            class=""
+                            ng-class="[{'active':component.isActive}]"
+                            remove="c.pages.removeControl($index, component, c.pages.activePage)"
+                            copy="c.pages.copy($index, component, c.pages.activePage)"
+                            settings-click="c.control.setActive(component); "
+                            ng-click="c.control.setActive(component, $event); "
+                        ></form-control>
+                    </div>
+                </div>
+
+            
+
+                <div class="tw-mt-4">
+                    <div ng-show="!c.pages.footer" class="ui mini icon button" ng-click="c.pages.addFooter(false, 1)">اضافه کردن فوتر <i class="ui icon add"></i></div>
+                    <div class="ui form editor secondary segment" ng-show="c.pages.footer">
+                        <div class="tw-absolute tw-left-0 tw-top-0" ng-click="c.pages.removeFooter(1)">
+                            حذف فوتر
+                            <i class="ui link icon trash outline alternate"></i>
+                        </div>
+
+                        <div
+                            ng-show="c.pages.footer"
+                            class="ui grid content-form sortable-refresh"
+                            style="min-height: 70px"
+                            ng-sortable="{group: {name: 'form', pull:true},sort:true, animation:150}"
+                        >
+                            <form-control
+                                ng-repeat="component in c.pages.footer.controls track by $index "
+                                ng-show="component.systemType != 1"
+                                ng-model="component"
+                                id="{{c.id}}"
+                                edit="true"
+                                edit-context="c"
+                                page="c.pages.footer"
+                                class=""
+                                ng-class="[{'active':component.isActive}]"
+                                remove="c.pages.removeControl($index, component,c.pages.footer)"
+                                copy="c.pages.copy($index, component, c.pages.footer)"
+                                settings-click="c.control.setActive(component); "
+                                ng-click="c.control.setActive(component, $event); "
+                            ></form-control>
+                        </div>
+                    </div>
+                </div>
+
+            </md-content>
+        </div>
+
+        <div class="form-generator-side-column" flex="15" layout="column">
+            <div class="ui left tiny secondary pointing menu !tw-mb-2 !tw-mt-2">
+                <div class="item header">{{'toolbox' | translate}}</div>
+            </div>
+            <ng-include flex src="c.app.templatePrefix + '/partial/forms/editor/form-generator-editor-component.html'"></ng-include>
+        </div>
+    </div>
+
+    <sm-modal visible="c.publishVisible">
+        <div class="header">{{'publish' | translate}}</div>
+
+        <div class="content">
+            {{'form publish desc' | translate}}
+            <br />
+            <br />
+            <div ng-show="c.publish">
+                <b style="font-weight: 800">{{'link' | translate}}:</b>
+                <a class="ui label ltr" href="{{app.urlPrefix + 'sadaf/form/' + c.url}}" target="_blank">{{app.urlPrefix + 'sadaf/form/' + c.url}}</a>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui labeled icon button" ng-click="c.publishFrom(!c.publish)" ng-class="{loading: c.publishProgress, green: !c.publish, red: c.publish }">
+                <i class="icon cloud"></i>{{ !c.publish ? ('publish' | translate) : ('unpublish' | translate)}}
+            </div>
+
+            <div class="ui black deny button">{{'cancel' | translate}}</div>
+        </div>
+    </sm-modal>
+</div>

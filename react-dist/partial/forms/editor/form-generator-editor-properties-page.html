@@ -11,25 +11,6 @@
     <access-property ng-model="c.pages.activePage.access" operand="c.pages.activePage.accessOp" controls="c.activeSibling"></access-property>
 </div>
 
-<div class="field">
-    <sadaf-checkbox ng-model="c.pages.activePage.rowValidation.uniqueMultiField" label="">{{'unique value for multi control' | translate}}</sadaf-checkbox>
-</div>
-
-<div ng-show="c.pages.activePage.rowValidation.uniqueMultiField" class="field">
-    <div class="ui icon mini button field" ng-click="c.pages.activePage.rowValidation.uniques.push([])">
-        {{'add' | translate}}
-        <i class="icon add"></i>
-    </div>
-    <div class="fields" ng-repeat="f in c.pages.activePage.rowValidation.uniques track by $index">
-        <div class="twelve wide field">
-            <sm-dropdown class="selection multiple search xfluid" model="f" items="c.controlList" label="item.label" value="item.name"></sm-dropdown>
-        </div>
-
-        <div class="one wide field" ng-show="c.pages.activePage.rowValidation.uniques.length != 1">
-            <i class="icon remove" ng-click="c.pages.activePage.rowValidation.uniques.splice($index,1)"></i>
-        </div>
-    </div>
-</div>
 
 <div class="f-field">
     <label>{{'size' | translate}}</label>

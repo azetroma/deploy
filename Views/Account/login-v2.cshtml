@@ -185,7 +185,7 @@
                                 @Html.Raw(ViewBag.error)
                             </div>
                         }
-                        <button class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</button>
+                        <a class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</a>
 
                         <div class="ui small form" style="margin-top:15px; display:none" id="login-type-div">
                             <div class=" inline fields">
@@ -203,7 +203,7 @@
                         @if (ViewBag.publicSignup ?? false) {
                             <br />
                             <a class="ui basic fluid button big" href="@Url.Action("signup", "account")">@ViewBag.msg["signup"]</a>
-                                }
+                            }
 
                         @*@if(ViewBag.sso != null && (ViewBag.sso.enable ?? false)) {
                             < br />
@@ -214,7 +214,6 @@
                             <br />
                             <a class="ui basic fluid button big" href="@Url.Action("sso", "account")?isWeb=true">@ViewBag.sso.loginKeyLabel</a>
                         }
-
 
                         @if (!String.IsNullOrEmpty(ViewBag.supportLink)) {
                             <br />

@@ -4,70 +4,77 @@
     ng-class="{ 'fullscreen'  : data.modalSize == 'fullscreen','small'  : data.modalSize == 'small', 'large'  : data.modalSize == 'large', 'form-editor': settings.modal, 'jqmodal modal': settings.modal}"
 >
     <i ng-if="settings.modal" class="close icon" ng-click="cancel()"></i>
-    <div
-        ng-if="settings.modal && !data.clientModelParsed.hideTitlebar"
-        class="header"
-        ng-style="{'background-color': (data.clientModelParsed.titleColor || '##f9fafb')}"
-        style="overflow-x: auto"
-    >
-        {{data.name}} &nbsp;
-        <button
-            class="ui button basic small"
-            ng-if="app.license.formPrint &&( data.clientModelParsed.print.type =='html' || !data.clientModelParsed.print.type )&& data.printLayout"
-            ng-click="printAction()"
-        >
-            {{'print' | translate}} <i class="ui icon print"></i>
-        </button>
-        <div ng-if="app.license.formPrint && data.clientModelParsed.print.type =='fastreport'">
-            <button ng-repeat="item in fastreport" class="ui button basic small" ng-click="fastreportPrint(item)">
-                {{'print' | translate}} {{item.name}} <i class="ui icon print"></i>
-            </button>
-        </div>
-    </div>
 
-    <div
-        class="header-section"
-        ng-if="header || pages.length>1"
-        ng-style="{'padding-bottom': (!settings.modal?'14px':0), 'background-color': (data.clientModelParsed.headerColor || '##f9fafb')}"
-    >
-        <div class="form-header" ng-if="header">
-            <div ng-show="header" class="form-page ui form" ng-class="header.size">
-                <div class="ui grid stackable content-form">
-                    <form-control
-                        ng-repeat="component in header.controls "
-                        ng-model="component"
-                        root="root"
-                        id="{{id}}"
-                        page="header"
-                        sd-submit="submit()"
-                        change="changeValue(model)"
-                        ng-class="[{'highlight-control':component.highlight}, page.feildClass]"
-                    ></form-control>
-                </div>
-                <div class="ui message red" ng-show="header.error">{{page.error}}</div>
-            </div>
+    <div class="tw-relative">
+        <div ng-if="showComment" class="tw-inline-block tw-absolute tw-h-full tw-border-l-2" style="width: 290px; background-color: #f9fafb;">
+            <div class="tw-p-5 tw-text-lg tw-font-bold  tw-text-center tw-border-b-2">کامنت‌ها</div>
+            <ng-user-comments style="height:calc(100% - 61.31px)" class="" [type]="process.enable  ? 'process' : 'form'" [id]="rowId" ></ng-user-comments>
         </div>
-
-        <div class="paging-section ui secondary pointing menu" ng-if="pages.length>1">
-            <div class="item pointer" ng-repeat="page in pages " ng-show="page.canView" ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
-                <div class="content">
-                    <div class="title">{{page.name}}</div>
+        <div  ng-class="{showComment: showComment}" >
+            <div
+                ng-if="settings.modal && !data.clientModelParsed.hideTitlebar"
+                class="header form-title"
+                ng-style="{'background-color': (data.clientModelParsed.titleColor || '##f9fafb')}"
+                style="overflow-x: auto"
+            >
+                {{data.name}} &nbsp;
+                <button
+                    class="ui button basic small"
+                    ng-if="app.license.formPrint &&( data.clientModelParsed.print.type =='html' || !data.clientModelParsed.print.type )&& data.printLayout"
+                    ng-click="printAction()"
+                >
+                    {{'print' | translate}} <i class="ui icon print"></i>
+                </button>
+                <div ng-if="app.license.formPrint && data.clientModelParsed.print.type =='fastreport'">
+                    <button ng-repeat="item in fastreport" class="ui button basic small" ng-click="fastreportPrint(item)">
+                        {{'print' | translate}} {{item.name}} <i class="ui icon print"></i>
+                    </button>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="content" ng-style="{'background-color': (data.clientModelParsed.color || '#f4f6f9')}" style="xmin-height: 200px; position: relative">
-        <!-- <div class="cover" ng-style="{'visibility': (formLoading  ? 'visible' : 'hidden')}" style="background-color:white; position:absolute; width:100%; height:100%;margin:-21px;z-index:2; transition:all 2s ease-in-out"></div>-->
-        <div class="" ng-show="formLoading">
-            <div class="" style="text-align: center">
-                <i class="notched circle loading icon"></i>
-                {{'form_loading' | translate}}
+            <div
+                class="header-section"
+                ng-if="header || pages.length>1"
+                ng-style="{'padding-bottom': (!settings.modal?'14px':0), 'background-color': (data.clientModelParsed.headerColor || '##f9fafb')}"
+            >
+                <div class="form-header" ng-if="header">
+                    <div ng-show="header" class="form-page ui form" ng-class="header.size">
+                        <div class="ui grid stackable content-form">
+                            <form-control
+                                ng-repeat="component in header.controls "
+                                ng-model="component"
+                                root="root"
+                                id="{{id}}"
+                                page="header"
+                                sd-submit="submit()"
+                                change="changeValue(model)"
+                                ng-class="[{'highlight-control':component.highlight}, page.feildClass]"
+                            ></form-control>
+                        </div>
+                        <div class="ui message red" ng-show="header.error">{{page.error}}</div>
+                    </div>
+                </div>
+
+                <div class="paging-section ui secondary pointing menu" ng-if="pages.length>1">
+                    <div class="item pointer" ng-repeat="page in pages " ng-show="page.canView" ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
+                        <div class="content">
+                            <div class="title">{{page.name}}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div ng-show="!formLoading" style="-webkit-transition: height 1s ease; -moz-transition: height 1s ease; -o-transition: height 1s ease; transition: height 1s ease">
-            <!-- <div ng-if="!settings.modal">
+            <div class="content" ng-style="{'background-color': (data.clientModelParsed.color || '#f4f6f9')}" style="padding: 1.5rem; position: relative">
+                <!-- <div class="cover" ng-style="{'visibility': (formLoading  ? 'visible' : 'hidden')}" style="background-color:white; position:absolute; width:100%; height:100%;margin:-21px;z-index:2; transition:all 2s ease-in-out"></div>-->
+                <div class="" ng-show="formLoading">
+                    <div class="" style="text-align: center">
+                        <i class="notched circle loading icon"></i>
+                        {{'form_loading' | translate}}
+                    </div>
+                </div>
+
+                <div ng-show="!formLoading" style="-webkit-transition: height 1s ease; -moz-transition: height 1s ease; -o-transition: height 1s ease; transition: height 1s ease">
+                    <!-- <div ng-if="!settings.modal">
                 <div style="margin-top: 1rem"></div>
                 <div class="ui small menu" ng-show="pages.length>1">
                     <div
@@ -84,65 +91,68 @@
                 </div>
                 <div style="margin-top: 1rem"></div>
             </div> -->
-            <div ng-show="submittedStatus == 0 || submittedStatus==1">
-                <div
-                    ng-repeat="page in pages"
-                    ng-if="renderPage[$index]"
-                    ng-show="$index == activePage && page.canView"
-                    class="form-page ui form"
-                    ng-class="[page.size, page.feildClasses.join(' ')]"
-                >
-                    <div class="ui stackable grid content-form" style="align-items: flex-start">
-                        <form-control
-                            ng-repeat="component in page.controls "
-                            ng-model="component"
-                            root="root"
-                            ng-if="component.systemType==0"
-                            page="page"
-                            id="{{id}}"
-                            sd-submit="submit()"
-                            change="changeValue(model)"
-                            ng-class="[{'highlight-control' :component.highlight}]"
-                        ></form-control>
+                    <div ng-show="submittedStatus == 0 || submittedStatus==1">
+                        <div
+                            ng-repeat="page in pages"
+                            ng-if="renderPage[$index]"
+                            ng-show="$index == activePage && page.canView"
+                            class="form-page ui form"
+                            ng-class="[page.size, page.feildClasses.join(' ')]"
+                        >
+                            <div class="ui stackable grid content-form" style="align-items: flex-start">
+                                <form-control
+                                    ng-repeat="component in page.controls "
+                                    ng-model="component"
+                                    root="root"
+                                    ng-if="component.systemType==0"
+                                    page="page"
+                                    id="{{id}}"
+                                    sd-submit="submit()"
+                                    change="changeValue(model)"
+                                    ng-class="[{'highlight-control' :component.highlight}]"
+                                ></form-control>
+                            </div>
+                            <div class="ui message red" ng-show="page.error">{{page.error}}</div>
+                        </div>
                     </div>
-                    <div class="ui message red" ng-show="page.error">{{page.error}}</div>
+
+                    <div ng-if="showVersion && app.license.formVersioning && data.clientModelParsed.history" style="margin-top: 10px">
+                        <div ng-if="versionRestore" ng-click="backToBaseVersion()" class="ui mini button black" style="position: absolute; left: 18px">نمایش آخرین وضعیت</div>
+                        <versions id="{{id}}" sub-id="{{rowId}}" type="8" on-restore="restore(model)" on-detail="setValue(model)"></versions>
+                    </div>
+
+                    <div class="ui success message" ng-show="submittedStatus==1">{{'Information was saved successfully' | translate}}</div>
+
+                    <div class="ui error message" ng-show="submittedStatus==2">
+                        <div ng-show="error">
+                            <h3>{{error.title}}</h3>
+                            <p>{{error.desc}}</p>
+                        </div>
+                        <span ng-hide="error"> {{'server error try again' | translate}} </span>
+                        <br />
+                        <div class="ui button black small compact" ng-click="submittedStatus=0">اصلاح داده‌های فرم</div>
+                    </div>
+
+                    <div class="ui error message" ng-show="needToDelete">
+                        <div>
+                            <p>ردیف اطلاعاتی مربوط به گردش کار حذف شده است. امکان ادامه این گردش وجود ندارد. لطفا این گردش را پاک کنید.</p>
+                        </div>
+                        <br />
+                        <div class="ui button red small compact" ng-click="deleteWorkflow()">حذف گردش</div>
+                    </div>
+
+                    <div class="ui error message" ng-show="pages.length > 1 && pagesContainError.length">
+                        <!--{{'error in pages'|translate}}-->
+                        <b> لیست خطا‌ها</b>
+                        <ul>
+                            <li ng-repeat="p in pagesContainError ">{{p}}</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-
-            <div ng-if="showVersion && app.license.formVersioning && data.clientModelParsed.history" style="margin-top: 10px">
-                <div ng-if="versionRestore" ng-click="backToBaseVersion()" class="ui mini button black" style="position: absolute; left: 18px">نمایش آخرین وضعیت</div>
-                <versions id="{{id}}" sub-id="{{rowId}}" type="8" on-restore="restore(model)" on-detail="setValue(model)"></versions>
-            </div>
-
-            <div class="ui success message" ng-show="submittedStatus==1">{{'Information was saved successfully' | translate}}</div>
-
-            <div class="ui error message" ng-show="submittedStatus==2">
-                <div ng-show="error">
-                    <h3>{{error.title}}</h3>
-                    <p>{{error.desc}}</p>
-                </div>
-                <span ng-hide="error"> {{'server error try again' | translate}} </span>
-                <br />
-                <div class="ui button black small compact" ng-click="submittedStatus=0">اصلاح داده‌های فرم</div>
-            </div>
-
-            <div class="ui error message" ng-show="needToDelete">
-                <div>
-                    <p>ردیف اطلاعاتی مربوط به گردش کار حذف شده است. امکان ادامه این گردش وجود ندارد. لطفا این گردش را پاک کنید.</p>
-                </div>
-                <br />
-                <div class="ui button red small compact" ng-click="deleteWorkflow()">حذف گردش</div>
-            </div>
-
-            <div class="ui error message" ng-show="pages.length > 1 && pagesContainError.length">
-                <!--{{'error in pages'|translate}}-->
-                <b> لیست خطا‌ها</b>
-                <ul>
-                    <li ng-repeat="p in pagesContainError ">{{p}}</li>
-                </ul>
             </div>
         </div>
     </div>
+
     <div class="actions !tw-text-right" ng-if="footer" ng-style="{'background-color': (data.clientModelParsed.footerColor || '##f9fafb')}">
         <div ng-show="footer" class="form-page ui form" ng-class="page.size">
             <div class="ui grid stackable content-form">
@@ -160,6 +170,7 @@
             <div class="ui message red" ng-show="page.error">{{page.error}}</div>
         </div>
     </div>
+
     <div class="actions" xng-show="!formLoading" ng-style="{'margin-top':settings.modal ? '0':'40px', 'min-height':'64px'}">
         <div class="tw-m-3 tw-text-right tw-space-y-1 tw-text-sm tw-mt-0" ng-if="process.enable">
             <collapse>
@@ -181,7 +192,17 @@
                             </tr>
                         </table>
                     </div>
-                    <ng-sadaf-textarea placeholder="توضیحات ارجاع کار (هامش نویسی)" [model]="process.hamesh" (model-change)="changeHamesh($event)" min="1"></ng-sadaf-textarea>
+
+                    <div class="tw-flex tw-space-x-2 tw-space-x-reverse">
+                        <ng-sadaf-textarea
+                            class="tw-flex-1"
+                            placeholder="توضیحات ارجاع کار (هامش نویسی)"
+                            [model]="process.hamesh"
+                            (model-change)="changeHamesh($event)"
+                            min="1"
+                        ></ng-sadaf-textarea>
+                        <!-- <div class="ui mini button blue " ng-class="{loading: submitHameshLoading, disabled: submitHameshLoading}" ng-click="submitHamesh()">ارسال</div> -->
+                    </div>
                 </collapse-body>
             </collapse>
         </div>

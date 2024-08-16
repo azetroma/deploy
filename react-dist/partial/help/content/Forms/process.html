@@ -43,25 +43,32 @@
 
 
 <ul class="ltr tw-text-md">
-    <li><span class="ui  label ltr">processId</span> شناسه گردش کار مورد نظر برای ایجاد</li>
-    <li><span class="ui  label ltr">startEventId</span> شناسه مرحله شروع در گردش کار. برای پیدا کردن شناسه در قسمت ویرایش گردش کار روی مرحله شروع کلیک کلیک کنید.</li>
-    <li><span class="ui  label ltr">rowId</span> در صورتی که لازم نیست گردش کار فرم جدیدی ایجاد کند، شناسه رکورد فرم مورد نظر را وارد کنید. در صورتی که این پارامتر وارد نشده باشد از طریق پارامتر 
+    <li><span class="ui label ltr">processId</span> شناسه گردش کار مورد نظر برای ایجاد</li>
+    <li><span class="ui label ltr">startEventId</span> شناسه مرحله شروع در گردش کار. برای پیدا کردن شناسه در قسمت ویرایش گردش کار روی مرحله شروع کلیک کلیک کنید.</li>
+    <li><span class="ui label ltr">rowId</span> در صورتی که لازم نیست گردش کار فرم جدیدی ایجاد کند، شناسه رکورد فرم مورد نظر را وارد کنید. در صورتی که این پارامتر وارد نشده باشد از طریق پارامتر 
     data یک رکورد جدید روی فرم ایجاد می‌شود</li>
-    <li><span class="ui  label ltr">data</span>  یک آرایه از شی item می‌باشد که در ادامه جزییات آن شرح داده خواهد شد.</li>
+    <li><span class="ui label ltr">data</span>  یک آرایه از شی item می‌باشد که در ادامه جزییات آن شرح داده خواهد شد.</li>
 </ul>
 <p>جزییات شی item</p>
 <ul class="ltr tw-text-md">
-    <li><span class="ui  label ltr">type</span> نوع شی در این قسمت مشخص می‌شود. می‌توان از مقادیر input, chart, datasource برای این قسمت استفاده کرد.
+    <li><span class="ui label ltr">type</span> نوع شی در این قسمت مشخص می‌شود. می‌توان از مقادیر input, chart, datasource برای این قسمت استفاده کرد.
     در صورتی که به صورت ساده میخواهد داده‌ای را در کنترل فرم قرار دهید از مقدار input استفاده کنید 
     ولی در صورتی که لازم است مثلا برای تکرار شونده‌ها مقادیر جدولی استفاده کنید می‌توانید از نوع chart استفاده کنید. در اینصورت باید
-    شناسه چرات در قسمت value وارد شود.
+    شناسه نمودار در قسمت value وارد شود.
+    در صورتی که از نوع list استفاده کنید لازم است یک لیست دو بعدی از جنس item ایجاد کنید
+    و این لیست را در پروپرتی list قرار دهید. این لیست دوبعدی ، به عنوان مقادیر تکرار شونده مورد استفاده قرار میگیرد.
     </li>
-    <li><span class="ui  label ltr">controlColumnName</span> نام ستون در فرم. در قسمت طراحی فرم روی هر کنترل کلیک کنید و نام ستون آن‌را مشاهده کنید.</li>
-    <li><span class="ui  label ltr">value</span>  مقداری که میخواهید برای کنترل ذخیره شود</li>
-    <li><span class="ui  label ltr">chartFilters</span> فیلترهایی که به چارت ارسال می‌شود. {
+    <li><span class="ui label ltr">controlColumnName</span> نام ستون در فرم. در قسمت طراحی فرم روی هر کنترل کلیک کنید و نام ستون آن‌را مشاهده کنید.</li>
+    <li><span class="ui label ltr">value</span>  مقداری که میخواهید برای کنترل ذخیره شود</li>
+    <li><span class="ui label ltr">chartFilters</span> فیلترهایی که به چارت ارسال می‌شود. {
         type: 0,
         formula: '[id78].[title]',
         values: ['مدیریت ساخت']
     }</li>
+    <li><span class="ui label ltr">chartColumnMap</span> برای مشخص کردن ارتباط بین ستونهای نمودار و کنترلهای تکرار شونده آرایه‌ای 
+    از شی 
+    {  controlColumnName:'',
+       tableColumnName:'' } 
+    ارسال می‌شود.</li>
 </ul>
 
