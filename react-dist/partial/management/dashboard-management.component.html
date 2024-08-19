@@ -95,12 +95,17 @@
             با توجه به حساسیت فعالیتی که میخواهید انجام دهید، 
             لازم است مجددا کلمه عبور خود را وارد نمایید.
 
-            <div class="ui form">
+            <form class="ui form" autocomplete="off"> 
                 <div class="field">
                     <label>کلمه عبور</label>
                     <input type="password" name="verify-password" autocomplete="false"/>
                 </div>
-            </div>
+
+                <div class="!tw-w-0 !tw-h-0 tw-overflow-hidden">
+                    <input type="password" name="hide" autocomplete="false"/>
+                </div>
+
+            </form>
         </div>
         <div class="actions">
             <div class="ui button green" >احراز هویت و انجام عملیات</div>
