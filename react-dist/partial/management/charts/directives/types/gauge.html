@@ -60,7 +60,9 @@
                 </style>
                 <div class="gauge-editor" ng-show="ngModel.gauge.info.haveCustomText && ngModel.gauge.info.style == 'number'">
 
-                    <ng-quill-editor on-content-changed="refreshChart('refresh')" style="direction:ltr;" ng-model="ngModel.gauge.info.customText"
+                    <sadaf-quil ng-model="ngModel.gauge.info.customText" ng-change="refreshChart('refresh')"></sadaf-quil>
+
+                    <!-- <ng-quill-editor on-content-changed="refreshChart('refresh')" style="direction:ltr;" ng-model="ngModel.gauge.info.customText"
                                      ng-init="ngModel.gauge.info.customText = ngModel.gauge.info.customText || '<p><strong style=&quot;font-size: 32px;&quot;>@value @icon</strong></p><p> میزان فروش @label </p>'">
                         <ng-quill-toolbar >
                             <div>
@@ -121,7 +123,7 @@
                             </div>
                         </ng-quill-toolbar>
 
-                    </ng-quill-editor>
+                    </ng-quill-editor> -->
 
                     <div class="ltr gray" style="font-size: 0.85em;display: flex;flex-direction: row;flex-wrap: wrap; justify-content: space-between;">
                         <div><strong> @label</strong>: نمایش برچسب</div>

@@ -356,7 +356,10 @@
             min-height: {{model.uiConfig.minHeight ? (model.uiConfig.minHeight + 'px') : 'auto'}};
             }
         </inline-style>
-        <ng-quill-editor class="sadaf-form-editor" theme="bubble" ng-model="model.value" ng-style="{'font-size': model.font.fontSize}">
+
+        <sadaf-quil ng-model="model.value" ng-change="refreshChart('refresh')"></sadaf-quil>
+
+        <!-- <ng-quill-editor class="sadaf-form-editor" theme="bubble" ng-model="model.value" ng-style="{'font-size': model.font.fontSize}">
             <ng-quill-toolbar>
                 <div>
                     <span class="ql-formats">
@@ -399,7 +402,7 @@
                 </div>
             </ng-quill-toolbar>
 
-        </ng-quill-editor>
+        </ng-quill-editor> -->
         <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>

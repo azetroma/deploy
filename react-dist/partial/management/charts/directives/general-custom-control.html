@@ -47,7 +47,9 @@
     </div>
 
     <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'editor'&& (!item.if ||  parent[item.if.key] == item.if.value) && item._show!==false && (!item.showIfComboKpi || externalprop.isComboKpi)">
-        <ng-quill-editor on-content-changed="onchange()" style="direction: ltr" ng-model="parent[item.key]" ng-init="parent[item.key]"></ng-quill-editor>
+        <!-- <ng-quill-editor on-content-changed="onchange()" style="direction: ltr" ng-model="parent[item.key]" ng-init="parent[item.key]"></ng-quill-editor> -->
+        <sadaf-quil ng-model="parent[item.key]" ng-change="onchange()"></sadaf-quil>
+
     </div>
 
     <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'icon'&& (!item.if ||  parent[item.if.key] == item.if.value) && item._show!==false && (!item.showIfComboKpi || externalprop.isComboKpi)">
