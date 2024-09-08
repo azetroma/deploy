@@ -27,9 +27,9 @@
                 <td class="md-caption" style="direction:ltr">{{utils.persian(row.lastLogin)}}</td>
                 <td class="md-caption" style="direction:ltr">{{utils.persian(row.lastActivity)}}</td>
                 <td width="20" ng-show="SecurityCertPatch">
-                    <md-button class="md-icon-button" ng-click="kick(row, $event); $event.stopPropagation();">
+                    <md-button class="md-icon-button" ng-click="kick(row, $event, $index); $event.stopPropagation();">
                         <span class="material-icons" style="color:#757575">exit_to_app</span>
-                        <md-tooltip>{{'signout' | translate}}</md-tooltip>
+                        <md-tooltip>بیرون انداختن کاربر از سامانه</md-tooltip>
                     </md-button>
                 </td>
             </tr>

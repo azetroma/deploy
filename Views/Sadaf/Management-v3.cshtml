@@ -53,7 +53,7 @@
 
     <link href="~/react-dist/styles@(ViewBag.isRtl ? "" : ".ltr").css?v=@v" rel="stylesheet" />
 
-    <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
+    <link href="~/react-dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 
     @Html.AntiForgeryToken()
     <input type="hidden" name="upgradeModuleName" value="management" />
@@ -64,7 +64,7 @@
 
     <script src="~/react-dist/app-bundle.js?v=@v"></script>
     <script src="~/react-dist/bundle.js?v=@v"></script>
-    <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
+    <script src="~/react-dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
     @*<script src="~/license.js?v=@v"></script>*@
     <script>
         @*var license = JSON.parse('@Html.Raw(ViewBag.license)');

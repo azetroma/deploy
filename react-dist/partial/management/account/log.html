@@ -132,8 +132,9 @@
 
 
                                 <th ng-repeat="t in [
-                                    {name:'تاریخ', key:'date'},
-                                    {name:'زمان', key:'time'},
+                                {name:'سطح', key:'level'},
+                                {name:'تاریخ', key:'date'},
+                                {name:'زمان', key:'time'},
                                     {name:'IP', key:'ip'},
                                     {name:'نام کاربری', key:'username'},
                                     {name:'مرورگر', key:'agent'},
@@ -147,6 +148,7 @@
                             </tr>
                         </thead>
                         <tr class="ui form">
+                            <td class="field"><select style="padding:0;width: calc(100% - 20px);display: inline-block;" ng-model="filters.level" ng-options="a.value as a.label for a in mapLevel" ng-change="filter()"></select><i class="ui icon close" ng-click="filters.level = null;filter()"></i></td>
                             <td class="field"><input ng-model="filters.date" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
                             <td class="field"><input ng-model="filters.time" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
                             <td class="field"><input ng-model="filters.ip" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
@@ -163,6 +165,7 @@
                             <td class="field"><input ng-model="filters.detail" ng-model-options='{ debounce: 400 }' ng-change="filter()" type="text" /></td>
                         </tr>
                         <tr ng-repeat="row in logs">
+                            <td>{{row.Level    | dicMap:'level'       }}        </td>
                             <td>{{row.Date           }}        </td>
                             <td>{{row.Time           }}        </td>
                             <td>{{row.ClientIp       }}        </td>

@@ -30,25 +30,25 @@
                             <div layout-gt-sm="row" flex>
                                 <md-input-container flex>
                                     <label>{{'username' | translate}}</label>
-                                    <input required ng-model="model.Username" ng-disabled="isEdit">
-                                    <div ng-messages="userForm.name.$error">
+                                    <input name="username" required ng-model="model.Username" ng-disabled="isEdit">
+                                    <div ng-messages="userForm.username.$error">
                                         <div ng-message="required">{{'form_username_required' | translate}}</div>
                                     </div>
                                 </md-input-container>
 
                                 <md-input-container flex>
                                     <label>{{'name' | translate}}</label>
-                                    <input  ng-model="model.FirstName">
-                                    <div ng-messages="userForm.name.$error">
+                                    <input required name="fname" ng-model="model.FirstName">
+                                    <div ng-messages="userForm.fname.$error">
                                         <div ng-message="required">{{'form_name_required' | translate}}</div>
                                     </div>
                                 </md-input-container>
 
                                 <md-input-container flex>
                                     <label>{{'last_name' | translate}}</label>
-                                    <input ng-model="model.LastName">
-                                    <div ng-messages="userForm.name.$error">
-                                        <div ng-message="required">{{'form_last_name_required' | translate}}</div>
+                                    <input required name="lname" ng-model="model.LastName">
+                                    <div ng-messages="userForm.lname.$error">
+                                        <div ng-message="required">نام خانوادگی الزامی است</div>
                                     </div>
                                 </md-input-container>
 

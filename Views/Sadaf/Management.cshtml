@@ -176,8 +176,8 @@
     <input type="hidden" value="@(Url.Action("management", "sadaf") + "/")" name="hashUrlPrefix" />
 
     @*<script src="~/react-dist/app-bundle.js?v=@v"></script>*@
-    <script src="~/dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
-    <link href="~/dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
+    <script src="~/react-dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
+    <link href="~/react-dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 
     <div ng-app="management" ng-controller="menusCtrl" ng-cloak layout="row" flex layout-fill>
         <input type="hidden" value="@ViewBag.lang" id="lang" />
