@@ -526,8 +526,20 @@
 
 
                             </div>
+
                             <div class="field !tw-mt-4">
                                 <sadaf-checkbox ng-model="model.extra.showAccessAlert">هشدار به کاربر در خصوص مسئولیت‌های دسترسی به اطلاعات زمان ورود  به مدیریت </sadaf-checkbox>
+                            </div>
+
+                            <div class="field !tw-mt-4">
+                                <sadaf-checkbox ng-model="model.extra.preventUserEnumeration">جلوگیری از حمله شمارش کاربر </sadaf-checkbox>
+                                <br />
+                                <small class="gray">برای جلوگیری از حمله شمارش کاربر، زمان ورود کاربر به سامانه، در صورت بروز خطا، یک خطای کلی به کاربر نمایش داده خواهد شد.</small>
+                            </div>
+                            <div class="field !tw-mt-4">
+                                <sadaf-checkbox ng-model="model.extra.debugMode">حالت دیباگ سامانه </sadaf-checkbox>
+                                <br />
+                                <small class="gray">در صورت فعال بودن این گزینه، پیغام‌های خطای جزیی‌تری به کاربر نمایش داده خواهد شد.</small>
                             </div>
 
 

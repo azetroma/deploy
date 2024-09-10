@@ -1,0 +1,199 @@
+@{
+    Layout = "~/Views/Shared/_LayoutLogin-v2.cshtml";
+}
+<style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+        display: none !important;
+    }
+
+    .form-signin {
+        max-width: 970px;
+        margin-top: 80px;
+    }
+
+    .same-height {
+        margin-bottom: -99999px;
+        padding-bottom: 99999px;
+    }
+
+    .hide-overflow {
+        overflow: hidden;
+    }
+
+    .card {
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 6px;
+    }
+
+    .logo {
+        max-width: 55%;
+        height: auto;
+        margin: 0 auto;
+        margin-bottom: 16px;
+        display: block;
+    }
+
+    .sadaf-desc {
+        font-size: 13px;
+        text-align: justify;
+        margin-bottom: 30px;
+    }
+
+    body {
+        margin: 0;
+        padding-top: 0px;
+        padding-bottom: 40px;
+        background-color: #eee;
+        overflow: auto;
+    }
+
+    .inline-h1 {
+        display: inline;
+        font-size: inherit;
+        font-family: Droid !important;
+    }
+
+    #activationModal .content li {
+        margin: 7px 0;
+    }
+
+    .form-signin {
+        transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    }
+
+    .field-info {
+        font-weight: 200;
+        font-size: 0.8em;
+        color: gray;
+    }
+
+    .field.error .field-info {
+        color: #9f3a38;
+    }
+
+    .form-signin .field input {
+        line-height: 1.7em !important;
+        padding: 8px 16px !important;
+    }
+
+    .form-signin input[type=number]::-webkit-inner-spin-button,
+    .form-signin input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        opacity: 0;
+        margin: 0;
+    }
+</style>
+
+
+
+<div class="card xform-signin tw-max-w-md  tw-m-auto" ng-app="resetPass" ng-controller="setpass">
+    <div style="">
+
+        <div ng-show="!isValid">
+            آدرس صفحه وارد شده معتبر نیست. لطفا دوباره درخواست لینک تغییر پسورد را اجرا کنید.
+
+            <a href="@Href("~/account/resetPass")" class="ui black fluid button big submit" type="submit" style="margin-top:35px;">
+                صفحه درخواست لینک
+            </a>
+
+        </div>
+        <div class="ui big form" ng-show="isValid">
+
+            <div ng-show="step==1">
+
+                <div class="field" ng-class="{error: validation.username==-1}">
+                    <label>کلمه عبور</label>
+                    <div class="ui icon input" ng-class="{loading: checkUsernameProgress}">
+                        <input ng-keypress="onEnter($event)" autocomplete="off" ng-change="invalidateStrong()" ng-model="model.pass" type="password" class="ui fuild input" />
+                        <i class="lock icon" ng-class="{'link green check' : validation.username==1, 'lock' : validation.username!=1}"></i>
+                    </div>
+                    <div class="field-info" ng-show="error.username.length">{{error.username}}</div>
+                </div>
+
+                <div class="field" ng-class="{error: validation.username==-1}">
+                    <label>تکرار کلمه عبور</label>
+                    <div class="ui icon input" ng-class="{loading: checkUsernameProgress}">
+                        <input ng-keypress="onEnter($event)" autocomplete="off" ng-change="invalidateStrong()" ng-model="model.repass" type="password" class="ui fuild input" />
+                        <i class="lock icon" ng-class="{'link green check' : validation.username==1, 'lock' : validation.username!=1}"></i>
+                    </div>
+                    <div class="field-info" ng-show="error.username.length">{{error.username}}</div>
+                </div>
+
+                <div class="ui secondary gray segment" ng-show="help.policy">
+                    <div class="ui header small">کلمه عبور باید شامل شرایط زیر باشد</div>
+                    <div class="ui large label" ng-show="strongkpi" style="position: absolute; left:8px; top:8px;" ng-style="{'background-color': strongkpi.color, color: strongkpi.textColor}">{{strongkpi.text}}</div>
+                    <div class="ui bulleted list">
+                        <div class="item" ng-show="help.passwordPolicyDigit">  <span class="!tw-inline-block"><i ng-show="!strong.passwordPolicyDigit" class="ui icon red close"></i>  <i ng-show="strong.passwordPolicyDigit" class="ui icon green check"></i></span> {{'at least one number' | translate}}</div>
+                        <div class="item" ng-show="help.passwordPolicyUpper">  <span class="!tw-inline-block"><i ng-show="!strong.passwordPolicyUpper" class="ui icon red close"></i>  <i ng-show="strong.passwordPolicyUpper" class="ui icon green check"></i></span>{{'at least one upper case char' | translate}}</div>
+                        <div class="item" ng-show="help.passwordPolicyLower">  <span class="!tw-inline-block"><i ng-show="!strong.passwordPolicyLower" class="ui icon red close"></i>  <i ng-show="strong.passwordPolicyLower" class="ui icon green check"></i></span>{{'at least one lower case char' | translate}}</div>
+                        <div class="item" ng-show="help.passwordPolicyChar">   <span class="!tw-inline-block"><i ng-show="!strong.passwordPolicyChar" class="ui icon red close"></i>   <i ng-show="strong.passwordPolicyChar" class="ui icon green check"></i></span>{{'at least one special char' | translate}}</div>
+                        <div class="item" ng-show="help.passwordPolicyLength"> <span class="!tw-inline-block"><i ng-show="!strong.passwordPolicyLength" class="ui icon red close"></i> <i ng-show="strong.passwordPolicyLength" class="ui icon green check"></i></span>{{'minimum length' | translate}} {{help.passwordPolicyLength}} کاراکتر</div>
+                        <div class="item" > <span class="!tw-inline-block"><i ng-show="!strong.issame" class="ui icon red close"></i> <i ng-show="strong.issame" class="ui icon green check"></i></span>برابر بودن کلمه عبور و تکرار کلمه عبور </div>
+                    </div>
+                </div>
+
+
+
+                <div class="ui small negative message" ng-if="error.general && error.general.length">
+                    {{error.general}}
+                </div>
+
+                <div class="ui secondary inverted green segment" ng-if="successMessage">
+                    {{successMessage}}
+                </div>
+
+                <div class="field" style="margin-top:15px;" ng-class="{error : error.captcha.length}">
+                    <div style="text-align:center;">
+                        <div style="float:right;">
+                            <img ng-src="data:image/jpeg;base64,{{captchaPic}}" />
+                        </div>
+                        <div class="ui button basic icon" ng-click="reCaptcha()" style="float:left; margin:0;"><i class="ui icon refresh"></i></div>
+                    </div>
+                    <div class="ui icon input">
+                        <input ng-model="model.captcha" type="text" class="ui fuild input" ng-keypress="onEnter($event)" />
+                        <i class="chess board icon"></i>
+                    </div>
+                    <small class="field-info">{{error.captcha}}</small>
+                </div>
+
+                <button class="ui blue fluid button big submit" ng-class="{loading: saveProgress, disabled: saveProgress }" ng-click="save()" type="submit" style="margin-top:35px;">
+                    تغییر کلمه عبور
+                </button>
+
+                <br />
+
+                <small>
+                    <a href="@Href("~")">صفحه اصلی</a>
+                </small>
+
+            </div>
+
+            <div ng-show="step==4">
+                <div class="ui secondary inverted green segment" ng-if="successMessage">
+                    لینک تنظیم دوباره کلمه عبور برای شما ارسال شد.
+                </div>
+                <a href="@Href("~")" class="ui black fluid button big submit" ng-class="{loading: loading, disabled: loading }" type="submit" style="margin-top:35px;">
+                    باز کردن صفحه ورود
+                </a>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <div class="ui modal info-modal">
+        <div class="header">عملیات موفق</div>
+        <div class="content">کلمه عبور شما با موفقیت تغییر کرد </div>
+        <div class="actions">
+            <a href="@Href("~")" class="ui green button " >
+                باز کردن صفحه اصلی برنامه
+            </a>
+        </div>
+    </div>
+
+
+</div>
