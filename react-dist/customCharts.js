@@ -1,1 +1,0 @@
-﻿$=window.$;jQuery=window.jQuery;moment=window.moment;d3=window.d3;prepareData=window.prepareData;persian=window.persian;app.customChart.config={};app.customChart.charts[1] = function(input, settings, refreshWithData, titlebar){<h1>test</h1>};;app.customChart.charts[3] = function(input, settings, refreshWithData, titlebar){<h1>test</h1>};
