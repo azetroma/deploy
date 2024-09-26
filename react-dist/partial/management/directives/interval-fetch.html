@@ -175,13 +175,24 @@
                             <label><span class="ltr inline">اندازه هر افزار </span></label>
                             <input type="text" ng-model="addModel.distance" placeholder="پایان" />
                         </div>
+                        <div class="two wide field">
+                            <label>مقیاس</label>
+                            <select ng-model="addModel.lenUnit">
+                                <option value="second">ثانیه</option>
+                                <option value="minute">دقیقه</option>
+                                <option value="houre">ساعت</option>
+                                <option value="day">روز</option>
+                                <option value="month">ماه شمسی</option>
+                            </select>
+                        </div>
+
                         <div class="four wide field">
                             <label><span class="ltr inline">اختلاف بین انتهای افزار با ابتدای افزار بعدی </span></label>
                             <input type="text" ng-model="addModel.diff" placeholder="پایان" />
                         </div>
-                        <div class="four wide field">
+                        <div class="two wide field">
                             <label>مقیاس</label>
-                            <select ng-model="addModel.unit">
+                            <select ng-model="addModel.diffUnit">
                                 <option value="second">ثانیه</option>
                                 <option value="minute">دقیقه</option>
                                 <option value="houre">ساعت</option>
