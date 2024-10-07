@@ -16,7 +16,7 @@
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 0">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
         <styled-label class=" value" font="model.uiConfig.fontValue">
-            <input tabindex="{{model.validations.isDisable ? -1:0}}" ng-hide="model.readonly" type="text" ng-change="changeValue()" name="model.name" ng-model-options="{debounce:200}" autocomplete="off" ng-model="model.value" placeholder="{{model.uiConfig.hidePlaceholder ? '': model.label}}" ng-keydown="keyup($event)">
+            <input tabindex="{{model.validations.isDisable ? -1:0}}" ng-paste='handlePaste($event)' ng-hide="model.readonly" type="text" ng-change="changeValue()" name="model.name" ng-model-options="{debounce:200}" autocomplete="off" ng-model="model.value" placeholder="{{model.uiConfig.hidePlaceholder ? '': model.label}}" ng-keydown="keyup($event)">
         </styled-label>
         <div ng-if="model.readonly">{{model.value}}</div>
         <small class="helper">{{model.error}}</small>
@@ -193,7 +193,7 @@
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 9">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
-        <sadaf-calendar class=" value" ng-hide="model.readonly" ng-model="model.value" control="model" ng-change="changeValue()" sd-keyup="keyup($event)"></sadaf-calendar>
+        <sadaf-calendar ng-paste='handlePaste($event)' class=" value" ng-hide="model.readonly" ng-model="model.value" control="model" ng-change="changeValue()" sd-keyup="keyup($event)"></sadaf-calendar>
         <div ng-if="model.readonly">{{model.value | persian}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
@@ -201,7 +201,7 @@
     </div>
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 14">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
-        <sadaf-date-time class=" value" ng-change="changeValue()" ng-hide="model.readonly" ng-model="model.value" control="model" sd-keyup="keyup($event)"></sadaf-date-time>
+        <sadaf-date-time class=" value" ng-paste='handlePaste($event)' ng-change="changeValue()" ng-hide="model.readonly" ng-model="model.value" control="model" sd-keyup="keyup($event)"></sadaf-date-time>
         <div ng-if="model.readonly">{{model.value | persian}}</div>
         <small class="helper">{{model.error}}</small>
         <div></div>
