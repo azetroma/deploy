@@ -1,0 +1,2 @@
+2024-10-30 08:15:11.024    debug login create license   
+2024-10-30 08:16:37.780 Url=https://localhost:4341/api/test/get rowbody= parameter=[]  
