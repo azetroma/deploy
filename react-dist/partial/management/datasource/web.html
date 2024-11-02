@@ -1,10 +1,7 @@
-﻿
-<div layout="column" flex>
+﻿<div layout="column" flex>
     <md-content flex class="content" layout="row" no-background>
-
         <div flex="20" hide-sm hide-xs></div>
         <div flex="60" flex-xs="100" flex-sm="100">
-
             <md-card>
                 <md-card-title>
                     <md-card-title-text>
@@ -15,54 +12,69 @@
                         {{'integrity check' | translate}} &nbsp;
                         <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
                     </div>
-
                 </md-card-title>
 
                 <md-card-content layout-padding id="main-form">
                     <div class="ui form">
-
                         <form name="webForm">
                             <div class="fields">
-
                                 <div class="six wide column field">
                                     <label>{{'نام' | translate}}</label>
-                                    <input required name="name" ng-model="model.name">
+                                    <input required name="name" ng-model="model.name" />
                                     <div ng-messages="webForm.name.$error">
                                         <div ng-message="required">{{'form_name_required' | translate}}</div>
                                     </div>
                                     <change-table-name id="id" table-name="tableName"></change-table-name>
-
                                 </div>
                                 <div class="three wide column field" ng-hide="isWfs">
                                     <label>{{'نوع داده' | translate}}</label>
-                                    <sm-dropdown items="[{key:'XML', value:'XML'},{key:'CSV', value:'CSV'},{key:'JSON', value:'JSON'},{key:'SOAP', value:'SOAP'},{key:'WFS', value:'WFS'}]"
-                                                 class="selection fluid"
-                                                 model="model.type" label="item.value" value="item.key"></sm-dropdown>
-
+                                    <sm-dropdown
+                                        items="[{key:'XML', value:'XML'},{key:'CSV', value:'CSV'},{key:'JSON', value:'JSON'},{key:'SOAP', value:'SOAP'},{key:'WFS', value:'WFS'}]"
+                                        class="selection fluid"
+                                        model="model.type"
+                                        label="item.value"
+                                        value="item.key"
+                                    ></sm-dropdown>
                                 </div>
 
                                 <div class="three wide column field" ng-hide="model.type == 'SOAP' || isWfs">
                                     <label>{{'متد' | translate}}</label>
-                                    <sm-dropdown items="[{key:'GET', value:'GET'},{key:'POST', value:'POST'}]" class="selection fluid"
-                                                 model="model.method" label="item.value" value="item.key"></sm-dropdown>
-
+                                    <sm-dropdown
+                                        items="[{key:'GET', value:'GET'},{key:'POST', value:'POST'}]"
+                                        class="selection fluid"
+                                        model="model.method"
+                                        label="item.value"
+                                        value="item.key"
+                                    ></sm-dropdown>
                                 </div>
                                 <div class="three wide column field" ng-show="model.type == 'SOAP'">
                                     <label>{{'Content Type' | translate}}</label>
-                                    <sm-dropdown items="[{key:'text/xml', v:1},{key:'application/xml', v:2},{key:'application/soap+xml', v:3}]" class="selection fluid"
-                                                 model="model.contentType" label="item.key" value="item.v"></sm-dropdown>
+                                    <sm-dropdown
+                                        items="[{key:'text/xml', v:1},{key:'application/xml', v:2},{key:'application/soap+xml', v:3}]"
+                                        class="selection fluid"
+                                        model="model.contentType"
+                                        label="item.key"
+                                        value="item.v"
+                                    ></sm-dropdown>
                                 </div>
-
                             </div>
 
                             <div class="field">
                                 <label>URL</label>
-                                <input required name="url" class="ltr" ng-model="model.url">
+                                <input required name="url" class="ltr" ng-model="model.url" />
                                 <div ng-messages="webForm.url.$error">
                                     <div ng-message="required">{{'form_url_required' | translate}}</div>
                                 </div>
                             </div>
 
+                            <div>
+                                بررسی گواهینامه ssl
+                                <div class="ui button mini" ng-click="checkCert()">چک کردن</div>
+                                <div ng-show="model.approveHash" class="ui label green">
+                                    گواهینامه تایید شده
+                                    <i class="times link icon !tw-m-0" ng-click="model.approveHash = null" title="پاک کردن"></i>
+                                </div>
+                            </div>
 
                             <div ng-show="model.type == 'JSON' || model.type == 'SOAP'">
                                 <div class="field">
@@ -70,11 +82,9 @@
 
                                     <feditor flex lang="js" ng-model="model.jsonPostProcess"></feditor>
 
-
                                     <!--<textarea spellcheck="false" ng-model="model.jsonPostProcess" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>-->
                                     <small class="gray">
-                                        داده‌های خروجی در قالب شی data در دسترس هستند. کد نوشته شده باید یک
-                                        شی به عنوان خروجی با کلید واژه return  داشته باشد.
+                                        داده‌های خروجی در قالب شی data در دسترس هستند. کد نوشته شده باید یک شی به عنوان خروجی با کلید واژه return داشته باشد.
                                         <br />
                                         در صورتی که لازم باشد داده‌ای به منبع داده اضافه نشود یک رشته خالی '' برگردانده شود.
                                     </small>
@@ -84,9 +94,7 @@
                             <br />
 
                             <div ng-show="model.type == 'SOAP'">
-
                                 <div class="three fields">
-
                                     <!--<div class="field">
                                         <label>{{'Result Tag' | translate}}</label>
                                         <input ng-model="model.resultTag">
@@ -95,26 +103,24 @@
                                         <label>{{'Result Tag Namespace' | translate}}</label>
                                         <input ng-model="model.resultTagNameSpace">
                                     </div>-->
-
                                 </div>
-
-
-
 
                                 <div class="field">
                                     <label>{{'Body' | translate}}</label>
                                     <!--                                    <textarea ng-model="model.rawBody" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>-->
                                     <feditor flex lang="xml" ng-model="model.rawBody"></feditor>
-
                                 </div>
 
-
-                                <div style="font-size:0.8em; color:gray;margin-top: -20px;">
+                                <div style="font-size: 0.8em; color: gray; margin-top: -20px">
                                     <a ng-click="c = !c" class="pointer">راهنما</a>
                                     <div uib-collapse="!c">
                                         در صورتی که خروجی پیام شما به شکل زیر باشد
 
-                                        <textarea disabled="disabled" rows="13" style="border: none;margin: 0px;direction: ltr;font-family: monospace;width: 100%;resize: none;">
+                                        <textarea
+                                            disabled="disabled"
+                                            rows="13"
+                                            style="border: none; margin: 0px; direction: ltr; font-family: monospace; width: 100%; resize: none"
+                                        >
 <soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
                                         <soapenv:Body>
                                         <ns1:getBankResponse xmlns:ns1="http://thomas-bayer.com/blz/">
@@ -127,21 +133,19 @@
         </ns1:getBankResponse>
     </soapenv:Body>
 </soapenv:Envelope>
-                                    </textarea>
+                                    </textarea
+                                        >
                                         تنظیمات مربوطه به صورت زیر است
                                         <ul class="ltr">
-                                            <li> <b>Result Tag: </b> getBankResponse</li>
-                                            <li> <b>Result Tag NameSpace: </b> http://thomas-bayer.com/blz/</li>
+                                            <li><b>Result Tag: </b> getBankResponse</li>
+                                            <li><b>Result Tag NameSpace: </b> http://thomas-bayer.com/blz/</li>
                                         </ul>
-
                                     </div>
                                 </div>
 
                                 <md-switch ng-model="model.resultTagUseValue">
                                     <label>{{'Use inner value' | translate}}</label>
                                 </md-switch>
-
-
                             </div>
 
                             <div class="field" ng-hide="isWfs">
@@ -149,33 +153,32 @@
                             </div>
 
                             <div class="ui secondary segment" ng-show="model.loginByToken.enable">
-
                                 <div class="three fields">
-
                                     <div class="field">
                                         <label>نام هدر مربوط به توکن</label>
-                                        <input class="ltr" ng-model="model.loginByToken.headerName">
+                                        <input class="ltr" ng-model="model.loginByToken.headerName" />
                                     </div>
 
                                     <div class="field">
                                         <label>نام فیلد توکن در خروجی وب سرویس</label>
-                                        <input class="ltr" ng-model="model.loginByToken.tokenPropertyName">
+                                        <input class="ltr" ng-model="model.loginByToken.tokenPropertyName" />
                                     </div>
 
                                     <div class="field">
                                         <label>منبع داده</label>
-                                        <sm-dropdown items="datasourceList" class="fluid selection search"
-                                                     model="model.loginByToken.datasource" label="item.Name" value="item.Id"></sm-dropdown>
+                                        <sm-dropdown
+                                            items="datasourceList"
+                                            class="fluid selection search"
+                                            model="model.loginByToken.datasource"
+                                            label="item.Name"
+                                            value="item.Id"
+                                        ></sm-dropdown>
                                     </div>
                                 </div>
                                 <small>مقدار توکن در متغیر <span class="ltr inline ui label">@token</span> ذخیره می‌شود و میتوانید از این متغیر استفاده کنید</small>
                             </div>
 
-
-
-
                             <div ng-show="model.type == 'JSON' || model.type == 'SOAP'">
-
                                 <div class="field">
                                     <sadaf-checkbox ng-model="model.paging.enable">دریافت داده‌های صفحه‌بندی شده</sadaf-checkbox>
                                 </div>
@@ -184,91 +187,91 @@
                                     <div class="three fields">
                                         <div class="field">
                                             <label>روش اجرای حلقه</label>
-                                            <sm-dropdown items="[{key:'paging', value:'صفحه‌بندی'},{key:'numbers', value:'محدوده عدد'},{key:'array', value:'آرایه دلخواه'},{key:'datasource', value:'لیست از منبع داده'}]" class="selection fluid"
-                                                         model="model.paging.type" label="item.value" value="item.key"></sm-dropdown>
+                                            <sm-dropdown
+                                                items="[{key:'paging', value:'صفحه‌بندی'},{key:'numbers', value:'محدوده عدد'},{key:'array', value:'آرایه دلخواه'},{key:'datasource', value:'لیست از منبع داده'}]"
+                                                class="selection fluid"
+                                                model="model.paging.type"
+                                                label="item.value"
+                                                value="item.key"
+                                            ></sm-dropdown>
                                         </div>
                                         <div class="field">
                                             <label>تعداد کانکشن‌های همزمان</label>
-                                            <input class="ltr" type="number" ng-model="model.paging.loop.concurrentConnections">
+                                            <input class="ltr" type="number" ng-model="model.paging.loop.concurrentConnections" />
                                         </div>
                                         <div class="field">
                                             <label>حداکثر خطای مجاز برای تلاش دوباره</label>
-                                            <input class="ltr" type="number" ng-model="model.paging.loop.errorThreshhold">
+                                            <input class="ltr" type="number" ng-model="model.paging.loop.errorThreshhold" />
                                         </div>
                                     </div>
 
                                     <div class="" ng-show="model.paging.type == 'datasource'">
-
                                         <div class="two fields">
-
                                             <div class="field">
                                                 <label>منبع داده</label>
-                                                <sm-dropdown items="datasourceList" class="fluid selection search"
-                                                             model="model.paging.datasource" label="item.Name" value="item.Id"></sm-dropdown>
+                                                <sm-dropdown
+                                                    items="datasourceList"
+                                                    class="fluid selection search"
+                                                    model="model.paging.datasource"
+                                                    label="item.Name"
+                                                    value="item.Id"
+                                                ></sm-dropdown>
                                             </div>
                                             <div class="field">
                                                 <label>نام ستون منبع داده</label>
                                                 <!--<input class="ltr" ng-model="model.paging.datasourceColumn">-->
-                                                <sm-dropdown items="datasourceColumns" class="fluid selection search"
-                                                             model="model.paging.datasourceColumn" label="item" value="item"></sm-dropdown>
+                                                <sm-dropdown
+                                                    items="datasourceColumns"
+                                                    class="fluid selection search"
+                                                    model="model.paging.datasourceColumn"
+                                                    label="item"
+                                                    value="item"
+                                                ></sm-dropdown>
                                             </div>
                                         </div>
                                         <small class="gray" ng-show="model.paging.type == 'paging'">
                                             <ul>
-                                                <li>
-                                                    <span class="ltr inline ui label">@loop</span> مقدار ستون
-                                                </li>
+                                                <li><span class="ltr inline ui label">@loop</span> مقدار ستون</li>
                                             </ul>
                                         </small>
-    
                                     </div>
-
 
                                     <div class="three fields" ng-show="model.paging.type == 'paging'">
                                         <div class="field">
                                             <label>اسم ستون Total</label>
-                                            <input class="ltr" ng-model="model.paging.loop.totalName">
+                                            <input class="ltr" ng-model="model.paging.loop.totalName" />
                                         </div>
                                         <div class="field">
                                             <label>اندازه هر صفحه</label>
-                                            <input class="ltr" type="number" ng-model="model.paging.loop.pageSize">
+                                            <input class="ltr" type="number" ng-model="model.paging.loop.pageSize" />
                                         </div>
                                         <div class="field">
                                             <label>ایندکس شروع</label>
-                                            <input class="ltr" type="number" ng-model="model.paging.loop.startIndex">
+                                            <input class="ltr" type="number" ng-model="model.paging.loop.startIndex" />
                                         </div>
                                     </div>
                                     <small class="gray" ng-show="model.paging.type == 'paging'">
                                         <ul>
-                                            <li>
-                                                <span class="ltr inline ui label">@loop</span> مرحله‌ی اجرا
-                                            </li>
-                                            <li>
-                                                <span class="ltr inline ui label">@size</span> اندازه هر صفحه
-                                            </li>
-                                            <li>
-                                                <span class="ltr inline ui label">@skip</span> تعداد رکورد دریافت شده
-                                            </li>
+                                            <li><span class="ltr inline ui label">@loop</span> مرحله‌ی اجرا</li>
+                                            <li><span class="ltr inline ui label">@size</span> اندازه هر صفحه</li>
+                                            <li><span class="ltr inline ui label">@skip</span> تعداد رکورد دریافت شده</li>
                                         </ul>
                                     </small>
-
-
 
                                     <div ng-if="model.paging.type == 'numbers'">
                                         <div class="two fields">
                                             <div class="field">
                                                 <label>اجرا از عدد</label>
-                                                <input class="ltr" ng-model="model.paging.from">
+                                                <input class="ltr" ng-model="model.paging.from" />
                                             </div>
                                             <div class="field">
                                                 <label>تا عدد</label>
-                                                <input class="ltr" ng-model="model.paging.to">
+                                                <input class="ltr" ng-model="model.paging.to" />
                                             </div>
                                         </div>
                                         <small class="gray">
                                             کد در حلقه‌ای شامل اعداد وارد شده اجرا می‌شود. در هر بار اجرای حلقه متغیر
-                                            <span class="ltr inline ui label">@loop</span>مقداردهی می‌شود. بنابراین لازم است از
-                                            این متغیر در پارامترها و آدرس وب سرویس استفاده کنید.
+                                            <span class="ltr inline ui label">@loop</span>مقداردهی می‌شود. بنابراین لازم است از این متغیر در پارامترها و آدرس وب سرویس استفاده کنید.
                                         </small>
                                     </div>
                                     <div class="" ng-if="model.paging.type == 'array'">
@@ -277,22 +280,17 @@
                                             <textarea class="ltr" ng-model="model.paging.array"></textarea>
                                         </div>
                                         <small class="gray">
-                                            در هر خط مقادیر هر اجرا را وارد کرده و در صورتی که هر بار اجرا بیش از یک متغیر دارد آن‌ها را با - یا ,
-                                            از هم جدا کنید.
-                                            هر اجرا مقادیر در متغیر
+                                            در هر خط مقادیر هر اجرا را وارد کرده و در صورتی که هر بار اجرا بیش از یک متغیر دارد آن‌ها را با - یا , از هم جدا کنید. هر اجرا مقادیر در
+                                            متغیر
                                             <span class="ltr ui label">@loop[0]</span>
-                                            قرار میگیرد. ایندکس متغیر می‌تواند در صورتی که بیش از یک مقدار در ردیف دارین متفاوت باشد.
-
-                                            داده‌های وارد شده می‌تواند مثل زیر باشد
-                                            <pre class="ltr">1399-1400
+                                            قرار میگیرد. ایندکس متغیر می‌تواند در صورتی که بیش از یک مقدار در ردیف دارین متفاوت باشد. داده‌های وارد شده می‌تواند مثل زیر باشد
+                                            <pre class="ltr">
+1399-1400
 1400-1401
-</pre>
+</pre
+                                            >
                                         </small>
-
                                     </div>
-
-
-
                                 </div>
                             </div>
                             <br />
@@ -303,24 +301,27 @@
                             </p>
                             <div layout="column" uib-collapse="!showParams" xng-hide="model.type == 'SOAP'">
                                 <div class="ui secondary segment">
-
                                     <div class="tw-flex tw-flex-row tw-items-center" ng-repeat="param in parameters">
                                         <div class="tw-grow">
-                                            <input ng-model="param.name" class="ltr" placeholder="{{'نام'|translate}}">
+                                            <input ng-model="param.name" class="ltr" placeholder="{{'نام'|translate}}" />
                                         </div>
                                         &nbsp;
                                         <div class="tw-grow">
-                                            <input ng-model="param.value" class="ltr" placeholder="{{'مقدار'|translate}}">
+                                            <input ng-model="param.value" class="ltr" placeholder="{{'مقدار'|translate}}" />
                                         </div>
                                         &nbsp;
                                         <div class="tw-grow-0">
-                                            <sm-dropdown items="[{key:'Query', value:'Query'},{key:'Header', value:'Header'},{key:'Body', value:'Body (form-data)'},{key:'BodyRaw', value:'Body (raw)'}]" class="fluid"
-                                                         model="param.type" label="item.value" value="item.key"></sm-dropdown>
+                                            <sm-dropdown
+                                                items="[{key:'Query', value:'Query'},{key:'Header', value:'Header'},{key:'Body', value:'Body (form-data)'},{key:'BodyRaw', value:'Body (raw)'}]"
+                                                class="fluid"
+                                                model="param.type"
+                                                label="item.value"
+                                                value="item.key"
+                                            ></sm-dropdown>
                                         </div>
                                         &nbsp;
 
                                         <div class="tw-grow-0" layout="row" layout-margin>
-
                                             <div class="md-icon-button" ng-click="parameters.push({type: param.type})">
                                                 <span class="material-icons small small-size pointer">add</span>
                                             </div>
@@ -329,75 +330,76 @@
                                                 <span class="material-icons small small-size pointer">delete</span>
                                             </div>
                                         </div>
-
                                     </div>
                                     <small class="gray">
-                                        در صورتی که از نوع Body(raw) استفاده میکنید
-                                        و نوع داده‌ها به صورت josn باشد نام پارامتر را برابر
-                                        application/json
-                                        قرار دهید
+                                        در صورتی که از نوع Body(raw) استفاده میکنید و نوع داده‌ها به صورت josn باشد نام پارامتر را برابر application/json قرار دهید
                                     </small>
                                 </div>
                             </div>
-
-
 
                             <p ng-click="showAuth = !showAuth" layout="row" class="pointer no-margin" style="" ng-hide="model.type == 'SOAP'">
                                 <span class="material-icons icon-animate" ng-class="{'rotate-90' : showAuth}">keyboard_arrow_left</span>
                                 <span>{{'احراز هویت' | translate}}</span>
                             </p>
                             <div class="three fields" uib-collapse="!showAuth" layout-padding>
-
                                 <div class="field" flex-gt-sm>
                                     <label>{{'احراز هویت' | translate}}</label>
-                                    <sm-dropdown items="[{key:'Basic Authentication', value:'Basic Authentication'}
+                                    <sm-dropdown
+                                        items="[{key:'Basic Authentication', value:'Basic Authentication'}
                                     , {key:'Digest Authentication', value:'Digest Authentication'}
-                                    , {key:'Ntlm Authentication', value:'Ntlm Authentication'}]" class="selection fluid"
-                                                 model="model.authenticationType" label="item.value" value="item.key"></sm-dropdown>
+                                    , {key:'Ntlm Authentication', value:'Ntlm Authentication'}]"
+                                        class="selection fluid"
+                                        model="model.authenticationType"
+                                        label="item.value"
+                                        value="item.key"
+                                    ></sm-dropdown>
                                 </div>
 
                                 <div class="field">
                                     <label>{{'نام کاربری' | translate}}</label>
-                                    <input class="ltr" ng-model="model.user">
+                                    <input class="ltr" ng-model="model.user" />
                                 </div>
 
                                 <div class="field">
                                     <label>{{'کلمه عبور' | translate}}</label>
-                                    <input class="ltr" ng-model="model.password">
+                                    <input class="ltr" ng-model="model.password" />
                                 </div>
-
                             </div>
                             <div class="ui secondary small segment">
                                 <b>متغیرهای قابل استفاده در آدرس، پارامترها و ...</b>
-                               <ul>
-                                   <li>
-                                <small>مقدار توکن در متغیر <span class="ltr inline ui label">@token</span> ذخیره می‌شود و میتوانید از این متغیر استفاده کنید</small>
-                                   </li>
-                                   <li>
-                                       <small>تاریخ روز جاری به صورت شمسی در متغیر <span class="ltr inline ui label">@shamsiDate(format, [add-minute])</span> ذخیره می‌شود و مقدار add-minute تعداد دقیقه‌ای است که به تاریخ جاری کم یا اضافه می شود. برای کم کردن از عدد منفی استفاده شود.</small>
-                                   </li>
-                                   <li>
-                                       <small>تاریخ روز جاری به صورت شمسی در متغیر <span class="ltr inline ui label">@miladiDate(format, [add-minute])</span> ذخیره می‌شود و مقدار add-minute تعداد دقیقه‌ای است که به تاریخ جاری کم یا اضافه می شود. برای کم کردن از عدد منفی استفاده شود.</small>
-
-                                   </li>
-                               </ul>
-
-
+                                <ul>
+                                    <li>
+                                        <small>مقدار توکن در متغیر <span class="ltr inline ui label">@token</span> ذخیره می‌شود و میتوانید از این متغیر استفاده کنید</small>
+                                    </li>
+                                    <li>
+                                        <small
+                                            >تاریخ روز جاری به صورت شمسی در متغیر <span class="ltr inline ui label">@shamsiDate(format, [add-minute])</span> ذخیره می‌شود و مقدار
+                                            add-minute تعداد دقیقه‌ای است که به تاریخ جاری کم یا اضافه می شود. برای کم کردن از عدد منفی استفاده شود.</small
+                                        >
+                                    </li>
+                                    <li>
+                                        <small
+                                            >تاریخ روز جاری به صورت شمسی در متغیر <span class="ltr inline ui label">@miladiDate(format, [add-minute])</span> ذخیره می‌شود و مقدار
+                                            add-minute تعداد دقیقه‌ای است که به تاریخ جاری کم یا اضافه می شود. برای کم کردن از عدد منفی استفاده شود.</small
+                                        >
+                                    </li>
+                                </ul>
                             </div>
 
-                        
-                            <md-switch ng-model="model.ColumnStoreIndex" aria-label="ColumnStoreIndex">
-                                ایندکس ستونی
-                            </md-switch>
+                            <md-switch ng-model="model.ColumnStoreIndex" aria-label="ColumnStoreIndex"> ایندکس ستونی </md-switch>
 
                             <md-switch ng-if="model.type == 'CSV'" ng-model="model.streamMode">دریافت داده به صورت استریم </md-switch>
 
                             <div class="two fields">
-
                                 <div class="field" flex-gt-sm ng-show="license.olap">
                                     <label>مدل ذخیره داده</label>
-                                    <sm-dropdown items="[{key:0, value:'SQL'},{key:1, value:'DAX'}]" class="selection fluid"
-                                                 model="model.ModelType" label="item.value" value="item.key"></sm-dropdown>
+                                    <sm-dropdown
+                                        items="[{key:0, value:'SQL'},{key:1, value:'DAX'}]"
+                                        class="selection fluid"
+                                        model="model.ModelType"
+                                        label="item.value"
+                                        value="item.key"
+                                    ></sm-dropdown>
                                 </div>
 
                                 <div class="field">
@@ -416,7 +418,8 @@
                                         <option value="-1">زمانبندی...</option>
                                     </select>-->
 
-                                    <sm-dropdown items="[{key:'0', value:'در لحظه'},
+                                    <sm-dropdown
+                                        items="[{key:'0', value:'در لحظه'},
                                                      {key:'1', value:'هر یک دقیقه'},
                                                      {key:'5', value:'هر پنج دقیقه'},
                                                      {key:'15', value:'هر پانزده دقیقه'},
@@ -427,10 +430,12 @@
                                                      {key:'40320', value:'هر ماه'},
                                                      {key:'2147483647', value:'عدم به‌روز رسانی'},
                                                      {key:'-1', value:'زمانبندی...'}
-                                             ]" class="selection fluid"
-                                                 model="model.autoRefresh" label="item.value" value="item.key"></sm-dropdown>
-
-
+                                             ]"
+                                        class="selection fluid"
+                                        model="model.autoRefresh"
+                                        label="item.value"
+                                        value="item.key"
+                                    ></sm-dropdown>
                                 </div>
                             </div>
 
@@ -438,20 +443,19 @@
                                 <sadaf-checkbox ng-model="model.trustCert">در نظر نگرفتن گواهینامه ssl</sadaf-checkbox>
                             </div> -->
 
-
                             <datasource-schedule ng-show="model.autoRefresh==-1" ng-model="schedule"> </datasource-schedule>
 
                             <interval-fetch ng-hide="isWfs" ng-model="model.intervalFetch" fields="fields" , datasource-id="{{id}}"></interval-fetch>
 
                             <div class="field">
-                                <div class="ui button" ng-class="{loading: clearCacheProgress, disabled: clearCacheProgress}" ng-click="clearCache()">پاک کردن کش (Cache) منبع داده</div>
+                                <div class="ui button" ng-class="{loading: clearCacheProgress, disabled: clearCacheProgress}" ng-click="clearCache()">
+                                    پاک کردن کش (Cache) منبع داده
+                                </div>
                                 <small class="gray">
-                                    با پاک کردن کش منبع داده، نتیجه‌ی تمامی گزارش‌های مرتبط با این منبع داده پاک خواهند شد
-                                    و ممکن است برای اولین بار اجرای گزارش سرعت کمتری داشته باشد.
+                                    با پاک کردن کش منبع داده، نتیجه‌ی تمامی گزارش‌های مرتبط با این منبع داده پاک خواهند شد و ممکن است برای اولین بار اجرای گزارش سرعت کمتری داشته
+                                    باشد.
                                 </small>
                             </div>
-
-
 
                             <datasource-permission ng-model="roles" id="{{id}}"></datasource-permission>
                             <datasource-metainfo ng-hide="isWfs" ng-model="model.metainfo"></datasource-metainfo>
@@ -459,81 +463,96 @@
                             <br />
 
                             <p ng-click="showschema = !showschema" layout="row" class="pointer">
-                                <i class="icon-animate ui icon angle left icon-animate" style="width: 30px;" ng-class="{'rotate-90' : showschema}"></i>
+                                <i class="icon-animate ui icon angle left icon-animate" style="width: 30px" ng-class="{'rotate-90' : showschema}"></i>
                                 <span>{{'اسکیما' | translate}}</span>
                             </p>
                             <div layout="column" uib-collapse="!showschema">
                                 <schema-types ng-model="model.schema" id="id"></schema-types>
-
                             </div>
 
                             <br />
                             <versions id="{{id}}" type="6" on-restore="restore(model)" on-detail="detail(model)"></versions>
-                            <div class="ui segment" ng-show="showDetailModel" style="max-height:400px; overflow-y:auto;">
+                            <div class="ui segment" ng-show="showDetailModel" style="max-height: 400px; overflow-y: auto">
                                 <ul>
                                     <li><b>نام: </b>{{detailModel.Name}}</li>
-                                    <b>بروز رسانی: </b> {{detailModel.AutoRefreshLabel}}
+                                    <b>بروز رسانی: </b>
+                                    {{detailModel.AutoRefreshLabel}}
                                     <datasource-schedule-caption ng-if="detailModel.AutoReresh==-1" ng-model="detailModel.ScheduleParse"></datasource-schedule-caption>
                                     <li><b>url: </b>{{detailModel.Detail.url}}</li>
                                     <li><b>type: </b>{{detailModel.Detail.type}}</li>
                                     <li><b>jsonPostProcess: </b>{{detailModel.Detail.jsonPostProcess}}</li>
                                     <li><b>مدل ذخیره‌سازی: </b>{{detailModel.Detail.ModelType ==0 ? 'SQL' : 'DAX'}}</li>
-
                                 </ul>
 
                                 <div class="ui button mini blue float-left" ng-click="restoreVersion()">بروز رسانی</div>
                             </div>
-
                         </form>
-
-
                     </div>
 
-
                     <div ng-show="error" layout="row" flex>
-                        <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
+                        <md-content style="background-color: #f2dede" layout="column" flex layout-padding>
                             <div flex>{{error}}</div>
                         </md-content>
                     </div>
 
+                    <div class="ui modal web-cert-modal">
+                        <div class="content ltr">
+                            <div ng-show="certProgress">
+                                <div class="workaround mini ui active loader inverted inline"></div>
+                                در حال بررسی گواهینامه
+                            </div>
+                            <div ng-show="!certProgress">
+                                <h3 ng-show="!certData.result">گواهینامه نامعتبر<i class="red times circle outline icon"></i></h3>
+                                <h3 ng-show="certData.result">گواهینامه معتبر   <i class="green check circle outline icon"></i></h3>
+
+                                <p ng-show="!certData.result && certData.cert">
+                                    گواهینامه‌ای که سرور ارائه کرده است معتبر نیست. لطفا در صورتی که از گواهینامه ارائه شده اطمینان دارید گزینه تایید را انتخاب کنید.
+                                </p>
+                                <p ng-show="!certData.result && !certData.cert">
+                                    متاسفانه امکان دریافت اطلاعات گواهینامه از سرور وجود ندارد. تنظمیات ارتباط را بررسی فرمایید.
+                                </p>
+                                
+                                <p ng-show="certData.result">گواهینامه‌ای که سرور ارائه کرده است معتبر است.</p>
+
+                                <p ng-show="certData.errorMessage">{{certData.errorMessage}}</p>
+
+                                <div ng-show=" certData.cert" class="ui xbulleted list ltr tw-text-left">
+                                    <div class="item"><b>Subject: </b> {{certData.cert.Subject}}</div>
+                                    <div class="item"><b>Issuer: </b> {{certData.cert.Issuer}}</div>
+                                    <div class="item"><b>Begin: </b> {{moment(certData.cert.NotBefore)}}</div>
+                                    <div class="item"><b>Expire: </b> {{moment(certData.cert.NotAfter)}}</div>
+                                    <div class="item"><b>SerialNumber:</b> {{certData.cert.SerialNumber}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui actions">
+                            <div ng-show="!certData.result && certData.cert" class="ui button green" ng-class="{loading : certProgress, disabled: certProgress}" ng-click="approveCert()">
+                                تایید گواهینامه
+                            </div>
+                            <div class="ui button deny" ng-click="">بستن</div>
+                        </div>
+                    </div>
                 </md-card-content>
-
-
-
 
                 <md-card-actions layout="row">
                     <span flex></span>
 
-                    <md-button ng-click="save()" ng-disabled="saveProgress">
-                        {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
-                    </md-button>
+                    <md-button ng-click="save()" ng-disabled="saveProgress"> {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}} </md-button>
 
                     <md-button ng-show="isEdit" ng-click="save(true)" ng-disabled="saveProgress">
                         {{saveProgress == false ? ('save with get data' | translate) : ('در حال ذخیره‌سازی' | translate)}}
-
                     </md-button>
 
-
-                    <md-button ng-click="test()" ng-disabled="testProgress">
-                        {{testProgress == false ? ('تست' | translate) : ('form_testing' | translate)}}
-                    </md-button>
-
-
-
+                    <md-button ng-click="test()" ng-disabled="testProgress"> {{testProgress == false ? ('تست' | translate) : ('form_testing' | translate)}} </md-button>
                 </md-card-actions>
-
-
             </md-card>
 
             <md-card ng-show="testResult" flex>
-                <md-content style="max-height:200px;" id="testResult" layout="column" flex>
+                <md-content style="max-height: 200px" id="testResult" layout="column" flex>
                     <div ng-bind-html="testResult" flex></div>
                 </md-content>
             </md-card>
-
-
         </div>
         <div flex="20" hide-sm hide-xs></div>
-
     </md-content>
 </div>
