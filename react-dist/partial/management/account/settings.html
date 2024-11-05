@@ -433,7 +433,7 @@
                             <div ng-show="model.defaultSrc.enable && model.defaultSrc.items.length">
                                 <div class="tw-flex tw-items-center tw-mb-1" ng-repeat="item in model.defaultSrc.items">
                                     <div class="tw-flex-1 tw-me-2">
-                                        <input autocomplete="one-time-code" type="text" ng-model="item.name" placeholder="domain.example.com" />
+                                        <input autocomplete="off" type="text" ng-model="item.name" placeholder="domain.example.com" />
                                     </div>
                                     <div class="">
                                         <div class="ui compact mini icon button" ng-click="addDefaultSrc()"><i class="icon add"></i></div>
