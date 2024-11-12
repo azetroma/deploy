@@ -1,8 +1,0 @@
-/**
- * L.Map.SelectArea - Area selection tool for leaflet
- *
- * @author Alexander Milevski <info@w8r.name>
- * @see https://github.com/w8r/leaflet-area-select
- * @license MIT
- * @preserve
- */
