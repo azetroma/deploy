@@ -173,6 +173,7 @@
     </style>
 </head>
 <body ng-app="sadaf" ng-cloak ng-controller="printController" class="theme2 print-page" style="overflow-y: scroll; height: initial; background: #fff !important;">
+    @Html.AntiForgeryToken()
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" id="isFullscreen" value="true" />
     <input type="hidden" id="dashboardPublishMenuId" value="@ViewBag.MenuId" />
@@ -215,7 +216,7 @@
             var mh = theme.printHeaderMaxHeight > 0 ? theme.printHeaderMaxHeight + "px" : "initial";
             var align = theme.headerAlign ?? "initial";
             if (@theme.printHeaderId > 0) {
-                <div style="text-align: @align; background-color:white; padding:10px 0" >
+                <div style="text-align: @align; background-color:white; padding:10px 0">
                     <img style="max-height: @mh; display:inline-block;" src="~/api/upload/getPic/@theme.printHeaderId" />
                 </div>
             }

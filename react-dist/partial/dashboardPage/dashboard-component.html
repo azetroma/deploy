@@ -394,7 +394,7 @@
     </div>
 </sm-modal>
 
-<div class="ui modal small" id="edit-menus">
+<div class="ui modal xsmall" id="edit-menus">
     <i class="close icon"></i>
     <div class="header">{{'dashboard page edit' | translate}}</div>
     <div class="content">
@@ -426,6 +426,10 @@
             </div>
             <div ng-hide="modal.error.title" ng-bind-html="modal.error"></div>
         </div>
+
+        <datasource-permission ng-model="modal.permissions" class="block" conf="modal.conf"></datasource-permission>
+
+
     </div>
     <div class="actions">
         <div class="ui button black" ng-click="hideModal()">{{'انصراف' | translate}}</div>

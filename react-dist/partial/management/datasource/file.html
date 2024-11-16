@@ -184,7 +184,10 @@
             </md-card>
 
             <md-card ng-show="testResult" flex>
+
                 <md-content style="height:200px;" id="testResult" layout="column" flex>
+
+                    <div ng-show="changeSheetProgress">در حال دریافت اطلاعات...</div>
                     <div ng-bind-html="testResult" flex></div>
                 </md-content>
             </md-card>
