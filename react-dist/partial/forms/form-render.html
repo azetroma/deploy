@@ -153,7 +153,7 @@
         </div>
     </div>
 
-    <div class="actions !tw-text-right" ng-if="footer" ng-style="{'background-color': (data.clientModelParsed.footerColor || '##f9fafb')}">
+    <div class="actions !tw-text-right" ng-if="footer && !readonlyForm" ng-style="{'background-color': (data.clientModelParsed.footerColor || '##f9fafb')}">
         <div ng-show="footer" class="form-page ui form" ng-class="page.size">
             <div class="ui grid stackable content-form">
                 <form-control
@@ -171,7 +171,7 @@
         </div>
     </div>
 
-    <div class="actions" xng-show="!formLoading" ng-style="{'margin-top':settings.modal ? '0':'40px', 'min-height':'64px'}">
+    <div class="actions" ng-if="!readonlyForm" ng-style="{'margin-top':settings.modal ? '0':'40px', 'min-height':'64px'}">
         <div class="tw-m-3 tw-text-right tw-space-y-1 tw-text-sm tw-mt-0" ng-if="process.enable">
             <collapse>
                 <collapse-header>

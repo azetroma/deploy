@@ -1,13 +1,11 @@
-
 <p ng-click="showRoles = !showRoles" layout="row" class="pointer" layout-align="start center">
-    <i class="icon-animate ui icon angle left" ng-class="{'rotate-90' : showRoles}" style="width:30px;"></i>
+    <i class="icon-animate ui icon angle left" ng-class="{'rotate-90' : showRoles}" style="width: 30px"></i>
     <span>{{'permissions' | translate}}</span>
 </p>
-    <i class="notched circle loading icon"ng-show="getPermissionProgress"></i>
+<i class="notched circle loading icon" ng-show="getPermissionProgress"></i>
 <div uib-collapse="!showRoles" xstyle="margin:0 20px" ng-hide="getPermissionProgress">
-
-    <div class="sadaf-tree" style="margin: 0 40px;">
-        <div class="tree-element ul" style="list-style:none">
+    <div class="sadaf-tree" style="margin: 0 40px">
+        <div class="tree-element ul" style="list-style: none">
             <div ng-repeat="data in root.nodes track by $index" class="tree-element li" ng-include="'role-tree.html'"></div>
         </div>
     </div>

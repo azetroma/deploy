@@ -8,6 +8,13 @@
         <input ng-model="search" placeholder="{{'search' | translate}}">
     </md-input-container>-->
 
+            <div class="field">
+                <div class="ui icon input">
+                    <input type="text" placeholder="جستجو..." ng-model="menuSearchQ" ng-change="searchMenus(menuSearchQ)"  ng-model-options="{debounce:400}" />
+                    <i class="search icon"></i>
+                </div>
+            </div>
+
             <md-button class="md-icon-button cssFade" ng-show="canDelete" ng-click="delete($event)" title="{{'remove' | translate}}">
                 <span class="material-icons">delete</span>
             </md-button>
@@ -17,6 +24,7 @@
             </md-button>
 
             <a href="{{app.hashUrlPrefix}}#/menu-category" class="ui button">مدیریت گروه‌های منو</a>
+
         </div>
 
     </md-toolbar>
@@ -32,6 +40,7 @@
                     <th class="pointer" ng-click="sort('name')">
                         <div layout="row" layout-align="start center">
                             {{'name' | translate}}
+
                             <span ng-show="sortDetail['name']" ng-class="{'rotate': sortDetail['name'].isDesc}" class="material-icons icon-animate  rotate">keyboard_arrow_up</span>
                         </div>
                     </th>
@@ -45,7 +54,7 @@
 
                 </tr>
 
-                <tr ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select; menuInvalidate()" ng-dblclick="goto(row, $event)">
+                <tr ng-hide="row.hide" ng-repeat="row in data" ng-class="{active : row.select}" ng-click="row.select = !row.select; menuInvalidate()" ng-dblclick="goto(row, $event)">
                     <td width="20">
                         <md-checkbox ng-model="row.select" ng-click="$event.stopPropagation()" ng-change="menuInvalidate()" aria-label="{{'select' | translate}}"></md-checkbox>
                     </td>

@@ -252,6 +252,12 @@
                             عدم سوال از کاربر برای تایید عملیات
                         </label>
                     </div>
+                    <div class="form-row" layout="row" layout-align="start center">
+                        <label>
+                            <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.readonlyForm" />
+                            باز کردن فرم تنها در حالت خواندنی
+                        </label>
+                    </div>
 
 
                     <div class="form-row" layout="row" layout-align="start center" ng-show="datasource.CubeInfo.Dimensions[0].SystemType == 0">

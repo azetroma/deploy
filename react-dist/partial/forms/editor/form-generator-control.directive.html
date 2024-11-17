@@ -96,10 +96,10 @@
         <div></div>
         <small>{{model.description}}</small>
     </div>
-
     <div 
     class="field" ng-class="{'{{model.name}}':true, 'form-{{id}}':true, 'index-{{model.rowIndex}}':true,  disabled: model.validations.isDisable, required : model.validations.isRequire, error: model.error}"
      ng-if="model.type == 4">
+
         <label ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label> </label>
         <div class=" value" ng-if="model.dropdown.multiSelectDropdown && model.dropdown.useRemoteData" xng-hide="model.readonly">
             <styled-label class=" value"font="model.uiConfig.fontValue">
