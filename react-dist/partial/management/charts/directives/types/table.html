@@ -47,13 +47,13 @@
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.table.info.aggregation==-1">
-                    <label class="col-sm-4">{{ 'تعدد ردیف در هر صفحه' | translate }}</label>
+                    <label class="col-sm-4">تعداد ردیف در صفحه </label>
                     <span class="form-divider" flex></span>
                     <div class="col-sm-8">
                         <input
                             type="number"
                             class="form-control"
-                            placeholder="{{ 'تعدد ردیف' | translate }}"
+                            placeholder="تعداد ردیف در صفحه"
                             ng-change="setTableInfoLimit(ngModel.table.info.limit, ngModel.table.info.useDistinct);refreshChart(); "
                             ng-model-options="{ updateOn: 'blur' }"
                             ng-model="ngModel.table.info.limit"

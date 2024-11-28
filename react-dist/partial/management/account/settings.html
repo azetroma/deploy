@@ -433,6 +433,24 @@
                             <div ng-show="model.defaultSrc.enable && model.defaultSrc.items.length">
                                 <div class="tw-flex tw-items-center tw-mb-1" ng-repeat="item in model.defaultSrc.items">
                                     <div class="tw-flex-1 tw-me-2">
+                                        <sm-dropdown
+                                        class="selection fluid"
+                                        model="item.type"
+                                        items="[
+                                        'default-src',
+                                        'script-src',
+                                        'img-src',
+                                        'object-src',
+                                        'font-src',
+                                        'style-src',
+                                        'child-src',
+                                        'frame-ancestors',
+                                        'frame-src'
+                                         ]"
+                                        label="item"
+                                        value="item"
+                                    ></sm-dropdown>                                    </div>
+                                    <div class="tw-flex-1 tw-me-2">
                                         <input autocomplete="off" type="text" ng-model="item.name" placeholder="domain.example.com" />
                                     </div>
                                     <div class="">
@@ -518,6 +536,11 @@
                             <br />
                             <small class="gray">در صورت فعال بودن این گزینه، پیغام‌های خطای جزیی‌تری به کاربر نمایش داده خواهد شد.</small>
                         </div>
+                        <div class="field !tw-mt-4">
+                            <sadaf-checkbox ng-model="model.extra.checkQueryPermission">چک کردن جداول حساس در ساخت پرس‌وجو </sadaf-checkbox>
+                            <br />
+                            <small class="gray">برای جلوگیری از دسترسی به داده‌های جدول‌های حساس از این گزینه استفاده کنید.</small>
+                        </div>
 
                         <div ng-show="securityCertPatch">
                             <div class="field !tw-mt-4">
@@ -534,7 +557,14 @@
                             </div>
 
                             <div class="field !tw-mt-4">
+                                <sadaf-checkbox ng-model="model.extra.sslAntiForgery">ارسال امن توکن AntiForgery </sadaf-checkbox>
+                            </div>
+
+                            <div class="field !tw-mt-4">
                                 <sadaf-checkbox ng-model="model.extra.showAccessAlert">هشدار به کاربر در خصوص مسئولیت‌های دسترسی به اطلاعات زمان ورود  به مدیریت </sadaf-checkbox>
+                            </div>
+                            <div class="field !tw-mt-4">
+                                <sadaf-checkbox ng-model="model.extra.hideLoginAlert"> عدم نمایش هشدار آخرین ورودها در زمان ورود به سامانه</sadaf-checkbox>
                             </div>
 
                             <div class="field !tw-mt-4">
