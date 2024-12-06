@@ -536,6 +536,25 @@
                             <br />
                             <small class="gray">در صورت فعال بودن این گزینه، پیغام‌های خطای جزیی‌تری به کاربر نمایش داده خواهد شد.</small>
                         </div>
+
+                        <div class="field">
+                            <label>موتور ایجاد ارتباط‌ها</label>
+                            <sm-dropdown
+                                class="selection"
+                                items="[
+                            {name:'V1', id:0}, 
+                            {name:'V1.1', id:2},
+                            {name:'V2', id:1},
+                            ]"
+                                model="model.extra.graphVersion"
+                                label="item.name"
+                                value="item.id"
+                            ></sm-dropdown>
+                        </div>
+
+
+
+
                         <div class="field !tw-mt-4">
                             <sadaf-checkbox ng-model="model.extra.checkQueryPermission">چک کردن جداول حساس در ساخت پرس‌وجو </sadaf-checkbox>
                             <br />

@@ -1,0 +1,138 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html style="background-color:#eceff1!important;">
+<head class="tw-h-full">
+    <meta charset="utf-8" />
+    <base href="@Href("~")">
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    @{
+        var isRelease = bool.Parse(System.Configuration.ConfigurationManager.AppSettings["releaseMode"] ?? "true");
+        var v = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version.ToString();
+        var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+        if (!isRelease) {
+            v = (DateTime.Now - DateTime.MinValue).TotalMilliseconds.ToString();
+        }
+
+    }
+
+    <link href="~/react-dist/styles.css?v=@v" rel="stylesheet" />
+
+
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+            display: none !important;
+        }
+
+        .clusterize-extra-row {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+            .clusterize-extra-row.clusterize-keep-parity {
+                display: none;
+            }
+
+        .clusterize-content {
+            outline: 0;
+        }
+
+        .clusterize-no-data td {
+            text-align: center;
+        }
+    </style>
+
+    <meta name="fontiran.com:license" content="X4ZQZ">
+
+
+
+</head>
+
+
+<body ng-app="chartPublish" ng-cloak class="theme2" style="overflow-y: hidden;height: 100%;">
+
+    <input type="hidden" value="@ViewBag.lang" id="lang" />
+    <input type="hidden" id="isFullscreen" value="true" />
+    <input type="hidden" id="dashboardPublishMenuId" value="@ViewBag.MenuId" />
+    <input type="hidden" id="appId" value="@ViewBag.appId" />
+    <input type="hidden" id="chartId" value="@ViewBag.chartId" />
+    <input type="hidden" id="isShared" value="1" />
+
+    <chart-publish-component class="tw-block tw-h-full tw-w-full"></chart-publish-component>
+
+    <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
+    <input type="hidden" value="@Request.Url.AbsoluteUri" name="aboluteUrl" />
+    <input type="hidden" value="@v" name="version" />
+    <input type="hidden" value="@ViewBag.isRtl" name="isRtl" />
+    <input type="hidden" value="@(Url.Action("management", "sadaf") + "/")" name="hashUrlPrefix" />
+    <input type="hidden" value="@(Html.Raw(ViewBag.license ?? "{}").ToString().Replace("\"","\\\""))" name="license" />
+    <input type="hidden" value="@((ViewBag.englishDigit ?? false ).ToString().ToLower())" name="useEnglishDigit" />
+    <input type="hidden" value="true" name="shareMode" />
+    <script src="~/react-dist/app-bundle.js?v=@v"></script>
+
+    @if (ViewBag.cdn.enable) {
+        for (int i = 0; i < ViewBag.cdn.items.Count; i++) {
+            if (ViewBag.cdn.items[i].type == 1) {
+                <script src="@ViewBag.cdn.items[i].link"></script>
+            }
+            if (ViewBag.cdn.items[i].type == 0) {
+                <link href="@ViewBag.cdn.items[i].link" rel="stylesheet" />
+            }
+        }
+    }
+
+
+    <script src="~/react-dist/customCharts.js?v=@ViewBag.customChartVersion"></script>
+    <link href="~/react-dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
+
+    <script>
+
+        var userVariable = @Html.Raw(Json.Encode(ViewBag.userVariable));
+        if(_.isArray(userVariable)){
+            localStorage.setItem('userVariable',JSON.stringify( userVariable));
+        }
+
+
+        var app = app || {};
+        app.useEnglishDigit = JSON.parse("@((ViewBag.englishDigit ?? false ).ToString().ToLower())");
+        app.shareMode = true;
+        var hash = "@ViewBag.returnUrlHash";
+        if (hash) {
+            location.hash = hash;
+        }
+
+        $.ajaxSetup({
+            beforeSend: function (xhr) {
+                var key = _.last(window.location.pathname.split('/'));
+                xhr.setRequestHeader("key", key);
+            }
+        });
+
+    </script>
+
+    @if (!ViewBag.disableAntiClickjack) {
+
+        <style id="antiClickjack">
+            body {
+                display: none !important;
+            }
+        </style>
+
+        <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        </script>
+    }
+
+    </body>
+
+</html>
