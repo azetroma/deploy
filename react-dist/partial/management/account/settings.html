@@ -318,7 +318,7 @@
                             <small class="gray">در صورت استفاده از این گزینه کل مدل داده‌ای پاک شده و دوباره ساخته می‌شود. این فرآیند ممکن چند دقیقه زمان ببرد.</small>
                         </div>
 
-                        <div class="field">
+                        <div class="field !tw-mt-4">
                             <sadaf-checkbox class="md-block" ng-model="model.publicSignup"> {{'can signup' | translate}} </sadaf-checkbox>
                         </div>
 
@@ -537,6 +537,11 @@
                             <small class="gray">در صورت فعال بودن این گزینه، پیغام‌های خطای جزیی‌تری به کاربر نمایش داده خواهد شد.</small>
                         </div>
 
+                        <div class="field !tw-mt-4">
+                            <sadaf-checkbox ng-model="model.extra.hideLoginAlert"> عدم نمایش هشدار آخرین ورودها در زمان ورود به سامانه</sadaf-checkbox>
+                        </div>
+
+
                         <div class="field">
                             <label>موتور ایجاد ارتباط‌ها</label>
                             <sm-dropdown
@@ -551,8 +556,6 @@
                                 value="item.id"
                             ></sm-dropdown>
                         </div>
-
-
 
 
                         <div class="field !tw-mt-4">
@@ -581,9 +584,6 @@
 
                             <div class="field !tw-mt-4">
                                 <sadaf-checkbox ng-model="model.extra.showAccessAlert">هشدار به کاربر در خصوص مسئولیت‌های دسترسی به اطلاعات زمان ورود  به مدیریت </sadaf-checkbox>
-                            </div>
-                            <div class="field !tw-mt-4">
-                                <sadaf-checkbox ng-model="model.extra.hideLoginAlert"> عدم نمایش هشدار آخرین ورودها در زمان ورود به سامانه</sadaf-checkbox>
                             </div>
 
                             <div class="field !tw-mt-4">
