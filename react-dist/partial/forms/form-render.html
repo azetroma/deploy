@@ -140,12 +140,11 @@
                         <br />
                         <div class="ui button red small compact" ng-click="deleteWorkflow()">حذف گردش</div>
                     </div>
-
                     <div class="ui error message" ng-show="pages.length > 1 && pagesContainError.length">
                         <!--{{'error in pages'|translate}}-->
                         <b> لیست خطا‌ها</b>
                         <ul>
-                            <li ng-repeat="p in pagesContainError ">{{p}}</li>
+                            <li ng-repeat="p in pagesContainError track by $index">کنترل <b>{{p.name}}</b> در صفحه <b>{{p.page}}</b> : {{p.error}}</li>
                         </ul>
                     </div>
                 </div>
