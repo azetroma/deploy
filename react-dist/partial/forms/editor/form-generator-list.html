@@ -55,6 +55,9 @@
                         <i class="ui icon trash alternate outline"></i>
                     </span>
 
+                <form-export [formids]="ids" (onadd)="onAdd($event)"></form-export>
+
+
                     <span
                         class="ui icon button basic"
                         ng-class="{loading: c.backupProgress, disabled: c.backupProgress}"
