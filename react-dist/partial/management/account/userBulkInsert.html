@@ -75,12 +75,15 @@
                             <b>کلمه عبور</b> -
                             <b>دارای کلمه عبور پیچیده</b> -
                             <b>تغییر کلمه عبور در اولین ورود</b> - 
-                            <b>دسترسی فقط خواندنی</b>
+                            <b>دسترسی فقط خواندنی - </b>
+                            <b>موبایل - </b>
+                            <b>ایمیل-</b>
+                            <b>متغیرهای کاربری</b>
                             باشند.
                         </li>
                         <li>
-                            مثال:
-                            ali;babaee;Ali;123456;1;1;1
+                            مثال:<br/>
+                            ali;babaee;Ali;123456;1;1;1;09120001212;example@mail.com;{variable-name:[1,2,3], variable-name2:[1,2,3]}
                         </li>
                         <li>
                             اطلاعات وارد شده در هر خط باید با یکی از روش‌های زیر از هم جدا شوند از هم جدا شوند
@@ -110,7 +113,9 @@
                             <th>کلمه عبور</th>
                             <th>کلمه عبور پیچیده</th>
                             <th>تغییر کلمه عبور بعد از اولین ورود</th>
-                            <th>وضعیت</th>
+                            <th>دسترسی (فقط خواندنی)</th>
+                            <th>موبایل</th>
+                            <th>ایمیل</th>
                         </tr>
 
                         <tr ng-repeat="row in ubi.data" ng-class="{active : row.select}" ng-click="row.select = !row.select; " ng-dblclick="goto(row, $event)">
@@ -124,6 +129,9 @@
                             <td><span>{{row.password}}</span></td>
                             <td><i class="icon green " ng-class="{check :row.complex }"></i></td>
                             <td><i class="icon green " ng-class="{check :row.needChange}"></i></td>
+                            <td><i class="icon green " ng-class="{check :row.readonly}"></i></td>
+                            <td><span>{{row.mobile}}</span></td>
+                            <td><span>{{row.email}}</span></td>
                             <td>
                                 <span ng-show="row.status==1" class="ui label red">قبلا اضافه شده است</span>
                                 <span ng-show="row.status==2" class="ui label green">با موفقیت اضافه شد</span>
@@ -168,14 +176,18 @@
 
 
                     <div style="text-align: left;margin: 30px 0;" ng-show="ubi.data">
-                        <md-button ng-click="ubi.saveSelectedUsers()" ng-hide="ubi.saveProgress" ng-disabled="!(ubi.data|filter:{select:true}).length" class="md-raised md-primary">
+                        <!-- <md-button ng-click="ubi.saveSelectedUsers()" ng-hide="ubi.saveProgress" ng-disabled="!(ubi.data|filter:{select:true}).length" class="md-raised md-primary">
                             {{'اضافه کردن به لیست کاربران'|translate}}
                         </md-button>
 
                         <md-button ng-show="ubi.saveProgress" disabled="true">
                             {{'در حال ارسال ...' | translate}}
                             <md-progress-circular md-mode='indeterminate' md-diameter="15" style="margin:0 10px; display:inline-block"></md-progress-circular>
-                        </md-button>
+                        </md-button> -->
+
+                        <div class="ui button black" ng-click="ubi.saveSelectedUsers()" ng-class="{loading: ubi.saveProgress, disabled: ubi.saveProgress}" >
+                            {{'اضافه کردن به لیست کاربران'|translate}}
+                        </div>
 
                     </div>
                 </div>

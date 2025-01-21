@@ -98,6 +98,22 @@
         class="form-row"
         layout="row"
         layout-align="start center"
+        ng-if="item.type == 'radio' && (!item.if ||  parent[item.if.key] == item.if.value) && item._show!==false && (!item.showIfComboKpi || externalprop.isComboKpi)"
+    >
+        <label class="col-sm-4">{{item.title}}</label>
+        <span class="form-divider" flex></span>
+        <div class="col-sm-8 tw-flex tw-space-x-2 tw-space-x-reverse">
+            <div ng-repeat="i in item.items" class="">
+                <label xfor="{{item.key}}-{{$index}}" >{{i.name}}
+                    <input type="radio" ng-change="onchange()" ng-model="parent[item.key]" value="{{i.value}}" id="{{item.key}}-{{$index}}" />
+                </label>
+            </div>
+        </div>
+    </div>
+    <div
+        class="form-row"
+        layout="row"
+        layout-align="start center"
         ng-if="item.type == 'button' && (!item.if ||  parent[item.if.key] == item.if.value) && item._show!==false && (!item.showIfComboKpi || externalprop.isComboKpi)"
     >
         <label class="col-sm-4">{{item.title}}</label>
@@ -118,9 +134,9 @@
             <div class="col-sm-8 ui compact mini buttons">
                 <div
                     class="ui button compact mini"
-                    ng-class="{active: parent[item.key][t.value]==s}"
+                    ng-class="{active: item.kpiIsKey ?  parent[item.key][s]== t.value : parent[item.key][t.value]==s}"
                     ng-repeat="t in item.types"
-                    ng-click="parent[item.key][t.value]=s; item.onChange(t,s,item, parent, prop, onchange); onchange();"
+                    ng-click="seriesTypeClick(t,s)"
                 >
                     {{t.name}}
                 </div>
@@ -130,8 +146,9 @@
 
     <div
         ng-if="item.type == 'series-select' && (!item.if ||  parent[item.if.key] == item.if.value) && item._show!==false && (!item.showIfComboKpi || externalprop.isComboKpi)"
-        xclass="mini secondary segment ui"
-        xstyle="margin-top: 12px"
+        class="form-row"
+        layout="row"
+        layout-align="start center"
     >
         <label class="col-sm-4">{{ item.title }}</label>
         <span class="form-divider" flex></span>
@@ -143,8 +160,45 @@
     </div>
 
     <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'dim-color' && (!item.if || parent[item.if.key] == item.if.value)">
-        <dimention-color-selector style="width: 100%" ng-model="parent[item.key]" dim-color="currentChartState.currentChartDimentions" ng-change="onchange()"></dimention-color-selector>
+        <dimention-color-selector
+            style="width: 100%"
+            ng-model="parent[item.key]"
+            dim-color="currentChartState.currentChartDimentions"
+            ng-change="onchange()"
+        ></dimention-color-selector>
     </div>
-<!-- <pre> currentChartState = {{currentChartState|json}}</pre>         -->
+    <!-- <pre> currentChartState = {{currentChartState|json}}</pre>         -->
+
+    <div class="tw-w-full ui mini compact segment !tw-mt-2" ng-if="item.type == 'array' && (!item.if ||  parent[item.if.key] == item.if.value) && item._show!==false">
+        <div class="tw-text-center">
+            {{item.title}}
+            <span class="ui mini compact button" ng-click="parent[item.key] = parent[item.key] || []; parent[item.key].push({edgeType:'digit', color:'#f2c80f',edge:1});onchange()">
+                اضافه کردن آیتم
+                <i class="ui icon link add"></i>
+            </span>
+        </div>
+        <div ng-repeat="row in parent[item.key] track by $index" class="ui mini segment">
+            <div class="tw-absolute tw-left-0 tw-mt-[-10px]">
+                <i class="ui link icon trash alternate outline" ng-click="parent[item.key].splice($index, 1);onchange()" title="حذف"></i>
+                <i class="ui link icon add" ng-click="parent[item.key].splice($index, 0,{edgeType:'digit', color:'#f2c80f',edge:1});onchange()" title="اضافه کردن"></i>
+                <i
+                    class="ui link icon arrow up"
+                    ng-hide="$index==0"
+                    ng-click="parent[item.key].splice($index, 1, parent[item.key].splice($index-1, 1, parent[item.key][$index])[0]);onchange()"
+                    title="انتقال به بالا"
+                ></i>
+                <i
+                    class="ui link icon arrow down"
+                    ng-hide="$index==parent[item.key].length-1"
+                    ng-click="parent[item.key].splice($index, 1, parent[item.key].splice($index+1, 1, parent[item.key][$index])[0]);onchange()"
+                    title="انتقال به پایین"
+                ></i>
+            </div>
+            <div ng-repeat="i in item.items">
+                <general-custom-control externalprop="externalprop" series="series" parent="row" prop="prop" item="i" change="onchange()"></general-custom-control>
+            </div>
+        </div>
+    </div>
+
     <small ng-if="item.desc && (!item.if ||  parent[item.if.key] == item.if.value) && item._show!==false && (!item.showIfComboKpi || externalprop.isComboKpi)">{{item.desc}}</small>
 </div>

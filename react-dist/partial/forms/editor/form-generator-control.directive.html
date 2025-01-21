@@ -209,7 +209,9 @@
     </div>
 
     <div  
-    ng-class="['field',(model.validations.isDisable?'disabled':''), (model.validations.isRequire?'required':''), (model.error?'error':''), model.name, 'form-'+id+'-type-12']" ng-if="model.type == 12">
+    ng-class="['field',(model.validations.isDisable?'disabled':''), (model.validations.isRequire?'required':''), (model.error?'error':''), model.name, 'form-'+id+'-type-12']" 
+    ng-if="model.type == 12"
+    class="tw-relative">
     <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <new-form-modal  ng-if="model.formLookup.showAddButton && model.renderForm" ng-model="model.formDialogInfo" control="model"></new-form-modal>
         <div class="auto-hide-container  value" style="position:relative;">
@@ -223,7 +225,8 @@
                title="ویرایش"></i>
         </div>
         <!-- <div ng-if="model.readonly">{{model.formLookup.selected ? model.formLookup.selected.join(', ') : model.formLookup.keyControlsBindedValue.join(', ')}}</div> -->
-        <small class="helper">{{model.error}}</small>
+        <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
+                <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
     </div>
@@ -311,18 +314,23 @@
     <div class="field action-icon" ng-class="{error: model.error}" ng-if="model.type == 17">
         <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <div class="calculate-field value {{(model.uiConfig.hideDashLine?'hide-dash-line':'')}}">
-            <div ng-if="edit" class="ltr formula gray">
-                <small>
-                    <span>{{model.prefix}} </span>
-                    lookup
-                    <span> {{model.postfix}}</span>
-                </small>
+            <div ng-if="edit" class="ltr formula gray" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
+                <styled-label font="model.uiConfig.fontValue">
+
+                    <small>
+                        <span>{{model.prefix}} </span>
+                        lookup
+                        <span> {{model.postfix}}</span>
+                    </small>
+                </styled-label>
             </div>
-            <div ng-hide="edit">
+            <div ng-hide="edit" ng-style="{textAlign: !model.uiConfig.fontValue.enable? '' : model.uiConfig.fontValue.align || 'inherit'}">
                 <div xng-if="model.inProgress" ng-class="{active: model.inProgress}" class="ui dimmer inverted"><div class="ui mini inline loader"></div></div>
-                <span>{{model.prefix}} </span>
-                <span ng-if="model.value!=null">{{model.tableLookup.label | formatNumber:model | persian}}</span>
-                <span> {{model.postfix}}</span>&nbsp;
+                <styled-label font="model.uiConfig.fontValue">
+                    <span>{{model.prefix}} </span>
+                    <span ng-if="model.value!=null">{{model.tableLookup.label | formatNumber:model | persian}}</span>
+                    <span> {{model.postfix}}</span>&nbsp;
+                </styled-label>
                 <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
             </div>
         </div>

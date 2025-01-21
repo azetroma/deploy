@@ -20,6 +20,7 @@
                     <general-custom-control  externalprop="externalprop" series="ngModel.series"parent="ngModel[type].general" prop="ngModel[type]" item="item" change="refreshChart(item.refreshMode || 'refresh')"></general-custom-control>
 
                     <div ng-if="item.type=='section' && (!item.if ||  ngModel[type].general[item.if.key] == item.if.value)" class="prop-segment">
+                        <div class="tw-text-center tw-font-extrabold" ng-if="!!item.title"> {{item.title}}</div>
                         <div ng-repeat="i in item.items">
                             <general-custom-control  externalprop="externalprop" series="ngModel.series" parent="ngModel[type].general" prop="ngModel[type]" item="i" change="refreshChart(i.refreshMode ||'refresh')"></general-custom-control>
                         </div>
@@ -56,6 +57,7 @@
                     <general-custom-control externalprop="externalprop" selected-series="ngModel.selectedSeries" series="ngModel.series" parent="ngModel[type].series[ngModel.selectedSeries]" prop="ngModel[type]" item="item" change="refreshChart(item.refreshMode ||'refresh');changeAllSeries(item.key)"></general-custom-control>
 
                     <div ng-if="item.type=='section' && (!item.if ||  ngModel[type].series[ngModel.selectedSeries][item.if.key] == item.if.value)" style=" padding: 10px; margin: 10px 0px; background-color: rgb(239, 239, 239); border-radius: 4px;">
+                        <div class="tw-text-center tw-font-extrabold" ng-if="!!item.title"> {{item.title}}</div>
                         <div ng-repeat="i in item.items">
                             <general-custom-control  externalprop="externalprop" selected-series="ngModel.selectedSeries" series="ngModel.series" parent="ngModel[type].series[ngModel.selectedSeries]" prop="ngModel[type]" item="i" change="refreshChart(i.refreshMode ||'refresh');changeAllSeries(i.key)"></general-custom-control>
                         </div>

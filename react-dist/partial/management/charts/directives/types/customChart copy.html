@@ -1,0 +1,84 @@
+<menu-container open-menu-name="openMenuName">
+    
+    <menu-item>
+        <menu-header data-toggle="">{{ 'تنظیمات کلی' | translate }}</menu-header>
+        <menu-body class="prop-section  form-horizontal">
+            <div>
+
+                <general-settings externalprop="externalprop" datasource="datasource" query="ngModel.settingQuery" api-key="apiKey" ng-if="ngModel.customChartSettingTemplat.hasGeneralSettings" props="ngModel" ng-model="ngModel[type].info" ng-change="refreshChart('refreshWithData')"></general-settings>
+
+                <div ng-repeat="item in ngModel.customChartSettingTemplat.general" ng-show="!ngModel.settingQuery.length || item.title.indexOf(ngModel.settingQuery)!=-1">
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'position' && (!item.if ||  ngModel[type].general[item.if.key] == item.if.value)">
+                        <label class="col-sm-4">{{item.title}}</label>
+                        <span class="form-divider" flex></span>
+                        <div class="col-sm-8">
+                            <legend-position ng-model="ngModel[type].general[item.key]" ng-change="refreshChart('refresh')"></legend-position>
+                        </div>
+                    </div>
+
+                    <general-custom-control  externalprop="externalprop" series="ngModel.series"parent="ngModel[type].general" prop="ngModel[type]" item="item" change="refreshChart(item.refreshMode || 'refresh')"></general-custom-control>
+
+                    <div ng-if="item.type=='section' && (!item.if ||  ngModel[type].general[item.if.key] == item.if.value)" class="prop-segment">
+                        <div class="tw-text-center" ng-if="!!item.title"> {{item.title}}</div>
+                        <div ng-repeat="i in item.items">
+                            <general-custom-control  externalprop="externalprop" series="ngModel.series" parent="ngModel[type].general" prop="ngModel[type]" item="i" change="refreshChart(i.refreshMode ||'refresh')"></general-custom-control>
+                        </div>
+                    </div>
+
+                    <div class="form-row" layout="row" layout-align="start center" ng-if="item.type == 'dim-color' && (!item.if || ngModel[type].general[item.if.key]== item.if.value)">
+                        <dimention-color-selector style="width:100%" ng-model="ngModel[type].general[item.key || 'dimColor']" dim-color="ngModel.dimColor" ng-change="refreshChart('refresh')"></dimention-color-selector>
+                    </div>
+
+                </div>
+
+            </div>
+        </menu-body>
+    </menu-item>
+
+    <menu-item ng-show="ngModel.series && ngModel.series.length>0" name="series" ng-init="ngModel[type].series['{All}'] = {}">
+        <menu-header data-toggle="">{{ 'مشخصات شاخص‌ها' | translate }}</menu-header>
+        <menu-body class="prop-section form-horizontal   ">
+            <div>
+
+                <div class="form-row" layout="row" layout-align="start center">
+                    <label class="col-sm-4">{{ 'شاخص' | translate }}</label>
+                    <span class="form-divider" flex></span>
+                    <div>
+                        <select id="series-selector" ng-change="selectedSeriesChange()" ng-model="ngModel.selectedSeries" ng-init="ngModel.selectedSeries=ngModel.selectedSeries||'{All}'"
+                                ng-options="i as i for i in ['{All}'].concat(ngModel.series)"></select>
+                    </div>
+                </div>
+
+                <top-measure dims="dimensions" ng-model="ngModel[type].series[ngModel.selectedSeries].top" ng-change="refreshChart('refreshWithData');" ></top-measure>
+
+                <div ng-repeat="item in ngModel.customChartSettingTemplat.series" ng-show="!ngModel.settingQuery.length || item.title.indexOf(ngModel.settingQuery)!=-1">
+
+                    <general-custom-control externalprop="externalprop" selected-series="ngModel.selectedSeries" series="ngModel.series" parent="ngModel[type].series[ngModel.selectedSeries]" prop="ngModel[type]" item="item" change="refreshChart(item.refreshMode ||'refresh');changeAllSeries(item.key)"></general-custom-control>
+
+                    <div ng-if="item.type=='section' && (!item.if ||  ngModel[type].series[ngModel.selectedSeries][item.if.key] == item.if.value)" style=" padding: 10px; margin: 10px 0px; background-color: rgb(239, 239, 239); border-radius: 4px;">
+                        <div ng-repeat="i in item.items">
+                            <general-custom-control  externalprop="externalprop" selected-series="ngModel.selectedSeries" series="ngModel.series" parent="ngModel[type].series[ngModel.selectedSeries]" prop="ngModel[type]" item="i" change="refreshChart(i.refreshMode ||'refresh');changeAllSeries(i.key)"></general-custom-control>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </menu-body>
+    </menu-item>
+
+    <alert prop="ngModel"  config="{name:type}"></alert>
+
+    <table-indicator dimensions="dimensions" measures="measures" prop="ngModel" config="{name:key, show:ngModel.customChartSettingTemplat.indicatorShow || [1], legend: true}"></table-indicator>
+
+    <global-variable dimensions="dimensions" measures="measures" prop="ngModel"></global-variable>
+
+    <dim-meas-where model="openMenuName" ng-if="!isOlap" dimensions="dimensions" measures="measures" where="where" datasource="datasource"></dim-meas-where>
+
+    <filter-except related-datasource-list="relatedDatasourceList" filter-exception="filterException" datasource="datasource"></filter-except>
+
+    <calculate-fields calculated-fields="calculatedFields" model="ngModel"></calculate-fields>
+    <management-only-dir management-only="managementOnly"></management-only-dir>
+
+</menu-container>
