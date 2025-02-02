@@ -8,3 +8,4 @@ deploy.zip
 log/1403-08-08.txt
 Web.config
 Web.config
+*.config
