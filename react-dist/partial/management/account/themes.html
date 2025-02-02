@@ -9,7 +9,7 @@
         <div ng-if="!isbpms" flex="80" flex-xs="100" flex-sm="100">
             <md-card style="margin: 40px 0; padding: 16px; min-height: calc(100% - 80px)">
                 <div ng-if=" path === '/themes'">
-                    <theme-list></theme-list>
+                    <theme-list  antiforgerykeeper="antiForgeryKeeper"></theme-list>
                     <!--<ng-theme-list></ng-theme-list>-->
                 </div>
 
@@ -27,7 +27,7 @@
                 </div>
 
                 <div ng-if="path === '/eventNotifications'">
-                    <notification-list datasources="datasources"></notification-list>
+                    <notification-list antiforgerykeeper="antiForgeryKeeper" datasources="datasources"></notification-list>
                 </div>
 
                 <div ng-if="path === '/telegram-config'" ng-show="license.telegram">
@@ -35,30 +35,30 @@
                 </div>
 
                 <div ng-if="path === '/process-all-tables'" ng-show="license.olap">
-                    <process-all-tables></process-all-tables>
+                    <!-- <process-all-tables></process-all-tables> -->
                 </div>
 
                 <div ng-if="path === '/login-page-logo'">
-                    <login-page-logo></login-page-logo>
+                    <login-page-logo antiforgerykeeper="antiForgeryKeeper"></login-page-logo>
                 </div>
 
                 <div ng-if="path === '/menu-category'">
-                    <menu-category></menu-category>
+                    <menu-category antiforgerykeeper="antiForgeryKeeper"></menu-category>
                 </div>
                 <div ng-if="path === '/userVariables'">
-                    <user-variables-list></user-variables-list>
+                    <user-variables-list antiforgerykeeper="antiForgeryKeeper"></user-variables-list>
                 </div>
 
                 <div ng-if="path === '/chart-import'">
-                    <chart-import datasources="datasources"></chart-import>
+                    <chart-import antiforgerykeeper="antiForgeryKeeper" datasources="datasources"></chart-import>
                 </div>
 
                 <div ng-if="isUserVariableDetail">
-                    <user-variables-detail name="variableName"></user-variables-detail>
+                    <user-variables-detail antiforgerykeeper="antiForgeryKeeper" name="variableName"></user-variables-detail>
                 </div>
 
                 <div ng-if="isOlapTables">
-                    <olap-query id="id" onchange="onSaveTable"></olap-query>
+                    <olap-query antiforgerykeeper="antiForgeryKeeper" id="id" onchange="onSaveTable"></olap-query>
                 </div>
             </md-card>
         </div>

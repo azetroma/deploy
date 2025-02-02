@@ -167,7 +167,7 @@
 
             <div class="ui five stackable cards" ng-hide="searchResult.length || query.length">
                 <div class="ui loader active" ng-show="appLoading"></div>
-                <apps-layout data="data" ng-if="data" parent="parent" permissions="appsPermissions" style="display: block; width: 100%; margin-bottom: 40px"></apps-layout>
+                <apps-layout antiforgerykeeper="antiForgeryKeeper" data="data" ng-if="data" parent="parent" permissions="appsPermissions" style="display: block; width: 100%; margin-bottom: 40px"></apps-layout>
             </div>
         </div>
         <div class="three wide column">

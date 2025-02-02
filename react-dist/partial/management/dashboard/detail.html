@@ -125,7 +125,7 @@
                         <datasource-permission type="menu" id="{{id}}" ng-model="roles"></datasource-permission>
                         <br />
 
-                        <register-notification ng-if="render"
+                        <register-notification antiforgerykeeper="antiforgerykeeper" ng-if="render"
                                                type="'dashboard'"
                                                ng-model="model.notifications"
                                                onupdate="updateModel"

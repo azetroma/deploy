@@ -33,7 +33,7 @@
             </div>
 
             <div
-                class="header-section"
+                class="header-section tw-flex-wrap"
                 ng-if="header || pages.length>1"
                 ng-style="{'padding-bottom': (!settings.modal?'14px':0), 'background-color': (data.clientModelParsed.headerColor || '##f9fafb')}"
             >
@@ -55,7 +55,7 @@
                     </div>
                 </div>
 
-                <div class="paging-section ui secondary pointing menu" ng-if="pages.length>1">
+                <div class="paging-section ui secondary pointing menu tw-flex-wrap" ng-if="pages.length>1">
                     <div class="item pointer" ng-repeat="page in pages " ng-show="page.canView" ng-class="{active: $index == activePage}" ng-click="setActivePage($index+0)">
                         <div class="content">
                             <div class="title">{{page.name}}</div>

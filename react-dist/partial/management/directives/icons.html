@@ -26,7 +26,7 @@
         </md-menu-content>
     </md-menu>
 
-    <image-loader image-label="" ng-model="picModel" ng-if="hasImage" ></image-loader>
+    <image-loader antiforgerykeeper="antiForgeryKeeper" image-label="" ng-model="picModel" ng-if="hasImage" ></image-loader>
     
     <i class="ui icon" ng-class="model.name" ng-if="hasIcon"></i>
     <!--<img ng-if="model.type == 'image' && hasImage" align="top" width="35" ng-src="{{app.urlPrefix + 'api/upload/getPic/' + model.name}}" />-->

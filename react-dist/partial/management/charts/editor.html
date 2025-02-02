@@ -112,7 +112,7 @@
                                             </span>
                                             <span class="material-icons small small-size pointer" title="باز کردن" ng-click="gotoDatasource(u)">open_in_new</span>
                                             <span class="material-icons small small-size pointer" title="تغییر منبع داده" ng-click="changeDatasource(u, $index)">swap_horiz</span>
-                                            <olap-add-column data="u" onchange="updateDatasources" xng-if="app.license.olap && u.ModelType == 1"></olap-add-column>
+                                            <olap-add-column antiforgerykeeper="antiforgerykeeper" data="u" onchange="updateDatasources" xng-if="app.license.olap && u.ModelType == 1"></olap-add-column>
 
                                         </div>
 
@@ -124,7 +124,7 @@
                                                     <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon tw-inline-block" />
                                                     {{i.Name}}
                                                 </span>
-                                                <olap-add-column ng-if="i.Type==1" data="u" model="i" onchange="updateDatasources" style="display:inline-block; position:absolute; left:8px;"></olap-add-column>
+                                                <olap-add-column antiforgerykeeper="antiforgerykeeper" ng-if="i.Type==1" data="u" model="i" onchange="updateDatasources" style="display:inline-block; position:absolute; left:8px;"></olap-add-column>
                                             </div>
 
                                         </div>
