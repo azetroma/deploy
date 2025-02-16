@@ -106,7 +106,8 @@
                 <div class="field" ng-class="{error: validation.username==-1}">
                     <label>کلمه عبور</label>
                     <div class="ui icon input" ng-class="{loading: checkUsernameProgress}">
-                        <input ng-keypress="onEnter($event)" autocomplete="off" ng-change="invalidateStrong()" ng-model="model.pass" type="password" class="ui fuild input" />
+                        <input ng-keypress="onEnter($event)" autocomplete="off" ng-change="invalidateStrong()" ng-model="model.pass" type="{{showPassword ? 'text' : 'password'}}" class="ui fuild input" />
+                        <i class="icon ui eye !tw-left-8 link" title="نمایش کلمه عبور" ng-class="{green: showPassword}" ng-click="showPassword = !showPassword"></i>
                         <i class="lock icon" ng-class="{'link green check' : validation.username==1, 'lock' : validation.username!=1}"></i>
                     </div>
                     <div class="field-info" ng-show="error.username.length">{{error.username}}</div>
@@ -115,7 +116,8 @@
                 <div class="field" ng-class="{error: validation.username==-1}">
                     <label>تکرار کلمه عبور</label>
                     <div class="ui icon input" ng-class="{loading: checkUsernameProgress}">
-                        <input ng-keypress="onEnter($event)" autocomplete="off" ng-change="invalidateStrong()" ng-model="model.repass" type="password" class="ui fuild input" />
+                        <input ng-keypress="onEnter($event)" autocomplete="off" ng-change="invalidateStrong()" ng-model="model.repass" type="{{showPassword ? 'text' : 'password'}}" class="ui fuild input" />
+                        <i class="icon ui eye !tw-left-8 link" title="نمایش کلمه عبور" ng-class="{green: showPassword}" ng-click="showPassword = !showPassword"></i>
                         <i class="lock icon" ng-class="{'link green check' : validation.username==1, 'lock' : validation.username!=1}"></i>
                     </div>
                     <div class="field-info" ng-show="error.username.length">{{error.username}}</div>

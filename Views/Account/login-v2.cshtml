@@ -172,7 +172,7 @@
                                 </div>
                                 <div class="ui button basic icon" id="reCaptcha" style="float:left; margin:0;"><i class="ui icon refresh"></i></div>
                             </div>
-                            <div class="ui icon input" style="margin-bottom:15px; width:100%;">
+                            <div class="ui icon input" style="margin-bottom:15px;margin-top:4px; width:100%;">
                                 <input name="captcha-code" type="text" class="ui fuild input" style="line-height: 1.7em;border-radius:4px;" />
                                 <i class="chess board icon"></i>
                             </div>
@@ -187,7 +187,7 @@
                         }
                         <a class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</a>
 
-                        <div class="ui small form" style="margin-top:15px; display:none" id="login-type-div">
+                        @*<div class="ui small form" style="margin-top:15px; display:none" id="login-type-div">
                             <div class=" inline fields">
                                 <label class="" style="width:50%;">
                                     @ViewBag.msg["login type"]
@@ -198,17 +198,13 @@
                                     <option value="2">دو عاملی - پیامک</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>*@
 
                         @if (ViewBag.publicSignup ?? false) {
                             <br />
                             <a class="ui basic fluid button big" href="@Url.Action("signup", "account")">@ViewBag.msg["signup"]</a>
                             }
 
-                        @*@if(ViewBag.sso != null && (ViewBag.sso.enable ?? false)) {
-                            < br />
-                            < a class="ui basic fluid button big" href="@Url.Action("logincas", "account")">@ViewBag.sso.loginKeyLabel</a>
-                        }*@
 
                         @if (ViewBag.sso != null && (ViewBag.sso.enable ?? false)) {
                             <br />

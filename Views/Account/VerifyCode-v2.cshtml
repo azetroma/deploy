@@ -69,6 +69,7 @@
         <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
         <form class="form-signin" method="post" action="@Url.Action("VerifyCode")">
             <div class="card">
+
                 <div style="direction: ltr">
                     <div class="ui fluid left icon input big" style="margin-bottom:15px;">
                         <input name="code" type="text" class="" placeholder="@ViewBag.msg["activation code"]" autofocus style="border-radius:4px; margin-bottom:0;">
@@ -82,7 +83,9 @@
                     </div>
                 }
 
-                <button class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</button>
+                @*<button class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</button>*@
+                <a class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</a>
+
                 <a href="@Url.Action("login")">شروع مجدد</a>
 
             </div>
@@ -91,7 +94,7 @@
 
     </div>
 
-    
+
     @section scripts{
 
         <script>
@@ -119,6 +122,27 @@
                         $('#captcha-image').attr('src', 'data:image/jpeg;base64,'+d)
                     })
                 });
+
+                let handleEnter = (e) => {
+                    if (e.key == 'Enter') {
+                        loginProcess();
+                    }
+                };
+
+                $('input[name=code]').on('keydown', handleEnter)
+
+                $('#login').on('click', function () {
+                    loginProcess();
+                });
+
+
+                let progress = false;
+                function loginProcess() {
+                    if (progress) return;
+                    progress = true;
+                    $('#login').addClass('loading disabled');
+                    $('form.form-signin').trigger('submit');
+                }
 
                 $('input[name=ReturnUrlHash]').val(location.hash);
 

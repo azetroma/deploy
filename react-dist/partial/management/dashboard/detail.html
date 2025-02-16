@@ -1,18 +1,16 @@
 ﻿<div layout="column" flex>
-    <md-content flex class="content " layout="row" no-background>
+    <md-content flex class="content" layout="row" no-background>
         <div flex="15" hide-sm hide-xs></div>
         <div flex="70" flex-xs="100" flex-sm="100">
-            <md-card style="margin:40px 0; padding:16px">
-
+            <md-card style="margin: 40px 0; padding: 16px">
                 <div class="">
-                    <h3 style="margin-bottom:40px">
-                    {{'مدیریت منو' | translate}}
-                    <div ng-show="app.license.securityCertPatch && id > 0" class="ui label" style="float:left">
-                        {{'integrity check' | translate}} &nbsp;
-                        <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
-                    </div>
+                    <h3 style="margin-bottom: 40px">
+                        {{'مدیریت منو' | translate}}
+                        <div ng-show="app.license.securityCertPatch && id > 0" class="ui label" style="float: left">
+                            {{'integrity check' | translate}} &nbsp;
+                            <i ng-class="sign" class="ui icon  {{sign ? 'green check' : 'red times'}}"></i>
+                        </div>
                     </h3>
-
                 </div>
 
                 <div>
@@ -24,22 +22,21 @@
                     </style>
 
                     <div class="ui form sadaf-form">
-
                         <div class="field">
                             <label>{{'name' | translate}}</label>
-                            <input required ng-model="model.name">
+                            <input required ng-model="model.name" />
                         </div>
                         <div class="field" ng-show="metadataModule">
                             <label>هدف</label>
-                            <input required ng-model="model.purpose">
+                            <input required ng-model="model.purpose" />
                         </div>
                         <div class="field" ng-show="metadataModule">
                             <label>شاخه کسب و کار</label>
-                            <input required ng-model="model.businessBranch">
+                            <input required ng-model="model.businessBranch" />
                         </div>
                         <div class="field" ng-show="metadataModule">
                             <label>زیر شاخه کسب و کار</label>
-                            <input required ng-model="model.businessSubBranch">
+                            <input required ng-model="model.businessSubBranch" />
                         </div>
 
                         <div class="field">
@@ -70,16 +67,15 @@
 
                         <versions id="{{id}}" type="2" on-restore="restore(model)" on-detail="detail(model)"></versions>
 
-                        <div class="ui segment" ng-show="showDetailModel" style="max-height:400px; overflow-y:auto;">
-
-                            <div class="ui  mini form">
+                        <div class="ui segment" ng-show="showDetailModel" style="max-height: 400px; overflow-y: auto">
+                            <div class="ui mini form">
                                 <div class="field">
                                     <div>نام : <b>{{detailModel.name}}</b></div>
                                 </div>
                                 <div class="field" ng-show="metadataModule">
                                     <div>هدف : <b>{{detailModel.purpose}}</b></div>
                                 </div>
-                                <div class="field " ng-show="metadataModule">
+                                <div class="field" ng-show="metadataModule">
                                     <div>شاخه کسب و کار : <b>{{detailModel.businessBranch}}</b></div>
                                 </div>
                                 <div class="field" ng-show="metadataModule">
@@ -104,14 +100,24 @@
                                 </div>
                                 <div class="field disabled">
                                     <label>گروه منو</label>
-                                    <sm-dropdown class="search selection fluid multiple" model="detailModel.parentIds" label="item.name" value="item.id" items="menuCategories"></sm-dropdown>
+                                    <sm-dropdown
+                                        class="search selection fluid multiple"
+                                        model="detailModel.parentIds"
+                                        label="item.name"
+                                        value="item.id"
+                                        items="menuCategories"
+                                    ></sm-dropdown>
                                 </div>
 
-                            <br />
-                            
-                            <div style="" class="">مجوزها: <div ng-repeat="i in detailModel.rolesAction"><b>{{getRoleName(i.id)}}:</b> {{i.action == 1 ? 'مشاهده' : i.action == 3 ? 'مشاهده و ویرایش' : 'مشاهده، ویرایش و حذف'}} </div></div>
-                            </div>
+                                <br />
 
+                                <div style="" class="">
+                                    مجوزها:
+                                    <div ng-repeat="i in detailModel.rolesAction">
+                                        <b>{{getRoleName(i.id)}}:</b> {{i.action == 1 ? 'مشاهده' : i.action == 3 ? 'مشاهده و ویرایش' : 'مشاهده، ویرایش و حذف'}}
+                                    </div>
+                                </div>
+                            </div>
 
                             <br />
 
@@ -119,42 +125,32 @@
                             <div class="ui basic button" ng-click="showDetailModel = false">لغو</div>
                         </div>
 
-
-
                         <br />
                         <datasource-permission type="menu" id="{{id}}" ng-model="roles"></datasource-permission>
                         <br />
 
-                        <register-notification antiforgerykeeper="antiforgerykeeper" ng-if="render"
-                                               type="'dashboard'"
-                                               ng-model="model.notifications"
-                                               onupdate="updateModel"
-                                               xng-init="model.notifications= model.notifications||{}"></register-notification>
+                        <!-- <register-notification
+                            antiforgerykeeper="antiforgerykeeper"
+                            ng-if="render"
+                            type="'dashboard'"
+                            ng-model="model.notifications"
+                            onupdate="updateModel"
+                        ></register-notification>
 
+                        <br /> -->
+
+                        <ng-notification-register xng-if="render" type="dashboard" [model]="model.notifications" (model-change)="updateModel($event)"></ng-notification-register>
                         <br />
 
-                        <div class="ui secondary inverted red segment" ng-show="error">
-                            <strong>خطا!</strong> <span ng-bind-html="error"></span>
-                        </div>
-                        <!--<div class="ui secondary inverted green segment" ng-show="success">
-         <span ></span>
-    </div>-->
-
+                        <div class="ui secondary inverted red segment" ng-show="error"><strong>خطا!</strong> <span ng-bind-html="error"></span></div>
 
                         <div layout="row">
-
-                            <div class="ui blue button" ng-click="save()" ng-class="{loading: saveProgress}">{{'ذخیره' | translate}} </div>
-                            <div class="ui button" ng-click="cancel()">{{'cancel' | translate}} </div>
-
+                            <div class="ui blue button" ng-click="save()" ng-class="{loading: saveProgress}">{{'ذخیره' | translate}}</div>
+                            <div class="ui button" ng-click="cancel()">{{'cancel' | translate}}</div>
                         </div>
                     </div>
-
                 </div>
-
-
             </md-card>
         </div>
     </md-content>
 </div>
-
-

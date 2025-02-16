@@ -27,7 +27,15 @@
                 </div>
 
                 <div ng-if="path === '/eventNotifications'">
-                    <notification-list antiforgerykeeper="antiForgeryKeeper" datasources="datasources"></notification-list>
+                    <ng-notification-list (set-location)="setLocation($event)" [datasources]="datasources"></ng-notification-list>
+                    <!-- <notification-list antiforgerykeeper="antiForgeryKeeper" datasources="datasources"></notification-list> -->
+                </div>
+                
+                <div ng-if="notifDetailRegex">
+                    <ng-notification-detail [id]="id" [datasources]="datasources" (set-location)="setLocation($event)"></ng-notification-detail>
+                </div>
+                <div ng-if="notifManualSendRegex">
+                    <ng-notification-manual-send [id]="id" [datasources]="datasources" (set-location)="setLocation($event)"></ng-notification-manual-send>
                 </div>
 
                 <div ng-if="path === '/telegram-config'" ng-show="license.telegram">

@@ -223,9 +223,9 @@
                class="inline-btn-edit-item link auto-hide-icon icon pen square large inverted black pointer" 
                ng-click="model.renderForm = true;editFormInModal(model)"
                title="ویرایش"></i>
+               <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
         </div>
         <!-- <div ng-if="model.readonly">{{model.formLookup.selected ? model.formLookup.selected.join(', ') : model.formLookup.keyControlsBindedValue.join(', ')}}</div> -->
-        <i class="ui icon link copy outline tw-absolute tw-left-0" title="کپی مقدار" ng-click="copyValue(model)"></i>
                 <small class="helper">{{model.error}}</small>
         <div></div>
         <small>{{model.description}}</small>
