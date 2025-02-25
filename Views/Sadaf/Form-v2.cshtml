@@ -24,7 +24,7 @@
         }
     </style>
 </head>
-<body style="overflow:auto !important; height:initial;">
+<body dir="rtl" style="overflow:auto !important; height:initial;">
     @Html.AntiForgeryToken()
 
     <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />

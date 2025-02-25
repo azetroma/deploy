@@ -1,77 +1,107 @@
-
-<menu-item class="panel " ng-show="dimensions && dimensions.length>0" name="dimension">
-    <menu-header class=" pointer" data-toggle="" href="#demensions-info">
-        {{ 'ابعاد (ستون‌های رشته‌ای)' | translate }}
-    </menu-header>
-    <menu-body id="demensions-info" class="prop-section form-horizontal  ">
+<menu-item class="panel" ng-show="dimensions && dimensions.length>0" name="dimension">
+    <menu-header class="pointer" data-toggle="" href="#demensions-info"> {{ 'ابعاد (ستون‌های رشته‌ای)' | translate }} </menu-header>
+    <menu-body id="demensions-info" class="prop-section form-horizontal">
         <div class="prop-section-contain" id="dimension-section" data-object="dimensions.default">
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'بُعد' | translate }}</label>
-                <span class="form-divider" flex></span><div class="col-sm-8">
-                    <select class="selectpicker-x form-control" data-size="4" ng-model="model.selectedDimension" ng-init="model.selectedDimension = '0'"
-                            ng-options="id as i.Name  for (id, i) in dimensions"></select>
+                <span class="form-divider" flex></span>
+                <div class="col-sm-8">
+                    <select
+                        class="selectpicker-x form-control"
+                        data-size="4"
+                        ng-model="model.selectedDimension"
+                        ng-init="model.selectedDimension = '0'"
+                        ng-options="id as i.Name  for (id, i) in dimensions"
+                    ></select>
                 </div>
             </div>
 
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'نام' | translate }}</label>
-                <span class="form-divider" flex></span><div class="col-sm-8">
-                    <input type="text" class="form-control"   placeholder="{{ 'نام' | translate }}"
-                           ng-change="changeDimensionName('{{dimensions[model.selectedDimension].Name}}',dimensions[model.selectedDimension])"
-                           ng-model="dimensions[model.selectedDimension].Name" ng-model-options="{ updateOn: 'blur' }" />
+                <span class="form-divider" flex></span>
+                <div class="col-sm-8">
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="{{ 'نام' | translate }}"
+                        ng-change="changeDimensionName('{{dimensions[model.selectedDimension].Name}}',dimensions[model.selectedDimension])"
+                        ng-model="dimensions[model.selectedDimension].Name"
+                        ng-model-options="{ updateOn: 'blur' }"
+                    />
                 </div>
             </div>
+
+            <ul>
+                <li><b>منبع داده: </b> {{dimensions[model.selectedDimension].datasourceName}}</li>
+                <li><b>شناسه منبع داده: </b>{{dimensions[model.selectedDimension].datasourceId}}</li>
+            </ul>
 
             <div class="form-row" layout="column">
                 <label>{{ 'فرمول' | translate }}</label>
-             
+
                 <div flex layout="row">
-                    <feditor ng-if="!isOlap" flex type="dim" ng-model="dimensions[model.selectedDimension].formula" list="map" ng-change="changeFormula(dimensions[model.selectedDimension]);change()"></feditor>
+                    <feditor
+                        ng-if="!isOlap"
+                        flex
+                        type="dim"
+                        ng-model="dimensions[model.selectedDimension].formula"
+                        list="map"
+                        ng-change="changeFormula(dimensions[model.selectedDimension]);change()"
+                    ></feditor>
                 </div>
             </div>
-                <div ng-if="isOlap" class="ui secondary small segment">
-                    <code  flex class="ltr col-lg-pull-4 border block">
-                        {{dimensions[model.selectedDimension].formula}}
-                    </code>
-                    <br/>
-                    <small class="gray">برای تغییر فرمول در حالت DAX لازم است یک ستون جدید تعریف کنید</small>
-                </div>
 
+            <div ng-if="isOlap" class="ui secondary small segment">
+                <code flex class="ltr col-lg-pull-4 border block"> {{dimensions[model.selectedDimension].formula}} </code>
+                <br />
+                <small class="gray">برای تغییر فرمول در حالت DAX لازم است یک ستون جدید تعریف کنید</small>
+            </div>
 
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'نوع مرتب کردن' | translate }}</label>
-                <span class="form-divider" flex></span><div class="col-sm-8">
-                    <select class="selectpicker-x form-control" ng-change="change()" ng-model="dimensions[model.selectedDimension].sortOrder"
-                            ng-options="color.name as  color.value for color in [
+                <span class="form-divider" flex></span>
+                <div class="col-sm-8">
+                    <select
+                        class="selectpicker-x form-control"
+                        ng-change="change()"
+                        ng-model="dimensions[model.selectedDimension].sortOrder"
+                        ng-options="color.name as  color.value for color in [
                                     {name:'ASC', value: 'صعودی'  },
                                     {name:'DESC', value:'نزولی' },
-                                    ]">
-                    </select>
+                                    ]"
+                    ></select>
                 </div>
             </div>
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'مرتب کردن بر اساس' | translate }}</label>
-                <span class="form-divider" flex></span><div class="col-sm-8">
-                    <select class="selectpicker-x form-control" ng-model="dimensions[model.selectedDimension].sortKey" data-size="4"
-                            ng-change="change()"
-                            ng-options="color.UniqueName as  color.Name for color in dimentionWithNone">
-                    </select>
+                <span class="form-divider" flex></span>
+                <div class="col-sm-8">
+                    <select
+                        class="selectpicker-x form-control"
+                        ng-model="dimensions[model.selectedDimension].sortKey"
+                        data-size="4"
+                        ng-change="change()"
+                        ng-options="color.UniqueName as  color.Name for color in dimentionWithNone"
+                    ></select>
                 </div>
             </div>
             <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].sortKey == 'CUSTOM_FORMULA'">
                 <label class="col-md-12">{{ 'فرمول مرتب کردن' | translate }}</label>
-                    <div flex layout="row">
-                        <feditor flex ng-model="dimensions[model.selectedDimension].sortFormula" list="map" ng-change="change()"></feditor>
-                    </div>
+                <div flex layout="row">
+                    <feditor flex ng-model="dimensions[model.selectedDimension].sortFormula" list="map" ng-change="change()"></feditor>
+                </div>
             </div>
 
             <div class="form-row" layout="row" layout-align="start center">
                 <label>{{ 'سطح' | translate }}</label>
                 <span class="form-divider" flex></span>
                 <div>
-                    <select class="selectpicker-x form-control" ng-model="dimensions[model.selectedDimension].applyLevel" data-size="4"
-                            ng-change="change()"
-                            ng-options="a.value as  a.name for a in [
+                    <select
+                        class="selectpicker-x form-control"
+                        ng-model="dimensions[model.selectedDimension].applyLevel"
+                        data-size="4"
+                        ng-change="change()"
+                        ng-options="a.value as  a.name for a in [
                                 {name: 'خودکار', value: 0},
                                 {name: 'سطح اول', value: 1},
                                 {name: 'سطح دوم', value: 2},
@@ -79,59 +109,102 @@
                                 {name: 'سطح چهارم', value: 4},
                                 {name: 'سطح پنجم', value: 5},
                                 {name: 'سطح ششم', value: 6}
-                            ]"></select>
+                            ]"
+                    ></select>
                 </div>
             </div>
             <!-- در صورتی که ng-if گذاشته نشود یک ستون خالی به ابعاد اضافه می‌شود  و برای رفع باگ این گزینه استفاده شده است -->
             <div class="form-row" layout="row" layout-align="start center" ng-if="dimensions.length">
-                <sadaf-checkbox ng-change="change()" class="mini" ng-model="dimensions[model.selectedDimension].detail.keepFilterUniversal">نگه داشتن فیلتر بین صفحه‌های پروژه</sadaf-checkbox>
+                <sadaf-checkbox ng-change="change()" class="mini" ng-model="dimensions[model.selectedDimension].detail.keepFilterUniversal"
+                    >نگه داشتن فیلتر بین صفحه‌های پروژه</sadaf-checkbox
+                >
             </div>
             <div class="form-row" layout="row" layout-align="start center" ng-if="dimensions.length">
-                <sadaf-checkbox ng-change="change()" class="mini" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.enable">دسته‌بندی مقادیر پیوسته</sadaf-checkbox>
+                <sadaf-checkbox ng-change="change()" class="mini" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.enable"
+                    >دسته‌بندی مقادیر پیوسته</sadaf-checkbox
+                >
             </div>
 
-            <div class="ui secondary tiny xsegment" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.enable" ng-if="dimensions.length" style="padding: 10px;margin: 10px 0;background-color: rgb(239, 239, 239);border-radius: 4px;">
+            <div
+                class="ui secondary tiny xsegment"
+                ng-show="dimensions[model.selectedDimension].detail.histogramCategory.enable"
+                ng-if="dimensions.length"
+                style="padding: 10px; margin: 10px 0; background-color: rgb(239, 239, 239); border-radius: 4px"
+            >
                 <div class="form-row" layout="row" layout-align="start center">
                     <label>{{ 'type' | translate }}</label>
                     <span class="form-divider" flex></span>
-                    <select class="" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.type"
-                            ng-options="color.name as  color.value for color in [
+                    <select
+                        class=""
+                        ng-change="change()"
+                        ng-model="dimensions[model.selectedDimension].detail.histogramCategory.type"
+                        ng-options="color.name as  color.value for color in [
                                     {name:'auto', value: 'خودکار'  },
                                     {name:'byCount', value:'تعداد ستون‌ها' },
                                     {name:'byWidth', value:'عرض ستون' },
-                                    ]"></select>
+                                    ]"
+                    ></select>
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.type == 'byCount'">
                     <label>تعداد ستون‌ها</label>
                     <span class="form-divider" flex></span>
-                    <input type="number" class="form-control" placeholder="تعداد ستون‌ها" ng-change="change()"
-                           ng-model="dimensions[model.selectedDimension].detail.histogramCategory.count" />
+                    <input
+                        type="number"
+                        class="form-control"
+                        placeholder="تعداد ستون‌ها"
+                        ng-change="change()"
+                        ng-model="dimensions[model.selectedDimension].detail.histogramCategory.count"
+                    />
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.type == 'byWidth'">
                     <label>عرض ستون</label>
                     <span class="form-divider" flex></span>
-                    <input type="text" class="form-control" placeholder="عرض ستون" ng-change="change()"
-                           ng-model="dimensions[model.selectedDimension].detail.histogramCategory.width" ng-model-options="{ updateOn: 'blur' }" />
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="عرض ستون"
+                        ng-change="change()"
+                        ng-model="dimensions[model.selectedDimension].detail.histogramCategory.width"
+                        ng-model-options="{ updateOn: 'blur' }"
+                    />
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
-                    <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.overflowEnable">کران بالا</sadaf-checkbox>
+                    <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.overflowEnable"
+                        >کران بالا</sadaf-checkbox
+                    >
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.overflowEnable">
-                    <input style="flex:1" type="text" class="form-control" placeholder="کران بالا" ng-change="change()"
-                           ng-model="dimensions[model.selectedDimension].detail.histogramCategory.overflow" ng-model-options="{ updateOn: 'blur' }" />
+                    <input
+                        style="flex: 1"
+                        type="text"
+                        class="form-control"
+                        placeholder="کران بالا"
+                        ng-change="change()"
+                        ng-model="dimensions[model.selectedDimension].detail.histogramCategory.overflow"
+                        ng-model-options="{ updateOn: 'blur' }"
+                    />
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
-                    <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.underflowEnable">کران پایین</sadaf-checkbox>
+                    <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.underflowEnable"
+                        >کران پایین</sadaf-checkbox
+                    >
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.underflowEnable">
-                    <input style="flex:1" type="text" class="form-control" placeholder="کران پایین" ng-change="change()"
-                           ng-model="dimensions[model.selectedDimension].detail.histogramCategory.underflow" ng-model-options="{ updateOn: 'blur' }" />
+                    <input
+                        style="flex: 1"
+                        type="text"
+                        class="form-control"
+                        placeholder="کران پایین"
+                        ng-change="change()"
+                        ng-model="dimensions[model.selectedDimension].detail.histogramCategory.underflow"
+                        ng-model-options="{ updateOn: 'blur' }"
+                    />
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
@@ -140,45 +213,62 @@
                     <text-editor config="tConfig" prop="dimensions[model.selectedDimension].detail.histogramCategory.font" on-change="change()"></text-editor>
                 </div>
                 <div class="form-row" layout="row" layout-align="start center">
-                    <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.customLabelEnable">استفاده از برچسب دلخواه</sadaf-checkbox>
+                    <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.customLabelEnable"
+                        >استفاده از برچسب دلخواه</sadaf-checkbox
+                    >
                 </div>
                 <div class="form-row" layout="row" layout-align="start center">
-                    <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.showEmpty">نمایش ستون‌های خالی</sadaf-checkbox>
+                    <sadaf-checkbox class="mini" ng-change="change()" ng-model="dimensions[model.selectedDimension].detail.histogramCategory.showEmpty"
+                        >نمایش ستون‌های خالی</sadaf-checkbox
+                    >
                 </div>
 
                 <div class="mini segment ui" ng-show="dimensions[model.selectedDimension].detail.histogramCategory.customLabelEnable">
                     <div class="ui mini compact icon button" ng-click="addLabel();">
                         اضافه کردن
-                        <i class="ui icon pointer add" ></i>
+                        <i class="ui icon pointer add"></i>
                     </div>
 
-
                     <div class="form-row" layout="row" layout-align="start center" ng-repeat="label in dimensions[model.selectedDimension].detail.histogramCategory.customLabels">
-                        <input style="flex:1" type="text" class="form-control" placeholder="برچسب" ng-change="change()"
-                               ng-model="label.name" ng-model-options="{ updateOn: 'blur' }" />
-                        <i class="ui icon pointer add" ng-click="dimensions[model.selectedDimension].detail.histogramCategory.customLabels.splice($index, 0, {name:''});change();"></i>
+                        <input
+                            style="flex: 1"
+                            type="text"
+                            class="form-control"
+                            placeholder="برچسب"
+                            ng-change="change()"
+                            ng-model="label.name"
+                            ng-model-options="{ updateOn: 'blur' }"
+                        />
+                        <i
+                            class="ui icon pointer add"
+                            ng-click="dimensions[model.selectedDimension].detail.histogramCategory.customLabels.splice($index, 0, {name:''});change();"
+                        ></i>
                         <i class="ui icon pointer close" ng-click="dimensions[model.selectedDimension].detail.histogramCategory.customLabels.splice($index, 1);change()"></i>
                     </div>
                 </div>
-
             </div>
-            <br/>
+            <br />
             <convert-to-datetime prefix="dims" ng-model="dimensions[model.selectedDimension]"></convert-to-datetime>
-
         </div>
     </menu-body>
 </menu-item>
 
-<menu-item class="panel " ng-show="measures && measures.length>0" name="measure">
+<menu-item class="panel" ng-show="measures && measures.length>0" name="measure">
     <menu-header class="pointer" data-toggle="" href="#measures-info">{{ 'شاخص‌ها (ستون‌های عددی)' | translate }}</menu-header>
-    <menu-body id="measures-info" class="prop-section form-horizontal ">
+    <menu-body id="measures-info" class="prop-section form-horizontal">
         <div class="prop-section-contain" id="measures-section" data-object="measures.default">
-
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'ستون' | translate }}</label>
-                <span class="form-divider" flex></span><div class="col-sm-8">
-                    <select id="measures-selector" class="selectpicker-x form-control" data-size="4" ng-model="model.selectedMeasure" ng-init="model.selectedMeasure = '0'"
-                            ng-options="id as  color.Name for (id, color) in measures">
+                <span class="form-divider" flex></span>
+                <div class="col-sm-8">
+                    <select
+                        id="measures-selector"
+                        class="selectpicker-x form-control"
+                        data-size="4"
+                        ng-model="model.selectedMeasure"
+                        ng-init="model.selectedMeasure = '0'"
+                        ng-options="id as  color.Name for (id, color) in measures"
+                    >
                         <!--<option ng-repeat="i in measures track by $index" value="{{$index + ''}}">{{i.Name}}</option>-->
                     </select>
                 </div>
@@ -186,22 +276,29 @@
 
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'نام' | translate }}</label>
-                <span class="form-divider" flex></span><div class="col-sm-8">
-                    <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}"
-                           ng-model-options="{ updateOn: 'blur' }"
-                           ng-change="changeDimensionName('{{measures[model.selectedMeasure].Name}}',measures[model.selectedMeasure])"
-                           ng-model="measures[model.selectedMeasure].Name" />
+                <span class="form-divider" flex></span>
+                <div class="col-sm-8">
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="{{ 'نام' | translate }}"
+                        ng-model-options="{ updateOn: 'blur' }"
+                        ng-change="changeDimensionName('{{measures[model.selectedMeasure].Name}}',measures[model.selectedMeasure])"
+                        ng-model="measures[model.selectedMeasure].Name"
+                    />
                 </div>
             </div>
 
-
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'تابع تجمیع' | translate }}</label>
-                <span class="form-divider" flex></span><div class="col-sm-8">
-                    <select class="selectpicker-x form-control" data-size="4"
-                            ng-model="measures[model.selectedMeasure].aggregation"
-                            ng-change="changeMeasureAggregation(model.selectedMeasure);change()"
-                            ng-options="color.name as  color.value for color in [
+                <span class="form-divider" flex></span>
+                <div class="col-sm-8">
+                    <select
+                        class="selectpicker-x form-control"
+                        data-size="4"
+                        ng-model="measures[model.selectedMeasure].aggregation"
+                        ng-change="changeMeasureAggregation(model.selectedMeasure);change()"
+                        ng-options="color.name as  color.value for color in [
                                     {name:'NONE', value: 'NONE'  },
                                     {name:'SUM', value: 'SUM'  },
                                     {name:'AVG', value: 'AVG'  },
@@ -212,7 +309,8 @@
                                     {name:'VARP', value: 'VARP'  },
                                     {name:'STDEV', value: 'STDEV'  },
                                     {name:'STDEVP', value: 'STDEVP'  },
-                                    ]"></select>
+                                    ]"
+                    ></select>
                 </div>
             </div>
             <div class="form-row" layout="column">
@@ -221,9 +319,7 @@
                 <div flex layout="row">
                     <feditor flex ng-model="measures[model.selectedMeasure].formula" list="map" ng-change="changeFormula(measures[model.selectedMeasure]);change()"></feditor>
                 </div>
-                <p class="desc ltr">
-                    <code>overall{ sum(field) }</code> : تابع تجمیع روی کل
-                </p>
+                <p class="desc ltr"><code>overall{ sum(field) }</code> : تابع تجمیع روی کل</p>
             </div>
             <br />
             <div class="ui mini icon button" ng-click="addFormula(measures[model.selectedMeasure])"><i class="icon add"></i> فرمول جدید در سطوح بعدی</div>
@@ -238,16 +334,11 @@
 
                     <div flex layout="row">
                         <div flex layout="column">
-                            <input type="text" class="form-control" placeholder="برچسب"
-                                   ng-model-options="{ updateOn: 'blur' }"
-                                   ng-change="change()"
-                                   ng-model="f.name" />
+                            <input type="text" class="form-control" placeholder="برچسب" ng-model-options="{ updateOn: 'blur' }" ng-change="change()" ng-model="f.name" />
 
-                                   <div flex>
+                            <div flex>
                                 <feditor flex ng-model="f.formula" list="map" ng-change="changeFormula(measures[model.selectedMeasure]);change()"></feditor>
                             </div>
-
-
                         </div>
                         <span class="material-icons small" ng-click="showDialog('measure' , $event, f)">fullscreen</span>
                         <span class="material-icons small" ng-click="measures[model.selectedMeasure].formulas.splice($index, 1)">close</span>
@@ -255,24 +346,28 @@
                 </div>
             </div>
 
-            <top-measure dims="dimensions" ng-model="measures[model.selectedMeasure].Top" ng-change="refreshChart('refreshWithData');" ng-show="measures[model.selectedMeasure].aggregation != 'NONE'"></top-measure>
+            <top-measure
+                dims="dimensions"
+                ng-model="measures[model.selectedMeasure].Top"
+                ng-change="refreshChart('refreshWithData');"
+                ng-show="measures[model.selectedMeasure].aggregation != 'NONE'"
+            ></top-measure>
 
-            <br/>
+            <br />
             <convert-to-datetime prefix="measure" ng-model="measures[model.selectedMeasure]"></convert-to-datetime>
-
         </div>
     </menu-body>
 </menu-item>
 
 <menu-item class="panel" ng-show="where && where.length>0" name="where">
     <menu-header class="pointer" data-toggle="" href="#where-info">{{ 'ستون‌های شرط' | translate }}</menu-header>
-    <menu-body id="where-info" class="prop-section form-horizontal  ">
+    <menu-body id="where-info" class="prop-section form-horizontal">
         <div class="prop-section-contain" id="dimension-section">
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'ستون' | translate }}</label>
-                <span class="form-divider" flex></span><div class="col-sm-8">
-                    <select data-size="4" ng-model="model.selectedwhere" ng-init="model.selectedwhere = '0'"
-                            ng-options="id as i.Name for (id,i) in where">
+                <span class="form-divider" flex></span>
+                <div class="col-sm-8">
+                    <select data-size="4" ng-model="model.selectedwhere" ng-init="model.selectedwhere = '0'" ng-options="id as i.Name for (id,i) in where">
                         <!--<option ng-repeat="i in where track by $index" value="{{$index + '' }}">{{i.Name}}</option>-->
                     </select>
                 </div>
@@ -280,24 +375,30 @@
 
             <div class="form-row" layout="row" layout-align="start center">
                 <label class="col-sm-4">{{ 'نام' | translate }}</label>
-                <span class="form-divider" flex></span><div class="col-sm-8">
-                    <input type="text" class="form-control" placeholder="{{ 'نام' | translate }}"
-                           ng-model-options="{ updateOn: 'blur' }"
-                           ng-change="changeDimensionName('{{where[model.selectedwhere].Name}}',where[model.selectedwhere])"
-                           ng-model="where[model.selectedwhere].Name" />
+                <span class="form-divider" flex></span>
+                <div class="col-sm-8">
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="{{ 'نام' | translate }}"
+                        ng-model-options="{ updateOn: 'blur' }"
+                        ng-change="changeDimensionName('{{where[model.selectedwhere].Name}}',where[model.selectedwhere])"
+                        ng-model="where[model.selectedwhere].Name"
+                    />
                 </div>
             </div>
 
             <div class="form-row" layout="column">
                 <label class="col-md-12">{{ 'فرمول' | translate }}</label>
 
-                
-
                 <div flex>
-                    <feditor flex ng-model="where[model.selectedwhere].formula" list="datasource.CubeInfo.Dimensions" ng-change="changeFormula(where[model.selectedwhere]);change()"></feditor>
+                    <feditor
+                        flex
+                        ng-model="where[model.selectedwhere].formula"
+                        list="datasource.CubeInfo.Dimensions"
+                        ng-change="changeFormula(where[model.selectedwhere]);change()"
+                    ></feditor>
                 </div>
-
-
             </div>
         </div>
     </menu-body>

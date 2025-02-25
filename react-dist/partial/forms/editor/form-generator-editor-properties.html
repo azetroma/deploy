@@ -157,11 +157,11 @@
     <div ng-show="c.control.active.type == 1">
         <div class="f-field">
             <label>حداقل ارتفاع (خط)</label>
-            <input ng-model="c.control.active.uiConfig.minLine" type="number"/>
+            <input ng-model="c.control.active.uiConfig.minLine" type="number" />
         </div>
         <div class="f-field">
             <label>حداکثر ارتفاع (خط)</label>
-            <input ng-model="c.control.active.uiConfig.maxLine" type="number"/>
+            <input ng-model="c.control.active.uiConfig.maxLine" type="number" />
         </div>
     </div>
 
@@ -1138,6 +1138,15 @@
 
 <!-- تنظیمات صفحه -->
 <div ng-show="!c.control.active.name" class="ui tiny form">
-    <ng-include ng-if="c.generalActive" src="c.app.templatePrefix + '/partial/forms/editor/form-generator-editor-properties-general.html'"></ng-include>
-    <ng-include ng-if="!c.generalActive" src="c.app.templatePrefix + '/partial/forms/editor/form-generator-editor-properties-page.html'"></ng-include>
+    <ng-include ng-if="c.generalActive == 'general'" src="c.app.templatePrefix + '/partial/forms/editor/form-generator-editor-properties-general.html'"></ng-include>
+    <ng-include ng-if="c.generalActive == 'other'" src="c.app.templatePrefix + '/partial/forms/editor/form-generator-editor-properties-page.html'"></ng-include>
+    <div ng-if="c.generalActive == 'script'">
+        <div class="field">
+            <label>اسکریپت‌های کلی فرم</label>
+            <feditor full-height control-s="saveFormShotcut()" flex ng-model="c.clientModel.generalScript" lang="js" list="c.autoList"></feditor>
+            <small class="gray">
+                این تکه کد زمان باز شدن فرم اجرا می‌شود. میتوانید توابعی که لازم دارید را در scope ذخیره کنید و سپس در وظیفه‌های هر کنترل از آن‌ها استفاده کنید.
+            </small>
+        </div>
+    </div>
 </div>

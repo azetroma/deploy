@@ -21,6 +21,10 @@
     </div>
 
     <div class="field">
+        <sadaf-checkbox ng-model="c.clientModel.verifyMobileOnSave">دریافت کد روی موبایل زمان اولین ذخیره</sadaf-checkbox>
+    </div>
+
+    <div class="field">
         <sadaf-checkbox ng-model="c.clientModel.askOnCancel">سوال از کاربر زمان بستن فرم</sadaf-checkbox>
     </div>
 
@@ -307,13 +311,13 @@ pageMessages: [{
         </div>
     </div>
 
-    <div class="field">
+    <!-- <div class="field">
         <label>اسکریپت‌های کلی فرم</label>
         <feditor control-s="saveFormShotcut()" flex ng-model="c.clientModel.generalScript" lang="js" list="c.autoList"></feditor>
         <small class="gray"
             >این تکه کد زمان باز شدن فرم اجرا می‌شود. میتوانید توابعی که لازم دارید را در scope ذخیره کنید و سپس در وظیفه‌های هر کنترل از آن‌ها استفاده کنید.
         </small>
-    </div>
+    </div> -->
 
     <div class="field">
         <sadaf-checkbox ng-model="c.clientModel.createDax">ایجاد منبع داده DAX مجزا</sadaf-checkbox>

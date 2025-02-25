@@ -2,7 +2,7 @@
     <i class="ui icon close link" ng-click="setFullscreen()" ng-if="fullscreen"></i>
     <div class="editor"
          style="direction: ltr; border: solid 1px #efefef; padding: 8px; background: #fff; overflow-y:auto"
-         ng-style="{ 'max-height': (fullHeight || fullscreen ? '100%' : '300px') }">
+         ng-style="{ 'max-height': fullscreen ? '100%' : fullHeight ? 'calc(100vh - 280px)' : '300px' }">
 
 
     </div>

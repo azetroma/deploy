@@ -1,7 +1,7 @@
 ﻿<div
     class="ui {{settings.selector}} sadaf-form-generator"
     id="{{selector}}"
-    ng-class="{ 'fullscreen'  : data.modalSize == 'fullscreen','small'  : data.modalSize == 'small', 'large'  : data.modalSize == 'large', 'form-editor': settings.modal, 'jqmodal modal': settings.modal}"
+    ng-class="{ 'fullscreen': data.modalSize == 'fullscreen', 'small': data.modalSize == 'small', 'large': data.modalSize == 'large', 'form-editor': settings.modal, 'jqmodal modal': settings.modal}"
 >
     <i ng-if="settings.modal" class="close icon" ng-click="cancel()"></i>
 
@@ -335,6 +335,15 @@
                     ></sm-dropdown>
                     <span ng-show="formFlows.isInFlow" class="label black ui">فرم در حال گردش است</span>
                 </div>
+
+                <ng-two-factor-verifier
+                    [object-id]="id"
+                    type="form"
+                    [open]="verifierOpen"
+                    (on-token)="onToken($event)"
+                    (open-change)="verifierOpenChange($event)"
+                ></ng-two-factor-verifier>
+
                 <div ng-show="data.clientModelParsed.showExcelImport">
                     <!-- <button class="ui mini icon button" ng-click="downloadExcelTemplate()" title="دانلود قالب اکسل">
                         <i class="ui icon download"></i>
@@ -349,4 +358,29 @@
         </div>
         <button class="ui button black" ng-if="submittedStatus==2" ng-click="cancel()">{{ data.clientModelParsed.buttonCancel || ('cancel' | translate)}}</button>
     </div>
+
+    <!-- <div class="ui modal mobile-approve">
+        <div class="header">
+            <h3 class="title">کد موبایل</h3>
+        </div>
+        <div class="content">
+            <p class="message">با توجه به حساسیت فعالیتی که میخواهید انجام دهید، لازم است مجددا کلمه عبور خود را وارد نمایید.</p>
+
+            <div class="ui form input-body">
+                <div class="field" ng-if="approveState == 'init'">
+                    <label class="input-label">شماره موبایل</label>
+                    <input type="text" autocomplete="off" ng-model="approveModel.mobile"/>
+                </div>
+                <div class="field" ng-if="approveState == 'send-code'">
+                    <label class="input-label">کد دریافت شده</label>
+                    <input type="text" autocomplete="off" ng-model="approveModel.code"/>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div ng-if="approveState == 'init'" class="ui button green action-ok" ng-click="approveAction()">ارسال کد روی موبایل</div>
+            <div ng-if="approveState == 'send-code'" class="ui button green action-ok" ng-click="approveAction()">بررسی کد و ذخیره</div>
+            <div class="ui button close action-cancel" ng-click="approveAction('close')">بستن</div>
+        </div>
+    </div> -->
 </div>
