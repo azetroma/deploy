@@ -29,7 +29,8 @@
 </head>
 
 <body class="tw-p-0 root-login-panel !tw-bg-white" style="display:none">
-    @Html.AntiForgeryToken()
+    <input type="hidden" name="anti-forgery-name" value="@ViewBag.AntiforgeryName" />
+    <input type="hidden" name="@ViewBag.AntiforgeryName" value="@ViewBag.Antiforgery" />
     <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
     <input type="hidden" value="@Request.Url.AbsoluteUri" name="aboluteUrl" />
     <input type="hidden" value="@v" name="version" />

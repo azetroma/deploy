@@ -55,7 +55,10 @@
 
     <link href="~/react-dist/customCharts.css?v=@ViewBag.customChartVersion" rel="stylesheet" />
 
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
+    <input type="hidden" name="anti-forgery-name" value="@ViewBag.AntiforgeryName" />
+    <input type="hidden" name="@ViewBag.AntiforgeryName" value="@ViewBag.Antiforgery" />
+
     <input type="hidden" name="upgradeModuleName" value="management" />
     <input type="hidden" value="@ViewBag.noframe" name="noframe" />
     <input type="hidden" value="@useApp" name="useApp" />

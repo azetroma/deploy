@@ -46,7 +46,10 @@
 
 </head>
 <body ng-app="sadafMain" xng-cloak xng-controller="dashboardMainPageCtrl" class="theme2" style="overflow-y:scroll;height: auto;">
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
+    <input type="hidden" name="anti-forgery-name" value="@ViewBag.AntiforgeryName" />
+    <input type="hidden" name="@ViewBag.AntiforgeryName" value="@ViewBag.Antiforgery" />
+
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" id="isFullscreen" value="@ViewBag.UserProfile.IsFullScreen" />
     <input type="hidden" id="defaultId" value="@ViewBag.defaultId" />

@@ -109,7 +109,10 @@
 
 </head>
 <body ng-app="sadaf" ng-cloak class="theme2">
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
+    <input type="hidden" name="anti-forgery-name" value="@ViewBag.AntiforgeryName" />
+    <input type="hidden" name="@ViewBag.AntiforgeryName" value="@ViewBag.Antiforgery" />
+
     <input type="hidden" name="upgradeModuleName" value="sadaf" />
     <input type="hidden" id="isFullscreen" value="@ViewBag.UserProfile.IsFullScreen" />
     <input type="hidden" id="defaultId" value="@ViewBag.defaultId" />

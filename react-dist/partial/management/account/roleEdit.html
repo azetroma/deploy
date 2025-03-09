@@ -74,9 +74,6 @@
                                         <menu-body>
                                             <div style="margin: 0 20px" ng-if="renderMenu">
                                                 <div layout="row">
-
-
-
                                                     <div class="ui form">
                                                         <div class="fields">
                                                             <div class="field">
@@ -84,16 +81,18 @@
                                                             </div>
                                                             <div class="field">
                                                                 <div class="ui icon input">
-                                                                    <input type="text" placeholder="جستجو..." ng-model="menuSearchQ" ng-change="searchMenus(menuSearchQ)"  ng-model-options="{debounce:400}" />
+                                                                    <input
+                                                                        type="text"
+                                                                        placeholder="جستجو..."
+                                                                        ng-model="menuSearchQ"
+                                                                        ng-change="searchMenus(menuSearchQ)"
+                                                                        ng-model-options="{debounce:400}"
+                                                                    />
                                                                     <i class="search icon"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-    
-
-
-
 
                                                     <span flex></span>
 
@@ -114,49 +113,55 @@
                                                 </div>
 
                                                 <div ng-repeat="data in allFindedMenu">
-                                                
-                                                    <div flex style="margin:0" xlayout="row" xlayout-align="start center" class="ui horizontal list">
-                                                        <sadaf-checkbox class="item" style="margin:5px 0;" ng-model="data.check" ng-click="$event.stopPropagation()">{{data.name}} 
-                                                            <span class="ui mini label" ng-class="{black: data.type == 'main-menu', gray: data.type == 'menu-category', 'orange':data.type == 'menu' }">{{data.type == 'main-menu' ? 'پروژه'  : data.type == 'menu-category' ? 'گروه منو' : 'منو'}}</span>
+                                                    <div flex style="margin: 0" xlayout="row" xlayout-align="start center" class="ui horizontal list">
+                                                        <sadaf-checkbox class="item" style="margin: 5px 0" ng-model="data.check" ng-click="$event.stopPropagation()"
+                                                            >{{data.name}}
+                                                            <span
+                                                                class="ui mini label"
+                                                                ng-class="{black: data.type == 'main-menu', gray: data.type == 'menu-category', 'orange':data.type == 'menu' }"
+                                                                >{{data.type == 'main-menu' ? 'پروژه' : data.type == 'menu-category' ? 'گروه منو' : 'منو'}}</span
+                                                            >
                                                         </sadaf-checkbox>
-                                                        <span  class="item"flex></span>
+                                                        <span class="item" flex></span>
 
                                                         <div class="ui form mini item" ng-style="{'visibility' : data.check ? 'visible':'hidden'}">
-                                                            <div class="inline fields" style="margin:0;">
+                                                            <div class="inline fields" style="margin: 0">
                                                                 <div class="field" ng-if="type == 'chart'">
-                                                                    <label style="color:#bdbdbd;">مجوزهای تکمیلی</label>
-                                                                    <sm-dropdown class="multiple selection"
-                                                                                 ng-click="$event.stopPropagation()"
-                                                                                 items="[
+                                                                    <label style="color: #bdbdbd">مجوزهای تکمیلی</label>
+                                                                    <sm-dropdown
+                                                                        class="multiple selection"
+                                                                        ng-click="$event.stopPropagation()"
+                                                                        items="[
                                                                                             {label:'کامنت', val:8}
                                                                                             ,{label:'خروجی اکسل', val:9}
                                                                                             ,{label:'فیلتر', val:10}
-                                                                                            ,{label:'توضیحات', val:11}]" model="data.extra" label="item.label" value="item.val"></sm-dropdown>
-
+                                                                                            ,{label:'توضیحات', val:11}]"
+                                                                        model="data.extra"
+                                                                        label="item.label"
+                                                                        value="item.val"
+                                                                    ></sm-dropdown>
                                                                 </div>
 
-                                                                <div class="field" ng-style="{'visibility' : data.check ? 'visible':'hidden'}" style="margin:5px;">
-                                                                    <label style="color:#bdbdbd;">مجوزهای دسترسی</label>
+                                                                <div class="field" ng-style="{'visibility' : data.check ? 'visible':'hidden'}" style="margin: 5px">
+                                                                    <label style="color: #bdbdbd">مجوزهای دسترسی</label>
 
-                                                                    <sm-dropdown class=""
-                                                                                 ng-click="$event.stopPropagation()"
-                                                                                 items="[
+                                                                    <sm-dropdown
+                                                                        class=""
+                                                                        ng-click="$event.stopPropagation()"
+                                                                        items="[
                                                                                                                 {label:('permission_view' | translate), val:1}
                                                                                                                 ,{label:('permission_view_edit' | translate), val:2}
                                                                                                                 ,{label:('permission_view_edit_delete' | translate), val:4}
-                                                                                                            ]" model="data.action" label="item.label" value="item.val"></sm-dropdown>
-
+                                                                                                            ]"
+                                                                        model="data.action"
+                                                                        label="item.label"
+                                                                        value="item.val"
+                                                                    ></sm-dropdown>
                                                                 </div>
-
                                                             </div>
-
                                                         </div>
                                                     </div>
-
-                                                    
-
                                                 </div>
-
 
                                                 <div class="sadaf-tree" style="margin: 0 40px" ng-hide="allFindedMenu && !!menuSearchQ">
                                                     <div class="tree-element ul" style="list-style: none">
@@ -168,7 +173,7 @@
                                                     <collapse class="block" ng-model="data" hide-icon="{{(!data.nodes || !data.nodes.length ) &&  ( !data.contents || !data.contents.length) }}">
                                                         <collapse-header class="block hide-item-parent" flex>
                                                             <div flex style="margin:0" xlayout="row" xlayout-align="start center" class="ui horizontal list">
-                                                                <sadaf-checkbox class="item" style="margin:5px 0;" ng-model="data.check" ng-click="$event.stopPropagation()">{{data.name}} 
+                                                                <sadaf-checkbox class="item" style="margin:5px 0;" ng-model="data.check" ng-click="$event.stopPropagation()">{{data.name}}
                                                                     <span class="ui mini label" ng-class="{black: data.type == 'main-menu', gray: data.type == 'menu-category', 'orange':data.type == 'menu' }">{{data.type == 'main-menu' ? 'پروژه'  : data.type == 'menu-category' ? 'گروه منو' : 'منو'}}</span>
                                                                 </sadaf-checkbox>
                                                                 <span  class="item"flex></span>
@@ -704,24 +709,44 @@
 
                         <div ng-show="model.passwordPolicy" class="ui secondary segment">
                             <div class="field">
-                                <sadaf-checkbox ng-model="model.passwordPolicyDigit"> {{'at least one number' | translate}}</sadaf-checkbox>
+                                <sadaf-checkbox ng-model="model.passwordPolicyUseEntropy"> استفاده از آنتروپی</sadaf-checkbox>
                             </div>
 
-                            <div class="field">
-                                <sadaf-checkbox ng-model="model.passwordPolicyUpper"> {{'at least one upper case char' | translate}}</sadaf-checkbox>
+                            <div class="field" ng-show="model.passwordPolicyUseEntropy">
+                                <label>سطح آنتروپی کلمه عبور</label>
+                                <sm-dropdown
+                                    class="selection fluid"
+                                    items="[      {label:'معمولی', val:0}
+                                                 ,{label:'زیاد', val:1}
+                                                 ,{label:'خیلی زیاد', val:2}
+                                                 ]"
+                                    model="model.passwordPolicyEntropyLevel"
+                                    label="item.label"
+                                    value="item.val"
+                                ></sm-dropdown>
                             </div>
 
-                            <div class="field">
-                                <sadaf-checkbox ng-model="model.passwordPolicyLower"> {{'at least one lower case char' | translate}}</sadaf-checkbox>
-                            </div>
+                            <div ng-show="!model.passwordPolicyUseEntropy">
+                                <div class="field">
+                                    <sadaf-checkbox ng-model="model.passwordPolicyDigit"> {{'at least one number' | translate}}</sadaf-checkbox>
+                                </div>
 
-                            <div class="field">
-                                <sadaf-checkbox ng-model="model.passwordPolicyChar"> {{'at least one special char' | translate}}</sadaf-checkbox>
-                            </div>
+                                <div class="field">
+                                    <sadaf-checkbox ng-model="model.passwordPolicyUpper"> {{'at least one upper case char' | translate}}</sadaf-checkbox>
+                                </div>
 
-                            <div class="inline field">
-                                <label> {{'minimum length' | translate}}</label>
-                                <input type="number" ng-model="model.passwordPolicyLength" />
+                                <div class="field">
+                                    <sadaf-checkbox ng-model="model.passwordPolicyLower"> {{'at least one lower case char' | translate}}</sadaf-checkbox>
+                                </div>
+
+                                <div class="field">
+                                    <sadaf-checkbox ng-model="model.passwordPolicyChar"> {{'at least one special char' | translate}}</sadaf-checkbox>
+                                </div>
+
+                                <div class="inline field">
+                                    <label> {{'minimum length' | translate}}</label>
+                                    <input type="number" ng-model="model.passwordPolicyLength" />
+                                </div>
                             </div>
                         </div>
                     </div>

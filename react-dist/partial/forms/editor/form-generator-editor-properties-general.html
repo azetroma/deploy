@@ -51,7 +51,7 @@
     <div class="field">
         <sadaf-checkbox ng-model="c.pages.activePage.rowValidation.uniqueMultiField" label="">{{'unique value for multi control' | translate}}</sadaf-checkbox>
     </div>
-    
+
     <div ng-show="c.pages.activePage.rowValidation.uniqueMultiField" class="field">
         <div class="ui icon mini button field" ng-click="c.pages.activePage.rowValidation.uniques.push([])">
             {{'add' | translate}}
@@ -61,7 +61,7 @@
             <div class="twelve wide field">
                 <sm-dropdown class="selection multiple search xfluid" model="f" items="c.controlList" label="item.label" value="item.name"></sm-dropdown>
             </div>
-    
+
             <div class="one wide field" ng-show="c.pages.activePage.rowValidation.uniques.length != 1">
                 <i class="icon remove" ng-click="c.pages.activePage.rowValidation.uniques.splice($index,1)"></i>
             </div>
@@ -106,7 +106,6 @@
     <div style="height: 0px; width: 0px; overflow: auto">
         <input autocomplete="off" type="text" />
     </div>
-
 
     <div class="inline fields">
         <label>ویرایش همزمان</label>
@@ -240,14 +239,19 @@ pageMessages: [{
 
                 <small class="gray">
                     از شناسه فیلدها با پیشوند @ برای استفاده از جایگزینی مقدار فیلدها استفاده کنید مثل @field-1 همچنین می‌توانید از نام ستون با الگوی زیر استفاده کنید
-                    {{'[columnNamee]'}} </small
-                ><br />
+                    {{'[columnNamee]'}}
+                </small>
+                <br />
+                <small class="gray"> میتوانید بعد از نام فیلد از @name یا @format استفاده کنید تا مقدار را با فرمت تنظیم شده در فرم یا نام فیلد را نمایش دهد. </small>
+                <br />
                 <small class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</small>
-                <br /><small class="gray"
-                    >در صورت استفاده فیلد تکرار شونده به این صورت استفاده کنید. each(@[field name]){{'{{[template]}\}'}} که در آن نام فیلد تکرار شونده ابتدا آورده می‌شود و نام
-                    فیلدهای ردیف در template قرار میگیرند.</small
-                >
-                <br /><small class="gray">برای تبدیل اعداد به حروف از تابع Num2persian() استفاده کنید</small>
+                <br />
+                <small class="gray">
+                    در صورت استفاده فیلد تکرار شونده به این صورت استفاده کنید. each(@[field name]){{'{{[template]}\}'}} که در آن نام فیلد تکرار شونده ابتدا آورده می‌شود و نام
+                    فیلدهای ردیف در template قرار میگیرند.
+                </small>
+                <br />
+                <small class="gray">برای تبدیل اعداد به حروف از تابع Num2persian() استفاده کنید</small>
             </div>
             <div class="two column fields">
                 <div class="field">

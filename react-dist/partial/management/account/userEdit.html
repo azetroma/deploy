@@ -105,6 +105,26 @@
                                 </md-tooltip>
                                 {{'complicate password' | translate}}
                             </md-switch>
+
+                            <div class="field" ng-show="model.PasswordPolicy">
+                                <sadaf-checkbox ng-model="model.passwordPolicyUseEntropy"> استفاده از آنتروپی</sadaf-checkbox>
+                            </div>
+
+                            <div class="field" ng-show="model.PasswordPolicy && model.passwordPolicyUseEntropy">
+                                <label>سطح آنتروپی کلمه عبور</label>
+                                <sm-dropdown
+                                    class="selection fluid"
+                                    items="[      {label:'معمولی', val:0}
+                                                 ,{label:'زیاد', val:1}
+                                                 ,{label:'خیلی زیاد', val:2}
+                                                 ]"
+                                    model="model.passwordPolicyEntropyLevel"
+                                    label="item.label"
+                                    value="item.val"
+                                ></sm-dropdown>
+                            </div>
+
+
                             <md-switch ng-model="model.ForceChangePass"> {{'force change password' | translate}} </md-switch>
 
                             <md-switch ng-model="model.active"> {{'active' | translate}} </md-switch>

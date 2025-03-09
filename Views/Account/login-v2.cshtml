@@ -117,8 +117,7 @@
 
         <form class="form-signin" method="post">
 
-            @Html.AntiForgeryToken()
-
+            <input type="hidden" name="@ViewBag.AntiforgeryName" value="@ViewBag.Antiforgery" />
             <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
             <input type="hidden" name="ReturnUrlHash" value="" />
             <input type="hidden" name="savePasswordAbility" value="@ViewBag.savePasswordAbility.ToString()" />
@@ -129,11 +128,11 @@
                     <div class="card ">
 
                         @*@if (ViewBag.logoId > 0) {
-                            <img class="logo" src="~/api/settings/getLogoFile/@ViewBag.logoId" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
-                        } else {
-                            <img class="logo" src="~/api/settings/getLogo/0" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
-                        }*@
-                            <img class="logo" src="~/images/logo_half.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                        <img class="logo" src="~/api/settings/getLogoFile/@ViewBag.logoId" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                    } else {
+                        <img class="logo" src="~/api/settings/getLogo/0" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                    }*@
+                        <img class="logo" src="~/images/logo_half.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
                         <br />
 
 
@@ -158,9 +157,9 @@
                         </div>
 
                         @*<label class="" style="margin: 10px 0; display: block;">
-        <input type="checkbox" value="remember-me" name="rememberme">
-        @ViewBag.msg["remember"]
-        </label>*@
+                    <input type="checkbox" value="remember-me" name="rememberme">
+                    @ViewBag.msg["remember"]
+                    </label>*@
 
                         <br />
                         <br />
@@ -188,22 +187,22 @@
                         <a class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</a>
 
                         @*<div class="ui small form" style="margin-top:15px; display:none" id="login-type-div">
-                            <div class=" inline fields">
-                                <label class="" style="width:50%;">
-                                    @ViewBag.msg["login type"]
-                                </label>
-                                <select name="login-type" id="login-type" style="border: none;display: inline-block;width: 50%;border-bottom: 1px dashed;padding: 0;border-radius: 0;">
-                                    <option value="0">معمولی</option>
-                                    <option value="1">دو عاملی - پست الکترونیک</option>
-                                    <option value="2">دو عاملی - پیامک</option>
-                                </select>
-                            </div>
-                        </div>*@
+                        <div class=" inline fields">
+                            <label class="" style="width:50%;">
+                                @ViewBag.msg["login type"]
+                            </label>
+                            <select name="login-type" id="login-type" style="border: none;display: inline-block;width: 50%;border-bottom: 1px dashed;padding: 0;border-radius: 0;">
+                                <option value="0">معمولی</option>
+                                <option value="1">دو عاملی - پست الکترونیک</option>
+                                <option value="2">دو عاملی - پیامک</option>
+                            </select>
+                        </div>
+                    </div>*@
 
                         @if (ViewBag.publicSignup ?? false) {
                             <br />
                             <a class="ui basic fluid button big" href="@Url.Action("signup", "account")">@ViewBag.msg["signup"]</a>
-                            }
+                        }
 
 
                         @if (ViewBag.sso != null && (ViewBag.sso.enable ?? false)) {
@@ -224,7 +223,7 @@
                         <div style="margin-top:40px; display:block;">
                             @(ViewBag.msg["info"])
                         </div>
-                        
+
                         <div class="tw-flex  tw-justify-between   tw-space-x-2 tw-space-x-reverse"
                              style="font-size: 13px; padding: 20px 0;">
                             @{
@@ -235,7 +234,7 @@
                             <span>|</span> <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
                             <span>|</span> <a class="show-help pointer">@ViewBag.msg["help"]</a>
                         </div>
-                        @if (ViewBag.mobileApp ?? false) { 
+                        @if (ViewBag.mobileApp ?? false) {
                             <div class="text-left">
                                 <a href="https://www.sadafdashboard.ir/files/sadaf.apk" class="ui xblack label">@ViewBag.msg["download android"]</a>
                             </div>
