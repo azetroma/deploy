@@ -173,7 +173,12 @@
     </style>
 </head>
 <body ng-app="sadaf" ng-cloak ng-controller="printController" class="theme2 print-page" style="overflow-y: scroll; height: initial; background: #fff !important;">
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
+
+    <input type="hidden" name="anti-forgery-name" value="@ViewBag.AntiforgeryName" />
+    <input type="hidden" name="@ViewBag.AntiforgeryName" value="@ViewBag.Antiforgery" />
+
+
     <input type="hidden" value="@ViewBag.lang" id="lang" />
     <input type="hidden" id="isFullscreen" value="true" />
     <input type="hidden" id="dashboardPublishMenuId" value="@ViewBag.MenuId" />

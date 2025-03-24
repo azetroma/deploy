@@ -18,7 +18,6 @@
         <script src="~/src/js/profile/profile.js?v=@v"></script>
     }*@
 
-<script src="~/react-dist/app-bundle.js?v=@v"></script>
 
 
 @*<div class="sadaf-root" ng-app="profileCat" ng-cloak>
@@ -29,7 +28,12 @@
 
 <div ng-app="profileCat" ng-cloak style="overflow: auto;height: 100%;">
     <input type="hidden" value="@ViewBag.lang" id="lang" />
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
+
+    <input type="hidden" name="anti-forgery-name" value="@ViewBag.AntiforgeryName" />
+    <input type="hidden" name="@ViewBag.AntiforgeryName" value="@ViewBag.Antiforgery" />
+
+
     <div ng-controller="cGeneral">
         <div class="ui container" style="margin-top:70px">
             <ng-include src="'@Href("~")react-dist/partial/dashboardPage/navbar/navbar.html'"></ng-include>
@@ -59,3 +63,4 @@
 
     </div>
 </div>
+<script src="~/react-dist/app-bundle.js?v=@v"></script>

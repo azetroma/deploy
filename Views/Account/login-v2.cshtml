@@ -113,7 +113,7 @@
 
 
 
-    <div id="contentx">
+    <div id="content-login">
 
         <form class="form-signin" method="post">
 
@@ -128,10 +128,10 @@
                     <div class="card ">
 
                         @*@if (ViewBag.logoId > 0) {
-                        <img class="logo" src="~/api/settings/getLogoFile/@ViewBag.logoId" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
-                    } else {
-                        <img class="logo" src="~/api/settings/getLogo/0" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
-                    }*@
+                                <img class="logo" src="~/api/settings/getLogoFile/@ViewBag.logoId" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                            } else {
+                                <img class="logo" src="~/api/settings/getLogo/0" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                            }*@
                         <img class="logo" src="~/images/logo_half.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
                         <br />
 
@@ -157,9 +157,9 @@
                         </div>
 
                         @*<label class="" style="margin: 10px 0; display: block;">
-                    <input type="checkbox" value="remember-me" name="rememberme">
-                    @ViewBag.msg["remember"]
-                    </label>*@
+                            <input type="checkbox" value="remember-me" name="rememberme">
+                            @ViewBag.msg["remember"]
+                            </label>*@
 
                         <br />
                         <br />
@@ -178,26 +178,11 @@
                             <small class="field-info"></small>
                         </div>
 
-
-                        @if (ViewBag.error != null) {
-                            <div class="ui negative message">
-                                @Html.Raw(ViewBag.error)
-                            </div>
-                        }
+                        <div class="ui negative message" style="display:none" data="@(string.IsNullOrEmpty(ViewBag.error).ToString())">
+                            @Html.Raw(ViewBag.error)
+                        </div>
                         <a class="ui blue fluid button big" id="login">@ViewBag.msg["login"]</a>
 
-                        @*<div class="ui small form" style="margin-top:15px; display:none" id="login-type-div">
-                        <div class=" inline fields">
-                            <label class="" style="width:50%;">
-                                @ViewBag.msg["login type"]
-                            </label>
-                            <select name="login-type" id="login-type" style="border: none;display: inline-block;width: 50%;border-bottom: 1px dashed;padding: 0;border-radius: 0;">
-                                <option value="0">معمولی</option>
-                                <option value="1">دو عاملی - پست الکترونیک</option>
-                                <option value="2">دو عاملی - پیامک</option>
-                            </select>
-                        </div>
-                    </div>*@
 
                         @if (ViewBag.publicSignup ?? false) {
                             <br />
@@ -251,6 +236,41 @@
         </form>
 
     </div>
+
+
+    <div id="content-code" style="display:none" class="tw-px-10">
+        <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+        <form class="">
+            <div class="tw-px-10">
+                <div class="tw-max-w-md  tw-m-auto">
+                    <img class="logo" src="~/images/logo_half.png" alt="Sadaf Dashboard, Management Dashboard, نرم افزار داشبورد مدیریت" />
+                    <br />
+
+                    <div class="card">
+
+                        <div style="direction: ltr">
+                            <div class="ui fluid left icon input big" style="margin-bottom:15px;">
+                                <input name="code" type="text" class="" placeholder="@ViewBag.msg["activation code"]" autofocus style="border-radius:4px; margin-bottom:0;">
+                                <i class="barcode icon"></i>
+                            </div>
+                        </div>
+                        <div class="tw-float-left"> زمان مجاز برای ورود کد <b class="remain-time"></b> ثانیه</div>
+                        <br />
+                        <div class="ui negative message" style="display:none" data="@(string.IsNullOrEmpty(ViewBag.error).ToString())">
+                            @Html.Raw(ViewBag.error)
+                        </div>
+
+                        <a class="ui blue fluid button big" style="margin-top:40px" id="code-btn">@ViewBag.msg["login"]</a>
+
+                        <a href="@Url.Action("login")">شروع مجدد</a>
+
+                    </div>
+                </div>
+                </div>
+        </form>
+
+    </div>
+
 
     <script>
         (function () {

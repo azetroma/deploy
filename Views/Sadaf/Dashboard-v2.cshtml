@@ -109,6 +109,8 @@
     <input type="hidden" id="appId" value="@ViewBag.appId" />
     <input type="hidden" id="isShared" value="1" />
 
+    <input type="hidden" name="anti-forgery-name" value="@ViewBag.AntiforgeryName" />
+    <input type="hidden" name="@ViewBag.AntiforgeryName" value="@ViewBag.Antiforgery" />
 
     <dashboard-page></dashboard-page>
 

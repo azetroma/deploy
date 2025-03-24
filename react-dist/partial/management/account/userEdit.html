@@ -108,6 +108,10 @@
 
                             <div class="field" ng-show="model.PasswordPolicy">
                                 <sadaf-checkbox ng-model="model.passwordPolicyUseEntropy"> استفاده از آنتروپی</sadaf-checkbox>
+                                <br/>
+                                <small class="desc">در حالت آنتروپی، به جای اینکه کاربر مجبور به استفاده از کاراکترها یا علامت‌های 
+                                    خاص در کلمه عبور باشد، پیچیدگی کلمه عبور به صورت خودکار محاسبه می‌شود.
+                                </small>
                             </div>
 
                             <div class="field" ng-show="model.PasswordPolicy && model.passwordPolicyUseEntropy">
