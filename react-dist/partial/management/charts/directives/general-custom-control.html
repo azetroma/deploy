@@ -104,7 +104,8 @@
         <span class="form-divider" flex></span>
         <div class="col-sm-8 tw-flex tw-space-x-2 tw-space-x-reverse">
             <div ng-repeat="i in item.items" class="">
-                <label xfor="{{item.key}}-{{$index}}" >{{i.name}}
+                <label xfor="{{item.key}}-{{$index}}"
+                    >{{i.name}}
                     <input type="radio" ng-change="onchange()" ng-model="parent[item.key]" value="{{i.value}}" id="{{item.key}}-{{$index}}" />
                 </label>
             </div>
@@ -153,6 +154,16 @@
         <label class="col-sm-4">{{ item.title }}</label>
         <span class="form-divider" flex></span>
         <select ng-model="parent[item.key]" ng-change="onchange()" ng-options="i as i for i in series"></select>
+    </div>
+    <div
+        ng-if="item.type == 'series-select-multi' && (!item.if ||  parent[item.if.key] == item.if.value) && item._show!==false && (!item.showIfComboKpi || externalprop.isComboKpi)"
+        class="form-row"
+        layout="row"
+        layout-align="start center"
+    >
+        <label class="col-sm-4">{{ item.title }}</label>
+        <span class="form-divider" flex></span>
+        <sm-dropdown class="selection multiple" items="series" onChange="onchange()" model="parent[item.key]"></sm-dropdown>
     </div>
 
     <div ng-if="item.type == 'forecast' && (!item.if ||  parent[item.if.key] == item.if.value) && item._show!==false && (!item.showIfComboKpi || externalprop.isComboKpi)">
