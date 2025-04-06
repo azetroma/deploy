@@ -650,7 +650,22 @@
                                 <input ng-model="model.preventUseLastPasswordCount" />
                                 <small class="gray">عدد صفر یعنی تمام کلمات عبور قبلی</small>
                             </div>
+
+                            
                         </div>
+                        
+                        <div class="field">
+                            <label>آدرس سامانه</label>
+                            <input type="text" ng-model="model.extra.host" />
+                            <small class="desc">این آدرس برای ایجاد لینک سامانه در پیام‌ کوتاه و پست الکترونیک کاربرد دارد. برای مثال https://example.ir</small>
+                        </div>
+
+
+                        <div class="field" ng-show="securityCertPatch">
+                            <sadaf-checkbox ng-model="model.extra.dontShowVersions">عدم نمایش شماره نسخه در صفحه لاگین</sadaf-checkbox>
+                        </div>
+
+
                         <div class="!tw-mt-4" ng-show="securityCertPatch">
                             <div class="field">
                                 <sadaf-checkbox ng-model="model.useWebserviceWhiteList">محدودیت روی فراخوانی وب سرویس (لیست سفید وب سرویس)</sadaf-checkbox>

@@ -213,11 +213,16 @@
                              style="font-size: 13px; padding: 20px 0;">
                             @{
                                 var version = typeof(BLL.ApplicationLicense.License).Assembly.GetName().Version;
+
+
                             }
-                            <div>@ViewBag.msg["version"] : <b>@BLL.Process.CommonUtils.PersianDigit(version.Major + "." + version.Minor + "." + version.Build) </b> </div>
-                            <span>|</span> <div>@ViewBag.msg["db version"]: <b> @BLL.Process.CommonUtils.PersianDigit(ViewBag.DbVersion.ToString())</b></div>
-                            <span>|</span> <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
-                            <span>|</span> <a class="show-help pointer">@ViewBag.msg["help"]</a>
+                            @if (!ViewBag.dontShowVersions) {
+                                <div>@ViewBag.msg["version"] : <b>@BLL.Process.CommonUtils.PersianDigit(version.Major + "." + version.Minor + "." + version.Build) </b> </div>
+                                <span>|</span> <div>@ViewBag.msg["db version"]: <b> @BLL.Process.CommonUtils.PersianDigit(ViewBag.DbVersion.ToString())</b></div>
+                                <span>|</span> <a class="show-last-change pointer">@ViewBag.msg["change list"]</a>
+                                <span>|</span>
+                            }
+                            <a class="show-help pointer">@ViewBag.msg["help"]</a>
                         </div>
                         @if (ViewBag.mobileApp ?? false) {
                             <div class="text-left">
@@ -266,7 +271,7 @@
 
                     </div>
                 </div>
-                </div>
+            </div>
         </form>
 
     </div>
