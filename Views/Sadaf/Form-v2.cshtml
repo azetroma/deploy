@@ -25,7 +25,10 @@
     </style>
 </head>
 <body dir="rtl" style="overflow:auto !important; height:initial;">
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
+
+    <input type="hidden" name="anti-forgery-name" value="@ViewBag.AntiforgeryName" />
+    <input type="hidden" name="@ViewBag.AntiforgeryName" value="@ViewBag.Antiforgery" />
 
     <input type="hidden" value="@System.Text.RegularExpressions.Regex.Replace( Url.Action("management", "sadaf").ToString().ToLower(), "sadaf/management.*", "")" name="baseUrl" />
     <input type="hidden" value="@Request.Url.AbsoluteUri" name="aboluteUrl" />

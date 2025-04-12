@@ -336,6 +336,13 @@
                     <span ng-show="formFlows.isInFlow" class="label black ui">فرم در حال گردش است</span>
                 </div>
 
+                <ng-dialog-select-state
+                    [states]="process.taskType.selectableState"
+                    [open]="dialogUtil.selectStateOpen"
+                    (open-change)="dialogUtil.openChange($event)"
+                    (on-select)="dialogUtil.onSelectState($event)"
+                ></ng-dialog-select-state>
+
                 <ng-two-factor-verifier
                     [object-id]="id"
                     type="form"
