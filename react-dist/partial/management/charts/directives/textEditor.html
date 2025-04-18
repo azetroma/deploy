@@ -103,7 +103,8 @@
         <div class="form-row" layout="row" layout-align="start center" ng-show="config.color">
             <label>{{ 'رنگ نوشته' | translate }}</label>
             <span class="form-divider" flex></span>
-            <div md-color-picker ng-model="model.color" md-color-default-tab="'genericPalette'" ng-change="onChange()"></div>
+            <!-- <div md-color-picker ng-model="model.color" md-color-default-tab="'genericPalette'" ng-change="onChange()"></div> -->
+            <color-picker model="model.color" on-change="onChange()"></color-picker>
 
         </div>
 

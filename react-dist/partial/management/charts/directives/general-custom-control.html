@@ -68,7 +68,8 @@
         <label class="col-sm-4">{{item.title}}</label>
         <span class="form-divider" flex></span>
         <div class="col-sm-8">
-            <div md-color-picker ng-model="parent[item.key]" md-color-default-tab="'genericPalette'" on-change="onchange(value)"></div>
+            <!-- <div md-color-picker ng-model="parent[item.key]" md-color-default-tab="'genericPalette'" on-change="onchange(value)"></div> -->
+            <color-picker model="parent[item.key]" on-change="onchange(value)"></color-picker>
         </div>
     </div>
 

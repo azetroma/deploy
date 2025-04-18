@@ -301,9 +301,15 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'رنگ محدوده‌ها' | translate }}</label>
                     <span class="form-divider" flex></span>
-                    <div md-color-picker ng-model="ngModel.gauge.info.colorAriaThree" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
+                    <!-- <div md-color-picker ng-model="ngModel.gauge.info.colorAriaThree" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
                     <div md-color-picker ng-model="ngModel.gauge.info.colorAriaTwo" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
-                    <div md-color-picker ng-model="ngModel.gauge.info.colorAriaOne" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
+                    <div md-color-picker ng-model="ngModel.gauge.info.colorAriaOne" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div> -->
+                
+                    <color-picker model="ngModel.gauge.info.colorAriaThree" on-change="refreshChart('refresh')"></color-picker>
+                    <color-picker model="ngModel.gauge.info.colorAriaTwo" on-change="refreshChart('refresh')"></color-picker>
+                    <color-picker model="ngModel.gauge.info.colorAriaOne" on-change="refreshChart('refresh')"></color-picker>
+
+                
                 </div>
 
                 <div  ng-show="ngModel.gauge.info.style == 'number'">

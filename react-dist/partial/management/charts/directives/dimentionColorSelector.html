@@ -30,7 +30,9 @@
             <label class="col-sm-4">{{key}}</label>
             <span class="form-divider" flex></span>
             <div class="col-sm-8">
-                <div md-color-picker ng-model="model.data[key].color" md-color-default-tab="'genericPalette'" on-change="ngChange()"></div>
+                <!-- <div md-color-picker ng-model="model.data[key].color" md-color-default-tab="'genericPalette'" on-change="ngChange()"></div> -->
+                <color-picker model="model.data[key].color" on-change="ngChange(value)"></color-picker>
+
             </div>
         </div>
     </div>

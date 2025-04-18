@@ -589,7 +589,9 @@
                     <label class="col-sm-4">{{ 'رنگ' | translate }}</label>
                     <span class="form-divider" flex></span>
                     <div class="col-sm-8">
-                        <div md-color-picker ng-model="ngModel.bar.series[ngModel.selectedSeries].seriesColor" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div>
+                        <!-- <div md-color-picker ng-model="ngModel.bar.series[ngModel.selectedSeries].seriesColor" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div> -->
+                        <color-picker model="ngModel.bar.series[ngModel.selectedSeries].seriesColor" on-change="refreshChart('refresh')"></color-picker>
+
                     </div>
                 </div>
 

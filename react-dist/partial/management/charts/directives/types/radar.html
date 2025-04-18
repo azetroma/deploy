@@ -97,8 +97,10 @@
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'رنگ' | translate }}</label>
                     <span class="form-divider" flex></span>
-                    <div md-color-picker ng-model="ngModel.radar.series[ngModel.selectedSeries].seriesColor" md-color-default-tab="'genericPalette'" 
-                         on-change="refreshChart('refresh');changeAllSeries('seriesColor')"></div>
+                    <!-- <div md-color-picker ng-model="ngModel.radar.series[ngModel.selectedSeries].seriesColor" md-color-default-tab="'genericPalette'" 
+                         on-change="refreshChart('refresh');changeAllSeries('seriesColor')"></div> -->
+                         <color-picker model="ngModel.radar.series[ngModel.selectedSeries].seriesColor" on-change="refreshChart('refresh');changeAllSeries('seriesColor')"></color-picker>
+
 
                 </div>
 

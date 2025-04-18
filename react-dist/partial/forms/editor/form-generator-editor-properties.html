@@ -927,18 +927,19 @@
               {k:'image/*', label:'تصویر'}
             , {k:'audio/*', label:'صدا'}
             , {k:'video/*', label:'ویدئو'}
-            <!-- , {k:'.zip', label:'فایل زیپ'} -->
             , {k:'.txt', label:'فایل متنی'}
             , {k:'.doc', label:'فایل مستند'}
             , {k:'.pdf', label:'pdf'}
             , {k:'.xlsx', label:'xlsx'}
-            <!-- , {k:'*', label:'همه فایل‌ها'}] -->
+            ]
             "
-                model="c.control.active.uiConfig.accept"
-                value="item.k"
-                label="item.label"
-                class="selection multiple value"
+            model="c.control.active.uiConfig.accept"
+            value="item.k"
+            label="item.label"
+            class="selection multiple value"
             ></sm-dropdown>
+            <!-- , {k:'.zip', label:'فایل زیپ'} -->
+            <!-- , {k:'*', label:'همه فایل‌ها'}-->
         </div>
 
         <div class="field">
