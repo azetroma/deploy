@@ -687,10 +687,11 @@
                         <div class="field" ng-show="securityCertPatch">
                             <label>{{'multi factor authentication type' | translate}}</label>
                             <!--, {label:'دو عاملی - پیامک', val:2}-->
+                            <!-- ,{label:'دو عاملی - پست الکترونیک', val:1} -->
+
                             <sm-dropdown
                                 class="selection fluid"
                                 items="[{label:'ساده', val:0}
-                                             ,{label:'دو عاملی - پست الکترونیک', val:1}
                                              ,{label:'دو عاملی - پیامک', val:2}
                                              ]"
                                 model="model.multiFactorAuthenticationType"
