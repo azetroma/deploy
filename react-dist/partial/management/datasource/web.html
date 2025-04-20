@@ -66,8 +66,11 @@
                                     <div ng-message="required">{{'form_url_required' | translate}}</div>
                                 </div>
                             </div>
+                            <div class="field" >
+                                <sadaf-checkbox ng-model="model.ignoreSsl">عدم بررسی گواهینامه ssl</sadaf-checkbox>
+                            </div>
 
-                            <div>
+                            <div ng-hide="model.ignoreSsl">
                                 بررسی گواهینامه ssl
                                 <div class="ui button mini" ng-click="checkCert()">چک کردن</div>
                                 <div ng-show="model.approveHash" class="ui label green">
