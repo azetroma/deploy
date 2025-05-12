@@ -166,7 +166,7 @@
                 ></sm-dropdown>
             </div>
             <div class="field">
-                <sadaf-tasks ng-model="t.tasks" trigger="t.type" ng-init="t.tasks = t.tasks || []"></sadaf-tasks>
+                <sadaf-tasks info="c" ng-model="t.tasks" trigger="t.type" ng-init="t.tasks = t.tasks || []"></sadaf-tasks>
                 <small ng-if="t.type==6||t.type==7">
                     در صورتی که تابع مقدار false را برگرداند فرم ذخیره نخواهد شد در صورت تمایل برای نمایش خطا از کد زیر استفاده کنید
                     <pre class="ltr">

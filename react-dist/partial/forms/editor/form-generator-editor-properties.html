@@ -609,7 +609,7 @@
     <div style="margin-bottom: -20px">
         <label>اضافه کردن کد در صورت تغییر مقدار</label>
     </div>
-    <sadaf-tasks ng-model="c.control.active.tasks" trigger="5" ng-init="c.control.active.tasks = c.control.active.tasks || []"></sadaf-tasks>
+    <sadaf-tasks info="c" ng-model="c.control.active.tasks" trigger="5" ng-init="c.control.active.tasks = c.control.active.tasks || []"></sadaf-tasks>
 
     <div class="field">
         <sadaf-checkbox ng-model="c.control.active.uiConfig.activeAnyway">فعال بودن در هر حالتی</sadaf-checkbox>
@@ -666,7 +666,7 @@
             <input class="" ng-model="c.control.active.uiConfig.icon" autocomplete="off" type="text" />
         </div>
 
-        <sadaf-tasks ng-model="c.control.active.button.tasks" ng-init="c.control.active.button.tasks = c.control.active.button.tasks || []"></sadaf-tasks>
+        <sadaf-tasks info="c" ng-model="c.control.active.button.tasks" ng-init="c.control.active.button.tasks = c.control.active.button.tasks || []"></sadaf-tasks>
     </div>
 
     <div ng-if="c.control.active.type==24">
