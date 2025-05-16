@@ -653,6 +653,22 @@
             ></sm-dropdown>
         </div>
 
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.showDialog">نمایش هشدار در صورت اجرای موفق</sadaf-checkbox>
+        </div>
+        <div class="field" ng-show="c.control.active.uiConfig.showDialog">
+            <label>متن هشدار اجرای موفق</label>
+            <input class="" ng-model="c.control.active.uiConfig.successDialogMessage" autocomplete="off" type="text" />
+        </div>
+
+        <div class="field">
+            <sadaf-checkbox ng-model="c.control.active.uiConfig.showDialogFail">نمایش هشدار در صورت اجرای ناموفق</sadaf-checkbox>
+        </div>
+        <div class="field" ng-show="c.control.active.uiConfig.showDialogFail">
+            <label>متن هشدار اجرای ناموفق</label>
+            <input class="" ng-model="c.control.active.uiConfig.failDialogMessage" autocomplete="off" type="text" />
+        </div>
+    
         <div class="inline fields">
             <label>{{'size' | translate}}</label>
             <control-size ng-model="c.control.active.button.size"></control-size>
