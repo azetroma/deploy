@@ -107,6 +107,9 @@
 </div>
 <div class="pusher" id="">
     <div class="main-container full-height-container">
+
+
+
         <div class="dashboard-page-top-side" style="display: block; position: relative">
             <div ng-hide="hidemenu" class="ui horizontal list top-menu">
                 <div class="item sadaf-circular-preogress" style="position: relative; width: 20px; height: 18px"></div>
@@ -230,6 +233,8 @@
                     روز
                 </div>
             </div>
+            
+            <chart-datasource-info [chart]="1" [show]="showChartDatasourceInfo"></chart-datasource-info>
 
             <div class="" id="filter-box" xng-app="filterBox">
                 <div
