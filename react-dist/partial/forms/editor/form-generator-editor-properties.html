@@ -877,7 +877,7 @@
     <div class="f-field" xng-if="![22].includes(c.control.active.type)">
         <label>رنگ پشت زمینه</label>
         <!-- <div class="" md-color-picker ng-model="c.control.active.uiConfig.color" md-color-default-tab="'genericPalette'"></div> -->
-        <color-picker model="c.control.active.uiConfig.color" on-change="changeSettings()"></color-picker>
+        <color-picker-ngx model="c.control.active.uiConfig.color" on-change="changeSettings()"></color-picker-ngx>
         <i title="پاک کردن رنگ" class="ui link icon close" ng-click="c.control.active.uiConfig.color = null"></i>
     </div>
 
@@ -1021,7 +1021,7 @@
             <div class="f-field">
                 <label>رنگ جدول</label>
                 <!-- <div class="" on-change="changeSettings()" md-color-picker ng-model="c.control.active.uiConfig.themeColor" md-color-default-tab="'genericPalette'"></div> -->
-                <color-picker model="c.control.active.uiConfig.themeColor" on-change="changeSettings()"></color-picker>
+                <color-picker-ngx model="c.control.active.uiConfig.themeColor" on-change="changeSettings()"></color-picker-ngx>
                 <i title="پاک کردن رنگ" class="ui link icon close" ng-click="c.control.active.uiConfig.themeColor = null"></i>
             </div>
         </div>
