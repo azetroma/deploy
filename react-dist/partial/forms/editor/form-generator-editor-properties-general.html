@@ -227,8 +227,6 @@ pageMessages: [{
             ></sm-dropdown>
         </div>
 
-        <!-- {{c.clientModel.print | json}} -->
-
         <div ng-if="c.clientModel.print.type == 'fastreport'">
             <fast-report-settings scope="4" [object-id]="c.id" [model]="c.clientModel.print.fastreport" (model-change)="c.changePrintModel($event)"></fast-report-settings>
         </div>

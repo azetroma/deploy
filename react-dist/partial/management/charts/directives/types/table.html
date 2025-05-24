@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div ng-show="ngModel.table.info.print.enable" class="secondary segment tiny ui">
-                    <print-settings ng-model="ngModel.table.info.print" series="ngModel.series" />
+                    <print-settings scope="1" disable-fast-report="true" id="ngModel.chartId" ng-model="ngModel.table.info.print" series="ngModel.series" />
                 </div>
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -95,8 +95,8 @@
                     </div>
                 </div>
 
-                <!-- todo// add to core -->
                 <div ng-show="ngModel.table.info.printAllRows.enable" class="secondary segment tiny ui">
+                    <print-settings scope="1"  id="ngModel.chartId" ng-model="ngModel.table.info.printAllRows" series="ngModel.series" />
                     <!--<div class="form-row" layout="column" layout-align="start right">
             <label class="col-sm-4">الگوی پرینت</label>
             <textarea ng-model="ngModel.table.info.printAllRows.layout" class="ltr" style="width:100%; resize:vertical;" />
@@ -134,7 +134,6 @@
             <input type="text" ng-model="ngModel.table.info.printAllRows.footer"/>
             <small class="gray">اندازه به سانتی‌متر وارد شود</small>
         </div>-->
-                    <print-settings ng-model="ngModel.table.info.printAllRows" series="ngModel.series" />
                 </div>
 
                 <!--<div class="form-row" layout="row" layout-align="start center">

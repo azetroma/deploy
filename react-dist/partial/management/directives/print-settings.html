@@ -1,51 +1,63 @@
-﻿
-<div>
-    <div class="form-row" layout="column" layout-align="start right">
-        <label class="col-sm-4">الگوی پرینت</label>
-        <!--<textarea ng-model="model.layout" class="ltr" style="width:100%; resize:vertical;" />-->
-        <feditor xng-if="render" type="print-settings" ng-model="model.layout" lang="html" list="map"></feditor>
-        <!--<div class="form-row" layout="row" layout-align="start center">
-        <div class="label ui small" ng-repeat="i in ngModel.series" ng-click="model.layout =  model.layout  + '@{' + i  + '}'">{{i}}</div>
-    </div>-->
-        <div>
-            <small>
-                <ul class="ui list">
-                    <li class="gray">نام ستون باید به صورت @{name} نوشته شود</li>
-                    <li class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</li>
-                    <li class="gray"><span class="ltr code">each{{'{{[exp]}\}'}}</span> برای اجرا روی تمام ردیف‌ها</li>
-                    <li class="gray">برای تبدیل اعداد به حروف از تابع <span class="ltr code">Num2persian()</span> استفاده کنید</li>
-                </ul>
-            </small>
+﻿<div>
+    <div class="field" ng-if="app.license.fastreport && !disableFastReport">
+        <label>نوع چاپ</label>
+        <sm-dropdown
+            items="[{name:'HTML (سمت کلاینت)', value:'html'}, {name:'FastReport (سمت سرور)', value:'fastreport'}]"
+            class="selection fluid"
+            model="model.type"
+            label="item.name"
+            value="item.value"
+        ></sm-dropdown>
+    </div>
+    <div ng-if="model.type == 'fastreport'">
+        id={{id}}
+        <fast-report-settings [scope]="scope" [object-id]="id" [model]="model.fastreport" (model-change)="changePrintModel($event)"></fast-report-settings>
+    </div>
+
+    <div ng-if="model.type == 'html'">
+        <div class="form-row" layout="column" layout-align="start right">
+            <label class="col-sm-4">الگوی پرینت</label>
+            <feditor xng-if="render" type="print-settings" ng-model="model.layout" lang="html" list="map"></feditor>
+            <div>
+                
+                    <ul class="ui list">
+                        <li class="gray">نام ستون باید به صورت @{name} نوشته شود</li>
+                        <li class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</li>
+                        <li class="gray"><span class="ltr code">each{{'{{[exp]}\}'}}</span> برای اجرا روی تمام ردیف‌ها</li>
+                        <li class="gray">برای تبدیل اعداد به حروف از تابع <span class="ltr code">Num2persian()</span> استفاده کنید</li>
+                    </ul>
+                
+            </div>
         </div>
-    </div>
-    <div class="form-row" layout="row" layout-align="start center">
-        <label>جهت برگه پرینت</label>
-        <span class="form-divider" flex></span>
-        <select ng-options="i.value as i.name for i in [{name:'عمودی', value:0}, {name:'افقی', value:1}]" ng-model="model.oriantation"></select>
-    </div>
-    <div class="form-row" layout="row" layout-align="start center">
-        <label>اندازه</label>
-        <span class="form-divider" flex></span>
-        <select ng-options="i.value as i.name for i in [{name:'A4', value:'A4'}, {name:'A5', value:'A5'}]" ng-model="model.size"></select>
-    </div>
-    <div class="form-row" layout="row" layout-align="start center">
-        <label>انتخاب عکس پشت</label>
-    </div>
+        <div class="form-row" layout="row" layout-align="start center">
+            <label>جهت برگه پرینت</label>
+            <span class="form-divider" flex></span>
+            <select ng-options="i.value as i.name for i in [{name:'عمودی', value:0}, {name:'افقی', value:1}]" ng-model="model.oriantation"></select>
+        </div>
+        <div class="form-row" layout="row" layout-align="start center">
+            <label>اندازه</label>
+            <span class="form-divider" flex></span>
+            <select ng-options="i.value as i.name for i in [{name:'A4', value:'A4'}, {name:'A5', value:'A5'}]" ng-model="model.size"></select>
+        </div>
+        <div class="form-row" layout="row" layout-align="start center">
+            <label>انتخاب عکس پشت</label>
+        </div>
+        
+        <sadaf-icons type="image" ng-model="model.pic" ></sadaf-icons>
+        
+        <div class="form-row" layout="row" layout-align="start center">
+            <label>ارتفاع سرتیتر</label>
+            <span class="form-divider" flex></span>
+            <input style="width:100px" class="form-control" type="text" placeholder="ارتفاع Header" ng-model="model.headerSize" />
+        </div>
+        <small class="gray">اندازه به سانتی‌متر وارد شود</small>
     
-    <sadaf-icons type="image" ng-model="model.pic" ></sadaf-icons>
+        <div class="form-row" layout="row" layout-align="start center">
+            <label>ارتفاع پاورقی</label>
+            <span class="form-divider" flex></span>
+            <input style="width:100px" class="form-control" type="text" placeholder="ارتفاع Footer" ng-model="model.footerSize" />
+        </div>
+        <small class="gray">اندازه به سانتی‌متر وارد شود</small>
     
-    <div class="form-row" layout="row" layout-align="start center">
-        <label>ارتفاع سرتیتر</label>
-        <span class="form-divider" flex></span>
-        <input style="width:100px" class="form-control" type="text" placeholder="ارتفاع Header" ng-model="model.headerSize" />
     </div>
-    <small class="gray">اندازه به سانتی‌متر وارد شود</small>
-
-    <div class="form-row" layout="row" layout-align="start center">
-        <label>ارتفاع پاورقی</label>
-        <span class="form-divider" flex></span>
-        <input style="width:100px" class="form-control" type="text" placeholder="ارتفاع Footer" ng-model="model.footerSize" />
-    </div>
-    <small class="gray">اندازه به سانتی‌متر وارد شود</small>
-
 </div>

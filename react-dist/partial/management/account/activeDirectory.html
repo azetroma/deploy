@@ -169,7 +169,7 @@
                         </div>
                     </div>
                     <div class="ui actions">
-                        <div class="ui button green" ng-click="ad.approveCert()">{{'ok' | translate}}</div>
+                        <div class="ui button green" ng-class="{loading: ad.progress, disabled: ad.progress}" ng-click="ad.approveCert()">{{'ok' | translate}}</div>
                         <div class="ui button deny" ng-click="">{{'cancel' | translate}}</div>
                     </div>
                 </div>
