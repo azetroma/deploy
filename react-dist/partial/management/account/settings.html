@@ -662,6 +662,10 @@
                             <sadaf-checkbox ng-model="model.extra.dontShowVersions">عدم نمایش شماره نسخه در صفحه لاگین</sadaf-checkbox>
                         </div>
 
+                        <div class="field" ng-show="securityCertPatch">
+                            <sadaf-checkbox ng-model="model.extra.csrfRegenerate">تولید مجدد توکن CSRF در هر درخواست</sadaf-checkbox>
+                        </div>
+
 
                         <div class="!tw-mt-4" ng-show="securityCertPatch">
                             <div class="field">
