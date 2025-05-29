@@ -6,18 +6,34 @@
     <div class="field">
         <sadaf-checkbox ng-model="c.formInfo.saveAndCopy">نمایش کلید «ذخیره و کپی در فرم جدید»</sadaf-checkbox>
     </div>
+
     <!-- <div class="field">
     <sadaf-checkbox ng-model="c.clientModel.showSuccessDialog">نمایش دیاگوک ذخیره موفق</sadaf-checkbox>
 </div> -->
+
     <div class="field">
         <sadaf-checkbox ng-model="c.clientModel.hideTitlebar">عدم نمایش نوار عنوان فرم</sadaf-checkbox>
     </div>
 
     <div class="field">
+        <sadaf-checkbox ng-model="c.clientModel.hideActionbar">عدم نمایش کلیدهای ذخیره و انصراف و ...</sadaf-checkbox>
+    </div>
+
+    <div class="field">
         <sadaf-checkbox ng-model="c.clientModel.history">نمایش تاریخچه تغییرات</sadaf-checkbox>
     </div>
+    
     <div class="field">
         <sadaf-checkbox ng-model="c.clientModel.askOnSave">سوال از کاربر زمان ذخیره اطلاعات</sadaf-checkbox>
+    </div>
+
+    <div class="field">
+        <sadaf-checkbox ng-model="c.clientModel.dialogAfterSave">نمایش پیام به کاربر زمان ذخیره موفق</sadaf-checkbox>
+    </div>
+
+    <div class="field-f" ng-show="c.clientModel.dialogAfterSave">
+        <label>پیام زمان موفقیت</label>
+        <input autocomplete="off" type="text" ng-model="c.clientModel.dialogAfterSaveText" />
     </div>
 
     <div class="field">

@@ -38,6 +38,7 @@
     <input type="hidden" value="@(Html.Raw(ViewBag.license ?? "{}").ToString().Replace("\"","\\\""))" name="license" />
     <input type="hidden" value="@((ViewBag.englishDigit ?? false ).ToString().ToLower())" name="useEnglishDigit" />
     <input type="hidden" value="true" name="shareMode" />
+    <input type="hidden" value="@(ViewBag.dualBoot == null ? "" : ViewBag.dualBoot.ToString())" name="dualBoot" />
     <script src="~/react-dist/app-bundle.js?v=@v"></script>
 
 
