@@ -1,4 +1,3 @@
-
 package-lock.json
 packages.config
 webpack.config-app-release.js
@@ -6,22 +5,15 @@ webpack.config-app.js
 webpack.config-release.js
 deploy.zip
 log/1403-08-08.txt
-Web.config
-Web.config
-*.config
 /map_data
 /log
-Web.config
-Web.config
 react-dist.zip
 deploy.7z
 bin/BLL.7z
 assets/10-million-password-list-top-1000000.7z
 libman.json
 npm-debug.log
-Web.config
 npm-debug.log
-libman.json
 libman.json
 npm-debug.log
 New Text Document (12).txt
