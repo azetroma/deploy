@@ -211,8 +211,8 @@
     <div  
     ng-class="['field',(model.validations.isDisable?'disabled':''), (model.validations.isRequire?'required':''), (model.error?'error':''), model.name, 'form-'+id+'-type-12']" 
     ng-if="model.type == 12"
-    class="tw-relative">
-    <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
+    class="tw-relative action-icon">
+        <label title="{{model.description}}" ng-hide="settings.showLabel===false"><styled-label font="model.uiConfig.fontLabel"> {{model.label}}</styled-label></label>
         <new-form-modal  ng-if="model.formLookup.showAddButton && model.renderForm" ng-model="model.formDialogInfo" control="model"></new-form-modal>
         <div class="auto-hide-container  value" style="position:relative;">
             <form-lookup-get-id ng-keydown="keyup($event)" ng-change="changeValue()" xng-hide="model.readonly" ng-model="model" id="{{id}}" ng-style="model.formLookup.showAddButton && {width: 'calc(100%)'} || {width: '100%'}"></form-lookup-get-id>
