@@ -74,7 +74,6 @@
                     </div>
                 </div>
 
-                <!-- todo// add to core -->
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
@@ -97,54 +96,8 @@
 
                 <div ng-show="ngModel.table.info.printAllRows.enable" class="secondary segment tiny ui">
                     <print-settings scope="1"  id="ngModel.chartId" ng-model="ngModel.table.info.printAllRows" series="ngModel.series" />
-                    <!--<div class="form-row" layout="column" layout-align="start right">
-            <label class="col-sm-4">الگوی پرینت</label>
-            <textarea ng-model="ngModel.table.info.printAllRows.layout" class="ltr" style="width:100%; resize:vertical;" />
-            <div class="form-row" layout="row" layout-align="start center">
-                <div class="label ui small" ng-repeat="i in ngModel.series" ng-click="ngModel.table.info.printAllRows.layout =  ngModel.table.info.printAllRows.layout  + '@{' + i  + '}'">{{i}}</div>
-            </div>
-            <div>
-                <small class="gray">نام ستون باید به صورت @{name} نوشته شود</small>
-                <small class="gray">در صورت استفاده از محاسبات فرمول را در عبارت روبرو قرار دهید. calc{{'{{[exp]}\}'}}</small>
-
-                <small class="gray"><span class="ltr">each{{'{{[exp]}\}'}}</span> برای اجرا روی تمام ردیف‌ها</small>
-                <small class="gray">برای تبدیل اعداد به حروف از تابع Num2persian() استفاده کنید</small>
-            </div>
-        </div>
-        <div class="form-row" layout="row" layout-align="start center">
-            <label>جهت برگه پرینت</label>
-            <span class="form-divider" flex></span>
-            <select ng-options="i.value as i.name for i in [{name:'عمودی', value:0}, {name:'افقی', value:1}]" ng-model="ngModel.table.info.printAllRows.oriantation"></select>
-        </div>
-        <div class="form-row" layout="row" layout-align="start center">
-            <label>اندازه</label>
-            <span class="form-divider" flex></span>
-            <select ng-options="i.value as i.name for i in [{name:'A4', value:'A4'}, {name:'A5', value:'A5'}]" ng-model="ngModel.table.info.printAllRows.size"></select>
-        </div>
-        <div class="form-row" layout="row" layout-align="start center">
-            <sadaf-icons image-lable="انتخاب عکس پشت" type="image" ng-model="ngModel.table.info.printAllRows.pic"/>
-        </div>
-        <div class="form-row" layout="row" layout-align="start center">
-            <label>اندازه Header</label>
-            <input type="text" ng-model="ngModel.table.info.printAllRows.header"/>
-            <small class="gray">اندازه به سانتی‌متر وارد شود</small>
-        </div>
-        <div class="form-row" layout="row" layout-align="start center">
-            <label>اندازه Footer</label>
-            <input type="text" ng-model="ngModel.table.info.printAllRows.footer"/>
-            <small class="gray">اندازه به سانتی‌متر وارد شود</small>
-        </div>-->
                 </div>
 
-                <!--<div class="form-row" layout="row" layout-align="start center">
-        <div class="col-sm-offset-4 col-sm-8">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.table.info.condensed" /> {{ 'نمایش فشرده‌تر ردیف‌ها' | translate }}
-                </label>
-            </div>
-        </div>
-    </div>-->
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <div class="col-sm-offset-4 col-sm-8">
