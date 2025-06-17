@@ -19,8 +19,7 @@
         ng-if="item.type == 'dynamic' && (!item.if ||  parent[item.if.key] == item.if.value) && item._show!==false && (!item.showIfComboKpi || externalprop.isComboKpi)"
     >
         <div class="col-sm-offset-4 col-sm-8">
-            Dynamic
-            <div ng-bind-html="item.compiledHtml"></div>
+            <div id="{{id}}"></div>
         </div>
     </div>
 

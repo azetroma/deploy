@@ -10,7 +10,6 @@
         ></sm-dropdown>
     </div>
     <div ng-if="model.type == 'fastreport'">
-        id={{id}}
         <fast-report-settings [scope]="scope" [object-id]="id" [model]="model.fastreport" (model-change)="changePrintModel($event)"></fast-report-settings>
     </div>
 
