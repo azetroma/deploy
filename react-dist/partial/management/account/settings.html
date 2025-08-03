@@ -57,9 +57,15 @@
                                 بررسی و تایید گواهینامه سرور پیام کوتاه
                             </div>
                             <span class="" ng-class="{green :model.smsApprovedHash.length, red:!model.smsApprovedHash.length }">
-                                <span ng-show="model.smsApprovedHash.length || !invelidCert">گواهینامه سرور پیامک مورد تایید است</span>
-                                <span ng-hide="model.smsApprovedHash.length">قبلا تایید نشده است</span>
-                                <i class="ui icon" ng-class="{check :model.smsApprovedHash.length || !invelidCert, close:!model.smsApprovedHash.length }"></i>
+                                <span ng-show="model.smsApprovedHash.length || invelidCert===false">گواهینامه سرور پیامک مورد تایید است</span>
+                                <span ng-show="!model.smsApprovedHash.length  "> قبلا تایید نشده است </span>
+                                <i class="ui icon" ng-class="{'check green' :model.smsApprovedHash.length || !invelidCert, close:!model.smsApprovedHash.length }"></i>
+                                <i
+                                    class="ui icon alternate outline trash"
+                                    ng-click="clearApprovedSmsCert()"
+                                    ng-show="model.smsApprovedHash.length"
+                                    title="حذف تاییدیه گواهینامه"
+                                ></i>
                             </span>
                         </div>
 
@@ -434,9 +440,9 @@
                                 <div class="tw-flex tw-items-center tw-mb-1" ng-repeat="item in model.defaultSrc.items">
                                     <div class="tw-flex-1 tw-me-2">
                                         <sm-dropdown
-                                        class="selection fluid"
-                                        model="item.type"
-                                        items="[
+                                            class="selection fluid"
+                                            model="item.type"
+                                            items="[
                                         'default-src',
                                         'script-src',
                                         'img-src',
@@ -447,9 +453,10 @@
                                         'frame-ancestors',
                                         'frame-src'
                                          ]"
-                                        label="item"
-                                        value="item"
-                                    ></sm-dropdown>                                    </div>
+                                            label="item"
+                                            value="item"
+                                        ></sm-dropdown>
+                                    </div>
                                     <div class="tw-flex-1 tw-me-2">
                                         <input autocomplete="off" type="text" ng-model="item.name" placeholder="domain.example.com" />
                                     </div>
@@ -530,7 +537,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="field !tw-mt-4">
                             <sadaf-checkbox ng-model="model.extra.debugMode">حالت دیباگ سامانه </sadaf-checkbox>
                             <br />
@@ -555,7 +562,6 @@
                             <sadaf-checkbox ng-model="model.extra.enableCaptcha"> فعال بودن کپچا به صورت پیش فرض</sadaf-checkbox>
                         </div>
 
-
                         <div class="field">
                             <label>موتور ایجاد ارتباط‌ها</label>
                             <sm-dropdown
@@ -570,7 +576,6 @@
                                 value="item.id"
                             ></sm-dropdown>
                         </div>
-
 
                         <div class="field !tw-mt-4">
                             <sadaf-checkbox ng-model="model.extra.checkQueryPermission">چک کردن جداول حساس در ساخت پرس‌وجو </sadaf-checkbox>
@@ -588,8 +593,6 @@
                                 <div class="ui label red" ng-show="antivirus === false">برنامه آنتی ویروس Windown Defender روی سرور نصب نیست</div>
                                 <br />
                                 <small class="gray">برای بررسی فایل‌ها توسط آنتی ویروس لازم است برنامه Windown Defender روی سرور نصب و فعال باشد.</small>
-
-
                             </div>
 
                             <div class="field !tw-mt-4">
@@ -597,7 +600,7 @@
                             </div>
 
                             <div class="field !tw-mt-4">
-                                <sadaf-checkbox ng-model="model.extra.showAccessAlert">هشدار به کاربر در خصوص مسئولیت‌های دسترسی به اطلاعات زمان ورود  به مدیریت </sadaf-checkbox>
+                                <sadaf-checkbox ng-model="model.extra.showAccessAlert">هشدار به کاربر در خصوص مسئولیت‌های دسترسی به اطلاعات زمان ورود به مدیریت </sadaf-checkbox>
                             </div>
 
                             <div class="field !tw-mt-4">
@@ -605,8 +608,6 @@
                                 <br />
                                 <small class="gray">برای جلوگیری از حمله شمارش کاربر، زمان ورود کاربر به سامانه، در صورت بروز خطا، یک خطای کلی به کاربر نمایش داده خواهد شد.</small>
                             </div>
-
-
 
                             <div class="field !tw-mt-4">
                                 <sadaf-checkbox ng-model="model.classifiedPage.enable">تعیین صفحه‌های حساس جهت ویرایش </sadaf-checkbox>
@@ -620,7 +621,6 @@
                                 </div>
                             </div>
 
-
                             <div class="field !tw-mt-4">
                                 <sadaf-checkbox ng-model="model.extra.showClassifiedPage.enable">تعیین صفحه‌های حساس جهت مشاهده</sadaf-checkbox>
                                 <br />
@@ -633,7 +633,6 @@
                                     <sadaf-checkbox ng-model="model.extra.showClassifiedPage[k.key]">{{k.title}}</sadaf-checkbox>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="fields !tw-mt-4" ng-show="securityCertPatch">
@@ -647,16 +646,13 @@
                                 <input ng-model="model.preventUseLastPasswordCount" />
                                 <small class="gray">عدد صفر یعنی تمام کلمات عبور قبلی</small>
                             </div>
-
-                            
                         </div>
-                        
+
                         <div class="field">
                             <label>آدرس سامانه</label>
                             <input type="text" ng-model="model.extra.host" />
                             <small class="desc">این آدرس برای ایجاد لینک سامانه در پیام‌ کوتاه و پست الکترونیک کاربرد دارد. برای مثال https://example.ir</small>
                         </div>
-
 
                         <div class="field" ng-show="securityCertPatch">
                             <sadaf-checkbox ng-model="model.extra.dontShowVersions">عدم نمایش شماره نسخه در صفحه لاگین</sadaf-checkbox>
@@ -684,9 +680,11 @@
                             </div>
 
                             <div class="ui secondary segment" ng-show="model.commonPassword.enable">
-                                <p>یک منبع داده شامل کلمه عبورهای معمولی به سامانه معرفی کنید تا زمانی که کاربر کلمه عبور جدید تعریف می‌کند، سامانه با کلمه عبورهای معرفی شده 
-                                    مقایسه کرده و در صورت وجود آن، از تنظیم توسط کاربر، جلوگیری کند. </p>
-                                <div class="field" >
+                                <p>
+                                    یک منبع داده شامل کلمه عبورهای معمولی به سامانه معرفی کنید تا زمانی که کاربر کلمه عبور جدید تعریف می‌کند، سامانه با کلمه عبورهای معرفی شده
+                                    مقایسه کرده و در صورت وجود آن، از تنظیم توسط کاربر، جلوگیری کند.
+                                </p>
+                                <div class="field">
                                     <div class="ui button" ng-click="selectDatasource()">انتخاب منبع داده</div>
                                     <b> {{model.commonPassword.datasource.name}}</b>
                                 </div>
@@ -706,11 +704,7 @@
                         <br />
                         <br />
 
-                        <div>
-
-
-                        </div>
-
+                        <div></div>
 
                         <div class="ui red message" ng-show="error"><strong>خطا!</strong> <span ng-bind-html="error"></span></div>
 
@@ -718,13 +712,11 @@
                             <md-button ng-click="save($event)" ng-disabled="saveProgress">
                                 {{saveProgress == false ? ('ذخیره' | translate) : ('در حال ذخیره‌سازی' | translate)}}
                             </md-button>
-                            
+
                             <md-button ng-click="cancel()"> {{'cancel' | translate}} </md-button>
                             <div class="tw-flex-1"></div>
                             <md-button ng-show="securityCertPatch" ng-click="setdefaultSecureSetings()"> اعمال تنظیمات پیشفرض امنیتی </md-button>
-                            <div>
-                            </div>
-
+                            <div></div>
                         </div>
                     </div>
                 </div>

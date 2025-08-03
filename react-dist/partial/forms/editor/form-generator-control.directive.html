@@ -27,8 +27,13 @@
     <div ng-if="model.type==22" style="width: 100%;">
         <sadafgroup settings="settings" page="page" ng-model="model" change="changeValue(model)" edit-context="editContext" id="{{id}}" edit="{{edit}}"></sadafgroup>
     </div>
+    
     <div ng-if="model.type==27" style="width: 100%;">
         <sadaf-picture settings="settings" page="page" ng-model="model" change="changeValue(model)" edit-context="editContext" id="{{id}}" edit="{{edit}}"></sadaf-picture>
+    </div>
+    
+    <div ng-if="model.type==28" style="width: 100%;">
+        <ng-form-sign settings="settings" page="page" ng-model="model" change="changeValue(model)" edit-context="editContext" id="{{id}}" edit="{{edit}}"></ng-form-sign>
     </div>
 
     <div ng-if="model.type==23">
