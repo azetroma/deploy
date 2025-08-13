@@ -302,7 +302,16 @@
                                                 <label>محدوده تاریخ</label>
                                             </div>
                                             <div class="ten wide field">
-                                                <sadaf-calendar-range type="number" ng-model="rule.date"></sadaf-calendar-range>
+                                                <!-- <sadaf-calendar-range type="number" ng-model="rule.date"></sadaf-calendar-range>rule.date={{rule.date |json}} -->
+                                                <div class="tw-flex tw-flex-row">
+                                                    <div class="tw-flex-1">
+                                                        <ng-sadaf-calendar label="" [date]="rule.date.from" (model-change)="changeDate($event, rule, 'from')"></ng-sadaf-calendar>
+                                                    </div>
+                                                    <div class="tw-mx-3">تا</div>
+                                                    <div class="tw-flex-1">
+                                                        <ng-sadaf-calendar label="" [date]="rule.date.to" (model-change)="changeDate($event, rule, 'to')"></ng-sadaf-calendar>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="fields">
