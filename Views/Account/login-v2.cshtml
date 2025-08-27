@@ -283,7 +283,23 @@
 
         })();
     </script>
-
+    <script type="text/javascript">
+        // جلوگیری از بازگشت به عقب
+        // جلوگیری از بازگشت به عقب در مرورگر
+        window.onload = function () {
+            // After the logout, the user is redirected to a confirmation page.
+            // This script on the confirmation page will effectively block the back button.
+            if (window.history && window.history.pushState) {
+                // Pushes a new state onto the history stack.
+                // When the user presses back, they'll go to this confirmation page (effectively).
+                window.history.pushState('forward', null, location.href);
+                window.onpopstate = function () {
+                    // Forces the browser to stay on this page, effectively blocking the back button.
+                    window.history.forward();
+                };
+            }
+        };
+    </script>
 
     <div id="last-changes" class="ui modal">
         <i class="close icon"></i>
