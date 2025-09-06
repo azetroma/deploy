@@ -51,7 +51,6 @@
                                 ng-class="[{'highlight-control':component.highlight}, page.feildClass]"
                             ></form-control>
                         </div>
-                        <div class="ui message red !tw-shadow-none" ng-show="header.error">{{page.error}}</div>
                     </div>
                 </div>
 
@@ -112,7 +111,12 @@
                                     ng-class="[{'highlight-control' :component.highlight}]"
                                 ></form-control>
                             </div>
-                            <div class="ui message red !tw-shadow-none" ng-show="page.error">{{page.error}}</div>
+                            <div class="ui message red !tw-shadow-none" ng-show="page.error">
+                                {{page.error}}
+                                <div class="tw-block tw-px-2" ng-repeat="f in page.fields">
+                                    • <b>{{f.parent}}<span ng-if="f.parent">::</span>{{f.caption}}</b> <small>{{f.error}}</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -152,7 +156,11 @@
         </div>
     </div>
 
-    <div class="actions !tw-text-right" ng-if="(footer && !readonlyForm) && !data.clientModelParsed.hideActionbar" ng-style="{'background-color': (data.clientModelParsed.footerColor || '##f9fafb')}">
+    <div
+        class="actions !tw-text-right"
+        ng-if="(footer && !readonlyForm) && !data.clientModelParsed.hideActionbar"
+        ng-style="{'background-color': (data.clientModelParsed.footerColor || '##f9fafb')}"
+    >
         <div ng-show="footer" class="form-page ui form" ng-class="page.size">
             <div class="ui grid stackable content-form">
                 <form-control
@@ -166,7 +174,6 @@
                     ng-class="[{'highlight-control':component.highlight}, page.feildClass]"
                 ></form-control>
             </div>
-            <div class="ui message red !tw-shadow-none" ng-show="page.error">{{page.error}}</div>
         </div>
     </div>
     <div class="actions" ng-if="!readonlyForm && !data.clientModelParsed.hideActionbar" ng-style="{'margin-top':settings.modal ? '0':'40px', 'min-height':'64px'}">
