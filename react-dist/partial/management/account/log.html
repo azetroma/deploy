@@ -36,6 +36,20 @@
                     </div>
                     <div><md-checkbox ng-model="model.beginEndAllActionsLog" style="margin: -5px 0">لاگ شروع و پایان تمام درخواست‌ها به سرور </md-checkbox></div>
 
+                    <div class="field">
+                        <label>عدم لاگ گرفتن از موفق بودن عملیات زیر</label>
+                        <sm-dropdown
+                            class="selection multiple fluid search"
+                            model="model.ignoreSuccessTypes"
+                            items="typeKeys"
+                            label="item.value"
+                            value="item.key"
+                        />
+                        <small>در صورتی که هر یک از علمیات انتخاب شده با موفقیت انجام شوند، لاگی در سامانه ثبت نمی‌شود.</small>
+                    </div>
+
+
+
                     <!--<div><md-checkbox ng-model="model.heartbeat" style="margin:5px 0">سیگنال آنلاین بودن کاربر</md-checkbox>   </div>-->
                     <br />
                     <br />
@@ -146,9 +160,9 @@
                             <tr>
                                 <th
                                     ng-repeat="t in [
-                                {name:'سطح', key:'level'},
-                                {name:'تاریخ', key:'date'},
-                                {name:'زمان', key:'time'},
+                                    {name:'سطح', key:'level'},
+                                    {name:'تاریخ', key:'date'},
+                                    {name:'زمان', key:'time'},
                                     {name:'IP', key:'ip'},
                                     {name:'نام کاربری', key:'username'},
                                     {name:'مرورگر', key:'agent'},
@@ -175,7 +189,10 @@
                                 ></select
                                 ><i class="ui icon close" ng-click="filters.level = null;filter()"></i>
                             </td>
-                            <td class="field"><input ng-model="filters.date" ng-model-options="{ debounce: 400 }" ng-change="filter()" type="text" /></td>
+                            <td class="field">
+                                <sadaf-calendar ng-model="date" ng-change="setDate()" ></sadaf-calendar>
+
+                                <!-- <input ng-model="filters.date" ng-model-options="{ debounce: 400 }" ng-change="filter()" type="text" /></td> -->
                             <td class="field"><input ng-model="filters.time" ng-model-options="{ debounce: 400 }" ng-change="filter()" type="text" /></td>
                             <td class="field"><input ng-model="filters.ip" ng-model-options="{ debounce: 400 }" ng-change="filter()" type="text" /></td>
                             <td class="field"><input ng-model="filters.username" ng-model-options="{ debounce: 400 }" ng-change="filter()" type="text" /></td>
