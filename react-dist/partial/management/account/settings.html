@@ -53,20 +53,25 @@
                     <br />
                     <div class="ui form sadaf-form settings">
                         <div ng-show="securityCertPatch">
-                            <div class="ui button field" ng-class="{loading : certCheckProgress, disabled: certCheckProgress}" ng-click="checkSmsCert()">
-                                بررسی و تایید گواهینامه سرور پیام کوتاه
+                            <div class="field !tw-mb-4">
+                                <sadaf-checkbox ng-model="model.extra.ignoreSmsCert">در نظر نگرفتن گواهینامه سرور پیام کوتاه </sadaf-checkbox>
                             </div>
-                            <span class="" ng-class="{green :model.smsApprovedHash.length, red:!model.smsApprovedHash.length }">
-                                <span ng-show="model.smsApprovedHash.length || invelidCert===false">گواهینامه سرور پیامک مورد تایید است</span>
-                                <span ng-show="!model.smsApprovedHash.length  "> قبلا تایید نشده است </span>
-                                <i class="ui icon" ng-class="{'check green' :model.smsApprovedHash.length || !invelidCert, close:!model.smsApprovedHash.length }"></i>
-                                <i
-                                    class="ui icon alternate outline trash"
-                                    ng-click="clearApprovedSmsCert()"
-                                    ng-show="model.smsApprovedHash.length"
-                                    title="حذف تاییدیه گواهینامه"
-                                ></i>
-                            </span>
+                            <div ng-if="!model.extra.ignoreSmsCert">
+                                <div class="ui button field" ng-class="{loading : certCheckProgress, disabled: certCheckProgress}" ng-click="checkSmsCert()">
+                                    بررسی و تایید گواهینامه سرور پیام کوتاه
+                                </div>
+                                <span class="" ng-class="{green :model.smsApprovedHash.length, red:!model.smsApprovedHash.length }">
+                                    <span ng-show="model.smsApprovedHash.length || invelidCert===false">گواهینامه سرور پیامک مورد تایید است</span>
+                                    <span ng-show="!model.smsApprovedHash.length  "> قبلا تایید نشده است </span>
+                                    <i class="ui icon" ng-class="{'check green' :model.smsApprovedHash.length || !invelidCert, close:!model.smsApprovedHash.length }"></i>
+                                    <i
+                                        class="ui icon alternate outline trash"
+                                        ng-click="clearApprovedSmsCert()"
+                                        ng-show="model.smsApprovedHash.length"
+                                        title="حذف تاییدیه گواهینامه"
+                                    ></i>
+                                </span>
+                            </div>
                         </div>
 
                         <a class="ui primary button field" ng-show="compareData" ng-href="{{app.hashUrlPrefix}}#/compare-data">همگام‌سازی داده‌ها با سرور دوم</a>

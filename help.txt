@@ -3,3 +3,8 @@
 	
 	
 	reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\HTTP\Parameters /v DisableServerHeader /t REG_DWORD /d 2
+	net stop http
+	net start http
+	
+	Disable-TlsEccCurve -Name curve25519
+	Enable-TlsEccCurve -Name secp256r1, secp384r1, secp521r1
