@@ -382,25 +382,14 @@
     <sadaf-checkbox ng-model="model.preventCache">جلوگیری از کش (Cache) کردن داده‌های این نمودار</sadaf-checkbox>
 </div>
 
+<div class="form-row">
+    <sadaf-checkbox ng-model="model.customExcelColumns">انتخاب ستون‌ها در خروجی اکسل</sadaf-checkbox>
+</div>
 
-<!--<div class="form-row" layout="row" layout-align="start center">
-    <div class="col-sm-offset-4 col-sm-8">
-        <div class="checkbox">
-            <label class="">
-                <input type="checkbox" ng-model="props.levelTypes.enable" ng-change="change()" /> تغییر نمودار در لایه‌های بعدی
-            </label>
-        </div>
+
+<div class="form-row" layout="row" layout-align="start center" ng-show="model.customExcelColumns">
+    <div class="col-sm-8">
+        <sm-dropdown class="selection search mini multiple" model="model.excelColumns" items="props.series" label="item" value="item"></sm-dropdown>
     </div>
 </div>
-<div ng-show="props.levelTypes.enable" class="ui secondary segment">
-    <div class="ui icon compact mini button" ng-click="addChartType()"> <i class="icon add"></i> اضافه کردن سطح</div>
-    {{props.levelTypes.types}}
-    <div class="form-row" layout="row" layout-align="start center" ng-repeat="i in props.levelTypes.types">
-        <label class="col-sm-4">سطح {{$index+2}}</label>
-        <span class="form-divider" flex></span>
-        <div class="col-sm-8">
-            <select class="form-control" ng-model="i.type"
-                    ng-options="i.id as i.name for i in [ {id:1, name:'میله‌ای'}, {id:2, name:'pie'},{id:3, name:'table'}]"></select>
-        </div>
-    </div>
-</div>-->
+

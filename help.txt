@@ -8,3 +8,5 @@
 	
 	Disable-TlsEccCurve -Name curve25519
 	Enable-TlsEccCurve -Name secp256r1, secp384r1, secp521r1
+	
+	
