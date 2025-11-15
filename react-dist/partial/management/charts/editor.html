@@ -103,10 +103,11 @@
                                         <div layout="row" layout-align="start center" class="datasource-item">
                                             <i class="ui icon angle left material-icons icon-animate pointer right-arrow" ng-click="u.expand = !u.expand" ng-class="{'rotate-90' : !u.expand}"></i>
                                             <div ng-click="u.expand = !u.expand" layout="row" class="pointer">
-                                                <span>{{u.Name}} <small class="gray "><small> {{u.UniqueName}}</small></small></span>
+                                                <span>{{u.Name}} </span>
                                             </div>
                                             <span flex></span>
 
+                                            <label class="ui mini label compact !tw-p-2 !tw-leading-[0.1em]"> {{u.UniqueName}}</label>
                                             <span class="material-icons small small-size pointer" ng-click="removeRelatedDatasource($index, u)" ng-hide="$index==0" title="{{'remove' | translate}}">
                                                 remove
                                             </span>
@@ -120,7 +121,7 @@
 
                                             <div class="pointer datasource-field" ng-hide="hide(i, 'check-name')" ng-repeat="i in u.Hierarchies"
                                                  index="{{$index}}" dimindex="{{$parent.$index}}" draggable-items>
-                                                <span ng-click="addToChart(i)">
+                                                <span ng-click="addToChart(i, u)">
                                                     <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png" class="chart-editor-data-hicon tw-inline-block" />
                                                     {{i.Name}}
                                                 </span>
@@ -615,6 +616,7 @@
                         <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png">
                         {{i.Name}}
                         <span flex></span>
+                        <label class="ui mini label compact !tw-p-2 !tw-leading-[0.1em]"> {{i.datasource}}</label>
                         <span class="material-icons small small-size " ng-click="filterMember(i)">filter_list</span>
                         <i ng-if="i.isFilter" title="پاک کردن فیلتر" class="ui link icon eraser" ng-click="clearFilter(i)"></i>
                           
@@ -632,8 +634,9 @@
                     <div flex layout="row" layout-align="start center" ng-click="gotoMeasureSettings(i, $index)" ng-repeat="i in measures track by $index" class="pointer datasource-item">
                         <span class="material-icons small small-size" ng-click="measures.splice($index,1);refreshChart();invalidateDims();">close</span>
                         <img ng-src="{{app.urlPrefix}}Images/{{i.type && i.type=='measure' ? 'measure' :i.type && i.type=='kpi' ? 'kpi' :'hierarchy1'}}.png">
-                        {{i.Name}} 
+                        <span title="{{i.UniqueName}}">{{i.Name}}</span>
                         <span flex></span>
+                        <label class="ui mini label compact !tw-p-2 !tw-leading-[0.1em]"> {{i.datasource}}</label>
                         <span class="material-icons small small-size" ng-click="filterMember(i)" ng-show="((!i.aggregation || i.aggregation=='NONE') && !i.type) || (i.type!='measure' && i.type!='kpi')">filter_list</span>
                         <i ng-if="i.isFilter" title="پاک کردن فیلتر" class="ui link icon eraser" ng-click="clearFilter(i)"></i>
                     </div>
@@ -661,6 +664,7 @@
                         <img ng-src="{{app.urlPrefix}}Images/hierarchy1.png">
                         {{i.Name}}
                         <span flex></span>
+                        <label class="ui mini label compact !tw-p-2 !tw-leading-[0.1em]"> {{i.datasource}}</label>
                         <span class="material-icons small small-size" ng-click="filterMember(i)">filter_list</span>
                         <i ng-if="i.isFilter" title="پاک کردن فیلتر" class="ui link icon eraser" ng-click="clearFilter(i)"></i>
                     </div>

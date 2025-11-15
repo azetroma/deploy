@@ -693,22 +693,36 @@
                             <sadaf-checkbox ng-model="model.smsDatasource.enable">وب سرویس پیامک</sadaf-checkbox>
                         </div>
                         <div class="ui secondary segment" ng-show="model.smsDatasource.enable">
-                            <p>
-یک منبع داده از نوع وب سرویس انتخاب کنید و پارامترهای زیر را در آن تنظیم کنید
-<ul >
-    <li> <b>@(body)</b> متن پیامک</li>
-    <li> <b>@(contacts)</b> لیست شماره تماس‌ها</li>
-    <li> <b>@(divider)</b> الگوی جدا کننده شماره تماس‌ها</li>
-</ul>
-
-</p>
+                            <div>
+                                یک منبع داده از نوع وب سرویس انتخاب کنید و پارامترهای زیر را در آن تنظیم کنید
+                                <ul>
+                                    <li><b>@body</b> متن پیامک</li>
+                                    <li><b>@contacts</b> لیست شماره تماس‌ها</li>
+                                </ul>
+                            </div>
+                            <div class="fields">
+                                <div class="field">
+                                    <label class="!tw-text-right">پیشوند شماره تماس</label>
+                                    <input ng-model="model.smsDatasource.contactPrefix" />
+                                </div>
+                                <div class="field">
+                                    <label class="!tw-text-right">پسوند شماره تماس</label>
+                                    <input ng-model="model.smsDatasource.contactPostfix" />
+                                </div>
+                                <div class="field">
+                                    <label class="!tw-text-right">جداکننده شماره تماس</label>
+                                    <input ng-model="model.smsDatasource.contactSeparator" />
+                                </div>
+                                <div class="field">
+                                    <label class="!tw-text-right">کاراکتر خط جدید</label>
+                                    <input ng-model="model.smsDatasource.newline" />
+                                </div>
+                            </div>
                             <div class="field">
                                 <div class="ui button" ng-click="selectDatasource('sms')">انتخاب منبع داده</div>
                                 <b> {{model.smsDatasource.datasource.name}}</b>
                             </div>
-
                         </div>
-
 
                         <div class="!tw-mt-4" ng-show="securityCertPatch">
                             <div class="field">
