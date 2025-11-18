@@ -253,7 +253,7 @@
                         <i class="delete icon" ng-click="removeDrillDown($index)"></i>
                     </div>
 
-                    <div ng-repeat="i in userControlFilter " ng-if="i.values && i.values.length" class="ui label" title="{{i.values.join(', ')}}">
+                    <div ng-repeat="i in userControlFilter " ng-if="i.values && i.values.length && !i.hide" class="ui label" title="{{i.values.join(', ')}}">
                         <b>{{i.label}}: </b> <span ng-bind-html="i.Caption"></span>
                         <i class="delete icon" ng-hide="i.disableClear" ng-click="removeUserControl($index)"></i>
                     </div>
