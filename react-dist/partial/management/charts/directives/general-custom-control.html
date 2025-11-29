@@ -175,9 +175,10 @@
     >
         <label class="col-sm-4">{{ item.title }}</label>
         <span class="form-divider" flex></span>
-        <sm-dropdown class="selection multiple" items="series" onChange="onchange()" model="parent[item.key]"></sm-dropdown>
+        <!-- <sm-dropdown class="selection multiple" items="series" onChange="onchange()" model="parent[item.key]"></sm-dropdown> -->
+        <sadaf-select [items]="seriesMap" search multiple="true" [model]="parent[item.key]" (model-change)="mm(parent,item.key,$event)"></sadaf-select>
     </div>
-
+    
     <div ng-if="item.type == 'forecast' && (!item.if ||  parent[item.if.key] == item.if.value) && item._show!==false && (!item.showIfComboKpi || externalprop.isComboKpi)">
         <forecast-settings ng-model="parent[item.key]" ng-change="onchange()"></forecast-settings>
     </div>

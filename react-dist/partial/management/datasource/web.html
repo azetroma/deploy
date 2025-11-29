@@ -80,6 +80,7 @@
                             </div>
 
                             <div ng-show="model.type == 'JSON' || model.type == 'SOAP'">
+    
                                 <div class="field">
                                     <label>اجرای کد روی خروجی</label>
 
@@ -92,6 +93,10 @@
                                         در صورتی که لازم باشد داده‌ای به منبع داده اضافه نشود یک رشته خالی '' برگردانده شود.
                                     </small>
                                 </div>
+                                <div class="field">
+                                    <sadaf-checkbox ng-model="model.correctJson">اصلاح رشته جیسون</sadaf-checkbox>
+                                </div>
+
                             </div>
 
                             <br />
