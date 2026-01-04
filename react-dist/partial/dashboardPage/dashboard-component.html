@@ -344,7 +344,9 @@
             <div ng-hide="modal.error.title" ng-bind-html="modal.error"></div>
         </div>
 
-        <datasource-permission ng-model="modal.permissions" class="block" conf="modal.conf"></datasource-permission>
+        <div ng-if="renderPermission" style="" class="tw-max-h-60 tw-overflow-y-auto">
+            <datasource-permission ng-model="modal.permissions" class="block" conf="modal.conf"></datasource-permission>
+        </div>
     </div>
     <div class="actions">
         <div class="ui button black" ng-click="hideModal()">{{'انصراف' | translate}}</div>

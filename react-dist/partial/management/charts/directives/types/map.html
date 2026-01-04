@@ -583,9 +583,8 @@
 
                 <!--{{ngModel.map.info.showLatLng | json}}-->
 
-
                 <div ng-repeat="item in appCharts.map.template.general">
-                    <general-custom-control selected-series="ngModel.selectedSeries" series="ngModel.series" parent="appCharts.map.template.general" prop="ngModel[type]" item="item" change="refreshChart(item.refreshMode ||'refresh');changeAllSeries(item.key)"></general-custom-control>
+                    <general-custom-control selected-series="ngModel.selectedSeries" series="ngModel.series" parent="ngModel[type].general" prop="ngModel[type]" item="item" change="refreshChart(item.refreshMode ||'refresh');changeAllSeries(item.key)"></general-custom-control>
                     <small ng-if="item.desc">{{item.desc}}</small>
                     <div ng-if="item.type=='section' && (!item.if ||  appCharts.map.template.general[item.if.key] == item.if.value)" style=" padding: 10px; margin: 10px 0px; background-color: rgb(239, 239, 239); border-radius: 4px;">
                         <div ng-repeat="i in item.items">
