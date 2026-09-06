@@ -16,7 +16,7 @@
 
                 <md-content layout-padding>
                     <div>
-                        <form name="userForm"  autocomplete="off">
+                        <form name="userForm" autocomplete="off">
                             <div class="ui form">
                                 <div class="fields" flex>
                                     <div class="four wide column field" flex>
@@ -26,7 +26,7 @@
                                             <div ng-message="required">{{'form_username_required' | translate}}</div>
                                         </div>
                                     </div>
-    
+
                                     <div class="four wide column field" flex>
                                         <label>{{'name' | translate}}</label>
                                         <input required name="fname" ng-model="model.FirstName" autocomplete="off" />
@@ -34,7 +34,7 @@
                                             <div ng-message="required">{{'form_name_required' | translate}}</div>
                                         </div>
                                     </div>
-    
+
                                     <div class="four wide column field" flex>
                                         <label>{{'last_name' | translate}}</label>
                                         <input required name="lname" ng-model="model.LastName" autocomplete="off" />
@@ -43,9 +43,9 @@
                                         </div>
                                     </div>
                                 </div>
-    
+
                                 <input style="width: 1px; height: 1px; position: fixed; z-index: -1" type="password" autocomplete="off" />
-    
+
                                 <div class="fields">
                                     <div class="six wide column field">
                                         <label>{{'profile_password_new' | translate}}</label>
@@ -63,34 +63,39 @@
                                             <input type="{{showPassword ? 'text' : 'password'}}" ng-model="model.PasswordRepeat" autocomplete="off" />
                                             <i class="icon ui eye link" title="نمایش کلمه عبور" ng-class="{green: showPassword}" ng-click="showPassword = !showPassword"></i>
                                         </div>
-    
+
                                         <div ng-messages="userForm.name.$error">
                                             <div ng-message="required">{{'form_name_required' | translate}}</div>
                                         </div>
                                     </div>
                                 </div>
-    
+
                                 <div class="fields">
                                     <div class="six wide column field">
                                         <label>{{'profile_phone' | translate}}</label>
                                         <input type="tel" ng-model="model.Mobile" />
                                     </div>
-    
+
                                     <div class="six wide column field">
                                         <label>{{'profile_email' | translate}}</label>
-                                        <input type="email" ng-model="model.Email" autocomplete="off" ng-pattern="/^.+@.+\..+$/" />
+                                        <input
+                                            type="email"
+                                            ng-model="model.Email"
+                                            autocomplete="off"
+                                            ng-pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/"
+                                            name="Email"
+                                        />
                                         <div ng-messages="userForm.email.$error">
                                             <div ng-message="pattern">{{'email_pattern_error' | translate}}</div>
                                         </div>
                                     </div>
                                 </div>
-    
+
                                 <div class="field">
                                     <label>سازمان</label>
                                     <input type="text" ng-model="model.organization" />
                                 </div>
                             </div>
-                    
 
                             <md-switch ng-model="model.PasswordPolicy">
                                 <md-tooltip>
@@ -108,9 +113,10 @@
 
                             <div class="field" ng-show="model.PasswordPolicy">
                                 <sadaf-checkbox ng-model="model.passwordPolicyUseEntropy"> استفاده از آنتروپی</sadaf-checkbox>
-                                <br/>
-                                <small class="desc">در حالت آنتروپی، به جای اینکه کاربر مجبور به استفاده از کاراکترها یا علامت‌های 
-                                    خاص در کلمه عبور باشد، پیچیدگی کلمه عبور به صورت خودکار محاسبه می‌شود.
+                                <br />
+                                <small class="desc"
+                                    >در حالت آنتروپی، به جای اینکه کاربر مجبور به استفاده از کاراکترها یا علامت‌های خاص در کلمه عبور باشد، پیچیدگی کلمه عبور به صورت خودکار محاسبه
+                                    می‌شود.
                                 </small>
                             </div>
 
@@ -127,7 +133,6 @@
                                     value="item.val"
                                 ></sm-dropdown>
                             </div>
-
 
                             <md-switch ng-model="model.ForceChangePass"> {{'force change password' | translate}} </md-switch>
 
@@ -433,13 +438,13 @@
 
             <md-card ng-show="testResult" flex>
                 <md-content style="max-height: 200px" id="card-resize" layout="column" flex>
-                    <div ng-bind-html="testResult" flex></div>
+                    <div ng-bind-html="testResult | sanitize" flex></div>
                 </md-content>
             </md-card>
 
             <md-card ng-show="error" layout="row" flex>
                 <md-content style="background-color: #f2dede" layout="column" flex layout-padding>
-                    <div ng-bind-html="error" flex></div>
+                    <div ng-bind-html="error | sanitize" flex></div>
                 </md-content>
             </md-card>
         </div>

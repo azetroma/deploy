@@ -10,7 +10,7 @@
                 <map-selector prop="ngModel.map.info.map"></map-selector>
 
                 <div class="form-row" layout="row" layout-align="start center" ng-show="license.realMap">
-                    <label>{{ 'نوع نقشه' | translate }}</label>
+                    <!-- <label>{{ 'نوع نقشه' | translate }}</label> -->
                     <span class="form-divider" flex></span>
                     <select ng-model="ngModel.map.info.mapType" ng-change="refreshChart('refresh')"
                             ng-options="i.value as  i.name for i in [
@@ -108,7 +108,7 @@
                 </div>
 
                 <div class="form-row" layout="row" layout-align="start center">
-                    <label class="col-sm-4">{{ 'رنگ مرزها' | translate }}</label>
+                    <!-- <label class="col-sm-4">{{ 'رنگ مرزها' | translate }}</label> -->
                     <span class="form-divider" flex></span>
                     <div class="col-sm-8">
                         <!-- <div md-color-picker ng-model="ngModel.map.info.borderColor" md-color-default-tab="'genericPalette'" on-change="refreshChart('refresh')"></div> -->
@@ -609,9 +609,6 @@
         <menu-header>{{ 'مشخصات شاخص‌ها' | translate }}</menu-header>
         <menu-body>
             <div>
-
-
-
 
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'شاخص' | translate }}</label>

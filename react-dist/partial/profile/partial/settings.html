@@ -22,7 +22,7 @@
     </div>
 
     <div class="ui secondary inverted segment" ng-class="{'red': error, 'green': success}" ng-show="result">
-        <p ng-bind-html="message"></p>
+        <p ng-bind-html="message | sanitize"></p>
     </div>
 
     <a class="ui blue button" ng-click="updateSettings()">{{'ذخیره' | translate}}</a>

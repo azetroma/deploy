@@ -317,7 +317,7 @@
 
             <md-card ng-show="error" layout="row" flex>
                 <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
-                    <div ng-bind-html="error" flex></div>
+                    <div ng-bind-html="error | sanitize" flex></div>
                 </md-content>
             </md-card>
 
@@ -388,7 +388,7 @@
                 <div layout="column" layout-align="center center">
                     <md-progress-circular ng-hide="explor" md-mode='indeterminate'></md-progress-circular>
                 </div>
-                <div ng-bind-html="explor"></div>
+                <div ng-bind-html="explor | sanitize"></div>
 
             </md-dialog-content>
         </form>

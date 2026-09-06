@@ -66,6 +66,23 @@
                                     <div ng-message="required">{{'form_url_required' | translate}}</div>
                                 </div>
                             </div>
+
+                            <div class="field" ng-show="model.type == 'WFS' && !fields">
+                                <label>نام ستون شناسه</label>
+                                <input class="ltr" ng-model="model.wfsIdColumn" />
+                                <small class="gray">به صورت پیش فرض نام ستون شناسه OBJECTID در نظر گرفته می‌شود.</small>
+                            </div>
+
+                            <div class="field" ng-show="model.type == 'WFS' && !!fields">
+                                <label>نام ستون شناسه</label>
+                                <sm-dropdown
+                                    items="fields"
+                                    class="fluid selection search"
+                                    model="model.wfsIdColumn"
+                                ></sm-dropdown>
+                                <small class="gray">به صورت پیش فرض نام ستون شناسه OBJECTID در نظر گرفته می‌شود.</small>
+                            </div>
+
                             <div class="three fields">
                                 <div class="field">
                                     <sadaf-checkbox ng-model="model.ignoreSsl">عدم بررسی گواهینامه ssl</sadaf-checkbox>
@@ -81,7 +98,7 @@
                                 <div class="field">
                                     <label>Timeout</label>
                                     <input required type="number" name="timeout" class="ltr" ng-model="model.timeout" />
-                                    <small class="gray"> زمانی که برای دریافت دریافت داده باید منتظر بماند (به دقیقه) </small>
+                                    <small class="gray"> زمانی که برای دریافت دریافت داده باید منتظر بماند (به ثانیه) </small>
                                 </div>
                             </div>
 
@@ -95,6 +112,8 @@
                                     <!--<textarea spellcheck="false" ng-model="model.jsonPostProcess" class="ltr" rows="5" style="min-height:100px; font-family:monospace"></textarea>-->
                                     <small class="gray">
                                         داده‌های خروجی در قالب شی data در دسترس هستند. کد نوشته شده باید یک شی به عنوان خروجی با کلید واژه return داشته باشد.
+                                        <br />
+                                        مقادیر Header در متغیری به نام headers ذخیره می‌شود. مثال headers["Content-Type"]
                                         <br />
                                         در صورتی که لازم باشد داده‌ای به منبع داده اضافه نشود یک رشته خالی '' برگردانده شود.
                                     </small>
@@ -588,7 +607,7 @@
 
             <md-card ng-show="testResult" flex>
                 <md-content style="max-height: 200px" id="testResult" layout="column" flex>
-                    <div ng-bind-html="testResult" flex></div>
+                    <div ng-bind-html="testResult | sanitize" flex></div>
                 </md-content>
             </md-card>
         </div>

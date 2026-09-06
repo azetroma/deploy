@@ -193,7 +193,7 @@
 
 
     <div class="field chart-container" ng-if="model.type == 25"  ng-style="{margin: model.uiConfig.margin, minHeight:( model.uiConfig.minHeight||'150')+'px'}">
-        <chart model="model" style="width:100%; height:100%"></chart>
+        <chart model="model" style="width:100%; height:100%" change="changeValue()"  ></chart>
     </div>
 
     <div class="field {{model.validations.isRequire ? 'required' : ''}}" ng-class="{required : model.validations.isRequire, error: model.error, disabled: model.validations.isDisable}" ng-if="model.type == 9">

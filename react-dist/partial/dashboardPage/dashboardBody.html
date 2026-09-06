@@ -125,7 +125,7 @@
                  class="filter-box-item"
                  title="{{'clear'| translate}}">
                 <a ng-click="clearAll()" class="pointer"><b>{{'clear'| translate}}</b></a>
-                <div class="filter-box-item-content" xng-bind-html="i.Caption"> &nbsp;{{'clear all filters'| translate}}  </div>
+                <div class="filter-box-item-content" xng-bind-html="i.Caption| sanitize"> &nbsp;{{'clear all filters'| translate}}  </div>
             </div>
 
 
@@ -133,7 +133,7 @@
                  class="filter-box-item"
                  title="{{j.value}}">
                 <div><b>{{j.key}}</b></div>
-                <div class="filter-box-item-content" xng-bind-html="i.Caption"> &nbsp;{{j.value}}  </div>
+                <div class="filter-box-item-content" xng-bind-html="i.Caption | sanitize"> &nbsp;{{j.value}}  </div>
                 <span class="small-icon pointer bold filter-box-item-close" ng-click="removeDrillDown($index)"> &times;</span>
             </div>
 
@@ -144,7 +144,7 @@
                  class="filter-box-item"
                  title="{{i.values.join(', ')}}">
                 <div><b>{{i.key}}</b></div>
-                <div class="filter-box-item-content" ng-bind-html="i.Caption"> &nbsp; {{i.Caption}} </div>
+                <div class="filter-box-item-content" ng-bind-html="i.Caption | sanitize"> &nbsp; {{i.Caption}} </div>
                 <span class="small-icon pointer bold filter-box-item-close" ng-click="removeUserControl($index)"> &times;</span>
             </div>
         </div>

@@ -254,7 +254,7 @@
                     </div>
 
                     <div ng-repeat="i in userControlFilter " ng-if="i.values && i.values.length && !i.hide" class="ui label" title="{{i.values.join(', ')}}">
-                        <b>{{i.label}}: </b> <span ng-bind-html="i.Caption"></span>
+                        <b>{{i.label}}: </b> <span ng-bind-html="i.Caption| sanitize"></span>
                         <i class="delete icon" ng-hide="i.disableClear" ng-click="removeUserControl($index)"></i>
                     </div>
                 </div>
@@ -269,7 +269,11 @@
                 border-radius: 0;
             }
         </style>
-
+<div>
+    <ai-chat 
+    placeholder="سوال خود را بپرسید">
+</ai-chat>
+</div>
         <ng-view></ng-view>
     </div>
 
@@ -318,7 +322,7 @@
     <i class="close icon"></i>
     <div class="header">{{'dashboard page edit' | translate}}</div>
     <div class="content">
-        <p ng-show="modal.body" ng-bind-html="modal.body"></p>
+        <p ng-show="modal.body" ng-bind-html="modal.body| sanitize"></p>
 
         <form class="ui form" autocomplete="off">
             <div class="field" ng-show="modal.label">
@@ -341,7 +345,7 @@
                 <b>{{modal.error.title}}</b>
                 <p>{{modal.error.desc}}</p>
             </div>
-            <div ng-hide="modal.error.title" ng-bind-html="modal.error"></div>
+            <div ng-hide="modal.error.title" ng-bind-html="modal.error| sanitize"></div>
         </div>
 
         <div ng-if="renderPermission" style="" class="tw-max-h-60 tw-overflow-y-auto">

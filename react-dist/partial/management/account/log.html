@@ -111,7 +111,7 @@
 
                     <div class="ui red message" role="alert" ng-show="error">
                         <strong>خطا!</strong>
-                        <span ng-bind-html="error"></span>
+                        <span ng-bind-html="error | sanitize"></span>
                     </div>
                 </div>
 

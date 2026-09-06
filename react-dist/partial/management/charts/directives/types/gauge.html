@@ -3,16 +3,26 @@
     <menu-item>
         <menu-header>{{ 'تنظیمات کلی' | translate }}</menu-header>
         <menu-body>
+
             <div>
 
                 <input type="hidden" data-prop="canExportXlsx" value="true" />
 
                 <general-settings datasource="datasource" api-key="apiKey" ng-model="ngModel.gauge.info" props="ngModel" ng-change="refreshChart('refresh')"></general-settings>
 
+                <div ng-repeat="item in ngModel.customChartSettingTemplat.general">
+                    <div ng-if="item.type=='section' && (!item.if || ngModel.gauge.general[item.if.key] == item.if.value)" class="prop-segment">
+                        <div class="tw-text-center tw-font-extrabold" ng-if="!!item.title">{{item.title}}</div>
+                        <div ng-repeat="i in item.items">
+                            <general-custom-control externalprop="externalprop" series="ngModel.series" parent="ngModel.gauge.general" prop="ngModel.gauge" item="i" change="refreshChart('refresh')"></general-custom-control>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 <div class="form-row" layout="row" layout-align="start center">
                     <label class="col-sm-4">{{ 'نوع' | translate }}</label>
                     <span class="form-divider" flex></span><div class="col-sm-8">
-                        <select ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.segmentType" class="selectpicker-x form-control"
+                        <select ng-change="refreshChart('refresh')" ng-model="ngModel.  gauge.info.segmentType" class="selectpicker-x form-control"
                                 ng-options="i.name as  i.value for i in [
                                     {name:'multiSegment', value: 'چند بخشی'  },
                                     {name:'singleSegment', value:'یک بخشی' },
@@ -388,9 +398,7 @@
             <div class="form-row" layout="row" layout-align="start center">
                 <div class="col-sm-offset-4 col-sm-8">
                     <div class="checkbox">
-                        <label class="">
-                            <input type="checkbox" ng-change="refreshChart('refresh')" ng-model="ngModel.gauge.info.scroll" checked="checked" /> {{ 'نمایش اسکرول' | translate }}
-                        </label>
+                        
                     </div>
                 </div>
             </div>

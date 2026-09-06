@@ -23,7 +23,7 @@
 
             <div class="alert alert-warning" role="alert" ng-show="error">
                 <button type="button" class="close" ng-click="error=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>خطا!</strong> <span ng-bind-html="error"></span>
+                <strong>خطا!</strong> <span ng-bind-html="error | sanitize"></span>
             </div>
 
 

@@ -28,7 +28,7 @@
     </div>
 
     <div class="ui inverted secondary segment" ng-class="{'red': error, 'green': success}" ng-show="result">
-        <p ng-bind-html="message"></p>
+        <p ng-bind-html="message | sanitize"></p>
     </div>
 
 

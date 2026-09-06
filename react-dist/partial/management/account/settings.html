@@ -577,6 +577,11 @@
                             <sadaf-checkbox ng-model="model.extra.enableCaptcha"> فعال بودن کپچا به صورت پیش فرض</sadaf-checkbox>
                         </div>
 
+                        <div class="field !tw-mt-4">
+                            <sadaf-checkbox ng-model="model.extra.ignoreActiveDirectoryCertificate">نادیده گرفتن گواهینامه سرور اکتیو دایرکتوری </sadaf-checkbox>
+                        </div>
+
+
                         <div class="field">
                             <label>موتور ایجاد ارتباط‌ها</label>
                             <sm-dropdown
@@ -757,7 +762,7 @@
 
                         <div></div>
 
-                        <div class="ui red message" ng-show="error"><strong>خطا!</strong> <span ng-bind-html="error"></span></div>
+                        <div class="ui red message" ng-show="error"><strong>خطا!</strong> <span ng-bind-html="error | sanitize"></span></div>
 
                         <div layout="row">
                             <md-button ng-click="save($event)" ng-disabled="saveProgress">

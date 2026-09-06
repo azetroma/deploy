@@ -294,7 +294,7 @@
                 </div>
 
                 <div class="ui segment red" ng-show="parent.error" style="margin-top:20px">
-                    <p ng-bind-html="parent.error"></p>
+                    <p ng-bind-html="parent.error | sanitize"></p>
                 </div>
             </div>
         </md-dialog-content>

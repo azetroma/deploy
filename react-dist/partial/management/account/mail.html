@@ -13,7 +13,7 @@
                     {{'email settings desc2' | translate}}
 
                     <a href="https://myaccount.google.com/security" target="_blank">https://myaccount.google.com/security</a>
-                    <span data-ng-bind-html="'email settings desc3' | translate | htmlSafe"></span>
+                    <span data-ng-bind-html="'email settings desc3' | translate | htmlSafe | sanitize"></span>
 
                 </p>
 
@@ -65,11 +65,11 @@
                     </md-input-container>
 
                     <div class="ui negative  message" ng-show="error">
-                        <strong>{{'error' | translate}}!</strong> <span ng-bind-html="error"></span>
+                        <strong>{{'error' | translate}}!</strong> <span ng-bind-html="error | sanitize"></span>
                     </div>
 
                     <div class="ui success  message" ng-show="message">
-                        <strong>{{'successfull run' | translate}}!</strong> <span ng-bind-html="message"></span>
+                        <strong>{{'successfull run' | translate}}!</strong> <span ng-bind-html="message | sanitize"></span>
                     </div>
 
                     <div style="direction: ltr" layout="row">

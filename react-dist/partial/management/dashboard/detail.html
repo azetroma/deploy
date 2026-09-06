@@ -142,7 +142,7 @@
                         <ng-notification-register xng-if="render" type="dashboard" [model]="model.notifications" (model-change)="updateModel($event)"></ng-notification-register>
                         <br />
 
-                        <div class="ui secondary inverted red segment" ng-show="error"><strong>خطا!</strong> <span ng-bind-html="error"></span></div>
+                        <div class="ui secondary inverted red segment" ng-show="error"><strong>خطا!</strong> <span ng-bind-html="error | sanitize"></span></div>
 
                         <div layout="row">
                             <div class="ui blue button" ng-click="save()" ng-class="{loading: saveProgress}">{{'ذخیره' | translate}}</div>

@@ -257,13 +257,13 @@
 
             <md-card ng-show="testResult" flex>
                 <md-content style="max-height:200px;" id="card-resize" layout="column" flex>
-                    <div ng-bind-html="testResult" flex style="overflow: auto;"></div>
+                    <div ng-bind-html="testResult | sanitize" flex style="overflow: auto;"></div>
                 </md-content>
             </md-card>
 
             <md-card ng-show="error" layout="row" flex>
                 <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
-                    <div ng-bind-html="error" flex></div>
+                    <div ng-bind-html="error | sanitize" flex></div>
                 </md-content>
             </md-card>
 

@@ -1,7 +1,7 @@
 ﻿<div class="comment-container">
     <div class="comments">
         <div ng-repeat="comment in comments">
-            <div ng-bind-html="comment.content"></div>
+            <div ng-bind-html="comment.content | sanitize"></div>
         </div>
     </div>
     <commnet-editor xng-model=""></commnet-editor>

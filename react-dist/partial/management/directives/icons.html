@@ -1,34 +1,42 @@
-﻿
-<div>
-
-    <md-menu style="display:inline-block" ng-if="hasIcon">
-        <div>
-            <span class="ui mini compact icon button" ng-click="$mdMenu.open($event)">انتخاب آیکن</span>
+﻿<div style="display: inline-flex; align-items: center; gap: 12px; vertical-align: middle;">
+  <md-menu style="display: inline-block" ng-if="hasIcon">
+    <div>
+      <span class="ui mini compact icon button" ng-click="$mdMenu.open($event)">انتخاب آیکن</span>
+    </div>
+    <md-menu-content>
+      <div style="width: 500px; overflow: auto" class="icons-menu">
+        <div class="ui fluid input" style="margin: 0 10px">
+          <input
+            type="text"
+            ng-model="filterIcons"
+            ng-change="filter(filterIcons)"
+            placeholder="{{'search' | translate}}"
+          />
         </div>
-        <md-menu-content>
-            <div style="width:500px; overflow:auto;" class="icons-menu">
-                <div class="ui fluid input" style="margin:0 10px">
-                    <input type="text" ng-model="filterIcons" ng-change="filter(filterIcons)" placeholder="{{'search' | translate}}">
-                </div>
-                <div>
-                    <style>
-                        .icons-menu i {
-                            padding: 14px;
-                            font-size: 16px;
-                        }
-                    </style>
-                    <div id="scrollArea{{id}}" class="clusterize-scroll" style="max-height:250px;overflow:auto;width:500px;">
-                        <table id="contentArea{{id}}" class="clusterize-content"></table>
-                    </div>
+        <div>
+          <style>
+            .icons-menu i {
+              padding: 14px;
+              font-size: 16px;
+            }
+          </style>
+          <div
+            id="scrollArea{{id}}"
+            class="clusterize-scroll"
+            style="max-height: 250px; overflow: auto; width: 500px"
+          >
+            <table id="contentArea{{id}}" class="clusterize-content"></table>
+          </div>
+        </div>
+      </div>
+    </md-menu-content>
+  </md-menu>
 
-                </div>
-            </div>
-        </md-menu-content>
-    </md-menu>
+  <sadaf-image-loader
+    [model]="picModel"
+    [antiforgerykeeper]="antiForgeryKeeper"
+    (model-change)="picModelChanged($event)">
+  </sadaf-image-loader>
 
-    <image-loader antiforgerykeeper="antiForgeryKeeper" image-label="" ng-model="picModel" ng-if="hasImage" ></image-loader>
-    
-    <i class="ui icon" ng-class="model.name" ng-if="hasIcon"></i>
-    <!--<img ng-if="model.type == 'image' && hasImage" align="top" width="35" ng-src="{{app.urlPrefix + 'api/upload/getPic/' + model.name}}" />-->
-
+  <i class="ui icon" ng-class="model.name" ng-if="hasIcon"></i>
 </div>

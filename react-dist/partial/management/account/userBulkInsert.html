@@ -170,7 +170,8 @@
                     <md-card ng-show="ubi.error" layout="row" flex>
                         <md-content style="background-color:#f2dede" flex layout-padding>
                             <div class="" style="float:left; cursor:pointer" ng-click="ubi.error=null"><span aria-hidden="true">&times;</span></div>
-                            <strong>خطا!</strong>کاربرهای زیر قبلا در سیستم ثبت شده‌اند و امکان ثبت دوباره آن‌ها وجود ندارد. مابقی کاربران با موفقیت به سیستم اضافه شدند. <span ng-bind-html="ad.error"></span>
+                            <strong>خطا!</strong>کاربرهای زیر قبلا در سیستم ثبت شده‌اند و امکان ثبت دوباره آن‌ها وجود ندارد. مابقی کاربران با موفقیت به سیستم اضافه شدند. 
+                            <span ng-bind-html="ad.error | sanitize"></span>
                         </md-content>
                     </md-card>
 

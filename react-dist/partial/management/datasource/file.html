@@ -59,7 +59,7 @@
                                 <input id="input-file-id" class="ng-hide" type="file" accept=".xlsx,.csv,.xls,.mdb" />
                                 <label for="input-file-id" class="md-button md-primary ">انتخاب فایل</label>
                                 <span flex></span>
-                                <span ng-bind-html="fileName" class=""></span>
+                                <span ng-bind-html="fileName | sanitize" class=""></span>
                             </div>
 
 
@@ -188,13 +188,13 @@
                 <md-content style="height:200px;" id="testResult" layout="column" flex>
 
                     <div ng-show="changeSheetProgress">در حال دریافت اطلاعات...</div>
-                    <div ng-bind-html="testResult" flex></div>
+                    <div ng-bind-html="testResult | sanitize" flex></div>
                 </md-content>
             </md-card>
 
             <md-card ng-show="error" layout="row" flex>
                 <md-content style="background-color:#f2dede" layout="column" flex layout-padding>
-                    <div ng-bind-html="error" flex></div>
+                    <div ng-bind-html="error | sanitize" flex></div>
                 </md-content>
             </md-card>
 

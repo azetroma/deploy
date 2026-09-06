@@ -135,7 +135,7 @@
                             <div class="" style="float:left; cursor:pointer" ng-click="ad.error=null"><span aria-hidden="true">&times;</span></div>
                             <strong>{{'error' | translate}}!</strong>
                             {{'AD duplicate user error' | translate}}
-                            <span ng-bind-html="ad.error"></span>
+                            <span ng-bind-html="ad.error | sanitize"></span>
                         </md-content>
                     </md-card>
 

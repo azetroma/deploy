@@ -199,7 +199,8 @@
                         <div class="ui segment">
                             {{'users'|translate}} <div ng-repeat="u in m.users" class="ui mini label"> {{u}}</div>
                             <pre ng-if="alert.type == 'sms' || alert.type == 'telegram'" style="white-space: pre-wrap;">{{m.content}}</pre>
-                            <div ng-if="alert.type == 'email'" ng-bind-html="s.trustAsHtml(m.content)"></div>
+                            
+                            <div ng-if="alert.type == 'email'" ng-bind-html="s.trustAsHtml(m.content) | sanitize"></div>
                         </div>
 
                     </div>
