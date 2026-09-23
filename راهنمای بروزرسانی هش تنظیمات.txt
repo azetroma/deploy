@@ -17,7 +17,3 @@ https://emn178.github.io/online-tools/sha512.html
 با روشن کردن گزینه HMAC و وارد کردن پسورد داخل فایل وب کانفیگ دریافت کرده و کوئری زیر را اجرا کنید
 
 update tbl_Settings set Sign=CONVERT(VARBINARY(128), '0xD5946D97CAFE2320E4C999A938B9577DE7AC97B71F947B53616343FE5CB67DDB827370ED96AC18F2FAFA22BDE9FC88E3C08B5D247E6D57836136F4773759716B', 1)
-
-
-hajizade
-صاایران
