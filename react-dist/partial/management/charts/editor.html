@@ -487,6 +487,26 @@
                         padding: 10px 14px !important;
                     }
 
+                    .chart-picker-popup {
+                        width: 740px !important;
+                        max-width: calc(100vw - 80px) !important;
+                        min-width: 420px !important;
+                    }
+
+                    .chart-search-grid {
+                        display: flex !important;
+                        flex-wrap: wrap;
+                        width: 100%;
+                    }
+
+                    .chart-search-grid > div {
+                        flex: 0 0 auto;
+                        width: 96px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
                     .active .chart-type-item {
                         background-color: #2196f3;
                     }
@@ -527,11 +547,17 @@
 
 
                 <div class="chart-selector ui small button" ng-if="newChartEnable"> {{getChartName(expandedChartType) }}</div>
-                <div class="ui flowing basic admission popup" ng-if="newChartEnable" style="padding:0;">
-                    <div style="max-height:250px;overflow-y:auto">
+                <div class="ui flowing basic admission popup chart-picker-popup" ng-if="newChartEnable" style="padding:0;">
+                    <div style="height:250px;overflow-y:auto;box-sizing:border-box; width:100%;">
+                        <div class="ui mini form" style="padding:8px 8px 8px;">
+                            <div class="field icon ui input fluid">
+                                <input type="text" autocomplete="off" ng-model="chartTypeSearch" ng-model-options="{ debounce: 500 }" placeholder="جستجوی نمودار..." />
+                                <i class="icon" ng-class="{remove: chartTypeSearch.length, search: !chartTypeSearch}" ng-click="chartTypeSearch = ''" style="cursor:pointer !important; pointer-events:all !important"></i>
+                            </div>
+                        </div>
 
-                        <div layout="row" layout-wrap>
-                            <div ng-repeat="x in newChartList">
+                        <div class="chart-search-grid" layout="row" layout-wrap>
+                            <div ng-repeat="x in newChartList | filter:{name: chartTypeSearch}">
                                 <div ccc ng-class="{'active': expandedChartType == x.type }" ng-click="hidemenu(x.type);">
                                     <div class="chart-type-item" layout="row">
                                         <img class="icon" ng-src="{{x.iconLink || defaultIcon}}" title=" {{ x.name | translate}}" />
@@ -542,9 +568,9 @@
 
                         <md-divider></md-divider>
 
-                        <div ng-repeat="i in oldcharts">
-                            <div layout="row" layout-wrap>
-                                <div ng-repeat="c in i.items" ng-class="{'active': expandedChartType == c.type  }" ng-click="hidemenu(c.type)">
+                        <div ng-repeat="i in oldcharts" ng-if="!chartTypeSearch || (i.items | filter:{title: chartTypeSearch}).length">
+                            <div class="chart-search-grid" layout="row" layout-wrap>
+                                <div ng-repeat="c in i.items | filter:{title: chartTypeSearch}" ng-class="{'active': expandedChartType == c.type  }" ng-click="hidemenu(c.type)">
                                     <div class="chart-type-item">
                                         <img class="icon" ng-src="{{c.iconLink || defaultIcon}}" title=" {{ c.title | translate}}" />
                                         <span class="title" ng-if="!c.iconLink"> {{c.title | translate}}</span>
@@ -554,12 +580,16 @@
                             <md-divider></md-divider>
                         </div>
 
-                        <div ng-repeat="(k, v) in customCharts2">
+                        <div ng-repeat="(k, v) in customCharts2" ng-if="!chartTypeSearch || (v | filter:{name: chartTypeSearch}).length">
                             <div style="padding:4px 8px; color: #9e9e9e;font-size: 0.8em;"> {{k == 'null'? 'بدون دسته‌بندی' : k}}</div>
-                            <div layout="row" layout-wrap>
-                                <div ng-repeat="c in v" flex="25" ng-class="{'active': expandedChartType == c.id+1000 }" ng-click="changeChartType(c.id+1000, true);hideMegaMenu();"><div class="chart-type-item">{{c.name}}</div></div>
+                            <div class="chart-search-grid" layout="row" layout-wrap>
+                                <div ng-repeat="c in v | filter:{name: chartTypeSearch}" flex="25" ng-class="{'active': expandedChartType == c.id+1000 }" ng-click="changeChartType(c.id+1000, true);hideMegaMenu();"><div class="chart-type-item">{{c.name}}</div></div>
                             </div>
                             <md-divider></md-divider>
+                        </div>
+
+                        <div ng-if="chartTypeSearch && !hasChartTypeSearchResults()" style="padding:12px;text-align:center;color:#777;">
+                            نموداری با این نام پیدا نشد
                         </div>
 
                     </div>
