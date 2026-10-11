@@ -63,6 +63,21 @@
                     </div>
                 </div>
 
+                <div class="form-row" layout="row" layout-align="start center" ng-show="ngModel.gauge.info.haveCustomText && ngModel.gauge.info.style == 'number'">
+                    <label class="col-sm-4">{{ 'جهت نمایش مقادیر' | translate }}</label>
+                    <span class="form-divider" flex></span><div class="col-sm-8">
+                        <select class="selectpicker-x form-control"
+                                ng-change="refreshChart('refresh')"
+                                ng-model="ngModel.gauge.info.customTextDirection"
+                                ng-init="ngModel.gauge.info.customTextDirection = ngModel.gauge.info.customTextDirection || 'ltr'"
+                                ng-options="i.name as i.value for i in [
+                                    {name:'rtl', value:'راست به چپ'},
+                                    {name:'ltr', value:'چپ به راست'}
+                                ]">
+                        </select>
+                    </div>
+                </div>
+
                 <style>
                     .gauge-editor .ql-toolbar{
                         white-space: normal
