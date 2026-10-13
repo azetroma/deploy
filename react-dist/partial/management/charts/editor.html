@@ -493,6 +493,14 @@
                         min-width: 420px !important;
                     }
 
+                    @media (max-width: 500px) {
+                        .chart-picker-popup {
+                            width: calc(100vw - 32px) !important;
+                            max-width: calc(100vw - 32px) !important;
+                            min-width: calc(100vw - 32px) !important;
+                        }
+                    }
+
                     .chart-search-grid {
                         display: flex !important;
                         flex-wrap: wrap;
@@ -548,7 +556,7 @@
 
                 <div class="chart-selector ui small button" ng-if="newChartEnable"> {{getChartName(expandedChartType) }}</div>
                 <div class="ui flowing basic admission popup chart-picker-popup" ng-if="newChartEnable" style="padding:0;">
-                    <div style="height:250px;overflow-y:auto;box-sizing:border-box; width:100%;">
+                    <div style="height:250px;overflow-y:auto;box-sizing:border-box; width:100%; max-width:900px;">
                         <div class="ui mini form" style="padding:8px 8px 8px;">
                             <div class="field icon ui input fluid">
                                 <input type="text" autocomplete="off" ng-model="chartTypeSearch" ng-model-options="{ debounce: 500 }" placeholder="جستجوی نمودار..." />
