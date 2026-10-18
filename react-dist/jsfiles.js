@@ -13,3 +13,4 @@
 833.app-bundle.js
 app-bundle.js
 bundle.js
+customCharts.js
